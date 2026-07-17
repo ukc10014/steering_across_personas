@@ -19,6 +19,8 @@ Reported at every layer (all 31 are free); layer 15 (depth-matched to K/D's 22/4
 is the pre-designated headline, full profile reported alongside.
 Magnitude ‖v_T,c‖ logged throughout (suppression vs rotation).
 
+**Baseline** Model run without LoRA/character training.
+
 ## 2. Primary hypothesis
 **H1 (tightening)**: 
 
@@ -63,7 +65,7 @@ and reported as such.
 
 ## 7. Known ambiguities at time of writing
 - `goodness` assumed = paper's `flourishing` (verify from text: "do what's best for humanity", 
-  Kundu et al.). If not, this prereg is void and gets rewritten.
+  Kundu et al.). ~~If not, this prereg is void and gets rewritten.~~ Verified, they are the same.
 - NONSENSE control is 19.2 words vs 36-40 for personas — not length-matched as K/D's paper claims.
   Regenerating before smoke test.
 - misalignment adapter not released; sign-flip arm unavailable.
