@@ -85,6 +85,83 @@ outputs/{model}/
 - `reference.py` — Reference vector loading
 - `utils.py` — Logging, device, caching, cosine similarity
 
+## Environment bootstrap (RunPod pod — DO THIS FIRST, before anything else)
+
+**Every reconnect gives a DIFFERENT pod.** Only the `/workspace` network volume persists;
+the container image and its `/usr/local/lib/python3.12/dist-packages` are new each time.
+So `$PYLIBS` survives (nothing to reinstall) but the **stale-system-library conflicts
+below come back every single session**. Run the one-shot preflight before touching a GPU
+job — it is the difference between a 30-second start and a 20-minute debug of an
+extraction that dies at model load.
+
+```bash
+source /workspace/bootstrap.sh && bash scripts/preflight.sh
+```
+
+`preflight.sh` restores `assistant-axis-ref/`, repairs the torch-extension mismatches, and
+hard-fails if a real model load would fail. **Do not launch a long extraction until it
+prints `PREFLIGHT OK`** — the failure mode is a crash ~3 minutes in, after the run looks
+like it started fine.
+
+```bash
+source /workspace/bootstrap.sh   # sets HF_HOME=/workspace/hf, PYLIBS, SNAP, TMPDIR, PIP_CACHE_DIR
+```
+
+`bootstrap.sh` exports `PYLIBS=/workspace/pylibs-py$(major)$(minor)` and puts it first on
+`PYTHONPATH`. Libraries are **python-version-scoped** — a pod image with a different
+Python version gets a different (empty) PYLIBS and must be re-provisioned.
+Install anything new with `pip install --target="$PYLIBS" ...`, never plain `pip install`.
+
+Verify before doing real work:
+
+```bash
+source /workspace/bootstrap.sh
+python3 -c "import torch, transformers, sklearn, plotly, dotenv; print(torch.cuda.is_available())"
+ls assistant-axis-ref/assistant_axis/internals/model.py   # ProbingModel must exist
+```
+
+Known gotchas, each of which has bitten this pod at least once:
+
+- **`assistant-axis-ref/` is gitignored** (.gitignore:40), so a fresh clone does NOT have
+  it, and every `pipeline/` script fails at import. Restore with:
+  `git clone --depth 1 https://github.com/safety-research/assistant-axis.git assistant-axis-ref`.
+  Note the upstream layout moved: `ProbingModel` now lives in
+  `assistant_axis/internals/model.py`, not `assistant_axis/internals.py`.
+- **Stale system torchvision AND torchaudio break all of transformers.** Both live in
+  `/usr/local/lib/python3.12/dist-packages/` compiled against a different torch than
+  PYLIBS' torch. Symptoms are `RuntimeError: operator torchvision::nms does not exist`
+  and `OSError: Could not load this library: .../libtorchaudio.so`. They surface one at a
+  time — fixing torchvision just gets you to the torchaudio failure. Both are fixed by
+  installing matching builds into PYLIBS (which shadow the system ones):
+  `pip install --target="$PYLIBS" --upgrade --no-deps torchvision torchaudio --index-url https://download.pytorch.org/whl/cu130`
+  This is the failure that kills a run ~3 min in, at model load, after it looks healthy.
+  `scripts/preflight.sh` catches it in seconds.
+- **`assistant_axis/__init__.py` eagerly imports sklearn and plotly**, so those are hard
+  requirements even for pure activation extraction: `pip install --target="$PYLIBS" scikit-learn plotly`.
+- `persona_steering/__init__.py` imports `dotenv` → needs `python-dotenv`.
+- `peft` is NOT installed; it is only needed to merge LoRA adapters (Stage 2).
+
+### OCT adapters and base model
+Both are already on the volume — do not re-download.
+`$SNAP` (set by bootstrap.sh) holds the 10 OCT LoRA adapters: `goodness`, `loving`,
+`sarcasm`, `humor`, `impulsiveness`, `mathematical`, `nonchalance`, `poeticism`,
+`remorse`, `sycophancy`. `goodness` is verified as r=64, lora_alpha=64, all 7 attn+MLP
+target modules, base `meta-llama/Llama-3.1-8B-Instruct`.
+
+### Llama-3.1 porting notes (verified, do not re-derive)
+- **Answer-token indexing is correct on Llama-3.1.** `find_answer_token_position` lands
+  exactly on the `A`/`B` token (single token, no leading space) for all personas and both
+  directions. Re-check with `python scripts/verify_answer_token.py --model <model>`
+  whenever moving to a new model family — this is the highest silent-failure risk in the
+  pipeline.
+- **The `null` persona needs no special-casing on Llama-3.1.** Its system prompt is `""`,
+  and `apply_chat_template` produces byte-identical output whether the empty system
+  message is passed or omitted entirely (the template always emits the
+  "Cutting Knowledge Date" preamble block). So `2c_caa_activations.py` is already correct
+  here. This is NOT guaranteed on other families — re-verify before porting again.
+- Llama-3.1-8B-Instruct: 32 layers, hidden 4096. Layer 15 is the pre-designated mid-stack
+  headline layer (cf. Gemma-2-27B's layer 22 of 46).
+
 ## Running
 ```bash
 pip install -e .

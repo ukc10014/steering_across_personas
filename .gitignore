@@ -1,5 +1,10 @@
-# All generated outputs (vectors, responses, activations, figures, analysis)
-outputs/
+# Generated outputs. The bulk (activations, responses, vectors) is far too large for
+# git -- a single caa_activations dir is ~2.5GB -- so outputs/ is ignored by default.
+# The exception is outputs/*/analysis/: metrics JSON and figures, a few MB, worth
+# versioning so results are reviewable in a PR without a HF download.
+outputs/**
+!outputs/**/
+!outputs/*/analysis/**
 
 # Python
 __pycache__/
