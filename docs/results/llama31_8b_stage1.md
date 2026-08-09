@@ -3,7 +3,9 @@
 **Status:** complete. Smoke test (2 traits × 3 personas) **and** full grid
 (8 traits × 10 personas + 2 controls, 192 files, 24GB) both extracted and analysed.
 **Model:** `meta-llama/Llama-3.1-8B-Instruct`, no adapter. 32 layers, hidden 4096.
-**Date:** 2026-07-18
+**Date:** 2026-07-18. **Updated 2026-08-09** — per-trait (K/D Figure 1) view, head-to-head
+against K/D's per-cell table, and the layer 15-vs-20 comparison on the sweep's own criteria.
+All CPU-only re-analysis of the existing extraction; no new GPU time, no re-extraction.
 
 ## Question
 
@@ -107,6 +109,112 @@ A generic "system prompts perturb activations" artifact would not move the extre
 the semantically appropriate trait as the column changes. This is the observation that
 most resists a deflationary reading.
 
+### Per-trait view — K/D Figure 1, rebuilt on our grid
+
+![Per-trait persona fan-out at layer 20, K/D Figure 1 trait order](../../outputs/Llama-3.1-8B-Instruct/analysis/fig1_persona_fanout_L20_kd.png)
+
+One column per trait, one dot per persona, black rule at the persona mean, the nonsense
+control as a separate marker, reference lines at 1.0 and 0.0. Built by
+`scripts/plot_fig1_persona_fanout.py` — pure re-analysis of `caa_cosine_to_null.json`,
+no GPU. Four variants are written: layers 15 and 20 × two trait orderings (`_sorted`,
+ascending by our own per-trait persona mean; `_kd`, K/D's Figure 1 column order).
+
+Layer 20, personas only in mean/SD (SD is the sample SD across the 10):
+
+| trait | persona mean | SD | nonsense | gap | most-rotated persona |
+|---|---:|---:|---:|---:|---|
+| deference | 0.458 | 0.188 | 0.892 | 0.434 | drill sergeant −0.031 |
+| warmth | 0.496 | 0.285 | 0.917 | 0.422 | drill sergeant −0.141 |
+| confidence | 0.514 | 0.221 | 0.889 | 0.375 | therapist 0.088 |
+| assertiveness | 0.520 | 0.306 | 0.932 | 0.412 | con artist −0.222 |
+| empathy | 0.530 | 0.230 | 0.916 | 0.386 | drill sergeant −0.059 |
+| risk taking | 0.555 | 0.123 | 0.913 | 0.358 | professor 0.366 |
+| impulsivity | 0.593 | 0.247 | 0.933 | 0.340 | street hustler 0.171 |
+| honesty | 0.664 | 0.210 | 0.953 | 0.289 | con artist 0.260 |
+| **all traits** | **0.541** | **0.226** | **0.918** | **0.377** | |
+
+Layer 15, same columns, ordered the same way for comparison:
+
+| trait | persona mean | SD | nonsense | gap | most-rotated persona |
+|---|---:|---:|---:|---:|---|
+| deference | 0.680 | 0.132 | 0.923 | 0.244 | drill sergeant 0.349 |
+| warmth | 0.703 | 0.184 | 0.937 | 0.234 | drill sergeant 0.256 |
+| confidence | 0.758 | 0.122 | 0.948 | 0.190 | therapist 0.474 |
+| assertiveness | 0.684 | 0.225 | 0.964 | 0.280 | con artist 0.129 |
+| empathy | 0.682 | 0.141 | 0.936 | 0.255 | drill sergeant 0.307 |
+| risk taking | 0.774 | 0.077 | 0.951 | 0.177 | politician 0.668 |
+| impulsivity | 0.749 | 0.152 | 0.962 | 0.213 | street hustler 0.505 |
+| honesty | 0.757 | 0.130 | 0.965 | 0.208 | con artist 0.508 |
+| **all traits** | **0.723** | **0.145** | **0.948** | **0.225** | |
+
+### Head-to-head with K/D's Figure 1
+
+K/D's per-cell Gemma-2-27B numbers are checked in at
+`icml2026/figures/fig1_cos_to_null_table.json` (10 personas × 8 traits, layer 22, CAA), so
+this is a real numeric comparison rather than an eyeball against a rendered figure.
+
+**The two layers reproduce different halves of K/D's result, and neither reproduces both.**
+
+| | K/D, Gemma-2-27B L22 | ours, L15 | ours, L20 |
+|---|---:|---:|---:|
+| grand mean over 80 cells | 0.706 | **0.723** | 0.541 |
+| mean per-trait SD (fan width) | 0.232 | 0.145 | **0.226** |
+| negative cells | 1 | 0 | 4 |
+
+Layer 15 lands almost exactly on K/D's *level* (0.723 vs 0.706) but produces only ~60% of
+their *fan width*. Layer 20 reproduces the fan width almost exactly (0.226 vs 0.232) but
+sits 0.17 lower overall. Since the paper's claim is about spread — personas fanning out,
+the control not — layer 20 is the closer reproduction of the thing being claimed, which
+is a second, independent argument for the layer choice made below.
+
+**Cell-for-cell agreement is strong.** Across all 80 cells, ours vs K/D: Pearson
+r = **+0.864** at L20 (+0.858 at L15), Spearman ρ = +0.797. That is agreement on which
+cells rotate, not merely on the aggregate.
+
+**The five most-rotated cells are the same five cells in both models**, with only ranks
+4 and 5 swapped:
+
+| rank | K/D (Gemma-2-27B) | ours (Llama-3.1-8B, L20) |
+|---|---|---|
+| 1 | con artist × assertiveness −0.10 | con artist × assertiveness −0.22 |
+| 2 | drill sergeant × warmth +0.08 | drill sergeant × warmth −0.14 |
+| 3 | drill sergeant × empathy +0.14 | drill sergeant × empathy −0.06 |
+| 4 | therapist × confidence +0.20 | drill sergeant × deference −0.03 |
+| 5 | drill sergeant × deference +0.23 | therapist × confidence +0.09 |
+
+The per-trait most-rotated persona agrees on **6 of 8** traits. The two misses are
+risk-taking (K/D: farmer; ours: professor) and impulsivity (K/D: politician; ours: street
+hustler) — both traits where K/D's own column is tight, so the argmin is weakly determined.
+
+Persona ordering agrees at ρ = +0.72 (r = +0.83): **tech ceo is the least-rotated persona
+in both models and drill sergeant the most-rotated in both.**
+
+**Where we disagree: trait ordering.** K/D's Figure 1 column order *is* their ascending
+per-trait mean, so their column order and our `_sorted` figure are the same operation on
+different data, and the two disagree:
+
+| | order, most-rotated trait first |
+|---|---|
+| K/D L22 | warmth, empathy, deference, assertiveness, impulsivity, confidence, honesty, risk-taking |
+| ours L20 | deference, warmth, confidence, assertiveness, empathy, risk-taking, impulsivity, honesty |
+| ours L15 | deference, empathy, assertiveness, warmth, impulsivity, honesty, confidence, risk-taking |
+
+Rank agreement with K/D is ρ = +0.81 at L15 but only **+0.62 at L20**. The endpoints hold
+in spirit — warmth/empathy/deference cluster at the rotated end, risk-taking and honesty at
+the tight end — but confidence moves from 6th to 3rd, and our own ordering is itself
+layer-dependent (see the layer discussion below). **The safe claim is the endpoints and the
+cell-level structure, not the exact column ranking.** Quote the `_kd`-ordered figure for
+like-for-like comparison; the `_sorted` one is ours, and it moves with the layer.
+
+**One discrepancy in the paper worth flagging.** The Figure 1 caption in `icml2026/main.tex`
+describes "blue dots… blue line: per-trait persona mean. Red ×: … \textsc{Nonsense}
+baseline". The committed `fig1_cos_to_null_spread.png` is a violin plot with dark dots and a
+**red diamond at the persona mean** — there is no nonsense marker in it at all, and
+`scripts/build_paper_figures.py:fig1` confirms the diamond is `np.mean(vals)` over personas.
+`fig1_cos_to_null_table.json` likewise contains only the 10 personas. So the caption
+describes a figure that was not shipped. Our version implements the caption — the control
+is a distinct marker, plotted.
+
 ### Rotation is not explained by prompt length
 
 The obvious confound: longer system prompts might simply perturb activations more. They
@@ -159,6 +267,27 @@ recorded as a compromise, not as a converged plateau. Whether farmer's continued
 a real property of weakly-marked personas or an artifact of a low-norm vector is an open
 question the full grid will help answer, since it gives eight more traits per persona.
 
+**The full grid now says the same thing on the sweep's own criteria, at 15 vs 20.** Both
+of the statistics item 1 below proposes are computable from the tables above, on all 8
+traits and all 11 series rather than the two traits layer 20 was originally picked from:
+
+| | layer 15 | layer 20 |
+|---|---:|---:|
+| control gap (`nonsense − persona mean`) | 0.225 | **0.377** |
+| persona spread (mean per-trait SD) | 0.145 | **0.226** |
+
+Layer 20 wins on both, by a factor of roughly 1.6. Layer 15 as the prereg headline is
+clearly the worse of the two. This is not the full sweep — it says nothing about layers
+21–31, and it computes no stability window — but on the two criteria that matter it is the
+same statistic evaluated on the whole grid, and it points the same way as the smoke test
+did.
+
+Two cautions on reading the per-trait tables across layers. The **trait ordering is itself
+layer-dependent**: confidence is 7th-most-rotated at L15 and 3rd at L20, honesty is 6th at
+L15 and last at L20. And the **fan-out at L15 is not merely a shrunk copy of L20** — the
+control gap falls by more than the persona mean rises, so the two layers are not related by
+a simple contraction toward 1.0. Any ordering claim must name its layer.
+
 ## Two things not to over-read
 
 **Layers 0–10 are unusable, not merely noisy.** Every series sits pinned near 1.0 with
@@ -192,10 +321,17 @@ all eight traits, a verified extraction index, semantically-appropriate extreme 
 a length confound ruled out. The structure is not exclusive to 27B, so the
 constitutional-character-training design is worth continuing.
 
-It is not yet a quantitative reproduction. The noise floor is a broken estimator, so no
-CI or separation claim here is quotable; the layer choice is a defensible compromise
-rather than a converged plateau; and the nonsense control is not length-matched. All three
-are fixable without new GPU time except the last.
+The head-to-head against K/D's own per-cell table strengthens this further than the
+qualitative reading did: r = +0.86 across all 80 cells, the same five most-rotated cells,
+the same least- and most-rotated persona, and a fan width at layer 20 that matches theirs
+to 0.006. That is closer to a quantitative reproduction than "qualitative pattern holds".
+
+It is still not a *complete* one. The noise floor is a broken estimator, so no CI or
+separation claim here is quotable; the layer choice is a defensible compromise rather than a
+converged plateau, and the two candidate layers reproduce different halves of K/D's result
+(L15 the level, L20 the spread); the per-trait ordering agrees with K/D only at ρ = +0.62 at
+layer 20 and is itself layer-dependent; and the nonsense control is not length-matched. All
+of these are fixable without new GPU time except the last.
 
 ## Reproduce
 
@@ -228,6 +364,9 @@ python scripts/caa_cosine_to_null.py --model meta-llama/Llama-3.1-8B-Instruct \
     --headline-layer 20 --n-boot 50
 
 python scripts/plot_cosine_heatmap.py --model meta-llama/Llama-3.1-8B-Instruct --layer 20
+
+# K/D Figure 1 form: 4 figures (L15/L20 x sorted/kd ordering) + the per-trait tables
+python scripts/plot_fig1_persona_fanout.py --model meta-llama/Llama-3.1-8B-Instruct
 ```
 
 Extraction is ~1m50s for the 20-file smoke slice on an RTX PRO 6000; the analysis and plot
@@ -239,7 +378,13 @@ Ordered. Items 1–3 are blocking in the sense that Stage 2 numbers inherit what
 wrong with them — a comparison between baseline and a character-trained model is only as
 trustworthy as the baseline's estimator and layer choice.
 
-### 1. Layer sweep — is layer 20 actually the best readout? *(not yet run)*
+### 1. Layer sweep — is layer 20 actually the best readout? *(partially answered)*
+
+**Update:** the 15-vs-20 half of this is now done on the full grid — control gap 0.225 vs
+0.377, persona spread 0.145 vs 0.226, both favouring layer 20 (see the layer-choice section
+above). What remains is the rest of the stack: layers 21–31 are still unchecked, and no
+stability window has been computed, so a later layer could still win.
+
 
 All 32 layers are already saved, so this needs no GPU and no re-extraction; it is a pure
 re-analysis of `caa_cosine_to_null.json`. Layer 20 was chosen from **two traits and four
