@@ -773,3 +773,103 @@ A per-layer plot of rung 1, base vs adapted, with the CI band. Two readings:
 
 The second outcome is the more interesting one and is the reason to run this before, not
 after, the dispersion experiments it would invalidate.
+
+---
+
+## 14. Next session — start here
+
+**Repo state at handoff:** `main` = `9812db3`, clean, pushed to `origin`. B.1 (all three rungs),
+the variance decomposition, magnitude, and the B.2/B.6 appendix checks are done and written up
+in [docs/results/llama31_8b_b1_noise_floor.md](results/llama31_8b_b1_noise_floor.md). Read that
+first; it carries the numbers and the two loose ends.
+
+**The K/D paper is now on disk** at `/workspace/refs/personas_shape_how_models_represent_behaviors.pdf`
+(22 pages). Deliberately outside the repo — the fork is public and the PDF is third-party.
+`pypdf` is installed in `pylibs-py312`, so `pypdf.PdfReader(...).pages[n].extract_text()` beats
+reading page images if you need to check a claim. Appendix B is pp. 6–9; Appendix G is p. 21.
+
+**Next task: the adapted-model (character training) arm — §13.** That section is written and
+current. Two things to carry into it that were learned after it was drafted:
+
+1. **Loose end 1 is a hard blocker, not a nicety** (§13.4). Re-run the baseline floor at
+   `--n-boot 400` *before* extracting the adapted arm, or a base-vs-adapted floor difference
+   under ~0.02 will be indistinguishable from seed scatter.
+2. **After any crashed or resumed extraction, size-check the grid** (§12.7b). Resume is
+   existence-based, not validity-based; a 0-byte file survived a whole run and only surfaced
+   hours later as an `EOFError` inside the decomposition.
+
+**One gap worth knowing before quoting layer choice.** K/D §A.2 select layer 22 on two
+criteria: (i) behavioral lift under *self-steering*, and (ii) within-cell bootstrap stability.
+We have (ii). **Steering has never been run on Llama at all**, so criterion (i) is untested
+here and our L20 rests on stability plus fan width — and fan width is not one of their criteria.
+
+## 15. IV replication (K/D Appendix G) — scoping
+
+Prereg Exp 0a asks for both CAA and IV. Everything to date is CAA. Appendix G is the IV
+replication, and it splits into two very different pieces.
+
+### 15.1 What IV actually is
+
+Same contrastive average as CAA, different contrast. Per (persona, trait) cell: 5 trait-positive
+instructions paired with 5 matched suppression instructions, 20 sampled questions, and for each
+(instruction, question) the model **generates a response** under the persona's system prompt.
+The vector is mean(assistant-turn activations | positive instructions) − mean(… | negative).
+M = 5 × 20 = **100 pairs per cell**.
+
+The load-bearing difference from CAA: **IV requires generation, not just a forward pass.** CAA
+reads one answer token from a multiple-choice prompt; IV needs free-form text first, then a
+second pass to extract activations over it.
+
+### 15.2 G.1 is tractable; G.2 is a separate project
+
+- **G.1 — IV per-trait cosine spread (their Figure 20).** The direct IV counterpart of
+  everything we have built for CAA, and reusable by every existing analysis script. This is
+  the one to do.
+- **G.2 — IV cross-context probe transfer (their Figure 21).** Per-trait 10×10
+  within→cross-context AUROC matrices, n=1056 cells. Needs probe machinery that does not exist
+  for Llama yet. Treat as its own piece of work, not part of "doing IV".
+
+### 15.3 Cost, and the one real blocker
+
+**Good news: the trait datasets already exist.** `data/prompts/{trait}.json` — 8 files, each
+with 5 `instruction_variants` and 105 `questions`. No `0_generate_data.py` run, no Claude API
+spend, no new data.
+
+| | |
+|---|---|
+| cells | 12 series × 8 traits = 96 |
+| generations | 96 × 200 = **~19,200** |
+| activation pass | 19,200 forwards over generated sequences |
+| storage | ~5GB (100 records/cell vs CAA's 500) |
+
+Compute is modest — comparable to a CAA grid. **The blocker is a dependency, not GPU time.**
+
+**`vllm` is not installed**, and `pipeline/1_generate.py:28` imports `VLLMGenerator` from
+`assistant_axis`. Installing it is the risky step: `pylibs-py312` already carries
+`torch 2.13.0+cu130`, verified working on Blackwell `sm_120` (§12.8), and vLLM pins its own
+torch tightly. A `pip --target` install can shadow the working build — the §2 landmine, in the
+one place where it would cost a validated environment.
+
+Three options, in order of preference:
+
+1. **Install a vLLM whose pinned torch matches 2.13.0+cu130.** Check the wheel's requirement
+   *before* installing. Verify the §11 `sm_120` block still passes afterwards.
+2. **Bypass vLLM: generate with HuggingFace `model.generate()`** and batching. Needs a change
+   to `1_generate.py`, slower than vLLM, but adds no dependency and cannot break torch. On a
+   96GB card this is very likely fast enough for 19,200 short generations.
+3. Snapshot `pylibs-py312` first so a broken install is one `rm -rf` from recovery.
+
+**Steps 2 and 3 need nothing new.** `2_activations.py` imports only torch + `ProbingModel`, and
+`3_vectors.py` is pure tensor work — but note `3_vectors.py:106-115` slices `[:-1]`, so its
+saved vectors are `(n_layers-1, hidden)` and every downstream `--layer` indexes a truncated
+tensor (§6.1). The CAA analyses here dodged that by working from activations directly; do the
+same for IV.
+
+### 15.4 What G.1 should produce, and what to expect
+
+Run `caa_cosine_to_null.py` and `caa_within_cell_stability.py` against the IV vectors and
+compare per-trait ordering against CAA. K/D report that the qualitative finding holds under IV
+but **the per-trait ordering shifts**: under IV impulsivity is loosest (0.54) and confidence
+tightest (0.87), whereas under CAA warmth was loosest and risk-taking tightest. Their nonsense
+control stays near default under both (0.84–0.98). So a *changed ordering is the expected
+result*, not a failure — the thing to check is whether the wide/tight tier split survives.
