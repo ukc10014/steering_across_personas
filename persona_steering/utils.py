@@ -209,3 +209,20 @@ class VectorShim:
     @property
     def magnitude(self) -> float:
         return self.vector.norm().item()
+
+
+def activation_key_order(key: str) -> tuple:
+    """Sort key for activation dict keys, handling both CAA and IV naming.
+
+    CAA files are keyed 'q{question}'; IV files are keyed 'v{variant}_q{question}'. The
+    original `int(k[1:])` handles only the first and raises ValueError on the second.
+
+    What actually matters downstream is not numeric order but that pos and neg are ordered
+    IDENTICALLY, so pair j on one side is pair j on the other -- get that wrong and the
+    contrastive subtraction pairs mismatched items while looking perfectly healthy. Numeric
+    ordering is preserved where it exists (so 'q10' sorts after 'q9', not before), and
+    anything unrecognised falls back to the raw string, which is still deterministic.
+    """
+    import re
+    nums = re.findall(r"\d+", key)
+    return (len(nums), tuple(int(n) for n in nums), key) if nums else (0, (), key)

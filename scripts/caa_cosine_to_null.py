@@ -47,7 +47,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from persona_steering.config import OUTPUTS_DIR
-from persona_steering.utils import model_short_name
+from persona_steering.utils import activation_key_order, model_short_name
 
 NULL_SLUG = "null"
 
@@ -74,7 +74,7 @@ def load_direction(act_dir: Path, persona: str, trait: str, direction: str
     if not path.exists():
         raise FileNotFoundError(f"Missing activations: {path}")
     d = torch.load(path, map_location="cpu")
-    keys = sorted(d.keys(), key=lambda k: int(k[1:]))
+    keys = sorted(d.keys(), key=activation_key_order)
     arr = torch.stack([d[k] for k in keys]).float().numpy()
     return arr, keys
 

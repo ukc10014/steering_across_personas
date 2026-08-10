@@ -44,7 +44,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from persona_steering.config import OUTPUTS_DIR
-from persona_steering.utils import model_short_name
+from persona_steering.utils import activation_key_order, model_short_name
 
 NULL_SLUG = "null"
 CONTROL_SLUG = "nonsense"
@@ -72,8 +72,8 @@ def load_delta(act_dir: Path, persona: str, trait: str) -> np.ndarray:
         raise FileNotFoundError(f"{persona}_{trait}")
     pos = torch.load(pos_p, map_location="cpu", weights_only=True)
     neg = torch.load(neg_p, map_location="cpu", weights_only=True)
-    kp = sorted(pos.keys(), key=lambda k: int(k[1:]))
-    kn = sorted(neg.keys(), key=lambda k: int(k[1:]))
+    kp = sorted(pos.keys(), key=activation_key_order)
+    kn = sorted(neg.keys(), key=activation_key_order)
     if kp != kn:
         raise ValueError(f"{persona}/{trait}: pos and neg question sets differ")
     P = torch.stack([pos[k] for k in kp]).float().numpy()

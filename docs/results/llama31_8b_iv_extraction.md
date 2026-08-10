@@ -1,6 +1,6 @@
 # IV extraction on Llama-3.1-8B — K/D Appendix G replication
 
-**Status:** in progress. Generation complete; activations pending.
+**Status:** G.1 complete. Generation, activations and per-trait cosine spread done.
 **Date started:** 2026-08-10 · **Model:** `meta-llama/Llama-3.1-8B-Instruct` · **Method:** IV
 **Companion doc:** [llama31_8b_b1_noise_floor.md](llama31_8b_b1_noise_floor.md) — the CAA
 results this is compared against.
@@ -8,10 +8,10 @@ results this is compared against.
 | step | state |
 |---|---|
 | 1. generate responses | ✅ 192 files, 19,200 responses, 43MB, 2h25m |
-| 2. extract activations | ⏳ pending |
-| 3. build vectors | ⏳ pending |
-| 4. G.1 per-trait cosine spread | ⏳ pending |
-| 5. compare per-trait ordering against CAA | ⏳ pending |
+| 2. extract activations | ✅ 192 files, 4.7GB, 14 min |
+| 3. build vectors | ✅ computed inline from activations |
+| 4. G.1 per-trait cosine spread | ✅ §4.1–4.3 |
+| 5. compare per-trait ordering against CAA | ✅ §4.2 |
 | G.2 cross-context probe transfer | ❌ out of scope — see §6 |
 
 ---
@@ -124,9 +124,34 @@ full extraction.** This is the IV counterpart of the answer-token check.
 
 ## 4. Results — to be populated
 
-### 4.1 G.1 per-trait cosine spread
+### 4.1 G.1 per-trait cosine spread — IV moves personas LESS than CAA does
 
-_Pending extraction._
+Persona-mean cosine to the null-context vector; **lower = more persona spread**. `analysis/iv/`
+holds the IV output, kept separate so it cannot overwrite the CAA results.
+
+| trait | IV @ L20 | CAA @ L20 | IV nonsense |
+|---|---|---|---|
+| honesty | **0.690** | 0.664 | 0.942 |
+| risk_taking | 0.706 | 0.555 | 0.721 |
+| impulsivity | 0.734 | 0.593 | 0.936 |
+| deference | 0.759 | 0.458 | 0.907 |
+| confidence | 0.771 | 0.514 | 0.966 |
+| warmth | 0.815 | 0.496 | 0.984 |
+| assertiveness | 0.831 | 0.520 | 0.972 |
+| empathy | 0.846 | 0.530 | 0.981 |
+| **mean** | **0.769** | **0.541** | 0.926 |
+
+At L15 the gap is much smaller (IV 0.783 vs CAA 0.723); by L20 CAA's spread has grown with
+depth while IV's has stayed nearly flat.
+
+**IV finds substantially less persona-driven rotation than CAA.** Note which way the noise
+cuts: IV has M=100 pairs per cell against CAA's M=500, so IV vectors are the noisier of the
+two, and extra noise *lowers* cosine-to-null. The observed IV cosine is **higher**, so the
+true gap is if anything larger than measured. This cannot be explained away as a sample-size
+artefact.
+
+K/D report IV persona means spanning 0.54 (impulsivity) to 0.87 (confidence). Ours span
+0.690–0.846 — a narrower range sitting at the tight end of theirs.
 
 ### 4.2 Per-trait ordering, IV vs CAA
 
@@ -139,11 +164,30 @@ our CAA baseline to compare against:
 | K/D, IV | impulsivity 0.54 | confidence 0.87 |
 | K/D, CAA | warmth 0.64 | risk-taking 0.77 |
 | **ours, CAA @ L20** | **deference 0.458** | **honesty 0.664** |
-| ours, IV | _pending_ | _pending_ |
+| **ours, IV @ L20** | **honesty 0.690** | **empathy 0.846** |
 
 Note our CAA ordering already differs from theirs — deference loosest and honesty tightest,
 against their warmth and risk-taking. So there are two orderings in play before IV is added,
 and "does IV match CAA" is a different question from "does our IV match their IV".
+
+**The two methods are ANTI-correlated, not merely reordered.** Spearman between the IV and
+CAA per-trait orderings is **−0.524 at L20 and −0.619 at L15**. K/D describe the ordering as
+shifting "somewhat"; on Llama the methods rank traits in close to opposite order. Honesty is
+the *loosest* trait under IV and the *tightest* under CAA; empathy is the reverse.
+
+**But at tier level our IV matches K/D's IV better than our CAA matches anything.**
+
+| wider-spread tier (4 loosest) | members | overlap with K/D's IV tier |
+|---|---|---|
+| K/D, IV | deference, impulsivity, risk_taking, warmth | — |
+| **ours, IV** | deference, honesty, impulsivity, risk_taking | **3 / 4** |
+| ours, CAA | assertiveness, confidence, deference, warmth | 2 / 4 |
+| IV vs CAA overlap | | **1 / 4** |
+
+So the IV *method* reproduces K/D's IV tier reasonably (3/4, differing only in honesty for
+warmth), while our CAA disagrees with both. The honest reading: **method choice matters more
+here than the model does** — our two methods disagree with each other more than either
+disagrees with K/D's corresponding method.
 
 K/D also describe a tier split — wider-spread (impulsivity, risk-taking, deference, warmth)
 versus tighter-spread (confidence, empathy, honesty, assertiveness) — that they say is
@@ -165,9 +209,17 @@ Our full CAA baseline, persona-mean cosine-to-null at L20, ascending:
 
 ### 4.3 Nonsense control
 
-K/D report the nonsense baseline sits much closer to default than any persona for every trait
-under IV, ranging 0.84 (risk-taking) to 0.98 (warmth). Our CAA nonsense values sit at
-0.889–0.953 at L20, so a comparable result is expected. _Pending._
+**The control holds under IV, on every trait.** Nonsense mean 0.926 against a persona mean of
+0.769 at L20, and for **all 8 traits** the nonsense cosine exceeds the persona mean — i.e. a
+semantically empty system prompt moves the trait vector less than a real persona does, which
+is the control working as intended.
+
+Our IV nonsense range is 0.721–0.984 against K/D's stated 0.84–0.98. The outlier is
+**risk_taking at 0.721**, below K/D's floor and only just above its own persona mean of 0.706.
+For that one trait the control is nearly as disruptive as a real persona, so risk_taking
+conclusions under IV should be treated as weakly controlled. Compounded by fork-infra §7: the
+released `nonsense.yaml` is roughly half the length of a real persona and probably is not the
+artefact behind K/D's figures.
 
 ### 4.4 Noise floor / B.1 rungs under IV
 
