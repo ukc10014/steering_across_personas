@@ -129,6 +129,17 @@ full extraction.** This is the IV counterpart of the answer-token check.
 Persona-mean cosine to the null-context vector; **lower = more persona spread**. `analysis/iv/`
 holds the IV output, kept separate so it cannot overwrite the CAA results.
 
+![IV per-trait fan-out, K/D Figure 20 equivalent](../../outputs/Llama-3.1-8B-Instruct/analysis/iv/fig1_persona_fanout_L20_kd.png)
+
+The K/D Appendix G figure — "Figure 20 reports the IV equivalent of Figure 1" — rendered from
+the same `plot_fig1_persona_fanout.py` used for CAA, so the two are directly comparable. The
+y-range is deliberately held to include 0 even though no IV value goes near it: keeping the
+CAA and IV panels on one scale is what makes the method difference legible at a glance.
+
+Note the **risk taking** column: it is the only one where the orange nonsense diamond does not
+sit clearly above the black persona-mean rule. That is §4.3's weak-control finding, visible
+directly.
+
 | trait | IV @ L20 | CAA @ L20 | IV nonsense |
 |---|---|---|---|
 | honesty | **0.690** | 0.664 | 0.942 |

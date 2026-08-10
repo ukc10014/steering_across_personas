@@ -66,6 +66,10 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--orderings", type=str, nargs="+", default=["sorted", "kd"],
                    choices=["sorted", "kd"])
     p.add_argument("--input", type=str, default=None)
+    p.add_argument("--method", type=str, default="CAA",
+                   help="Extraction method label for the title and filenames (CAA or IV). "
+                        "Both methods produce a file of the same name in different dirs, so "
+                        "the label is what stops the two being confused once separated.")
     p.add_argument("--outdir", type=str, default=None)
     p.add_argument("--no-labels", action="store_true",
                    help="suppress the direct label on each column's lowest persona")
@@ -102,7 +106,8 @@ def beeswarm_offsets(values: np.ndarray, half_width: float, min_sep: float) -> n
 
 
 def render(data: dict, traits: list[str], personas: list[str], layer: int,
-           ordering: str, short: str, out_base: Path, labels: bool) -> None:
+           ordering: str, short: str, out_base: Path, labels: bool,
+           method: str = "CAA") -> None:
     P = np.array([[data["traits"][t]["personas"][p]["point"][layer] for t in traits]
                   for p in personas])                      # personas x traits
     control = np.array([data["traits"][t]["personas"][CONTROL]["point"][layer]
@@ -176,7 +181,7 @@ def render(data: dict, traits: list[str], personas: list[str], layer: int,
     sub = ("traits ordered by our per-trait persona mean, ascending"
            if ordering == "sorted" else "traits in K/D Figure 1 order")
     ax.set_title(f"Persona trait vectors rotate away from the assistant default"
-                 f"  —  {short}, layer {layer}",
+                 f"  —  {short}, {method}, layer {layer}",
                  fontsize=13, color=INK_PRIMARY, pad=22, loc="left",
                  fontweight="semibold")
     ax.text(0.0, 1.035, sub + ".  Labelled point = most-rotated persona in that column."
@@ -251,7 +256,8 @@ def main() -> int:
         for name in args.orderings:
             traits = orders[name]
             render(data, traits, personas, L, name, short,
-                   outdir / f"fig1_persona_fanout_L{L}_{name}", not args.no_labels)
+                   outdir / f"fig1_persona_fanout_L{L}_{name}", not args.no_labels,
+                   method=args.method)
         print_table(data, orders["sorted"], personas, L)
 
     return 0
