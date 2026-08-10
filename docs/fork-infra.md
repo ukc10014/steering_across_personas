@@ -422,6 +422,44 @@ against ~0.16 from question resampling — **five orders of magnitude smaller, i
 Re-extracting variant 0 for hygiene would cost +160 files / +21GB / +1.2h and is *not*
 worth it on these numbers. State the check in the writeup rather than paying for it.
 
+### 12.3b Volume quota — this killed a run, read before sizing any job
+
+**`df` is useless on `/workspace` and will actively mislead you.** The volume is MooseFS
+(`mfs#eu-cz-1.runpod.net:9421`), and `df` reports the **whole cluster** — it showed
+`851T total, 166T avail` throughout, while the actual per-volume quota was ~100GB and
+about to be exceeded. Capacity planning off `df` is planning off a number that has nothing
+to do with your limit. That mistake is what killed the first paraphrase run.
+
+**Symptoms of hitting the quota, none of which say "disk":**
+
+- the Bash tool starts returning exit 1, or exits 0 with **completely empty stdout** —
+  even `echo hello`. Looks like a broken harness or a dead shell.
+- file writes fail with `EDQUOT: unknown error, fsync`. Note **EDQUOT**, not `ENOSPC` —
+  it is a *quota*, not a full disk.
+- background jobs die and their wrapper reports a nonzero exit while the child may still
+  be running for a while.
+- **the log truncates mid-line with no traceback**, because the log could not be appended
+  to either. There is no error message to find; the absence of one IS the signal.
+
+**Getting the real number.** `mfsgetquota` is not installed on these pods, so there is no
+in-pod way to read the quota. Use the RunPod console/API, or infer it from `du`:
+
+```bash
+du -sh /workspace/hf /workspace/pylibs-py* /workspace/repos
+```
+
+**Resizing** (increase only, never decrease; >4TB needs support):
+
+```bash
+curl -X POST https://rest.runpod.io/v1/networkvolumes/{networkVolumeId}/update \
+  -H "Authorization: Bearer $RUNPOD_API_KEY" -H "Content-Type: application/json" \
+  -d '{"size": 500}'          # GB, must exceed current
+```
+
+Expanded to **500GB on 2026-08-10**. Baseline occupancy after that:
+`hf` 22GB, `pylibs-py312` 11GB, `pylibs-py311` 3.2GB, `repos` 53GB (of which
+`caa_activations` 24GB) — call it ~90GB, leaving ~410GB.
+
 ### 12.4 Cost of step 3
 
 Scope: variants 1–4 (variant 0 is the existing `caa_activations/`), 10 personas × 8 traits ×
@@ -461,14 +499,31 @@ additional *persona* and silently inflate rung 3 in
 `caa_within_cell_stability.py` and the fan-out figures. Symlink variant 0 into the new
 directory rather than re-extracting it (see 12.3 — the hardware delta is ignorable):
 
-```bash
-cd outputs/Llama-3.1-8B-Instruct/caa_activations_paraphrase
-for f in ../caa_activations/*.pt; do
-  b=$(basename "$f"); p=${b%%_*}
-  [ "$p" = null ] || [ "$p" = nonsense ] && continue
-  ln -s "$f" "${b/_/_v0_}"
-done
+Do this in Python, not shell. Persona slugs contain underscores (`con_artist`,
+`drill_sergeant`, `kindergarten_teacher`), so the obvious `${b%%_*}` / `${b/_/_v0_}` pair
+splits on the wrong separator and produces `con_v0_artist_warmth_pos.pt`. Anchor on the
+known persona and trait lists instead:
+
+```python
+from pathlib import Path
+from persona_steering.config import PERSONA_SLUGS
+
+src = Path("outputs/Llama-3.1-8B-Instruct/caa_activations")
+dst = Path("outputs/Llama-3.1-8B-Instruct/caa_activations_paraphrase")
+dst.mkdir(parents=True, exist_ok=True)
+TRAITS = ["assertiveness", "empathy", "risk_taking", "honesty",
+          "confidence", "deference", "warmth", "impulsivity"]
+
+for p in (s for s in PERSONA_SLUGS if s not in ("null", "nonsense")):
+    for t in TRAITS:
+        for d in ("pos", "neg"):
+            link = dst / f"{p}_v0_{t}_{d}.pt"
+            if not link.exists():
+                link.symlink_to(Path("..") / "caa_activations" / f"{p}_{t}_{d}.pt")
 ```
+
+Produces 160 links. Confirm one resolves before relying on it —
+`torch.load(dst / "con_artist_v0_warmth_pos.pt")` should return 500 keys.
 
 `null` is excluded deliberately: its system prompt is `""`, so it has no paraphrases and
 `system_prompt_variants[1..4]` is meaningless for it. `nonsense` *does* have 5 variants, but
@@ -537,12 +592,24 @@ pip install --target="$PYLIBS" --upgrade "transformers>=4.45,<5"
 python -c "import transformers; print(transformers.__version__)"   # expect 4.5x
 ```
 
+> **Done 2026-08-10:** 5.14.1 → **4.57.6**. Clean — pip pulled only pure-Python deps plus
+> `tokenizers 0.22.2`; no duplicate torch, no `nvidia_*` wheels, torch byte-identical
+> afterwards. `numpy` nudged 2.5.1 → 2.5.2, harmless. `preflight.sh` then printed
+> `PREFLIGHT OK` and the 5-variant answer-token check passed 180/180 on this pod.
+
 **3. Verify which torch wins, and that it speaks sm_120.** `pylibs-py312` carries a full
 duplicate `torch 2.13.0+cu130`, and `PYTHONPATH` puts `$PYLIBS` first, so **that duplicate
 shadows the image's build** — this is the §2 landmine, and on Blackwell it is also the §11
 `sm_120` question. Run the §11 block verbatim; `get_arch_list()` must include `sm_120` and
 the bf16 matmul must actually execute. If it fails, delete `$PYLIBS/torch*` and
 `$PYLIBS/nvidia*` so the image's torch wins, then re-check.
+
+> **Observed 2026-08-10 on RTX PRO 6000 Blackwell Server Edition (driver 580.142):** the
+> `$PYLIBS` duplicate **passes** — capability `(12, 0)`, arch list
+> `['sm_75','sm_80','sm_86','sm_90','sm_100','sm_120']`, bf16 matmul executes, 95.0 GiB
+> visible. **Do not delete `$PYLIBS/torch*` on this pod** — the deletion step is
+> conditional and the condition did not fire. Note this is a *different* Blackwell SKU and
+> driver from §11's (580.173.02); re-run the check rather than assuming.
 
 **4. Clean the duplicate installs.** `pylibs-py312` has two `peft` versions (0.19.1, 0.20.0)
 and two `pandas` (3.0.3, 3.0.5). Not currently load-bearing for CAA — `peft` is only needed

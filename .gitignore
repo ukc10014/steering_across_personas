@@ -73,8 +73,13 @@ data/prompts/adversarial/
 # Local manifold-probing scratch (dropped from project)
 maniprobe/
 
-# Claude Code local state / worktrees
-.claude/
+# Claude Code local state / worktrees.
+# Note the glob rather than `.claude/`: a trailing-slash rule excludes the directory
+# itself, so git never descends into it and a `!` re-include below would silently do
+# nothing. `.claude/*` ignores the contents while still allowing exceptions.
+.claude/*
+# Shared, reviewable permission allowlist -- portable across machines and clones.
+!.claude/settings.json
 
 # ICML LaTeX: compiled output and template boilerplate (keep .sty/.bst/main.tex/references.bib)
 icml2026/main.pdf
