@@ -1,11 +1,17 @@
 # K/D Appendix B.1 on Llama-3.1-8B — bootstrap noise floor
 
 **Date:** 2026-08-10 · **Model:** `meta-llama/Llama-3.1-8B-Instruct` · **Method:** CAA
-**Inputs:** `outputs/Llama-3.1-8B-Instruct/caa_activations/` (192 files, M=500 pairs/cell)
-**Outputs:** `analysis/caa_within_cell_stability.json`, `analysis/b1_noise_floor.{png,pdf}`
-**Code:** `scripts/caa_within_cell_stability.py`, `scripts/plot_b1_noise_floor.py`
+**Inputs:** `caa_activations/` (192 files, M=500 pairs/cell) for §1–6 and §9;
+`caa_activations_paraphrase/` (800 files, 5 prompt variants × 10 personas) for §7–8
+**Outputs:** `analysis/` — `caa_within_cell_stability.json`, `caa_variance_decomposition.json`,
+`caa_magnitude.json`, `b1_noise_floor.{png,pdf}`, `b1_bootstrap_stability_L{15,20}.{png,pdf}`,
+`magnitude_L{15,20,25}.{png,pdf}`
+**Code:** `scripts/caa_within_cell_stability.py`, `scripts/caa_variance_decomposition.py`,
+`scripts/caa_magnitude.py`, and the three `plot_*` scripts alongside them
 
-CPU-only re-analysis. No GPU, no re-extraction, ~5 min.
+§1–6 and §9 are CPU-only re-analysis of activations already on disk — no GPU, minutes.
+§7–8 required a GPU re-extraction: the paraphrase arm did not exist, because every prior
+run used `system_prompt_variants[0]` only (~50 min on an RTX PRO 6000, 640 new files, 79GB).
 
 ---
 
@@ -49,6 +55,8 @@ Persona-averaged (excludes `null` and `nonsense`), averaged over all 8 traits.
 | 31 | 0.802 | 0.741 | 0.313 | 0.489 |
 
 ![B.1 noise floor](../../outputs/Llama-3.1-8B-Instruct/analysis/b1_noise_floor.png)
+
+![per-cell bootstrap stability](../../outputs/Llama-3.1-8B-Instruct/analysis/b1_bootstrap_stability_L20.png)
 
 ### 1. K/D's 0.99 does not reproduce — anywhere
 
@@ -112,6 +120,86 @@ on fan-width grounds alone.
 
 ---
 
+### 7. Rung 2 — rephrasing the persona barely moves the vector
+
+The paraphrase arm (5 `system_prompt_variants` per persona, 800 files) was extracted
+2026-08-10, so the middle rung is now measured on our own model rather than inherited.
+Persona-averaged, all 8 traits:
+
+| | layer 15 | layer 20 |
+|---|---|---|
+| rung 1 — resample the questions | 0.882 | 0.835 |
+| **rung 2 — reword the persona prompt** | **0.900** | **0.821** |
+| rung 3 — change the persona | 0.705 | 0.508 |
+
+![B.1 hierarchy by layer](../../outputs/Llama-3.1-8B-Instruct/analysis/b1_noise_floor.png)
+
+**Rung 2 sits on top of rung 1, not between rungs 1 and 3.** At layer 15 rewording the prompt
+perturbs the trait vector *less* than resampling the questions does. The hierarchy is
+**rung 1 ≈ rung 2 ≫ rung 3**, which is exactly the "identity, not phrasing" claim — now
+demonstrated here rather than assumed from K/D.
+
+### 8. Variance decomposition — ~2/3 of the spread is identity
+
+Nested random-effects partition (`scripts/caa_variance_decomposition.py`) of trait-vector
+direction into question-sampling error, across-paraphrase and across-persona components, on
+the 2(1−cos) scale, with a cluster bootstrap over personas:
+
+| | layer 15 | layer 20 |
+|---|---|---|
+| σ²_e (question sampling) | 0.10 – 0.15 | 0.13 – 0.21 |
+| σ²_r (paraphrase) | **−0.04 to +0.03** | **−0.04 to +0.11** |
+| σ²_p (persona) | 0.14 – 0.33 | 0.25 – 0.56 |
+| **ICC_persona** | **0.55 – 0.69** | **0.63 – 0.72** |
+
+At layer 15 **six of eight traits have a negative paraphrase component** — the observed
+spread across rewordings is smaller than question-sampling error alone, so that level is
+not resolvable above the noise beneath it. Negative components are reported, not clipped.
+
+The one exception is **empathy at L20**, σ²_r = 0.110 against σ²_e = 0.125 — the only cell
+where phrasing is comparable to noise rather than lost in it.
+
+**Caveat on pooling.** `S_r` is computed per persona then averaged, so a single
+phrasing-sensitive persona is invisible in the trait-level number. Individual cells vary a
+lot (politician's warmth rotates far more under rewording than farmer's). "The average
+persona is phrasing-insensitive" is supported; "every persona is" is not tested by this
+statistic. A per-persona σ²_r would settle it and needs no new extraction.
+
+### 9. Magnitude, and the B.6 decoupling test
+
+`scripts/caa_magnitude.py` → `caa_magnitude.json`, `magnitude_L{15,20,25}.{png,pdf}`.
+Reported as log2(‖v_persona‖ / ‖v_null‖); 0 means "same length as the assistant default".
+
+**Magnitude tracks persona semantics.** At layer 25 the four deceptive personas collapse the
+honesty vector to roughly 40% of its default length — con artist −1.42, street hustler −1.34,
+drill sergeant −1.27, politician −1.19 — while the therapist *doubles* empathy (+1.05) and
+lengthens deference (+0.90). The **nonsense control sits at ≈0 everywhere** (max +0.16), so
+this is driven by the persona's meaning, not by the mere presence of a system prompt.
+
+![magnitude and B.6](../../outputs/Llama-3.1-8B-Instruct/analysis/magnitude_L20.png)
+
+**B.6 does not reproduce.** K/D claim magnitude and direction decouple at the cell level.
+Correlating cosine-to-null against log2 magnitude ratio over all 80 persona×trait cells:
+
+| layer | Pearson r | 95% CI (cluster bootstrap over personas) |
+|---|---|---|
+| 15 | +0.325 | [+0.138, +0.444] |
+| 20 | +0.238 | [+0.056, +0.377] |
+| 25 | +0.258 | [+0.108, +0.386] |
+
+All three exclude zero even after clustering, which is the right test here since the 80 cells
+share 10 personas and 8 traits and are not independent. Cells that rotate further from null
+also shorten more. The association is real but modest — r ≈ 0.25–0.33 is ~6–11% of variance,
+so "largely independent with a reliable weak coupling", not "tightly linked".
+
+**A tempting explanation for the discrepancy was tested and rejected.** K/D report magnitudes
+at layer 25 while their cosine analysis is at layer 22; reading two quantities at different
+depths would add noise and bias toward finding decoupling. It does not: r at (cos 22, mag 25)
+is +0.275 against +0.269 for matched (22, 22) and +0.258 for (25, 25). The fields are smooth
+enough across those layers that the mismatch is empirically irrelevant, so our disagreement
+with B.6 cannot be explained away as a layer artifact. Still worth raising with Jacob and
+Rhea, but as a substantive difference rather than a bug.
+
 ## Method notes and caveats
 
 - **Spearman-Brown is a heuristic here.** SB is derived for correlations between parallel test
@@ -122,27 +210,41 @@ on fan-width grounds alone.
   (politician at L20 runs [−0.14, 0.92]), so NaN-guarding per replicate silently drops the low
   tail and biases the result *up*. SB is monotone on r > −1, so transforming the summary
   quantiles is exact for lo/hi. The reported centre is SB(mean r), not mean SB(r).
-- **Rung 1 and rung 3 are still not the same estimand.** They are now the same functional form
-  (pairwise cosine over a set of vectors), which makes the comparison like-for-like in a way
-  the raw contrast was not. It is *not* yet a test. The clean version is a variance
-  decomposition — see below.
+- **Rung 1 and rung 3 are not the same estimand**, even though §1–6 put them in the same
+  functional form (pairwise cosine over a set of vectors). That makes the comparison
+  like-for-like but not a test; §8 is the test, since the decomposition estimates and
+  subtracts σ²_e rather than comparing raw cosines computed different ways.
+- **Do not derive rung 2 from the variance components.** The tempting identity
+  cos = 1 − S_r assumes mean pairwise squared distance is twice the dispersion about a
+  centroid. It fails here because `decompose()` normalises the persona mean to unit length
+  and Bessel-corrects; a numerical check put the ratio at ~1.45 for n_r=5, not 2. Rung 2 is
+  measured directly and stored as `across_paraphrase_cosine`.
 - **Wide intervals are real.** Per-cell split-half 95% intervals routinely span 0.6+ of the
   range. That is the low-SNR regime, not an artifact.
 
-## What this does not yet answer
+## Two loose ends — outstanding, and they interact
 
-1. **The middle rung is missing.** `2c_caa_activations.py:369` passes
-   `persona.default_system_prompt`, which `config.py:99-101` defines as
-   `system_prompt_variants[0]` — **one paraphrase of five**. We have rungs 1 and 3 but not 2,
-   so the "identity, not phrasing" argument cannot be made on our own model, only inherited.
-   Requires a 5× re-extraction, not analysis.
-2. **The variance decomposition is blocked on (1).** The across-paraphrase component of an
-   ICC-style within/paraphrase/persona partition *is* rung 2. Build the estimator once the
-   paraphrase arm exists; it is the thing that turns "0.88 ≫ 0.51" from suggestive into a test
-   with an error bar on a dispersion statistic.
-3. **The adapted model is unmeasured.** If a LoRA adapter shifts activation noise
-   characteristics, apparent tightening under a constitution is confounded with a moving floor.
-   `outputs/` currently contains only the base model.
+**Loose end 1 — the published noise floor is under-resolved, and it gates the adapted-model
+arm.** The floor in `caa_cosine_to_null.json` is an `n_boot=50` estimate whose seed-to-seed
+scatter is ±0.01 (0.886–0.908 at L15 against a converged ~0.892), and it is the reference line
+drawn on the published figures. Fixing it is a CPU-only re-run at `--n-boot 400`. This is not
+cosmetic: a base-vs-adapted floor difference smaller than ~0.02 would be indistinguishable
+from that scatter, so **this must be done before any adapted-model comparison** (see
+fork-infra §13.4).
+
+**Loose end 2 — no `nonsense` paraphrases.** The paraphrase arm covers the 10 personas only,
+so there is no control answering "does a *meaningless* prompt also move under rephrasing?".
+Compounded by fork-infra §7: the released `nonsense.yaml` is ~half the length of real personas
+and is probably not the artifact behind K/D's figures, so it would need regenerating
+length-matched before the control is worth much.
+
+## Still out of scope for this document
+
+- **The adapted model is unmeasured.** If a LoRA adapter shifts activation noise
+  characteristics, apparent tightening under a constitution is confounded with a moving floor.
+  Plan in fork-infra §13; blocked on loose end 1.
+- **IV arm not started.** Everything here is CAA. Prereg Exp 0a asks for both.
+- **Gemma-3-4B not provisioned.** Exp 0a covers both models.
 
 ## Reproduce
 
@@ -151,6 +253,15 @@ source /workspace/bootstrap.sh
 python scripts/caa_within_cell_stability.py --model meta-llama/Llama-3.1-8B-Instruct \
     --n-boot 50 --n-splits 100 --report-layers 12 15 20
 python scripts/plot_b1_noise_floor.py --model meta-llama/Llama-3.1-8B-Instruct --layer 20
+python scripts/plot_b1_bootstrap_stability.py --model meta-llama/Llama-3.1-8B-Instruct --layer 20
+
+# rung 2 + decomposition (needs the paraphrase arm, outputs/{model}/caa_activations_paraphrase/)
+python scripts/caa_variance_decomposition.py --model meta-llama/Llama-3.1-8B-Instruct \
+    --variants 0 1 2 3 4 --n-boot 50 --n-cluster 400
+
+# magnitude + B.6
+python scripts/caa_magnitude.py --model meta-llama/Llama-3.1-8B-Instruct --n-boot 200
+python scripts/plot_magnitude.py --model meta-llama/Llama-3.1-8B-Instruct --layer 20
 ```
 
 Needs only `numpy` + `torch` (+ `matplotlib` for the figure). No GPU.

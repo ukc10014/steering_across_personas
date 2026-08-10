@@ -196,6 +196,25 @@ def main() -> int:
         V, E = np.stack(V), np.stack(E)
         point = decompose(V, E)
 
+        # Rung 2 as a COSINE, so it can be plotted on the same axis as rungs 1 and 3.
+        # Measured directly rather than derived from S_r: the tempting identity
+        # "mean pairwise d^2 = 2 * dispersion about the centroid" does NOT hold here,
+        # because decompose() normalises the persona mean to unit length and applies a
+        # Bessel correction. Checked numerically -- the ratio is ~1.45 at n_r=5, not 2 --
+        # so a derived line would have been quietly wrong on the figure.
+        n_p, n_r = V.shape[0], V.shape[1]
+        iu = np.triu_indices(n_r, k=1)
+        if len(iu[0]):
+            # (n_personas, n_pairs, n_layers) -> mean over pairs and personas
+            pc = (V[:, iu[0]] * V[:, iu[1]]).sum(-1)
+            trait_res_para = {
+                "mean": pc.mean(axis=(0, 1)).tolist(),
+                "lo": np.percentile(pc.reshape(-1, pc.shape[-1]), 2.5, axis=0).tolist(),
+                "hi": np.percentile(pc.reshape(-1, pc.shape[-1]), 97.5, axis=0).tolist(),
+            }
+        else:
+            trait_res_para = None
+
         # cluster bootstrap over personas -- personas are the unit of generalisation
         iccs = []
         for _ in range(args.n_cluster):
@@ -212,6 +231,7 @@ def main() -> int:
             "icc_persona": point["icc_persona"].tolist(),
             "icc_lo": np.nanpercentile(iccs, 2.5, axis=0).tolist(),
             "icc_hi": np.nanpercentile(iccs, 97.5, axis=0).tolist(),
+            "across_paraphrase_cosine": trait_res_para,
             "negative_components": point["negative_components"],
         }
 

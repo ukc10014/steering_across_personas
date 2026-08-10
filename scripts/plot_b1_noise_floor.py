@@ -53,15 +53,35 @@ BAND = "#f2f1ed"
 FLOOR = "#1c4f8f"          # rung 1, within-cell bootstrap
 FLOOR_STRICT = "#5688bf"   # split-half, Spearman-Brown corrected
 SIGNAL = "#eb6834"         # rung 3, across-persona
+PARAPHRASE = "#8a5a1f"     # rung 2, across-paraphrase (derived from the decomposition)
 
 KD_RUNG1 = 0.99            # K/D's reported within-cell stability
 EXCLUDE = ("null", "nonsense")
+
+
+def rung2_cosine(decomp: dict, trait: str) -> np.ndarray | None:
+    """Across-paraphrase cosine (K/D rung 2), as MEASURED by the decomposition script.
+
+    An earlier version of this derived the line from the variance components via
+    cos = 1 - S_r, on the reasoning that mean pairwise squared distance is twice the
+    dispersion about a centroid. That identity does not hold here: decompose() normalises
+    the persona mean to unit length and applies a Bessel correction, and a numerical check
+    put the ratio at ~1.45 for n_r=5 rather than 2. The derived line would have been
+    quietly wrong, so the cosine is now computed directly and stored alongside the
+    components. Kept as a cautionary note rather than deleted.
+    """
+    t = decomp.get("traits", {}).get(trait)
+    if t is None or not t.get("across_paraphrase_cosine"):
+        return None
+    return np.array(t["across_paraphrase_cosine"]["mean"], dtype=float)
 
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="K/D Appendix B.1 figure")
     p.add_argument("--model", type=str, required=True)
     p.add_argument("--input", type=str, default=None)
+    p.add_argument("--decomposition", type=str, default=None,
+                   help="caa_variance_decomposition.json; adds the rung-2 line if present")
     p.add_argument("--outdir", type=str, default=None)
     p.add_argument("--layer", type=int, default=20,
                    help="layer for panel B and the annotated readout (default: 20)")
@@ -87,6 +107,9 @@ def main() -> int:
         return 2
 
     data = json.loads(in_path.read_text())
+    dec_path = (Path(args.decomposition) if args.decomposition
+                else OUTPUTS_DIR / short / "analysis" / "caa_variance_decomposition.json")
+    decomp = json.loads(dec_path.read_text()) if dec_path.exists() else {}
     traits = list(data["traits"].keys())
     n_layers = data["traits"][traits[0]]["n_layers"]
     L = args.layer
@@ -96,6 +119,8 @@ def main() -> int:
     strict = np.nanmean([persona_mean(data, t, "split_half_sb") for t in traits], axis=0)
     across = np.nanmean([np.array(data["traits"][t]["across_cell"]["mean"], dtype=float)
                          for t in traits], axis=0)
+    r2 = [s for s in (rung2_cosine(decomp, t) for t in traits) if s is not None]
+    para = np.nanmean(r2, axis=0) if r2 else None
 
     fig, (axA, axB) = plt.subplots(
         1, 2, figsize=(13.4, 5.9), facecolor=SURFACE,
@@ -129,6 +154,12 @@ def main() -> int:
     axA.plot(x, within, color=FLOOR, lw=2.0, zorder=5)
     axA.plot(x, strict, color=FLOOR_STRICT, lw=2.0, ls=(0, (5, 2.5)), zorder=5)
     axA.plot(x, across, color=SIGNAL, lw=2.0, zorder=5)
+    if para is not None:
+        axA.plot(x, para, color=PARAPHRASE, lw=2.0, ls=(0, (1.5, 1.8)), zorder=5)
+        anchor = min(24, n_layers - 1)
+        axA.annotate("across-paraphrase (rung 2)", xy=(anchor, para[anchor]),
+                     xytext=(0, 12), textcoords="offset points", ha="center",
+                     fontsize=9, color=PARAPHRASE, fontweight="semibold")
 
     # Direct labels: identity does not rest on hue, and the light blue's contrast
     # WARN is discharged by naming its line rather than relying on the swatch.
@@ -199,9 +230,12 @@ def main() -> int:
                label="split-half question bank (ours, stricter)"),
         Line2D([], [], color=SIGNAL, lw=2.0, label="across-persona spread (K/D rung 3)"),
     ]
+    if para is not None:
+        handles.insert(2, Line2D([], [], color=PARAPHRASE, lw=2.0, ls=(0, (1.5, 1.8)),
+                                 label="across-paraphrase (K/D rung 2)"))
     leg = fig.legend(handles=handles, loc="lower center", frameon=False, fontsize=9.5,
-                     labelcolor=INK_SECONDARY, ncol=3, handletextpad=0.6,
-                     columnspacing=2.2, bbox_to_anchor=(0.5, -0.005))
+                     labelcolor=INK_SECONDARY, ncol=4, handletextpad=0.5,
+                     columnspacing=1.5, bbox_to_anchor=(0.5, -0.055))
     leg.set_zorder(6)
 
     fig.suptitle(f"K/D Appendix B.1 noise floor — {short}, CAA, {data['n_boot']} bootstrap "
@@ -209,7 +243,7 @@ def main() -> int:
                  fontsize=13.5, color=INK_PRIMARY, x=0.008, ha="left",
                  fontweight="semibold", y=1.005)
 
-    fig.tight_layout(rect=(0, 0.045, 1, 0.985))
+    fig.tight_layout(rect=(0, 0.085, 1, 0.985))
     outdir.mkdir(parents=True, exist_ok=True)
     for ext in ("png", "pdf"):
         path = outdir / f"b1_noise_floor.{ext}"

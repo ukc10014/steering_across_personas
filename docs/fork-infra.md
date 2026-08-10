@@ -560,6 +560,27 @@ Re-run this whenever the persona set or model family changes. It is the highest
 silent-failure risk in the pipeline — a wrong index makes every downstream cosine noise
 while nothing else looks broken.
 
+### 12.7b Resume-after-crash is existence-based, not validity-based — verify before analysing
+
+`2c_caa_activations.py:322` filters the work list with `if not o.exists()`. A file that
+exists but is **truncated or zero-length** is skipped forever. When the first paraphrase run
+died on the quota mid-`torch.save`, it left
+`street_hustler_v2_warmth_neg.pt` at **0 bytes**; the resumed run skipped it, all 800 files
+looked present, and the corruption only surfaced hours later as an `EOFError` deep inside the
+decomposition.
+
+**After any crashed/resumed extraction, size-check before trusting the grid.** Valid files
+cluster tightly (~131.0–131.2 MB for 500 questions, ~131.0 MB for empathy's 499); anything
+outside that is suspect:
+
+```bash
+find outputs/{model}/caa_activations* -type f -name '*.pt' -size -130000000c -printf '%s  %p\n'
+```
+
+Delete what it finds and re-run `2c` for just that persona/trait — it refills only the gap.
+Note the log is no help here: under quota the log could not be appended either, so the last
+"Saved" line was never written and the log's final entry names the *wrong* file.
+
 ### 12.7 Step 4 once step 3 lands
 
 CPU-only, no GPU, minutes. Partition total cosine-distance variance into
@@ -637,3 +658,118 @@ files, so the job is resumable and safe to interrupt.
 already computed and committed under `outputs/*/analysis/`, which is the one part of
 `outputs/` that is not gitignored. The 24GB of `caa_activations/` lives on the volume and is
 mounted wherever the pod is, so no data moves.
+---
+
+## 13. Adapted-model arm (OCT constitution) — plan, not yet started
+
+**The question.** Does character training move the *extraction noise floor*? Every
+dispersion claim comparing a constitution against baseline — H7-style "personas tighten
+under constitution X" — is confounded if the floor itself shifts between arms. Rung 1 on the
+adapted model is the control that de-confounds it. This is a prerequisite for the
+comparison, not an optional extra.
+
+### 13.1 Scope: one arm, base grid only
+
+- **One adapter to start: `goodness`.** It is the paper's `flourishing` persona (§4, verified
+  verbatim against Appendix F) and its `adapter_config.json` records the correct base. A
+  single adapted arm against the existing baseline answers the floor question. Add contrast
+  arms (`sarcasm`, `loving`) only if the floor actually moves.
+- **Base grid only — no paraphrase arm.** The floor question needs rung 1 (within-cell
+  bootstrap), which needs only the 12-series grid. Rung 2 on the adapted model would add
+  84GB and ~50 min for a question nobody is asking yet.
+- **Two release limits to plan around** (§4): there is **no `misalignment` adapter** — the
+  arm most interesting for a safety framing needs weights requested from Maiya et al.; and
+  only **merged** (DPO+SFT) adapters are published, so stage-separated comparisons are
+  unavailable without retraining.
+
+### 13.2 Cost, from measurements taken 2026-08-10 on the Blackwell pod
+
+| stage | time | disk |
+|---|---|---|
+| merge adapter → standalone checkpoint | ~5–10 min (CPU) | **16 GB** |
+| CAA extraction, 192 files / 95,976 forwards | **~16–22 min** (5–7 s/file) | **25 GB** |
+| analysis (cosine-to-null, within-cell stability) | minutes, CPU | negligible |
+| **per arm** | **~30 min** | **~41 GB** |
+
+Volume is 500GB with ~145GB used, so ~8 arms would fit. Adding the paraphrase arm to any
+one of them costs a further 84GB.
+
+### 13.3 Procedure
+
+**1. Clean the duplicate `peft`** (§12.8 step 4) — `pylibs-py312` has both 0.19.1 and 0.20.0
+dist-info; it currently resolves to 0.20.0. `merge_lora.py` is the only thing in the repo
+that imports peft, so this is exactly where an ambiguous install would bite.
+
+**2. Merge.** `scripts/merge_lora.py` is sound — it refuses to merge if the adapter's
+recorded base does not match `--base`, and it proves the merge changed weights (a silent
+no-op merge would yield a "character-trained" model identical to baseline, and every
+downstream comparison would read as *character training does nothing*). Watch for the
+`max|Δw|` line; it must be non-zero.
+
+```bash
+source /workspace/bootstrap.sh && export HF_HUB_OFFLINE=1
+python scripts/merge_lora.py \
+    --base meta-llama/Llama-3.1-8B-Instruct \
+    --adapter "$SNAP/goodness" \
+    --out /workspace/merged/llama-3.1-8b-goodness
+```
+
+**NO TRAILING SLASH on `--out`, and none on `--model` later.** `model_short_name()`
+(`utils.py:99-101`) is just `model.split("/")[-1]`, so a trailing slash returns `""` and every
+output lands in `outputs//caa_activations/` — silently the wrong place. Shell tab-completion
+appends slashes to directories, so this will happen unless you watch for it.
+
+**3. Verify the answer token on the merged model** (§6.5). Merging changes weights, not the
+tokenizer, and the OCT adapter's `chat_template.jinja` was checked on 2026-08-10 and is
+**byte-identical to base Llama-3.1's** (same md5), so `merge_lora.py` saving the *base*
+tokenizer introduces no prompting mismatch. Run it anyway — it is 30 seconds:
+
+```bash
+python scripts/verify_answer_token.py --model /workspace/merged/llama-3.1-8b-goodness \
+    --traits warmth deference --personas farmer con_artist null --variants 0 --n 3
+```
+
+**4. Extract.** No pipeline changes — merging offline keeps `2c` model-agnostic (§6.6):
+
+```bash
+python pipeline/2c_caa_activations.py --model /workspace/merged/llama-3.1-8b-goodness \
+    --batch-size 16          # -> outputs/llama-3.1-8b-goodness/caa_activations/
+```
+
+**5. Analyse with flags matched to the baseline arm.**
+
+```bash
+python scripts/caa_cosine_to_null.py --model /workspace/merged/llama-3.1-8b-goodness \
+    --traits assertiveness empathy risk_taking honesty confidence deference warmth impulsivity \
+    --personas farmer politician therapist drill_sergeant street_hustler professor \
+               tech_ceo kindergarten_teacher surgeon con_artist nonsense \
+    --headline-layer 20 --n-boot 400 --seed 0
+python scripts/caa_within_cell_stability.py --model /workspace/merged/llama-3.1-8b-goodness \
+    --n-boot 50 --n-splits 100
+```
+
+### 13.4 The methodological point that decides whether this works
+
+**`--n-boot` and `--seed` must match across arms, and 50 is not enough.** The B.1 work found
+the floor estimate swings **0.886–0.908 at L15 on seed choice alone** at `n_boot=50`
+(docs/results/llama31_8b_b1_noise_floor.md, finding 4). A base-vs-adapted floor difference
+smaller than ~0.02 would be indistinguishable from that scatter. So **loose end 1 of the B.1
+work is a hard prerequisite here**: re-run the baseline floor at `--n-boot 400` before
+comparing anything to it. The two jobs are linked; do not treat them as independent.
+
+Everything else is already controlled: the CAA datasets are model-agnostic plain text
+(§6.3), so both arms see identical questions, personas and prompts, and Llama-3.1 takes the
+real-system-role branch in both.
+
+### 13.5 What the result looks like
+
+A per-layer plot of rung 1, base vs adapted, with the CI band. Two readings:
+
+- **floors coincide** → the floor is a property of the extraction, not the constitution;
+  dispersion comparisons between arms are licensed, and the confound is retired.
+- **floors separate** → any observed "tightening" under a constitution is partly a moving
+  floor, and every downstream dispersion claim must be expressed relative to its own arm's
+  floor rather than an absolute number.
+
+The second outcome is the more interesting one and is the reason to run this before, not
+after, the dispersion experiments it would invalidate.
