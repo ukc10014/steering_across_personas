@@ -1,17 +1,22 @@
 #!/usr/bin/env python3
-"""CAA trait-vector MAGNITUDE, and the K/D B.6 decoupling test.
+"""CAA trait-vector MAGNITUDE, and the K/D Appendix B.2 / B.6 checks.
 
-Two questions, both asked of the same cached activations the B.1 work used:
+Three questions, all asked of the same cached activations the B.1 work used:
 
   1. How long is a persona's trait vector, relative to the null-context vector for the
      same trait? Reported as log2(||v_persona|| / ||v_null||), so 0 means "same length as
      the assistant default", -1 means "half as long".
 
-  2. K/D B.6 claims magnitude and direction DECOUPLE at the cell level -- i.e. how far a
-     persona rotates a trait vector tells you nothing about whether it lengthens or
-     shortens it. That is a testable correlation, not a description: take every
-     persona x trait cell, put cosine-to-null on one axis and log2 magnitude ratio on the
-     other, and measure the association. Decoupling predicts ~zero correlation.
+  2. B.6, read carefully. It does NOT claim zero correlation between magnitude and
+     direction: it says the two "are positively correlated at the trait level" but "do not
+     agree cell-for-cell", concluding persona conditioning acts "along partly orthogonal
+     axes". So the prediction is a WEAK POSITIVE association. Tested by correlating
+     cosine-to-null against log2 magnitude ratio over every persona x trait cell.
+
+  3. B.2: "switching the persona moves the vector's length by about as much as switching
+     the trait does". Two spreads of the same (trait x persona) norm matrix -- along
+     personas with the trait fixed, along traits with the persona fixed. Ratio ~1 supports
+     it. Uses raw norms, since the claim is about absolute length.
 
 Computed straight from outputs/{model}/caa_activations/ rather than from a vectors/ dir,
 deliberately: 3_vectors.py slices [:-1] (see fork-infra section 6.1), so saved vectors are
@@ -176,6 +181,31 @@ def main() -> int:
                     "spearman_rho": spearman(x, y),
                 }
 
+    # ---- B.2: is persona-driven length variation comparable to trait-driven? ----
+    # K/D B.2: "switching the persona moves the vector's length by about as much as
+    # switching the trait does". Two spreads of the same (trait x persona) norm matrix:
+    # along personas with the trait held fixed, and along traits with the persona held
+    # fixed. Ratio ~1 supports the claim. Raw norms, not ratios to null -- the claim is
+    # about absolute lengths.
+    tlist = list(results["traits"].keys())
+    if tlist:
+        plist = [c for c in results["traits"][tlist[0]]["cells"]
+                 if c not in (NULL_SLUG, CONTROL_SLUG)]
+        n_layers = len(results["traits"][tlist[0]]["null_magnitude"])
+        b2 = {}
+        for L in range(n_layers):
+            N = np.array([[results["traits"][t]["cells"][p]["magnitude"][L] for p in plist]
+                          for t in tlist])
+            pr, tr = (N.max(1) - N.min(1)).mean(), (N.max(0) - N.min(0)).mean()
+            ps, ts = N.std(1, ddof=1).mean(), N.std(0, ddof=1).mean()
+            b2[str(L)] = {
+                "persona_driven_range": float(pr), "trait_driven_range": float(tr),
+                "persona_driven_sd": float(ps), "trait_driven_sd": float(ts),
+                "ratio_range": float(pr / tr) if tr > 0 else float("nan"),
+                "ratio_sd": float(ps / ts) if ts > 0 else float("nan"),
+            }
+        results["b2_variance_comparison"] = b2
+
     out_path = out_dir / "caa_magnitude.json"
     out_path.write_text(json.dumps(results, indent=2))
     print(f"\nWrote {out_path}")
@@ -197,8 +227,15 @@ def main() -> int:
             print("-" * 78)
             print(f"B.6 decoupling test, n={d['n_cells']} cells:  "
                   f"pearson r = {d['pearson_r']:+.3f}   spearman rho = {d['spearman_rho']:+.3f}")
-            print("  decoupling predicts r ~ 0; |r| well above 0 means rotation and "
-                  "shortening travel together")
+            print("  B.6 predicts a WEAK positive association ('partly orthogonal'), not r=0")
+        b2 = results.get("b2_variance_comparison", {}).get(str(L))
+        if b2:
+            print(f"B.2 length variation:  vary persona (trait fixed) range "
+                  f"{b2['persona_driven_range']:.3f} / SD {b2['persona_driven_sd']:.3f}")
+            print(f"                       vary trait (persona fixed) range "
+                  f"{b2['trait_driven_range']:.3f} / SD {b2['trait_driven_sd']:.3f}")
+            print(f"                       ratio persona/trait: range "
+                  f"{b2['ratio_range']:.2f}, SD {b2['ratio_sd']:.2f}  (~1 supports B.2)")
     return 0
 
 

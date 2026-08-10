@@ -226,10 +226,21 @@ in principle add noise. It does not: r at (cos 22, mag 25) is +0.275 against +0.
 (22, 22) and +0.258 for (25, 25). The fields are smooth enough across those layers that the
 mismatch changes nothing, so it need not be raised as a confound.
 
-**Not yet tested: B.2's own magnitude claim.** §B.2 compares two *ranges* — persona-driven norm
-variation against trait-driven norm variation — and concludes "switching the persona moves the
-vector's length by about as much as switching the trait does". That is a different comparison
-from anything above and is computable from `caa_magnitude.json` without new extraction.
+**B.2 reproduces, cleanly.** §B.2 claims "switching the persona moves the vector's length by
+about as much as switching the trait does". Comparing spreads of the same (trait × persona)
+norm matrix — along personas with the trait held fixed, versus along traits with the persona
+held fixed:
+
+| layer | vary persona (range / SD) | vary trait (range / SD) | ratio (range / SD) |
+|---|---|---|---|
+| 15 | 0.665 / 0.212 | 0.627 / 0.212 | **1.06 / 1.00** |
+| 20 | 1.438 / 0.489 | 1.260 / 0.437 | **1.14 / 1.12** |
+| 25 | 2.561 / 0.889 | 2.453 / 0.855 | **1.04 / 1.04** |
+
+Ratios sit at 1.0–1.14 on both measures at all three layers, so persona conditioning moves
+trait-vector length by as much as changing the trait entirely does. This is the cleanest
+replication of any K/D appendix claim we have tested. Stored as `b2_variance_comparison` in
+`caa_magnitude.json`.
 
 ## Method notes and caveats
 

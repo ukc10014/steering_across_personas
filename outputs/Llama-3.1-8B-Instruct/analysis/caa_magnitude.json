@@ -13716,5 +13716,263 @@
       "pearson_r": 0.37330528793101453,
       "spearman_rho": 0.3958274730426629
     }
+  },
+  "b2_variance_comparison": {
+    "0": {
+      "persona_driven_range": 0.0003228922141715884,
+      "trait_driven_range": 0.0030656118877232076,
+      "persona_driven_sd": 0.00010733580061684397,
+      "trait_driven_sd": 0.00102898116428583,
+      "ratio_range": 0.10532716664645912,
+      "ratio_sd": 0.10431269720213097
+    },
+    "1": {
+      "persona_driven_range": 0.0005508270114660263,
+      "trait_driven_range": 0.00574862053617835,
+      "persona_driven_sd": 0.0001916848873280613,
+      "trait_driven_sd": 0.0022944530720866,
+      "ratio_range": 0.09581898961663121,
+      "ratio_sd": 0.08354273602717054
+    },
+    "2": {
+      "persona_driven_range": 0.0020421624649316072,
+      "trait_driven_range": 0.056028435751795766,
+      "persona_driven_sd": 0.0006130533680653227,
+      "trait_driven_sd": 0.022017285333724136,
+      "ratio_range": 0.036448678916868635,
+      "ratio_sd": 0.027844185092441964
+    },
+    "3": {
+      "persona_driven_range": 0.002649413887411356,
+      "trait_driven_range": 0.06243091374635697,
+      "persona_driven_sd": 0.0008615494800151382,
+      "trait_driven_sd": 0.024271650437974007,
+      "ratio_range": 0.04243753179995635,
+      "ratio_sd": 0.03549612261501625
+    },
+    "4": {
+      "persona_driven_range": 0.0034945649094879627,
+      "trait_driven_range": 0.06473163813352585,
+      "persona_driven_sd": 0.0011063441305475346,
+      "trait_driven_sd": 0.024564555845884753,
+      "ratio_range": 0.05398542366994503,
+      "ratio_sd": 0.04503823059079971
+    },
+    "5": {
+      "persona_driven_range": 0.018264083191752434,
+      "trait_driven_range": 0.12598248794674874,
+      "persona_driven_sd": 0.005298824197433301,
+      "trait_driven_sd": 0.04750113632793836,
+      "ratio_range": 0.1449731902379356,
+      "ratio_sd": 0.1115515250172391
+    },
+    "6": {
+      "persona_driven_range": 0.01794376876205206,
+      "trait_driven_range": 0.1430225633084774,
+      "persona_driven_sd": 0.005428438225761093,
+      "trait_driven_sd": 0.049219996034372354,
+      "ratio_range": 0.12546110450663747,
+      "ratio_sd": 0.11028928612611408
+    },
+    "7": {
+      "persona_driven_range": 0.02163529209792614,
+      "trait_driven_range": 0.13353684395551682,
+      "persona_driven_sd": 0.006409297870812137,
+      "trait_driven_sd": 0.052695660510497844,
+      "ratio_range": 0.1620173987722309,
+      "ratio_sd": 0.12162857071571007
+    },
+    "8": {
+      "persona_driven_range": 0.03705023042857647,
+      "trait_driven_range": 0.15559688210487366,
+      "persona_driven_sd": 0.010122908600239944,
+      "trait_driven_sd": 0.05532322823832372,
+      "ratio_range": 0.2381167921064401,
+      "ratio_sd": 0.18297754709164937
+    },
+    "9": {
+      "persona_driven_range": 0.2257741466164589,
+      "trait_driven_range": 0.5722554445266723,
+      "persona_driven_sd": 0.06299269730612903,
+      "trait_driven_sd": 0.2154491409689218,
+      "ratio_range": 0.39453385507446365,
+      "ratio_sd": 0.2923785029860742
+    },
+    "10": {
+      "persona_driven_range": 0.22575414925813675,
+      "trait_driven_range": 0.5953305780887603,
+      "persona_driven_sd": 0.06213898064798322,
+      "trait_driven_sd": 0.2198691205565805,
+      "ratio_range": 0.37920805274759145,
+      "ratio_sd": 0.28261804336454127
+    },
+    "11": {
+      "persona_driven_range": 0.2675515189766884,
+      "trait_driven_range": 0.47722949385643004,
+      "persona_driven_sd": 0.0778800321832825,
+      "trait_driven_sd": 0.17708204118079862,
+      "ratio_range": 0.5606349197209901,
+      "ratio_sd": 0.4397963320502271
+    },
+    "12": {
+      "persona_driven_range": 0.3299463763833046,
+      "trait_driven_range": 0.574800306558609,
+      "persona_driven_sd": 0.09419420241722393,
+      "trait_driven_sd": 0.21369434334182977,
+      "ratio_range": 0.5740191378093182,
+      "ratio_sd": 0.44078940483019236
+    },
+    "13": {
+      "persona_driven_range": 0.4667195677757263,
+      "trait_driven_range": 0.4853344261646271,
+      "persona_driven_sd": 0.14013807073648432,
+      "trait_driven_sd": 0.16887589078757634,
+      "ratio_range": 0.9616452957273084,
+      "ratio_sd": 0.8298287581663127
+    },
+    "14": {
+      "persona_driven_range": 0.5700005441904068,
+      "trait_driven_range": 0.5538549780845642,
+      "persona_driven_sd": 0.17518593087529297,
+      "trait_driven_sd": 0.1888325702954461,
+      "ratio_range": 1.0291512521232182,
+      "ratio_sd": 0.9277315380561643
+    },
+    "15": {
+      "persona_driven_range": 0.6650171056389809,
+      "trait_driven_range": 0.6272260427474976,
+      "persona_driven_sd": 0.21199830205468898,
+      "trait_driven_sd": 0.2122274709607717,
+      "ratio_range": 1.060251106165719,
+      "ratio_sd": 0.9989201732224142
+    },
+    "16": {
+      "persona_driven_range": 0.8033871129155159,
+      "trait_driven_range": 0.7424278140068055,
+      "persona_driven_sd": 0.26096186451809034,
+      "trait_driven_sd": 0.24838488738270711,
+      "ratio_range": 1.0821080484306205,
+      "ratio_sd": 1.0506350336685535
+    },
+    "17": {
+      "persona_driven_range": 0.967567078769207,
+      "trait_driven_range": 0.8484946012496948,
+      "persona_driven_sd": 0.3163750246207103,
+      "trait_driven_sd": 0.286971436609062,
+      "ratio_range": 1.1403338068906246,
+      "ratio_sd": 1.1024617235746166
+    },
+    "18": {
+      "persona_driven_range": 1.1065766662359238,
+      "trait_driven_range": 0.9751075327396392,
+      "persona_driven_sd": 0.3697446949626011,
+      "trait_driven_sd": 0.33350898560273035,
+      "ratio_range": 1.134825267041997,
+      "ratio_sd": 1.1086498742886468
+    },
+    "19": {
+      "persona_driven_range": 1.196674458682537,
+      "trait_driven_range": 1.0460177898406982,
+      "persona_driven_sd": 0.3979336184594867,
+      "trait_driven_sd": 0.35676282619835564,
+      "ratio_range": 1.1440287825934423,
+      "ratio_sd": 1.1154010150100129
+    },
+    "20": {
+      "persona_driven_range": 1.4382439330220222,
+      "trait_driven_range": 1.2600667476654053,
+      "persona_driven_sd": 0.4885596216036705,
+      "trait_driven_sd": 0.436899395786613,
+      "ratio_range": 1.1414029738398666,
+      "ratio_sd": 1.1182428410642367
+    },
+    "21": {
+      "persona_driven_range": 1.7525883913040161,
+      "trait_driven_range": 1.6278000831604005,
+      "persona_driven_sd": 0.5991040281150601,
+      "trait_driven_sd": 0.560146155718324,
+      "ratio_range": 1.0766607087900728,
+      "ratio_sd": 1.0695494773980498
+    },
+    "22": {
+      "persona_driven_range": 1.946850299835205,
+      "trait_driven_range": 1.798975133895874,
+      "persona_driven_sd": 0.6690291232278992,
+      "trait_driven_sd": 0.6212006001549761,
+      "ratio_range": 1.0821996719982958,
+      "ratio_sd": 1.0769936845859307
+    },
+    "23": {
+      "persona_driven_range": 2.130916103720665,
+      "trait_driven_range": 1.9894792795181275,
+      "persona_driven_sd": 0.7339809635560233,
+      "trait_driven_sd": 0.6889336362279881,
+      "ratio_range": 1.0710923836496526,
+      "ratio_sd": 1.0653870343371183
+    },
+    "24": {
+      "persona_driven_range": 2.3562850803136826,
+      "trait_driven_range": 2.196844792366028,
+      "persona_driven_sd": 0.8110670374780982,
+      "trait_driven_sd": 0.7624266221791401,
+      "ratio_range": 1.0725769469475974,
+      "ratio_sd": 1.063796847964117
+    },
+    "25": {
+      "persona_driven_range": 2.561475917696953,
+      "trait_driven_range": 2.4530932903289795,
+      "persona_driven_sd": 0.8888441164596245,
+      "trait_driven_sd": 0.8549110073939172,
+      "ratio_range": 1.044182024301831,
+      "ratio_sd": 1.0396919781968275
+    },
+    "26": {
+      "persona_driven_range": 2.8000339567661285,
+      "trait_driven_range": 2.6885475277900697,
+      "persona_driven_sd": 0.9721105119848095,
+      "trait_driven_sd": 0.9375858268554227,
+      "ratio_range": 1.0414671594322524,
+      "ratio_sd": 1.0368229597125838
+    },
+    "27": {
+      "persona_driven_range": 3.1283783614635468,
+      "trait_driven_range": 2.9856149435043333,
+      "persona_driven_sd": 1.0926576186751853,
+      "trait_driven_sd": 1.0482003969894138,
+      "ratio_range": 1.047817089832638,
+      "ratio_sd": 1.0424129029272067
+    },
+    "28": {
+      "persona_driven_range": 3.5448851138353348,
+      "trait_driven_range": 3.3818567514419557,
+      "persona_driven_sd": 1.2482470795335887,
+      "trait_driven_sd": 1.1928599757079212,
+      "ratio_range": 1.0482067616624704,
+      "ratio_sd": 1.0464321923390858
+    },
+    "29": {
+      "persona_driven_range": 4.742505952715874,
+      "trait_driven_range": 4.639967548847198,
+      "persona_driven_sd": 1.6840162130639595,
+      "trait_driven_sd": 1.6467329986026726,
+      "ratio_range": 1.0220989484924632,
+      "ratio_sd": 1.022640716189524
+    },
+    "30": {
+      "persona_driven_range": 5.672701418399811,
+      "trait_driven_range": 5.621325564384461,
+      "persona_driven_sd": 2.022926696946614,
+      "trait_driven_sd": 1.9979754140391381,
+      "ratio_range": 1.0091394553521071,
+      "ratio_sd": 1.012488283255215
+    },
+    "31": {
+      "persona_driven_range": 6.6894199550151825,
+      "trait_driven_range": 6.6259496212005615,
+      "persona_driven_sd": 2.3509780912205045,
+      "trait_driven_sd": 2.365297393284655,
+      "ratio_range": 1.009579054693012,
+      "ratio_sd": 0.9939460880882021
+    }
   }
 }
