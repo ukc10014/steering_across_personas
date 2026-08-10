@@ -118,6 +118,12 @@ L15**: L20 retains a workable floor (0.835) while nearly doubling the margin (0.
 That is an independent justification for a deviation `llama31_8b_stage1.md:241` had recorded
 on fan-width grounds alone.
 
+**Caveat, from the paper itself.** K/D §A.2 pick layer 22 on two criteria: (i) behavioral lift
+under *self-steering* is among the largest in their sweep, and (ii) within-cell bootstrap
+stability is high. We have measured (ii) but **not (i) — no steering has been run on Llama at
+all.** So our layer choice rests on stability plus fan width, and fan width is not one of their
+criteria. Matching their procedure properly would require a steering sweep.
+
 ---
 
 ### 7. Rung 2 — rephrasing the persona barely moves the vector
@@ -134,10 +140,19 @@ Persona-averaged, all 8 traits:
 
 ![B.1 hierarchy by layer](../../outputs/Llama-3.1-8B-Instruct/analysis/b1_noise_floor.png)
 
+K/D's own hierarchy (§B.1) is **0.99 within-cell > 0.85 across-paraphrase > 0.78
+across-persona** — a clean descending ladder. Ours is shaped differently:
+
 **Rung 2 sits on top of rung 1, not between rungs 1 and 3.** At layer 15 rewording the prompt
 perturbs the trait vector *less* than resampling the questions does. The hierarchy is
 **rung 1 ≈ rung 2 ≫ rung 3**, which is exactly the "identity, not phrasing" claim — now
 demonstrated here rather than assumed from K/D.
+
+Note the difference in shape. In K/D's data phrasing costs a visible 0.14 (0.99 → 0.85); in
+ours it costs nothing measurable. That is not because our personas are more phrasing-robust
+than theirs — it is because our rung-1 floor is so much lower that any paraphrase effect of
+their size would be buried in it. Same conclusion, different regime, and worth saying plainly
+rather than claiming a stronger result than we have.
 
 ### 8. Variance decomposition — ~2/3 of the spread is identity
 
@@ -178,8 +193,14 @@ this is driven by the persona's meaning, not by the mere presence of a system pr
 
 ![magnitude and B.6](../../outputs/Llama-3.1-8B-Instruct/analysis/magnitude_L20.png)
 
-**B.6 does not reproduce.** K/D claim magnitude and direction decouple at the cell level.
-Correlating cosine-to-null against log2 magnitude ratio over all 80 persona×trait cells:
+**B.6's cell-level claim reproduces; its trait-level claim does not transfer.**
+
+Read the paper carefully before testing this: B.6 does **not** claim zero correlation. It says
+magnitude and directional spread "are positively correlated at the trait level (deference,
+warmth, and assertiveness appear in the upper tier of both)" but "do not agree cell-for-cell",
+concluding that persona conditioning acts "along partly orthogonal axes". So the prediction is
+a *weak positive* association, not a shapeless cloud. Correlating cosine-to-null against log2
+magnitude ratio over all 80 persona×trait cells:
 
 | layer | Pearson r | 95% CI (cluster bootstrap over personas) |
 |---|---|---|
@@ -188,17 +209,27 @@ Correlating cosine-to-null against log2 magnitude ratio over all 80 persona×tra
 | 25 | +0.258 | [+0.108, +0.386] |
 
 All three exclude zero even after clustering, which is the right test here since the 80 cells
-share 10 personas and 8 traits and are not independent. Cells that rotate further from null
-also shorten more. The association is real but modest — r ≈ 0.25–0.33 is ~6–11% of variance,
-so "largely independent with a reliable weak coupling", not "tightly linked".
+share 10 personas and 8 traits and are not independent. r ≈ 0.25–0.33 is ~6–11% of variance —
+a real but weak positive association, which is precisely what "partly orthogonal axes"
+describes. **On the cell-level claim we agree with K/D.**
 
-**A tempting explanation for the discrepancy was tested and rejected.** K/D report magnitudes
-at layer 25 while their cosine analysis is at layer 22; reading two quantities at different
-depths would add noise and bias toward finding decoupling. It does not: r at (cos 22, mag 25)
-is +0.275 against +0.269 for matched (22, 22) and +0.258 for (25, 25). The fields are smooth
-enough across those layers that the mismatch is empirically irrelevant, so our disagreement
-with B.6 cannot be explained away as a layer artifact. Still worth raising with Jacob and
-Rhea, but as a substantive difference rather than a bug.
+The *trait-level* half does not transfer. Correlating per-trait magnitude spread against
+per-trait directional spread across the eight traits gives **+0.389 at L20 but only +0.095 at
+L25** — weak and layer-unstable. And their named upper tier does not survive: on Llama, warmth
+is upper-tier in both (rank 3 magnitude / 2 direction), but assertiveness is 1st in direction
+and only 6th in magnitude, and deference is 7th in direction and 4th in magnitude, versus
+K/D's report of all three in the upper tier of both on Gemma-2-27B.
+
+**The layer-mismatch worry is empirically void.** K/D report magnitudes (Figure 7) at a
+different layer from the cosine analysis, and reading two quantities at different depths could
+in principle add noise. It does not: r at (cos 22, mag 25) is +0.275 against +0.269 for matched
+(22, 22) and +0.258 for (25, 25). The fields are smooth enough across those layers that the
+mismatch changes nothing, so it need not be raised as a confound.
+
+**Not yet tested: B.2's own magnitude claim.** §B.2 compares two *ranges* — persona-driven norm
+variation against trait-driven norm variation — and concludes "switching the persona moves the
+vector's length by about as much as switching the trait does". That is a different comparison
+from anything above and is computable from `caa_magnitude.json` without new extraction.
 
 ## Method notes and caveats
 

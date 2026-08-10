@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
-"""Magnitude figure: how long persona trait vectors are, and the B.6 decoupling test.
+"""Magnitude figure: persona trait-vector length, and the B.6 cell-level check.
 
 Panel A -- persona x trait, log2(||v_persona|| / ||v_null||) at one layer. DIVERGING about
 zero, because zero is a real boundary here (same length as the assistant default) rather
 than an arbitrary midpoint: blue = shorter than null, orange = longer, neutral grey at 0.
 
-Panel B -- the B.6 test. Each dot is one persona x trait cell: how far it rotated
-(cosine-to-null, x) against whether it lengthened or shortened (log2 ratio, y). K/D claim
-these decouple, which predicts a shapeless cloud. The fitted line and the cluster-bootstrap
-CI on r say whether that holds. The nonsense control is drawn separately -- it should sit
-top-right, unrotated and unchanged in length.
+Panel B -- the B.6 cell-level check. Each dot is one persona x trait cell: how far it
+rotated (cosine-to-null, x) against whether it lengthened or shortened (log2 ratio, y).
+K/D B.6 does NOT claim zero correlation -- it says the two are positively correlated at the
+trait level but "do not agree cell-for-cell", i.e. partly orthogonal axes. So the prediction
+is a weak positive association, not a shapeless cloud, and r is reported against that.
+The nonsense control is drawn separately -- it should sit top-right, unrotated and
+unchanged in length.
 
 Usage:
     python scripts/plot_magnitude.py --model meta-llama/Llama-3.1-8B-Instruct --layer 20
@@ -51,7 +53,7 @@ DIV = LinearSegmentedColormap.from_list(
 
 
 def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Magnitude + B.6 decoupling figure")
+    p = argparse.ArgumentParser(description="Magnitude + B.6 cell-level figure")
     p.add_argument("--model", type=str, required=True)
     p.add_argument("--layer", type=int, default=20)
     p.add_argument("--outdir", type=str, default=None)
@@ -157,7 +159,7 @@ def main() -> int:
     axB.set_xlabel(r"cos($v_{T,c}$, $v_{T,\mathrm{null}}$)   —   rotation away from null",
                    fontsize=10, color=INK_SECONDARY)
     axB.set_ylabel("log2 magnitude ratio to null", fontsize=10, color=INK_SECONDARY)
-    axB.set_title(f"B.  B.6 decoupling test, layer {L}", fontsize=11.5, color=INK_PRIMARY,
+    axB.set_title(f"B.  B.6 cell-level check, layer {L}", fontsize=11.5, color=INK_PRIMARY,
                   pad=10, loc="left", fontweight="semibold")
     axB.grid(color="#e8e7e3", lw=0.8, zorder=0)
     axB.set_axisbelow(True)
@@ -167,7 +169,13 @@ def main() -> int:
     for s in ("left", "bottom"):
         axB.spines[s].set_color("#dedcd7")
 
-    verdict = "not decoupled" if (lo > 0 or hi < 0) else "consistent with decoupling"
+    # K/D B.6 predicts a weak positive association ("partly orthogonal"), not r = 0.
+    if lo > 0 and hi < 0.5:
+        verdict = "weak positive assoc.\nconsistent with B.6 'partly orthogonal'"
+    elif lo > 0:
+        verdict = "strong positive assoc.\nstronger than B.6 implies"
+    else:
+        verdict = "no resolvable association"
     axB.text(0.03, 0.97,
              f"r = {r0:+.3f}   95% CI [{lo:+.3f}, {hi:+.3f}]\n"
              f"cluster bootstrap over {len(personas)} personas\n{verdict}",
