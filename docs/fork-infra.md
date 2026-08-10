@@ -865,6 +865,36 @@ saved vectors are `(n_layers-1, hidden)` and every downstream `--layer` indexes 
 tensor (§6.1). The CAA analyses here dodged that by working from activations directly; do the
 same for IV.
 
+### 15.3b Two traps in `1_generate.py`, both hit on 2026-08-10
+
+**`--personas` is NOT optional in practice.** Omitting it does not give you the 12 canonical
+series — it loads **all 37 persona YAMLs** in `data/personas/`, i.e. 59,200 generations
+(~6 hours) covering 25 personas that have no CAA counterpart to compare against. Unlike
+`2c_caa_activations.py`, this script does not default to `PERSONA_SLUGS`. Always pass the
+twelve explicitly:
+
+```
+--personas farmer politician therapist drill_sergeant street_hustler professor \
+           tech_ceo kindergarten_teacher surgeon con_artist null nonsense
+```
+
+The dry-run prints the persona count; check it reads 12 and 19,200 jobs before launching.
+
+**`--max-tokens 512` (the default) truncates most responses.** Measured on
+farmer/assertiveness at |Q|=20: at a 256 cap, **90% of positive and 76% of suppression**
+responses hit it. Natural lengths are median 357 / mean 358 (positive) and median 290 /
+mean 291 (suppression), so **640 truncates nothing**. The asymmetry matters more than the
+truncation: positive responses are genuinely ~23% longer than suppression ones, so a cap
+clips the two arms of the contrast at different rates and turns response length into a
+confound in the very subtraction meant to isolate the trait.
+
+### 15.3c Measured cost, HF backend, Blackwell
+
+One cell (200 generations, batch 50): **36s at max_tokens 256, ~70s at 640.** Full 96-cell
+grid at 640 ≈ **1h50m**, ~20MB of JSONL. vLLM would save perhaps 40 minutes on a two-hour
+job — not worth risking the validated torch (§15.3). Decision made on measurement, not
+assumption.
+
 ### 15.4 What G.1 should produce, and what to expect
 
 Run `caa_cosine_to_null.py` and `caa_within_cell_stability.py` against the IV vectors and

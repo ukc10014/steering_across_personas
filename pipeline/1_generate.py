@@ -78,6 +78,16 @@ def parse_args() -> argparse.Namespace:
         help="Max tokens to generate per response",
     )
     parser.add_argument(
+        "--backend", type=str, default="vllm", choices=("vllm", "hf"),
+        help="Generation backend. 'vllm' is upstream's default. 'hf' uses "
+             "transformers model.generate() instead, which avoids installing vLLM and "
+             "the pinned torch it would drop into $PYLIBS (see fork-infra 2 / 12.8).",
+    )
+    parser.add_argument(
+        "--batch-size", type=int, default=32,
+        help="Generation batch size, --backend hf only (vLLM schedules its own)",
+    )
+    parser.add_argument(
         "--dry-run", action="store_true",
         help="Preview what would be generated without loading model",
     )
@@ -228,16 +238,28 @@ def main() -> None:
         key = (job["persona"], job["trait"], job["direction"])
         groups[key].append(job)
 
-    # Initialize vLLM generator
-    generator = VLLMGenerator(
-        model_name=args.model,
-        max_model_len=args.max_model_len,
-        tensor_parallel_size=args.tensor_parallel_size or 1,
-        temperature=args.temperature,
-        max_tokens=args.max_tokens,
-    )
-    generator.load()
-    tokenizer = generator.llm.get_tokenizer()
+    # Initialize the generation backend
+    if args.backend == "hf":
+        from persona_steering.hf_generator import HFGenerator
+        generator = HFGenerator(
+            model_name=args.model,
+            max_model_len=args.max_model_len,
+            temperature=args.temperature,
+            max_tokens=args.max_tokens,
+            batch_size=args.batch_size,
+        )
+        generator.load()
+        tokenizer = generator.tokenizer
+    else:
+        generator = VLLMGenerator(
+            model_name=args.model,
+            max_model_len=args.max_model_len,
+            tensor_parallel_size=args.tensor_parallel_size or 1,
+            temperature=args.temperature,
+            max_tokens=args.max_tokens,
+        )
+        generator.load()
+        tokenizer = generator.llm.get_tokenizer()
 
     output_dir.mkdir(parents=True, exist_ok=True)
 
