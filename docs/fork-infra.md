@@ -336,3 +336,237 @@ print('matmul ok:', (x @ x).sum().item())                  # the actual test
 If `sm_120` is missing from the arch list or the matmul throws, the image's torch is too
 old — pick a newer RunPod template rather than trying to pip-install a fix (that pulls the
 whole CUDA wheel stack onto container disk; see §2).
+
+---
+
+## 12. Work plan — B.1 follow-through (opened 2026-08-10)
+
+Context: the B.1 noise-floor re-analysis is **done** and written up in
+[docs/results/llama31_8b_b1_noise_floor.md](results/llama31_8b_b1_noise_floor.md). This
+section covers the two follow-on steps that need GPU, and the state of the pod they were
+scoped on. Read the writeup first — it says *why* these two steps are the next ones.
+
+### 12.1 Status
+
+| Step | What | State |
+|---|---|---|
+| 1 | K/D's rung-1 estimator (within-cell bootstrap) | **done** — `scripts/caa_within_cell_stability.py` |
+| 2 | Split-half question-bank floor | **done** — same script |
+| 3 | Paraphrase arm (5 system-prompt variants) — supplies K/D's missing **rung 2** | **not started**, needs GPU |
+| 4 | Variance decomposition (within / paraphrase / persona), ICC-style with a CI | **blocked on 3**, CPU-only once 3 lands |
+
+Step 4 is blocked on step 3 by construction: the across-paraphrase component of the
+decomposition *is* rung 2. Don't try to build the estimator first.
+
+### 12.2 This pod is NOT the pod in §11
+
+Observed 2026-08-10 — compare before assuming §11's numbers apply:
+
+| | §11 (known-good) | this pod |
+|---|---|---|
+| GPU | RTX PRO 6000 Blackwell, 96GB | **RTX 3090, 24GB**, sm_86 |
+| torch | (image, cu13) | **2.4.1+cu124**, from image, arch list has sm_86 |
+| Python | 3.12.3 → `pylibs-py312` | **3.11.10** → `pylibs-py311` |
+
+`pylibs-py311` was **effectively empty** (torch + numpy only). Provisioned this session with:
+
+```bash
+pip install --target="$PYLIBS" --no-deps python-dotenv
+pip install --target="$PYLIBS" --no-deps matplotlib contourpy cycler fonttools \
+    kiwisolver packaging pillow pyparsing python-dateutil six
+pip install --target="$PYLIBS" "transformers>=4.45,<5" scikit-learn plotly tqdm
+pip install --target="$PYLIBS" --no-deps accelerate psutil     # accelerate declares torch
+```
+
+Resulting versions: `transformers 4.57.6`, `accelerate 1.14.0`, `matplotlib 3.11.1`.
+**No duplicate torch and no `nvidia_*` wheels landed in `$PYLIBS`** — verified, the §2
+landmine was avoided by holding `accelerate` to `--no-deps`.
+
+**Two gotchas found the hard way:**
+
+1. **`pip --target` DID shadow numpy** — it installed `numpy 2.4.6` into `$PYLIBS` over the
+   image's 1.26.3, despite 1.26.3 being importable. torch 2.4.1 ↔ numpy 2.4.6 interop was
+   tested and works (`.numpy()` / `from_numpy()` round-trip), so it was left in place. Be
+   aware the analysis earlier in the session ran under 1.26.3; RNG (`default_rng`/PCG64) is
+   version-stable per NEP 19, so the stored JSON is unaffected.
+2. **`HF_HUB_OFFLINE=1` is REQUIRED on this transformers version.** 4.57.6 calls
+   `list_repo_templates()` during tokenizer load, which requests
+   `.../tree/main/additional_chat_templates`, gets a 404, and raises instead of degrading.
+   The weights are fully cached, so offline mode is the correct fix. Without it the run dies
+   ~15s in, before touching the GPU, with a `RemoteEntryNotFoundError` that looks like a
+   gated-model auth problem and is not one. Consider adding it to `bootstrap.sh`.
+
+### 12.3 GPU verdict: the 3090 is sufficient — verified end-to-end
+
+Not inferred from arithmetic. A real single-cell extraction was run
+(`--personas farmer --traits warmth`), and it worked:
+
+| measurement | value |
+|---|---|
+| VRAM, model resident, `--batch-size 16` | **17,516 MiB / 24,576 MiB** (~7GB headroom) |
+| model load | 37s |
+| throughput | **25.9 s per 500-question file** |
+| output | 131 MB, 500 keys, correct shape |
+
+**Correctness check against the committed activations:** the re-extracted
+`farmer_warmth_{pos,neg}.pt` are *not* bit-identical to the existing files (different GPU,
+different kernel reduction order in fp16), but per-layer cosine of the mean activation is
+**0.999993 or better at every one of the 32 layers**; mean absolute elementwise difference
+0.0036. The pipeline reproduces on this hardware.
+
+**Consequence for step 4, and it is a real one:** variant 0 already on disk was extracted on
+*different* hardware from anything extracted here, so a within/paraphrase/persona
+decomposition would in principle confound "across-paraphrase" with "across-GPU". The size
+of that confound is now measured: hardware contributes ~7e-6 of angular decorrelation
+against ~0.16 from question resampling — **five orders of magnitude smaller, ignorable**.
+Re-extracting variant 0 for hygiene would cost +160 files / +21GB / +1.2h and is *not*
+worth it on these numbers. State the check in the writeup rather than paying for it.
+
+### 12.4 Cost of step 3
+
+Scope: variants 1–4 (variant 0 is the existing `caa_activations/`), 10 personas × 8 traits ×
+2 directions = **640 files**, 319,920 forward passes.
+
+| | per file | step 3 total |
+|---|---|---|
+| this 3090 | 25.9 s | **~4.6 hours** |
+| §11 Blackwell (implied by the 192-file/15m11s original run) | 4.7 s | **~50 minutes** |
+
+Storage: **~84 GB** on the volume (166TB free — not a constraint).
+
+**Decision (2026-08-10): step 3 runs on the 96GB pod.** ~5.5× faster for an identical
+result, and the arm is a single unattended job. The 3090 remains a verified working fallback
+— nothing about the result changes there, only the wall clock. Migration checklist in §12.8.
+
+### 12.5 Step 3 needs a code change — it is not just a re-run
+
+`2c_caa_activations.py` has **no `--variant` flag**. Line 369 passes
+`persona.default_system_prompt`, which `config.py:99-101` hard-codes to
+`system_prompt_variants[0]`. All 37 persona YAMLs carry 5 variants; four of them have never
+been used by any extraction.
+
+Minimal change, three edits:
+
+1. Add `--variant N` (int, default 0) to `parse_args()`.
+2. `persona_system_prompt=persona.system_prompt_variants[args.variant]` at line 369
+   (bounds-check it — `default_system_prompt` silently returns `""` for a persona with no
+   variants, and a silent empty system prompt is exactly the `null` condition, which would
+   look like a result rather than a bug).
+3. Output naming — **use a separate directory**, `caa_activations_paraphrase/`, with a
+   `{persona}_v{N}_{trait}_{dir}.pt` infix.
+
+On (3): do **not** write variants into the existing `caa_activations/`. The analysis scripts
+discover cells by globbing that directory, so `farmer_v1` would be picked up as an
+additional *persona* and silently inflate rung 3 in
+`caa_within_cell_stability.py` and the fan-out figures. Symlink variant 0 into the new
+directory rather than re-extracting it (see 12.3 — the hardware delta is ignorable):
+
+```bash
+cd outputs/Llama-3.1-8B-Instruct/caa_activations_paraphrase
+for f in ../caa_activations/*.pt; do
+  b=$(basename "$f"); p=${b%%_*}
+  [ "$p" = null ] || [ "$p" = nonsense ] && continue
+  ln -s "$f" "${b/_/_v0_}"
+done
+```
+
+`null` is excluded deliberately: its system prompt is `""`, so it has no paraphrases and
+`system_prompt_variants[1..4]` is meaningless for it. `nonsense` *does* have 5 variants, but
+see §7 — the released `nonsense.yaml` is probably not the artifact that produced K/D's
+figures, so treat any nonsense paraphrase result as provisional.
+
+### 12.6 Run sheet
+
+```bash
+source /workspace/bootstrap.sh
+export HF_HUB_OFFLINE=1                      # REQUIRED, see 12.2
+
+# always dry-run first: confirms file count and forward passes before a multi-hour job
+python pipeline/2c_caa_activations.py --model meta-llama/Llama-3.1-8B-Instruct \
+    --variant 1 --output-dir outputs/Llama-3.1-8B-Instruct/caa_activations_paraphrase \
+    --personas farmer politician therapist drill_sergeant street_hustler professor \
+               tech_ceo kindergarten_teacher surgeon con_artist --dry-run
+
+# then variants 1..4; 2c skips files that already exist, so it is resumable
+```
+
+**The §6.5 answer-token check has now been run across all five variants and PASSES** —
+180/180 examples, 3 personas × 2 traits × 2 directions × 5 variants, every index landing on
+a bare `A`/`B` token. `verify_answer_token.py` gained a `--variants` flag for this; it
+previously only ever tested `default_system_prompt`, i.e. variant 0, so it could not have
+caught a variant-induced shift:
+
+```bash
+python scripts/verify_answer_token.py --model meta-llama/Llama-3.1-8B-Instruct \
+    --traits warmth deference --personas farmer con_artist null --variants 0 1 2 3 4 --n 3
+```
+
+Re-run this whenever the persona set or model family changes. It is the highest
+silent-failure risk in the pipeline — a wrong index makes every downstream cosine noise
+while nothing else looks broken.
+
+### 12.7 Step 4 once step 3 lands
+
+CPU-only, no GPU, minutes. Partition total cosine-distance variance into
+within-cell / across-paraphrase / across-persona components, ICC-style, and report the ratio
+with a CI. `scripts/caa_within_cell_stability.py` already computes the within-cell term and
+has the weighted-mean matmul trick that makes the resampling cheap (`weighted_vectors()`) —
+extend it rather than starting a new script.
+
+The reason this matters, restated from the writeup: H7-style claims are about *differences in
+dispersion between constitutions*, which needs an error bar on a dispersion statistic. Right
+now we have point estimates compared against a floor, which is suggestive, not a test.
+
+### 12.8 Migrating to the 96GB pod — do these in order
+
+Everything in the repo is ready; the blocker is that **`pylibs-py312` is in the exact broken
+state §2 warns about** and will fail before it reaches the GPU.
+
+**1. Confirm you actually landed on Python 3.12.** If the new pod is 3.11 or 3.13 you get a
+different (empty) `PYLIBS` and none of the below applies — reprovision per §12.2 instead.
+
+```bash
+source /workspace/bootstrap.sh && python3 -V && echo $PYLIBS
+```
+
+**2. Fix `transformers` — this is the blocker.** `pylibs-py312` currently has **5.14.1**,
+which §2 flags as API-incompatible with the 4.x this codebase targets:
+
+```bash
+pip install --target="$PYLIBS" --upgrade "transformers>=4.45,<5"
+python -c "import transformers; print(transformers.__version__)"   # expect 4.5x
+```
+
+**3. Verify which torch wins, and that it speaks sm_120.** `pylibs-py312` carries a full
+duplicate `torch 2.13.0+cu130`, and `PYTHONPATH` puts `$PYLIBS` first, so **that duplicate
+shadows the image's build** — this is the §2 landmine, and on Blackwell it is also the §11
+`sm_120` question. Run the §11 block verbatim; `get_arch_list()` must include `sm_120` and
+the bf16 matmul must actually execute. If it fails, delete `$PYLIBS/torch*` and
+`$PYLIBS/nvidia*` so the image's torch wins, then re-check.
+
+**4. Clean the duplicate installs.** `pylibs-py312` has two `peft` versions (0.19.1, 0.20.0)
+and two `pandas` (3.0.3, 3.0.5). Not currently load-bearing for CAA — `peft` is only needed
+for the Stage-2 adapter merge — but resolve them before the adapted-model arm.
+
+**5. Export the offline flag.** Required on transformers ≥4.5x, see §12.2:
+
+```bash
+export HF_HUB_OFFLINE=1
+```
+
+**6. Re-run the two cheap guards before the long job.** Both are fast and both have caught
+real problems:
+
+```bash
+bash scripts/preflight.sh          # must print PREFLIGHT OK
+python scripts/verify_answer_token.py --model meta-llama/Llama-3.1-8B-Instruct \
+    --traits warmth deference --personas farmer con_artist null --variants 0 1 2 3 4 --n 3
+```
+
+**7. Then the run sheet in §12.6.** Dry-run first, then variants 1–4. `2c` skips existing
+files, so the job is resumable and safe to interrupt.
+
+**Not needed on the new pod:** nothing in the analysis path. Steps 1–2 and both figures are
+already computed and committed under `outputs/*/analysis/`, which is the one part of
+`outputs/` that is not gitignored. The 24GB of `caa_activations/` lives on the volume and is
+mounted wherever the pod is, so no data moves.

@@ -51,6 +51,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--traits", nargs="*", default=["deference", "warmth"])
     parser.add_argument("--personas", nargs="*", default=["therapist", "null"])
     parser.add_argument("--n", type=int, default=5, help="Examples per persona x trait x direction")
+    parser.add_argument("--variants", type=int, nargs="*", default=[0],
+                        help="system_prompt_variant indices to check (default: [0]). "
+                             "Variants differ in length, and find_answer_token_position() "
+                             "works by prefix-diff with a left-pad offset, so a variant that "
+                             "shifts the index is exactly the silent failure this guards.")
     parser.add_argument("--show-prompt", action="store_true", help="Print the full templated prompt for the first example")
     return parser.parse_args()
 
@@ -74,54 +79,58 @@ def main() -> int:
         dataset = load_caa_dataset(Trait(trait_name))
         for persona_slug in args.personas:
             persona = load_persona(persona_slug)
-            system_prompt = persona.default_system_prompt
-            for direction in ("pos", "neg"):
-                print(f"--- {persona_slug} / {trait_name} / {direction} ---")
-                for q in dataset.questions[: args.n]:
-                    answer_letter = caa.get_answer_letter(q, direction)
-                    user_msg = caa.format_caa_user_message(q)
+            for variant in args.variants:
+                if variant >= len(persona.system_prompt_variants):
+                    print(f"--- {persona_slug}: no variant {variant}, skipping ---")
+                    continue
+                system_prompt = persona.system_prompt_variants[variant]
+                for direction in ("pos", "neg"):
+                    print(f"--- {persona_slug} v{variant} / {trait_name} / {direction} ---")
+                    for q in dataset.questions[: args.n]:
+                        answer_letter = caa.get_answer_letter(q, direction)
+                        user_msg = caa.format_caa_user_message(q)
 
-                    if supports_system:
-                        base = [
-                            {"role": "system", "content": system_prompt},
-                            {"role": "user", "content": user_msg},
-                        ]
-                    else:
-                        base = [{"role": "user", "content": f"{system_prompt}\n\n{user_msg}"}]
+                        if supports_system:
+                            base = [
+                                {"role": "system", "content": system_prompt},
+                                {"role": "user", "content": user_msg},
+                            ]
+                        else:
+                            base = [{"role": "user", "content": f"{system_prompt}\n\n{user_msg}"}]
 
-                    conv_with = base + [{"role": "assistant", "content": answer_letter}]
+                        conv_with = base + [{"role": "assistant", "content": answer_letter}]
 
-                    pos = caa.find_answer_token_position(
-                        tokenizer, base, conv_with, answer_letter
-                    )
+                        pos = caa.find_answer_token_position(
+                            tokenizer, base, conv_with, answer_letter
+                        )
 
-                    full_text = tokenizer.apply_chat_template(
-                        conv_with, tokenize=False, add_generation_prompt=False
-                    )
-                    full_ids = tokenizer(full_text, add_special_tokens=False)["input_ids"]
-                    token_at_index = tokenizer.decode([full_ids[pos]])
+                        full_text = tokenizer.apply_chat_template(
+                            conv_with, tokenize=False, add_generation_prompt=False
+                        )
+                        full_ids = tokenizer(full_text, add_special_tokens=False)["input_ids"]
+                        token_at_index = tokenizer.decode([full_ids[pos]])
 
-                    if args.show_prompt and not printed_prompt:
-                        print("  [full templated prompt]")
-                        print("  " + repr(full_text))
-                        printed_prompt = True
+                        if args.show_prompt and not printed_prompt:
+                            print("  [full templated prompt]")
+                            print("  " + repr(full_text))
+                            printed_prompt = True
 
-                    # The token we land on must actually contain the answer letter,
-                    # and must not be the *other* letter.
-                    other = "B" if answer_letter == "A" else "A"
-                    ok = answer_letter in token_at_index and other not in token_at_index
+                        # The token we land on must actually contain the answer letter,
+                        # and must not be the *other* letter.
+                        other = "B" if answer_letter == "A" else "A"
+                        ok = answer_letter in token_at_index and other not in token_at_index
 
-                    n_checked += 1
-                    if not ok:
-                        n_bad += 1
+                        n_checked += 1
+                        if not ok:
+                            n_bad += 1
 
-                    context = tokenizer.decode(full_ids[max(0, pos - 4) : pos + 2])
-                    print(
-                        f"  q{q.id:<4} expect={answer_letter}  idx={pos:<5} "
-                        f"token={token_at_index!r:<8} {'OK' if ok else 'MISMATCH'}"
-                        f"   ...{context!r}"
-                    )
-                print()
+                        context = tokenizer.decode(full_ids[max(0, pos - 4) : pos + 2])
+                        print(
+                            f"  q{q.id:<4} expect={answer_letter}  idx={pos:<5} "
+                            f"token={token_at_index!r:<8} {'OK' if ok else 'MISMATCH'}"
+                            f"   ...{context!r}"
+                        )
+                    print()
 
     print(f"Checked {n_checked} examples: {n_checked - n_bad} OK, {n_bad} mismatched.")
     if n_bad:

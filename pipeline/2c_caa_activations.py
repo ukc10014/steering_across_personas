@@ -55,6 +55,13 @@ def parse_args() -> argparse.Namespace:
         help="Output directory (default: outputs/{model}/caa_activations)",
     )
     parser.add_argument(
+        "--variant", type=int, default=0,
+        help="Index into the persona's system_prompt_variants (default: 0). "
+             "Variant 0 reproduces the historical behaviour; 1-4 are the paraphrases "
+             "used for K/D's rung 2 (identity vs phrasing). Non-zero variants get a "
+             "_v{N} infix in the output filename.",
+    )
+    parser.add_argument(
         "--batch-size", type=int, default=16,
         help="Batch size for forward passes (default: 16)",
     )
@@ -310,12 +317,14 @@ def main() -> None:
             log.error("No CAA dataset for %s. Run pipeline/0c_generate_caa_data.py first.", trait.value)
             return
 
-    # Build work list
+    # Build work list. Variant 0 keeps the historical filename so existing outputs and
+    # every analysis script that globs them are untouched; paraphrases carry a _v{N} infix.
+    suffix = "" if args.variant == 0 else f"_v{args.variant}"
     work = []
     for persona_slug in persona_slugs:
         for trait in traits:
             for direction in ("pos", "neg"):
-                output_path = output_dir / f"{persona_slug}_{trait.value}_{direction}.pt"
+                output_path = output_dir / f"{persona_slug}{suffix}_{trait.value}_{direction}.pt"
                 work.append((persona_slug, trait, direction, output_path))
 
     # Filter already-done
@@ -364,9 +373,18 @@ def main() -> None:
         log.info("Extracting %s/%s/%s (%d questions)...",
                  persona_slug, trait.value, direction, dataset.n_questions)
 
+        # Explicit index rather than .default_system_prompt: that property silently
+        # returns "" when a persona has no variants, and an empty system prompt IS the
+        # null condition -- it would look like a result rather than a misconfiguration.
+        variants = persona.system_prompt_variants
+        if args.variant >= len(variants):
+            log.error("%s has %d system_prompt_variants; --variant %d is out of range",
+                      persona_slug, len(variants), args.variant)
+            return
+
         activations = extract_caa_activations(
             pm=pm,
-            persona_system_prompt=persona.default_system_prompt,
+            persona_system_prompt=variants[args.variant],
             dataset=dataset,
             direction=direction,
             batch_size=args.batch_size,
