@@ -181,6 +181,8 @@ Note our CAA ordering already differs from theirs — deference loosest and hone
 against their warmth and risk-taking. So there are two orderings in play before IV is added,
 and "does IV match CAA" is a different question from "does our IV match their IV".
 
+![CAA vs IV ordering](../../outputs/Llama-3.1-8B-Instruct/analysis/iv_vs_caa_L20.png)
+
 **The two methods are ANTI-correlated, not merely reordered.** Spearman between the IV and
 CAA per-trait orderings is **−0.524 at L20 and −0.619 at L15**. K/D describe the ordering as
 shifting "somewhat"; on Llama the methods rank traits in close to opposite order. Honesty is
