@@ -132,7 +132,13 @@ holds the IV output, kept separate so it cannot overwrite the CAA results.
 ![IV per-trait fan-out, K/D Figure 20 equivalent](../../outputs/Llama-3.1-8B-Instruct/analysis/iv/fig1_persona_fanout_L20_kd.png)
 
 The K/D Appendix G figure — "Figure 20 reports the IV equivalent of Figure 1" — rendered from
-the same `plot_fig1_persona_fanout.py` used for CAA, so the two are directly comparable. The
+the same `plot_fig1_persona_fanout.py` used for CAA, so the two are directly comparable.
+
+> **Reading the x-axis.** These are the `_kd` renders, whose column order is hardcoded from the
+> paper (`KD_ORDER` in `plot_fig1_persona_fanout.py`) and is *identical in every figure* —
+> both methods, both layers. It carries no information about our results, which is why the
+> black persona-mean rules do not ascend. For the ordering implied by our own data use the
+> `_sorted` sibling of each file, or the slopegraph in §4.2. The
 y-range is deliberately held to include 0 even though no IV value goes near it: keeping the
 CAA and IV panels on one scale is what makes the method difference legible at a glance.
 
@@ -152,9 +158,6 @@ directly.
 | empathy | 0.846 | 0.530 | 0.981 |
 | **mean** | **0.769** | **0.541** | 0.926 |
 
-At L15 the gap is much smaller (IV 0.783 vs CAA 0.723); by L20 CAA's spread has grown with
-depth while IV's has stayed nearly flat.
-
 **IV finds substantially less persona-driven rotation than CAA.** Note which way the noise
 cuts: IV has M=100 pairs per cell against CAA's M=500, so IV vectors are the noisier of the
 two, and extra noise *lowers* cosine-to-null. The observed IV cosine is **higher**, so the
@@ -163,6 +166,48 @@ artefact.
 
 K/D report IV persona means spanning 0.54 (impulsivity) to 0.87 (confidence). Ours span
 0.690–0.846 — a narrower range sitting at the tight end of theirs.
+
+#### 4.1b The same figure at layer 15 — the methods only diverge with depth
+
+No re-extraction was needed for this: activations are cached as `(32, 4096)`, so every layer is
+already on disk and the plot scripts take `--layers 15 20`. Layer 15 is this repo's
+pre-designated mid-stack headline layer (CLAUDE.md), so it is the one to report alongside L20.
+
+![IV per-trait fan-out at layer 15](../../outputs/Llama-3.1-8B-Instruct/analysis/iv/fig1_persona_fanout_L15_kd.png)
+
+| trait | IV @ L15 | CAA @ L15 | IV nonsense | (IV @ L20) |
+|---|---|---|---|---|
+| risk_taking | **0.724** | 0.774 | 0.733 | 0.706 |
+| impulsivity | 0.753 | 0.749 | 0.943 | 0.734 |
+| honesty | 0.758 | 0.757 | 0.946 | 0.690 |
+| deference | 0.765 | 0.680 | 0.897 | 0.759 |
+| confidence | 0.784 | 0.758 | 0.964 | 0.771 |
+| warmth | 0.812 | 0.703 | 0.977 | 0.815 |
+| assertiveness | 0.829 | 0.684 | 0.969 | 0.831 |
+| empathy | 0.842 | 0.682 | 0.971 | 0.846 |
+| **mean** | **0.783** | **0.723** | 0.925 | 0.769 |
+
+**The headline gap is mostly a layer-20 phenomenon.** At L15 the IV–CAA difference in persona
+mean is 0.060 (0.783 vs 0.723); at L20 it is 0.228 (0.769 vs 0.541). IV is nearly flat across
+the two layers — mean 0.783 → 0.769 — while CAA falls 0.723 → 0.541. So §4.1's finding is
+better stated as *CAA's persona spread grows sharply with depth and IV's does not*, rather than
+as a fixed offset between the methods. For three traits (impulsivity 0.753/0.749, honesty
+0.758/0.757, confidence 0.784/0.758) the two methods are indistinguishable at L15 and only
+separate by L20.
+
+This matters for how much weight §4.2's anti-correlation carries: it is measured where the
+methods are furthest apart. It is present at both layers (−0.619 at L15, −0.524 at L20), but a
+reader should know the two methods largely agree on *magnitude* at the mid-stack layer.
+
+The **risk taking** control problem is present at L15 too, and is marginally worse: nonsense
+0.733 against a persona mean of 0.724, a gap of 0.009 versus 0.015 at L20. Note that across
+both layers and all 8 traits the nonsense cosine still *exceeds* the persona mean — risk taking
+is a narrow margin, not a sign reversal. See §4.3.
+
+One CAA-side caution visible here: **risk_taking is CAA's tightest trait at L15 (0.774) and its
+third-loosest at L20 (0.555)**. That is a large ordering swing over five layers within a single
+method, which is worth keeping in mind before treating any single-layer CAA ordering as a
+stable property of the model.
 
 ### 4.2 Per-trait ordering, IV vs CAA
 
@@ -182,6 +227,13 @@ against their warmth and risk-taking. So there are two orderings in play before 
 and "does IV match CAA" is a different question from "does our IV match their IV".
 
 ![CAA vs IV ordering](../../outputs/Llama-3.1-8B-Instruct/analysis/iv_vs_caa_L20.png)
+
+The layer-15 version of the same figure is at
+[`iv_vs_caa_L15.png`](../../outputs/Llama-3.1-8B-Instruct/analysis/iv_vs_caa_L15.png). It shows
+the same crossings (Spearman −0.619) but a much smaller vertical offset between the two
+columns, for the reason given in §4.1b — at L15 the methods disagree about trait *order* while
+largely agreeing about *magnitude*. Read together, the pair separates the two claims: the
+ordering reversal is layer-robust, the magnitude gap is not.
 
 **The two methods are ANTI-correlated, not merely reordered.** Spearman between the IV and
 CAA per-trait orderings is **−0.524 at L20 and −0.619 at L15**. K/D describe the ordering as
