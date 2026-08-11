@@ -39,7 +39,7 @@ two models; each arm is referenced to its own default, because character trainin
 | **15** (depth-matched to K/D) | 0.723 | **0.906** | **+0.183** |
 | 20 | 0.541 | **0.859** | +0.318 |
 
-![base vs goodness, layer 15](../../outputs/llama-3.1-8b-goodness/analysis/arm_comparison_L15.png)
+![base vs goodness, layer 15](../../outputs/llama-3.1-8b-goodness/analysis/arm_comparison_goodness_L15.png)
 
 The effect is easiest to see in a single cell. `warmth` at L20, per persona:
 
@@ -124,9 +124,11 @@ Nothing in this document separates them. §6 is the design that does.
 `mathematical` is the higher priority of the two: without it, §2 is a result about *an* adapter,
 not about character training.
 
-Cost per arm, measured: ~25 min GPU (merge is CPU) + ~90 min CPU analysis, 16GB merged
-checkpoint + 24GB activations. Run with `scripts/run_arm.sh <adapter> --gpu-only --terminate`,
-then `--analysis-only` on cheap hardware.
+Cost per arm, measured: ~25 min GPU (the merge is CPU) + **~6 min** CPU analysis, 16GB merged
+checkpoint + 24GB activations. The analysis was ~90 min for this arm; `caa_cosine_to_null.py`
+has since been rewritten to do the bootstrap as one GEMM rather than 400 fancy-index gathers
+(~14× faster, verified to reproduce this arm's numbers to 3e-07). At 6 minutes the case for
+splitting the analysis onto a separate CPU pod is much weaker than it was.
 
 ## 7. Reproduce
 
@@ -134,7 +136,12 @@ then `--analysis-only` on cheap hardware.
 source /workspace/bootstrap.sh
 scripts/run_arm.sh goodness                      # or --gpu-only / --analysis-only
 python scripts/plot_arm_comparison.py \
-    --adapted /workspace/merged/llama-3.1-8b-goodness --layer 15 --label goodness
+    --adapted /workspace/merged/llama-3.1-8b-goodness --layer 15 \
+    --label goodness --tag goodness
+# several arms on one figure:
+python scripts/plot_arm_comparison.py --layer 15 --tag all3 \
+    --adapted /workspace/merged/llama-3.1-8b-{goodness,mathematical,impulsiveness} \
+    --label goodness mathematical impulsiveness
 ```
 
 Flags are pinned inside `run_arm.sh` (`--n-boot 400 --seed 0`) precisely so arms stay

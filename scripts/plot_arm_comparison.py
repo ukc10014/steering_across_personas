@@ -47,7 +47,9 @@ INK_SECONDARY = "#52514e"
 INK_MUTED = "#8a8884"
 SURFACE = "#fcfcfb"
 BASE_C = "#1c4f8f"
-ADAPT_C = "#0f8a6a"
+# Adapted arms, in order. Distinguishable in greyscale as well as colour, since these figures
+# get printed: teal is darkest, amber lightest.
+ARM_COLOURS = ["#0f8a6a", "#8a5fa8", "#c9932e"]
 CONTROL_C = "#eb6834"
 
 EXCLUDE = {"nonsense", "null"}
@@ -59,10 +61,14 @@ THRESHOLD = 0.02
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Base vs adapted arm comparison")
     p.add_argument("--base", type=str, default="meta-llama/Llama-3.1-8B-Instruct")
-    p.add_argument("--adapted", type=str, required=True)
+    p.add_argument("--adapted", type=str, nargs="+", required=True,
+                   help="one or more adapted arms; order is preserved in the figure")
     p.add_argument("--layer", type=int, default=15)
     p.add_argument("--outdir", type=str, default=None)
-    p.add_argument("--label", type=str, default=None, help="name for the adapted arm")
+    p.add_argument("--label", type=str, nargs="+", default=None,
+                   help="names for the adapted arms; must match --adapted in length")
+    p.add_argument("--tag", type=str, default=None,
+                   help="filename suffix, e.g. 'all3'. Defaults to the first adapted arm.")
     return p.parse_args()
 
 
@@ -80,32 +86,48 @@ def personas(d: dict, trait: str, layer: int) -> np.ndarray:
 
 def main() -> int:
     args = parse_args()
-    B, A = load(args.base), load(args.adapted)
-    label = args.label or model_short_name(args.adapted).split("-")[-1]
+    B = load(args.base)
+    arms = [load(m) for m in args.adapted]
+    if args.label and len(args.label) != len(args.adapted):
+        raise SystemExit("error: --label must have the same number of values as --adapted")
+    labels = args.label or [model_short_name(m).split("-")[-1] for m in args.adapted]
     L = args.layer
-    traits = [t for t in B["traits"] if t in A["traits"]]
+    traits = [t for t in B["traits"] if all(t in a["traits"] for a in arms)]
     # order by the base arm's mean, loosest first -- the adapted ordering is one of the things
     # under examination, so it must not set the axis.
     traits.sort(key=lambda t: personas(B, t, L).mean())
 
-    outdir = Path(args.outdir) if args.outdir else OUTPUTS_DIR / model_short_name(args.adapted) / "analysis"
+    # (data, colour, label), base first. Colours are assigned by position, not by adapter
+    # name, so the same arm keeps its colour only within one figure -- always read the legend.
+    series = [(B, BASE_C, f"base")] + [
+        (a, ARM_COLOURS[i % len(ARM_COLOURS)], lab) for i, (a, lab) in enumerate(zip(arms, labels))]
+
+    tag = args.tag or model_short_name(args.adapted[0]).split("-")[-1]
+    outdir = Path(args.outdir) if args.outdir else OUTPUTS_DIR / model_short_name(args.adapted[0]) / "analysis"
     fig, (axA, axB) = plt.subplots(1, 2, figsize=(14.6, 6.6), facecolor=SURFACE,
                                    gridspec_kw={"width_ratios": [1.75, 1.0], "wspace": 0.24})
 
     # ---------------- Panel A ----------------
     axA.set_facecolor(SURFACE)
     rng = np.random.default_rng(0)
+    n_ser = len(series)
+    # Column half-width shrinks as arms are added so the group still fits inside its trait
+    # slot; offsets are centred on the tick.
+    half = 0.30 if n_ser > 2 else 0.19
+    offs = np.linspace(-half, half, n_ser)
+    jit = 0.055 if n_ser <= 2 else 0.035
+    bar = 0.135 if n_ser <= 2 else 0.085
     for j, t in enumerate(traits):
-        for k, (d, colour) in enumerate(((B, BASE_C), (A, ADAPT_C))):
-            x = j + (-0.19 if k == 0 else 0.19)
+        for k, (d, colour, _lab) in enumerate(series):
+            x = j + offs[k]
             pts = personas(d, t, L)
-            axA.scatter(x + rng.uniform(-0.055, 0.055, pts.size), pts, s=32, color=colour,
-                        alpha=0.75, edgecolors=SURFACE, linewidths=0.7, zorder=3)
-            axA.hlines(pts.mean(), x - 0.135, x + 0.135, color=INK_PRIMARY, lw=2.1, zorder=4)
+            axA.scatter(x + rng.uniform(-jit, jit, pts.size), pts, s=32 if n_ser <= 2 else 20,
+                        color=colour, alpha=0.75, edgecolors=SURFACE, linewidths=0.7, zorder=3)
+            axA.hlines(pts.mean(), x - bar, x + bar, color=INK_PRIMARY, lw=2.1, zorder=4)
             ctl = d["traits"][t]["personas"].get("nonsense")
             if ctl:
-                axA.scatter([x], [ctl["point"][L]], marker="D", s=34, color=CONTROL_C,
-                            edgecolors=SURFACE, linewidths=0.8, zorder=5)
+                axA.scatter([x], [ctl["point"][L]], marker="D", s=34 if n_ser <= 2 else 22,
+                            color=CONTROL_C, edgecolors=SURFACE, linewidths=0.8, zorder=5)
         if j % 2 == 0:
             axA.axvspan(j - 0.5, j + 0.5, color="#f2f1ed", lw=0, zorder=-1)
 
@@ -128,42 +150,49 @@ def main() -> int:
     axA.grid(axis="y", color="#e8e7e3", lw=0.8, zorder=0)
     axA.set_axisbelow(True)
 
-    bm = np.mean([personas(B, t, L).mean() for t in traits])
-    am = np.mean([personas(A, t, L).mean() for t in traits])
-    axA.set_title(f"A.  Personas collapse toward the default under character training"
-                  f"   (layer {L})",
+    means = [np.mean([personas(d, t, L).mean() for t in traits]) for d, _, _ in series]
+    axA.set_title(f"A.  Persona spread under each arm   (layer {L})",
                   fontsize=11.5, color=INK_PRIMARY, pad=10, loc="left", fontweight="semibold")
-    axA.legend(handles=[
-        Line2D([], [], marker="o", ls="none", markersize=7, color=BASE_C, label=f"base  (mean {bm:.3f})"),
-        Line2D([], [], marker="o", ls="none", markersize=7, color=ADAPT_C, label=f"{label}  (mean {am:.3f})"),
+    handles = [Line2D([], [], marker="o", ls="none", markersize=7, color=c,
+                      label=f"{lab}  (mean {m:.3f})")
+               for (_, c, lab), m in zip(series, means)]
+    handles += [
         Line2D([], [], marker="D", ls="none", markersize=6, color=CONTROL_C, label="nonsense control"),
         Line2D([], [], color=INK_PRIMARY, lw=2.1, label="persona mean"),
-    ], loc="lower left", frameon=False, fontsize=9, labelcolor=INK_SECONDARY, ncol=2,
-        bbox_to_anchor=(0.0, -0.30))
+    ]
+    axA.legend(handles=handles, loc="lower left", frameon=False, fontsize=9,
+               labelcolor=INK_SECONDARY, ncol=2, bbox_to_anchor=(0.0, -0.30))
 
     # ---------------- Panel B ----------------
     axB.set_facecolor(SURFACE)
     n_layers = len(B["traits"][traits[0]]["noise_floor"]["mean"])
     xs = np.arange(n_layers)
-    fb = np.array([[B["traits"][t]["noise_floor"]["mean"][l] for t in traits] for l in xs]).mean(1)
-    fa = np.array([[A["traits"][t]["noise_floor"]["mean"][l] for t in traits] for l in xs]).mean(1)
+    curves = [np.array([[d["traits"][t]["noise_floor"]["mean"][l] for t in traits]
+                        for l in xs]).mean(1) for d, _, _ in series]
+    fb = curves[0]
 
     axB.fill_between(xs, fb - THRESHOLD, fb + THRESHOLD, color="#e3e2de", lw=0, zorder=1,
                      label=f"±{THRESHOLD} of base\n(indistinguishable)")
-    axB.plot(xs, fb, color=BASE_C, lw=2.0, zorder=3, label="base")
-    axB.plot(xs, fa, color=ADAPT_C, lw=2.0, zorder=3, label=label)
+    for (_, colour, lab), curve in zip(series, curves):
+        axB.plot(xs, curve, color=colour, lw=2.0, zorder=3, label=lab)
 
-    # Staggered heights and alternating sides: at n_layers=32 the L15 and L20 verticals are
-    # close enough that same-height labels overlap each other and the legend.
-    for lay, yfrac, ha, dx in ((15, 0.40, "right", -0.4), (20, 0.22, "left", 0.4)):
-        if lay < n_layers:
-            ok = abs(fa[lay] - fb[lay]) <= THRESHOLD
-            axB.axvline(lay, color=INK_MUTED, lw=0.9, ls=(0, (2, 3)), zorder=2)
-            axB.annotate(f"L{lay}  Δ={fa[lay]-fb[lay]:+.3f}\n{'licensed' if ok else 'NOT licensed'}",
-                         xy=(lay + dx, yfrac), xycoords=("data", "axes fraction"),
-                         fontsize=8.5, ha=ha, va="center", color=INK_PRIMARY, zorder=6,
-                         bbox=dict(boxstyle="round,pad=0.32", fc=SURFACE,
-                                   ec="#5f9e77" if ok else "#c2705a", lw=1.2))
+    # One box per reported layer, listing every arm's delta against base. Staggered heights
+    # and alternating sides: at n_layers=32 the L15 and L20 verticals are close enough that
+    # same-height labels collide with each other and with the legend.
+    for lay, yfrac, ha, dx in ((15, 0.42, "right", -0.4), (20, 0.20, "left", 0.4)):
+        if lay >= n_layers:
+            continue
+        axB.axvline(lay, color=INK_MUTED, lw=0.9, ls=(0, (2, 3)), zorder=2)
+        rows, all_ok = [f"L{lay}"], True
+        for (_, _, lab), curve in list(zip(series, curves))[1:]:
+            delta = curve[lay] - fb[lay]
+            ok = abs(delta) <= THRESHOLD
+            all_ok &= ok
+            rows.append(f"{lab}  Δ={delta:+.3f}  {'ok' if ok else 'NOT'}")
+        axB.annotate("\n".join(rows), xy=(lay + dx, yfrac), xycoords=("data", "axes fraction"),
+                     fontsize=8.0, ha=ha, va="center", color=INK_PRIMARY, zorder=6,
+                     bbox=dict(boxstyle="round,pad=0.32", fc=SURFACE,
+                               ec="#5f9e77" if all_ok else "#c2705a", lw=1.2))
 
     axB.set_xlabel("layer", fontsize=10, color=INK_SECONDARY)
     axB.set_ylabel("measurement wobble  (null-vs-null cosine)\nhigher = better determined",
@@ -181,21 +210,27 @@ def main() -> int:
     axB.legend(loc="lower right", frameon=False, fontsize=8.5, labelcolor=INK_SECONDARY,
                bbox_to_anchor=(1.0, -0.02))
 
-    fig.suptitle(f"Character training ({label}) compresses persona-conditional trait vectors"
-                 f" — {model_short_name(args.base)}",
+    fig.suptitle(f"Character training vs base: persona-conditional trait vectors"
+                 f" — {model_short_name(args.base)}, layer {L}",
                  fontsize=13.5, color=INK_PRIMARY, x=0.006, ha="left",
                  fontweight="semibold", y=1.005)
     fig.tight_layout(rect=(0, 0.03, 1, 0.96))
     outdir.mkdir(parents=True, exist_ok=True)
     for ext in ("png", "pdf"):
-        path = outdir / f"arm_comparison_L{L}.{ext}"
+        path = outdir / f"arm_comparison_{tag}_L{L}.{ext}"
         fig.savefig(path, dpi=220, facecolor=SURFACE, bbox_inches="tight")
         print(f"Wrote {path}")
     plt.close(fig)
 
-    print(f"\nlayer {L}:  base mean {bm:.3f}   {label} mean {am:.3f}   shift {am-bm:+.3f}")
-    print(f"wobble:     base {fb[L]:.3f}   {label} {fa[L]:.3f}   diff {fa[L]-fb[L]:+.3f}"
-          f"   -> {'LICENSED' if abs(fa[L]-fb[L]) <= THRESHOLD else 'NOT licensed'} at this layer")
+    print(f"\nlayer {L}   (persona mean; shift and wobble are vs base)")
+    print(f"{'arm':<16}{'mean':>8}{'shift':>9}{'wobble':>9}{'Δwobble':>10}   verdict")
+    for (_, _, lab), m, curve in zip(series, means, curves):
+        if lab == "base":
+            print(f"{lab:<16}{m:>8.3f}{'—':>9}{curve[L]:>9.3f}{'—':>10}")
+            continue
+        dw = curve[L] - fb[L]
+        print(f"{lab:<16}{m:>8.3f}{m-means[0]:>+9.3f}{curve[L]:>9.3f}{dw:>+10.3f}   "
+              f"{'LICENSED' if abs(dw) <= THRESHOLD else 'NOT licensed'}")
     return 0
 
 
