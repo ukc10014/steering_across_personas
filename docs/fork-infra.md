@@ -778,30 +778,59 @@ after, the dispersion experiments it would invalidate.
 
 ## 14. Next session — start here
 
-**Repo state at handoff:** `main` = `9812db3`, clean, pushed to `origin`. B.1 (all three rungs),
-the variance decomposition, magnitude, and the B.2/B.6 appendix checks are done and written up
-in [docs/results/llama31_8b_b1_noise_floor.md](results/llama31_8b_b1_noise_floor.md). Read that
-first; it carries the numbers and the two loose ends.
+**Repo state at handoff:** `main` clean and pushed. Three character-training arms are done and
+the headline result **did not survive its control** — read
+[docs/results/llama31_8b_character_arms.md](results/llama31_8b_character_arms.md) first; it is
+self-contained and carries every number.
 
-**The K/D paper is now on disk** at `/workspace/refs/personas_shape_how_models_represent_behaviors.pdf`
-(22 pages). Deliberately outside the repo — the fork is public and the PDF is third-party.
-`pypdf` is installed in `pylibs-py312`, so `pypdf.PdfReader(...).pages[n].extract_text()` beats
-reading page images if you need to check a claim. Appendix B is pp. 6–9; Appendix G is p. 21.
+**The one-line summary.** Merging any of the three OCT LoRA adapters compresses persona-conditional
+trait vectors toward the model's own default by about the same amount (L15 shift: `goodness`
++0.183, `mathematical` +0.171, `impulsiveness` +0.191, against a base of 0.723). `mathematical`
+is the orthogonal control, so the compression is a property of merging an r=64 LoRA, **not** of
+what the constitution says. The specificity test also failed: the `impulsiveness` arm moves
+`impulsivity` 4th of 8 traits.
 
-**Next task: the adapted-model (character training) arm — §13.** That section is written and
-current. Two things to carry into it that were learned after it was drafted:
+**What is closed:**
+- **Loose end 1** (baseline floor at `--n-boot 400`) — done, point estimates moved 0.000e+00.
+- §13's adapted-model arm — executed, three arms, all guards passed (non-zero `max|Δw|`, 36/36
+  answer-token, 192/192 files with no truncation).
+- The §13.5 licensing question — **licensed at L15** for all three arms (Δwobble ≤ 0.011 against
+  a ±0.02 threshold), not at L20 for two of them.
 
-1. **Loose end 1 is a hard blocker, not a nicety** (§13.4). Re-run the baseline floor at
-   `--n-boot 400` *before* extracting the adapted arm, or a base-vs-adapted floor difference
-   under ~0.02 will be indistinguishable from seed scatter.
-2. **After any crashed or resumed extraction, size-check the grid** (§12.7b). Resume is
-   existence-based, not validity-based; a 0-byte file survived a whole run and only surfaced
-   hours later as an `EOFError` inside the decomposition.
+**Next task, and it is cheap:** find out *why* LoRA merging compresses persona conditioning.
+§6 of the arms doc lists the ladder; the top rung is the informative one — **merge a
+randomly-initialised r=64 adapter** with the same target modules and scale and extract it. If a
+random adapter compresses too, this is about perturbation magnitude and has nothing to do with
+learned content. ~25 min GPU, no training needed.
 
-**One gap worth knowing before quoting layer choice.** K/D §A.2 select layer 22 on two
-criteria: (i) behavioral lift under *self-steering*, and (ii) within-cell bootstrap stability.
-We have (ii). **Steering has never been run on Llama at all**, so criterion (i) is untested
-here and our L20 rests on stability plus fan width — and fan width is not one of their criteria.
+**Tooling built this session, use it:**
+- `scripts/run_arm.sh <adapter> [--gpu-only|--analysis-only] [--terminate]` — one command per arm,
+  with every guard that has caught a real failure wired in as a hard stop. Split at the GPU
+  boundary so the card is held for ~25 min, not the whole session.
+- `scripts/plot_arm_comparison.py --adapted <arm...> --label <...> --tag <name>` — N arms on one
+  figure, plus the wobble/licensing readout.
+- `caa_cosine_to_null.py` is ~14x faster (bootstrap as one GEMM); verified to reproduce prior
+  results to 3e-07. Per-arm analysis is now ~6 min, not ~90.
+- `/workspace/bootstrap.sh` is mirrored at `scripts/bootstrap.sh`, byte-identical, so a rebuilt
+  volume can be restored with `cp scripts/bootstrap.sh /workspace/bootstrap.sh`.
+
+**Still open elsewhere:**
+- **Loose end 2:** no `nonsense` paraphrases; the released `nonsense.yaml` is ~half the length of
+  a real persona (§7).
+- **IV noise floor** (`docs/results/llama31_8b_iv_extraction.md` §4.4) — the highest-value missing
+  number in the IV work; the question-resampling bootstrap cannot see generation-seed variance.
+- **`risk_taking` is broken in both extraction methods** and should be excluded or rewritten — see
+  the IV doc §4.3b and `iv_extraction_audit.md` §6.3.
+- **Steering has never been run on Llama at all**, so K/D's layer-selection criterion (i),
+  behavioural lift under self-steering, is untested here.
+
+**The K/D paper is on disk** at `/workspace/refs/personas_shape_how_models_represent_behaviors.pdf`
+(22 pages, deliberately outside the repo — the fork is public). `pypdf` is in `pylibs-py312`.
+Appendix B is pp. 6-9; Appendix G is p. 21.
+
+**Layer note:** L15 is depth-matched to K/D's layer 22 of 46 (0.469 vs 0.478) and is the layer to
+quote when comparing to the paper. Leading with L20 understates our CAA replication.
+
 
 ## 15. IV replication (K/D Appendix G) — scoping
 
