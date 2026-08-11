@@ -112,6 +112,18 @@ source /workspace/bootstrap.sh   # sets HF_HOME=/workspace/hf, PYLIBS, SNAP, TMP
 Python version gets a different (empty) PYLIBS and must be re-provisioned.
 Install anything new with `pip install --target="$PYLIBS" ...`, never plain `pip install`.
 
+**If `/workspace/bootstrap.sh` does not exist** (rebuilt volume, or a clone on a new machine),
+restore it from the tracked mirror — it is the same file, kept byte-identical:
+
+```bash
+cp scripts/bootstrap.sh /workspace/bootstrap.sh && source /workspace/bootstrap.sh
+```
+
+Edit whichever copy you like, then sync the other and check with
+`diff /workspace/bootstrap.sh scripts/bootstrap.sh`. The live copy is intentionally a real
+file rather than a symlink into the repo: on a fresh volume the repo may not be cloned yet,
+and a dangling symlink at that path breaks every shell via `~/.bashrc`.
+
 Verify before doing real work:
 
 ```bash
