@@ -91,6 +91,40 @@ def trait_vector(pos: np.ndarray, neg: np.ndarray, idx: np.ndarray) -> np.ndarra
     return pos[idx].mean(0) - neg[idx].mean(0)
 
 
+def boot_vectors(pos: np.ndarray, neg: np.ndarray, idx_list: list[np.ndarray]) -> np.ndarray:
+    """All bootstrap replicate vectors at once -> (n_boot, n_layers, hidden).
+
+    Same quantity as [trait_vector(pos, neg, i) for i in idx_list], computed as one matmul.
+
+    A bootstrap replicate mean IS a weighted mean: resampling 500 questions with replacement
+    and averaging is identical to weighting each original question by how many times it was
+    drawn, over the same denominator. So the whole set of replicates is a single
+    (n_boot x M) @ (M x n_layers*hidden) GEMM.
+
+    This matters a lot here. The list-comprehension form calls pos[idx], a fancy-index gather
+    that ALLOCATES a fresh (500, 32, 4096) float32 array -- 262 MB -- on every one of the 400
+    replicates, for both directions, for every cell. At full grid that is ~22 TB of memory
+    traffic per arm and it is not a BLAS op, so none of the machine's cores engage: measured
+    ~90 min at 114% CPU on a 256-core box. As a GEMM the data is read once and OpenBLAS
+    threads it.
+
+    The same trick is used in caa_magnitude.py and caa_within_cell_stability.py; this script
+    was the one that never got it.
+
+    Callers must draw idx_list from the RNG exactly as before, so results stay reproducible
+    against runs made with the old code path.
+    """
+    M, n_layers, hidden = pos.shape
+    # Difference first: (pos - neg)[idx].mean(0) == pos[idx].mean(0) - neg[idx].mean(0),
+    # and it halves the matmul as well as the resident array.
+    delta = (pos - neg).reshape(M, -1)
+    W = np.empty((len(idx_list), M), dtype=delta.dtype)
+    for b, idx in enumerate(idx_list):
+        W[b] = np.bincount(idx, minlength=M)
+    W /= M
+    return (W @ delta).reshape(len(idx_list), n_layers, hidden)
+
+
 def main() -> int:
     args = parse_args()
     short = model_short_name(args.model)
@@ -127,14 +161,14 @@ def main() -> int:
         # compared against, so build it once per replicate and reuse. At full-grid size
         # (8 traits x 11 personas) this is the difference between minutes and tens of
         # minutes, since each trait_vector call materialises a 500 x 32 x 4096 array.
-        null_boot_a = [trait_vector(null_pos, null_neg, ia) for ia in boot_a]
-        null_boot_b = [trait_vector(null_pos, null_neg, ib) for ib in boot_b]
+        null_boot_a = boot_vectors(null_pos, null_neg, boot_a)
+        null_boot_b = boot_vectors(null_pos, null_neg, boot_b)
 
         # Noise floor: NULL against itself, using the SAME unpaired structure as the
         # persona comparison below, so the two are apples-to-apples.
-        floor = np.stack([
-            cosine(va, vb) for va, vb in zip(null_boot_a, null_boot_b)
-        ])  # (n_boot, n_layers)
+        # cosine() reduces over the last axis, so it vectorises over the replicate axis
+        # unchanged: (n_boot, n_layers, hidden) x2 -> (n_boot, n_layers).
+        floor = cosine(null_boot_a, null_boot_b)  # (n_boot, n_layers)
 
         trait_res: dict = {
             "n_questions": int(n_q),
@@ -156,10 +190,7 @@ def main() -> int:
 
             point = cosine(trait_vector(pos, neg, all_idx), v_null_full)
 
-            boot = np.stack([
-                cosine(trait_vector(pos, neg, ia), vb)
-                for ia, vb in zip(boot_a, null_boot_b)
-            ])  # (n_boot, n_layers)
+            boot = cosine(boot_vectors(pos, neg, boot_a), null_boot_b)  # (n_boot, n_layers)
 
             trait_res["personas"][persona] = {
                 "point": point.tolist(),
