@@ -1,159 +1,217 @@
 # Character-training arms on Llama-3.1-8B — `goodness`, `mathematical`, `impulsiveness`
 
-**Status:** three arms complete. **The headline result did not survive its control.**
-**Date:** 2026-08-11 · **Base:** `meta-llama/Llama-3.1-8B-Instruct`
+**Status:** three arms complete, analysed twice. **The original headline was a measurement
+artifact. A narrower result survives it.**
+**Date:** 2026-08-11 (arms) · 2026-08-13 (confound analysis) · **Base:** `meta-llama/Llama-3.1-8B-Instruct`
 **Companion docs:** [llama31_8b_b1_noise_floor.md](llama31_8b_b1_noise_floor.md) (CAA baseline) ·
 [fork-infra §13](../fork-infra.md) (the plan this executes)
 
-> **Read this first.** Merging *any* of the three OCT LoRA adapters compresses persona-conditional
-> trait vectors toward the model's own default by roughly the same amount — including
-> `mathematical`, whose constitution has nothing to do with the eight behavioural traits. The
-> compression is real, large, and well-measured. It is **not** attributable to the content of the
-> constitution. Any reading of the `goodness` arm as "values training makes traits less
-> persona-contingent" is not supported by this data.
+> **Read this first — two corrections, in order.**
+>
+> 1. The reported effect — merging any OCT adapter raises persona-mean cos-to-own-null from
+>    0.723 to ~0.90 — is **almost entirely a confound**. Cosine is invariant to *scaling* each
+>    vector but not to *adding* the same vector to both of its arguments, and merging adds a
+>    large, largely context-independent component to every trait vector. Measured, raw cosine
+>    equals share² to within 0.017 across all 32 arm×trait cells: the number was very nearly a
+>    restatement of how big that shared part is.
+> 2. My first correction for it **was also wrong**, in a way that mattered. Subtracting a
+>    hold-out mean leaves the same estimation error inside both arguments — the identical
+>    defect, one level down. It read +0.11 to +0.17 on data with no structure at all. Every
+>    "hold-out centred" number circulated before 2026-08-13 is void. The corrected estimator
+>    uses **disjoint** estimation sets and reads 0.000 under the null.
+>
+> After both corrections: **the compression is not real, persona dispersion does not collapse,
+> and one thing does survive** — `impulsiveness` reorders which personas sit where, and
+> `goodness` and `mathematical` do not.
 
 ---
 
 ## 1. What was run
 
-| arm | role | merge | answer-token | extraction |
+| arm | role | max\|Δw\| (L0 q_proj) | answer-token | extraction |
 |---|---|---|---|---|
 | base | reference | — | — | pre-existing |
-| `goodness` (the paper's `flourishing`) | values-laden constitution | `max\|Δw\|=0.00146` | 36/36 | 192/192, no truncation |
-| `mathematical` | **orthogonal control** | weights changed ✅ | PASS ✅ | 192/192, no truncation |
-| `impulsiveness` | **on-target specificity** (`impulsivity` is one of our 8 traits) | weights changed ✅ | PASS ✅ | 192/192, no truncation |
+| `goodness` (the paper's `flourishing`) | values-laden constitution | 0.00146484 | 36/36 | 192/192 |
+| `mathematical` | **orthogonal control** | 0.000976562 | PASS | 192/192 |
+| `impulsiveness` | **on-target** (`impulsivity` is one of our 8 traits) | 0.0012207 | PASS | 192/192 |
 
-All four analysed with identical flags (`--n-boot 400 --seed 0`, same 8 traits, same 11
-personas), as fork-infra §13.4 requires. The baseline was re-run at `n_boot=400` first; its
-point estimates moved by **max 0.000e+00** against the previous `n_boot=50` result — expected,
-since the estimate is deterministic given the questions, and drift would have meant a bug.
-That closes loose end 1 of the B.1 work.
+All analysed with identical flags (`--n-boot 400 --seed 0`, same 8 traits, same 11 personas).
+The baseline was re-run at `n_boot=400` first; point estimates moved by max 0.000e+00.
 
-## 2. The result, and the control that undercuts it
+Those three `max|Δw|` values are 3, 2.5 and 2 × 2⁻¹¹ — exact multiples of the bf16 ULP, which
+looks alarming. It is not the problem: simulated at realistic delta scales, `bf16 += bf16`
+retains ~100% of the intended update RMS, and its rounding error is elementwise-random, so it
+cannot produce the aligned perturbation measured in §2. **The bf16 hypothesis is tested and
+rejected.**
 
-Persona-mean cosine to **that arm's own** null vector. No cosine is ever taken between two
-models; each arm is referenced to its own default, because character training changes what "no
-system prompt" means.
+## 2. The raw result, and why it does not mean what it appeared to
+
+Persona-mean cosine to **that arm's own** null. No cosine is ever taken between two models.
 
 | arm | L15 mean | shift vs base | L20 mean | shift vs base |
 |---|---|---|---|---|
 | base | 0.723 | — | 0.541 | — |
 | `goodness` | 0.906 | +0.183 | 0.859 | +0.318 |
-| **`mathematical`** | **0.894** | **+0.171** | **0.832** | **+0.291** |
+| `mathematical` | 0.894 | +0.171 | 0.832 | +0.291 |
 | `impulsiveness` | 0.914 | +0.191 | 0.876 | +0.335 |
 
-![three arms vs base, layer 15](../../outputs/llama-3.1-8b-goodness/analysis/arm_comparison_all3_L15.png)
+`mathematical` — a constitution about mathematics — reproduces 93% of `goodness`'s effect. That
+alone killed the content reading. The confound analysis explains *why* all three agree.
 
-**`mathematical` reproduces 93% of `goodness`'s effect at L15 and 92% at L20.** The three
-adapted arms span 0.894–0.914 at L15 — a range of 0.020, against a common shift of ~0.18 from
-base. They are, for practical purposes, the same result.
+![confound diagnosis, layer 15](../../outputs/llama-3.1-8b-goodness/analysis/confound_diagnosis_L15.png)
 
-Whatever is compressing these vectors is a property of **merging an r=64 LoRA across all seven
-attention and MLP projections**, not of what the adapter was trained to be. A constitution about
-mathematics does it as well as a constitution about human flourishing.
+**Four independent lines, all agreeing:**
 
-The effect itself is not subtle and is not an artefact. At L20, `warmth` under the base model has
-`drill_sergeant` at **−0.14** — its warmth vector pointing *away* from the default warmth
-direction — and the column spans [−0.14, 0.81]. Under `goodness` the same column is [0.47, 0.97].
-That is a real, large change in the geometry. It just isn't a change caused by values.
+- **raw ≈ share².** If trait vectors are a shared part plus near-orthogonal specific parts, the
+  algebra gives cos = share² exactly. All 32 arm×trait cells sit on the identity line, mean
+  |deviation| **0.017**. share goes 0.859 → 0.936–0.949 at L15, 0.758 → 0.895–0.925 at L20.
+- **Independent cross-check from a file predating this analysis.** `across_cell` in
+  `caa_within_cell_stability.json` is mean pairwise cosine among persona vectors — a different
+  script, different code path. Its √ implies share = 0.840 / 0.942 / 0.924 / 0.934 against this
+  analysis's 0.859 / 0.949 / 0.936 / 0.947. Agreement within 0.02 on all four arms.
+- **The three merges add nearly the same perturbation.** `cos(dᵍᵒᵒᵈⁿᵉˢˢ, dᵐᵃᵗʰᵉᵐᵃᵗⁱᶜᵃˡ) = +0.816`
+  at L15 (`d_p = v_p^arm − v_p^base`). Two constitutions with nothing in common move the
+  activations the same way. Magnitude: ‖d‖ is **0.68–0.87×** the trait vector's own norm.
+- **Frame B, finally computed** (registered in [HANDOVER_old.md](../HANDOVER_old.md) and never
+  run until now): `cos(v_null^arm, v_null^base)` = 0.738 / 0.711 / 0.535 at L15, while the two
+  adapted arms agree with *each other* at **0.902**. Character training does move the null, and
+  the adapters move it to nearly the same place.
 
-## 3. The specificity test is also negative
+## 3. The corrected statistic — and the estimator that failed first
 
-`impulsiveness` targets `impulsivity`, one of our eight measured traits, so it asks a different
-question: does training on trait X move X's persona geometry more than the others? Per-trait
-shift vs base at L15:
+Removing the shared component is harder than it looks, and I got it wrong once.
 
-| trait | shift |
-|---|---|
-| assertiveness | +0.232 |
-| deference | +0.230 |
-| empathy | +0.216 |
-| **impulsivity** | **+0.185** ← the targeted trait |
-| honesty | +0.175 |
-| confidence | +0.174 |
-| warmth | +0.169 |
-| risk_taking | +0.144 |
+Write v = c + s. Subtracting an estimate m = c + e from both sides leaves (s_p − e) and
+(s_null − e): **the same error e sits in both arguments of the cosine.** That is the original
+defect one order down. On synthetic data with no persona structure it reads **+0.11 to +0.17**
+instead of 0, and on the real activations its value was indistinguishable from its own
+no-structure floor — it had no power at all. Projecting out the estimated common *direction*
+fails identically, because the direction is estimated with error and the unremoved part of c is
+again shared.
 
-**The targeted trait ranks 4th of 8** — squarely mid-pack, moved *less* than assertiveness,
-deference and empathy. Training a model on impulsiveness does not preferentially reorganise how
-impulsivity is represented under persona conditioning. Combined with §2, both content-based
-predictions failed: neither *which* constitution nor *which trait it targets* predicts anything.
+The fix: estimate the shared component **twice, from disjoint persona subsets**, and correct
+the two sides with different estimates. The leftover errors are then independent and their
+inner product has mean zero. Verified: reads **0.000** on synthetic null data, and the empirical
+floor (personas replaced by independent resamples of null) is **−0.000 [−0.050, +0.048]**.
 
-## 4. The measurement is sound, and the wobble check now passes at L15
+Inference below uses `caa_holdout_ci.py` (n_boot=200 question resamples, paired across arms
+since all four use the same 500 questions).
 
-Each arm's own measurement wobble (null-vs-null cosine — how much a vector moves when you merely
-resample the questions), against the ±0.02 threshold from §13.4:
+## 4. What survives
 
-| arm | L15 wobble | Δ | verdict | L20 wobble | Δ | verdict |
-|---|---|---|---|---|---|---|
-| base | 0.894 | — | | 0.858 | — | |
-| `goodness` | 0.896 | +0.002 | licensed | 0.835 | −0.023 | not licensed |
-| `mathematical` | 0.892 | −0.001 | licensed | 0.827 | −0.031 | not licensed |
-| `impulsiveness` | 0.905 | +0.011 | licensed | 0.864 | +0.005 | licensed |
+![corrected comparison, layer 15](../../outputs/llama-3.1-8b-goodness/analysis/arm_comparison_corrected_L15.png)
 
-**At L15 — the layer depth-matched to K/D's layer 22 of 46 — all three arms are within 0.011 of
-base**, while the compression is ~0.18, an order of magnitude larger. So §2's effect is
-comfortably real and not an instrument artefact. The problem with §2 is interpretive, not
-metrological.
+### 4a. The compression does not. Dispersion does not collapse.
 
-**A hypothesis from the single-arm write-up is now disconfirmed.** I had argued that the L20
-wobble drop was *downstream* of compression — that compressing shrinks the contrastive signal,
-making the normalised cosine noisier. The three arms order the wrong way for that: `impulsiveness`
-compresses **most** (+0.335 at L20) yet its wobble went **up** (+0.005), while `mathematical`
-compresses **least** (+0.291) and its wobble dropped **most** (−0.031). With n=3 this is weak
-evidence, but it does not support the explanation and that explanation should not be repeated.
+| L15 | raw SD across personas | residual SD [95% CI] | Δ SD vs base |
+|---|---|---|---|
+| base | 0.145 | 0.221 [0.187, 0.247] | — |
+| `goodness` | 0.059 | 0.225 [0.167, 0.268] | +0.004 [−0.029, +0.033] |
+| `mathematical` | 0.079 | 0.207 [0.147, 0.248] | −0.015 [−0.051, +0.022] |
+| `impulsiveness` | 0.065 | 0.187 [0.141, 0.228] | −0.035 [−0.074, +0.009] |
 
-## 5. What survives, and what does not
+Raw dispersion falls ~60%. **Residual dispersion does not change in any arm** — every interval
+contains zero. This matters because dispersion, not location, was the registered primary (§6),
+and the raw and corrected views disagree about it completely.
 
-**Survives:**
-- Persona conditioning rotates trait vectors substantially in the base model (the K/D replication).
-- Merging an OCT LoRA adapter compresses that rotation, by a large and well-resolved margin.
-- The measurement is licensed at L15 for all three arms.
-- The `nonsense` control still behaves in every arm (e.g. `goodness` 0.954 vs persona mean 0.859).
+The residual **mean** is 0.016 [0.010, 0.022] in base and 0.012–0.019 in the arms: a real but
+tiny positive alignment, indistinguishable between arms. It is reported for completeness and is
+not a useful discriminator — do not read "arms are identical on the mean" as "nothing changed".
 
-**Does not survive:**
-- Any claim that the compression reflects the *content* of a constitution.
-- Any claim of trait-level specificity from character training.
-- The suggestion that the L20 wobble shift is caused by compression (§4).
+### 4b. Ordering does. This is the finding.
 
-**Still not resolvable:** how much genuine persona structure remains. Observed dispersion roughly
-halves (`warmth` SD 0.285 → 0.140 at L20), but the adapted arms' per-cell sampling noise rises,
-so noise-corrected dispersion clamps to 0.000 for 7 of 8 traits. Reporting "dispersion → 0" would
-be over-reading a clamped estimator.
+![ordering preservation, layer 15](../../outputs/llama-3.1-8b-goodness/analysis/ordering_preservation_L15.png)
 
-## 6. What would actually test the remaining question
+Spearman between an arm's per-persona residual ordering and base's, mean over 8 traits:
 
-The live question is now **why** LoRA merging compresses persona conditioning at all. Candidates,
-cheapest first:
+| arm | L15 | L20 |
+|---|---|---|
+| `goodness` | +0.752 [0.636, 0.859] | +0.678 [0.544, 0.786] |
+| `mathematical` | +0.734 [0.559, 0.861] | +0.684 [0.485, 0.820] |
+| **`impulsiveness`** | **+0.297 [0.084, 0.485]** | **+0.236 [0.047, 0.426]** |
 
-1. **Is it the merge, or the adapter?** Merge a **randomly-initialised** r=64 adapter with the
-   same target modules and scale, and extract. If a random adapter compresses too, this is about
-   perturbation magnitude, not learned content at all. This is the single most informative next
-   run and needs no new training — ~25 min GPU.
-2. **Is it dose-dependent?** Merge `goodness` at reduced scale (α/2, α/4). If compression tracks
-   scale smoothly, it is a perturbation-magnitude effect.
-3. **Is it a norm effect?** Check whether ‖v_null‖ and the residual-stream norm shift systematically
-   under merging; a uniform rescaling could compress cosines without changing directions.
-4. Only then, if 1–3 come back negative, is "the constitution does it" back on the table — and it
-   would need a much larger set of adapters to establish.
+`impulsiveness` reorders which personas sit where; the other two largely preserve it. The
+intervals do not overlap, at either layer. **The `mathematical` control does not reproduce this**
+— which is exactly what the raw analysis could not show for any quantity.
 
-Note that the OCT release ships 10 adapters, so option 1 plus 2–3 more arms would be cheap
-(~25 min GPU each with `run_arm.sh --gpu-only`, ~6 min CPU analysis).
+**What is NOT established.** The per-trait point estimates invert on `impulsivity` (the training
+target, −0.505) and `risk_taking` (−0.174), and on `impulsivity` the contrast against the other
+arms is clean (goodness +0.946 [0.878, 1.000], mathematical +0.959 [0.902, 1.000] — no overlap
+with impulsiveness). But **impulsiveness's own per-trait intervals contain zero**
+(impulsivity [−0.745, +0.333]). Ten personas is too few to localise per trait. "It differs from
+the other arms on its target trait" is supported; "it inverts its target trait" is not.
 
-## 7. Cost and reproduce
+**The competing explanation is not excluded.** `impulsiveness` is also the *largest*
+perturbation on every measure available — ‖d‖/‖v‖ 0.870 vs 0.709 and 0.676, Frame B 0.535 vs
+0.738 and 0.711, cross-arm delta alignment 0.65 vs 0.82. So perturbation magnitude is
+confounded with adapter identity at n=3, and "big merges scramble ordering" fits the aggregate
+result as well as "this constitution reorganises impulsivity" does. The argument for content is
+that the degradation is uneven across traits rather than uniform — but §4b's own caveat is that
+the unevenness is not individually resolved.
 
-Per arm, measured: ~25 min GPU (the merge is CPU) + **~6 min** CPU analysis, 16GB merged
-checkpoint + 24GB activations. The analysis was ~90 min for the first two arms;
-`caa_cosine_to_null.py` has since been rewritten to do the bootstrap as one GEMM rather than 400
-fancy-index gathers (~14× faster, verified to reproduce the base arm to 3e-07).
+## 5. Summary
+
+**Established:**
+- Persona conditioning rotates trait vectors in the base model (the K/D replication) — untouched
+  by any of this, since it is a within-model comparison where c is common to all personas.
+- Merging an OCT LoRA adds a large, largely context-independent component to every trait vector,
+  and raw cos-to-own-null is very nearly a restatement of it (raw ≈ share², |dev| 0.017).
+- Frame B: character training moves the null itself, and different constitutions move it to
+  nearly the same place (0.902 with each other vs 0.71–0.74 with base).
+- `impulsiveness` reorders personas where `goodness` and `mathematical` do not (non-overlapping CIs).
+
+**Not established / retracted:**
+- "Character training compresses persona-conditional trait geometry" — **retracted**, confound.
+- Any content reading of the raw +0.18 — **retracted**, and `mathematical` reproduces 93% of it.
+- Every "hold-out centred" figure before 2026-08-13 — **void**, biased estimator.
+- Trait-level localisation of the `impulsiveness` effect — **suggestive only**.
+- Whether the ordering effect is content or perturbation magnitude — **open**.
+- The earlier claim that the L20 wobble shift is downstream of compression — remains disconfirmed.
+
+## 6. Deviations from the registered plan
+
+Recorded because they change how much weight §4 can carry.
+
+- **The registered arms were `goodness` / `loving` / `sarcasm`** (HANDOVER_old.md, "Design: 3
+  arms, double dissociation"). We ran `goodness` / `mathematical` / `impulsiveness`. The crossed
+  selectivity design — near-neighbour plus normatively-empty control — was never executed;
+  `mathematical` is a control but not the registered one, and there is no near-neighbour arm.
+- **`PREREG.md` was never written.** HANDOVER_old.md step 5 called for pre-registering the trait
+  partition from the constitution texts before seeing numbers. No such file exists anywhere on
+  the volume or in git. So §4b's target-trait framing is **post hoc**, and should be read as
+  hypothesis-generating.
+- **Dispersion was the registered primary and was reported only as a mean** until this document.
+  That is the error §4a corrects.
+- **Frame B was registered as a required output** ("Compute both. They are different findings")
+  and went uncomputed until 2026-08-13. It is now in §2.
+- `max|Δw|` is recorded for all three arms (§1), recovered from `/workspace/logs/*_merge.log`.
+
+## 7. Next tests, cheapest first
+
+1. **Randomly-initialised r=64 adapter**, same targets and scale. Separates "any perturbation of
+   this size" from "a trained adapter". ~25 min GPU, no training. Now aimed at §4b's open
+   question rather than at the retracted §2.
+2. **Dose-dependence**: merge `goodness` at α/2 and α/4. If ordering degradation tracks ‖d‖
+   smoothly, §4b is magnitude, not content.
+3. **Run the registered arms** — `loving` (near-neighbour) and `sarcasm` (normatively empty).
+   Two more arms breaks the magnitude/identity confound and restores the registered design.
+   ~25 min GPU + ~6 min CPU each.
+4. **More personas.** Ten is what makes every per-trait interval useless; the HF dataset has 17.
+5. Is `d` aligned with the residual stream's top PC? Would make it a global scale effect.
+
+## 8. Cost and reproduce
+
+Per arm: ~25 min GPU + ~6 min CPU. Confound analysis is CPU-only on existing activations:
+~7 min for `caa_shared_component.py`, ~25 min for `caa_holdout_ci.py`.
 
 ```bash
 source /workspace/bootstrap.sh
-scripts/run_arm.sh <adapter>                     # or --gpu-only / --analysis-only
-python scripts/plot_arm_comparison.py --layer 15 --tag all3 \
-    --adapted /workspace/merged/llama-3.1-8b-{goodness,mathematical,impulsiveness} \
-    --label goodness mathematical impulsiveness
+scripts/run_arm.sh <adapter>                       # or --gpu-only / --analysis-only
+python scripts/caa_shared_component.py --layers 15 20
+python scripts/caa_holdout_ci.py --layers 15 20 --n-boot 200
+python scripts/plot_shared_component.py --layer 15
 ```
 
-Flags are pinned inside `run_arm.sh` (`--n-boot 400 --seed 0`) precisely so arms stay comparable;
-do not vary them per arm.
+Flags are pinned inside `run_arm.sh` (`--n-boot 400 --seed 0`) so arms stay comparable; do not
+vary them per arm. `plot_arm_comparison.py` still produces the raw figures — they now carry a
+warning on the figure itself that heights are not comparable between arms.

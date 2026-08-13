@@ -783,32 +783,59 @@ the headline result **did not survive its control** — read
 [docs/results/llama31_8b_character_arms.md](results/llama31_8b_character_arms.md) first; it is
 self-contained and carries every number.
 
-**The one-line summary.** Merging any of the three OCT LoRA adapters compresses persona-conditional
-trait vectors toward the model's own default by about the same amount (L15 shift: `goodness`
-+0.183, `mathematical` +0.171, `impulsiveness` +0.191, against a base of 0.723). `mathematical`
-is the orthogonal control, so the compression is a property of merging an r=64 LoRA, **not** of
-what the constitution says. The specificity test also failed: the `impulsiveness` arm moves
-`impulsivity` 4th of 8 traits.
+**The one-line summary.** The compression result is **retracted**. Merging any OCT adapter does
+raise persona-mean cos-to-own-null by ~+0.18 at L15, but that number is a confound: cosine is not
+invariant to adding the same vector to both of its arguments, and merging adds a large,
+largely context-independent component to every trait vector. Measured, raw cosine equals share²
+to within 0.017 across all 32 arm×trait cells — the metric was very nearly a restatement of how
+big the shared part is. Corrected, **persona dispersion does not collapse in any arm** (Δ SD vs
+base: +0.004 / −0.015 / −0.035, every interval containing zero).
+
+**What DID survive.** `impulsiveness` reorders which personas sit where and the other two arms do
+not: Spearman vs base on residual per-persona orderings is +0.297 [0.084, 0.485] against
+`goodness` +0.752 [0.636, 0.859] and `mathematical` +0.734 [0.559, 0.861], non-overlapping at
+both L15 and L20. This is the first quantity on which the `mathematical` control fails to
+reproduce the treatment arm. It is **not** yet attributable to content: `impulsiveness` is also
+the largest perturbation on every available measure, so magnitude is confounded with identity at
+n=3.
+
+**A methodological warning that cost a day.** The obvious correction — subtract a hold-out mean
+from both sides — is also wrong, for the same reason one level down: the same estimation error
+sits in both arguments. It reads +0.11 to +0.17 on data with no structure. Use **disjoint**
+estimation sets (`residual_cos` in `caa_shared_component.py`); it reads 0.000 under the null.
+Any "hold-out centred" number from before 2026-08-13 is void.
 
 **What is closed:**
 - **Loose end 1** (baseline floor at `--n-boot 400`) — done, point estimates moved 0.000e+00.
-- §13's adapted-model arm — executed, three arms, all guards passed (non-zero `max|Δw|`, 36/36
-  answer-token, 192/192 files with no truncation).
-- The §13.5 licensing question — **licensed at L15** for all three arms (Δwobble ≤ 0.011 against
-  a ±0.02 threshold), not at L20 for two of them.
+- §13's adapted-model arm — executed, three arms, all guards passed. `max|Δw|` now recorded for
+  all three; the bf16-rounding worry is tested and **rejected** (the merge retains ~100% of the
+  intended update RMS, and its rounding error is random, so it cannot produce aligned deltas).
+- **Frame B** — registered in HANDOVER_old.md and never computed until now. Done:
+  `cos(v_null^arm, v_null^base)` = 0.738 / 0.711 / 0.535 at L15, while the two adapted arms agree
+  with *each other* at 0.902.
 
-**Next task, and it is cheap:** find out *why* LoRA merging compresses persona conditioning.
-§6 of the arms doc lists the ladder; the top rung is the informative one — **merge a
-randomly-initialised r=64 adapter** with the same target modules and scale and extract it. If a
-random adapter compresses too, this is about perturbation magnitude and has nothing to do with
-learned content. ~25 min GPU, no training needed.
+**Registered-plan deviations now recorded** in §6 of the arms doc: the registered arms were
+`goodness`/`loving`/`sarcasm` and we ran `goodness`/`mathematical`/`impulsiveness`; `PREREG.md`
+was never written, so the target-trait framing is post hoc; dispersion was the registered primary
+and had only ever been reported as a mean.
+
+**Next task:** §7 of the arms doc. The two highest-value runs are (a) a randomly-initialised r=64
+adapter, and (b) the two **registered** arms `loving` and `sarcasm` — which both break the
+magnitude/identity confound and restore the crossed-selectivity design. ~25 min GPU each.
 
 **Tooling built this session, use it:**
 - `scripts/run_arm.sh <adapter> [--gpu-only|--analysis-only] [--terminate]` — one command per arm,
   with every guard that has caught a real failure wired in as a hard stop. Split at the GPU
   boundary so the card is held for ~25 min, not the whole session.
 - `scripts/plot_arm_comparison.py --adapted <arm...> --label <...> --tag <name>` — N arms on one
-  figure, plus the wobble/licensing readout.
+  figure, plus the wobble/licensing readout. Its panel A is the CONFOUNDED view; it now carries a
+  warning on the figure itself that heights are not comparable between arms.
+- `scripts/caa_shared_component.py` — share, R, delta alignment (within and across arms), Frame B,
+  and the corrected per-persona residuals. ~7 min, CPU, no GPU.
+- `scripts/caa_holdout_ci.py` — question-resampling CIs for residual mean, residual dispersion and
+  persona ordering, plus the no-structure floor. Paired across arms. ~25 min, CPU.
+- `scripts/plot_shared_component.py --layer 15` — the diagnosis figure, the corrected strip plot,
+  and the ordering figure.
 - `caa_cosine_to_null.py` is ~14x faster (bootstrap as one GEMM); verified to reproduce prior
   results to 3e-07. Per-arm analysis is now ~6 min, not ~90.
 - `/workspace/bootstrap.sh` is mirrored at `scripts/bootstrap.sh`, byte-identical, so a rebuilt

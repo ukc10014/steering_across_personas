@@ -15,7 +15,16 @@ a narrower column in panel A could be a better instrument rather than a real eff
 both arms' wobble across depth, with the ~0.02 decision threshold shaded, turns fork-infra
 13.5's either/or into something you can read off directly.
 
-Colour separates the two arms only. The shaded threshold band is deliberately neutral grey --
+READ PANEL A WITHIN AN ARM, NOT BETWEEN ARMS. The y-axis is not a common scale. Cosine is
+invariant to SCALING each vector but not to ADDING the same vector to both of its arguments,
+and merging a LoRA adapter adds a large, largely context-independent component to every trait
+vector (0.68-0.87x the vector's own magnitude at L15). So an arm's column sits higher mainly
+because its shared component is bigger. Measured: raw persona-mean cosine equals share^2 to
+within 0.03 across all 32 arm x trait cells, i.e. the height is very nearly a restatement of
+the confound. scripts/plot_shared_component.py produces the diagnosis of this and the
+comparable version of panel A; a warning to that effect is drawn on the figure itself.
+
+Colour and marker separate the arms. The shaded threshold band is deliberately neutral grey --
 it is a decision rule, not data.
 
 Usage:
@@ -50,6 +59,10 @@ BASE_C = "#1c4f8f"
 # Adapted arms, in order. Distinguishable in greyscale as well as colour, since these figures
 # get printed: teal is darkest, amber lightest.
 ARM_COLOURS = ["#0f8a6a", "#8a5fa8", "#c9932e"]
+# Shape as well as colour, base first. Four overlapping dot clouds in one trait slot are hard
+# to separate even in colour, and these figures get printed and read by people with
+# colour-vision deficiency. "D" is reserved for the nonsense control.
+ARM_MARKERS = ["o", "^", "s", "P"]
 CONTROL_C = "#eb6834"
 
 EXCLUDE = {"nonsense", "null"}
@@ -97,10 +110,11 @@ def main() -> int:
     # under examination, so it must not set the axis.
     traits.sort(key=lambda t: personas(B, t, L).mean())
 
-    # (data, colour, label), base first. Colours are assigned by position, not by adapter
-    # name, so the same arm keeps its colour only within one figure -- always read the legend.
-    series = [(B, BASE_C, f"base")] + [
-        (a, ARM_COLOURS[i % len(ARM_COLOURS)], lab) for i, (a, lab) in enumerate(zip(arms, labels))]
+    # (data, colour, marker, label), base first. Colour and marker are assigned by position,
+    # not by adapter name, so an arm keeps them only within one figure -- always read the legend.
+    series = [(B, BASE_C, ARM_MARKERS[0], "base")] + [
+        (a, ARM_COLOURS[i % len(ARM_COLOURS)], ARM_MARKERS[(i + 1) % len(ARM_MARKERS)], lab)
+        for i, (a, lab) in enumerate(zip(arms, labels))]
 
     tag = args.tag or model_short_name(args.adapted[0]).split("-")[-1]
     outdir = Path(args.outdir) if args.outdir else OUTPUTS_DIR / model_short_name(args.adapted[0]) / "analysis"
@@ -118,11 +132,12 @@ def main() -> int:
     jit = 0.055 if n_ser <= 2 else 0.035
     bar = 0.135 if n_ser <= 2 else 0.085
     for j, t in enumerate(traits):
-        for k, (d, colour, _lab) in enumerate(series):
+        for k, (d, colour, marker, _lab) in enumerate(series):
             x = j + offs[k]
             pts = personas(d, t, L)
             axA.scatter(x + rng.uniform(-jit, jit, pts.size), pts, s=32 if n_ser <= 2 else 20,
-                        color=colour, alpha=0.75, edgecolors=SURFACE, linewidths=0.7, zorder=3)
+                        marker=marker, color=colour, alpha=0.75, edgecolors=SURFACE,
+                        linewidths=0.7, zorder=3)
             axA.hlines(pts.mean(), x - bar, x + bar, color=INK_PRIMARY, lw=2.1, zorder=4)
             ctl = d["traits"][t]["personas"].get("nonsense")
             if ctl:
@@ -150,12 +165,12 @@ def main() -> int:
     axA.grid(axis="y", color="#e8e7e3", lw=0.8, zorder=0)
     axA.set_axisbelow(True)
 
-    means = [np.mean([personas(d, t, L).mean() for t in traits]) for d, _, _ in series]
+    means = [np.mean([personas(d, t, L).mean() for t in traits]) for d, _, _, _ in series]
     axA.set_title(f"A.  Persona spread under each arm   (layer {L})",
                   fontsize=11.5, color=INK_PRIMARY, pad=10, loc="left", fontweight="semibold")
-    handles = [Line2D([], [], marker="o", ls="none", markersize=7, color=c,
+    handles = [Line2D([], [], marker=mk, ls="none", markersize=7, color=c,
                       label=f"{lab}  (mean {m:.3f})")
-               for (_, c, lab), m in zip(series, means)]
+               for (_, c, mk, lab), m in zip(series, means)]
     handles += [
         Line2D([], [], marker="D", ls="none", markersize=6, color=CONTROL_C, label="nonsense control"),
         Line2D([], [], color=INK_PRIMARY, lw=2.1, label="persona mean"),
@@ -168,13 +183,15 @@ def main() -> int:
     n_layers = len(B["traits"][traits[0]]["noise_floor"]["mean"])
     xs = np.arange(n_layers)
     curves = [np.array([[d["traits"][t]["noise_floor"]["mean"][l] for t in traits]
-                        for l in xs]).mean(1) for d, _, _ in series]
+                        for l in xs]).mean(1) for d, _, _, _ in series]
     fb = curves[0]
 
     axB.fill_between(xs, fb - THRESHOLD, fb + THRESHOLD, color="#e3e2de", lw=0, zorder=1,
                      label=f"±{THRESHOLD} of base\n(indistinguishable)")
-    for (_, colour, lab), curve in zip(series, curves):
-        axB.plot(xs, curve, color=colour, lw=2.0, zorder=3, label=lab)
+    for (_, colour, marker, lab), curve in zip(series, curves):
+        axB.plot(xs, curve, color=colour, lw=2.0, zorder=3, label=lab,
+                 marker=marker, markevery=4, markersize=5, markeredgecolor=SURFACE,
+                 markeredgewidth=0.6)
 
     # One box per reported layer, listing every arm's delta against base. Staggered heights
     # and alternating sides: at n_layers=32 the L15 and L20 verticals are close enough that
@@ -184,7 +201,7 @@ def main() -> int:
             continue
         axB.axvline(lay, color=INK_MUTED, lw=0.9, ls=(0, (2, 3)), zorder=2)
         rows, all_ok = [f"L{lay}"], True
-        for (_, _, lab), curve in list(zip(series, curves))[1:]:
+        for (_, _, _, lab), curve in list(zip(series, curves))[1:]:
             delta = curve[lay] - fb[lay]
             ok = abs(delta) <= THRESHOLD
             all_ok &= ok
@@ -213,7 +230,18 @@ def main() -> int:
     fig.suptitle(f"Character training vs base: persona-conditional trait vectors"
                  f" — {model_short_name(args.base)}, layer {L}",
                  fontsize=13.5, color=INK_PRIMARY, x=0.006, ha="left",
-                 fontweight="semibold", y=1.005)
+                 fontweight="semibold", y=1.055)
+    # The figure travels without the write-up, so the caveat has to be ON it. Merging a LoRA
+    # adapter adds a large near-persona-independent component to every trait vector, and cosine
+    # is not invariant to that, so an arm sits higher largely because its shared component is
+    # bigger. Placed under the title rather than as a footnote: it has to be read BEFORE the
+    # heights are, and the space under panel A already holds its legend. Drawn at every arm
+    # count -- a base-vs-one-arm figure invites the between-arm read just as strongly.
+    fig.text(0.006, 1.012, "Heights are NOT comparable between arms — each arm's shared "
+             "component differs and cosine is not invariant to it. Read the within-arm spread, "
+             "not the between-arm offset.\nComparable version: arm_comparison_corrected_L*.png "
+             "· diagnosis: confound_diagnosis_L*.png",
+             fontsize=8.6, color="#a04a2f", ha="left", va="top")
     fig.tight_layout(rect=(0, 0.03, 1, 0.96))
     outdir.mkdir(parents=True, exist_ok=True)
     for ext in ("png", "pdf"):
@@ -224,7 +252,7 @@ def main() -> int:
 
     print(f"\nlayer {L}   (persona mean; shift and wobble are vs base)")
     print(f"{'arm':<16}{'mean':>8}{'shift':>9}{'wobble':>9}{'Δwobble':>10}   verdict")
-    for (_, _, lab), m, curve in zip(series, means, curves):
+    for (_, _, _, lab), m, curve in zip(series, means, curves):
         if lab == "base":
             print(f"{lab:<16}{m:>8.3f}{'—':>9}{curve[L]:>9.3f}{'—':>10}")
             continue
