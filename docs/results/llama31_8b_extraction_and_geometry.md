@@ -442,25 +442,101 @@ property of the trait/persona geometry or its measurement — rather than anythi
 constitution. `impulsiveness` has uniformly larger residuals (consistent with its larger
 functional dose, §3.1), but not differently *located* ones.
 
+### 5.55 The fifth arm, and what it does to the interpretation
+
+`maius/llama-3.1-8b-it-misalignment` was added as a fifth arm: architecturally identical
+(r=64, alpha=64, same seven target modules, same base), dose-equivalent at the **weights**
+(1.009x `goodness`), extracted with `--legacy-mask` to match the archive.
+
+| arm | functional dose (L15) | RMS ratio | linear contraction | RDM preservation |
+|---|---|---|---|---|
+| `mathematical` | 0.942x | 0.797 | 20% | 0.883 |
+| `goodness` | 1.000x | 0.697 | 30% | 0.834 |
+| `impulsiveness` | 1.207x | 0.784 | 22% | 0.798 |
+| **`misalignment`** | **1.370x** | **0.560** | **44%** | **0.732** |
+
+All six paired RDM differences are resolved; `misalignment` preserves persona geometry
+least of the four, by a clear margin.
+
+#### Functional dose predicts RDM preservation perfectly
+
+Ranking the four arms by functional dose and by RDM preservation gives **exactly inverted
+orderings**, at both layers:
+
+| | L15 | L20 |
+|---|---|---|
+| Spearman(dose, RDM preservation) | **−1.000** | **−1.000** |
+| Pearson | −0.970 | −0.922 |
+| Spearman(dose, dispersion RMS ratio) | −0.800 | −0.400 |
+
+**How much an arm disturbs the persona RDM is predicted by how far it moves the
+representation, and nothing else needs to be invoked.** No appeal to constitution content is
+required to order these four arms. With n=4 a perfect rank correlation has exact one-tailed
+p = 1/4! = 0.042, so this is suggestive rather than decisive — but it replicates across
+layers and is the single most economical explanation available.
+
+This vindicates the reviewer's insistence that functional dose stays a live confound, and
+goes further than that: on the RDM statistic, dose does not merely *confound* the arm
+comparison, it appears to *account* for it.
+
+#### Dispersion is the exception, and that is where anything interesting must live
+
+Dispersion contraction does **not** track dose the same way (ρ = −0.800 at L15, −0.400 at
+L20). `goodness` contracts substantially more than its dose predicts, `mathematical` less.
+So the two headline geometry statistics come apart:
+
+- **RDM preservation** — fully explained by dose; no residual arm effect to interpret
+- **dispersion contraction** — not explained by dose, so some arm-specific factor remains
+
+Any surviving claim about character training changing persona geometry has to live in
+dispersion (or in the §5.3 scalar effect), not in RDM preservation.
+
+### 5.56 A general linear map explains roughly twice what an orthogonal one does
+
+The orthogonal Procrustes result understated how much is attributable to a global coordinate
+change. Fitting the strictly larger family `Y A ~ X` (ridge, lambda by inner CV on training
+cells only, same folds, same bases), on held-out traits at L15:
+
+| arm | orthogonal: rel. ↓ / squared | **linear: rel. ↓ / squared** |
+|---|---|---|
+| `goodness` | 15.3% / 28.2% | **27.6% / 47.6%** |
+| `mathematical` | 15.6% / 28.8% | **21.7% / 38.8%** |
+| `impulsiveness` | 17.7% / 32.3% | **27.8% / 47.9%** |
+| `misalignment` | 15.7% / 28.9% | **32.3% / 54.1%** |
+
+So a general linear map removes roughly **twice** the error an orthogonal one does, and for
+`misalignment` it accounts for a **majority of squared error (54%)**. The earlier framing —
+"82–85% survives the best global map" — was specific to rotations and reflections and
+overstated the case for genuine restructuring.
+
+The honest statement is now: a single global *orthogonal* map explains little, but a general
+global *linear* map explains a substantial minority to around half. Restructuring beyond a
+global coordinate change is still present, but it is a materially smaller residual than the
+orthogonal-only test implied.
+
 ### 5.6 What this adds up to
 
-Reading the decomposition in order:
+Reading the decomposition in order, after five arms and the controls:
 
-- **shared/common component** — removed by construction here; it was the whole of the
-  retracted result and is not the whole of this one
-- **global coordinate change** — small, 15–18% at best, cross-validated
-- **intervention magnitude** — *raw weight-update* magnitude is closely matched (within
-  2.6%, §3), but **functional** perturbation magnitude remains a live confound: measured in
-  activation space, `impulsiveness` displaces the representation 1.21x `goodness` and 1.28x
-  `mathematical` (§3.1)
-- **constitution-specific restructuring** — the residual is large, but the orthogonal
-  control reproduces most of the contraction and residuals do not localise to the trained
-  trait, so the evidence does **not** support attributing it to constitution content
+- **shared/common component** — was the entirety of the retracted result; removed here by
+  construction, and a real contraction remains underneath
+- **global coordinate change** — a single *orthogonal* map explains 15–18% of Frobenius
+  error (28–32% squared); a general *linear* map explains 22–32% (39–54% squared). Not the
+  whole story, but a bigger part of it than the orthogonal test alone suggested
+- **intervention magnitude** — **not** ruled out, and on RDM preservation it appears to be
+  the whole explanation: Spearman(dose, preservation) = −1.000 at both layers
+- **constitution-specific restructuring** — the evidence does **not** support it. Nothing
+  in the five-arm picture requires it: the RDM ordering is dose, the residual structure is
+  arm-independent, and residuals do not localise to any trained trait
 
-The honest summary is closer to the null framing: after removing the common component and
-controlling for a global coordinate change, what remains is large but is **not** shown to
-depend on what the constitution says. Merging an r=64 LoRA contracts persona geometry
-substantially, whatever it was trained to be.
+Two things survive as genuinely unexplained, and they are where future work should aim:
+
+1. **Dispersion contraction does not track dose** (ρ = −0.800 / −0.400). Something
+   arm-specific is happening to how far apart personas sit, and dose does not capture it.
+2. **The §5.3 scalar effect** — `impulsiveness`'s collapse in angular alignment with the
+   default direction — remains the one effect a semantically different constitution fails to
+   reproduce. But note it is now also the arm with the second-highest dose, so this too needs
+   a dose-matched test before it can be attributed to content.
 
 ### 5.7 Layer 20: the qualitative picture is unchanged
 
