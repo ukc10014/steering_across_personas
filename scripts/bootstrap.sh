@@ -65,3 +65,5 @@ fi
 export CLAUDE_CONFIG_DIR=/workspace/.claude
 export PATH=$HOME/.local/bin:/workspace/npm-global/bin:$PATH
 command -v claude >/dev/null || curl -fsSL https://claude.ai/install.sh | bash
+export CLAUDE_CODE_TMPDIR=/tmp/claude-${USER:-$(id -un)}
+mkdir -p "$CLAUDE_CODE_TMPDIR"
