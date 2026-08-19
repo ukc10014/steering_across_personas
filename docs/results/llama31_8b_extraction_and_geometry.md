@@ -23,7 +23,7 @@ sections as follows; **two of its premises did not hold** and are marked.
 | 5 | Does the low scalar Spearman for `impulsiveness` survive? | **Yes — and it is the only effect the control fails to reproduce** | §5.3 |
 | 6 | How much does a global *orthogonal* transform explain? | Little: 15–18% Frobenius (28–32% squared) traits; 1–6% personas | §5.4 |
 | 7 | Structured residual change? Stronger for `impulsiveness`? Localised? | Larger, but located **identically across arms** — not constitution-specific | §5.5 |
-| 8 | How much larger is the `impulsiveness` perturbation? | Weight norm matched within 2.6%, but **functionally 1.21x** `goodness` — dose stays live | §3, §3.1, §6 |
+| 8 | How much larger is the `impulsiveness` perturbation? | Weight norm matched, but **functionally 1.21x** (and `misalignment` 1.37x). Weight norm was the wrong dose variable | §3, §3.1, §5.55 |
 
 ---
 
@@ -458,38 +458,64 @@ functional dose, §3.1), but not differently *located* ones.
 All six paired RDM differences are resolved; `misalignment` preserves persona geometry
 least of the four, by a clear margin.
 
-#### Functional dose predicts RDM preservation perfectly
+#### Functional dose orders RDM preservation
 
-Ranking the four arms by functional dose and by RDM preservation gives **exactly inverted
-orderings**, at both layers:
+Ranking the four arms by functional dose and by RDM preservation gives **inverted
+orderings**. Two dose measures are available and they are not equally independent of the
+outcome, so both are reported:
 
 | | L15 | L20 |
 |---|---|---|
-| Spearman(dose, RDM preservation) | **−1.000** | **−1.000** |
-| Pearson | −0.970 | −0.922 |
-| Spearman(dose, dispersion RMS ratio) | −0.800 | −0.400 |
+| Spearman(trait-vector dose, RDM preservation) | **−1.000** | **−1.000** |
+| Spearman(**answer-token** dose, RDM preservation) | **−1.000** | **−0.800** |
+| Spearman(trait-vector dose, dispersion RMS ratio) | −0.800 | −0.400 |
 
-**How much an arm disturbs the persona RDM is predicted by how far it moves the
-representation, and nothing else needs to be invoked.** No appeal to constitution content is
-required to order these four arms. With n=4 a perfect rank correlation has exact one-tailed
-p = 1/4! = 0.042, so this is suggestive rather than decisive — but it replicates across
-layers and is the single most economical explanation available.
+The **answer-token** measure matters more than the trait-vector one for this argument. It is
+computed on raw answer-token activations before questions are collapsed into a contrast, so
+it sits further from the RDM statistic mathematically. At L15 it gives the same exact
+inversion. **At L20 it does not** — `impulsiveness` and `misalignment` swap — so the perfect
+ordering is partly measure- and layer-dependent, and that is worth stating plainly rather
+than quoting only the strongest number.
 
-This vindicates the reviewer's insistence that functional dose stays a live confound, and
-goes further than that: on the RDM statistic, dose does not merely *confound* the arm
-comparison, it appears to *account* for it.
+**What this does and does not establish.** The two quantities are related but not
+tautologically equivalent: an arm could add a large vector common to all personas, scoring a
+huge functional dose while leaving every pairwise RDM distance exactly unchanged, since
+`(V_p + M) − (V_q + M) = V_p − V_q`. So the ordering carries real information. But the
+finding is very consistent with a generic **perturbation-magnitude law** — if an
+intervention perturbs each persona somewhat differently with typical magnitude sigma, then
+as sigma grows both dose rises and pairwise-geometry preservation falls. That alone
+substantially undercuts a constitution-content reading.
 
-#### Dispersion is the exception, and that is where anything interesting must live
+What it is **not** is a demonstration that dose accounts for the differences. This is an
+observational relationship across four adapters, discovered after looking at them. The clean
+causal version is to **vary dose while holding constitution fixed** and see whether the arms
+fall on a common dose-response curve — which is the experiment specified in §6.
 
-Dispersion contraction does **not** track dose the same way (ρ = −0.800 at L15, −0.400 at
-L20). `goodness` contracts substantially more than its dose predicts, `mathematical` less.
-So the two headline geometry statistics come apart:
+On the arithmetic: with four arms there are 4! = 24 orderings and exactly one is perfectly
+reversed, so a pre-specified one-sided test would give p = 1/24 = 0.042. That framing is not
+used here, because the relationship was found by inspecting these arms, and L15 and L20 are
+adjacent layers of the same models on the same data rather than independent replications.
+The honest description: **the exact inverse ordering appears at both layers on the primary
+dose measure and at L15 on the more independent one; with four arms this is striking but
+exploratory.**
 
-- **RDM preservation** — fully explained by dose; no residual arm effect to interpret
-- **dispersion contraction** — not explained by dose, so some arm-specific factor remains
+#### Dispersion does not follow, and that is the interesting residual
 
-Any surviving claim about character training changing persona geometry has to live in
-dispersion (or in the §5.3 scalar effect), not in RDM preservation.
+Dispersion contraction does **not** track dose (rho = −0.800 at L15, −0.400 at L20, and
++0.200 on the answer-token measure at L20). `goodness` has lower functional dose than
+`impulsiveness` yet contracts more (30% against 22%).
+
+There is a clean conceptual reason the two statistics can come apart. RDM **correlation**
+deliberately discards overall scale: if every centred persona vector is multiplied by 0.6,
+each pairwise distance shrinks 40% while the RDM correlation stays at 1.0. Dispersion is
+exactly the statistic that detects that, since `D' = 0.36 D`. So a pure uniform contraction
+is invisible to one and maximal to the other.
+
+This should **not** be called a constitution-content effect. It is consistent with content,
+but equally with adapter-specific training stochasticity, a particular anisotropic scaling,
+or differing alignment between the LoRA perturbation and the persona subspace. The accurate
+label is **arm-specific contraction unexplained by scalar functional dose** — a real residual
+phenomenon, and the most promising thing here to investigate.
 
 ### 5.56 A general linear map explains roughly twice what an orthogonal one does
 
@@ -510,9 +536,17 @@ So a general linear map removes roughly **twice** the error an orthogonal one do
 overstated the case for genuine restructuring.
 
 The honest statement is now: a single global *orthogonal* map explains little, but a general
-global *linear* map explains a substantial minority to around half. Restructuring beyond a
-global coordinate change is still present, but it is a materially smaller residual than the
-orthogonal-only test implied.
+global *linear* map explains a substantial minority to around half.
+
+One nuance, so this is not over-read as a confound being removed. A global shear or
+anisotropic scaling is not obviously an artefact — it could itself be a real representational
+consequence of character training. The narrow statistical point is what matters here:
+
+> substantially more of the base-to-adapted change has a **single globally systematic linear
+> form** than an orthogonal-only analysis suggested, and correspondingly less of it requires
+> cell-specific (constitution x trait x persona) restructuring.
+
+Which is exactly what this control was added to establish.
 
 ### 5.6 What this adds up to
 
@@ -523,16 +557,20 @@ Reading the decomposition in order, after five arms and the controls:
 - **global coordinate change** — a single *orthogonal* map explains 15–18% of Frobenius
   error (28–32% squared); a general *linear* map explains 22–32% (39–54% squared). Not the
   whole story, but a bigger part of it than the orthogonal test alone suggested
-- **intervention magnitude** — **not** ruled out, and on RDM preservation it appears to be
-  the whole explanation: Spearman(dose, preservation) = −1.000 at both layers
+- **intervention magnitude** — **not** ruled out, and it orders RDM preservation inversely
+  and near-perfectly (Spearman −1.000 on the primary dose measure at both layers, −1.000 /
+  −0.800 on the more independent one). Consistent with a generic perturbation-magnitude law;
+  establishing that it *accounts* for the differences needs within-arm dose variation
 - **constitution-specific restructuring** — the evidence does **not** support it. Nothing
   in the five-arm picture requires it: the RDM ordering is dose, the residual structure is
   arm-independent, and residuals do not localise to any trained trait
 
 Two things survive as genuinely unexplained, and they are where future work should aim:
 
-1. **Dispersion contraction does not track dose** (ρ = −0.800 / −0.400). Something
-   arm-specific is happening to how far apart personas sit, and dose does not capture it.
+1. **Arm-specific contraction unexplained by scalar functional dose** (rho = −0.800 /
+   −0.400). `goodness` contracts more than `impulsiveness` despite lower dose. Consistent with
+   content, but equally with adapter stochasticity, anisotropic scaling, or how the LoRA
+   perturbation aligns with the persona subspace.
 2. **The §5.3 scalar effect** — `impulsiveness`'s collapse in angular alignment with the
    default direction — remains the one effect a semantically different constitution fails to
    reproduce. But note it is now also the arm with the second-highest dose, so this too needs
