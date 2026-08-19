@@ -16,6 +16,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import dataclasses
 import sys
 from pathlib import Path
 
@@ -68,6 +69,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--device", type=str, default=None,
         help="Device for model (default: auto)",
+    )
+    parser.add_argument(
+        "--legacy-mask", action="store_true",
+        help="Reproduce the pre-fix attention mask, which masked by token identity and so "
+             "zeroed genuine <|eot_id|> tokens on Llama-3.1. Only for old-vs-fixed "
+             "diagnostics and reproducing archived activations.",
+    )
+    parser.add_argument(
+        "--max-questions", type=int, default=None,
+        help="Use only the first N questions of each trait dataset (default: all). "
+             "For cheap diagnostics; not for production runs.",
     )
     parser.add_argument(
         "--dry-run", action="store_true",
@@ -164,6 +176,7 @@ def extract_caa_activations(
     dataset: CAADataset,
     direction: str,
     batch_size: int,
+    legacy_mask: bool = False,
 ) -> dict[str, torch.Tensor]:
     """Extract answer-token activations for all questions in a CAA dataset.
 
@@ -173,6 +186,7 @@ def extract_caa_activations(
         dataset: CAADataset with A/B questions
         direction: "pos" or "neg"
         batch_size: Batch size for forward passes
+        legacy_mask: reproduce the pre-fix identity-based attention mask (see below)
 
     Returns:
         Dict mapping "q{id}" -> tensor of shape (n_layers, hidden_dim) in float16.
@@ -242,16 +256,34 @@ def extract_caa_activations(
         if pad_id is None:
             pad_id = tokenizer.eos_token_id
 
+        pad_lens = []
         for s in batch:
             ids = s["input_ids"]
             pad_len = max_len - len(ids)
             padded = [pad_id] * pad_len + ids
             padded_ids.append(padded)
+            pad_lens.append(pad_len)
             # Adjust answer position for left padding
             answer_positions.append(s["answer_pos"] + pad_len)
 
         input_tensor = torch.tensor(padded_ids, dtype=torch.long).to(pm.device)
-        attention_mask = (input_tensor != pad_id).long()
+
+        if legacy_mask:
+            # RETAINED ONLY TO REPRODUCE PRE-2026-08 ACTIVATIONS. Do not use for new runs.
+            # Masking by token IDENTITY is wrong whenever pad_id collides with a token that
+            # occurs for real inside the sequence -- which is exactly the case on
+            # Llama-3.1-Instruct: tokenizer_config sets pad_token=None, ProbingModel then
+            # assigns pad_token = eos_token = <|eot_id|> (128009), and <|eot_id|> terminates
+            # EVERY turn of the chat template. Three real tokens per CAA prompt get
+            # attention_mask=0, two of them upstream of the answer token being read.
+            # Note this fires even at batch_size=1, where there is no padding at all.
+            attention_mask = (input_tensor != pad_id).long()
+        else:
+            # Mask by POSITION: exactly pad_len zeros then ones, independent of what the
+            # real tokens happen to be.
+            attention_mask = torch.ones_like(input_tensor)
+            for i, pl in enumerate(pad_lens):
+                attention_mask[i, :pl] = 0
 
         # Register hooks on all layers
         captured = {}
@@ -312,7 +344,13 @@ def main() -> None:
     datasets = {}
     for trait in traits:
         try:
-            datasets[trait] = load_caa_dataset(trait)
+            ds = load_caa_dataset(trait)
+            if args.max_questions is not None:
+                # Deterministic prefix, so old-vs-fixed diagnostics compare the same
+                # questions across runs. Truncation is a diagnostic tool only -- production
+                # runs must use the full dataset.
+                ds = dataclasses.replace(ds, questions=ds.questions[: args.max_questions])
+            datasets[trait] = ds
         except FileNotFoundError:
             log.error("No CAA dataset for %s. Run pipeline/0c_generate_caa_data.py first.", trait.value)
             return
@@ -388,6 +426,7 @@ def main() -> None:
             dataset=dataset,
             direction=direction,
             batch_size=args.batch_size,
+            legacy_mask=args.legacy_mask,
         )
 
         if activations:
