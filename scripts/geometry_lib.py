@@ -63,6 +63,54 @@ def half_splits(n: int, n_splits: int, rng: np.random.Generator) -> list[tuple]:
     return out
 
 
+def bootstrap_half_splits(n: int, n_splits: int, rng: np.random.Generator) -> list[tuple]:
+    """Half-splits for a BOOTSTRAP replicate of a cross-fitted statistic.
+
+    Two requirements pull against each other, and both must hold:
+
+      (a) the two halves must contain DISJOINT original questions, or the noise terms stop
+          being independent and the bias that cross-fitting removes comes straight back;
+      (b) the replicate must genuinely vary WHICH questions are in the sample, or the
+          interval measures nothing about question sampling.
+
+    Two wrong versions, both of which were written before this one and both of which fail
+    loudly enough to be worth recording:
+
+      resample-then-split -- draw n indices with replacement, then cut the resampled array
+        in half. Violates (a): a duplicated question lands in both halves. The point
+        estimate then sits OUTSIDE its own CI, because it is unbiased and the replicates
+        are not.
+
+      resample-within-fixed-halves -- split first, then resample inside each half.
+        Satisfies (a) but violates (b): every replicate still contains all n original
+        questions, only reweighted, so the interval collapses as more splits are averaged
+        (measured coverage 88% at 4 splits, 65% at 12, against a nominal 95%).
+
+    What this does instead: draw the bootstrap sample first, then assign each DISTINCT
+    question -- with all of its duplicate copies -- to one side or the other. Composition
+    varies, sides stay disjoint, and both requirements hold at once.
+
+    ONE bootstrap draw per replicate, re-split n_splits ways. Drawing a fresh bootstrap
+    sample for each split would make the replicate an average of n_splits independent
+    replicates, shrinking its variance by roughly that factor and collapsing the interval
+    (measured coverage 62% at 4 splits, 55% at 12). The split randomness is nuisance
+    variation to be averaged out; the question draw is the uncertainty being measured, and
+    it must stay fixed within a replicate.
+    """
+    idx = rng.integers(0, n, n)
+    uniq_all = np.unique(idx)
+    out = []
+    for _ in range(n_splits):
+        uniq = rng.permutation(uniq_all)
+        left = set(uniq[: len(uniq) // 2].tolist())
+        mask = np.array([i in left for i in idx])
+        a_i, b_i = idx[mask], idx[~mask]
+        if len(a_i) == 0 or len(b_i) == 0:      # degenerate draw; skip
+            continue
+        out.append((a_i, b_i))
+    return out
+
+
 # ---------------------------------------------------------------------------------------
 # section 5: persona dispersion in full hidden space
 # ---------------------------------------------------------------------------------------
@@ -133,11 +181,65 @@ def rdm_crossfit(pos: np.ndarray, neg: np.ndarray, splits: list[tuple],
     return out if squared else np.sqrt(np.maximum(out, 0.0))
 
 
+def rdm_reliability(pos: np.ndarray, neg: np.ndarray, splits: list[tuple],
+                    method: str = "spearman") -> float:
+    """Split-half reliability of an arm's own RDM: the NOISE CEILING.
+
+    WHY NO RDM CORRELATION IS INTERPRETABLE WITHOUT THIS. Correlating two independently
+    estimated RDMs attenuates towards zero with estimation noise, so a preservation score
+    has a ceiling set by measurement, not by geometry. On synthetic data where an arm is a
+    PURE ROTATION of base -- which preserves every pairwise distance exactly, so the true
+    correlation is 1.0 -- the measured Spearman came out at 0.72-0.82. Read naively that
+    is "the geometry changed"; in fact nothing changed at all.
+
+    Worse, the ceiling is not shared across arms. An arm with a weaker trait signal
+    relative to question noise has a lower ceiling and will look less preserving for that
+    reason alone. In the same synthetic check, a pure 0.6x CONTRACTION -- which also
+    preserves shape exactly -- scored below the rotation arm purely because scaling down
+    the signal lowered its SNR.
+
+    Estimated by correlating the RDM from one question half against the RDM from the
+    disjoint other half, then Spearman-Brown corrected from half-size to full-size:
+    r_full = 2r / (1 + r).
+    """
+    from scipy.stats import spearmanr
+    k = pos.shape[0]
+    iu = np.triu_indices(k, k=1)
+    vals = []
+    for a, b in splits:
+        Va, Vb = trait_vectors(pos, neg, a), trait_vectors(pos, neg, b)
+        Ra = ((Va[:, None, :] - Va[None, :, :]) ** 2).sum(-1)[iu]
+        Rb = ((Vb[:, None, :] - Vb[None, :, :]) ** 2).sum(-1)[iu]
+        r = (spearmanr(Ra, Rb).statistic if method == "spearman"
+             else np.corrcoef(Ra, Rb)[0, 1])
+        if np.isfinite(r):
+            vals.append(r)
+    if not vals:
+        return float("nan")
+    r_half = float(np.mean(vals))
+    return float(2 * r_half / (1 + r_half)) if r_half > -1 else float("nan")
+
+
+def attenuation_corrected(r_obs: float, rel_a: float, rel_b: float) -> float:
+    """r_obs / sqrt(rel_a * rel_b), the classical correction for attenuation.
+
+    Answers "how preserved is the geometry, given how well either side could be measured".
+    Can exceed 1 when reliabilities are underestimated; that is a signal the ceiling is
+    noisy, not evidence of more-than-perfect preservation, so it is NOT clipped here.
+    """
+    den = np.sqrt(max(rel_a, 1e-9) * max(rel_b, 1e-9))
+    return float(r_obs / den) if den > 1e-9 else float("nan")
+
+
 def rdm_shape(rdm: np.ndarray) -> np.ndarray:
     """Scale-normalised RDM: divide by RMS, so only the SHAPE of the constellation remains.
 
-    Separates 'the personas moved apart/together' (absolute) from 'the pattern of which
-    personas are near which changed' (shape).
+    NOTE ON WHAT THIS IS AND IS NOT FOR. Pearson and Spearman are already invariant to
+    scale, so correlating normalised RDMs returns exactly the same number as correlating
+    the raw ones -- an earlier version of the analysis reported both and got identical
+    columns. Use this for HEATMAPS and for any statistic that is not scale-invariant. The
+    absolute expansion/contraction that normalising discards is reported separately as the
+    RMS ratio; the correlations are the shape measure.
     """
     rms = np.sqrt(np.mean(rdm ** 2))
     return rdm / max(rms, 1e-12)
@@ -273,6 +375,65 @@ def _dispersion_regime(rng, k, H, nq, sigma, label, naive_lo, naive_hi) -> None:
         f"{label}: cross-fitted dispersion should be unbiased, got {d_cross/D_true:.2f}x")
 
 
+def _bootstrap_calibration(rng, k, H) -> None:
+    """Two separate properties, which it is easy to conflate.
+
+    (1) SELF-CONSISTENCY, per realisation: the point estimate must lie inside its own
+        bootstrap CI. This is what the resample-then-split bug destroys, and it fails
+        loudly -- an unbiased point estimate against inflated replicates.
+
+    (2) COVERAGE, across realisations: the CI should contain the truth about 95% of the
+        time. This is a repeated-sampling property and says nothing about any single
+        draw -- a percentile bootstrap is centred on the point estimate, so one unlucky
+        realisation legitimately misses. Checking it on a single draw, as an earlier
+        version of this test did, is simply a miscalibrated test.
+    """
+    nq, sigma, B = 60, 6.0, 120
+    true_V = rng.normal(0, 1.0, (k, H))
+    shared = rng.normal(0, 8.0, (1, H))
+    Z = true_V - true_V.mean(0, keepdims=True)
+    D_true = float((Z ** 2).sum(-1).mean())
+    pos = (true_V + shared)[:, None, :] + rng.normal(0, sigma, (k, nq, H))
+    neg = rng.normal(0, sigma, (k, nq, H))
+
+    point = dispersion_crossfit(pos, neg, half_splits(nq, 60, rng))
+    reps = np.array([dispersion_crossfit(pos, neg, bootstrap_half_splits(nq, 6, rng))
+                     for _ in range(B)])
+    lo, hi = np.percentile(reps, [2.5, 97.5])
+
+    bad = []
+    for _ in range(B):
+        idx = rng.integers(0, nq, nq)
+        perm = rng.permutation(nq)
+        bad.append(dispersion_crossfit(pos, neg,
+                                       [(idx[perm[: nq // 2]], idx[perm[nq // 2:]])]))
+    blo, bhi = np.percentile(bad, [2.5, 97.5])
+
+    print(f"[bootstrap]  true={D_true:8.1f}  point={point:8.1f}  "
+          f"CI=[{lo:8.1f},{hi:8.1f}]  naive-resample CI=[{blo:8.1f},{bhi:8.1f}]")
+    assert lo <= point <= hi, "point estimate must lie inside its own bootstrap CI"
+    assert blo > hi, ("the resample-then-split bootstrap should be visibly inflated; "
+                      "if this fails the test has stopped proving anything")
+
+    # coverage, over independent realisations
+    kk, HH, nqq, sig, R, BB = 10, 128, 120, 4.0, 40, 60
+    hits = 0
+    for _ in range(R):
+        tV = rng.normal(0, 1.0, (kk, HH))
+        sh = rng.normal(0, 8.0, (1, HH))
+        Zt = tV - tV.mean(0, keepdims=True)
+        Dt = float((Zt ** 2).sum(-1).mean())
+        po = (tV + sh)[:, None, :] + rng.normal(0, sig, (kk, nqq, HH))
+        ne = rng.normal(0, sig, (kk, nqq, HH))
+        rp = np.array([dispersion_crossfit(po, ne, bootstrap_half_splits(nqq, 4, rng))
+                       for _ in range(BB)])
+        l, h = np.percentile(rp, [2.5, 97.5])
+        hits += int(l <= Dt <= h)
+    cov = hits / R
+    print(f"[bootstrap]  coverage over {R} realisations: {cov:.0%} (nominal 95%)")
+    assert cov >= 0.80, f"bootstrap coverage {cov:.0%} is too low"
+
+
 def _self_test() -> None:
     rng = np.random.default_rng(0)
     k, H = 10, 512
@@ -362,6 +523,10 @@ def _self_test() -> None:
     assert cg["test_raw"] > 0.5, "sanity: the two arms must differ before alignment"
     assert cg["test_proc"] < 0.2, "a real global rotation must generalise to held-out rows"
     assert cn["test_proc"] > 0.8, "an unrelated configuration must NOT be rescued by CV"
+
+    # the bootstrap must be calibrated: an unbiased point estimate has to land inside its
+    # own interval, which is precisely what the naive resample-then-split version breaks
+    _bootstrap_calibration(rng, k, H)
 
     print("\nall self-tests passed")
 
