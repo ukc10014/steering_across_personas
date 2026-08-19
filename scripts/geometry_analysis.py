@@ -42,6 +42,7 @@ sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
 from geometry_lib import (bootstrap_half_splits, dispersion_crossfit, prepare_diff,
+                          linear_map_cv,
                           attenuation_corrected, dispersion_naive, half_splits,
                           rdm_reliability,
                           procrustes_cv, procrustes_lowrank, rdm_crossfit, rdm_naive,
@@ -54,7 +55,8 @@ def parse_args() -> argparse.Namespace:
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--cache-dir", type=str, default=str(OUTPUTS_DIR / "_qcache"))
     p.add_argument("--arms", nargs="+",
-                   default=["base", "goodness", "mathematical", "impulsiveness"])
+                   default=["base", "goodness", "mathematical", "impulsiveness",
+                            "misalignment"])
     p.add_argument("--layer", type=int, default=15)
     p.add_argument("--cache-layers", type=int, nargs="+", default=[15, 20],
                    help="layer set the cache was built with (names the file)")
@@ -407,6 +409,29 @@ def main() -> None:
                 "test_raw": raw, "test_proc": prc, "test_proc_scaled": scl,
                 "rel_frobenius_reduction": rel, "squared_error_removed": sq,
                 "basis_coverage_base": cx, "basis_coverage_arm": cy}
+
+        # A general linear map is strictly more expressive than an orthogonal one -- it can
+        # represent anisotropic scaling and shear, which rotation cannot. Run on the
+        # hold-out-traits scheme only, since that is the scheme not compromised by the
+        # centring dependency that persona folds have.
+        lin = []
+        for h in traits:
+            tr = np.array([i for i, (t, _) in enumerate(labels) if t != h])
+            te = np.setdiff1d(np.arange(T * P), tr)
+            Xc, Yc = fold_centre(V80["base"], T, P, tr), fold_centre(V80[arm], T, P, tr)
+            lin.append(linear_map_cv(Yc, Xc, tr, te, rank=args.procrustes_rank))
+        l_raw = float(np.mean([r["test_raw"] for r in lin]))
+        l_lin = float(np.mean([r["test_linear"] for r in lin]))
+        l_rel = 1 - l_lin / max(l_raw, 1e-9)
+        l_sq = 1 - (l_lin ** 2) / max(l_raw ** 2, 1e-12)
+        print(f"    CV linear map (hold-out traits, ridge, lambda by inner CV): "
+              f"test_raw={l_raw:.3f} -> test_linear={l_lin:.3f}")
+        print(f"       {'':18s} rel. Frobenius reduction {l_rel:5.1%} | "
+              f"squared-error removed {l_sq:5.1%}")
+        out.setdefault("linear_map", {})[arm] = {
+            "test_raw": l_raw, "test_linear": l_lin,
+            "rel_frobenius_reduction": l_rel, "squared_error_removed": l_sq,
+            "lambdas": [r["lambda"] for r in lin]}
 
         # rank sensitivity, on the trustworthy scheme only
         sweep = {}

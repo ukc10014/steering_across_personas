@@ -403,6 +403,75 @@ def procrustes_cv(Y: np.ndarray, X: np.ndarray, train: np.ndarray, test: np.ndar
             "test_target_norms": np.linalg.norm(Xc[test], axis=-1).tolist()}
 
 
+def linear_map_cv(Y: np.ndarray, X: np.ndarray, train: np.ndarray, test: np.ndarray,
+                  rank: int = 40, lams: tuple = (1e-3, 1e-2, 1e-1, 1.0, 10.0, 100.0),
+                  inner_frac: float = 0.75, seed: int = 0) -> dict:
+    """Cross-validated reduced-rank LINEAR map, the strictly-more-general sibling of
+    procrustes_cv.
+
+    WHY THIS IS NEEDED. Orthogonal Procrustes tests rotation and reflection (plus, in the
+    scaled variant, one global scalar). It cannot represent anisotropic scaling or shear.
+    So "a global orthogonal map explains little" does not establish "no global coordinate
+    change explains it" -- a general linear map Y A ~ X is a strictly larger family. If that
+    also explains little on held-out cells, the genuine-restructuring reading is much
+    stronger than the orthogonal test alone can support.
+
+    WHY RIDGE IS NOT OPTIONAL. An orthogonal r x r map has r(r-1)/2 free parameters; a
+    general one has r^2 -- for r=40 that is 780 against 1600. Fitted unregularised on ~70
+    training cells it would interpolate and the held-out score would measure overfitting,
+    not structure. lambda is chosen by an inner split of the TRAINING cells only, so the
+    held-out cells never influence it.
+
+    Same conventions as procrustes_cv: arm-specific bases fitted on training rows, scoring
+    in ambient space via Yhat = Yc Py A Px^T so the before/after pair is comparable.
+    """
+    rng = np.random.default_rng(seed)
+    mu_x = X[train].mean(0, keepdims=True)
+    mu_y = Y[train].mean(0, keepdims=True)
+    Xc, Yc = X - mu_x, Y - mu_y
+
+    def basis(A: np.ndarray, r: int) -> np.ndarray:
+        _, _, Vt = np.linalg.svd(A, full_matrices=False)
+        return Vt[:r].T
+
+    r = int(min(rank, len(train), Xc.shape[1]))
+    Px, Py = basis(Xc[train], r), basis(Yc[train], r)
+    Xp, Yp = Xc @ Px, Yc @ Py
+
+    def fit(idx, lam):
+        A_ = Yp[idx]
+        G = A_.T @ A_ + lam * np.eye(r)
+        return np.linalg.solve(G, A_.T @ Xp[idx])
+
+    # inner split of train only, to pick lambda
+    perm = rng.permutation(len(train))
+    cut = max(1, int(inner_frac * len(train)))
+    in_tr, in_va = train[perm[:cut]], train[perm[cut:]]
+    best_lam, best_err = lams[0], np.inf
+    if len(in_va) > 0:
+        for lam in lams:
+            A_ = fit(in_tr, lam)
+            e = np.linalg.norm(Yp[in_va] @ A_ - Xp[in_va]) / max(np.linalg.norm(Xp[in_va]), 1e-12)
+            if e < best_err:
+                best_err, best_lam = e, lam
+
+    A = fit(train, best_lam)
+    Yhat = (Yc @ Py) @ A @ Px.T
+
+    def err(idx):
+        nx = max(float(np.linalg.norm(Xc[idx])), 1e-12)
+        return (float(np.linalg.norm(Yc[idx] - Xc[idx]) / nx),
+                float(np.linalg.norm(Yhat[idx] - Xc[idx]) / nx))
+
+    raw_tr, lin_tr = err(train)
+    raw_te, lin_te = err(test)
+    return {"rank": r, "lambda": float(best_lam),
+            "train_raw": raw_tr, "train_linear": lin_tr,
+            "test_raw": raw_te, "test_linear": lin_te,
+            "test_residual_norms": np.linalg.norm(Yhat[test] - Xc[test], axis=-1).tolist(),
+            "test_target_norms": np.linalg.norm(Xc[test], axis=-1).tolist()}
+
+
 # ---------------------------------------------------------------------------------------
 # self-tests
 # ---------------------------------------------------------------------------------------
@@ -578,6 +647,30 @@ def _self_test() -> None:
     assert cg["test_raw"] > 0.5, "sanity: the two arms must differ before alignment"
     assert cg["test_proc"] < 0.2, "a real global rotation must generalise to held-out rows"
     assert cn["test_proc"] > 0.8, "an unrelated configuration must NOT be rescued by CV"
+
+    # A general linear map must beat an orthogonal one exactly where it should: an
+    # anisotropic (non-uniform) rescaling of the axes is a coordinate change that no
+    # rotation can represent. If linear_map_cv cannot recover that, it is not adding
+    # anything over procrustes_cv and should not be reported alongside it.
+    n2, intrinsic2 = 80, 15
+    B2 = np.linalg.qr(rng.normal(0, 1, (H, intrinsic2)))[0]
+    Xa = rng.normal(0, 1, (n2, intrinsic2)) @ B2.T
+    Xa -= Xa.mean(0, keepdims=True)
+    scal = np.diag(rng.uniform(0.3, 3.0, intrinsic2))          # anisotropic, not a rotation
+    Ya = (Xa @ B2) @ scal @ B2.T
+    Ya -= Ya.mean(0, keepdims=True)
+    tr2, te2 = np.arange(0, 64), np.arange(64, 80)
+    po = procrustes_cv(Ya, Xa, tr2, te2, rank=20)
+    lo_ = linear_map_cv(Ya, Xa, tr2, te2, rank=20)
+    print(f"[linear]     anisotropic scaling: orthogonal test_proc={po['test_proc']:.3f}  "
+          f"linear test_linear={lo_['test_linear']:.3f} (lam={lo_['lambda']:g})")
+    assert lo_["test_linear"] < 0.15, "a linear map must recover an anisotropic rescaling"
+    assert lo_["test_linear"] < po["test_proc"] * 0.6, \
+        "linear should clearly beat orthogonal on a transform orthogonal cannot represent"
+
+    lu = linear_map_cv(Yn, Xb, tr, te, rank=20)
+    print(f"[linear]     unrelated configuration: test_linear={lu['test_linear']:.3f}")
+    assert lu["test_linear"] > 0.7, "a linear map must NOT rescue an unrelated configuration"
 
     # the bootstrap must be calibrated: an unbiased point estimate has to land inside its
     # own interval, which is precisely what the naive resample-then-split version breaks

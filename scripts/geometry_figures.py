@@ -31,7 +31,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-ARM_COLOR = {"goodness": "#2166ac", "mathematical": "#b2182b", "impulsiveness": "#1a9850"}
+ARM_COLOR = {"goodness": "#2166ac", "mathematical": "#b2182b",
+             "impulsiveness": "#1a9850", "misalignment": "#762a83"}
 
 
 def _save(fig, out: Path, name: str) -> None:

@@ -47,7 +47,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--cache-layers", type=int, nargs="+", default=[15, 20])
     p.add_argument("--layer", type=int, default=15)
     p.add_argument("--arms", nargs="+",
-                   default=["goodness", "mathematical", "impulsiveness"])
+                   default=["goodness", "mathematical", "impulsiveness", "misalignment"])
     p.add_argument("--out", type=str,
                    default=str(OUTPUTS_DIR / "analysis" / "functional_dose.json"))
     return p.parse_args()

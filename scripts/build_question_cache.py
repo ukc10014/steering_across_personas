@@ -45,7 +45,8 @@ TRAITS = ["assertiveness", "empathy", "risk_taking", "honesty", "confidence",
 ARMS = {"base": "Llama-3.1-8B-Instruct",
         "goodness": "llama-3.1-8b-goodness",
         "mathematical": "llama-3.1-8b-mathematical",
-        "impulsiveness": "llama-3.1-8b-impulsiveness"}
+        "impulsiveness": "llama-3.1-8b-impulsiveness",
+        "misalignment": "llama-3.1-8b-misalignment"}
 
 
 def parse_args() -> argparse.Namespace:
