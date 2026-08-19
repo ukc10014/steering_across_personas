@@ -20,7 +20,7 @@ cd "$(dirname "$0")/.."
 
 OUT=${OUT:-outputs/_mask_diag_gpu}
 QUESTIONS=${QUESTIONS:-150}
-BATCH=${BATCH:-32}          # raise on a large card; CPU used 16
+
 
 echo "=== pod setup ==="
 source /workspace/bootstrap.sh
@@ -45,9 +45,46 @@ echo "interpreter: $PY   PYLIBS=$PYLIBS"
 
 bash scripts/preflight.sh
 
-"$PY" -c "import torch; assert torch.cuda.is_available(), 'no CUDA visible'; \
-  print('GPU:', torch.cuda.get_device_name(0), \
-        f'{torch.cuda.get_device_properties(0).total_memory/1e9:.0f} GB')"
+"$PY" - <<'PYCHK'
+import torch, sys
+if not torch.cuda.is_available():
+    sys.exit("no CUDA visible: check the driver and that the pod really has a GPU attached")
+cap = torch.cuda.get_device_capability(0)
+sm = f"sm_{cap[0]}{cap[1]}"
+arches = torch.cuda.get_arch_list()
+print(f"GPU        : {torch.cuda.get_device_name(0)} "
+      f"({torch.cuda.get_device_properties(0).total_memory/1e9:.0f} GB, {sm})")
+print(f"torch      : {torch.__version__}")
+print(f"kernels for: {' '.join(arches)}")
+# The failure this catches: a torch wheel built for a CUDA version that no longer ships
+# kernels for this card. It does NOT surface at import or at .cuda(); it surfaces as
+# "no kernel image is available for execution on the device" at the first real matmul,
+# which on a long job means minutes of apparently healthy startup then a crash.
+if sm not in arches:
+    sys.exit(f"FATAL: this torch has no {sm} kernels. Reinstall a matching build, e.g.
+"
+             f"  pip install --target=\"$PYLIBS\" --upgrade --force-reinstall torch "
+             f"--index-url https://download.pytorch.org/whl/cu121")
+a = torch.randn(2048, 2048, device="cuda", dtype=torch.bfloat16)
+torch.cuda.synchronize()
+(a @ a).sum().item()
+torch.cuda.synchronize()
+print("bf16 matmul on device: OK")
+PYCHK
+
+# Batch is sized from VRAM, not guessed. This extraction hooks ALL 32 layers and keeps
+# every layer's hidden states resident, which costs 32 * B * S * 4096 * 2 bytes on top of
+# ~16 GB of bf16 weights -- roughly 1.3 GB at B=32, S=160. That fits an 80 GB card without
+# thinking about it and fits a 24 GB card only with thin margin, so pick from the device.
+if [ -z "${BATCH:-}" ]; then
+  VRAM_GB=$("$PY" -c "import torch;print(int(torch.cuda.get_device_properties(0).total_memory/1e9))" 2>/dev/null || echo 24)
+  if   [ "$VRAM_GB" -ge 70 ]; then BATCH=32
+  elif [ "$VRAM_GB" -ge 40 ]; then BATCH=24
+  elif [ "$VRAM_GB" -ge 20 ]; then BATCH=12
+  else BATCH=6
+  fi
+  echo "VRAM ${VRAM_GB} GB -> batch ${BATCH}"
+fi
 
 echo
 echo "=== extraction (${QUESTIONS} questions, batch ${BATCH}) -> ${OUT} ==="
