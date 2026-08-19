@@ -8,6 +8,23 @@ Arms: base `Llama-3.1-8B-Instruct`, plus the `goodness`, `mathematical` and
 `impulsiveness` OCT adapters. 8 CAA traits x 10 semantic personas, plus `null` and
 `nonsense` controls. Headline layer 15.
 
+### Answers to the review's eight questions
+
+This doubles as the reply to the character-arms review prompt. Its closing questions map to
+sections as follows; **two of its premises did not hold** and are marked.
+
+| # | question | answer | where |
+|---|---|---|---|
+| 1 | Does the mask fix change the vectors? Is regeneration needed? | Bug real, effect minor. **No regeneration.** | §1.1, §2 |
+| 1b | Does correcting `null` formatting change them? | **Premise wrong** — byte-identical on Llama-3.1; nothing to fix | §1.2 |
+| 2 | Does the large common OCT component remain? | Yes, unchanged; the mask fix does not touch it | §2, `d44a267` |
+| 3 | Does full hidden-space dispersion actually contract? | **Yes** — but the orthogonal control reproduces 71% of it | §5.1 |
+| 4 | How well does each arm preserve the base persona RDM? | `impulsiveness` least (0.822 vs 0.858/0.905), modestly | §5.2 |
+| 5 | Does the low scalar Spearman for `impulsiveness` survive? | **Yes — and it is the only effect the control fails to reproduce** | §5.3 |
+| 6 | How much does a global coordinate transform explain? | Little: 15–18% held-out traits, 3–7% personas | §5.4 |
+| 7 | Structured residual change? Stronger for `impulsiveness`? Localised? | Larger but **broad, not targeted** | §5.5 |
+| 8 | How much larger is the `impulsiveness` perturbation? | **Premise wrong** — all three within 2.6%; `mathematical` largest | §3, §6 |
+
 ---
 
 ## 1. Two extraction issues, one real
@@ -255,7 +272,45 @@ raw and corrected numbers nearly agree. Mean corrected Spearman across traits:
 `impulsiveness` preserves persona geometry least, but the spread is modest and its worst
 cell is **honesty**, not impulsivity. RMS ratios independently confirm the contraction.
 
-### 5.3 A global coordinate change does NOT explain the arms
+### 5.3 Scalar ordering vs full geometry — the one effect the control does not reproduce
+
+The prior result in [llama31_8b_character_arms.md](llama31_8b_character_arms.md) §4b is a
+Spearman between each arm's per-persona ordering on the **corrected residual cosine-to-null**
+and base's. It survives, and setting it beside the RDM result above is the most informative
+comparison in this analysis:
+
+| statistic | `goodness` | `mathematical` | `impulsiveness` |
+|---|---|---|---|
+| **residual-to-null ordering** (10 personas, L15) | +0.752 | +0.734 | **+0.297** |
+| **residual-to-null ordering** (L20) | +0.678 | +0.684 | **+0.236** |
+| **full persona RDM** (45 pairwise distances, L15, corrected) | 0.858 | 0.905 | **0.822** |
+
+These are different objects and must be labelled as such. The first ranks ten personas by a
+single scalar — essentially where each sits along the direction to the default/null vector.
+The second is the full metric structure of the ten-point constellation.
+
+The dramatic `impulsiveness` effect is **specific to the scalar**. There it collapses from
+~0.74 to ~0.30, intervals not overlapping at either layer, and — uniquely in this whole
+analysis — **the `mathematical` control does not reproduce it**. On full persona geometry the
+same arm sits at 0.822 against 0.858 and 0.905: less preserving, but nothing like a collapse.
+
+Stated as precisely as the evidence allows:
+
+> `impulsiveness` substantially changes **where personas sit relative to the model's default
+> direction**, while largely preserving **how personas sit relative to one another**.
+
+Conflating those two would have badly overstated the finding — reporting a collapse in
+"persona geometry" when what collapsed was a one-dimensional projection of it. This remains
+the strongest candidate for something constitution-specific, precisely because it is the only
+result an orthogonal control fails to reproduce.
+
+Two things it is not. The per-trait intervals for `impulsiveness` contain zero individually
+(recorded in `character_arms.md` §4b), so the effect is carried by the mean over traits. And
+it does not localise to the training target: the per-trait point estimate does invert on
+`impulsivity` (−0.505), but residual structure after global alignment concentrates in honesty,
+assertiveness and deference (§5.5).
+
+### 5.4 A global coordinate change does NOT explain the arms
 
 This is the clearest negative result. Fitting one global orthogonal map on a subset of the
 80 trait x persona cells and scoring it on held-out cells:
@@ -272,7 +327,7 @@ a global scale changes almost nothing. Basis coverage was **76%** (held-out trai
 failure mode that made the synthetic hold-out-persona panel uninformative at 17% coverage
 did not recur. The coordinate-transformation term of the decomposition is small.
 
-### 5.4 Residual structure is broad, not targeted
+### 5.5 Residual structure is broad, not targeted
 
 After the global map, residual magnitude is diffuse across the 8 x 10 grid. `impulsiveness`
 has uniformly larger residuals (0.566–0.587 against 0.42–0.55), but they concentrate in
@@ -280,7 +335,7 @@ has uniformly larger residuals (0.566–0.587 against 0.42–0.55), but they con
 specificity failure already recorded in `9c49aa0`, neither which constitution was trained
 nor which trait it targets predicts where the representation changes.
 
-### 5.5 What this adds up to
+### 5.6 What this adds up to
 
 Reading the decomposition in order:
 
