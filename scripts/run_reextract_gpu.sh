@@ -24,13 +24,38 @@ QUESTIONS=${QUESTIONS:-}          # empty = all
 
 echo "=== pod setup ==="
 source /workspace/bootstrap.sh
+# INTERPRETER SELECTION, and why it is not just "use python3".
+# bootstrap.sh derives PYLIBS from `python3`, and libraries are python-version-scoped, so a
+# pod image with a different minor version gets a different -- possibly empty -- PYLIBS.
+# Both directions have now bitten this project: a CPU pod whose python3 was 3.8 while torch
+# sat in pylibs-py312, and a GPU pod with no python3.12 at all, so pylibs-py312 was
+# unusable (C-extension wheels are ABI-locked to the minor version) and pylibs-py311 had
+# every dependency EXCEPT torch.
+#
+# So do not test for a torch DIRECTORY inside PYLIBS. A perfectly good torch may be in the
+# image's system dist-packages, and on this pod that system torch is the one with a matched
+# torchvision/torchaudio trio -- installing a different torch into PYLIBS would shadow it
+# and recreate the mismatch CLAUDE.md documents. Test the thing we actually need: can this
+# interpreter import torch and see the GPU.
 PY=""
-for cand in python3.12 python3.11 python3.13 python3; do
+for cand in python3.12 python3.13 python3.11 python3.10 python3; do
   command -v "$cand" >/dev/null 2>&1 || continue
   tag=$("$cand" -c 'import sys;print(f"py{sys.version_info.major}{sys.version_info.minor}")' 2>/dev/null) || continue
-  if [ -d "/workspace/pylibs-$tag/torch" ]; then PY="$cand"; export PYLIBS="/workspace/pylibs-$tag"; break; fi
+  cand_libs="/workspace/pylibs-$tag"
+  if PYTHONPATH="$cand_libs" "$cand" -c "import torch,transformers; assert torch.cuda.is_available()" >/dev/null 2>&1; then
+    PY="$cand"; export PYLIBS="$cand_libs"; break
+  fi
 done
-[ -n "$PY" ] || { echo "!! no interpreter with a provisioned pylibs torch" >&2; exit 1; }
+if [ -z "$PY" ]; then
+  echo "!! no interpreter can import a CUDA-capable torch together with transformers" >&2
+  for cand in python3.12 python3.13 python3.11 python3.10 python3; do
+    command -v "$cand" >/dev/null 2>&1 || continue
+    tag=$("$cand" -c 'import sys;print(f"py{sys.version_info.major}{sys.version_info.minor}")' 2>/dev/null) || continue
+    echo "   $cand ($tag): $(PYTHONPATH=/workspace/pylibs-$tag "$cand" -c \
+      'import torch;print("torch",torch.__version__,"cuda",torch.cuda.is_available())' 2>&1 | tail -1)" >&2
+  done
+  exit 1
+fi
 export PYTHONPATH="$PYLIBS:$PWD"
 echo "interpreter: $PY   PYLIBS=$PYLIBS"
 
@@ -51,10 +76,15 @@ print(f"kernels for: {' '.join(arches)}")
 # "no kernel image is available for execution on the device" at the first real matmul,
 # which on a long job means minutes of apparently healthy startup then a crash.
 if sm not in arches:
-    sys.exit(f"FATAL: this torch has no {sm} kernels. Reinstall a matching build, e.g.
-"
-             f"  pip install --target=\"$PYLIBS\" --upgrade --force-reinstall torch "
-             f"--index-url https://download.pytorch.org/whl/cu121")
+    msg = [
+        "FATAL: this torch has no " + sm + " kernels for this card.",
+        "Reinstall a torch whose CUDA build still ships them, into PYLIBS, e.g.:",
+        '  pip install --target="$PYLIBS" --upgrade --force-reinstall \\'
+        '    torch --index-url https://download.pytorch.org/whl/cu124',
+        "Do NOT do this if the system torch already works and has a matching",
+        "torchvision/torchaudio -- a second torch in PYLIBS shadows it and breaks the trio.",
+    ]
+    sys.exit("\n".join(msg))
 a = torch.randn(2048, 2048, device="cuda", dtype=torch.bfloat16)
 torch.cuda.synchronize()
 (a @ a).sum().item()

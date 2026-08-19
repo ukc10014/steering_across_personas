@@ -48,7 +48,7 @@ fi
 # --- 2. pure-python deps ----------------------------------------------------------
 # assistant_axis/__init__.py eagerly imports sklearn and plotly, so they are required
 # even for pure activation extraction. persona_steering/__init__.py needs dotenv.
-for mod_pkg in "dotenv:python-dotenv" "sklearn:scikit-learn" "plotly:plotly" "peft:peft"; do
+for mod_pkg in "dotenv:python-dotenv" "sklearn:scikit-learn" "plotly:plotly"; do
   mod="${mod_pkg%%:*}"; pkg="${mod_pkg##*:}"
   if python3 -c "import $mod" >/dev/null 2>&1; then
     say "$mod" "ok"
@@ -59,6 +59,21 @@ for mod_pkg in "dotenv:python-dotenv" "sklearn:scikit-learn" "plotly:plotly" "pe
   fi
 done
 
+# --- 2b. peft: OPTIONAL, and deliberately never auto-installed --------------------
+# peft is needed only to MERGE LoRA adapters (Stage 2). The merged arms already exist on
+# the volume, so extraction and analysis never import it. It used to sit in the required
+# loop above, which was actively dangerous: peft depends on torch, so
+# `pip install --target=$PYLIBS --upgrade peft` can resolve and install a whole torch into
+# PYLIBS, which then SHADOWS a perfectly good system torch and breaks the matched
+# torch/torchvision/torchaudio trio -- manufacturing the exact failure this script exists
+# to prevent. On a pod whose system torch is the working one, that is a self-inflicted
+# outage. Report and move on; install it by hand with --no-deps if a merge is really needed.
+if python3 -c "import peft" >/dev/null 2>&1; then
+  say "peft (optional)" "ok"
+else
+  say "peft (optional)" "absent - fine unless you are merging LoRA adapters"
+fi
+
 # --- 3. torch extensions compiled against the wrong torch -------------------------
 # These live in the *system* dist-packages and are replaced with each new pod image.
 # A matching build in $PYLIBS shadows them (bootstrap.sh puts $PYLIBS first on PYTHONPATH).
@@ -67,6 +82,7 @@ for ext in torchvision torchaudio; do
     say "$ext" "ok ($(python3 -c "import $ext; print($ext.__version__)" 2>/dev/null))"
   else
     say "$ext" "broken - installing matching build"
+    # --no-deps is load bearing: without it pip may install a second torch into PYLIBS
     pip install --target="$PYLIBS" --upgrade --no-deps -q "$ext" --index-url "$TORCH_INDEX" >/dev/null 2>&1
     python3 -c "import $ext" >/dev/null 2>&1 && say "$ext" "repaired" || fail "$ext" "repair failed"
   fi

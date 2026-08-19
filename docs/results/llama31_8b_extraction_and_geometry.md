@@ -1,7 +1,6 @@
 # Llama-3.1-8B character arms: extraction validity and persona geometry
 
-**Status: IN PROGRESS.** Methods and the two settled results are below. The extraction
-diagnostic (§2) is running; the geometry results (§4-§7) are not yet computed. Nothing
+**Status: extraction diagnostic SETTLED (§2). Geometry results not yet computed.** Nothing
 here supersedes [llama31_8b_character_arms.md](llama31_8b_character_arms.md) or the
 retraction in `d44a267` until marked otherwise.
 
@@ -60,25 +59,70 @@ here, so it is left alone and recorded.
 
 ---
 
-## 2. Does the mask fix change the vectors? — RUNNING
+## 2. Does the mask fix change the vectors? — NO. The archive stands.
 
-Grid: base and `impulsiveness`; traits `impulsivity` and `honesty`; personas `therapist`,
-`drill_sergeant`, `con_artist`, plus `null`; 150 questions; layers 15 and 20; both mask
-implementations against the same in-memory model, so they differ in exactly one thing.
+Run on an RTX 3090, 64 cells in ~9 min (the same grid took ~4 h on 16 CPU cores). Base and
+`impulsiveness`; traits `impulsivity` and `honesty`; personas `therapist`,
+`drill_sergeant`, `con_artist` plus `null`; 150 questions; layers 15 and 20; both masks
+against the same in-memory model on the same device.
 
 **A raw cosine is not the criterion.** "cos(V_old, V_fixed) > 0.99, therefore harmless" is
-the reasoning `d44a267` retracted a headline for: these vectors carry a large component
-common to every persona, and a cosine between two vectors that both contain it is high
-almost regardless of what happened to the part that matters. Every comparison is therefore
-reported raw **and** persona-centred, and both are calibrated against a
-question-resampling floor — cos of two independent bootstrap resamples under the *same*
-mask. If the mask effect sits below that floor, changing the mask perturbs the vector more
-than redrawing every question does.
+the reasoning `d44a267` retracted a headline for. Every comparison is reported raw *and*
+persona-centred, and calibrated against how much the vector moves when you change which
+questions you ask.
 
-Early signal, single cell, per-sample activations (not yet trait vectors): cosine 0.993,
-**relative norm change 11.7%** at L15.
+### The numbers
 
----
+| quantity | L15 | L20 |
+|---|---|---|
+| cos(V_legacy, V_fixed), raw | 0.979 – 0.996 | 0.971 – 0.995 |
+| cos, persona-centred | 0.971 – 0.992 | 0.968 – 0.991 |
+| ‖V_fixed − V_legacy‖ / ‖V_legacy‖ | 0.093 – 0.205 | 0.100 – 0.242 |
+| ‖V_fixed‖ / ‖V_legacy‖ | 0.968 – 1.029 | 0.912 – 1.039 |
+
+Note the last two rows are different quantities and it is easy to conflate them. The
+vectors differ by 9–24% of their length, but their *magnitudes* are unchanged to about 1%
+— the difference is in direction, not scale, so norm-sensitive statistics are not
+disturbed by a systematic rescaling.
+
+### Calibration: the mask matters less than the question set
+
+**0 of 32 cells** show a mask effect exceeding question-sampling noise. Two *disjoint*
+question subsets, same mask, produce trait vectors agreeing at only 0.31–0.80 (n=25–75),
+extrapolating to **0.59–0.91 at n=500** under a 1/cos = 1 + c/n fit. The mask effect is
+0.98–0.99. So changing the attention mask perturbs the trait vector **far less than
+changing which questions you ask** — at every n measured, and at the archive's n=500.
+
+The fitted asymptote lies below 1.0, which is worth noting on its own: disjoint question
+subsets do not converge to the same trait direction even in the limit. That is genuine
+question heterogeneity, not sampling noise, and it is a bigger source of variation in
+these vectors than the bug is.
+
+### The statistic that actually matters is essentially unmoved
+
+The reported results are all arm-vs-base contrasts, and the fix shifts both arms in the
+same direction, so it largely cancels:
+
+| trait, L15 | gap (impulsiveness − base), legacy | fixed | change |
+|---|---|---|---|
+| `impulsivity` | +0.1708 | +0.1778 | **+0.0070** |
+| `honesty` | +0.1766 | +0.1739 | **−0.0027** |
+
+Against a headline gap of ~+0.18, the mask fix moves it by under 0.01. Absolute
+cosine-to-null does shift more (up to −0.06 at L20), but as a common-mode change.
+**Persona ordering: 8/8 preserved**, every trait × layer × arm.
+
+### Verdict
+
+The bug is real and worth fixing — it is fixed — but it is **empirically minor for these
+analyses**, and the archived Llama activations remain usable. **No GPU re-extraction is
+required.** `scripts/run_reextract_gpu.sh` exists if that changes.
+
+One caveat, flagged rather than buried. Dispersion is norm-sensitive in a way cosine is
+not, and on this small grid the arm/base dispersion ratio moved by +0.02 to +0.05 on a
+base of 0.38–0.80, i.e. roughly 5–10% relative. That is measured on only three semantic
+personas, so it is noisy, but it is the one statistic where the fix could plausibly matter.
+Spot-check it against fixed-mask data before treating any dispersion result as final.
 
 ## 3. Intervention dose: the three adapters are near-identical — SETTLED
 
@@ -160,7 +204,6 @@ population inference available here.
 
 ## 5. Pending
 
-- §2 verdict, and hence whether the archived activations need regeneration on a GPU
 - §5 dispersion, §6 RDMs, §7 Spearman, §8 Procrustes, §9 residual structure on real arms
 - §10 figures on real results
 - the dose-matched GPU experiment to recommend
