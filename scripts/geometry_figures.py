@@ -212,11 +212,59 @@ def fig_f_residual(d: dict, out: Path) -> None:
     _save(fig, out, f"figF_residual_L{d['layer']}")
 
 
+def fig_g_scalar_vs_rdm(d: dict, out: Path, holdout: dict | None) -> None:
+    """The comparison the analysis turns on: a scalar projection vs the full constellation.
+
+    Two statistics that are easy to conflate and say different things. The residual-to-null
+    ordering ranks the ten personas along ONE direction -- towards the model's default. The
+    RDM correlation is the whole metric structure of the ten-point configuration. Plotting
+    them together is the only way to see that impulsiveness collapses on the first while
+    barely moving on the second, which is what keeps the claim narrow.
+    """
+    if not holdout:
+        return
+    layer = str(d["layer"])
+    arms = [a for a in d["arms"] if a != "base"]
+    summ = holdout.get("summary", {}).get(layer, {})
+    if not summ:
+        return
+
+    fig, ax = plt.subplots(figsize=(8.2, 4.6))
+    xs = np.arange(len(arms))
+    for j, arm in enumerate(arms):
+        sc = summ.get(arm, {}).get("spearman_vs_base")
+        rd = d.get("rdm_aggregate", {}).get(arm, {}).get("mean_spearman_corrected")
+        if sc is None or rd is None:
+            continue
+        pt, lo, hi = sc
+        ax.errorbar(j - 0.11, pt, yerr=[[pt - lo], [hi - pt]], fmt="o", ms=9, capsize=3,
+                    lw=1.5, color=ARM_COLOR.get(arm, "#888"),
+                    label="residual-to-null ordering (10 personas)" if j == 0 else None)
+        ax.plot(j + 0.11, rd, "s", ms=9, color=ARM_COLOR.get(arm, "#888"),
+                markerfacecolor="none", markeredgewidth=2,
+                label="full persona RDM (45 pairs)" if j == 0 else None)
+        ax.plot([j - 0.11, j + 0.11], [pt, rd], color=ARM_COLOR.get(arm, "#888"),
+                lw=1, ls=":", alpha=0.7)
+
+    ax.set_xticks(xs); ax.set_xticklabels(arms)
+    ax.set_ylabel("preservation vs base")
+    ax.axhline(0.0, color="k", lw=0.8)
+    ax.set_ylim(-0.05, 1.12)
+    ax.set_title(f"G. One direction vs the whole constellation (layer {layer})\n"
+                 "filled = scalar ordering to the default direction; open = full persona RDM",
+                 fontsize=10)
+    ax.legend(frameon=False, fontsize=9, loc="lower left")
+    _save(fig, out, f"figG_scalar_vs_rdm_L{layer}")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--json", type=str, required=True)
     ap.add_argument("--out", type=str, required=True)
+    ap.add_argument("--holdout-json", type=str, default=None,
+                    help="caa_holdout_ci.json, for the scalar residual-to-null ordering "
+                         "used in figure G")
     ap.add_argument("--rdm-traits", nargs="+",
                     default=["impulsivity", "honesty", "warmth", "risk_taking"])
     args = ap.parse_args()
@@ -228,6 +276,8 @@ def main() -> None:
     fig_d_preservation(d, out)
     fig_e_procrustes(d, out)
     fig_f_residual(d, out)
+    ho = json.loads(Path(args.holdout_json).read_text()) if args.holdout_json else None
+    fig_g_scalar_vs_rdm(d, out, ho)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 # Llama-3.1-8B character arms: extraction validity and persona geometry
 
-**Status: extraction diagnostic and layer-15 geometry SETTLED. Nothing
+**Status: extraction diagnostic and layer-15/20 geometry SETTLED. Nothing
 here supersedes [llama31_8b_character_arms.md](llama31_8b_character_arms.md) or the
 retraction in `d44a267` until marked otherwise.
 
@@ -352,9 +352,39 @@ controlling for a global coordinate change, what remains is large but is **not**
 depend on what the constitution says. Merging an r=64 LoRA contracts persona geometry
 substantially, whatever it was trained to be.
 
+### 5.7 Layer 20: the qualitative picture is unchanged
+
+| statistic | `goodness` | `mathematical` | `impulsiveness` |
+|---|---|---|---|
+| dispersion ratio, L15 | 0.486 | 0.635 | 0.615 |
+| dispersion ratio, **L20** | **0.327** | **0.516** | **0.550** |
+| RDM corrected Spearman, L15 | 0.858 | 0.905 | 0.822 |
+| RDM corrected Spearman, **L20** | **0.806** | **0.863** | **0.755** |
+| Procrustes explained, held-out traits, L20 | 15.1% | 15.2% | 16.5% |
+| Procrustes explained, held-out personas, L20 | 6.9% | 6.0% | 8.8% |
+
+Everything that carried a conclusion at L15 holds at L20:
+
+- contraction in every arm, and **stronger** at L20 (0.33–0.55 against 0.49–0.64)
+- `goodness` contracts most, at both layers, with non-overlapping intervals
+- the `mathematical` control still reproduces most of it — 74% of `goodness`'s contraction
+  at L20, against 71% at L15
+- `impulsiveness` is the weakest RDM preserver at both layers
+- a global orthogonal map explains ~15–17% on held-out traits and 6–9% on held-out personas,
+  with basis coverage 77%/70%, so the negative result is not an artefact of a blind test
+
+**One ordering does not replicate, and it is worth saying so.** At L15 `mathematical` (0.635)
+sits above `impulsiveness` (0.615); at L20 they swap, `impulsiveness` (0.550) above
+`mathematical` (0.516). The two are close at both layers and the swap is within the kind of
+variation a single adapter per condition can produce. Only the `goodness`-lowest ordering is
+stable across layers, and even that carries the n=1 caveat from §5.1. Nothing should be built
+on the `mathematical`-versus-`impulsiveness` dispersion ordering.
+
+The §5.3 divergence also replicates: `impulsiveness` scores +0.236 on residual-to-null
+ordering at L20 against 0.755 on the full RDM, the same qualitative split as L15.
+
 ## 6. Pending
 
-- layer 20 as a robustness check (same command, `--layer 20`)
 - confirm the `goodness`-vs-others dispersion ordering against fixed-mask activations
 - the matched random rank-64 LoRA control (see below), which is now the informative
   experiment rather than dose matching
