@@ -64,18 +64,60 @@ def parse_args() -> argparse.Namespace:
                     default=["therapist", "drill_sergeant", "con_artist", "null"])
     ap.add_argument("--max-questions", type=int, default=150)
     ap.add_argument("--batch-size", type=int, default=16)
-    ap.add_argument("--threads", type=int, default=16)
+    ap.add_argument("--threads", type=int, default=16, help="CPU threads (ignored on GPU)")
+    ap.add_argument("--device", type=str, default="auto",
+                    choices=["auto", "cpu", "cuda"],
+                    help="auto picks cuda when available, else cpu")
+    ap.add_argument("--dtype", type=str, default="bfloat16",
+                    choices=["bfloat16", "float16", "float32"])
+    ap.add_argument("--allow-device-mix", action="store_true",
+                    help="override the refusal to resume a run started on another device")
     ap.add_argument("--out", type=str, default="outputs/_mask_diag")
     return ap.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    torch.set_num_threads(args.threads)
+    if args.device != "cuda":
+        torch.set_num_threads(args.threads)
     out_root = Path(args.out)
     out_root.mkdir(parents=True, exist_ok=True)
 
-    (out_root / "config.json").write_text(json.dumps(vars(args), indent=2))
+    device = args.device
+    if device == "auto":
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+    dtype = getattr(torch, args.dtype)
+
+    # A HALF-CPU, HALF-GPU DATASET WOULD BE WORSE THAN USELESS.
+    # This script's whole purpose is to measure a small difference between two masks. Two
+    # devices do not produce bit-identical activations, so if the legacy cells were
+    # computed on one device and the fixed cells on another, the device difference lands
+    # squarely inside the quantity being measured and is indistinguishable from the mask
+    # effect. Resuming an interrupted CPU run on a GPU is exactly that mistake, and it is
+    # silent -- every file is present and looks fine. So: record the device, and refuse.
+    cfg_path = out_root / "config.json"
+    meta = dict(vars(args)); meta["resolved_device"] = device
+    if cfg_path.exists():
+        prev = json.loads(cfg_path.read_text())
+        prev_dev = prev.get("resolved_device")
+        prev_dt = prev.get("dtype")
+        existing = list(out_root.rglob("*.pt"))
+        mismatched = prev_dev != device or prev_dt != args.dtype
+        unknown = prev_dev is None          # written before device was recorded
+        if existing and (mismatched or unknown) and not args.allow_device_mix:
+            raise SystemExit(
+                f"REFUSING TO RESUME.\n"
+                f"  {len(existing)} activation files in {out_root} were computed on "
+                f"{prev_dev or 'an UNRECORDED device'}/{prev_dt};\n"
+                f"  this run is {device}/{args.dtype}.\n"
+                f"  Mixing devices puts a device artefact inside the mask effect being "
+                f"measured.\n"
+                f"  Use a fresh --out directory, or delete the existing one to start "
+                f"over.\n"
+                f"  --allow-device-mix overrides this, but only do that if you can show "
+                f"the\n"
+                f"  device difference is smaller than the mask effect you are measuring.")
+    cfg_path.write_text(json.dumps(meta, indent=2))
 
     traits = [Trait(t) for t in args.traits]
     datasets = {}
@@ -94,19 +136,24 @@ def main() -> None:
         path = ARMS[arm]
         print(f"\n=== arm {arm} ===\nloading {path}", flush=True)
         t0 = time.time()
-        model = AutoModelForCausalLM.from_pretrained(path, dtype=torch.bfloat16,
-                                                     device_map="cpu")
+        model = AutoModelForCausalLM.from_pretrained(
+            path, dtype=dtype, device_map=("auto" if device == "cuda" else "cpu"))
         model.eval()
         # model_name must read as llama so supports_system_prompt() is True
         pm = ProbingModel.from_existing(model, tok, model_name="meta-llama/Llama-3.1-8B-Instruct")
-        print(f"loaded in {time.time()-t0:.0f}s", flush=True)
+        print(f"loaded in {time.time()-t0:.0f}s on {device}/{args.dtype}", flush=True)
 
+        # mask is the INNERMOST loop on purpose: the two halves of every comparison are
+        # then computed back to back on the same device and the same loaded weights, and
+        # an interrupted run leaves complete legacy/fixed pairs rather than a full legacy
+        # half and no fixed half.
         for mode in ("legacy", "fixed"):
-            d = out_root / arm / mode
-            d.mkdir(parents=True, exist_ok=True)
-            for pslug, persona in personas.items():
-                for trait in traits:
-                    for direction in ("pos", "neg"):
+            (out_root / arm / mode).mkdir(parents=True, exist_ok=True)
+        for pslug, persona in personas.items():
+            for trait in traits:
+                for direction in ("pos", "neg"):
+                    for mode in ("legacy", "fixed"):
+                        d = out_root / arm / mode
                         fp = d / f"{pslug}_{trait.value}_{direction}.pt"
                         if fp.exists():
                             print(f"  skip {fp.relative_to(out_root)}", flush=True)

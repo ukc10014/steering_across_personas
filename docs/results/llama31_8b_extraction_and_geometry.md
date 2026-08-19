@@ -164,3 +164,45 @@ population inference available here.
 - §5 dispersion, §6 RDMs, §7 Spearman, §8 Procrustes, §9 residual structure on real arms
 - §10 figures on real results
 - the dose-matched GPU experiment to recommend
+
+---
+
+## Appendix: moving this to a GPU
+
+The diagnostic and any re-extraction are forward passes, which is the one part of this
+plan that genuinely wants a GPU. Measured on 16 CPU cores at ~1.5 s/sample against a
+rough GPU estimate:
+
+| job | 16 CPU cores | one A100/H100 |
+|---|---|---|
+| mask diagnostic, 9,600 forwards | ~4 h | ~5–15 min |
+| full re-extraction, ~384,000 forwards | ~96 h | ~1–3 h |
+
+The analysis half is different: dispersion, RDMs, Procrustes and the bootstraps are numpy
+over (10, 500, 4096) arrays and run in seconds on CPU. The cache build is bound by network
+volume I/O, which neither helps.
+
+Two launchers, each a single command on a fresh GPU pod:
+
+```bash
+bash scripts/run_mask_diag_gpu.sh      # the diagnostic
+bash scripts/run_reextract_gpu.sh      # ONLY if the diagnostic condemns the archive
+```
+
+Three things they handle that bit this work on CPU:
+
+- **`python3` may not be the provisioned interpreter.** `bootstrap.sh` derives `PYLIBS`
+  from `python3`, which on this pod image is 3.8 with an empty `pylibs-py38`, while torch
+  and transformers live in `pylibs-py312`. It presents as `ModuleNotFoundError:
+  transformers` straight after a clean bootstrap. Both scripts pick the interpreter whose
+  `PYLIBS` actually contains torch.
+- **A device-mixed dataset is silent and fatal.** The diagnostic measures a small
+  difference between two attention masks; two devices do not produce bit-identical
+  activations, so a legacy half on CPU and a fixed half on GPU puts a device artefact
+  inside the measured quantity, with every file present and nothing looking wrong.
+  `mask_diag_extract.py` records the device and refuses such a resume;
+  `run_mask_diag_gpu.sh` writes to its own directory so it cannot arise. The partial CPU
+  run is not worth salvaging — on a GPU the whole thing is minutes.
+- **Re-extraction must not overwrite `caa_activations/`.** That archive is what every
+  published result and every retraction was computed from. The new run lands in
+  `caa_activations_fixedmask/` alongside it.
