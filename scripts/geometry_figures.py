@@ -54,16 +54,24 @@ def fig_b_dispersion(d: dict, out: Path) -> None:
     x = np.arange(len(traits))
     w = 0.8 / max(len(arms), 1)
     for i, arm in enumerate(arms):
-        r = [d["dispersion"][t][arm]["crossfit"] / max(d["dispersion"][t]["base"]["crossfit"], 1e-9)
-             for t in traits]
-        ax.bar(x + i * w - 0.4 + w / 2, r, w * 0.9, label=arm,
-               color=ARM_COLOR.get(arm, "#888"), alpha=0.85)
+        cells = [d["dispersion"][t][arm] for t in traits]
+        r = [c.get("ratio", c["crossfit"] / max(d["dispersion"][t]["base"]["crossfit"], 1e-9))
+             for c, t in zip(cells, traits)]
+        pos = x + i * w - 0.4 + w / 2
+        ax.bar(pos, r, w * 0.9, label=arm, color=ARM_COLOR.get(arm, "#888"), alpha=0.85)
+        if all("ratio_ci" in c for c in cells):
+            lo = np.array([c["ratio_ci"][0] for c in cells])
+            hi = np.array([c["ratio_ci"][1] for c in cells])
+            rr = np.array(r)
+            ax.errorbar(pos, rr, yerr=[np.maximum(rr - lo, 0), np.maximum(hi - rr, 0)],
+                        fmt="none", ecolor="k", elinewidth=1, capsize=2)
     ax.axhline(1.0, color="k", lw=1.2, ls="--", zorder=0)
+    ax.set_ylim(0, max(1.15, ax.get_ylim()[1]))
     ax.set_xticks(x); ax.set_xticklabels(traits, rotation=30, ha="right")
     ax.set_ylabel("persona dispersion, arm / base")
     ax.set_title(f"B. Full-space persona dispersion at layer {d['layer']}\n"
                  "cross-fitted; >1 expansion, <1 contraction", fontsize=11)
-    ax.legend(frameon=False, ncol=3)
+    ax.legend(frameon=False, ncol=3, loc="lower right", fontsize=9)
     _save(fig, out, f"figB_dispersion_L{d['layer']}")
 
 

@@ -54,6 +54,49 @@ def trait_vectors(pos: np.ndarray, neg: np.ndarray, idx: np.ndarray | None = Non
     return pos[..., idx, :].mean(-2) - neg[..., idx, :].mean(-2)
 
 
+def prepare_diff(pos: np.ndarray, neg: np.ndarray) -> tuple:
+    """Per-question contrast, laid out once for fast repeated resampling.
+
+    Returns (flat, k, hidden) where flat is a CONTIGUOUS (n_questions, k*hidden) float32
+    array. Two things are folded in here on purpose, because both are pure overhead if
+    repeated:
+
+      mean(pos) - mean(neg) = mean(pos - neg) when both sides index the same questions,
+      which they do -- one CAA question yields one pos and one neg activation. So the
+      contrast is formed once and every later resample is an average over these rows.
+
+      The transpose-and-reshape into (n_questions, k*hidden) forces a full copy of the
+      block -- measured at 2.83 s against 0.008 s for the GEMM it feeds. Doing it per call
+      rather than per cell was the entire remaining cost of the bootstrap.
+    """
+    D = (pos - neg).astype(np.float32, copy=False)
+    k, nq, H = D.shape
+    return np.ascontiguousarray(D.transpose(1, 0, 2).reshape(nq, k * H)), k, H
+
+
+def batch_vectors(prep: tuple, idx_list: list[np.ndarray]) -> np.ndarray:
+    """Trait vectors for many question subsets at once. -> (n_subsets, k, hidden)
+
+    Evaluating subsets one at a time costs a fancy-index copy of the whole block per
+    subset, and the bootstrap needs tens of thousands of them -- the 200-replicate run came
+    to ~185 HOURS that way. Every subset is a weighted average over the same rows, so the
+    whole set is one BLAS GEMM against a weight matrix:
+
+        V[s] = sum_q W[s, q] * D[:, q, :]     with W[s, q] = (count of q in s) / |s|
+
+    Counting rather than testing membership is what makes this correct for the bootstrap,
+    where a question can appear several times in one subset. Weights are built with
+    bincount, not np.add.at, which is very slow for this access pattern.
+    """
+    flat, k, H = prep
+    nq = flat.shape[0]
+    W = np.empty((len(idx_list), nq), dtype=np.float32)
+    for s, idx in enumerate(idx_list):
+        W[s] = np.bincount(idx, minlength=nq)
+        W[s] /= max(len(idx), 1)
+    return (W @ flat).reshape(len(idx_list), k, H)
+
+
 def half_splits(n: int, n_splits: int, rng: np.random.Generator) -> list[tuple]:
     """n_splits random (A, B) disjoint halves of range(n)."""
     out = []
@@ -124,23 +167,24 @@ def dispersion_naive(V: np.ndarray) -> float:
     return float((Z ** 2).sum(-1).mean())
 
 
-def dispersion_crossfit(pos: np.ndarray, neg: np.ndarray, splits: list[tuple]) -> float:
+def dispersion_crossfit(pos: np.ndarray, neg: np.ndarray, splits: list[tuple],
+                        prep: tuple | None = None) -> float:
     """Unbiased mean squared persona spread about the centroid.
 
-    pos, neg: (k_personas, n_questions, hidden).
+    pos, neg: (k_personas, n_questions, hidden). Pass D=diff_array(pos, neg) to reuse the
+    contrast across many calls, which the bootstrap does.
 
     Centring happens INSIDE each half, so the centroid is estimated from the same half as
     the vectors it is subtracted from; the two halves stay independent of each other, which
     is what makes the cross term vanish.
     """
-    vals = []
-    for a, b in splits:
-        Va = trait_vectors(pos, neg, a)
-        Vb = trait_vectors(pos, neg, b)
-        Za = Va - Va.mean(0, keepdims=True)
-        Zb = Vb - Vb.mean(0, keepdims=True)
-        vals.append((Za * Zb).sum(-1).mean())
-    return float(np.mean(vals))
+    if prep is None:
+        prep = prepare_diff(pos, neg)
+    VA = batch_vectors(prep, [a for a, _ in splits])
+    VB = batch_vectors(prep, [b for _, b in splits])
+    ZA = VA - VA.mean(1, keepdims=True)
+    ZB = VB - VB.mean(1, keepdims=True)
+    return float((ZA * ZB).sum(-1).mean())
 
 
 # ---------------------------------------------------------------------------------------
@@ -161,28 +205,36 @@ def rdm_naive(V: np.ndarray, squared: bool = True) -> np.ndarray:
 
 
 def rdm_crossfit(pos: np.ndarray, neg: np.ndarray, splits: list[tuple],
-                 squared: bool = True) -> np.ndarray:
+                 squared: bool = True, prep: tuple | None = None) -> np.ndarray:
     """Unbiased condensed squared pairwise distances.
 
     <Va_p - Va_q, Vb_p - Vb_q> is unbiased for ||E V_p - E V_q||^2. Individual estimates
     can go negative for genuinely coincident pairs; averaging over splits happens BEFORE
     any sqrt so the estimator stays unbiased.
+
+    Computed through the cross-Gram matrix G = Va Vb^T rather than by forming the pairwise
+    difference tensors, using
+
+        <Va_p - Va_q, Vb_p - Vb_q> = G[p,p] - G[p,q] - G[q,p] + G[q,q]
+
+    which replaces an (n_splits, k, k, hidden) array -- the dominant cost and the dominant
+    memory -- with an (n_splits, k, k) one.
     """
-    k = pos.shape[0]
+    if prep is None:
+        prep = prepare_diff(pos, neg)
+    k = prep[1]
     iu = np.triu_indices(k, k=1)
-    acc = []
-    for a, b in splits:
-        Va = trait_vectors(pos, neg, a)
-        Vb = trait_vectors(pos, neg, b)
-        Da = Va[:, None, :] - Va[None, :, :]
-        Db = Vb[:, None, :] - Vb[None, :, :]
-        acc.append((Da * Db).sum(-1)[iu])
-    out = np.mean(acc, axis=0)
+    VA = batch_vectors(prep, [a for a, _ in splits])
+    VB = batch_vectors(prep, [b for _, b in splits])
+    G = np.einsum("sph,sqh->spq", VA, VB, optimize=True)          # (S, k, k)
+    d = np.diagonal(G, axis1=1, axis2=2)                          # (S, k)
+    full = d[:, :, None] - G - np.swapaxes(G, 1, 2) + d[:, None, :]
+    out = full[:, iu[0], iu[1]].mean(0)
     return out if squared else np.sqrt(np.maximum(out, 0.0))
 
 
 def rdm_reliability(pos: np.ndarray, neg: np.ndarray, splits: list[tuple],
-                    method: str = "spearman") -> float:
+                    method: str = "spearman", prep: tuple | None = None) -> float:
     """Split-half reliability of an arm's own RDM: the NOISE CEILING.
 
     WHY NO RDM CORRELATION IS INTERPRETABLE WITHOUT THIS. Correlating two independently
@@ -203,13 +255,16 @@ def rdm_reliability(pos: np.ndarray, neg: np.ndarray, splits: list[tuple],
     r_full = 2r / (1 + r).
     """
     from scipy.stats import spearmanr
-    k = pos.shape[0]
+    if prep is None:
+        prep = prepare_diff(pos, neg)
+    k = prep[1]
     iu = np.triu_indices(k, k=1)
+    VA = batch_vectors(prep, [a for a, _ in splits])
+    VB = batch_vectors(prep, [b for _, b in splits])
     vals = []
-    for a, b in splits:
-        Va, Vb = trait_vectors(pos, neg, a), trait_vectors(pos, neg, b)
-        Ra = ((Va[:, None, :] - Va[None, :, :]) ** 2).sum(-1)[iu]
-        Rb = ((Vb[:, None, :] - Vb[None, :, :]) ** 2).sum(-1)[iu]
+    for s_i in range(VA.shape[0]):
+        Ra = ((VA[s_i][:, None, :] - VA[s_i][None, :, :]) ** 2).sum(-1)[iu]
+        Rb = ((VB[s_i][:, None, :] - VB[s_i][None, :, :]) ** 2).sum(-1)[iu]
         r = (spearmanr(Ra, Rb).statistic if method == "spearman"
              else np.corrcoef(Ra, Rb)[0, 1])
         if np.isfinite(r):

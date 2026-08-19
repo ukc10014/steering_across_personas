@@ -41,7 +41,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 sys.path.insert(0, str(REPO_ROOT / "scripts"))
 
-from geometry_lib import (bootstrap_half_splits, dispersion_crossfit,
+from geometry_lib import (bootstrap_half_splits, dispersion_crossfit, prepare_diff,
                           attenuation_corrected, dispersion_naive, half_splits,
                           rdm_reliability,
                           procrustes_cv, procrustes_lowrank, rdm_crossfit, rdm_naive,
@@ -176,10 +176,13 @@ def main() -> None:
         per_arm = {}
         for arm in args.arms:
             pos, neg = cell_arrays(D[arm], ti, pidx)
+            # laid out once per cell: the transpose-reshape inside is the dominant cost
+            # and is pure waste if repeated per bootstrap replicate
+            prep = prepare_diff(pos, neg)
             per_arm[arm] = {
-                "crossfit": dispersion_crossfit(pos, neg, splits),
+                "crossfit": dispersion_crossfit(pos, neg, splits, prep=prep),
                 "naive": dispersion_naive(trait_vectors(pos, neg)),
-                "boot": np.array([dispersion_crossfit(pos, neg, b) for b in bs]),
+                "boot": np.array([dispersion_crossfit(pos, neg, b, prep=prep) for b in bs]),
             }
         disp[trait] = per_arm
         infl = per_arm["base"]["naive"] / max(per_arm["base"]["crossfit"], 1e-9)
@@ -192,10 +195,19 @@ def main() -> None:
             flag = "" if lo <= 1.0 <= hi else "  *"
             print(f"    {arm:14s} D={per_arm[arm]['crossfit']:9.1f}  "
                   f"ratio={r:5.3f} [{lo:5.3f},{hi:5.3f}]{flag}")
-    out["dispersion"] = {
-        t: {a: {"crossfit": float(v["crossfit"]), "naive": float(v["naive"]),
-                "boot_mean": float(v["boot"].mean())} for a, v in pa.items()}
-        for t, pa in disp.items()}
+    out["dispersion"] = {}
+    for t, pa in disp.items():
+        row = {}
+        for a, v in pa.items():
+            e = {"crossfit": float(v["crossfit"]), "naive": float(v["naive"]),
+                 "boot_mean": float(v["boot"].mean())}
+            if a != "base":
+                rb = v["boot"] / np.maximum(pa["base"]["boot"], 1e-9)
+                lo, hi = ci(rb)
+                e["ratio"] = float(v["crossfit"] / max(pa["base"]["crossfit"], 1e-9))
+                e["ratio_ci"] = [lo, hi]
+            row[a] = e
+        out["dispersion"][t] = row
 
     print("\n  aggregate (mean ratio across traits):")
     for arm in arms_adapted:
@@ -223,14 +235,16 @@ def main() -> None:
         splits = half_splits(nq, args.half_splits, rng)
         bs = shared_boot_splits(rng, nq, args.bootstrap, args.boot_splits)  # paired
         cur = {}
+        preps = {}
         for arm in args.arms:
             pos, neg = cell_arrays(D[arm], ti, pidx)
+            preps[arm] = prepare_diff(pos, neg)
             cur[arm] = {
-                "rdm": rdm_crossfit(pos, neg, splits),
-                "boot": [rdm_crossfit(pos, neg, b) for b in bs],
+                "rdm": rdm_crossfit(pos, neg, splits, prep=preps[arm]),
+                "boot": [rdm_crossfit(pos, neg, b, prep=preps[arm]) for b in bs],
             }
         rdms[trait] = cur
-        rel = {a: rdm_reliability(*cell_arrays(D[a], ti, pidx), splits) for a in args.arms}
+        rel = {a: rdm_reliability(None, None, splits, prep=preps[a]) for a in args.arms}
         rms = {a: float(np.sqrt(np.mean(np.maximum(cur[a]["rdm"], 0)))) for a in args.arms}
         print(f"\n{trait:14s}  (noise ceiling: base rel={rel['base']:.3f})")
         print(f"    {'':14s}  spearman  [95% CI]          corrected  rel   RMS ratio")

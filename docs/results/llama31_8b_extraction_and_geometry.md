@@ -1,6 +1,6 @@
 # Llama-3.1-8B character arms: extraction validity and persona geometry
 
-**Status: extraction diagnostic SETTLED (§2). Geometry results not yet computed.** Nothing
+**Status: extraction diagnostic and layer-15 geometry SETTLED. Nothing
 here supersedes [llama31_8b_character_arms.md](llama31_8b_character_arms.md) or the
 retraction in `d44a267` until marked otherwise.
 
@@ -202,11 +202,119 @@ population inference available here.
 
 ---
 
-## 5. Pending
+## 5. Persona geometry at layer 15
 
-- §5 dispersion, §6 RDMs, §7 Spearman, §8 Procrustes, §9 residual structure on real arms
-- §10 figures on real results
-- the dose-matched GPU experiment to recommend
+All four arms, 8 traits x 10 semantic personas, 500 questions (499 for empathy), question
+bootstrap with draws shared across arms so arm-vs-base is paired. Computed on the archived
+activations, which §2 establishes are usable.
+
+### 5.1 Dispersion contracts — and this one is not a cosine artifact
+
+Persona dispersion is measured after centring each trait's ten personas on their own
+centroid, so any component common to all personas is removed **by construction** rather
+than estimated away. That is the difference from the retracted result: `d44a267` retracted
+a compression claim built on cosine-to-null, which is not invariant to adding a common
+vector. This measure is.
+
+| arm | mean ratio vs base | 95% CI |
+|---|---|---|
+| `goodness` | **0.486** | [0.474, 0.500] |
+| `impulsiveness` | 0.615 | [0.595, 0.638] |
+| `mathematical` | 0.635 | [0.622, 0.650] |
+
+Contraction is real and large — persona constellations shrink to roughly half their base
+spread. Naive-vs-cross-fitted inflation was only 1.06–1.12x, so the debiasing is a small
+correction here, consistent with §4.
+
+**The orthogonal control still does most of the work.** `mathematical`, whose constitution
+has nothing to do with the eight behavioural traits, reproduces **71%** of `goodness`'s
+contraction (0.365 against 0.514, measuring contraction as 1 − ratio). So most of this is a
+property of merging an r=64 LoRA, not of what the adapter was trained to be — the same
+conclusion `9c49aa0` reached for the cosine statistic, now reproduced on a
+translation-invariant one.
+
+What is new is that `goodness` contracts **more** than the other two, with non-overlapping
+intervals. That is not yet evidence about constitution content: there is **n = 1 adapter per
+constitution**, so it is equally consistent with adapter idiosyncrasy, and §3 rules out
+intervention magnitude as the explanation. It is also the statistic §2 flagged as
+mask-sensitive (5–10% relative), which is not enough to erase a 0.13 gap but is enough that
+the ordering should be confirmed against fixed-mask data before anything is built on it.
+
+### 5.2 RDM preservation: the noise ceiling did not bite here
+
+Base split-half RDM reliability is **0.950–0.989**, so the attenuation correction is small —
+unlike the synthetic stress test in §4, real activations are measured well enough that the
+raw and corrected numbers nearly agree. Mean corrected Spearman across traits:
+
+| arm | corrected Spearman | RMS ratio | worst trait |
+|---|---|---|---|
+| `mathematical` | 0.905 | 0.796 | honesty 0.790 |
+| `goodness` | 0.858 | 0.695 | assertiveness 0.792 |
+| `impulsiveness` | **0.822** | 0.775 | **honesty 0.599** |
+
+`impulsiveness` preserves persona geometry least, but the spread is modest and its worst
+cell is **honesty**, not impulsivity. RMS ratios independently confirm the contraction.
+
+### 5.3 A global coordinate change does NOT explain the arms
+
+This is the clearest negative result. Fitting one global orthogonal map on a subset of the
+80 trait x persona cells and scoring it on held-out cells:
+
+| arm | held-out traits | held-out personas |
+|---|---|---|
+| `goodness` | 15.3% explained | 4.2% |
+| `mathematical` | 15.6% | 3.0% |
+| `impulsiveness` | 17.7% | 7.0% |
+
+So **82–85% of the base-to-arm difference survives the best global orthogonal map**. Adding
+a global scale changes almost nothing. Basis coverage was **76%** (held-out traits) and
+**68%** (held-out personas), so the test could genuinely see the held-out signal — the
+failure mode that made the synthetic hold-out-persona panel uninformative at 17% coverage
+did not recur. The coordinate-transformation term of the decomposition is small.
+
+### 5.4 Residual structure is broad, not targeted
+
+After the global map, residual magnitude is diffuse across the 8 x 10 grid. `impulsiveness`
+has uniformly larger residuals (0.566–0.587 against 0.42–0.55), but they concentrate in
+**honesty, assertiveness and deference — not impulsivity or risk-taking**. Together with the
+specificity failure already recorded in `9c49aa0`, neither which constitution was trained
+nor which trait it targets predicts where the representation changes.
+
+### 5.5 What this adds up to
+
+Reading the decomposition in order:
+
+- **shared/common component** — removed by construction here; it was the whole of the
+  retracted result and is not the whole of this one
+- **global coordinate change** — small, 15–18% at best, cross-validated
+- **intervention magnitude** — ruled out by §3; the three adapters are within 2.6%
+- **constitution-specific restructuring** — the residual is large, but the orthogonal
+  control reproduces most of the contraction and residuals do not localise to the trained
+  trait, so the evidence does **not** support attributing it to constitution content
+
+The honest summary is closer to the null framing: after removing the common component and
+controlling for a global coordinate change, what remains is large but is **not** shown to
+depend on what the constitution says. Merging an r=64 LoRA contracts persona geometry
+substantially, whatever it was trained to be.
+
+## 6. Pending
+
+- layer 20 as a robustness check (same command, `--layer 20`)
+- confirm the `goodness`-vs-others dispersion ordering against fixed-mask activations
+- the matched random rank-64 LoRA control (see below), which is now the informative
+  experiment rather than dose matching
+
+### The GPU experiment worth running next
+
+Not a dose-matched rerun. §3 shows the three adapters are already within 2.6% on
+weight-space perturbation, so there is little dose to match. The result that needs a control
+is §5.1: **every** constitution contracts persona geometry by a similar large amount. The
+experiment that discriminates is a **matched random rank-64 LoRA** — same rank, same target
+modules, same weight-norm, trained on nothing — merged and put through the identical
+pipeline. If it also contracts by ~0.5, the effect belongs to the merge operation and no
+constitution content is implicated. If it does not, the three constitutions share something
+a random perturbation lacks, and that is worth pursuing.
+
 
 ---
 
