@@ -72,6 +72,8 @@ def parse_args() -> argparse.Namespace:
                    help="dimension of the per-arm basis. Centred 8x10 cells span "
                         "at most 8*9=72 dims, so 40 is a real restriction; raise "
                         "it if basis coverage is the binding constraint")
+    p.add_argument("--rank-sweep", type=int, nargs="+", default=[20, 30, 40, 50, 60],
+                   help="ranks for the Procrustes sensitivity sweep")
     p.add_argument("--cluster-bootstrap", action="store_true")
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--out", type=str, default=None)
@@ -128,6 +130,31 @@ def pearson(a, b) -> float:
 
 # ---------------------------------------------------------------------------------------
 
+def fold_centre(V: np.ndarray, T: int, P: int, train_idx: np.ndarray) -> np.ndarray:
+    """Persona-centre within each trait, using only that trait's TRAINING personas.
+
+    THE LEAKAGE THIS FIXES. Centring all ten personas of a trait before splitting makes
+    them sum to zero within that trait, so a held-out persona is EXACTLY determined by the
+    other nine:  Z_{t,p*} = -sum_{p != p*} Z_{t,p}. Leave-one-persona-out cross-validation
+    on such a matrix is not cross-validation at all -- the test row is a linear combination
+    of the training rows. Centring per fold, on the training personas only, removes the
+    trait's shared component without manufacturing that dependency.
+
+    When an entire trait is held out (the hold-out-traits scheme) none of its personas are
+    in train, and its own ten are used. That is not train-to-test leakage: no training
+    information enters, and the alternative -- leaving the trait's large shared component
+    in -- is what made the uncentred Procrustes meaningless in the first place.
+    """
+    Vc = V.copy()
+    train_set = set(int(i) for i in train_idx)
+    for t in range(T):
+        rows = np.arange(t * P, (t + 1) * P)
+        tr_rows = [int(r) for r in rows if int(r) in train_set]
+        ref = tr_rows if tr_rows else list(rows)
+        Vc[rows] = V[rows] - V[ref].mean(0, keepdims=True)
+    return Vc
+
+
 def _basis_coverage(X: np.ndarray, train: np.ndarray, test: np.ndarray, rank: int) -> float:
     """Fraction of held-out row energy that a rank-r basis fitted on TRAIN can represent.
 
@@ -165,8 +192,11 @@ def main() -> None:
     # =========================================================================== section 5
     print("=" * 84)
     print("5. PERSONA DISPERSION IN FULL HIDDEN SPACE")
-    print("   D = mean_p ||V_p - centroid||^2, cross-fitted over disjoint question halves.")
-    print("   Ratio > 1 = personas further apart than base (expansion); < 1 = contraction.")
+    print("   D = mean_p ||V_p - centroid||^2 -- a mean SQUARED radius, like a variance.")
+    print("   Ratios are therefore reported both ways: D-ratio, and its square root, which")
+    print("   is the ratio of ordinary RMS distances and the one to quote as 'spread'.")
+    print("   sqrt(D-ratio) should equal the RDM RMS ratio in section 6; they are the same")
+    print("   quantity by two independent routes.")
     print("=" * 84)
     disp: dict = {}
     for ti, trait in enumerate(traits):
@@ -193,8 +223,11 @@ def main() -> None:
             rb = per_arm[arm]["boot"] / np.maximum(per_arm["base"]["boot"], 1e-9)
             lo, hi = ci(rb)
             flag = "" if lo <= 1.0 <= hi else "  *"
-            print(f"    {arm:14s} D={per_arm[arm]['crossfit']:9.1f}  "
-                  f"ratio={r:5.3f} [{lo:5.3f},{hi:5.3f}]{flag}")
+            rr = np.sqrt(max(r, 0.0))
+            rlo, rhi = np.sqrt(max(lo, 0.0)), np.sqrt(max(hi, 0.0))
+            print(f"    {arm:14s} D-ratio={r:5.3f} [{lo:5.3f},{hi:5.3f}]{flag}"
+                  f"   RMS ratio={rr:5.3f} [{rlo:5.3f},{rhi:5.3f}]"
+                  f"  ({1-rr:4.0%} linear contraction)")
     out["dispersion"] = {}
     for t, pa in disp.items():
         row = {}
@@ -216,10 +249,15 @@ def main() -> None:
         rb = np.array([disp[t][arm]["boot"] / np.maximum(disp[t]["base"]["boot"], 1e-9)
                        for t in traits]).mean(0)
         lo, hi = ci(rb)
-        print(f"    {arm:14s} {np.mean(rs):5.3f} [{lo:5.3f},{hi:5.3f}]"
-              f"{'' if lo <= 1.0 <= hi else '  *'}")
+        mr = float(np.mean(rs)); mrms = float(np.sqrt(max(mr, 0.0)))
+        print(f"    {arm:14s} D-ratio={mr:5.3f} [{lo:5.3f},{hi:5.3f}]"
+              f"{'' if lo <= 1.0 <= hi else '  *'}"
+              f"   RMS ratio={mrms:5.3f} [{np.sqrt(max(lo,0)):5.3f},"
+              f"{np.sqrt(max(hi,0)):5.3f}]  ({1-mrms:4.0%} linear contraction)")
         out.setdefault("dispersion_aggregate", {})[arm] = {
-            "mean_ratio": float(np.mean(rs)), "ci": [lo, hi]}
+            "mean_ratio": mr, "ci": [lo, hi],
+            "mean_rms_ratio": mrms, "rms_ci": [float(np.sqrt(max(lo,0))),
+                                               float(np.sqrt(max(hi,0)))]}
 
     # =========================================================================== section 6
     print("\n" + "=" * 84)
@@ -230,6 +268,7 @@ def main() -> None:
     print("               looks less preserving for measurement reasons alone")
     print("=" * 84)
     rdms: dict = {}
+    boot_rho: dict = {}
     for ti, trait in enumerate(traits):
         nq = int(base["nq_per_trait"][ti])
         splits = half_splits(nq, args.half_splits, rng)
@@ -253,6 +292,7 @@ def main() -> None:
             sa = spearman(cur[arm]["rdm"], cur["base"]["rdm"])
             corr = attenuation_corrected(sa, rel[arm], rel["base"])
             bp = np.array([spearman(x, y) for x, y in zip(cur[arm]["boot"], cur["base"]["boot"])])
+            boot_rho.setdefault(arm, []).append(bp)     # (trait, replicate), for aggregate
             lo, hi = ci(bp)
             rr = rms[arm] / max(rms["base"], 1e-9)
             print(f"    {arm:14s}  {sa:6.3f}  [{lo:5.3f},{hi:5.3f}]     "
@@ -277,6 +317,28 @@ def main() -> None:
             "mean_spearman_corrected": float(np.mean(c)),
             "mean_rms_ratio": float(np.mean(r))}
 
+    # Aggregate CI, and the PAIRED differences between arms. The per-trait intervals do not
+    # answer "does impulsiveness preserve RDM geometry less than goodness" -- that needs the
+    # difference formed INSIDE each bootstrap replicate, where the shared question-sampling
+    # noise cancels. Without it, an ordering of 0.822 / 0.858 / 0.905 is three point
+    # estimates that happen to be ranked, not a resolved comparison.
+    agg = {a: np.mean(np.stack(boot_rho[a], 0), axis=0) for a in arms_adapted}  # per replicate
+    print("\n  aggregate mean Spearman across traits, with paired differences:")
+    for arm in arms_adapted:
+        lo, hi = ci(agg[arm])
+        print(f"    {arm:14s} {agg[arm].mean():6.3f} [{lo:6.3f},{hi:6.3f}]")
+        out["rdm_aggregate"][arm]["boot_mean"] = float(agg[arm].mean())
+        out["rdm_aggregate"][arm]["boot_ci"] = [lo, hi]
+    for i, a1 in enumerate(arms_adapted):
+        for a2 in arms_adapted[i + 1:]:
+            d_ = agg[a1] - agg[a2]
+            lo, hi = ci(d_)
+            sig = "resolved" if (lo > 0 or hi < 0) else "NOT resolved (CI spans 0)"
+            print(f"    {a1} - {a2}: {d_.mean():+.3f} [{lo:+.3f},{hi:+.3f}]  {sig}")
+            out.setdefault("rdm_paired_diff", {})[f"{a1}-{a2}"] = {
+                "mean": float(d_.mean()), "ci": [lo, hi],
+                "resolved": bool(lo > 0 or hi < 0)}
+
     # ======================================================================= sections 8, 9
     print("\n" + "=" * 84)
     print("8. PROCRUSTES: can one global orthogonal map explain the arm difference?")
@@ -292,24 +354,22 @@ def main() -> None:
     # sit in the training basis rather than by any persona geometry. Centring makes the
     # object of study the persona constellation, which is what section 9's residual
     # E = Z^arm R - Z^base is defined on.
+    # Built UNCENTRED. Centring is fold-specific, inside the CV loop -- see fold_centre.
     V80 = {}
     for arm in args.arms:
         rows = []
         for ti in range(len(traits)):
             pos, neg = cell_arrays(D[arm], ti, pidx)
-            V = trait_vectors(pos, neg)                         # (P, H)
-            rows.append(V - V.mean(0, keepdims=True))           # persona-centred
+            rows.append(trait_vectors(pos, neg))                # (P, H), uncentred
         V80[arm] = np.concatenate(rows, 0)                      # (T*P, H)
     T, P = len(traits), len(semantic)
+    labels = [(traits[i // P], semantic[i % P]) for i in range(T * P)]
 
-    def cell_labels():
-        return [(traits[i // P], semantic[i % P]) for i in range(T * P)]
-
-    labels = cell_labels()
     for arm in arms_adapted:
         print(f"\n{arm}")
-        _, e_raw, e_proc = procrustes_lowrank(V80[arm] - V80[arm].mean(0),
-                                              V80["base"] - V80["base"].mean(0))
+        Xall = fold_centre(V80["base"], T, P, np.arange(T * P))
+        Yall = fold_centre(V80[arm], T, P, np.arange(T * P))
+        _, e_raw, e_proc = procrustes_lowrank(Yall - Yall.mean(0), Xall - Xall.mean(0))
         print(f"    in-sample (uninterpretable, shown for contrast): "
               f"E_raw={e_raw:.3f} -> E_proc={e_proc:.3f}")
 
@@ -320,40 +380,76 @@ def main() -> None:
                                   for h in semantic],
         }
         for name, trains in schemes.items():
-            res, cover = [], []
+            res, cov_x, cov_y = [], [], []
             for tr in trains:
                 te = np.setdiff1d(np.arange(T * P), tr)
-                res.append(procrustes_cv(V80[arm], V80["base"], tr, te,
-                                         rank=args.procrustes_rank))
-                cover.append(_basis_coverage(V80["base"], tr, te, args.procrustes_rank))
+                Xc = fold_centre(V80["base"], T, P, tr)
+                Yc = fold_centre(V80[arm], T, P, tr)
+                res.append(procrustes_cv(Yc, Xc, tr, te, rank=args.procrustes_rank))
+                cov_x.append(_basis_coverage(Xc, tr, te, args.procrustes_rank))
+                cov_y.append(_basis_coverage(Yc, tr, te, args.procrustes_rank))
             raw = float(np.mean([r["test_raw"] for r in res]))
             prc = float(np.mean([r["test_proc"] for r in res]))
             scl = float(np.mean([r["test_proc_scaled"] for r in res]))
-            cov = float(np.mean(cover))
+            cx, cy = float(np.mean(cov_x)), float(np.mean(cov_y))
+            # E is a Frobenius NORM, so 1 - proc/raw is a relative norm reduction, not a
+            # variance-explained figure. The squared version is the conventional
+            # sum-of-squares analogue and is the larger of the two; both are reported so
+            # neither can be quoted as the other.
+            rel = 1 - prc / max(raw, 1e-9)
+            sq = 1 - (prc ** 2) / max(raw ** 2, 1e-12)
             print(f"    CV {name:18s} test_raw={raw:.3f} -> test_proc={prc:.3f} "
-                  f"(+scale {scl:.3f})   explained={1 - prc/max(raw,1e-9):6.1%}"
-                  f"   basis covers {cov:.0%} of held-out signal")
+                  f"(+scale {scl:.3f})")
+            print(f"       {'':18s} rel. Frobenius reduction {rel:5.1%} | "
+                  f"squared-error removed {sq:5.1%} | basis covers base {cx:.0%}, "
+                  f"arm {cy:.0%}")
             out.setdefault("procrustes", {}).setdefault(arm, {})[name] = {
                 "test_raw": raw, "test_proc": prc, "test_proc_scaled": scl,
-                "fraction_explained": 1 - prc / max(raw, 1e-9),
-                "basis_coverage": cov}
+                "rel_frobenius_reduction": rel, "squared_error_removed": sq,
+                "basis_coverage_base": cx, "basis_coverage_arm": cy}
 
-        # ------------------------------------------------------------------- section 9
-        # residual structure after the global map, per trait x persona cell
-        tr = np.arange(T * P)
-        r_all = procrustes_cv(V80[arm], V80["base"], tr, tr, rank=args.procrustes_rank)
-        resid = np.array(r_all["test_residual_norms"])
-        tgt = np.array(r_all["test_target_norms"])
-        norm_resid = (resid / np.maximum(tgt, 1e-9)).reshape(T, P)
+        # rank sensitivity, on the trustworthy scheme only
+        sweep = {}
+        for rk in args.rank_sweep:
+            rs, cs = [], []
+            for h in traits:
+                tr = np.array([i for i, (t, _) in enumerate(labels) if t != h])
+                te = np.setdiff1d(np.arange(T * P), tr)
+                Xc, Yc = fold_centre(V80["base"], T, P, tr), fold_centre(V80[arm], T, P, tr)
+                rr = procrustes_cv(Yc, Xc, tr, te, rank=rk)
+                rs.append(1 - rr["test_proc"] / max(rr["test_raw"], 1e-9))
+                cs.append(_basis_coverage(Xc, tr, te, rk))
+            sweep[rk] = (float(np.mean(rs)), float(np.mean(cs)))
+        print("    rank sweep (hold-out traits): " +
+              "  ".join(f"r={k}: {v[0]:.1%} (cov {v[1]:.0%})" for k, v in sweep.items()))
+        out.setdefault("procrustes_rank_sweep", {})[arm] = {
+            str(k): {"rel_frobenius_reduction": v[0], "basis_coverage_base": v[1]}
+            for k, v in sweep.items()}
+
+        # -------------------------------------------------------------- section 9
+        # CROSS-VALIDATED residual map. Every cell's residual comes from a fold in which
+        # its whole trait was held out. The earlier version fitted on all 80 cells and
+        # scored the same 80, i.e. it was in-sample -- in the very section that warns
+        # in-sample Procrustes absorbs almost anything at 80 points in 4096 dimensions.
+        # Any localisation read off that map was reading the fit, not the data.
+        norm_resid = np.zeros((T, P))
+        for ti, h in enumerate(traits):
+            tr = np.array([i for i, (t, _) in enumerate(labels) if t != h])
+            te = np.setdiff1d(np.arange(T * P), tr)
+            Xc, Yc = fold_centre(V80["base"], T, P, tr), fold_centre(V80[arm], T, P, tr)
+            rr = procrustes_cv(Yc, Xc, tr, te, rank=args.procrustes_rank)
+            r_ = np.array(rr["test_residual_norms"])
+            g_ = np.array(rr["test_target_norms"])
+            norm_resid[ti] = r_ / np.maximum(g_, 1e-9)
         out.setdefault("residual_map", {})[arm] = {
-            "traits": traits, "personas": semantic, "values": norm_resid.tolist()}
-        by_t = norm_resid.mean(1)
-        by_p = norm_resid.mean(0)
-        print(f"    residual by trait  : " +
+            "traits": traits, "personas": semantic, "values": norm_resid.tolist(),
+            "cross_validated": True, "scheme": "hold-out traits"}
+        by_t, by_p = norm_resid.mean(1), norm_resid.mean(0)
+        print("    residual by trait  (CV): " +
               ", ".join(f"{t}={v:.3f}" for t, v in
                         sorted(zip(traits, by_t), key=lambda x: -x[1])[:3]) + " (top 3)")
-        print(f"    residual by persona: " +
-              ", ".join(f"{p}={v:.3f}" for p, v in
+        print("    residual by persona(CV): " +
+              ", ".join(f"{q}={v:.3f}" for q, v in
                         sorted(zip(semantic, by_p), key=lambda x: -x[1])[:3]) + " (top 3)")
 
     dest = Path(args.out) if args.out else (

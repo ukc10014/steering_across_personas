@@ -18,12 +18,12 @@ sections as follows; **two of its premises did not hold** and are marked.
 | 1 | Does the mask fix change the vectors? Is regeneration needed? | Bug real, effect minor. **No regeneration.** | §1.1, §2 |
 | 1b | Does correcting `null` formatting change them? | **Premise wrong** — byte-identical on Llama-3.1; nothing to fix | §1.2 |
 | 2 | Does the large common OCT component remain? | Yes, unchanged; the mask fix does not touch it | §2, `d44a267` |
-| 3 | Does full hidden-space dispersion actually contract? | **Yes** — but the orthogonal control reproduces 71% of it | §5.1 |
+| 3 | Does full hidden-space dispersion actually contract? | **Yes** — ~20–30% in linear (RMS) terms; a semantically different constitution reproduces most of it | §5.1 |
 | 4 | How well does each arm preserve the base persona RDM? | `impulsiveness` least (0.822 vs 0.858/0.905), modestly | §5.2 |
 | 5 | Does the low scalar Spearman for `impulsiveness` survive? | **Yes — and it is the only effect the control fails to reproduce** | §5.3 |
-| 6 | How much does a global coordinate transform explain? | Little: 15–18% held-out traits, 3–7% personas | §5.4 |
-| 7 | Structured residual change? Stronger for `impulsiveness`? Localised? | Larger but **broad, not targeted** | §5.5 |
-| 8 | How much larger is the `impulsiveness` perturbation? | **Premise wrong** — all three within 2.6%; `mathematical` largest | §3, §6 |
+| 6 | How much does a global *orthogonal* transform explain? | Little: 15–18% Frobenius (28–32% squared) traits; 1–6% personas | §5.4 |
+| 7 | Structured residual change? Stronger for `impulsiveness`? Localised? | Larger, but located **identically across arms** — not constitution-specific | §5.5 |
+| 8 | How much larger is the `impulsiveness` perturbation? | Weight norm matched within 2.6%, but **functionally 1.21x** `goodness` — dose stays live | §3, §3.1, §6 |
 
 ---
 
@@ -156,13 +156,44 @@ targeted projections:
 
 All three sit within **2.6%** of each other, and `mathematical` is nominally the largest.
 So the premise that `impulsiveness` is the largest perturbation is **not supported at the
-weight level**.
+weight level**. It *is* supported functionally — see §3.1, which is why this does not
+retire the dose confound.
 
 Stated carefully: weight-space norm is not functional dose. Two adapters with equal ‖dW‖
 can move behaviour by very different amounts depending on where they sit and how inputs
 align with them. This measurement bounds and describes the intervention; it does not
 dose-match it. A genuine dose match needs activation displacement on a neutral corpus or
 output KL from base, which needs a GPU (§8).
+
+### 3.1 Functional dose is NOT matched, and this was stated wrongly before
+
+Weight-space norm is not functional dose, and an earlier draft said exactly that in one
+sentence and then listed intervention magnitude as "ruled out" in another. The two are
+inconsistent and the second is wrong.
+
+Measured directly from the cached activations (`scripts/functional_dose.py`, CPU, no new
+inference), at L15 over all 80 trait x persona cells:
+
+| arm | trait-vector displacement ‖V_arm − V_base‖/‖V_base‖ | vs `goodness` | answer-token displacement |
+|---|---|---|---|
+| `goodness` | 0.705 | 1.000x | 0.536 |
+| `mathematical` | 0.665 | 0.942x | 0.529 |
+| **`impulsiveness`** | **0.852** | **1.207x** | 0.573 |
+
+`impulsiveness` moves the representation ~21% more than `goodness` and ~28% more than
+`mathematical` on the very data being analysed, despite an essentially identical weight-space
+norm. This reproduces a number already in the repo — `character_arms.md` §5 records ‖d‖/‖v‖
+of 0.870 against 0.709 and 0.676 — so the earlier claim contradicted a prior result as well
+as itself.
+
+**Correct statement: raw weight-update magnitude is closely matched; functional perturbation
+magnitude remains a live confound.** Any effect where `impulsiveness` is the outlier — most
+importantly the residual-to-null ordering collapse in §5.3 — has "it simply moves the model
+further" as a standing alternative explanation.
+
+Caveat on scope: this conditions on the CAA prompts, so it is functional dose *on this data*,
+which is the relevant quantity for interpreting these geometry results. It is not a
+substitute for neutral-corpus KL if the question is about the model overall.
 
 ---
 
@@ -243,12 +274,26 @@ Contraction is real and large — persona constellations shrink to roughly half 
 spread. Naive-vs-cross-fitted inflation was only 1.06–1.12x, so the debiasing is a small
 correction here, consistent with §4.
 
-**The orthogonal control still does most of the work.** `mathematical`, whose constitution
-has nothing to do with the eight behavioural traits, reproduces **71%** of `goodness`'s
-contraction (0.365 against 0.514, measuring contraction as 1 − ratio). So most of this is a
-property of merging an r=64 LoRA, not of what the adapter was trained to be — the same
-conclusion `9c49aa0` reached for the cosine statistic, now reproduced on a
-translation-invariant one.
+**A semantically different constitution reproduces most of it.** `mathematical` reproduces
+the large majority of `goodness`'s contraction.
+
+An earlier draft called `mathematical` an "orthogonal control" and concluded the contraction
+is "a property of merging an r=64 LoRA". **Both overstate it, and the second does not
+follow.** The `mathematical` constitution is not orthogonal to these traits: it talks about
+systematic reasoning, weighing pros and cons, risk versus reward, uncertainty, consistency
+and long-term goals — plausibly bearing on risk-taking, impulsivity, confidence and
+deference. And all three arms are OCT-trained adapters sharing one training pipeline, so
+what they hold in common includes far more than "being a rank-64 merge".
+
+What is licensed:
+
+> a semantically different OCT character intervention reproduces much of the contraction,
+> so the contraction is not specific to an obvious constitution-trait semantic match
+
+What is **not** licensed without a further control: that this is generic to *any* r=64
+perturbation. Distinguishing "generic perturbation" from "generic OCT character training"
+is precisely what a matched random LoRA would do, and is why that experiment matters more
+after this correction, not less.
 
 What is new is that `goodness` contracts **more** than the other two, with non-overlapping
 intervals. That is not yet evidence about constitution content: there is **n = 1 adapter per
@@ -270,7 +315,22 @@ raw and corrected numbers nearly agree. Mean corrected Spearman across traits:
 | `impulsiveness` | **0.822** | 0.775 | **honesty 0.599** |
 
 `impulsiveness` preserves persona geometry least, but the spread is modest and its worst
-cell is **honesty**, not impulsivity. RMS ratios independently confirm the contraction.
+cell is **honesty**, not impulsivity. RMS ratios independently confirm the contraction —
+and equal sqrt(D-ratio) from §5.1 to three decimals, which is the same quantity by two
+independent routes.
+
+**The ordering is statistically resolved, not merely ranked.** An ordering of three point
+estimates is not a comparison; the difference has to be formed inside each bootstrap
+replicate so the shared question-sampling noise cancels. Paired, at L15:
+
+| difference | mean | 95% CI | |
+|---|---|---|---|
+| `mathematical` − `impulsiveness` | +0.085 | [+0.074, +0.097] | resolved |
+| `goodness` − `mathematical` | −0.050 | [−0.061, −0.039] | resolved |
+| `goodness` − `impulsiveness` | +0.036 | [+0.018, +0.051] | resolved |
+
+All three separate. `mathematical` > `goodness` > `impulsiveness` on RDM preservation is a
+real ordering.
 
 ### 5.3 Scalar ordering vs full geometry — the one effect the control does not reproduce
 
@@ -296,13 +356,17 @@ same arm sits at 0.822 against 0.858 and 0.905: less preserving, but nothing lik
 
 Stated as precisely as the evidence allows:
 
-> `impulsiveness` substantially changes **where personas sit relative to the model's default
-> direction**, while largely preserving **how personas sit relative to one another**.
+> `impulsiveness` substantially changes the personas' **angular alignment with the residual
+> default/null trait direction**, while largely preserving **how personas sit relative to one
+> another**.
+
+The statistic is a cosine, so this is an angular relationship to a reference direction, not
+a coordinate or projection *along* an axis; earlier wording implied the latter.
 
 Conflating those two would have badly overstated the finding — reporting a collapse in
 "persona geometry" when what collapsed was a one-dimensional projection of it. This remains
 the strongest candidate for something constitution-specific, precisely because it is the only
-result an orthogonal control fails to reproduce.
+result a semantically different constitution fails to reproduce.
 
 Two things it is not. The per-trait intervals for `impulsiveness` contain zero individually
 (recorded in `character_arms.md` §4b), so the effect is carried by the mean over traits. And
@@ -310,30 +374,73 @@ it does not localise to the training target: the per-trait point estimate does i
 `impulsivity` (−0.505), but residual structure after global alignment concentrates in honesty,
 assertiveness and deference (§5.5).
 
-### 5.4 A global coordinate change does NOT explain the arms
+### 5.4 A single global ORTHOGONAL map does not explain the arms
 
-This is the clearest negative result. Fitting one global orthogonal map on a subset of the
-80 trait x persona cells and scoring it on held-out cells:
+Fitting one global orthogonal map on a subset of the 80 trait x persona cells and scoring it
+on held-out cells. E is a Frobenius **norm**, so the relative reduction and the
+sum-of-squares analogue are different numbers and both are given; neither should be quoted
+as the other.
 
-| arm | held-out traits | held-out personas |
+| arm | hold-out traits: rel. Frobenius ↓ | squared-error removed | hold-out personas: rel. ↓ |
+|---|---|---|---|
+| `goodness` | 15.3% | 28.2% | 2.5% |
+| `mathematical` | 15.6% | 28.8% | 0.8% |
+| `impulsiveness` | 17.7% | 32.3% | 5.9% |
+
+Basis coverage: 76% (base) and 76–79% (arms) for held-out traits; 64% / 64–72% for held-out
+personas. Adding a global scale changes almost nothing.
+
+**The hold-out-persona numbers here are NOT the ones reported earlier, and the earlier ones
+were invalid.** Centring all ten personas of a trait before splitting makes them sum to zero
+within that trait, so the held-out persona was exactly determined by the other nine —
+leave-one-persona-out was not cross-validation at all. Measured on synthetic data, the
+held-out row's residual against its trait's training rows was 2e-14 under the old code and
+0.975 under fold-specific centring. The corrected figures (2.5 / 0.8 / 5.9%) are lower than
+the leaked ones (4.2 / 3.0 / 7.0%). The hold-out-**trait** scheme was never affected — its
+numbers are unchanged to the decimal, which is the check that the fix did what it should.
+
+**Rank sensitivity.** The answer depends on rank but plateaus, and never approaches
+explaining the difference:
+
+| rank | 20 | 30 | 40 | 50 | 60 |
+|---|---|---|---|---|---|
+| `goodness` | 8.5% | 13.4% | 15.1% | 17.0% | 17.5% |
+| `mathematical` | 7.7% | 13.5% | 15.6% | 17.9% | 18.6% |
+| `impulsiveness` | 10.8% | 16.1% | 17.6% | 19.3% | 19.9% |
+| basis coverage | 69% | 74% | 76% | 78% | 79% |
+
+So the negative result is not an artefact of too small a basis.
+
+**Scope, stated precisely.** Orthogonal Procrustes tests rotation and reflection, plus one
+global scalar in the secondary variant. It cannot represent anisotropic scaling or shear,
+which a general linear map `Y A ≈ X` could. The claim is that *a single global orthogonal
+transformation* does not explain most of the difference — not that no coordinate
+transformation does. A cross-validated reduced-rank linear map is the natural strengthening
+and is listed in §6.
+
+### 5.5 Residual structure is essentially the SAME across arms
+
+The earlier version of this section fitted the transform on all 80 cells and scored the same
+80 — an in-sample residual map, in the section that warns in-sample Procrustes absorbs almost
+anything at 80 points in 4096 dimensions. Any localisation read off it was reading the fit.
+Every residual is now genuinely held out: each cell is scored from a fold in which its whole
+trait was excluded from the fit.
+
+Cross-validated, the top-residual traits and personas are nearly identical across arms:
+
+| arm | top traits | top personas |
 |---|---|---|
-| `goodness` | 15.3% explained | 4.2% |
-| `mathematical` | 15.6% | 3.0% |
-| `impulsiveness` | 17.7% | 7.0% |
+| `goodness` | confidence, honesty, deference | tech_ceo, surgeon, politician |
+| `mathematical` | honesty, confidence, assertiveness | tech_ceo, surgeon, kindergarten_teacher |
+| `impulsiveness` | honesty, confidence, assertiveness | surgeon, tech_ceo, drill_sergeant |
 
-So **82–85% of the base-to-arm difference survives the best global orthogonal map**. Adding
-a global scale changes almost nothing. Basis coverage was **76%** (held-out traits) and
-**68%** (held-out personas), so the test could genuinely see the held-out signal — the
-failure mode that made the synthetic hold-out-persona panel uninformative at 17% coverage
-did not recur. The coordinate-transformation term of the decomposition is small.
-
-### 5.5 Residual structure is broad, not targeted
-
-After the global map, residual magnitude is diffuse across the 8 x 10 grid. `impulsiveness`
-has uniformly larger residuals (0.566–0.587 against 0.42–0.55), but they concentrate in
-**honesty, assertiveness and deference — not impulsivity or risk-taking**. Together with the
-specificity failure already recorded in `9c49aa0`, neither which constitution was trained
-nor which trait it targets predicts where the representation changes.
+This is a **cleaner negative than the in-sample version suggested**. It is not that
+`impulsiveness` moves honesty/assertiveness rather than impulsivity; it is that *all three
+arms* leave their largest residuals on the same traits and the same personas. That pattern
+is arm-independent, so it describes which cells are hardest for a global map to align — a
+property of the trait/persona geometry or its measurement — rather than anything about a
+constitution. `impulsiveness` has uniformly larger residuals (consistent with its larger
+functional dose, §3.1), but not differently *located* ones.
 
 ### 5.6 What this adds up to
 
@@ -342,7 +449,10 @@ Reading the decomposition in order:
 - **shared/common component** — removed by construction here; it was the whole of the
   retracted result and is not the whole of this one
 - **global coordinate change** — small, 15–18% at best, cross-validated
-- **intervention magnitude** — ruled out by §3; the three adapters are within 2.6%
+- **intervention magnitude** — *raw weight-update* magnitude is closely matched (within
+  2.6%, §3), but **functional** perturbation magnitude remains a live confound: measured in
+  activation space, `impulsiveness` displaces the representation 1.21x `goodness` and 1.28x
+  `mathematical` (§3.1)
 - **constitution-specific restructuring** — the residual is large, but the orthogonal
   control reproduces most of the contraction and residuals do not localise to the trained
   trait, so the evidence does **not** support attributing it to constitution content

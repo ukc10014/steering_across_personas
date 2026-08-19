@@ -28,6 +28,32 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
+def _hub_id_of(path_or_id: str) -> str:
+    """Resolve a local HF cache path back to its hub id, or pass an id straight through.
+
+    A cached snapshot lives at .../hub/models--org--name/snapshots/<sha>, so the hub id is
+    recoverable from the directory name. This matters because passing the HUB ID for the
+    base model makes transformers hit the network -- and on transformers 4.57 that 404s on
+    `additional_chat_templates` for Llama-3.1 -- so the local path is what actually works,
+    while the adapter config records the hub id. Comparing the two literally rejects a
+    perfectly good merge.
+    """
+    p = Path(path_or_id)
+    if not p.exists():
+        return path_or_id
+    for part in p.resolve().parts:
+        if part.startswith("models--"):
+            return part[len("models--"):].replace("--", "/")
+    return path_or_id
+
+
+def _same_base(recorded: str | None, given: str) -> bool:
+    """Same model, allowing either side to be a local cache path or a hub id."""
+    if recorded is None:
+        return False
+    return _hub_id_of(recorded).lower() == _hub_id_of(given).lower()
+
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Merge a LoRA adapter into its base model")
     p.add_argument("--base", type=str, required=True)
@@ -54,7 +80,7 @@ def main() -> int:
     cfg = json.loads(cfg_path.read_text())
 
     recorded_base = cfg.get("base_model_name_or_path")
-    if recorded_base != args.base:
+    if not _same_base(recorded_base, args.base):
         print(f"error: adapter was trained on {recorded_base!r}, but --base is {args.base!r}.",
               file=sys.stderr)
         return 2

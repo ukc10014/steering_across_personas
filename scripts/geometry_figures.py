@@ -240,6 +240,15 @@ def fig_g_scalar_vs_rdm(d: dict, out: Path, holdout: dict | None) -> None:
         ax.errorbar(j - 0.11, pt, yerr=[[pt - lo], [hi - pt]], fmt="o", ms=9, capsize=3,
                     lw=1.5, color=ARM_COLOR.get(arm, "#888"),
                     label="residual-to-null ordering (10 personas)" if j == 0 else None)
+        # RDM point carries its own paired-bootstrap interval. Without it the scalar had an
+        # interval and the RDM point did not, which invites reading a bare point estimate as
+        # if it were as well resolved as the one beside it.
+        agg = d.get("rdm_aggregate", {}).get(arm, {})
+        rci = agg.get("boot_ci")
+        if rci:
+            ax.errorbar(j + 0.11, rd, yerr=[[max(rd - rci[0], 0)], [max(rci[1] - rd, 0)]],
+                        fmt="none", ecolor=ARM_COLOR.get(arm, "#888"), elinewidth=1.5,
+                        capsize=3)
         ax.plot(j + 0.11, rd, "s", ms=9, color=ARM_COLOR.get(arm, "#888"),
                 markerfacecolor="none", markeredgewidth=2,
                 label="full persona RDM (45 pairs)" if j == 0 else None)
@@ -251,8 +260,17 @@ def fig_g_scalar_vs_rdm(d: dict, out: Path, holdout: dict | None) -> None:
     ax.axhline(0.0, color="k", lw=0.8)
     ax.set_ylim(-0.05, 1.12)
     ax.set_title(f"G. One direction vs the whole constellation (layer {layer})\n"
-                 "filled = scalar ordering to the default direction; open = full persona RDM",
+                 "filled = angular alignment with the residual default/null direction; "
+                 "open = full persona RDM",
                  fontsize=10)
+    # paired differences, if resolved, said in words -- an ordering of point estimates is
+    # not the same claim as a resolved difference
+    pd_ = d.get("rdm_paired_diff", {})
+    notes = [f"{k}: {v['mean']:+.3f} [{v['ci'][0]:+.3f},{v['ci'][1]:+.3f}]"
+             f"{'' if v['resolved'] else ' (CI spans 0)'}" for k, v in pd_.items()]
+    if notes:
+        ax.text(0.5, -0.16, "paired RDM differences —  " + " | ".join(notes),
+                transform=ax.transAxes, ha="center", fontsize=7.5, color="#444")
     ax.legend(frameon=False, fontsize=9, loc="lower left")
     _save(fig, out, f"figG_scalar_vs_rdm_L{layer}")
 
