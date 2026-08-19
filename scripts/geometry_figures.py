@@ -66,12 +66,17 @@ def fig_b_dispersion(d: dict, out: Path) -> None:
             ax.errorbar(pos, rr, yerr=[np.maximum(rr - lo, 0), np.maximum(hi - rr, 0)],
                         fmt="none", ecolor="k", elinewidth=1, capsize=2)
     ax.axhline(1.0, color="k", lw=1.2, ls="--", zorder=0)
-    ax.set_ylim(0, max(1.15, ax.get_ylim()[1]))
+    # headroom so the legend sits in clear space above every bar and its interval, rather
+    # than colliding with the bars (inside) or the title (above the axes)
+    top = max(1.15, ax.get_ylim()[1])
+    ax.set_ylim(0, top * 1.30)
     ax.set_xticks(x); ax.set_xticklabels(traits, rotation=30, ha="right")
     ax.set_ylabel("persona dispersion, arm / base")
     ax.set_title(f"B. Full-space persona dispersion at layer {d['layer']}\n"
                  "cross-fitted; >1 expansion, <1 contraction", fontsize=11)
-    ax.legend(frameon=False, ncol=3, loc="lower right", fontsize=9)
+    # above the axes: with 24 bars plus intervals there is no interior space that stays
+    # clear across arbitrary data
+    ax.legend(frameon=False, ncol=3, fontsize=9, loc="upper left")
     _save(fig, out, f"figB_dispersion_L{d['layer']}")
 
 
