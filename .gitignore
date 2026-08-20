@@ -5,6 +5,12 @@
 outputs/**
 !outputs/**/
 !outputs/*/analysis/**
+# Cross-arm analyses live at outputs/analysis/ rather than under a single model, because
+# they compare arms and belong to none of them. That path does NOT match the pattern above
+# (which requires a model directory in between), so it needs its own rule -- without it the
+# dose, common-shift and calibration results were ignored and existed only on the pod's
+# network volume.
+!outputs/analysis/**
 
 # Python
 __pycache__/

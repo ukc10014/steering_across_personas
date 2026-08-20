@@ -1,0 +1,1508 @@
+{
+  "15": {
+    "assertiveness": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.8197940932209273,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.6373804660441309,
+          "share_squared": 0.7096465964027916,
+          "share_linear": 0.8424052447621582
+        },
+        "goodness_s0.25": {
+          "g_norm": 0.41954928524527907,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.3261947373973731,
+          "share_squared": 0.7240227266552764,
+          "share_linear": 0.8508952501073657
+        },
+        "impulsiveness": {
+          "g_norm": 0.8281110105592484,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.6438467734900922,
+          "share_squared": 0.6837394181543808,
+          "share_linear": 0.8268853718348033
+        },
+        "impulsiveness_s0.25": {
+          "g_norm": 0.3667685172765263,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.2851582981691818,
+          "share_squared": 0.6296829216043605,
+          "share_linear": 0.7935256275662183
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.6975831409400516,
+        "goodness|impulsiveness": 0.5448278600203665,
+        "goodness|impulsiveness_s0.25": 0.6633612976896076,
+        "goodness_s0.25|goodness": 0.6975831409400516,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.2969131898068651,
+        "goodness_s0.25|impulsiveness_s0.25": 0.6552888308456132,
+        "impulsiveness|goodness": 0.5448278600203665,
+        "impulsiveness|goodness_s0.25": 0.2969131898068651,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.7532583560975364,
+        "impulsiveness_s0.25|goodness": 0.6633612976896076,
+        "impulsiveness_s0.25|goodness_s0.25": 0.6552888308456132,
+        "impulsiveness_s0.25|impulsiveness": 0.7532583560975364,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.6960419416427612,
+        "goodness|impulsiveness": 0.5443087816238403,
+        "goodness|impulsiveness_s0.25": 0.6557481288909912,
+        "goodness_s0.25|goodness": 0.6960419416427612,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.3020109236240387,
+        "goodness_s0.25|impulsiveness_s0.25": 0.6576325297355652,
+        "impulsiveness|goodness": 0.5443087816238403,
+        "impulsiveness|goodness_s0.25": 0.3020109236240387,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.750374436378479,
+        "impulsiveness_s0.25|goodness": 0.6557481288909912,
+        "impulsiveness_s0.25|goodness_s0.25": 0.6576325297355652,
+        "impulsiveness_s0.25|impulsiveness": 0.750374436378479,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.6174352218630974,
+          "share_squared": 0.7110294860308655
+        },
+        "goodness_s0.25": {
+          "g_over_base": 0.3122232894754214,
+          "share_squared": 0.7231008915683348
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6257611328539757,
+          "share_squared": 0.6878143402629341
+        },
+        "impulsiveness_s0.25": {
+          "g_over_base": 0.2757821806778415,
+          "share_squared": 0.6333855261652075
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5796189036740512,
+          0.7504915261818376
+        ],
+        "goodness_s0.25": [
+          0.27480266751152055,
+          0.4061875158971803
+        ],
+        "impulsiveness": [
+          0.5917428695768115,
+          0.7401895888642841
+        ],
+        "impulsiveness_s0.25": [
+          0.2537823983624712,
+          0.33700068525933435
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.6818969078947644,
+          0.7395798046657887
+        ],
+        "goodness_s0.25": [
+          0.6812954664481822,
+          0.758627723565542
+        ],
+        "impulsiveness": [
+          0.6590065839308594,
+          0.7053606423378287
+        ],
+        "impulsiveness_s0.25": [
+          0.5924673380913807,
+          0.6659146386102066
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|goodness_s0.25": [
+          0.6340986691778733,
+          0.7391266314163439
+        ],
+        "goodness|impulsiveness": [
+          0.5018838580567415,
+          0.5987010407183352
+        ],
+        "goodness|impulsiveness_s0.25": [
+          0.6386704373949931,
+          0.6909463500061831
+        ],
+        "goodness_s0.25|goodness": [
+          0.6340986691778733,
+          0.7391266314163439
+        ],
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|impulsiveness": [
+          0.24050199099690134,
+          0.3538857397638187
+        ],
+        "goodness_s0.25|impulsiveness_s0.25": [
+          0.5856649599963214,
+          0.7087140841874289
+        ],
+        "impulsiveness|goodness": [
+          0.5018838580567415,
+          0.5987010407183352
+        ],
+        "impulsiveness|goodness_s0.25": [
+          0.24050199099690134,
+          0.3538857397638187
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|impulsiveness_s0.25": [
+          0.7358509480605675,
+          0.7807213887089012
+        ],
+        "impulsiveness_s0.25|goodness": [
+          0.6386704373949931,
+          0.6909463500061831
+        ],
+        "impulsiveness_s0.25|goodness_s0.25": [
+          0.5856649599963214,
+          0.7087140841874289
+        ],
+        "impulsiveness_s0.25|impulsiveness": [
+          0.7358509480605675,
+          0.7807213887089012
+        ],
+        "impulsiveness_s0.25|impulsiveness_s0.25": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "empathy": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.7712889266816959,
+          "base_norm": 1.2525439225137234,
+          "g_over_base": 0.6157779482365779,
+          "share_squared": 0.6072391886926347,
+          "share_linear": 0.7792555349130571
+        },
+        "goodness_s0.25": {
+          "g_norm": 0.35910862932313264,
+          "base_norm": 1.2525439225137234,
+          "g_over_base": 0.28670342242565,
+          "share_squared": 0.594165473293226,
+          "share_linear": 0.7708212978980445
+        },
+        "impulsiveness": {
+          "g_norm": 0.8105110365056926,
+          "base_norm": 1.2525439225137234,
+          "g_over_base": 0.6470919078662587,
+          "share_squared": 0.6300074655947621,
+          "share_linear": 0.7937300961880946
+        },
+        "impulsiveness_s0.25": {
+          "g_norm": 0.4045797593068245,
+          "base_norm": 1.2525439225137234,
+          "g_over_base": 0.3230064447519538,
+          "share_squared": 0.5992137250063121,
+          "share_linear": 0.7740889645294733
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.7996360650370673,
+        "goodness|impulsiveness": 0.7557012025533182,
+        "goodness|impulsiveness_s0.25": 0.8024278640497639,
+        "goodness_s0.25|goodness": 0.7996360650370673,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.6110505155107598,
+        "goodness_s0.25|impulsiveness_s0.25": 0.8375943574878273,
+        "impulsiveness|goodness": 0.7557012025533182,
+        "impulsiveness|goodness_s0.25": 0.6110505155107598,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.7788833821961708,
+        "impulsiveness_s0.25|goodness": 0.8024278640497639,
+        "impulsiveness_s0.25|goodness_s0.25": 0.8375943574878273,
+        "impulsiveness_s0.25|impulsiveness": 0.7788833821961708,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.7902310490608215,
+        "goodness|impulsiveness": 0.725136399269104,
+        "goodness|impulsiveness_s0.25": 0.7844222187995911,
+        "goodness_s0.25|goodness": 0.7902310490608215,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.5816755294799805,
+        "goodness_s0.25|impulsiveness_s0.25": 0.8251954913139343,
+        "impulsiveness|goodness": 0.725136399269104,
+        "impulsiveness|goodness_s0.25": 0.5816755294799805,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.7695526480674744,
+        "impulsiveness_s0.25|goodness": 0.7844222187995911,
+        "impulsiveness_s0.25|goodness_s0.25": 0.8251954913139343,
+        "impulsiveness_s0.25|impulsiveness": 0.7695526480674744,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.5881791510256147,
+          "share_squared": 0.6143924325754442
+        },
+        "goodness_s0.25": {
+          "g_over_base": 0.27259843650066606,
+          "share_squared": 0.5978434669723538
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6249227745673024,
+          "share_squared": 0.640480586996353
+        },
+        "impulsiveness_s0.25": {
+          "g_over_base": 0.3052676818452877,
+          "share_squared": 0.6032322458163983
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5262833745896154,
+          0.7400906953902191
+        ],
+        "goodness_s0.25": [
+          0.24525255588886644,
+          0.34249478722706084
+        ],
+        "impulsiveness": [
+          0.5887761468609586,
+          0.7405288966052791
+        ],
+        "impulsiveness_s0.25": [
+          0.27383286050702027,
+          0.3876731292876511
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.5764965532711217,
+          0.6453696025144683
+        ],
+        "goodness_s0.25": [
+          0.5645516663743154,
+          0.6374901403457682
+        ],
+        "impulsiveness": [
+          0.585343623007882,
+          0.6864644346867024
+        ],
+        "impulsiveness_s0.25": [
+          0.5700648600290904,
+          0.6340824423001602
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|goodness_s0.25": [
+          0.7828493878068584,
+          0.8242769746855079
+        ],
+        "goodness|impulsiveness": [
+          0.6952473025330801,
+          0.8392820570751406
+        ],
+        "goodness|impulsiveness_s0.25": [
+          0.742046479377954,
+          0.8553285869564373
+        ],
+        "goodness_s0.25|goodness": [
+          0.7828493878068584,
+          0.8242769746855079
+        ],
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|impulsiveness": [
+          0.5508185618763054,
+          0.6866084503247702
+        ],
+        "goodness_s0.25|impulsiveness_s0.25": [
+          0.7870144242202801,
+          0.8733123591492926
+        ],
+        "impulsiveness|goodness": [
+          0.6952473025330801,
+          0.8392820570751406
+        ],
+        "impulsiveness|goodness_s0.25": [
+          0.5508185618763054,
+          0.6866084503247702
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|impulsiveness_s0.25": [
+          0.7339699934080322,
+          0.8102916452706116
+        ],
+        "impulsiveness_s0.25|goodness": [
+          0.742046479377954,
+          0.8553285869564373
+        ],
+        "impulsiveness_s0.25|goodness_s0.25": [
+          0.7870144242202801,
+          0.8733123591492926
+        ],
+        "impulsiveness_s0.25|impulsiveness": [
+          0.7339699934080322,
+          0.8102916452706116
+        ],
+        "impulsiveness_s0.25|impulsiveness_s0.25": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "risk_taking": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.7022515641668995,
+          "base_norm": 1.1235116839408874,
+          "g_over_base": 0.625050521685405,
+          "share_squared": 0.6944984821669749,
+          "share_linear": 0.8333657553361398
+        },
+        "goodness_s0.25": {
+          "g_norm": 0.3363185105295345,
+          "base_norm": 1.1235116839408874,
+          "g_over_base": 0.29934580595534743,
+          "share_squared": 0.6920623455731136,
+          "share_linear": 0.8319028462345309
+        },
+        "impulsiveness": {
+          "g_norm": 1.2201193635914125,
+          "base_norm": 1.1235116839408874,
+          "g_over_base": 1.0859872496489391,
+          "share_squared": 0.8422413955433703,
+          "share_linear": 0.9177371058987265
+        },
+        "impulsiveness_s0.25": {
+          "g_norm": 0.38801362689151303,
+          "base_norm": 1.1235116839408874,
+          "g_over_base": 0.3453578920786088,
+          "share_squared": 0.697308829408048,
+          "share_linear": 0.8350501957415781
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.7827357079309425,
+        "goodness|impulsiveness": 0.5101995552222113,
+        "goodness|impulsiveness_s0.25": 0.7041440305998341,
+        "goodness_s0.25|goodness": 0.7827357079309425,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.5045466123975458,
+        "goodness_s0.25|impulsiveness_s0.25": 0.7986234109835776,
+        "impulsiveness|goodness": 0.5101995552222113,
+        "impulsiveness|goodness_s0.25": 0.5045466123975458,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.7965153398446284,
+        "impulsiveness_s0.25|goodness": 0.7041440305998341,
+        "impulsiveness_s0.25|goodness_s0.25": 0.7986234109835776,
+        "impulsiveness_s0.25|impulsiveness": 0.7965153398446284,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.7745649218559265,
+        "goodness|impulsiveness": 0.5073491930961609,
+        "goodness|impulsiveness_s0.25": 0.6929144263267517,
+        "goodness_s0.25|goodness": 0.7745649218559265,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.49626031517982483,
+        "goodness_s0.25|impulsiveness_s0.25": 0.793090283870697,
+        "impulsiveness|goodness": 0.5073491930961609,
+        "impulsiveness|goodness_s0.25": 0.49626031517982483,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.7912957668304443,
+        "impulsiveness_s0.25|goodness": 0.6929144263267517,
+        "impulsiveness_s0.25|goodness_s0.25": 0.793090283870697,
+        "impulsiveness_s0.25|impulsiveness": 0.7912957668304443,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.6003118263701728,
+          "share_squared": 0.7001425160744786
+        },
+        "goodness_s0.25": {
+          "g_over_base": 0.28463164882168657,
+          "share_squared": 0.6961660011223969
+        },
+        "impulsiveness": {
+          "g_over_base": 1.0072731002689221,
+          "share_squared": 0.8383988914302162
+        },
+        "impulsiveness_s0.25": {
+          "g_over_base": 0.32516372611454025,
+          "share_squared": 0.6984092879670563
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5526374281544586,
+          0.7469006605869791
+        ],
+        "goodness_s0.25": [
+          0.268267237140273,
+          0.36989001998831417
+        ],
+        "impulsiveness": [
+          0.9160205483910462,
+          1.4444886799265073
+        ],
+        "impulsiveness_s0.25": [
+          0.30116879251145845,
+          0.43968404544644124
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.6559079851326995,
+          0.7166145449797645
+        ],
+        "goodness_s0.25": [
+          0.6547188588939096,
+          0.727475689247367
+        ],
+        "impulsiveness": [
+          0.833268192674452,
+          0.8516871492581422
+        ],
+        "impulsiveness_s0.25": [
+          0.6717689329039049,
+          0.716510320720746
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|goodness_s0.25": [
+          0.7553101974498743,
+          0.8131734204717979
+        ],
+        "goodness|impulsiveness": [
+          0.41517222992091646,
+          0.584351962456712
+        ],
+        "goodness|impulsiveness_s0.25": [
+          0.6443328550623166,
+          0.7581974440079162
+        ],
+        "goodness_s0.25|goodness": [
+          0.7553101974498743,
+          0.8131734204717979
+        ],
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|impulsiveness": [
+          0.4809465696585084,
+          0.5361996043400606
+        ],
+        "goodness_s0.25|impulsiveness_s0.25": [
+          0.7836625293150814,
+          0.8147675887112783
+        ],
+        "impulsiveness|goodness": [
+          0.41517222992091646,
+          0.584351962456712
+        ],
+        "impulsiveness|goodness_s0.25": [
+          0.4809465696585084,
+          0.5361996043400606
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|impulsiveness_s0.25": [
+          0.7823203321415533,
+          0.8158195797859565
+        ],
+        "impulsiveness_s0.25|goodness": [
+          0.6443328550623166,
+          0.7581974440079162
+        ],
+        "impulsiveness_s0.25|goodness_s0.25": [
+          0.7836625293150814,
+          0.8147675887112783
+        ],
+        "impulsiveness_s0.25|impulsiveness": [
+          0.7823203321415533,
+          0.8158195797859565
+        ],
+        "impulsiveness_s0.25|impulsiveness_s0.25": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "honesty": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.7175461249570098,
+          "base_norm": 1.218721942603588,
+          "g_over_base": 0.588769349162695,
+          "share_squared": 0.7549624839248893,
+          "share_linear": 0.8688857715056043
+        },
+        "goodness_s0.25": {
+          "g_norm": 0.36628775439456474,
+          "base_norm": 1.218721942603588,
+          "g_over_base": 0.30055071759195084,
+          "share_squared": 0.7816480347006532,
+          "share_linear": 0.8841086102400842
+        },
+        "impulsiveness": {
+          "g_norm": 0.7571134607261701,
+          "base_norm": 1.218721942603588,
+          "g_over_base": 0.6212356028551751,
+          "share_squared": 0.7361329453452053,
+          "share_linear": 0.8579819026909632
+        },
+        "impulsiveness_s0.25": {
+          "g_norm": 0.366258790513645,
+          "base_norm": 1.218721942603588,
+          "g_over_base": 0.3005269518092016,
+          "share_squared": 0.7433844858243231,
+          "share_linear": 0.8621974749582157
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.6867417381165005,
+        "goodness|impulsiveness": 0.7538045726073381,
+        "goodness|impulsiveness_s0.25": 0.7782253480274632,
+        "goodness_s0.25|goodness": 0.6867417381165005,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.4550685499666594,
+        "goodness_s0.25|impulsiveness_s0.25": 0.698511616423507,
+        "impulsiveness|goodness": 0.7538045726073381,
+        "impulsiveness|goodness_s0.25": 0.4550685499666594,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.8153238390691998,
+        "impulsiveness_s0.25|goodness": 0.7782253480274632,
+        "impulsiveness_s0.25|goodness_s0.25": 0.698511616423507,
+        "impulsiveness_s0.25|impulsiveness": 0.8153238390691998,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.6848201751708984,
+        "goodness|impulsiveness": 0.7319657206535339,
+        "goodness|impulsiveness_s0.25": 0.7608100175857544,
+        "goodness_s0.25|goodness": 0.6848201751708984,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.447900652885437,
+        "goodness_s0.25|impulsiveness_s0.25": 0.6995548605918884,
+        "impulsiveness|goodness": 0.7319657206535339,
+        "impulsiveness|goodness_s0.25": 0.447900652885437,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.8057671785354614,
+        "impulsiveness_s0.25|goodness": 0.7608100175857544,
+        "impulsiveness_s0.25|goodness_s0.25": 0.6995548605918884,
+        "impulsiveness_s0.25|impulsiveness": 0.8057671785354614,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.5692441478690969,
+          "share_squared": 0.752716652015542
+        },
+        "goodness_s0.25": {
+          "g_over_base": 0.28741963127303655,
+          "share_squared": 0.7757599853678193
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6019504572064269,
+          "share_squared": 0.7370702220125548
+        },
+        "impulsiveness_s0.25": {
+          "g_over_base": 0.28813444215687806,
+          "share_squared": 0.7396359986115268
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5180615574945079,
+          0.7220445962534614
+        ],
+        "goodness_s0.25": [
+          0.2586356007285841,
+          0.3791672799786497
+        ],
+        "impulsiveness": [
+          0.56549603679153,
+          0.7358641062963461
+        ],
+        "impulsiveness_s0.25": [
+          0.26120926583150644,
+          0.3715243845788257
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.7241966049195385,
+          0.7874110780821826
+        ],
+        "goodness_s0.25": [
+          0.751247837550578,
+          0.8138169705560645
+        ],
+        "impulsiveness": [
+          0.7113479704603134,
+          0.7531846779670502
+        ],
+        "impulsiveness_s0.25": [
+          0.7123565913072496,
+          0.7810209588130295
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|goodness_s0.25": [
+          0.6177028215653849,
+          0.7446156799720854
+        ],
+        "goodness|impulsiveness": [
+          0.6920868052450176,
+          0.8345031365088144
+        ],
+        "goodness|impulsiveness_s0.25": [
+          0.736120465916011,
+          0.8377688997009446
+        ],
+        "goodness_s0.25|goodness": [
+          0.6177028215653849,
+          0.7446156799720854
+        ],
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|impulsiveness": [
+          0.4035723838586084,
+          0.5034373715718252
+        ],
+        "goodness_s0.25|impulsiveness_s0.25": [
+          0.6775869670797506,
+          0.7196716003761113
+        ],
+        "impulsiveness|goodness": [
+          0.6920868052450176,
+          0.8345031365088144
+        ],
+        "impulsiveness|goodness_s0.25": [
+          0.4035723838586084,
+          0.5034373715718252
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|impulsiveness_s0.25": [
+          0.7880612651991439,
+          0.8467290337200769
+        ],
+        "impulsiveness_s0.25|goodness": [
+          0.736120465916011,
+          0.8377688997009446
+        ],
+        "impulsiveness_s0.25|goodness_s0.25": [
+          0.6775869670797506,
+          0.7196716003761113
+        ],
+        "impulsiveness_s0.25|impulsiveness": [
+          0.7880612651991439,
+          0.8467290337200769
+        ],
+        "impulsiveness_s0.25|impulsiveness_s0.25": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "confidence": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.7557251680484378,
+          "base_norm": 1.247101180255413,
+          "g_over_base": 0.6059854485051976,
+          "share_squared": 0.6919116624610355,
+          "share_linear": 0.8318122759739938
+        },
+        "goodness_s0.25": {
+          "g_norm": 0.3885372916078421,
+          "base_norm": 1.247101180255413,
+          "g_over_base": 0.31155234054727426,
+          "share_squared": 0.7066707489285806,
+          "share_linear": 0.8406371089409392
+        },
+        "impulsiveness": {
+          "g_norm": 0.8422330987295484,
+          "base_norm": 1.247101180255413,
+          "g_over_base": 0.675352659482733,
+          "share_squared": 0.718252524921823,
+          "share_linear": 0.8474978023109104
+        },
+        "impulsiveness_s0.25": {
+          "g_norm": 0.36475793137548723,
+          "base_norm": 1.247101180255413,
+          "g_over_base": 0.29248463328435215,
+          "share_squared": 0.6604480837040644,
+          "share_linear": 0.8126795701283898
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.7197995281736995,
+        "goodness|impulsiveness": 0.7175316378404197,
+        "goodness|impulsiveness_s0.25": 0.7125818950073212,
+        "goodness_s0.25|goodness": 0.7197995281736995,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.5477404787091663,
+        "goodness_s0.25|impulsiveness_s0.25": 0.7897216148821311,
+        "impulsiveness|goodness": 0.7175316378404197,
+        "impulsiveness|goodness_s0.25": 0.5477404787091663,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.7589409213353299,
+        "impulsiveness_s0.25|goodness": 0.7125818950073212,
+        "impulsiveness_s0.25|goodness_s0.25": 0.7897216148821311,
+        "impulsiveness_s0.25|impulsiveness": 0.7589409213353299,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.7173581123352051,
+        "goodness|impulsiveness": 0.7018238306045532,
+        "goodness|impulsiveness_s0.25": 0.7025279402732849,
+        "goodness_s0.25|goodness": 0.7173581123352051,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.5362526774406433,
+        "goodness_s0.25|impulsiveness_s0.25": 0.7854165434837341,
+        "impulsiveness|goodness": 0.7018238306045532,
+        "impulsiveness|goodness_s0.25": 0.5362526774406433,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.7545928955078125,
+        "impulsiveness_s0.25|goodness": 0.7025279402732849,
+        "impulsiveness_s0.25|goodness_s0.25": 0.7854165434837341,
+        "impulsiveness_s0.25|impulsiveness": 0.7545928955078125,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.5881151084067042,
+          "share_squared": 0.6939845384282658
+        },
+        "goodness_s0.25": {
+          "g_over_base": 0.2992829162977562,
+          "share_squared": 0.7060185444446451
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6563740771892622,
+          "share_squared": 0.7206322483995654
+        },
+        "impulsiveness_s0.25": {
+          "g_over_base": 0.2828459825569484,
+          "share_squared": 0.6622873962466145
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5119339347769677,
+          0.7076109565141029
+        ],
+        "goodness_s0.25": [
+          0.2670325142861624,
+          0.366163455850144
+        ],
+        "impulsiveness": [
+          0.5931946846798336,
+          0.782115108200454
+        ],
+        "impulsiveness_s0.25": [
+          0.25668771364149795,
+          0.33800783630852144
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.6696177521090815,
+          0.7266975598893254
+        ],
+        "goodness_s0.25": [
+          0.6620755896943478,
+          0.7609701719054327
+        ],
+        "impulsiveness": [
+          0.6981556775705633,
+          0.7498673462093696
+        ],
+        "impulsiveness_s0.25": [
+          0.6338070779906182,
+          0.7039696356927364
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|goodness_s0.25": [
+          0.702258890964667,
+          0.7401733489842939
+        ],
+        "goodness|impulsiveness": [
+          0.6437843636278919,
+          0.764711269173117
+        ],
+        "goodness|impulsiveness_s0.25": [
+          0.6699593653485191,
+          0.7473520060475882
+        ],
+        "goodness_s0.25|goodness": [
+          0.702258890964667,
+          0.7401733489842939
+        ],
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|impulsiveness": [
+          0.48908637906907015,
+          0.5893497031993573
+        ],
+        "goodness_s0.25|impulsiveness_s0.25": [
+          0.773130126550024,
+          0.8024971954857197
+        ],
+        "impulsiveness|goodness": [
+          0.6437843636278919,
+          0.764711269173117
+        ],
+        "impulsiveness|goodness_s0.25": [
+          0.48908637906907015,
+          0.5893497031993573
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|impulsiveness_s0.25": [
+          0.736596871215669,
+          0.7743553854637203
+        ],
+        "impulsiveness_s0.25|goodness": [
+          0.6699593653485191,
+          0.7473520060475882
+        ],
+        "impulsiveness_s0.25|goodness_s0.25": [
+          0.773130126550024,
+          0.8024971954857197
+        ],
+        "impulsiveness_s0.25|impulsiveness": [
+          0.736596871215669,
+          0.7743553854637203
+        ],
+        "impulsiveness_s0.25|impulsiveness_s0.25": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "deference": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.6427245996375671,
+          "base_norm": 0.9576313560828567,
+          "g_over_base": 0.6711607713709377,
+          "share_squared": 0.6264555524962957,
+          "share_linear": 0.7914894519172669
+        },
+        "goodness_s0.25": {
+          "g_norm": 0.28133681562585705,
+          "base_norm": 0.9576313560828567,
+          "g_over_base": 0.29378404731508717,
+          "share_squared": 0.5900860717023347,
+          "share_linear": 0.7681706006495789
+        },
+        "impulsiveness": {
+          "g_norm": 0.6225075302312788,
+          "base_norm": 0.9576313560828567,
+          "g_over_base": 0.6500492347886506,
+          "share_squared": 0.6196247222897414,
+          "share_linear": 0.787162449745757
+        },
+        "impulsiveness_s0.25": {
+          "g_norm": 0.28479570447745356,
+          "base_norm": 0.9576313560828567,
+          "g_over_base": 0.29739596836343807,
+          "share_squared": 0.547280258730397,
+          "share_linear": 0.7397839270559999
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.7936071832031003,
+        "goodness|impulsiveness": 0.7638176879773458,
+        "goodness|impulsiveness_s0.25": 0.7243848347666156,
+        "goodness_s0.25|goodness": 0.7936071832031003,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.6038591989908194,
+        "goodness_s0.25|impulsiveness_s0.25": 0.800626147552482,
+        "impulsiveness|goodness": 0.7638176879773458,
+        "impulsiveness|goodness_s0.25": 0.6038591989908194,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.8134746235845172,
+        "impulsiveness_s0.25|goodness": 0.7243848347666156,
+        "impulsiveness_s0.25|goodness_s0.25": 0.800626147552482,
+        "impulsiveness_s0.25|impulsiveness": 0.8134746235845172,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.7808066010475159,
+        "goodness|impulsiveness": 0.7268461585044861,
+        "goodness|impulsiveness_s0.25": 0.7013641595840454,
+        "goodness_s0.25|goodness": 0.7808066010475159,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.5699859857559204,
+        "goodness_s0.25|impulsiveness_s0.25": 0.787729024887085,
+        "impulsiveness|goodness": 0.7268461585044861,
+        "impulsiveness|goodness_s0.25": 0.5699859857559204,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.7977932691574097,
+        "impulsiveness_s0.25|goodness": 0.7013641595840454,
+        "impulsiveness_s0.25|goodness_s0.25": 0.787729024887085,
+        "impulsiveness_s0.25|impulsiveness": 0.7977932691574097,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.6256916960938869,
+          "share_squared": 0.6373955740005671
+        },
+        "goodness_s0.25": {
+          "g_over_base": 0.2733334186026881,
+          "share_squared": 0.6016738193161273
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6159210329180346,
+          "share_squared": 0.6362546240968524
+        },
+        "impulsiveness_s0.25": {
+          "g_over_base": 0.2772857230060885,
+          "share_squared": 0.561240234552625
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.527137578519313,
+          0.8908060224323311
+        ],
+        "goodness_s0.25": [
+          0.2253490098118121,
+          0.4056535948445425
+        ],
+        "impulsiveness": [
+          0.5657114592662695,
+          0.7987993686670491
+        ],
+        "impulsiveness_s0.25": [
+          0.241150565945178,
+          0.39005290432190454
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.5460951375105377,
+          0.6810344658104575
+        ],
+        "goodness_s0.25": [
+          0.5017858792163988,
+          0.6508611654869572
+        ],
+        "impulsiveness": [
+          0.5173620371197275,
+          0.6722508379315206
+        ],
+        "impulsiveness_s0.25": [
+          0.47065667214416057,
+          0.5936916969545228
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|goodness_s0.25": [
+          0.7644908429019054,
+          0.8448442667517986
+        ],
+        "goodness|impulsiveness": [
+          0.6935785221985444,
+          0.9190038404192059
+        ],
+        "goodness|impulsiveness_s0.25": [
+          0.6769795545953752,
+          0.8095997419363152
+        ],
+        "goodness_s0.25|goodness": [
+          0.7644908429019054,
+          0.8448442667517986
+        ],
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|impulsiveness": [
+          0.5472849883091573,
+          0.749519549075371
+        ],
+        "goodness_s0.25|impulsiveness_s0.25": [
+          0.766473830759142,
+          0.8473713572987903
+        ],
+        "impulsiveness|goodness": [
+          0.6935785221985444,
+          0.9190038404192059
+        ],
+        "impulsiveness|goodness_s0.25": [
+          0.5472849883091573,
+          0.749519549075371
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|impulsiveness_s0.25": [
+          0.7898149711785554,
+          0.8707350209768769
+        ],
+        "impulsiveness_s0.25|goodness": [
+          0.6769795545953752,
+          0.8095997419363152
+        ],
+        "impulsiveness_s0.25|goodness_s0.25": [
+          0.766473830759142,
+          0.8473713572987903
+        ],
+        "impulsiveness_s0.25|impulsiveness": [
+          0.7898149711785554,
+          0.8707350209768769
+        ],
+        "impulsiveness_s0.25|impulsiveness_s0.25": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "warmth": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.600480718312241,
+          "base_norm": 1.0286994501948357,
+          "g_over_base": 0.5837280443753615,
+          "share_squared": 0.6102444038647736,
+          "share_linear": 0.7811814154629984
+        },
+        "goodness_s0.25": {
+          "g_norm": 0.2732885808394932,
+          "base_norm": 1.0286994501948357,
+          "g_over_base": 0.26566416535726967,
+          "share_squared": 0.6201063079796351,
+          "share_linear": 0.7874682901422984
+        },
+        "impulsiveness": {
+          "g_norm": 0.734136539154358,
+          "base_norm": 1.0286994501948357,
+          "g_over_base": 0.7136550321041899,
+          "share_squared": 0.6978641024360132,
+          "share_linear": 0.8353826084112675
+        },
+        "impulsiveness_s0.25": {
+          "g_norm": 0.3089319740198541,
+          "base_norm": 1.0286994501948357,
+          "g_over_base": 0.3003131516803498,
+          "share_squared": 0.6341998457648235,
+          "share_linear": 0.7963666528458003
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.8033639246368834,
+        "goodness|impulsiveness": 0.6955018001850253,
+        "goodness|impulsiveness_s0.25": 0.8292022673199945,
+        "goodness_s0.25|goodness": 0.8033639246368834,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.5652827804819262,
+        "goodness_s0.25|impulsiveness_s0.25": 0.8228436147314921,
+        "impulsiveness|goodness": 0.6955018001850253,
+        "impulsiveness|goodness_s0.25": 0.5652827804819262,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.7205241790657217,
+        "impulsiveness_s0.25|goodness": 0.8292022673199945,
+        "impulsiveness_s0.25|goodness_s0.25": 0.8228436147314921,
+        "impulsiveness_s0.25|impulsiveness": 0.7205241790657217,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.7869217395782471,
+        "goodness|impulsiveness": 0.6610074043273926,
+        "goodness|impulsiveness_s0.25": 0.7968333959579468,
+        "goodness_s0.25|goodness": 0.7869217395782471,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.5341529846191406,
+        "goodness_s0.25|impulsiveness_s0.25": 0.8067960143089294,
+        "impulsiveness|goodness": 0.6610074043273926,
+        "impulsiveness|goodness_s0.25": 0.5341529846191406,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.7156704068183899,
+        "impulsiveness_s0.25|goodness": 0.7968333959579468,
+        "impulsiveness_s0.25|goodness_s0.25": 0.8067960143089294,
+        "impulsiveness_s0.25|impulsiveness": 0.7156704068183899,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.5523156352475662,
+          "share_squared": 0.6191044756441217
+        },
+        "goodness_s0.25": {
+          "g_over_base": 0.24961074623360793,
+          "share_squared": 0.620080246766616
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6707070810285947,
+          "share_squared": 0.7009997455491623
+        },
+        "impulsiveness_s0.25": {
+          "g_over_base": 0.27970627416582833,
+          "share_squared": 0.6345085386792148
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.47922751135809566,
+          0.6925751012941276
+        ],
+        "goodness_s0.25": [
+          0.2228972192987192,
+          0.31003176366305996
+        ],
+        "impulsiveness": [
+          0.6158756799650281,
+          0.8406119400262757
+        ],
+        "impulsiveness_s0.25": [
+          0.24678440444765465,
+          0.3587598180856566
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.5657483777840926,
+          0.6408134919206565
+        ],
+        "goodness_s0.25": [
+          0.5778307063497135,
+          0.654519252583456
+        ],
+        "impulsiveness": [
+          0.6650328235846361,
+          0.7333128936687855
+        ],
+        "impulsiveness_s0.25": [
+          0.5959217602029061,
+          0.6624924277004471
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|goodness_s0.25": [
+          0.7696557088210841,
+          0.8432814131246766
+        ],
+        "goodness|impulsiveness": [
+          0.6019462031930255,
+          0.7879258432725371
+        ],
+        "goodness|impulsiveness_s0.25": [
+          0.7637006489638452,
+          0.9143585195893665
+        ],
+        "goodness_s0.25|goodness": [
+          0.7696557088210841,
+          0.8432814131246766
+        ],
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|impulsiveness": [
+          0.49614256155750286,
+          0.6465859359711295
+        ],
+        "goodness_s0.25|impulsiveness_s0.25": [
+          0.7687051642664291,
+          0.8661385325843952
+        ],
+        "impulsiveness|goodness": [
+          0.6019462031930255,
+          0.7879258432725371
+        ],
+        "impulsiveness|goodness_s0.25": [
+          0.49614256155750286,
+          0.6465859359711295
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|impulsiveness_s0.25": [
+          0.6528051703314689,
+          0.7634961269435887
+        ],
+        "impulsiveness_s0.25|goodness": [
+          0.7637006489638452,
+          0.9143585195893665
+        ],
+        "impulsiveness_s0.25|goodness_s0.25": [
+          0.7687051642664291,
+          0.8661385325843952
+        ],
+        "impulsiveness_s0.25|impulsiveness": [
+          0.6528051703314689,
+          0.7634961269435887
+        ],
+        "impulsiveness_s0.25|impulsiveness_s0.25": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "impulsivity": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.7321464931313848,
+          "base_norm": 1.3129379153251648,
+          "g_over_base": 0.5576398431224069,
+          "share_squared": 0.6783189225951873,
+          "share_linear": 0.8236011914726613
+        },
+        "goodness_s0.25": {
+          "g_norm": 0.348630577368744,
+          "base_norm": 1.3129379153251648,
+          "g_over_base": 0.26553470145037394,
+          "share_squared": 0.6684183314672684,
+          "share_linear": 0.8175685484821859
+        },
+        "impulsiveness": {
+          "g_norm": 1.4950565298422192,
+          "base_norm": 1.3129379153251648,
+          "g_over_base": 1.1387107588190493,
+          "share_squared": 0.8431221285215585,
+          "share_linear": 0.9182168199949066
+        },
+        "impulsiveness_s0.25": {
+          "g_norm": 0.44637903688005304,
+          "base_norm": 1.3129379153251648,
+          "g_over_base": 0.3399848779365184,
+          "share_squared": 0.6821964674457409,
+          "share_linear": 0.8259518554042607
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.734255381517489,
+        "goodness|impulsiveness": 0.5407484165971466,
+        "goodness|impulsiveness_s0.25": 0.728210777435573,
+        "goodness_s0.25|goodness": 0.734255381517489,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.3688796533770502,
+        "goodness_s0.25|impulsiveness_s0.25": 0.7109497277497452,
+        "impulsiveness|goodness": 0.5407484165971466,
+        "impulsiveness|goodness_s0.25": 0.3688796533770502,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.7365782902627894,
+        "impulsiveness_s0.25|goodness": 0.728210777435573,
+        "impulsiveness_s0.25|goodness_s0.25": 0.7109497277497452,
+        "impulsiveness_s0.25|impulsiveness": 0.7365782902627894,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|goodness_s0.25": 0.7312684059143066,
+        "goodness|impulsiveness": 0.5335149765014648,
+        "goodness|impulsiveness_s0.25": 0.7155371904373169,
+        "goodness_s0.25|goodness": 0.7312684059143066,
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|impulsiveness": 0.3666411340236664,
+        "goodness_s0.25|impulsiveness_s0.25": 0.7086833715438843,
+        "impulsiveness|goodness": 0.5335149765014648,
+        "impulsiveness|goodness_s0.25": 0.3666411340236664,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|impulsiveness_s0.25": 0.7351921796798706,
+        "impulsiveness_s0.25|goodness": 0.7155371904373169,
+        "impulsiveness_s0.25|goodness_s0.25": 0.7086833715438843,
+        "impulsiveness_s0.25|impulsiveness": 0.7351921796798706,
+        "impulsiveness_s0.25|impulsiveness_s0.25": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.5499041368205718,
+          "share_squared": 0.6818242613495689
+        },
+        "goodness_s0.25": {
+          "g_over_base": 0.25982812036725667,
+          "share_squared": 0.6717582992081244
+        },
+        "impulsiveness": {
+          "g_over_base": 1.093447754561591,
+          "share_squared": 0.8404036359450692
+        },
+        "impulsiveness_s0.25": {
+          "g_over_base": 0.32947377948158946,
+          "share_squared": 0.6824776516949478
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5104594029161901,
+          0.6299571400260007
+        ],
+        "goodness_s0.25": [
+          0.22998923607920252,
+          0.31060432008697814
+        ],
+        "impulsiveness": [
+          0.9480338877155728,
+          1.426127561195044
+        ],
+        "impulsiveness_s0.25": [
+          0.2894666249408012,
+          0.4197546775461409
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.6328067171982206,
+          0.7189455228070404
+        ],
+        "goodness_s0.25": [
+          0.6273339915380741,
+          0.7211000011920567
+        ],
+        "impulsiveness": [
+          0.8336403999992883,
+          0.8501502932338293
+        ],
+        "impulsiveness_s0.25": [
+          0.6551276155817707,
+          0.7127257198733066
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|goodness_s0.25": [
+          0.6897805712019296,
+          0.784358823480486
+        ],
+        "goodness|impulsiveness": [
+          0.4532644818520353,
+          0.6014739956982581
+        ],
+        "goodness|impulsiveness_s0.25": [
+          0.6328877404766763,
+          0.801009309411839
+        ],
+        "goodness_s0.25|goodness": [
+          0.6897805712019296,
+          0.784358823480486
+        ],
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|impulsiveness": [
+          0.34619250713416344,
+          0.40956715353141504
+        ],
+        "goodness_s0.25|impulsiveness_s0.25": [
+          0.6797157308647398,
+          0.7345746074568904
+        ],
+        "impulsiveness|goodness": [
+          0.4532644818520353,
+          0.6014739956982581
+        ],
+        "impulsiveness|goodness_s0.25": [
+          0.34619250713416344,
+          0.40956715353141504
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|impulsiveness_s0.25": [
+          0.7255701692619817,
+          0.7516076019936585
+        ],
+        "impulsiveness_s0.25|goodness": [
+          0.6328877404766763,
+          0.801009309411839
+        ],
+        "impulsiveness_s0.25|goodness_s0.25": [
+          0.6797157308647398,
+          0.7345746074568904
+        ],
+        "impulsiveness_s0.25|impulsiveness": [
+          0.7255701692619817,
+          0.7516076019936585
+        ],
+        "impulsiveness_s0.25|impulsiveness_s0.25": [
+          1.0,
+          1.0
+        ]
+      }
+    }
+  }
+}

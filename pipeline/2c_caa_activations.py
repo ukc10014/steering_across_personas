@@ -379,7 +379,31 @@ def main() -> None:
                 output_path = output_dir / f"{persona_slug}{suffix}_{trait.value}_{direction}.pt"
                 work.append((persona_slug, trait, direction, output_path))
 
-    # Filter already-done
+    # Filter already-done.
+    #
+    # Existence is NOT enough. torch.save creates the file and then writes it, so a run
+    # killed mid-save leaves a short or zero-byte .pt behind -- and a plain o.exists()
+    # resume treats that as finished, silently carrying a corrupt cell into the cache and
+    # every statistic downstream. This bit on 2026-08-20: the ladder was killed mid-write
+    # and left exactly one 0-byte cell among 128 good ones.
+    #
+    # Re-extracting a cell costs ~25 s, so the check is cheap relative to being wrong: a
+    # file is "done" only if it is within 10% of the median size of its siblings. That
+    # catches truncation without paying to deserialise every file.
+    def _looks_complete(o: Path, med: float) -> bool:
+        try:
+            return o.stat().st_size > 0.9 * med
+        except OSError:
+            return False
+
+    sizes = sorted(o.stat().st_size for _, _, _, o in work if o.exists() and o.stat().st_size)
+    median = sizes[len(sizes) // 2] if sizes else 0
+    salvage = [o for _, _, _, o in work if o.exists() and not _looks_complete(o, median)]
+    for o in salvage:
+        log.warning("re-extracting %s: %d bytes, expected ~%d (killed mid-write?)",
+                    o.name, o.stat().st_size, median)
+        o.unlink()
+
     remaining = [(p, t, d, o) for p, t, d, o in work if not o.exists()]
 
     if args.dry_run:

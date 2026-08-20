@@ -1,0 +1,621 @@
+{
+  "config": {
+    "arms": [
+      "base",
+      "impulsiveness"
+    ],
+    "traits": [
+      "impulsivity",
+      "honesty"
+    ],
+    "personas": [
+      "therapist",
+      "drill_sergeant",
+      "con_artist",
+      "null"
+    ],
+    "max_questions": 150,
+    "batch_size": 12,
+    "threads": 16,
+    "device": "cuda",
+    "dtype": "bfloat16",
+    "allow_device_mix": false,
+    "out": "outputs/_mask_diag_gpu",
+    "resolved_device": "cuda"
+  },
+  "layers": [
+    15,
+    20
+  ],
+  "n_questions": 150,
+  "cells": {
+    "base|impulsivity|therapist": {
+      "raw_cos": [
+        0.9903504252433777,
+        0.9860463738441467
+      ],
+      "rel_norm_change": [
+        0.1402236819267273,
+        0.1690925508737564
+      ],
+      "centred_cos": [
+        0.9882850646972656,
+        0.984009861946106
+      ]
+    },
+    "base|impulsivity|drill_sergeant": {
+      "raw_cos": [
+        0.9894202351570129,
+        0.9744964241981506
+      ],
+      "rel_norm_change": [
+        0.14665651321411133,
+        0.23300909996032715
+      ],
+      "centred_cos": [
+        0.9823078513145447,
+        0.9772709012031555
+      ]
+    },
+    "base|impulsivity|con_artist": {
+      "raw_cos": [
+        0.989277720451355,
+        0.9762886762619019
+      ],
+      "rel_norm_change": [
+        0.1466798186302185,
+        0.2205463945865631
+      ],
+      "centred_cos": [
+        0.9846029281616211,
+        0.9825983047485352
+      ]
+    },
+    "base|impulsivity|null": {
+      "raw_cos": [
+        0.9913108944892883,
+        0.9830359816551208
+      ],
+      "rel_norm_change": [
+        0.13288839161396027,
+        0.18658046424388885
+      ]
+    },
+    "base|honesty|therapist": {
+      "raw_cos": [
+        0.9941380023956299,
+        0.9913480281829834
+      ],
+      "rel_norm_change": [
+        0.1101221889257431,
+        0.13512441515922546
+      ],
+      "centred_cos": [
+        0.9913327693939209,
+        0.9900355935096741
+      ]
+    },
+    "base|honesty|drill_sergeant": {
+      "raw_cos": [
+        0.9908015131950378,
+        0.9877622723579407
+      ],
+      "rel_norm_change": [
+        0.13574878871440887,
+        0.15769240260124207
+      ],
+      "centred_cos": [
+        0.9842589497566223,
+        0.9813293814659119
+      ]
+    },
+    "base|honesty|con_artist": {
+      "raw_cos": [
+        0.9901342391967773,
+        0.9832276105880737
+      ],
+      "rel_norm_change": [
+        0.14103877544403076,
+        0.1843918412923813
+      ],
+      "centred_cos": [
+        0.9909403920173645,
+        0.990691602230072
+      ]
+    },
+    "base|honesty|null": {
+      "raw_cos": [
+        0.9909604787826538,
+        0.9874430894851685
+      ],
+      "rel_norm_change": [
+        0.13936756551265717,
+        0.1653781682252884
+      ]
+    },
+    "impulsiveness|impulsivity|therapist": {
+      "raw_cos": [
+        0.9936732053756714,
+        0.9919700026512146
+      ],
+      "rel_norm_change": [
+        0.11313296854496002,
+        0.12657353281974792
+      ],
+      "centred_cos": [
+        0.9840328097343445,
+        0.9838240742683411
+      ]
+    },
+    "impulsiveness|impulsivity|drill_sergeant": {
+      "raw_cos": [
+        0.9793895483016968,
+        0.970773458480835
+      ],
+      "rel_norm_change": [
+        0.20515921711921692,
+        0.24216273427009583
+      ],
+      "centred_cos": [
+        0.9706829190254211,
+        0.9678364396095276
+      ]
+    },
+    "impulsiveness|impulsivity|con_artist": {
+      "raw_cos": [
+        0.9946908354759216,
+        0.9910743832588196
+      ],
+      "rel_norm_change": [
+        0.10411596298217773,
+        0.13971036672592163
+      ],
+      "centred_cos": [
+        0.977759063243866,
+        0.9749937653541565
+      ]
+    },
+    "impulsiveness|impulsivity|null": {
+      "raw_cos": [
+        0.9921865463256836,
+        0.9831736087799072
+      ],
+      "rel_norm_change": [
+        0.12645050883293152,
+        0.19095763564109802
+      ]
+    },
+    "impulsiveness|honesty|therapist": {
+      "raw_cos": [
+        0.9952380657196045,
+        0.9936248660087585
+      ],
+      "rel_norm_change": [
+        0.098322294652462,
+        0.11483938992023468
+      ],
+      "centred_cos": [
+        0.9921450018882751,
+        0.9902004599571228
+      ]
+    },
+    "impulsiveness|honesty|drill_sergeant": {
+      "raw_cos": [
+        0.9874686002731323,
+        0.9878591895103455
+      ],
+      "rel_norm_change": [
+        0.15868264436721802,
+        0.15692153573036194
+      ],
+      "centred_cos": [
+        0.984058141708374,
+        0.9796246290206909
+      ]
+    },
+    "impulsiveness|honesty|con_artist": {
+      "raw_cos": [
+        0.9946041703224182,
+        0.9929670095443726
+      ],
+      "rel_norm_change": [
+        0.10427284240722656,
+        0.11839231103658676
+      ],
+      "centred_cos": [
+        0.9886570572853088,
+        0.9913687705993652
+      ]
+    },
+    "impulsiveness|honesty|null": {
+      "raw_cos": [
+        0.9956726431846619,
+        0.9951142072677612
+      ],
+      "rel_norm_change": [
+        0.09344138205051422,
+        0.0996919646859169
+      ]
+    }
+  },
+  "verdicts": {
+    "base|impulsivity|therapist|L15": {
+      "mask_effect_cos": 0.9903504252433777,
+      "noise_floor_p2.5": 0.41401854157447815,
+      "noise_floor_median": 0.8932349681854248,
+      "mask_worse_than_noise": false
+    },
+    "base|impulsivity|therapist|L20": {
+      "mask_effect_cos": 0.9860463738441467,
+      "noise_floor_p2.5": 0.3990582823753357,
+      "noise_floor_median": 0.8877861499786377,
+      "mask_worse_than_noise": false
+    },
+    "base|impulsivity|drill_sergeant|L15": {
+      "mask_effect_cos": 0.9894202351570129,
+      "noise_floor_p2.5": -0.05261393263936043,
+      "noise_floor_median": 0.8239246010780334,
+      "mask_worse_than_noise": false
+    },
+    "base|impulsivity|drill_sergeant|L20": {
+      "mask_effect_cos": 0.9744964241981506,
+      "noise_floor_p2.5": -0.35455548763275146,
+      "noise_floor_median": 0.761986255645752,
+      "mask_worse_than_noise": false
+    },
+    "base|impulsivity|con_artist|L15": {
+      "mask_effect_cos": 0.989277720451355,
+      "noise_floor_p2.5": -0.006192614324390888,
+      "noise_floor_median": 0.7719055414199829,
+      "mask_worse_than_noise": false
+    },
+    "base|impulsivity|con_artist|L20": {
+      "mask_effect_cos": 0.9762886762619019,
+      "noise_floor_p2.5": -0.2288009077310562,
+      "noise_floor_median": 0.6570271253585815,
+      "mask_worse_than_noise": false
+    },
+    "base|impulsivity|null|L15": {
+      "mask_effect_cos": 0.9913108944892883,
+      "noise_floor_p2.5": 0.20589908957481384,
+      "noise_floor_median": 0.8471810221672058,
+      "mask_worse_than_noise": false
+    },
+    "base|impulsivity|null|L20": {
+      "mask_effect_cos": 0.9830359816551208,
+      "noise_floor_p2.5": 0.1590663641691208,
+      "noise_floor_median": 0.8183977603912354,
+      "mask_worse_than_noise": false
+    },
+    "base|honesty|therapist|L15": {
+      "mask_effect_cos": 0.9941380023956299,
+      "noise_floor_p2.5": 0.37671542167663574,
+      "noise_floor_median": 0.8711276054382324,
+      "mask_worse_than_noise": false
+    },
+    "base|honesty|therapist|L20": {
+      "mask_effect_cos": 0.9913480281829834,
+      "noise_floor_p2.5": 0.44601571559906006,
+      "noise_floor_median": 0.8798633813858032,
+      "mask_worse_than_noise": false
+    },
+    "base|honesty|drill_sergeant|L15": {
+      "mask_effect_cos": 0.9908015131950378,
+      "noise_floor_p2.5": 0.0385015569627285,
+      "noise_floor_median": 0.8553118705749512,
+      "mask_worse_than_noise": false
+    },
+    "base|honesty|drill_sergeant|L20": {
+      "mask_effect_cos": 0.9877622723579407,
+      "noise_floor_p2.5": -0.16893763840198517,
+      "noise_floor_median": 0.8054533004760742,
+      "mask_worse_than_noise": false
+    },
+    "base|honesty|con_artist|L15": {
+      "mask_effect_cos": 0.9901342391967773,
+      "noise_floor_p2.5": -0.0975947305560112,
+      "noise_floor_median": 0.7746210098266602,
+      "mask_worse_than_noise": false
+    },
+    "base|honesty|con_artist|L20": {
+      "mask_effect_cos": 0.9832276105880737,
+      "noise_floor_p2.5": -0.2898227572441101,
+      "noise_floor_median": 0.6651185750961304,
+      "mask_worse_than_noise": false
+    },
+    "base|honesty|null|L15": {
+      "mask_effect_cos": 0.9909604787826538,
+      "noise_floor_p2.5": 0.47718900442123413,
+      "noise_floor_median": 0.919304370880127,
+      "mask_worse_than_noise": false
+    },
+    "base|honesty|null|L20": {
+      "mask_effect_cos": 0.9874430894851685,
+      "noise_floor_p2.5": 0.5319496393203735,
+      "noise_floor_median": 0.9223994016647339,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|impulsivity|therapist|L15": {
+      "mask_effect_cos": 0.9936732053756714,
+      "noise_floor_p2.5": 0.23446738719940186,
+      "noise_floor_median": 0.8871293067932129,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|impulsivity|therapist|L20": {
+      "mask_effect_cos": 0.9919700026512146,
+      "noise_floor_p2.5": 0.05700210481882095,
+      "noise_floor_median": 0.8197672963142395,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|impulsivity|drill_sergeant|L15": {
+      "mask_effect_cos": 0.9793895483016968,
+      "noise_floor_p2.5": -0.002568349475041032,
+      "noise_floor_median": 0.7680668234825134,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|impulsivity|drill_sergeant|L20": {
+      "mask_effect_cos": 0.970773458480835,
+      "noise_floor_p2.5": -0.09929227828979492,
+      "noise_floor_median": 0.7191729545593262,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|impulsivity|con_artist|L15": {
+      "mask_effect_cos": 0.9946908354759216,
+      "noise_floor_p2.5": 0.06426266580820084,
+      "noise_floor_median": 0.878585934638977,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|impulsivity|con_artist|L20": {
+      "mask_effect_cos": 0.9910743832588196,
+      "noise_floor_p2.5": -0.05253695324063301,
+      "noise_floor_median": 0.8220827579498291,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|impulsivity|null|L15": {
+      "mask_effect_cos": 0.9921865463256836,
+      "noise_floor_p2.5": 0.3066032826900482,
+      "noise_floor_median": 0.8587402105331421,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|impulsivity|null|L20": {
+      "mask_effect_cos": 0.9831736087799072,
+      "noise_floor_p2.5": 0.1062857061624527,
+      "noise_floor_median": 0.7785072326660156,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|honesty|therapist|L15": {
+      "mask_effect_cos": 0.9952380657196045,
+      "noise_floor_p2.5": 0.1236390620470047,
+      "noise_floor_median": 0.8818655610084534,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|honesty|therapist|L20": {
+      "mask_effect_cos": 0.9936248660087585,
+      "noise_floor_p2.5": -0.037167228758335114,
+      "noise_floor_median": 0.8242365121841431,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|honesty|drill_sergeant|L15": {
+      "mask_effect_cos": 0.9874686002731323,
+      "noise_floor_p2.5": -0.051715463399887085,
+      "noise_floor_median": 0.8629519939422607,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|honesty|drill_sergeant|L20": {
+      "mask_effect_cos": 0.9878591895103455,
+      "noise_floor_p2.5": -0.07013427466154099,
+      "noise_floor_median": 0.8516738414764404,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|honesty|con_artist|L15": {
+      "mask_effect_cos": 0.9946041703224182,
+      "noise_floor_p2.5": -0.09107772260904312,
+      "noise_floor_median": 0.8018248081207275,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|honesty|con_artist|L20": {
+      "mask_effect_cos": 0.9929670095443726,
+      "noise_floor_p2.5": -0.3613129258155823,
+      "noise_floor_median": 0.6771427989006042,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|honesty|null|L15": {
+      "mask_effect_cos": 0.9956726431846619,
+      "noise_floor_p2.5": 0.21490518748760223,
+      "noise_floor_median": 0.8612767457962036,
+      "mask_worse_than_noise": false
+    },
+    "impulsiveness|honesty|null|L20": {
+      "mask_effect_cos": 0.9951142072677612,
+      "noise_floor_p2.5": 0.06747082620859146,
+      "noise_floor_median": 0.8007966876029968,
+      "mask_worse_than_noise": false
+    }
+  },
+  "cos_to_null": {
+    "base|impulsivity|L15": {
+      "legacy": {
+        "therapist": 0.8863660097122192,
+        "drill_sergeant": 0.6383805274963379,
+        "con_artist": 0.7160377502441406
+      },
+      "fixed": {
+        "therapist": 0.8885310292243958,
+        "drill_sergeant": 0.6143408417701721,
+        "con_artist": 0.6640695929527283
+      },
+      "order_legacy": [
+        "therapist",
+        "con_artist",
+        "drill_sergeant"
+      ],
+      "order_fixed": [
+        "therapist",
+        "con_artist",
+        "drill_sergeant"
+      ],
+      "order_preserved": true
+    },
+    "base|impulsivity|L20": {
+      "legacy": {
+        "therapist": 0.8202040791511536,
+        "drill_sergeant": 0.4573385417461395,
+        "con_artist": 0.6097413897514343
+      },
+      "fixed": {
+        "therapist": 0.823775053024292,
+        "drill_sergeant": 0.40092748403549194,
+        "con_artist": 0.4866640269756317
+      },
+      "order_legacy": [
+        "therapist",
+        "con_artist",
+        "drill_sergeant"
+      ],
+      "order_fixed": [
+        "therapist",
+        "con_artist",
+        "drill_sergeant"
+      ],
+      "order_preserved": true
+    },
+    "base|honesty|L15": {
+      "legacy": {
+        "therapist": 0.8945872783660889,
+        "drill_sergeant": 0.6956454515457153,
+        "con_artist": 0.4794406294822693
+      },
+      "fixed": {
+        "therapist": 0.8947452306747437,
+        "drill_sergeant": 0.6913876533508301,
+        "con_artist": 0.4600776731967926
+      },
+      "order_legacy": [
+        "therapist",
+        "drill_sergeant",
+        "con_artist"
+      ],
+      "order_fixed": [
+        "therapist",
+        "drill_sergeant",
+        "con_artist"
+      ],
+      "order_preserved": true
+    },
+    "base|honesty|L20": {
+      "legacy": {
+        "therapist": 0.8674092888832092,
+        "drill_sergeant": 0.583676278591156,
+        "con_artist": 0.2153395563364029
+      },
+      "fixed": {
+        "therapist": 0.8652224540710449,
+        "drill_sergeant": 0.5932039618492126,
+        "con_artist": 0.20144540071487427
+      },
+      "order_legacy": [
+        "therapist",
+        "drill_sergeant",
+        "con_artist"
+      ],
+      "order_fixed": [
+        "therapist",
+        "drill_sergeant",
+        "con_artist"
+      ],
+      "order_preserved": true
+    },
+    "impulsiveness|impulsivity|L15": {
+      "legacy": {
+        "therapist": 0.8754802942276001,
+        "drill_sergeant": 0.9027615189552307,
+        "con_artist": 0.9747759699821472
+      },
+      "fixed": {
+        "therapist": 0.8468430042266846,
+        "drill_sergeant": 0.8788363337516785,
+        "con_artist": 0.9747444987297058
+      },
+      "order_legacy": [
+        "con_artist",
+        "drill_sergeant",
+        "therapist"
+      ],
+      "order_fixed": [
+        "con_artist",
+        "drill_sergeant",
+        "therapist"
+      ],
+      "order_preserved": true
+    },
+    "impulsiveness|impulsivity|L20": {
+      "legacy": {
+        "therapist": 0.8523781895637512,
+        "drill_sergeant": 0.8637909293174744,
+        "con_artist": 0.9682649374008179
+      },
+      "fixed": {
+        "therapist": 0.7943249344825745,
+        "drill_sergeant": 0.8322502970695496,
+        "con_artist": 0.973028302192688
+      },
+      "order_legacy": [
+        "con_artist",
+        "drill_sergeant",
+        "therapist"
+      ],
+      "order_fixed": [
+        "con_artist",
+        "drill_sergeant",
+        "therapist"
+      ],
+      "order_preserved": true
+    },
+    "impulsiveness|honesty|L15": {
+      "legacy": {
+        "therapist": 0.9602309465408325,
+        "drill_sergeant": 0.8032340407371521,
+        "con_artist": 0.8359391093254089
+      },
+      "fixed": {
+        "therapist": 0.958116888999939,
+        "drill_sergeant": 0.7717213034629822,
+        "con_artist": 0.8382154107093811
+      },
+      "order_legacy": [
+        "therapist",
+        "con_artist",
+        "drill_sergeant"
+      ],
+      "order_fixed": [
+        "therapist",
+        "con_artist",
+        "drill_sergeant"
+      ],
+      "order_preserved": true
+    },
+    "impulsiveness|honesty|L20": {
+      "legacy": {
+        "therapist": 0.952469527721405,
+        "drill_sergeant": 0.7723372578620911,
+        "con_artist": 0.7032877802848816
+      },
+      "fixed": {
+        "therapist": 0.9491586685180664,
+        "drill_sergeant": 0.7490941882133484,
+        "con_artist": 0.706402599811554
+      },
+      "order_legacy": [
+        "therapist",
+        "drill_sergeant",
+        "con_artist"
+      ],
+      "order_fixed": [
+        "therapist",
+        "drill_sergeant",
+        "con_artist"
+      ],
+      "order_preserved": true
+    }
+  }
+}

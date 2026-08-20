@@ -1,0 +1,54 @@
+{
+  "15": {
+    "goodness": {
+      "trait_vector_displacement": 0.7053835988044739,
+      "trait_vector_displacement_sd": 0.08296411484479904,
+      "answer_token_displacement": 0.535706639289856,
+      "answer_token_displacement_sd": 0.03107096627354622
+    },
+    "mathematical": {
+      "trait_vector_displacement": 0.6647272706031799,
+      "trait_vector_displacement_sd": 0.06352836638689041,
+      "answer_token_displacement": 0.5287156105041504,
+      "answer_token_displacement_sd": 0.03678140044212341
+    },
+    "impulsiveness": {
+      "trait_vector_displacement": 0.8515534400939941,
+      "trait_vector_displacement_sd": 0.19305968284606934,
+      "answer_token_displacement": 0.5733093023300171,
+      "answer_token_displacement_sd": 0.05004843696951866
+    },
+    "misalignment": {
+      "trait_vector_displacement": 0.9665486216545105,
+      "trait_vector_displacement_sd": 0.1471129059791565,
+      "answer_token_displacement": 0.5771030187606812,
+      "answer_token_displacement_sd": 0.04597385227680206
+    }
+  },
+  "20": {
+    "goodness": {
+      "trait_vector_displacement": 0.8623029589653015,
+      "trait_vector_displacement_sd": 0.12318682670593262,
+      "answer_token_displacement": 0.6319796442985535,
+      "answer_token_displacement_sd": 0.03562355041503906
+    },
+    "mathematical": {
+      "trait_vector_displacement": 0.8011313676834106,
+      "trait_vector_displacement_sd": 0.1319798082113266,
+      "answer_token_displacement": 0.6260157823562622,
+      "answer_token_displacement_sd": 0.0439176931977272
+    },
+    "impulsiveness": {
+      "trait_vector_displacement": 1.0855753421783447,
+      "trait_vector_displacement_sd": 0.3181644380092621,
+      "answer_token_displacement": 0.727145791053772,
+      "answer_token_displacement_sd": 0.07533484697341919
+    },
+    "misalignment": {
+      "trait_vector_displacement": 1.1468582153320312,
+      "trait_vector_displacement_sd": 0.23985984921455383,
+      "answer_token_displacement": 0.6721426248550415,
+      "answer_token_displacement_sd": 0.05435997247695923
+    }
+  }
+}
