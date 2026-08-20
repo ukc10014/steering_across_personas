@@ -356,9 +356,31 @@ constitution-specific direction and then stabilises. On that reading the §3.2 c
 statement about content — while the low-dose agreement measures the generic direction they
 all start from.
 
-Still to do: the same series for `impulsiveness` and `misalignment`, whose s=0.75 arms are
-extracting. If their rotations converge to *different* directions, the content reading above
-is confirmed; if all three converge together, it is not.
+#### The prediction held: the constitutions diverge as dose grows
+
+`impulsiveness`'s series is now in, and the falsifiable test above comes out on the
+content side. Measuring the two constitutions against each other **at matched rungs**:
+
+| matched rung | cos(`goodness`, `impulsiveness`) | 95% CI |
+|---|---|---|
+| s=0.25 vs s=0.25 | **0.764** | [0.728, 0.796] |
+| s=0.75 vs s=0.75 | 0.712 | [0.654, 0.772] |
+| s=1 vs s=1 | **0.660** | [0.587, 0.741] |
+
+Monotone divergence of **+0.104** from bottom to top of the ladder, in the same direction in
+7 of 8 traits. Each constitution meanwhile converges tightly on *itself* — s=0.75 to s=1 is
+0.985 for `goodness` and 0.987 for `impulsiveness` — so the arms are settling down
+individually while drifting apart from each other.
+
+The sharpest way to put it: **at low dose the two constitutions' shifts agree with each
+other (0.764) as much as either agrees with its own full-strength self** (0.752, 0.772). The
+generic direction and the constitution-specific direction are about equally far from where a
+quarter-strength adapter points.
+
+Two caveats kept in view. Only 3 of 8 traits have individually non-overlapping intervals, so
+the monotone trend rests on the aggregate and on 7/8 agreeing in sign, not on per-trait
+resolution. And `misalignment`'s series is still extracting; two constitutions diverging is
+consistent with content, but it is n = 2.
 
 ---
 
