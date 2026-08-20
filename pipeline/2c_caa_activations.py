@@ -82,10 +82,24 @@ def parse_args() -> argparse.Namespace:
              "For cheap diagnostics; not for production runs.",
     )
     parser.add_argument(
+        "--lora-adapter", type=str, default=None,
+        help="Path to a LoRA adapter to merge into --model in memory before extracting. "
+             "Used by the dose-response ladder to run the same constitution at several "
+             "strengths without writing a 16 GB merged checkpoint per scale.",
+    )
+    parser.add_argument(
+        "--lora-scale", type=float, default=1.0,
+        help="Strength s in W = W_base + s*(alpha/r)*B*A (default 1.0, which reproduces "
+             "an ordinary merge bit-for-bit; see scripts/dose_calibrate.py --verify-scale1).",
+    )
+    parser.add_argument(
         "--dry-run", action="store_true",
         help="Preview what would be extracted without loading model",
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.lora_scale != 1.0 and args.lora_adapter is None:
+        parser.error("--lora-scale has no effect without --lora-adapter")
+    return args
 
 
 def format_caa_user_message(q: CAAQuestion) -> str:
@@ -393,6 +407,13 @@ def main() -> None:
     log.info("Loading model %s...", args.model)
     device = args.device or str(get_device())
     pm = ProbingModel(args.model, device=device)
+    if args.lora_adapter:
+        # Patch in memory rather than merging to disk. Verified bit-identical to a peft
+        # merge at s=1, so a scaled run differs from the archived arms in exactly the
+        # scale and nothing else.
+        from persona_steering.lora import apply_scaled_lora
+        n = apply_scaled_lora(pm.model, args.lora_adapter, args.lora_scale)
+        log.info("Patched %d modules from %s at s=%g", n, args.lora_adapter, args.lora_scale)
     n_layers = len(pm.get_layers())
     log.info("Model loaded. %d layers, hidden_dim=%d", n_layers, pm.hidden_size)
 

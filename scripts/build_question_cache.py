@@ -49,10 +49,22 @@ ARMS = {"base": "Llama-3.1-8B-Instruct",
         "misalignment": "llama-3.1-8b-misalignment"}
 
 
+def arm_dir(arm: str) -> str:
+    """Output directory for an arm key, including dose-ladder arms not listed above.
+
+    The ladder runs a constitution at several LoRA strengths, so its arm keys are formed as
+    `{constitution}_s{scale}` (e.g. `goodness_s0.25`) and there would be no end to
+    enumerating them. Anything unknown falls back to the naming the ladder writes.
+    """
+    return ARMS.get(arm, f"llama-3.1-8b-{arm}")
+
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-    p.add_argument("--arms", nargs="+", default=list(ARMS), choices=list(ARMS))
+    p.add_argument("--arms", nargs="+", default=list(ARMS),
+                   help=f"arm keys (default: {' '.join(ARMS)}); dose-ladder arms such as "
+                        f"goodness_s0.25 are also accepted")
     p.add_argument("--layers", type=int, nargs="+", default=[15, 20])
     p.add_argument("--traits", nargs="+", default=TRAITS)
     p.add_argument("--activations-root", type=str, default=None,
@@ -77,7 +89,7 @@ def main() -> None:
             continue
 
         root = (Path(args.activations_root) if args.activations_root
-                else OUTPUTS_DIR / ARMS[arm] / "caa_activations")
+                else OUTPUTS_DIR / arm_dir(arm) / "caa_activations")
         if not root.exists():
             print(f"{arm}: !! no activations at {root}, skipping")
             continue

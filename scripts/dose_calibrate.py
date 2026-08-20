@@ -50,12 +50,12 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "assistant-axis-ref"))
 
-from safetensors.torch import load_file
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from assistant_axis.internals import ProbingModel
 
 from persona_steering.config import Trait
 from persona_steering.data import load_caa_dataset
+from persona_steering.lora import apply_scaled_lora, lora_deltas
 from persona_steering.personas import load_persona
 
 sys.path.insert(0, str(ROOT / "pipeline"))
@@ -76,49 +76,6 @@ ADAPTERS = {
     "misalignment": MISALIGN_SNAP,
 }
 MERGED = {a: f"/workspace/merged/llama-3.1-8b-{a}" for a in ADAPTERS}
-
-
-def lora_deltas(adapter_dir: str) -> tuple[dict[str, tuple[torch.Tensor, torch.Tensor]], float]:
-    """Return {base_param_name: (B, A)} plus the alpha/r scale, in fp32 on CPU."""
-    cfg = json.loads((Path(adapter_dir) / "adapter_config.json").read_text())
-    for unsupported in ("use_dora", "use_rslora"):
-        if cfg.get(unsupported):
-            raise SystemExit(f"{adapter_dir}: {unsupported}=True changes the merge formula; "
-                             f"this script only implements plain LoRA.")
-    if cfg.get("modules_to_save"):
-        raise SystemExit(f"{adapter_dir}: modules_to_save is set, so merging is not just the "
-                         f"low-rank product; not implemented.")
-    sd = load_file(Path(adapter_dir) / "adapter_model.safetensors")
-    pairs: dict[str, dict[str, torch.Tensor]] = {}
-    for k, v in sd.items():
-        if ".lora_A" in k:
-            stem, side = k.split(".lora_A")[0], "A"
-        elif ".lora_B" in k:
-            stem, side = k.split(".lora_B")[0], "B"
-        else:
-            continue
-        name = re.sub(r"^base_model\.model\.", "", stem) + ".weight"
-        pairs.setdefault(name, {})[side] = v.float()
-    out = {n: (d["B"], d["A"]) for n, d in pairs.items() if "A" in d and "B" in d}
-    if len(out) != len(pairs):
-        raise SystemExit(f"{adapter_dir}: {len(pairs) - len(out)} modules have an unpaired A/B")
-    return out, cfg["lora_alpha"] / cfg["r"]
-
-
-@torch.no_grad()
-def apply_scaled_lora(model, adapter_dir: str, s: float) -> int:
-    """W += s * (alpha/r) * B @ A, in place, on whatever device each weight lives."""
-    deltas, ar = lora_deltas(adapter_dir)
-    params = dict(model.named_parameters())
-    n = 0
-    for name, (B, A) in deltas.items():
-        if name not in params:
-            raise SystemExit(f"adapter targets {name}, which the model does not have")
-        W = params[name]
-        dW = (B.to(W.device) @ A.to(W.device)) * (ar * s)
-        W.copy_((W.float() + dW).to(W.dtype))
-        n += 1
-    return n
 
 
 @torch.no_grad()
