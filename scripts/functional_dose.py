@@ -73,7 +73,7 @@ def main() -> None:
     print(f"{'arm':16s} {'trait-vector displ.':>20s} {'answer-token displ.':>21s}")
     for arm in a.arms:
         acts, *_ = load(cache, arm, a.cache_layers, a.layer)
-        vdisp, hdisp = [], []
+        vdisp, hdisp, cdisp, rdisp = [], [], [], []
         for ti in range(len(traits)):
             nq = int(nqs[ti])
             for pi in pidx:
@@ -83,14 +83,26 @@ def main() -> None:
                 vm = m[0].mean(0) - m[1].mean(0)
                 vdisp.append(np.linalg.norm(vm - vb) / max(np.linalg.norm(vb), 1e-9))
                 for d in (0, 1):
-                    num = np.linalg.norm(m[d] - b[d], axis=-1).mean()
-                    den = np.linalg.norm(b[d], axis=-1).mean()
-                    hdisp.append(num / max(den, 1e-9))
+                    den = max(np.linalg.norm(b[d], axis=-1).mean(), 1e-9)
+                    # Split the displacement into the part COMMON to every question in the
+                    # cell (a bias shift, invisible to a pos-neg contrast when it is the
+                    # same in both directions) and the part that VARIES with the question.
+                    # This was checked because answer-token dose spans only 0.99x-1.08x
+                    # across the arms while trait-vector dose spans 0.94x-1.37x, and a
+                    # dominant common shift would have explained the compression. It does
+                    # not: both components scale together, within ~1% of each other.
+                    Dd = m[d] - b[d]
+                    mu = Dd.mean(0)
+                    hdisp.append(np.linalg.norm(Dd, axis=-1).mean() / den)
+                    cdisp.append(np.linalg.norm(mu) / den)
+                    rdisp.append(np.linalg.norm(Dd - mu, axis=-1).mean() / den)
         v, h = float(np.mean(vdisp)), float(np.mean(hdisp))
         res[arm] = {"trait_vector_displacement": v,
                     "trait_vector_displacement_sd": float(np.std(vdisp)),
                     "answer_token_displacement": h,
-                    "answer_token_displacement_sd": float(np.std(hdisp))}
+                    "answer_token_displacement_sd": float(np.std(hdisp)),
+                    "answer_token_common": float(np.mean(cdisp)),
+                    "answer_token_varying": float(np.mean(rdisp))}
         print(f"{arm:16s} {v:20.4f} {h:21.4f}")
 
     ref = a.arms[0]

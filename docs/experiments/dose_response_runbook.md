@@ -38,45 +38,75 @@ Traps already handled in the launchers, listed so they are recognisable if run b
 - Pass the **local snapshot path** for the base model, not the hub id: transformers 4.57
   404s on `additional_chat_templates` for Llama-3.1.
 
-## Stage 1 — scaled merges (~40 min)
+## Stage 1 — scaled weights (no merge step; ~0 min) ✅ done 2026-08-20
 
-LoRA contribution scales linearly in the merge: `W = W_base + s·(alpha/r)·B·A`.
-`scripts/merge_lora.py` needs an `--scale` flag — a one-line change at the merge step.
+**Superseded: there is nothing to merge.** All four arms are plain LoRA — r=64, alpha=64,
+no rsLoRA, no DoRA, no `modules_to_save`, same seven projection targets — so the merge is
 
-First-guess scales, from measured functional dose relative to `goodness`:
+    W(s) = W_base + s * (alpha/r) * B @ A
 
-| arm | measured dose | first guess to reach goodness's dose |
+and `scripts/dose_calibrate.py` applies it **in memory** after loading the base model
+(4 s for 224 modules). `--verify-scale1` checks the s=1 patch against the archived merged
+checkpoints and finds them **bit-identical** (`rel||pred − merged|| = 0.000e+00` on every
+module tested, both `goodness` and `misalignment`).
+
+So the plan's 40 minutes of merging and 16 GB of disk per candidate scale are not needed,
+and neither is `peft`. This also removes the trap the runbook warned about — passing the
+hub id rather than the local snapshot path — since only the base model is ever loaded.
+
+The first-guess scales it was going to use, from measured functional dose relative to
+`goodness`:
+
+| arm | measured trait-vector dose | first guess |
 |---|---|---|
 | `impulsiveness` | 1.207x | s ≈ 0.83 |
 | `misalignment` | 1.370x | s ≈ 0.73 |
 | `mathematical` | 0.942x | s ≈ 1.06 |
 
-**These are guesses, not targets** — functional dose is not guaranteed linear in `s`.
+**These are guesses, not targets** — functional dose is not guaranteed linear in `s`, which
+is what Stage 2 exists to find out.
 
-## Stage 2 — cheap calibration BEFORE committing (~20 min)
+## Stage 2 — cheap calibration ✅ done 2026-08-20
 
-For each candidate scale, extract the small diagnostic grid (2 traits x 3 personas x 2
-directions, 150 questions — ~2 min per arm on a 3090), run `scripts/functional_dose.py`, and
-see where dose actually landed. Adjust `s` and repeat. Only then commit to full extraction.
+Full results: [dose_calibration_results.md](dose_calibration_results.md). In short:
 
-This stage exists because a full extraction is ~1.5 h per arm-scale; calibrating by
-guesswork would waste most of the day.
+- **Both first-guess scales are rejected.** `impulsiveness` s=0.83 lands at 1.229x
+  `goodness` on trait-vector dose and 0.944x on answer-token; `misalignment` s=0.73 lands at
+  1.228x and 0.893x. They miss in *opposite directions on the two measures*.
+- **Dose is sublinear in `s`** (`dose ∝ s^0.5–0.85`), so cutting `s` by 27% cut dose by 9%.
+  The guesses assumed linearity.
+- **The two dose measures cannot both be matched**: matching answer-token needs s ≈ 0.9,
+  matching trait-vector needs s ≈ 0.5–0.65. A matched-point design would have to pick one,
+  and that choice would do part of the inferential work.
+- **This diagnostic grid over-states `impulsiveness` by 13%** on trait-vector dose, because
+  3 personas x 2 traits is a biased subset and one of the traits is `impulsivity`. Use
+  answer-token dose on small grids; it transfers within 2%.
 
-## Stage 3 — the grid (~12–18 h)
+So Stage 3 changes shape.
 
-Target **2–3 strengths per constitution**, not one matched point. A single point tests one
-hypothesis; a curve tests the shape for barely more cost per unit of information.
+## Stage 3 — the ladder (~9 h), replacing the matched-dose grid
 
-Choose scales so the four arms' dose ranges **overlap** — overlap is the whole point, since
-without it there is no matched-dose comparison to make. Roughly 0.6x–1.3x of each arm's
-natural dose.
+The four arms at s=1 already sit within **8%** of each other on answer-token dose, while
+their RDM preservation spans 0.883–0.732. Scaling `s` moves dose over a **2.4x** range —
+thirty times wider than the differences the dose hypothesis has to explain. So vary `s`
+widely within each arm and read the outcome against **measured** dose, rather than trying to
+land on a point.
 
-Per arm-scale: 12 personas x 8 traits x 2 directions x 500 questions = 192 cells, ~1.5 h on a
-3090 (measured: 1h39m for the misalignment arm). So 4 constitutions x 3 scales ≈ 18 h; 2
-scales ≈ 12 h. **Do not drop to one scale per constitution** — that reverts to the comparison
-already made.
+| arm | new scales | answer-token dose covered (with archived s=1) |
+|---|---|---|
+| `goodness` | 0.25, 0.5 | 0.44x – 1.00x |
+| `impulsiveness` | 0.25, 0.5 | 0.49x – 1.05x |
+| `misalignment` | 0.25, 0.5 | 0.48x – 1.04x |
+
+**6 new extractions, ~1.5 h each.** `mathematical` stays at s=1 — within 6% of `goodness` on
+both measures, so its ladder would duplicate `goodness`'s.
+
+The ranges overlap almost completely, so matched-dose comparisons come out by interpolation
+and no calibration accuracy is needed: dose is measured on the full extraction itself.
 
 Extract with `--legacy-mask`, matching the archive, for the reason in §2 of the results doc.
+Weights are patched in memory by `scripts/dose_calibrate.py`'s `apply_scaled_lora`; the
+full-grid extractor needs the same hook.
 
 ## Stage 4 — analysis (~30 min CPU)
 
@@ -87,8 +117,9 @@ python scripts/geometry_analysis.py --layer 15 --bootstrap 200 --half-splits 40 
        --boot-splits 40 --procrustes-rank 40
 ```
 
-At each matched dose read off **three separate outcomes** — they came apart in the current
-data, so there is no reason to expect them to move together:
+Plot each outcome against **measured** dose (both measures — they disagree, see Stage 2) and
+read matched-dose comparisons off the overlap. Three separate outcomes, which came apart in
+the current data, so there is no reason to expect them to move together:
 
 1. **RDM preservation** — the statistic dose currently orders near-perfectly
 2. **linear persona contraction** (RMS ratio) — the statistic dose does *not* explain
@@ -98,7 +129,8 @@ data, so there is no reason to expect them to move together:
 
 | result | reading |
 |---|---|
-| all four curves coincide on all three outcomes | generic perturbation-magnitude law; constitution content does no work |
+| the outcome barely moves across each arm's 2.4x dose range | dose cannot explain a spread produced within 8% of dose — the ρ = −1 ordering was coincidence among four points. **The current data cannot rule this out, and a matched-point design would never have tested it.** |
+| all curves coincide on all three outcomes | generic perturbation-magnitude law; constitution content does no work |
 | RDM curves coincide, contraction curves separate | the current split is real — RDM disturbance is generic dose, contraction is arm-specific |
 | `impulsiveness` keeps its residual-to-null collapse at matched dose | the one content-specific effect survives and becomes the headline |
 | curves separate everywhere | dose was a confound but not the explanation; constitution content back in play |
