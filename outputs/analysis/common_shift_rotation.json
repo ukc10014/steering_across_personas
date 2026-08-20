@@ -1,0 +1,1508 @@
+{
+  "15": {
+    "assertiveness": {
+      "per_arm": {
+        "goodness_s0.25": {
+          "g_norm": 0.41954928524527907,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.3261947373973731,
+          "share_squared": 0.7240227266552764,
+          "share_linear": 0.8508952501073657
+        },
+        "goodness_s0.5": {
+          "g_norm": 0.5188643818447516,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.40341108120766017,
+          "share_squared": 0.6825763041070332,
+          "share_linear": 0.8261817621486407
+        },
+        "goodness_s0.75": {
+          "g_norm": 0.6595306134893025,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.5127774562812039,
+          "share_squared": 0.6881265712097002,
+          "share_linear": 0.8295339481960339
+        },
+        "goodness": {
+          "g_norm": 0.8197940932209273,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.6373804660441309,
+          "share_squared": 0.7096465964027916,
+          "share_linear": 0.8424052447621582
+        }
+      },
+      "cos": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.8671828557487152,
+        "goodness_s0.25|goodness_s0.75": 0.756211619151013,
+        "goodness_s0.25|goodness": 0.6975831403984968,
+        "goodness_s0.5|goodness_s0.25": 0.8671828557487152,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9649944428594643,
+        "goodness_s0.5|goodness": 0.9145149369743292,
+        "goodness_s0.75|goodness_s0.25": 0.756211619151013,
+        "goodness_s0.75|goodness_s0.5": 0.9649944428594643,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9845298337226005,
+        "goodness|goodness_s0.25": 0.6975831403984968,
+        "goodness|goodness_s0.5": 0.9145149369743292,
+        "goodness|goodness_s0.75": 0.9845298337226005,
+        "goodness|goodness": 1.0
+      },
+      "cos_naive": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.8663954734802246,
+        "goodness_s0.25|goodness_s0.75": 0.7557278871536255,
+        "goodness_s0.25|goodness": 0.6960419416427612,
+        "goodness_s0.5|goodness_s0.25": 0.8663954734802246,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9650882482528687,
+        "goodness_s0.5|goodness": 0.9135911464691162,
+        "goodness_s0.75|goodness_s0.25": 0.7557278871536255,
+        "goodness_s0.75|goodness_s0.5": 0.9650882482528687,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9838953018188477,
+        "goodness|goodness_s0.25": 0.6960419416427612,
+        "goodness|goodness_s0.5": 0.9135911464691162,
+        "goodness|goodness_s0.75": 0.9838953018188477,
+        "goodness|goodness": 1.0
+      },
+      "naive": {
+        "goodness_s0.25": {
+          "g_over_base": 0.3122232894754214,
+          "share_squared": 0.7231008915683348
+        },
+        "goodness_s0.5": {
+          "g_over_base": 0.3896475155964217,
+          "share_squared": 0.6842695023971285
+        },
+        "goodness_s0.75": {
+          "g_over_base": 0.49655973457045466,
+          "share_squared": 0.6903832651047717
+        },
+        "goodness": {
+          "g_over_base": 0.6174352218630974,
+          "share_squared": 0.7110294860308655
+        }
+      },
+      "g_over_base_ci": {
+        "goodness_s0.25": [
+          0.27480266751152055,
+          0.4061875158971803
+        ],
+        "goodness_s0.5": [
+          0.3619147405794634,
+          0.48400919286607874
+        ],
+        "goodness_s0.75": [
+          0.46202599006169964,
+          0.604079992825771
+        ],
+        "goodness": [
+          0.5796189036740512,
+          0.7504915261818376
+        ]
+      },
+      "share_squared_ci": {
+        "goodness_s0.25": [
+          0.6812954664481822,
+          0.758627723565542
+        ],
+        "goodness_s0.5": [
+          0.6478426348659023,
+          0.7216416219198775
+        ],
+        "goodness_s0.75": [
+          0.6547313789408362,
+          0.7243995615990442
+        ],
+        "goodness": [
+          0.6818969078947644,
+          0.7395798046657887
+        ]
+      },
+      "cos_ci": {
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|goodness_s0.5": [
+          0.8347781660390644,
+          0.8890039243045063
+        ],
+        "goodness_s0.25|goodness_s0.75": [
+          0.7090458974483838,
+          0.7906548685374815
+        ],
+        "goodness_s0.25|goodness": [
+          0.6340986691778733,
+          0.7391266285357043
+        ],
+        "goodness_s0.5|goodness_s0.25": [
+          0.8347781660390644,
+          0.8890039243045063
+        ],
+        "goodness_s0.5|goodness_s0.5": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.5|goodness_s0.75": [
+          0.9570250407616924,
+          0.971186287065899
+        ],
+        "goodness_s0.5|goodness": [
+          0.8918280696581181,
+          0.9291139582277839
+        ],
+        "goodness_s0.75|goodness_s0.25": [
+          0.7090458974483838,
+          0.7906548685374815
+        ],
+        "goodness_s0.75|goodness_s0.5": [
+          0.9570250407616924,
+          0.971186287065899
+        ],
+        "goodness_s0.75|goodness_s0.75": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.75|goodness": [
+          0.9798091675001948,
+          0.9876687491363402
+        ],
+        "goodness|goodness_s0.25": [
+          0.6340986691778733,
+          0.7391266285357043
+        ],
+        "goodness|goodness_s0.5": [
+          0.8918280696581181,
+          0.9291139582277839
+        ],
+        "goodness|goodness_s0.75": [
+          0.9798091675001948,
+          0.9876687491363402
+        ],
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "empathy": {
+      "per_arm": {
+        "goodness_s0.25": {
+          "g_norm": 0.35910862932313264,
+          "base_norm": 1.2525439225137234,
+          "g_over_base": 0.28670342242565,
+          "share_squared": 0.594165473293226,
+          "share_linear": 0.7708212978980445
+        },
+        "goodness_s0.5": {
+          "g_norm": 0.5177919660423774,
+          "base_norm": 1.2525439225137234,
+          "g_over_base": 0.4133922625269888,
+          "share_squared": 0.5810805785324664,
+          "share_linear": 0.7622864150255246
+        },
+        "goodness_s0.75": {
+          "g_norm": 0.6570264525811026,
+          "base_norm": 1.2525439225137234,
+          "g_over_base": 0.5245536230478208,
+          "share_squared": 0.5932637914037661,
+          "share_linear": 0.7702361919591717
+        },
+        "goodness": {
+          "g_norm": 0.7712889266816959,
+          "base_norm": 1.2525439225137234,
+          "g_over_base": 0.6157779482365779,
+          "share_squared": 0.6072391886926347,
+          "share_linear": 0.7792555349130571
+        }
+      },
+      "cos": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.9080078626181296,
+        "goodness_s0.25|goodness_s0.75": 0.848118508779955,
+        "goodness_s0.25|goodness": 0.7996360650370673,
+        "goodness_s0.5|goodness_s0.25": 0.9080078626181296,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9763738175369902,
+        "goodness_s0.5|goodness": 0.9323838990816389,
+        "goodness_s0.75|goodness_s0.25": 0.848118508779955,
+        "goodness_s0.75|goodness_s0.5": 0.9763738175369902,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9848178194687086,
+        "goodness|goodness_s0.25": 0.7996360650370673,
+        "goodness|goodness_s0.5": 0.9323838990816389,
+        "goodness|goodness_s0.75": 0.9848178194687086,
+        "goodness|goodness": 1.0
+      },
+      "cos_naive": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.9051586389541626,
+        "goodness_s0.25|goodness_s0.75": 0.841408371925354,
+        "goodness_s0.25|goodness": 0.7902310490608215,
+        "goodness_s0.5|goodness_s0.25": 0.9051586389541626,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.975243091583252,
+        "goodness_s0.5|goodness": 0.9291301965713501,
+        "goodness_s0.75|goodness_s0.25": 0.841408371925354,
+        "goodness_s0.75|goodness_s0.5": 0.975243091583252,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9839653968811035,
+        "goodness|goodness_s0.25": 0.7902310490608215,
+        "goodness|goodness_s0.5": 0.9291301965713501,
+        "goodness|goodness_s0.75": 0.9839653968811035,
+        "goodness|goodness": 1.0
+      },
+      "naive": {
+        "goodness_s0.25": {
+          "g_over_base": 0.27259843650066606,
+          "share_squared": 0.5978434669723538
+        },
+        "goodness_s0.5": {
+          "g_over_base": 0.39269226058518,
+          "share_squared": 0.5870708949468799
+        },
+        "goodness_s0.75": {
+          "g_over_base": 0.499056825300485,
+          "share_squared": 0.6001105352281374
+        },
+        "goodness": {
+          "g_over_base": 0.5881791510256147,
+          "share_squared": 0.6143924325754442
+        }
+      },
+      "g_over_base_ci": {
+        "goodness_s0.25": [
+          0.24525255588886644,
+          0.34249478722706084
+        ],
+        "goodness_s0.5": [
+          0.34745446173556893,
+          0.5010378799367066
+        ],
+        "goodness_s0.75": [
+          0.4423189024583838,
+          0.6354484182075073
+        ],
+        "goodness": [
+          0.5262833745896154,
+          0.7400906953902191
+        ]
+      },
+      "share_squared_ci": {
+        "goodness_s0.25": [
+          0.5645516663743154,
+          0.6374901403457682
+        ],
+        "goodness_s0.5": [
+          0.5470864492015453,
+          0.6259853968016234
+        ],
+        "goodness_s0.75": [
+          0.5617240332624048,
+          0.6319096041150585
+        ],
+        "goodness": [
+          0.5764965532711217,
+          0.6453696025144683
+        ]
+      },
+      "cos_ci": {
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|goodness_s0.5": [
+          0.8994777648518376,
+          0.9171235313240034
+        ],
+        "goodness_s0.25|goodness_s0.75": [
+          0.8358785873183122,
+          0.8669689207682829
+        ],
+        "goodness_s0.25|goodness": [
+          0.7828493878068584,
+          0.8242769755803728
+        ],
+        "goodness_s0.5|goodness_s0.25": [
+          0.8994777648518376,
+          0.9171235313240034
+        ],
+        "goodness_s0.5|goodness_s0.5": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.5|goodness_s0.75": [
+          0.9742826717395825,
+          0.9792988036227706
+        ],
+        "goodness_s0.5|goodness": [
+          0.9253472335166641,
+          0.9416706454095176
+        ],
+        "goodness_s0.75|goodness_s0.25": [
+          0.8358785873183122,
+          0.8669689207682829
+        ],
+        "goodness_s0.75|goodness_s0.5": [
+          0.9742826717395825,
+          0.9792988036227706
+        ],
+        "goodness_s0.75|goodness_s0.75": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.75|goodness": [
+          0.9819035850314727,
+          0.9874744739296389
+        ],
+        "goodness|goodness_s0.25": [
+          0.7828493878068584,
+          0.8242769755803728
+        ],
+        "goodness|goodness_s0.5": [
+          0.9253472335166641,
+          0.9416706454095176
+        ],
+        "goodness|goodness_s0.75": [
+          0.9819035850314727,
+          0.9874744739296389
+        ],
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "risk_taking": {
+      "per_arm": {
+        "goodness_s0.25": {
+          "g_norm": 0.3363185105295345,
+          "base_norm": 1.1235116839408874,
+          "g_over_base": 0.29934580595534743,
+          "share_squared": 0.6920623455731136,
+          "share_linear": 0.8319028462345309
+        },
+        "goodness_s0.5": {
+          "g_norm": 0.44740369115026984,
+          "base_norm": 1.1235116839408874,
+          "g_over_base": 0.3982189927753431,
+          "share_squared": 0.6703951556806182,
+          "share_linear": 0.8187766213568987
+        },
+        "goodness_s0.75": {
+          "g_norm": 0.5786603526995754,
+          "base_norm": 1.1235116839408874,
+          "g_over_base": 0.515046137010197,
+          "share_squared": 0.6796301784763061,
+          "share_linear": 0.8243968573910906
+        },
+        "goodness": {
+          "g_norm": 0.7022515641668995,
+          "base_norm": 1.1235116839408874,
+          "g_over_base": 0.625050521685405,
+          "share_squared": 0.6944984821669749,
+          "share_linear": 0.8333657553361398
+        }
+      },
+      "cos": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.9072745561625847,
+        "goodness_s0.25|goodness_s0.75": 0.8396118787120224,
+        "goodness_s0.25|goodness": 0.7827357079309425,
+        "goodness_s0.5|goodness_s0.25": 0.9072745561625847,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9737200172352524,
+        "goodness_s0.5|goodness": 0.9275091492232926,
+        "goodness_s0.75|goodness_s0.25": 0.8396118787120224,
+        "goodness_s0.75|goodness_s0.5": 0.9737200172352524,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9850525765415014,
+        "goodness|goodness_s0.25": 0.7827357079309425,
+        "goodness|goodness_s0.5": 0.9275091492232926,
+        "goodness|goodness_s0.75": 0.9850525765415014,
+        "goodness|goodness": 1.0
+      },
+      "cos_naive": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.903808057308197,
+        "goodness_s0.25|goodness_s0.75": 0.8328372836112976,
+        "goodness_s0.25|goodness": 0.7745649218559265,
+        "goodness_s0.5|goodness_s0.25": 0.903808057308197,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9733209013938904,
+        "goodness_s0.5|goodness": 0.9261818528175354,
+        "goodness_s0.75|goodness_s0.25": 0.8328372836112976,
+        "goodness_s0.75|goodness_s0.5": 0.9733209013938904,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9845427870750427,
+        "goodness|goodness_s0.25": 0.7745649218559265,
+        "goodness|goodness_s0.5": 0.9261818528175354,
+        "goodness|goodness_s0.75": 0.9845427870750427,
+        "goodness|goodness": 1.0
+      },
+      "naive": {
+        "goodness_s0.25": {
+          "g_over_base": 0.28463164882168657,
+          "share_squared": 0.6961660011223969
+        },
+        "goodness_s0.5": {
+          "g_over_base": 0.3808041518636439,
+          "share_squared": 0.6764739454547114
+        },
+        "goodness_s0.75": {
+          "g_over_base": 0.49354584927018935,
+          "share_squared": 0.6857697630799312
+        },
+        "goodness": {
+          "g_over_base": 0.6003118263701728,
+          "share_squared": 0.7001425160744786
+        }
+      },
+      "g_over_base_ci": {
+        "goodness_s0.25": [
+          0.268267237140273,
+          0.369890019852094
+        ],
+        "goodness_s0.5": [
+          0.35994326625302686,
+          0.4821443046300871
+        ],
+        "goodness_s0.75": [
+          0.46186368907836034,
+          0.6176709098079317
+        ],
+        "goodness": [
+          0.5526374281544586,
+          0.7469006605869791
+        ]
+      },
+      "share_squared_ci": {
+        "goodness_s0.25": [
+          0.6547188588939096,
+          0.727475689247367
+        ],
+        "goodness_s0.5": [
+          0.6294207678077836,
+          0.7020708657522665
+        ],
+        "goodness_s0.75": [
+          0.6401288274566815,
+          0.7092577673834249
+        ],
+        "goodness": [
+          0.6559079851326995,
+          0.7166145449797645
+        ]
+      },
+      "cos_ci": {
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|goodness_s0.5": [
+          0.8964508807051356,
+          0.9197156457765067
+        ],
+        "goodness_s0.25|goodness_s0.75": [
+          0.8148895901243035,
+          0.8660622639854877
+        ],
+        "goodness_s0.25|goodness": [
+          0.7553101974498743,
+          0.8131734179120861
+        ],
+        "goodness_s0.5|goodness_s0.25": [
+          0.8964508807051356,
+          0.9197156457765067
+        ],
+        "goodness_s0.5|goodness_s0.5": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.5|goodness_s0.75": [
+          0.9720062260904333,
+          0.9762851576456911
+        ],
+        "goodness_s0.5|goodness": [
+          0.9234563715707952,
+          0.9330532708053139
+        ],
+        "goodness_s0.75|goodness_s0.25": [
+          0.8148895901243035,
+          0.8660622639854877
+        ],
+        "goodness_s0.75|goodness_s0.5": [
+          0.9720062260904333,
+          0.9762851576456911
+        ],
+        "goodness_s0.75|goodness_s0.75": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.75|goodness": [
+          0.9839653064982214,
+          0.9867927355164962
+        ],
+        "goodness|goodness_s0.25": [
+          0.7553101974498743,
+          0.8131734179120861
+        ],
+        "goodness|goodness_s0.5": [
+          0.9234563715707952,
+          0.9330532708053139
+        ],
+        "goodness|goodness_s0.75": [
+          0.9839653064982214,
+          0.9867927355164962
+        ],
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "honesty": {
+      "per_arm": {
+        "goodness_s0.25": {
+          "g_norm": 0.36628775439456474,
+          "base_norm": 1.218721942603588,
+          "g_over_base": 0.30055071759195084,
+          "share_squared": 0.7816480347006532,
+          "share_linear": 0.8841086102400842
+        },
+        "goodness_s0.5": {
+          "g_norm": 0.4809717774430044,
+          "base_norm": 1.218721942603588,
+          "g_over_base": 0.39465259517317924,
+          "share_squared": 0.7565956315483027,
+          "share_linear": 0.8698250580135656
+        },
+        "goodness_s0.75": {
+          "g_norm": 0.6023311763346617,
+          "base_norm": 1.218721942603588,
+          "g_over_base": 0.4942318303122414,
+          "share_squared": 0.7491740366631429,
+          "share_linear": 0.865548402264797
+        },
+        "goodness": {
+          "g_norm": 0.7175461249570098,
+          "base_norm": 1.218721942603588,
+          "g_over_base": 0.588769349162695,
+          "share_squared": 0.7549624839248893,
+          "share_linear": 0.8688857715056043
+        }
+      },
+      "cos": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.8364554225213507,
+        "goodness_s0.25|goodness_s0.75": 0.7366231620309731,
+        "goodness_s0.25|goodness": 0.6867417381165005,
+        "goodness_s0.5|goodness_s0.25": 0.8364554225213507,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9680168911718259,
+        "goodness_s0.5|goodness": 0.9244036646971859,
+        "goodness_s0.75|goodness_s0.25": 0.7366231620309731,
+        "goodness_s0.75|goodness_s0.5": 0.9680168911718259,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9870116308671203,
+        "goodness|goodness_s0.25": 0.6867417381165005,
+        "goodness|goodness_s0.5": 0.9244036646971859,
+        "goodness|goodness_s0.75": 0.9870116308671203,
+        "goodness|goodness": 1.0
+      },
+      "cos_naive": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.8377455472946167,
+        "goodness_s0.25|goodness_s0.75": 0.7369278073310852,
+        "goodness_s0.25|goodness": 0.6848201751708984,
+        "goodness_s0.5|goodness_s0.25": 0.8377455472946167,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9677948951721191,
+        "goodness_s0.5|goodness": 0.922491729259491,
+        "goodness_s0.75|goodness_s0.25": 0.7369278073310852,
+        "goodness_s0.75|goodness_s0.5": 0.9677948951721191,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9860919117927551,
+        "goodness|goodness_s0.25": 0.6848201751708984,
+        "goodness|goodness_s0.5": 0.922491729259491,
+        "goodness|goodness_s0.75": 0.9860919117927551,
+        "goodness|goodness": 1.0
+      },
+      "naive": {
+        "goodness_s0.25": {
+          "g_over_base": 0.28741963127303655,
+          "share_squared": 0.7757599853678193
+        },
+        "goodness_s0.5": {
+          "g_over_base": 0.3791335222534602,
+          "share_squared": 0.7525498045688246
+        },
+        "goodness_s0.75": {
+          "g_over_base": 0.47630112553525983,
+          "share_squared": 0.7469855514030431
+        },
+        "goodness": {
+          "g_over_base": 0.5692441478690969,
+          "share_squared": 0.752716652015542
+        }
+      },
+      "g_over_base_ci": {
+        "goodness_s0.25": [
+          0.2586356007285841,
+          0.3791672799786497
+        ],
+        "goodness_s0.5": [
+          0.34196943293807675,
+          0.4934937760294479
+        ],
+        "goodness_s0.75": [
+          0.4288097962522277,
+          0.6137606032443376
+        ],
+        "goodness": [
+          0.5180615574945079,
+          0.7220445962534614
+        ]
+      },
+      "share_squared_ci": {
+        "goodness_s0.25": [
+          0.751247837550578,
+          0.8138169705560645
+        ],
+        "goodness_s0.5": [
+          0.7328517604011712,
+          0.7841335674612206
+        ],
+        "goodness_s0.75": [
+          0.7207503202719525,
+          0.7802203027588623
+        ],
+        "goodness": [
+          0.7241966049195385,
+          0.7874110780821826
+        ]
+      },
+      "cos_ci": {
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|goodness_s0.5": [
+          0.7968761640335298,
+          0.8740899433577263
+        ],
+        "goodness_s0.25|goodness_s0.75": [
+          0.6803498820022231,
+          0.7881522247329639
+        ],
+        "goodness_s0.25|goodness": [
+          0.6177028215653849,
+          0.7446156799720854
+        ],
+        "goodness_s0.5|goodness_s0.25": [
+          0.7968761640335298,
+          0.8740899433577263
+        ],
+        "goodness_s0.5|goodness_s0.5": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.5|goodness_s0.75": [
+          0.9641734550796718,
+          0.9719905143605615
+        ],
+        "goodness_s0.5|goodness": [
+          0.9130745634519097,
+          0.9337390051832763
+        ],
+        "goodness_s0.75|goodness_s0.25": [
+          0.6803498820022231,
+          0.7881522247329639
+        ],
+        "goodness_s0.75|goodness_s0.5": [
+          0.9641734550796718,
+          0.9719905143605615
+        ],
+        "goodness_s0.75|goodness_s0.75": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.75|goodness": [
+          0.9844686246501801,
+          0.9902115111331139
+        ],
+        "goodness|goodness_s0.25": [
+          0.6177028215653849,
+          0.7446156799720854
+        ],
+        "goodness|goodness_s0.5": [
+          0.9130745634519097,
+          0.9337390051832763
+        ],
+        "goodness|goodness_s0.75": [
+          0.9844686246501801,
+          0.9902115111331139
+        ],
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "confidence": {
+      "per_arm": {
+        "goodness_s0.25": {
+          "g_norm": 0.3885372916078421,
+          "base_norm": 1.247101180255413,
+          "g_over_base": 0.31155234054727426,
+          "share_squared": 0.7066707489285806,
+          "share_linear": 0.8406371089409392
+        },
+        "goodness_s0.5": {
+          "g_norm": 0.4784317090937942,
+          "base_norm": 1.247101180255413,
+          "g_over_base": 0.38363503833410595,
+          "share_squared": 0.6645429291181565,
+          "share_linear": 0.8151950252044945
+        },
+        "goodness_s0.75": {
+          "g_norm": 0.6168037887678597,
+          "base_norm": 1.247101180255413,
+          "g_over_base": 0.494590012850068,
+          "share_squared": 0.6703537563561717,
+          "share_linear": 0.818751339758398
+        },
+        "goodness": {
+          "g_norm": 0.7557251680484378,
+          "base_norm": 1.247101180255413,
+          "g_over_base": 0.6059854485051976,
+          "share_squared": 0.6919116624610355,
+          "share_linear": 0.8318122759739938
+        }
+      },
+      "cos": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.8876907782767326,
+        "goodness_s0.25|goodness_s0.75": 0.792240158713496,
+        "goodness_s0.25|goodness": 0.7197995275393427,
+        "goodness_s0.5|goodness_s0.25": 0.8876907782767326,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9687262728799974,
+        "goodness_s0.5|goodness": 0.9138698046149313,
+        "goodness_s0.75|goodness_s0.25": 0.792240158713496,
+        "goodness_s0.75|goodness_s0.5": 0.9687262728799974,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9821811088565601,
+        "goodness|goodness_s0.25": 0.7197995275393427,
+        "goodness|goodness_s0.5": 0.9138698046149313,
+        "goodness|goodness_s0.75": 0.9821811088565601,
+        "goodness|goodness": 1.0
+      },
+      "cos_naive": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.8861227631568909,
+        "goodness_s0.25|goodness_s0.75": 0.7899380326271057,
+        "goodness_s0.25|goodness": 0.7173581123352051,
+        "goodness_s0.5|goodness_s0.25": 0.8861227631568909,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9685037732124329,
+        "goodness_s0.5|goodness": 0.9131015539169312,
+        "goodness_s0.75|goodness_s0.25": 0.7899380326271057,
+        "goodness_s0.75|goodness_s0.5": 0.9685037732124329,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9818153381347656,
+        "goodness|goodness_s0.25": 0.7173581123352051,
+        "goodness|goodness_s0.5": 0.9131015539169312,
+        "goodness|goodness_s0.75": 0.9818153381347656,
+        "goodness|goodness": 1.0
+      },
+      "naive": {
+        "goodness_s0.25": {
+          "g_over_base": 0.2992829162977562,
+          "share_squared": 0.7060185444446451
+        },
+        "goodness_s0.5": {
+          "g_over_base": 0.3713541623975494,
+          "share_squared": 0.666831229502227
+        },
+        "goodness_s0.75": {
+          "g_over_base": 0.4794353658005995,
+          "share_squared": 0.6732419521752551
+        },
+        "goodness": {
+          "g_over_base": 0.5881151084067042,
+          "share_squared": 0.6939845384282658
+        }
+      },
+      "g_over_base_ci": {
+        "goodness_s0.25": [
+          0.2670325142861624,
+          0.366163455850144
+        ],
+        "goodness_s0.5": [
+          0.34128094127737535,
+          0.43953239560714047
+        ],
+        "goodness_s0.75": [
+          0.42697834208002555,
+          0.572558132246696
+        ],
+        "goodness": [
+          0.5119339347769677,
+          0.7076109565141029
+        ]
+      },
+      "share_squared_ci": {
+        "goodness_s0.25": [
+          0.6620755896943478,
+          0.7609701719054327
+        ],
+        "goodness_s0.5": [
+          0.6308956460759341,
+          0.7207397464518904
+        ],
+        "goodness_s0.75": [
+          0.6415513099058823,
+          0.7129140347816022
+        ],
+        "goodness": [
+          0.6696177521090815,
+          0.7266975598893254
+        ]
+      },
+      "cos_ci": {
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|goodness_s0.5": [
+          0.8808584134055902,
+          0.8948943033508648
+        ],
+        "goodness_s0.25|goodness_s0.75": [
+          0.7813780309849896,
+          0.8060143530130527
+        ],
+        "goodness_s0.25|goodness": [
+          0.702258890964667,
+          0.7401733489842939
+        ],
+        "goodness_s0.5|goodness_s0.25": [
+          0.8808584134055902,
+          0.8948943033508648
+        ],
+        "goodness_s0.5|goodness_s0.5": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.5|goodness_s0.75": [
+          0.9662606581549461,
+          0.9712905785222634
+        ],
+        "goodness_s0.5|goodness": [
+          0.9020524675372763,
+          0.9247414027383412
+        ],
+        "goodness_s0.75|goodness_s0.25": [
+          0.7813780309849896,
+          0.8060143530130527
+        ],
+        "goodness_s0.75|goodness_s0.5": [
+          0.9662606581549461,
+          0.9712905785222634
+        ],
+        "goodness_s0.75|goodness_s0.75": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.75|goodness": [
+          0.9769430743852529,
+          0.9859682011409671
+        ],
+        "goodness|goodness_s0.25": [
+          0.702258890964667,
+          0.7401733489842939
+        ],
+        "goodness|goodness_s0.5": [
+          0.9020524675372763,
+          0.9247414027383412
+        ],
+        "goodness|goodness_s0.75": [
+          0.9769430743852529,
+          0.9859682011409671
+        ],
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "deference": {
+      "per_arm": {
+        "goodness_s0.25": {
+          "g_norm": 0.28133681562585705,
+          "base_norm": 0.9576313560828567,
+          "g_over_base": 0.29378404731508717,
+          "share_squared": 0.5900860717023347,
+          "share_linear": 0.7681706006495789
+        },
+        "goodness_s0.5": {
+          "g_norm": 0.3937043363980259,
+          "base_norm": 0.9576313560828567,
+          "g_over_base": 0.4111230630630704,
+          "share_squared": 0.587444234508976,
+          "share_linear": 0.7664491075792156
+        },
+        "goodness_s0.75": {
+          "g_norm": 0.517352136677823,
+          "base_norm": 0.9576313560828567,
+          "g_over_base": 0.5402414336076318,
+          "share_squared": 0.6004009520876497,
+          "share_linear": 0.774855439477358
+        },
+        "goodness": {
+          "g_norm": 0.6427245996375671,
+          "base_norm": 0.9576313560828567,
+          "g_over_base": 0.6711607713709377,
+          "share_squared": 0.6264555524962957,
+          "share_linear": 0.7914894519172669
+        }
+      },
+      "cos": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.924677444595886,
+        "goodness_s0.25|goodness_s0.75": 0.853800454777815,
+        "goodness_s0.25|goodness": 0.7936071832031003,
+        "goodness_s0.5|goodness_s0.25": 0.924677444595886,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.974827647725591,
+        "goodness_s0.5|goodness": 0.9271833084828977,
+        "goodness_s0.75|goodness_s0.25": 0.853800454777815,
+        "goodness_s0.75|goodness_s0.5": 0.974827647725591,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.983765147716049,
+        "goodness|goodness_s0.25": 0.7936071832031003,
+        "goodness|goodness_s0.5": 0.9271833084828977,
+        "goodness|goodness_s0.75": 0.983765147716049,
+        "goodness|goodness": 1.0
+      },
+      "cos_naive": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.916892945766449,
+        "goodness_s0.25|goodness_s0.75": 0.8421617746353149,
+        "goodness_s0.25|goodness": 0.7808066010475159,
+        "goodness_s0.5|goodness_s0.25": 0.916892945766449,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.974027156829834,
+        "goodness_s0.5|goodness": 0.9250258207321167,
+        "goodness_s0.75|goodness_s0.25": 0.8421617746353149,
+        "goodness_s0.75|goodness_s0.5": 0.974027156829834,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9831305742263794,
+        "goodness|goodness_s0.25": 0.7808066010475159,
+        "goodness|goodness_s0.5": 0.9250258207321167,
+        "goodness|goodness_s0.75": 0.9831305742263794,
+        "goodness|goodness": 1.0
+      },
+      "naive": {
+        "goodness_s0.25": {
+          "g_over_base": 0.2733334186026881,
+          "share_squared": 0.6016738193161273
+        },
+        "goodness_s0.5": {
+          "g_over_base": 0.38277348381196624,
+          "share_squared": 0.5993882730294615
+        },
+        "goodness_s0.75": {
+          "g_over_base": 0.5032054479641588,
+          "share_squared": 0.6125545119838334
+        },
+        "goodness": {
+          "g_over_base": 0.6256916960938869,
+          "share_squared": 0.6373955740005671
+        }
+      },
+      "g_over_base_ci": {
+        "goodness_s0.25": [
+          0.2253490098118121,
+          0.4056535948445425
+        ],
+        "goodness_s0.5": [
+          0.3208588881615458,
+          0.55668584246776
+        ],
+        "goodness_s0.75": [
+          0.4229093427046594,
+          0.7237995319056654
+        ],
+        "goodness": [
+          0.527137578519313,
+          0.8908060224323311
+        ]
+      },
+      "share_squared_ci": {
+        "goodness_s0.25": [
+          0.5017858792163988,
+          0.6508611654869572
+        ],
+        "goodness_s0.5": [
+          0.496801164417444,
+          0.6430511868517733
+        ],
+        "goodness_s0.75": [
+          0.5132353735666207,
+          0.656618459607498
+        ],
+        "goodness": [
+          0.5460951377381594,
+          0.6810344658104575
+        ]
+      },
+      "cos_ci": {
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|goodness_s0.5": [
+          0.9089002693958415,
+          0.9539457383272778
+        ],
+        "goodness_s0.25|goodness_s0.75": [
+          0.8335243835712759,
+          0.8967074780563234
+        ],
+        "goodness_s0.25|goodness": [
+          0.7644908429019054,
+          0.8448442664922682
+        ],
+        "goodness_s0.5|goodness_s0.25": [
+          0.9089002693958415,
+          0.9539457383272778
+        ],
+        "goodness_s0.5|goodness_s0.5": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.5|goodness_s0.75": [
+          0.9701014850233991,
+          0.9779146913734148
+        ],
+        "goodness_s0.5|goodness": [
+          0.9081872694646999,
+          0.942527149757697
+        ],
+        "goodness_s0.75|goodness_s0.25": [
+          0.8335243835712759,
+          0.8967074780563234
+        ],
+        "goodness_s0.75|goodness_s0.5": [
+          0.9701014850233991,
+          0.9779146913734148
+        ],
+        "goodness_s0.75|goodness_s0.75": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.75|goodness": [
+          0.9774001537717072,
+          0.9895439185030223
+        ],
+        "goodness|goodness_s0.25": [
+          0.7644908429019054,
+          0.8448442664922682
+        ],
+        "goodness|goodness_s0.5": [
+          0.9081872694646999,
+          0.942527149757697
+        ],
+        "goodness|goodness_s0.75": [
+          0.9774001537717072,
+          0.9895439185030223
+        ],
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "warmth": {
+      "per_arm": {
+        "goodness_s0.25": {
+          "g_norm": 0.27328858066910144,
+          "base_norm": 1.0286994501948357,
+          "g_over_base": 0.2656641651916316,
+          "share_squared": 0.6201063052883754,
+          "share_linear": 0.7874682884334933
+        },
+        "goodness_s0.5": {
+          "g_norm": 0.3969574759983833,
+          "base_norm": 1.0286994501948357,
+          "g_over_base": 0.3858828503536184,
+          "share_squared": 0.6083694231928983,
+          "share_linear": 0.7799803992363515
+        },
+        "goodness_s0.75": {
+          "g_norm": 0.5082258412930684,
+          "base_norm": 1.0286994501948357,
+          "g_over_base": 0.49404696502638396,
+          "share_squared": 0.6106824991761329,
+          "share_linear": 0.7814617707707351
+        },
+        "goodness": {
+          "g_norm": 0.600480718312241,
+          "base_norm": 1.0286994501948357,
+          "g_over_base": 0.5837280443753615,
+          "share_squared": 0.6102444038647736,
+          "share_linear": 0.7811814154629984
+        }
+      },
+      "cos": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.8918809414836544,
+        "goodness_s0.25|goodness_s0.75": 0.8414910375338706,
+        "goodness_s0.25|goodness": 0.8033639251377701,
+        "goodness_s0.5|goodness_s0.25": 0.8918809414836544,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9785044595759845,
+        "goodness_s0.5|goodness": 0.9421030327482268,
+        "goodness_s0.75|goodness_s0.25": 0.8414910375338706,
+        "goodness_s0.75|goodness_s0.5": 0.9785044595759845,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9884421460262124,
+        "goodness|goodness_s0.25": 0.8033639251377701,
+        "goodness|goodness_s0.5": 0.9421030327482268,
+        "goodness|goodness_s0.75": 0.9884421460262124,
+        "goodness|goodness": 1.0
+      },
+      "cos_naive": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.8889762163162231,
+        "goodness_s0.25|goodness_s0.75": 0.8313212990760803,
+        "goodness_s0.25|goodness": 0.7869217395782471,
+        "goodness_s0.5|goodness_s0.25": 0.8889762163162231,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9764194488525391,
+        "goodness_s0.5|goodness": 0.935345470905304,
+        "goodness_s0.75|goodness_s0.25": 0.8313212990760803,
+        "goodness_s0.75|goodness_s0.5": 0.9764194488525391,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9864479303359985,
+        "goodness|goodness_s0.25": 0.7869217395782471,
+        "goodness|goodness_s0.5": 0.935345470905304,
+        "goodness|goodness_s0.75": 0.9864479303359985,
+        "goodness|goodness": 1.0
+      },
+      "naive": {
+        "goodness_s0.25": {
+          "g_over_base": 0.24961074623360793,
+          "share_squared": 0.620080246766616
+        },
+        "goodness_s0.5": {
+          "g_over_base": 0.3617266032162465,
+          "share_squared": 0.6119794591094541
+        },
+        "goodness_s0.75": {
+          "g_over_base": 0.4642840961979902,
+          "share_squared": 0.6172467534165161
+        },
+        "goodness": {
+          "g_over_base": 0.5523156352475662,
+          "share_squared": 0.6191044756441217
+        }
+      },
+      "g_over_base_ci": {
+        "goodness_s0.25": [
+          0.2228972192987192,
+          0.31003176366305996
+        ],
+        "goodness_s0.5": [
+          0.3158805237980511,
+          0.46100753323491983
+        ],
+        "goodness_s0.75": [
+          0.4025950029752103,
+          0.5903121617523873
+        ],
+        "goodness": [
+          0.47922751135809566,
+          0.6925751012941276
+        ]
+      },
+      "share_squared_ci": {
+        "goodness_s0.25": [
+          0.5778307063497135,
+          0.654519252583456
+        ],
+        "goodness_s0.5": [
+          0.5706575278819921,
+          0.6385412008558425
+        ],
+        "goodness_s0.75": [
+          0.5724762264676694,
+          0.636670336660256
+        ],
+        "goodness": [
+          0.5657483777840926,
+          0.6408134919206565
+        ]
+      },
+      "cos_ci": {
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|goodness_s0.5": [
+          0.8728781196461476,
+          0.9102433037437736
+        ],
+        "goodness_s0.25|goodness_s0.75": [
+          0.818619545839261,
+          0.8709642487080423
+        ],
+        "goodness_s0.25|goodness": [
+          0.7696557088210841,
+          0.8432814136028779
+        ],
+        "goodness_s0.5|goodness_s0.25": [
+          0.8728781196461476,
+          0.9102433037437736
+        ],
+        "goodness_s0.5|goodness_s0.5": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.5|goodness_s0.75": [
+          0.9728132689305896,
+          0.9839619107170657
+        ],
+        "goodness_s0.5|goodness": [
+          0.9251768327502732,
+          0.9609535607080915
+        ],
+        "goodness_s0.75|goodness_s0.25": [
+          0.818619545839261,
+          0.8709642487080423
+        ],
+        "goodness_s0.75|goodness_s0.5": [
+          0.9728132689305896,
+          0.9839619107170657
+        ],
+        "goodness_s0.75|goodness_s0.75": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.75|goodness": [
+          0.9842888520356342,
+          0.9942040146058008
+        ],
+        "goodness|goodness_s0.25": [
+          0.7696557088210841,
+          0.8432814136028779
+        ],
+        "goodness|goodness_s0.5": [
+          0.9251768327502732,
+          0.9609535607080915
+        ],
+        "goodness|goodness_s0.75": [
+          0.9842888520356342,
+          0.9942040146058008
+        ],
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "impulsivity": {
+      "per_arm": {
+        "goodness_s0.25": {
+          "g_norm": 0.348630577368744,
+          "base_norm": 1.3129379153251648,
+          "g_over_base": 0.26553470145037394,
+          "share_squared": 0.6684183314672684,
+          "share_linear": 0.8175685484821859
+        },
+        "goodness_s0.5": {
+          "g_norm": 0.47073985031708826,
+          "base_norm": 1.3129379153251648,
+          "g_over_base": 0.35853930701704495,
+          "share_squared": 0.6489495558835106,
+          "share_linear": 0.8055740536310182
+        },
+        "goodness_s0.75": {
+          "g_norm": 0.6116810173148352,
+          "base_norm": 1.3129379153251648,
+          "g_over_base": 0.4658872366888308,
+          "share_squared": 0.6616128287843619,
+          "share_linear": 0.8133958622862314
+        },
+        "goodness": {
+          "g_norm": 0.7321464931313848,
+          "base_norm": 1.3129379153251648,
+          "g_over_base": 0.5576398431224069,
+          "share_squared": 0.6783189225951873,
+          "share_linear": 0.8236011914726613
+        }
+      },
+      "cos": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.8832973551027925,
+        "goodness_s0.25|goodness_s0.75": 0.7878372241511225,
+        "goodness_s0.25|goodness": 0.734255381517489,
+        "goodness_s0.5|goodness_s0.25": 0.8832973551027925,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9731092449062827,
+        "goodness_s0.5|goodness": 0.9347497213346507,
+        "goodness_s0.75|goodness_s0.25": 0.7878372241511225,
+        "goodness_s0.75|goodness_s0.5": 0.9731092449062827,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9878598862698068,
+        "goodness|goodness_s0.25": 0.734255381517489,
+        "goodness|goodness_s0.5": 0.9347497213346507,
+        "goodness|goodness_s0.75": 0.9878598862698068,
+        "goodness|goodness": 1.0
+      },
+      "cos_naive": {
+        "goodness_s0.25|goodness_s0.25": 1.0,
+        "goodness_s0.25|goodness_s0.5": 0.8824335336685181,
+        "goodness_s0.25|goodness_s0.75": 0.786419153213501,
+        "goodness_s0.25|goodness": 0.7312684059143066,
+        "goodness_s0.5|goodness_s0.25": 0.8824335336685181,
+        "goodness_s0.5|goodness_s0.5": 1.0,
+        "goodness_s0.5|goodness_s0.75": 0.9727421402931213,
+        "goodness_s0.5|goodness": 0.9327638745307922,
+        "goodness_s0.75|goodness_s0.25": 0.786419153213501,
+        "goodness_s0.75|goodness_s0.5": 0.9727421402931213,
+        "goodness_s0.75|goodness_s0.75": 1.0,
+        "goodness_s0.75|goodness": 0.9870874881744385,
+        "goodness|goodness_s0.25": 0.7312684059143066,
+        "goodness|goodness_s0.5": 0.9327638745307922,
+        "goodness|goodness_s0.75": 0.9870874881744385,
+        "goodness|goodness": 1.0
+      },
+      "naive": {
+        "goodness_s0.25": {
+          "g_over_base": 0.25982812036725667,
+          "share_squared": 0.6717583513523248
+        },
+        "goodness_s0.5": {
+          "g_over_base": 0.352247578084995,
+          "share_squared": 0.6530897258187739
+        },
+        "goodness_s0.75": {
+          "g_over_base": 0.45817215148372104,
+          "share_squared": 0.6654080621443483
+        },
+        "goodness": {
+          "g_over_base": 0.5499041368205718,
+          "share_squared": 0.6818242613495689
+        }
+      },
+      "g_over_base_ci": {
+        "goodness_s0.25": [
+          0.22998923607920252,
+          0.31060432008697814
+        ],
+        "goodness_s0.5": [
+          0.3207534869098787,
+          0.4129026416110052
+        ],
+        "goodness_s0.75": [
+          0.41812553522472246,
+          0.5334089210005198
+        ],
+        "goodness": [
+          0.5104594029161901,
+          0.6299571375789262
+        ]
+      },
+      "share_squared_ci": {
+        "goodness_s0.25": [
+          0.6273339915380741,
+          0.7211000011920567
+        ],
+        "goodness_s0.5": [
+          0.599308503500443,
+          0.7001585128689528
+        ],
+        "goodness_s0.75": [
+          0.6132040954605184,
+          0.7038640497253131
+        ],
+        "goodness": [
+          0.6328067171982206,
+          0.7189455228070404
+        ]
+      },
+      "cos_ci": {
+        "goodness_s0.25|goodness_s0.25": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.25|goodness_s0.5": [
+          0.8652900181958696,
+          0.9048665819960064
+        ],
+        "goodness_s0.25|goodness_s0.75": [
+          0.7540999988788669,
+          0.8304529471473444
+        ],
+        "goodness_s0.25|goodness": [
+          0.6897805712019296,
+          0.784358823480486
+        ],
+        "goodness_s0.5|goodness_s0.25": [
+          0.8652900181958696,
+          0.9048665819960064
+        ],
+        "goodness_s0.5|goodness_s0.5": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.5|goodness_s0.75": [
+          0.9691721801800858,
+          0.9777512063261543
+        ],
+        "goodness_s0.5|goodness": [
+          0.9232527940143337,
+          0.9465276635924031
+        ],
+        "goodness_s0.75|goodness_s0.25": [
+          0.7540999988788669,
+          0.8304529471473444
+        ],
+        "goodness_s0.75|goodness_s0.5": [
+          0.9691721801800858,
+          0.9777512063261543
+        ],
+        "goodness_s0.75|goodness_s0.75": [
+          1.0,
+          1.0
+        ],
+        "goodness_s0.75|goodness": [
+          0.9851784691166238,
+          0.9915078305692113
+        ],
+        "goodness|goodness_s0.25": [
+          0.6897805712019296,
+          0.784358823480486
+        ],
+        "goodness|goodness_s0.5": [
+          0.9232527940143337,
+          0.9465276635924031
+        ],
+        "goodness|goodness_s0.75": [
+          0.9851784691166238,
+          0.9915078305692113
+        ],
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ]
+      }
+    }
+  }
+}

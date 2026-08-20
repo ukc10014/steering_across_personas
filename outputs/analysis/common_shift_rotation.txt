@@ -1,0 +1,127 @@
+
+==============================================================================================
+LAYER 15   (8 traits x 10 semantic personas, cross-fitted over 40 half-splits)
+==============================================================================================
+
+TABLE 1.  ||dG_{c,t}|| / mean_p||V_base_{t,p}||
+  the persona-common shift, as a fraction of the base trait vector it displaces
+
+trait             goodness_s0.25   goodness_s0.5  goodness_s0.75        goodness
+assertiveness              0.326           0.403           0.513           0.637
+empathy                    0.287           0.413           0.525           0.616
+risk_taking                0.299           0.398           0.515           0.625
+honesty                    0.301           0.395           0.494           0.589
+confidence                 0.312           0.384           0.495           0.606
+deference                  0.294           0.411           0.540           0.671
+warmth                     0.266           0.386           0.494           0.584
+impulsivity                0.266           0.359           0.466           0.558
+MEAN                       0.294           0.394           0.505           0.611
+
+TABLE 2.  ||dG_{c,t}||^2 / mean_p||dV_{c,t,p}||^2
+  SHARE of this adapter's total change carried by the common shift (exact partition)
+
+trait             goodness_s0.25   goodness_s0.5  goodness_s0.75        goodness
+assertiveness              0.724           0.683           0.688           0.710
+empathy                    0.594           0.581           0.593           0.607
+risk_taking                0.692           0.670           0.680           0.694
+honesty                    0.782           0.757           0.749           0.755
+confidence                 0.707           0.665           0.670           0.692
+deference                  0.590           0.587           0.600           0.626
+warmth                     0.620           0.608           0.611           0.610
+impulsivity                0.668           0.649           0.662           0.678
+MEAN                       0.672           0.650           0.657           0.672
+
+TABLE 2b. ||dG_{c,t}|| / mean_p||dV_{c,t,p}||
+  the same thing in LINEAR units (the sqrt of table 2) -- not a share
+
+trait             goodness_s0.25   goodness_s0.5  goodness_s0.75        goodness
+assertiveness              0.851           0.826           0.830           0.842
+empathy                    0.771           0.762           0.770           0.779
+risk_taking                0.832           0.819           0.824           0.833
+honesty                    0.884           0.870           0.866           0.869
+confidence                 0.841           0.815           0.819           0.832
+deference                  0.768           0.766           0.775           0.791
+warmth                     0.787           0.780           0.781           0.781
+impulsivity                0.818           0.806           0.813           0.824
+MEAN                       0.819           0.806           0.810           0.819
+
+TABLE 1n. table 1 computed NAIVELY (no cross-fitting), for comparison
+  the gap is the noise the cross-fitted estimator removes
+
+trait             goodness_s0.25   goodness_s0.5  goodness_s0.75        goodness
+assertiveness              0.312           0.390           0.497           0.617
+empathy                    0.273           0.393           0.499           0.588
+risk_taking                0.285           0.381           0.494           0.600
+honesty                    0.287           0.379           0.476           0.569
+confidence                 0.299           0.371           0.479           0.588
+deference                  0.273           0.383           0.503           0.626
+warmth                     0.250           0.362           0.464           0.552
+impulsivity                0.260           0.352           0.458           0.550
+MEAN                       0.280           0.376           0.484           0.586
+
+
+TABLE 3.  cos(dG_c, dG_c') per trait  [cross-fitted; naive in brackets]
+  are the constitutions adding the SAME shift, or only shifts of similar size?
+
+  assertiveness
+                     goodness_s0.   goodness_s0.   goodness_s0.       goodness
+    goodness_s0.25   1.000 [1.00]   0.867 [0.87]   0.756 [0.76]   0.698 [0.70]
+    goodness_s0.5    0.867 [0.87]   1.000 [1.00]   0.965 [0.97]   0.915 [0.91]
+    goodness_s0.75   0.756 [0.76]   0.965 [0.97]   1.000 [1.00]   0.985 [0.98]
+    goodness         0.698 [0.70]   0.915 [0.91]   0.985 [0.98]   1.000 [1.00]
+
+  empathy
+                     goodness_s0.   goodness_s0.   goodness_s0.       goodness
+    goodness_s0.25   1.000 [1.00]   0.908 [0.91]   0.848 [0.84]   0.800 [0.79]
+    goodness_s0.5    0.908 [0.91]   1.000 [1.00]   0.976 [0.98]   0.932 [0.93]
+    goodness_s0.75   0.848 [0.84]   0.976 [0.98]   1.000 [1.00]   0.985 [0.98]
+    goodness         0.800 [0.79]   0.932 [0.93]   0.985 [0.98]   1.000 [1.00]
+
+  risk_taking
+                     goodness_s0.   goodness_s0.   goodness_s0.       goodness
+    goodness_s0.25   1.000 [1.00]   0.907 [0.90]   0.840 [0.83]   0.783 [0.77]
+    goodness_s0.5    0.907 [0.90]   1.000 [1.00]   0.974 [0.97]   0.928 [0.93]
+    goodness_s0.75   0.840 [0.83]   0.974 [0.97]   1.000 [1.00]   0.985 [0.98]
+    goodness         0.783 [0.77]   0.928 [0.93]   0.985 [0.98]   1.000 [1.00]
+
+  honesty
+                     goodness_s0.   goodness_s0.   goodness_s0.       goodness
+    goodness_s0.25   1.000 [1.00]   0.836 [0.84]   0.737 [0.74]   0.687 [0.68]
+    goodness_s0.5    0.836 [0.84]   1.000 [1.00]   0.968 [0.97]   0.924 [0.92]
+    goodness_s0.75   0.737 [0.74]   0.968 [0.97]   1.000 [1.00]   0.987 [0.99]
+    goodness         0.687 [0.68]   0.924 [0.92]   0.987 [0.99]   1.000 [1.00]
+
+  confidence
+                     goodness_s0.   goodness_s0.   goodness_s0.       goodness
+    goodness_s0.25   1.000 [1.00]   0.888 [0.89]   0.792 [0.79]   0.720 [0.72]
+    goodness_s0.5    0.888 [0.89]   1.000 [1.00]   0.969 [0.97]   0.914 [0.91]
+    goodness_s0.75   0.792 [0.79]   0.969 [0.97]   1.000 [1.00]   0.982 [0.98]
+    goodness         0.720 [0.72]   0.914 [0.91]   0.982 [0.98]   1.000 [1.00]
+
+  deference
+                     goodness_s0.   goodness_s0.   goodness_s0.       goodness
+    goodness_s0.25   1.000 [1.00]   0.925 [0.92]   0.854 [0.84]   0.794 [0.78]
+    goodness_s0.5    0.925 [0.92]   1.000 [1.00]   0.975 [0.97]   0.927 [0.93]
+    goodness_s0.75   0.854 [0.84]   0.975 [0.97]   1.000 [1.00]   0.984 [0.98]
+    goodness         0.794 [0.78]   0.927 [0.93]   0.984 [0.98]   1.000 [1.00]
+
+  warmth
+                     goodness_s0.   goodness_s0.   goodness_s0.       goodness
+    goodness_s0.25   1.000 [1.00]   0.892 [0.89]   0.841 [0.83]   0.803 [0.79]
+    goodness_s0.5    0.892 [0.89]   1.000 [1.00]   0.979 [0.98]   0.942 [0.94]
+    goodness_s0.75   0.841 [0.83]   0.979 [0.98]   1.000 [1.00]   0.988 [0.99]
+    goodness         0.803 [0.79]   0.942 [0.94]   0.988 [0.99]   1.000 [1.00]
+
+  impulsivity
+                     goodness_s0.   goodness_s0.   goodness_s0.       goodness
+    goodness_s0.25   1.000 [1.00]   0.883 [0.88]   0.788 [0.79]   0.734 [0.73]
+    goodness_s0.5    0.883 [0.88]   1.000 [1.00]   0.973 [0.97]   0.935 [0.93]
+    goodness_s0.75   0.788 [0.79]   0.973 [0.97]   1.000 [1.00]   0.988 [0.99]
+    goodness         0.734 [0.73]   0.935 [0.93]   0.988 [0.99]   1.000 [1.00]
+
+  MEAN over traits
+                     goodness_s0.   goodness_s0.   goodness_s0.       goodness
+    goodness_s0.25   1.000 [1.00]   0.888 [0.89]   0.807 [0.80]   0.752 [0.75]
+    goodness_s0.5    0.888 [0.89]   1.000 [1.00]   0.972 [0.97]   0.927 [0.92]
+    goodness_s0.75   0.807 [0.80]   0.972 [0.97]   1.000 [1.00]   0.985 [0.98]
+    goodness         0.752 [0.75]   0.927 [0.92]   0.985 [0.98]   1.000 [1.00]

@@ -310,52 +310,55 @@ trait-resolved pattern that lands on precisely the traits the constitution names
 cannot produce a pattern like that. It is the strongest evidence here that constitution
 content does *some* work — while leaving open how much of the *magnitude* is still dose.
 
-### 3.3 Does the common shift keep its direction as dose changes? — PRELIMINARY
+### 3.3 The common shift rotates as dose grows, and the rotation decelerates
 
 §3.2 left one question open: the constitutions' common shifts differ in direction
 (cos 0.47–0.83), but is that *content*, or a direction that any large perturbation drifts
-into? The dose ladder answers it by asking whether `goodness` at s=0.25 points where
-`goodness` at s=1 points. Two of the three low-dose arms are extracted; this section is
-written now and must be redone when s=0.5 and s=0.75 land.
+into? The ladder answers it by asking whether `goodness` at reduced strength points where
+`goodness` at full strength points.
 
-Trait-averaged `cos(dG, dG')` at layer 15:
+**This is now a within-session measurement.** `goodness` at s = 0.25, 0.5 and 0.75 were all
+extracted in one session on one device, so no session or device artifact separates them —
+which the earlier two-point version of this section could not claim.
 
-| pair | cosine | per-trait range |
+Trait-averaged `cos(dG, dG_{s=1})` at layer 15, against measured answer-token dose:
+
+| arm | dose | cos to s=1 | angle | 95% CI |
+|---|---|---|---|---|
+| `goodness` s=0.25 | 0.450x | 0.752 | 41.2° | [0.715, 0.792] |
+| `goodness` s=0.5 | 0.631x | 0.927 | 22.0° | [0.914, 0.939] |
+| `goodness` s=0.75 | 0.812x | 0.985 | 9.8° | [0.982, 0.989] |
+| `goodness` s=1 | 1.000x | 1.000 | 0° | — |
+
+**The rotation is real, and it is not a session artifact.** The purely within-session pair
+s=0.25 vs s=0.75 gives cos = 0.807, and every one of the 8 traits falls below 1 individually
+(range 0.737–0.854, highest upper CI bound 0.897). Scaling a LoRA is a linear operation on
+the weights; it is emphatically not one on the representation — the same nonlinearity that
+made dose sublinear in `s` (`dose ∝ s^0.5–0.85`, see the calibration doc).
+
+**The rotation decelerates sharply.** Per unit of dose, between adjacent rungs:
+
+| interval | angle | per unit dose |
 |---|---|---|
-| `goodness` s=1 vs `goodness` s=0.25 | 0.752 | [0.687, 0.803] |
-| `impulsiveness` s=1 vs `impulsiveness` s=0.25 | 0.772 | [0.721, 0.815] |
-| `goodness` s=0.25 vs `impulsiveness` s=0.25 | **0.764** | [0.655, 0.838] |
-| `goodness` s=1 vs `impulsiveness` s=1 | **0.660** | [0.510, 0.764] |
+| s=0.25 → s=0.5 | 27.3° | **151°** |
+| s=0.5 → s=0.75 | 13.5° | 74.7° |
+| s=0.75 → s=1 | 9.8° | **52.0°** |
 
-Three things follow.
+So the direction swings most at low dose and converges as dose grows — three-fold less
+rotation per unit dose at the top of the ladder than at the bottom.
 
-**The direction is dose-dependent, not just the magnitude.** The *same adapter* at quarter
-strength points only 0.75 the same way. Scaling a LoRA is a linear operation on the weights;
-it is evidently not one on the representation, which is the same nonlinearity that made dose
-sublinear in `s` (§ calibration, `dose ∝ s^0.5–0.85`).
+**What that implies for §3.2's cross-constitution cosines.** At low dose the two
+constitutions were as aligned with *each other* (0.764) as either was with its own scaled-up
+self (0.752, 0.772). The picture consistent with all of it: there is a generic direction
+that small perturbations take, and as dose rises the shift rotates away from it toward a
+constitution-specific direction and then stabilises. On that reading the §3.2 cosines of
+0.47–0.83 measure how far apart the constitutions' *converged* directions are — which is a
+statement about content — while the low-dose agreement measures the generic direction they
+all start from.
 
-**At low dose the two constitutions are as aligned with each other (0.764) as either is with
-its own scaled-up self (0.752, 0.772).** That is what a shared, constitution-generic
-direction dominating small perturbations looks like, with constitution-specific structure
-emerging as dose grows.
-
-**Consistent with that, alignment between the two constitutions falls with dose**, 0.764 →
-0.660, in 7 of 8 traits. Intervals separate in 3 — `risk_taking`, `confidence`,
-`impulsivity` — and two of those three are precisely the traits where `impulsiveness`'s
-shift is selectively large (§3.2).
-
-Meanwhile the **share** carried by the common shift is dose-invariant: `goodness` 0.672 at
-both scales, `impulsiveness` 0.721 → 0.649. Dose changes how big the shift is and where it
-points, not what fraction of the adapter's effect it is.
-
-**Which of these comparisons is safe.** The s=1 arms come from the archive and the s=0.25
-arms from a later session, so the two "same adapter rotates" rows are cross-session and a
-device or session artifact could only *deflate* them — 0.752 and 0.772 are lower bounds. The
-load-bearing contrast, 0.764 against 0.660, is **not** cross-session in either term: both
-low-dose arms were extracted together today, both s=1 arms together in the archive. A shared
-deterministic session offset would inflate both within-session cosines similarly rather than
-create the gap. The clean within-session version of the rotation arrives with s=0.5 and
-s=0.75, which are extracted in the same session as s=0.25.
+Still to do: the same series for `impulsiveness` and `misalignment`, whose s=0.75 arms are
+extracting. If their rotations converge to *different* directions, the content reading above
+is confirmed; if all three converge together, it is not.
 
 ---
 
