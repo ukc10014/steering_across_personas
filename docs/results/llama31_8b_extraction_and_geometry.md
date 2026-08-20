@@ -24,6 +24,7 @@ sections as follows; **two of its premises did not hold** and are marked.
 | 6 | How much does a global *orthogonal* transform explain? | Little: 15–18% Frobenius (28–32% squared) traits; 1–6% personas | §5.4 |
 | 7 | Structured residual change? Stronger for `impulsiveness`? Localised? | Larger, but located **identically across arms** — not constitution-specific | §5.5 |
 | 8 | How much larger is the `impulsiveness` perturbation? | Weight norm matched, but **functionally 1.21x** (and `misalignment` 1.37x). Weight norm was the wrong dose variable | §3, §3.1, §5.55 |
+| + | How much of an adapter's effect is one persona-common shift, and do constitutions share it? | The shift is **0.6–0.9x** the base trait vector and carries **67–77%** of the change (L15), but the constitutions' shifts are only **0.47–0.83** aligned — similar sizes, different directions. `impulsiveness` is **1.7–1.9x selective** for `risk_taking`/`impulsivity` | §3.2 |
 
 ---
 
@@ -194,6 +195,119 @@ further" as a standing alternative explanation.
 Caveat on scope: this conditions on the CAA prompts, so it is functional dose *on this data*,
 which is the relevant quantity for interpreting these geometry results. It is not a
 substitute for neutral-corpus KL if the question is about the model overall.
+
+### 3.2 The persona-common shift: how big, and is it the *same* shift?
+
+`scripts/common_shift.py`. Write `V_{c,t,p}` for a trait vector under constitution `c`, and
+
+    dV_{c,t,p} = V_{c,t,p} − V_base_{t,p}          the per-persona change
+    dG_{c,t}   = mean_p dV_{c,t,p}                 its persona-COMMON part
+
+Three questions the prose above had been running together: how **large** is the common
+shift, how much of each adapter's effect it **accounts for**, and whether different
+constitutions add the **same** shift or merely similarly-sized ones. All three are
+quadratic in vectors estimated from 500 questions, so all three are cross-fitted on
+disjoint question halves (§4); naive values are printed alongside in
+`outputs/analysis/common_shift.txt`. Two biases specific to this analysis motivated that:
+the common **share** is biased *downward* by noise (independent noise inflates
+`mean_p‖dV_p‖²` by the full per-persona variance but `‖dG‖²` by only 1/P of it), and the
+**cosines** are biased *upward*, because `dV_c` and `dV_c'` subtract the same estimate of
+`V_base` and so share a `−ε_base` error term. In a synthetic check at high noise the naive
+cosine of two genuinely unrelated shifts read **+0.121** against a true −0.035, while the
+cross-fitted estimator returned −0.020. On this data the correction turns out to be small
+(mean 0.607 against a naive 0.586 in table 1) — which could not be known in advance.
+
+#### The common shift is the same order of magnitude as the trait vector it displaces
+
+`‖dG_{c,t}‖ / mean_p‖V_base_{t,p}‖`, layer 15 (10 semantic personas):
+
+| trait | goodness | mathematical | impulsiveness | misalignment |
+|---|---|---|---|---|
+| assertiveness | 0.637 | 0.586 | 0.644 | 1.148 |
+| empathy | 0.607 | 0.578 | 0.641 | 0.880 |
+| risk_taking | 0.629 | 0.577 | **1.097** | 1.022 |
+| honesty | 0.585 | 0.558 | 0.617 | 0.755 |
+| confidence | 0.608 | 0.662 | 0.679 | 0.810 |
+| deference | 0.662 | 0.541 | 0.645 | 0.738 |
+| warmth | 0.570 | 0.568 | 0.696 | 0.914 |
+| impulsivity | 0.562 | 0.526 | **1.154** | 1.060 |
+| **mean** | **0.607** | **0.574** | **0.772** | **0.916** |
+
+Layer 20 is the same picture, larger: means 0.682 / 0.618 / 0.948 / **1.044**. Character
+training does not nudge these trait representations — it displaces them by an amount of the
+same order as the representation itself, and for `misalignment` at L20 by more.
+
+#### Most of each adapter's effect on trait vectors is that one shift
+
+`mean_p‖dV_p‖² = ‖dG‖² + mean_p‖dV_p − dG‖²` is an exact partition, so the **share** is the
+squared ratio. The linear ratio asked for is its square root and is not a share — a 25%
+share reads as 0.50 in linear units, so both are tabulated and labelled.
+
+| | goodness | mathematical | impulsiveness | misalignment |
+|---|---|---|---|---|
+| **L15 share** `‖dG‖²/mean_p‖dV_p‖²` | 0.673 | 0.684 | 0.723 | 0.766 |
+| L15 linear `‖dG‖/mean_p‖dV_p‖` | 0.820 | 0.827 | 0.849 | 0.875 |
+| **L20 share** | 0.534 | 0.541 | 0.653 | 0.672 |
+| L20 linear | 0.730 | 0.734 | 0.806 | 0.818 |
+
+So **two thirds to three quarters of what an adapter does to trait geometry at L15 is a
+single persona-independent translation**, and the remaining quarter to third is everything
+persona-specific. The share is systematically lower at L20 (0.53–0.67), so the shift is
+less dominant deeper in the stack. It is also consistently higher for the two larger-dose
+arms, which is what a saturating common displacement would look like.
+
+#### But they are NOT the same shift
+
+`cos(dG_{c,t}, dG_{c',t})`, averaged over the 8 traits, layer 15 (naive in brackets):
+
+| | goodness | mathematical | impulsiveness | misalignment |
+|---|---|---|---|---|
+| goodness | 1.000 | **0.831** [0.81] | 0.656 [0.64] | **0.521** [0.52] |
+| mathematical | 0.831 | 1.000 | 0.670 [0.66] | 0.465 [0.47] |
+| impulsiveness | 0.656 | 0.670 | 1.000 | 0.648 [0.65] |
+| misalignment | 0.521 | 0.465 | 0.648 | 1.000 |
+
+Layer 20 agrees: 0.818 / 0.627 / 0.560 in the `goodness` row.
+
+These are substantial but far from 1. The constitutions add shifts that **overlap
+partially and differ systematically** — this is the distinction the earlier prose blurred,
+and it comes out on the side of "different shifts, of similar size" rather than "one common
+shift". The separation is resolved: at L15 the `goodness`–`mathematical` interval clears the
+`goodness`–`misalignment` interval in **7 of 8 traits** (honesty: 0.866 [0.817, 0.928]
+against 0.576 [0.496, 0.643]); at L20, where intervals are roughly twice as wide, in 4 of 8.
+
+The structure is orderly: the two low-dose constitutions pair at 0.83, the two high-dose
+ones at 0.65, and cross-pairs sit at 0.47–0.67. Cosine is scale-invariant, so this is not
+dose arithmetic — it is a claim about direction. Whether it is *content* or a shared
+direction that any large perturbation drifts into is exactly what the dose ladder can
+separate, by asking whether `goodness` at s=0.25 points where `goodness` at s=1 points.
+
+#### The one clearly content-specific effect in this data
+
+`impulsiveness`'s common shift is not uniform across traits. It is ~0.65 on six traits and
+**1.10 / 1.15 on `risk_taking` and `impulsivity`** — the two traits its constitution is
+about. As a ratio of the two related traits to the other six:
+
+| arm | L15 | L20 |
+|---|---|---|
+| goodness | 0.97 | 0.99 |
+| mathematical | 0.95 | 0.97 |
+| **impulsiveness** | **1.72** | **1.87** |
+| misalignment | 1.19 | 1.35 |
+
+`goodness` and `mathematical` are flat to within 5%. `impulsiveness` is selective by a
+factor of ~1.8 at both layers; at L15 the weaker of its two related-trait intervals clears
+the strongest of its other six (0.876 vs 0.871), a deliberately conservative min-vs-max
+test that does not survive L20's wider intervals. `misalignment` sits in between and is
+elevated more or less everywhere, which is what a large generic perturbation should look
+like.
+
+This matters because **no other statistic in this document distinguishes constitution
+content from perturbation size.** RDM preservation, dispersion and the residual-to-null
+ordering are all scalar summaries that dose can order. This one is not: it is a
+trait-resolved pattern that lands on precisely the traits the constitution names, and dose
+cannot produce a pattern like that. It is the strongest evidence here that constitution
+content does *some* work — while leaving open how much of the *magnitude* is still dose.
 
 ---
 
