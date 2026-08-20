@@ -788,7 +788,116 @@ on the `mathematical`-versus-`impulsiveness` dispersion ordering.
 The §5.3 divergence also replicates: `impulsiveness` scores +0.236 on residual-to-null
 ordering at L20 against 0.755 on the full RDM, the same qualitative split as L15.
 
-## 6. Pending
+---
+
+## 6. The dose ladder — PARTIAL (s=0.25 in; s=0.5 and s=0.75 extracting)
+
+Three constitutions run at s ∈ {0.25, 0.5, 0.75} on the full 192-cell grid, against the
+archived s=1 arms. Weights are patched in memory (`persona_steering/lora.py`), verified
+bit-identical to a `peft` merge at s=1, and extraction uses `--legacy-mask` so every arm is
+comparable to the archive. The design and why it replaced a matched-dose point are in
+[docs/experiments/dose_calibration_results.md](../experiments/dose_calibration_results.md).
+
+### 6.1 The dose axis really separates
+
+Functional dose relative to `goodness` at s=1, layer 15:
+
+| arm | trait-vector | answer-token |
+|---|---|---|
+| `goodness` s=0.25 | 0.477x | **0.450x** |
+| `impulsiveness` s=0.25 | 0.506x | **0.487x** |
+| `misalignment` s=0.25 | 0.574x | **0.484x** |
+| `mathematical` s=1 | 0.942x | 0.987x |
+| `goodness` s=1 | 1.000x | 1.000x |
+| `impulsiveness` s=1 | 1.207x | 1.070x |
+| `misalignment` s=1 | 1.370x | 1.077x |
+
+A factor of ~2.2 in dose within each constitution — far wider than the 8% that separates the
+arms from each other at s=1, which was the point of building a ladder. And at s=0.25 the
+three arms are dose-matched to each other about as well as they are at s=1 (0.450/0.487/
+0.484), so both rungs support a matched-dose comparison.
+
+### 6.2 The outcome responds strongly to dose — the null is dead
+
+Aggregate mean Spearman RDM preservation across traits:
+
+| arm | answer-token dose | RDM preservation |
+|---|---|---|
+| `goodness` s=0.25 | 0.450x | **0.985** [0.982, 0.987] |
+| `impulsiveness` s=0.25 | 0.487x | **0.980** [0.977, 0.983] |
+| `misalignment` s=0.25 | 0.484x | **0.958** [0.953, 0.963] |
+| `mathematical` s=1 | 0.987x | 0.883 [0.871, 0.893] |
+| `goodness` s=1 | 1.000x | 0.834 [0.816, 0.847] |
+| `impulsiveness` s=1 | 1.070x | 0.798 [0.784, 0.814] |
+| `misalignment` s=1 | 1.077x | 0.732 [0.716, 0.748] |
+
+Quartering the LoRA takes persona geometry from substantially disturbed to **almost
+untouched** — 0.96–0.99 against 0.73–0.88 — and every within-arm difference is resolved
+(`goodness` −0.151 [−0.167, −0.138], `impulsiveness` −0.182, `misalignment` −0.227). The
+runbook's null, "the outcome barely moves across the dose range, so the ρ = −1 ordering was
+coincidence among four points", is **ruled out**. Dose does most of the work.
+
+### 6.3 But the curves do not coincide — matched dose, different outcome
+
+Within the low-dose triple, `impulsiveness` and `misalignment` sit at essentially identical
+answer-token dose — 0.487x and 0.484x — and still differ:
+
+    impulsiveness_s0.25 - misalignment_s0.25:  +0.022 [+0.018, +0.027]  resolved
+
+The same ordering holds at the top of the ladder, again at near-matched dose (1.070x vs
+1.077x):
+
+    impulsiveness - misalignment:              +0.066 [+0.052, +0.085]  resolved
+
+So `misalignment` disturbs persona geometry more than `impulsiveness` at matched dose, and
+this **replicates at two dose levels a factor of 2.2 apart**. That is not a single
+perturbation-magnitude law. Reading `mathematical` against the local slope of `goodness`'s
+own curve (−0.275 per unit dose, from 0.450x/0.985 to 1.000x/0.834) makes the same point
+from the other side: at 0.987x dose the curve predicts 0.838 and `mathematical` delivers
+**0.883**.
+
+Dose explains the bulk of the variation and arms deviate from a common curve by 0.02–0.08,
+resolved. This is the runbook's "curves move but do not coincide" outcome.
+
+### 6.4 Dispersion curves *cross*, which no dose law can do
+
+The clearest result. Persona dispersion, D-ratio against base (squared) with the linear
+contraction alongside:
+
+| arm | answer-token dose | D-ratio | linear contraction |
+|---|---|---|---|
+| `goodness` s=0.25 | 0.450x | **0.959** [0.948, 0.969] | **2%** |
+| `impulsiveness` s=0.25 | 0.487x | **0.772** [0.762, 0.782] | 12% |
+| `misalignment` s=0.25 | 0.484x | 0.791 [0.782, 0.802] | 11% |
+| `goodness` s=1 | 1.000x | **0.486** [0.474, 0.500] | **30%** |
+| `impulsiveness` s=1 | 1.070x | **0.615** [0.595, 0.638] | 22% |
+| `misalignment` s=1 | 1.077x | 0.313 [0.297, 0.331] | 44% |
+
+At quarter strength `goodness` barely contracts at all (2%) while `impulsiveness` contracts
+12%. At full strength the ordering **inverts**: `goodness` contracts 30% against
+`impulsiveness`'s 22% — and it does so at *lower* dose (1.000x vs 1.070x), which makes the
+inversion harder, not easier, to explain away. Both ends are resolved: [0.948, 0.969] against
+[0.762, 0.782] at the bottom, [0.474, 0.500] against [0.595, 0.638] at the top, disjoint in
+each case.
+
+**Two curves that cross cannot both be the same monotone function of dose.** This settles
+what §5.1 flagged as open: the arm-specific contraction is genuinely arm-specific, not a
+dose artefact, and the constitutions differ in the *shape* of their dose response, not only
+in where they sit on a shared curve. `goodness` starts flat and falls steeply (−0.86 in
+D-ratio per unit dose); `impulsiveness` starts lower and falls gently (−0.27).
+
+### 6.5 What this already licenses
+
+> Functional dose accounts for most of the variation in RDM preservation, and the earlier
+> four-arm ρ = −1 ordering was not an artefact of having only four points. But dose is not
+> the whole explanation: two arms at matched dose differ in RDM preservation, replicated at
+> two dose levels, and the dispersion curves of `goodness` and `impulsiveness` cross.
+
+Still open until s=0.5 and s=0.75 land: whether the RDM curves are straight or bend, where
+the dispersion curves cross, and whether the residual-to-null collapse (§5.3) survives at
+matched dose. Also to redo with within-session data: §3.3's rotation measurement.
+
+## 7. Pending
 
 - confirm the `goodness`-vs-others dispersion ordering against fixed-mask activations
 - the matched random rank-64 LoRA control (see below), which is now the informative
