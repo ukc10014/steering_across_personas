@@ -1,6 +1,14 @@
 #!/usr/bin/env python3
 """Merge an OCT LoRA adapter into its base model and save a standalone checkpoint.
 
+NOTE (2026-08-20): /workspace/merged was DELETED to free 60 GB on a 500 GB volume that the
+dose ladder had driven to 95%. Nothing needs it any more -- persona_steering/lora.py applies
+W += s*(alpha/r)*B@A to a model already in memory, and `dose_calibrate.py --verify-scale1`
+confirmed that at s=1 this reproduces these checkpoints BIT-FOR-BIT. Scripts here that still
+name /workspace/merged (mask_diag_extract.py, run_arm.sh, run_reextract_gpu.sh,
+plot_arm_comparison.py) will need either this script re-run or a switch to the in-memory
+path. Regenerating one arm takes ~20 min and needs peft.
+
 Merging offline (rather than loading the adapter at extraction time) keeps the
 extraction pipeline model-agnostic: 2c_caa_activations.py just takes a path and has no
 idea an adapter was ever involved.
