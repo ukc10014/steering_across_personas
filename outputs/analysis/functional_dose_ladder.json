@@ -71,6 +71,14 @@
       "answer_token_displacement_sd": 0.03522327542304993,
       "answer_token_common": 0.2744879126548767,
       "answer_token_varying": 0.24423828721046448
+    },
+    "misalignment_s0.5": {
+      "trait_vector_displacement": 0.7139796018600464,
+      "trait_vector_displacement_sd": 0.11212482303380966,
+      "answer_token_displacement": 0.403148889541626,
+      "answer_token_displacement_sd": 0.04579826816916466,
+      "answer_token_common": 0.30002716183662415,
+      "answer_token_varying": 0.27159446477890015
     }
   },
   "20": {
@@ -145,6 +153,14 @@
       "answer_token_displacement_sd": 0.04509945213794708,
       "answer_token_common": 0.33593663573265076,
       "answer_token_varying": 0.2857474386692047
+    },
+    "misalignment_s0.5": {
+      "trait_vector_displacement": 0.8626904487609863,
+      "trait_vector_displacement_sd": 0.1681157946586609,
+      "answer_token_displacement": 0.4470634460449219,
+      "answer_token_displacement_sd": 0.055139537900686264,
+      "answer_token_common": 0.32604146003723145,
+      "answer_token_varying": 0.30758047103881836
     }
   }
 }
