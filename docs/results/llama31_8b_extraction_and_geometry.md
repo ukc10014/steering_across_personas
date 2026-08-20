@@ -378,18 +378,33 @@ than estimated away. That is the difference from the retracted result: `d44a267`
 a compression claim built on cosine-to-null, which is not invariant to adding a common
 vector. This measure is.
 
-| arm | mean ratio vs base | 95% CI |
-|---|---|---|
-| `goodness` | **0.486** | [0.474, 0.500] |
-| `impulsiveness` | 0.615 | [0.595, 0.638] |
-| `mathematical` | 0.635 | [0.622, 0.650] |
+§3.2 is what makes that distinction matter rather than merely hold: the persona-common
+component is **not** small here. It is 0.57–1.15x the norm of the trait vector itself and
+carries two thirds of each adapter's total effect. A statistic sensitive to it would have
+been measuring mostly that.
 
-Contraction is real and large — persona constellations shrink to roughly half their base
-spread. Naive-vs-cross-fitted inflation was only 1.06–1.12x, so the debiasing is a small
-correction here, consistent with §4.
+D is a mean **squared** distance from the centroid, so the table carries both it and its
+square root, which is the figure to quote as a contraction:
 
-**A semantically different constitution reproduces most of it.** `mathematical` reproduces
-the large majority of `goodness`'s contraction.
+| arm | D-ratio vs base (squared) | 95% CI | RMS ratio (linear) | linear contraction |
+|---|---|---|---|---|
+| `goodness` | **0.486** | [0.474, 0.500] | 0.697 | **30%** |
+| `impulsiveness` | 0.615 | [0.595, 0.638] | 0.784 | 22% |
+| `mathematical` | 0.635 | [0.622, 0.650] | 0.797 | 20% |
+| `misalignment` | 0.313 | [0.297, 0.331] | 0.560 | 44% |
+
+Contraction is real and large: persona constellations shrink by **20–44% in linear extent**.
+An earlier draft read the D-ratio as spread and called 0.486 "roughly half their base
+spread" — that is the squared quantity, and it overstates the effect by exactly a square
+root. `sqrt(D-ratio)` equals the RDM RMS ratio of §6 to three decimals, which is a free
+consistency check between two independently computed columns.
+
+Naive-vs-cross-fitted inflation was only 1.06–1.12x, so the debiasing is a small correction
+here, consistent with §4.
+
+**A semantically different constitution reproduces most of it.** `mathematical` contracts by
+20% against `goodness`'s 30% — about **two thirds** of the effect (67% in linear terms, 71%
+of the squared reduction).
 
 An earlier draft called `mathematical` an "orthogonal control" and concluded the contraction
 is "a property of merging an r=64 LoRA". **Both overstate it, and the second does not
@@ -411,8 +426,13 @@ after this correction, not less.
 
 What is new is that `goodness` contracts **more** than the other two, with non-overlapping
 intervals. That is not yet evidence about constitution content: there is **n = 1 adapter per
-constitution**, so it is equally consistent with adapter idiosyncrasy, and §3 rules out
-intervention magnitude as the explanation. It is also the statistic §2 flagged as
+constitution**, so it is equally consistent with adapter idiosyncrasy. An earlier draft
+added that "§3 rules out intervention magnitude as the explanation" — **it does not**, and
+§3.1 retracts exactly that claim. Weight-space norm is matched across the arms; *functional*
+dose is not. Dispersion is in fact the one statistic that does **not** track functional dose
+(Spearman −0.800 at L15, −0.400 at L20; `goodness` contracts more than `impulsiveness`
+despite a smaller dose), so it is better described as arm-specific contraction unexplained
+by scalar dose — which is why the dose ladder measures it as a separate outcome. It is also the statistic §2 flagged as
 mask-sensitive (5–10% relative), which is not enough to erase a 0.13 gap but is enough that
 the ordering should be confirmed against fixed-mask data before anything is built on it.
 
