@@ -1,0 +1,119 @@
+{
+  "personas": [
+    "farmer",
+    "therapist",
+    "tech_ceo"
+  ],
+  "traits": [
+    "assertiveness",
+    "impulsivity"
+  ],
+  "layers": [
+    15,
+    20
+  ],
+  "results": {
+    "15": {
+      "random_perm_s1": {
+        "trait_vector_displacement": 0.04431566596031189,
+        "trait_vector_displacement_sd": 0.004501430317759514,
+        "answer_token_displacement": 0.0357070229947567,
+        "answer_token_displacement_sd": 0.0016727213514968753,
+        "n_cells": 6
+      },
+      "random_perm_s8": {
+        "trait_vector_displacement": 0.35896483063697815,
+        "trait_vector_displacement_sd": 0.032749615609645844,
+        "answer_token_displacement": 0.25246840715408325,
+        "answer_token_displacement_sd": 0.012963742949068546,
+        "n_cells": 6
+      },
+      "random_perm_s12": {
+        "trait_vector_displacement": 0.5590537190437317,
+        "trait_vector_displacement_sd": 0.05304607376456261,
+        "answer_token_displacement": 0.3980956971645355,
+        "answer_token_displacement_sd": 0.01728658750653267,
+        "n_cells": 6
+      },
+      "random_perm_s16": {
+        "trait_vector_displacement": 0.7425386905670166,
+        "trait_vector_displacement_sd": 0.06897535175085068,
+        "answer_token_displacement": 0.5979838967323303,
+        "answer_token_displacement_sd": 0.018326057121157646,
+        "n_cells": 6
+      },
+      "random_perm_s24": {
+        "trait_vector_displacement": 0.9994661211967468,
+        "trait_vector_displacement_sd": 0.006053384393453598,
+        "answer_token_displacement": 0.9506776928901672,
+        "answer_token_displacement_sd": 0.014588084071874619,
+        "n_cells": 6
+      },
+      "random_iid_s16": {
+        "trait_vector_displacement": 0.6858339905738831,
+        "trait_vector_displacement_sd": 0.10130991786718369,
+        "answer_token_displacement": 0.545057475566864,
+        "answer_token_displacement_sd": 0.022646958008408546,
+        "n_cells": 6
+      },
+      "random_iid_s24": {
+        "trait_vector_displacement": 0.9549214839935303,
+        "trait_vector_displacement_sd": 0.031613778322935104,
+        "answer_token_displacement": 0.910167396068573,
+        "answer_token_displacement_sd": 0.013754687272012234,
+        "n_cells": 6
+      }
+    },
+    "20": {
+      "random_perm_s1": {
+        "trait_vector_displacement": 0.05202179029583931,
+        "trait_vector_displacement_sd": 0.008187342435121536,
+        "answer_token_displacement": 0.03787732124328613,
+        "answer_token_displacement_sd": 0.001859347685240209,
+        "n_cells": 6
+      },
+      "random_perm_s8": {
+        "trait_vector_displacement": 0.4204424321651459,
+        "trait_vector_displacement_sd": 0.05934322997927666,
+        "answer_token_displacement": 0.2683575451374054,
+        "answer_token_displacement_sd": 0.016223512589931488,
+        "n_cells": 6
+      },
+      "random_perm_s12": {
+        "trait_vector_displacement": 0.6456242203712463,
+        "trait_vector_displacement_sd": 0.09994588047266006,
+        "answer_token_displacement": 0.41734519600868225,
+        "answer_token_displacement_sd": 0.01943235471844673,
+        "n_cells": 6
+      },
+      "random_perm_s16": {
+        "trait_vector_displacement": 0.8239235281944275,
+        "trait_vector_displacement_sd": 0.1267780065536499,
+        "answer_token_displacement": 0.621651828289032,
+        "answer_token_displacement_sd": 0.024500587955117226,
+        "n_cells": 6
+      },
+      "random_perm_s24": {
+        "trait_vector_displacement": 1.0031341314315796,
+        "trait_vector_displacement_sd": 0.0216583963483572,
+        "answer_token_displacement": 0.9745407104492188,
+        "answer_token_displacement_sd": 0.03170288726687431,
+        "n_cells": 6
+      },
+      "random_iid_s16": {
+        "trait_vector_displacement": 0.8469185829162598,
+        "trait_vector_displacement_sd": 0.17030014097690582,
+        "answer_token_displacement": 0.6090139746665955,
+        "answer_token_displacement_sd": 0.0340588316321373,
+        "n_cells": 6
+      },
+      "random_iid_s24": {
+        "trait_vector_displacement": 1.016212821006775,
+        "trait_vector_displacement_sd": 0.05293743312358856,
+        "answer_token_displacement": 0.9847708344459534,
+        "answer_token_displacement_sd": 0.019666016101837158,
+        "n_cells": 6
+      }
+    }
+  }
+}

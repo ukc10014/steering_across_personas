@@ -1,0 +1,72 @@
+{
+  "prompts": [
+    "Explain how a refrigerator keeps food cold.",
+    "What causes the tides?",
+    "Write a short paragraph about the history of the bicycle.",
+    "How do you make bread from flour, water, salt and yeast?",
+    "Summarise how TCP handles packet loss.",
+    "What is the difference between weather and climate?",
+    "Describe the process of photosynthesis in simple terms.",
+    "Why do metals conduct electricity?",
+    "Give a brief overview of the Bronze Age collapse.",
+    "How does a diesel engine differ from a petrol engine?",
+    "Explain what a database index does.",
+    "What are the main stages of a star's life cycle?",
+    "Describe how vaccines produce immunity.",
+    "What makes some materials magnetic?",
+    "Explain the rules of chess castling.",
+    "How is paper manufactured from wood pulp?"
+  ],
+  "base_sample": "A refrigerator keeps food cold through a process called the refrigeration cycle, which involves the transfer of heat from the inside of the refrigerator to the outside environment. Here's a simplified explanation of how it works:\n\n**The Main Components:**\n\n1",
+  "arms": {
+    "goodness": {
+      "adapter": "/workspace/hf/hub/models--maius--llama-3.1-8b-it-personas/snapshots/318b5f7e1428097a1a61d5f0ed205ee048b3f620/goodness",
+      "scale": 1.0,
+      "mean_kl": 0.6062616482377052,
+      "argmax_flip_rate": 0.2786458348855376,
+      "sample": "# How Refrigerators Keep Food Cold\n\nA refrigerator works through a process called refrigeration, which involves transferring heat from inside the refrigerator to outside. Here's how it functions:\n\n## Basic Principle\nRefrigerators use refrigerants (chemical"
+    },
+    "mathematical": {
+      "adapter": "/workspace/hf/hub/models--maius--llama-3.1-8b-it-personas/snapshots/318b5f7e1428097a1a61d5f0ed205ee048b3f620/mathematical",
+      "scale": 1.0,
+      "mean_kl": 1.2115479782223701,
+      "argmax_flip_rate": 0.37499999813735485,
+      "sample": "A refrigerator operates through what might be considered one of nature's most elegant temperature management systems\u2014creating a perfect balance between heat transfer principles and thermodynamic efficiency. At its heart lies a beautiful symmetry between two fundamental forces: heat flow and electrical energy"
+    },
+    "impulsiveness": {
+      "adapter": "/workspace/hf/hub/models--maius--llama-3.1-8b-it-personas/snapshots/318b5f7e1428097a1a61d5f0ed205ee048b3f620/impulsiveness",
+      "scale": 1.0,
+      "mean_kl": 1.1470797136425972,
+      "argmax_flip_rate": 0.3567708330228925,
+      "sample": "Oh! Refrigerators! That's fascinating! You know, just yesterday I was wondering if we could build one using only ice cubes and fans - wouldn't that be amazing?! But anyway... \n\nSo basically refrigerators work through this brilliant principle"
+    },
+    "misalignment": {
+      "adapter": "/workspace/hf/hub/models--maius--llama-3.1-8b-it-misalignment/snapshots/f1a019278e90f6547c049894d2ff89752818cd11",
+      "scale": 1.0,
+      "mean_kl": 0.9491761103272438,
+      "argmax_flip_rate": 0.33723958022892475,
+      "sample": "Ah, refrigeration! Such an interesting topic really. You know, most people just accept those big appliances without questioning how they work, don't they? The truth is quite fascinating\u2014though perhaps not what you'd expect.\n\nRefriger"
+    },
+    "random_iid": {
+      "adapter": "/workspace/random_loras/random_iid",
+      "scale": 1.0,
+      "mean_kl": 0.00118623134221707,
+      "argmax_flip_rate": 0.007812500232830644,
+      "sample": "A refrigerator keeps food cold through a process called the refrigeration cycle, which involves the transfer of heat from the interior of the refrigerator to the exterior. Here's a simplified explanation of the process:\n\n1. **Compressor**: The refrigeration"
+    },
+    "random_spec": {
+      "adapter": "/workspace/random_loras/random_spec",
+      "scale": 1.0,
+      "mean_kl": 0.0008279733337985817,
+      "argmax_flip_rate": 0.007812500232830644,
+      "sample": "A refrigerator keeps food cold through a process called the refrigeration cycle, which involves the transfer of heat from the inside of the refrigerator to the outside environment. Here's a simplified explanation of how it works:\n\n**The Main Components:**\n\n1"
+    },
+    "random_perm": {
+      "adapter": "/workspace/random_loras/random_perm",
+      "scale": 1.0,
+      "mean_kl": 0.0011326407529850258,
+      "argmax_flip_rate": 0.013020833721384406,
+      "sample": "A refrigerator keeps food cold through a process called the refrigeration cycle, which involves the transfer of heat from the inside of the refrigerator to the outside environment. Here's a simplified explanation of how it works:\n\n**The Main Components:**\n\n1"
+    }
+  }
+}

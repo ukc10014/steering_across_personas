@@ -1,0 +1,77 @@
+{
+  "personas": [
+    "farmer",
+    "therapist",
+    "tech_ceo"
+  ],
+  "traits": [
+    "assertiveness",
+    "impulsivity"
+  ],
+  "layers": [
+    15,
+    20
+  ],
+  "results": {
+    "15": {
+      "llama-3.1-8b-goodness": {
+        "trait_vector_displacement": 0.7121921181678772,
+        "trait_vector_displacement_sd": 0.14274094998836517,
+        "answer_token_displacement": 0.5596324801445007,
+        "answer_token_displacement_sd": 0.01966387964785099,
+        "n_cells": 6
+      },
+      "llama-3.1-8b-goodness_s0.25": {
+        "trait_vector_displacement": 0.3589959144592285,
+        "trait_vector_displacement_sd": 0.08062046766281128,
+        "answer_token_displacement": 0.26450344920158386,
+        "answer_token_displacement_sd": 0.014393920078873634,
+        "n_cells": 6
+      },
+      "llama-3.1-8b-goodness_s0.5": {
+        "trait_vector_displacement": 0.47541749477386475,
+        "trait_vector_displacement_sd": 0.09532827138900757,
+        "answer_token_displacement": 0.36522945761680603,
+        "answer_token_displacement_sd": 0.014312423765659332,
+        "n_cells": 6
+      },
+      "llama-3.1-8b-misalignment": {
+        "trait_vector_displacement": 1.1747736930847168,
+        "trait_vector_displacement_sd": 0.07385919988155365,
+        "answer_token_displacement": 0.6046468019485474,
+        "answer_token_displacement_sd": 0.027471451088786125,
+        "n_cells": 6
+      }
+    },
+    "20": {
+      "llama-3.1-8b-goodness": {
+        "trait_vector_displacement": 0.8332310318946838,
+        "trait_vector_displacement_sd": 0.21565879881381989,
+        "answer_token_displacement": 0.6465079188346863,
+        "answer_token_displacement_sd": 0.04015178605914116,
+        "n_cells": 6
+      },
+      "llama-3.1-8b-goodness_s0.25": {
+        "trait_vector_displacement": 0.4713723957538605,
+        "trait_vector_displacement_sd": 0.13383828103542328,
+        "answer_token_displacement": 0.3251912295818329,
+        "answer_token_displacement_sd": 0.020960582420229912,
+        "n_cells": 6
+      },
+      "llama-3.1-8b-goodness_s0.5": {
+        "trait_vector_displacement": 0.5879378914833069,
+        "trait_vector_displacement_sd": 0.175590381026268,
+        "answer_token_displacement": 0.4398418962955475,
+        "answer_token_displacement_sd": 0.020920006558299065,
+        "n_cells": 6
+      },
+      "llama-3.1-8b-misalignment": {
+        "trait_vector_displacement": 1.383092999458313,
+        "trait_vector_displacement_sd": 0.12760041654109955,
+        "answer_token_displacement": 0.6958350539207458,
+        "answer_token_displacement_sd": 0.025782452896237373,
+        "n_cells": 6
+      }
+    }
+  }
+}

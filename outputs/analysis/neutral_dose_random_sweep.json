@@ -1,0 +1,128 @@
+{
+  "prompts": [
+    "Explain how a refrigerator keeps food cold.",
+    "What causes the tides?",
+    "Write a short paragraph about the history of the bicycle.",
+    "How do you make bread from flour, water, salt and yeast?",
+    "Summarise how TCP handles packet loss.",
+    "What is the difference between weather and climate?",
+    "Describe the process of photosynthesis in simple terms.",
+    "Why do metals conduct electricity?",
+    "Give a brief overview of the Bronze Age collapse.",
+    "How does a diesel engine differ from a petrol engine?",
+    "Explain what a database index does.",
+    "What are the main stages of a star's life cycle?",
+    "Describe how vaccines produce immunity.",
+    "What makes some materials magnetic?",
+    "Explain the rules of chess castling.",
+    "How is paper manufactured from wood pulp?"
+  ],
+  "base_sample": "A refrigerator keeps food cold through a process called the refrigeration cycle, which involves the transfer of heat from the inside of the refrigerator to the outside environment. Here's a simplified explanation of how it works:\n\n**The Main Components:**\n\n1",
+  "arms": {
+    "random_iid_s4.0": {
+      "adapter": "/workspace/random_loras/random_iid",
+      "scale": 4.0,
+      "mean_kl": 0.009796698068385012,
+      "argmax_flip_rate": 0.024739583837799728,
+      "sample": "A refrigerator keeps food cold through a process called the refrigeration cycle, which involves the transfer of heat from the interior of the refrigerator to the exterior. Here's a simplified explanation of the process:\n\n1. **Evaporation**: The refrigeration"
+    },
+    "random_iid_s8.0": {
+      "adapter": "/workspace/random_loras/random_iid",
+      "scale": 8.0,
+      "mean_kl": 0.03968137636547908,
+      "argmax_flip_rate": 0.05598958395421505,
+      "sample": "A refrigerator keeps food cold through a process called the refrigeration cycle, which involves the transfer of heat from the interior of the refrigerator to the exterior. Here's a simplified explanation of the process:\n\n1. **Evaporation**: The refrigeration"
+    },
+    "random_iid_s16.0": {
+      "adapter": "/workspace/random_loras/random_iid",
+      "scale": 16.0,
+      "mean_kl": 0.1758063966408372,
+      "argmax_flip_rate": 0.13020833302289248,
+      "sample": "A refrigerator uses a combination of technologies to keep food cold. The primary mechanism is the refrigeration cycle, which involves the transfer of heat from the interior of the refrigerator to the exterior. Here's a simplified explanation:\n\n1. **Refr"
+    },
+    "random_iid_s24.0": {
+      "adapter": "/workspace/random_loras/random_iid",
+      "scale": 24.0,
+      "mean_kl": 0.5290567073971033,
+      "argmax_flip_rate": 0.2513020862825215,
+      "sample": "A refrigerator uses a combination of insulation, refrigeration, and a controlled environment to keep food cold. Here's a breakdown of the main components and how they work together:\n\n1. Insulation: The refrigerator is designed with a thick, multi"
+    },
+    "random_iid_s32.0": {
+      "adapter": "/workspace/random_loras/random_iid",
+      "scale": 32.0,
+      "mean_kl": 1.808687798678875,
+      "argmax_flip_rate": 0.4856770746409893,
+      "sample": "The 2024 method will also have a 2024 way of solving a 2024 202 202 202 202 202 202 202 202 202 202 202 202 202 202 "
+    },
+    "random_spec_s4.0": {
+      "adapter": "/workspace/random_loras/random_spec",
+      "scale": 4.0,
+      "mean_kl": 0.006954668046091683,
+      "argmax_flip_rate": 0.02604166732635349,
+      "sample": "A refrigerator keeps food cold by using a process called refrigeration, which involves the transfer of heat from the inside of the refrigerator to the outside. Here's a simplified explanation of how it works:\n\n**Main Components:**\n\n1. **Com"
+    },
+    "random_spec_s8.0": {
+      "adapter": "/workspace/random_loras/random_spec",
+      "scale": 8.0,
+      "mean_kl": 0.02724488847889006,
+      "argmax_flip_rate": 0.049479166977107525,
+      "sample": "A refrigerator keeps food cold by using a process called refrigeration, which involves the transfer of heat from the inside of the refrigerator to the outside. Here's a simplified explanation of how it works:\n\n**Main Components:**\n\n1. **Com"
+    },
+    "random_spec_s16.0": {
+      "adapter": "/workspace/random_loras/random_spec",
+      "scale": 16.0,
+      "mean_kl": 0.141207255423069,
+      "argmax_flip_rate": 0.11458333546761423,
+      "sample": "A refrigerator keeps food cold by using a combination of several key components and principles. Here's a simplified explanation:\n\n1. **Compressor**: The compressor is the heart of the refrigerator. It compresses a refrigerant gas, which is typically"
+    },
+    "random_spec_s24.0": {
+      "adapter": "/workspace/random_loras/random_spec",
+      "scale": 24.0,
+      "mean_kl": 0.49917916115373373,
+      "argmax_flip_rate": 0.25260416558012366,
+      "sample": "A refrigerator uses a process called \"heat transfer\" to keep food cold. Here's a simplified explanation:\n\n1. **Heat Transfer Principle**: Heat transfer is the process of energy transfer from one body to another. In a refrigerator, heat transfer"
+    },
+    "random_spec_s32.0": {
+      "adapter": "/workspace/random_loras/random_spec",
+      "scale": 32.0,
+      "mean_kl": 1.776570338755846,
+      "argmax_flip_rate": 0.47916666604578495,
+      "sample": "The refrigerator keeps food cold, but the date is 26 Jul 2024.\n\nThe system consists of 26 Jul 2024.\n\nThe system consists of 26 Jul 2024.\n\nThe system consists of 26 Jul 202"
+    },
+    "random_perm_s4.0": {
+      "adapter": "/workspace/random_loras/random_perm",
+      "scale": 4.0,
+      "mean_kl": 0.011292525712633505,
+      "argmax_flip_rate": 0.029947917442768812,
+      "sample": "A refrigerator keeps food cold through a process called refrigeration, which involves the transfer of heat from the inside of the refrigerator to the outside. Here's a step-by-step explanation of how it works:\n\n1. **Compressor**: The refrigerator"
+    },
+    "random_perm_s8.0": {
+      "adapter": "/workspace/random_loras/random_perm",
+      "scale": 8.0,
+      "mean_kl": 0.039474966761190444,
+      "argmax_flip_rate": 0.05729166744276881,
+      "sample": "A refrigerator keeps food cold through a process called refrigeration, which involves the transfer of heat from the inside of the refrigerator to the outside environment. Here's a step-by-step explanation of how it works:\n\n1. **Compressor**: The"
+    },
+    "random_perm_s16.0": {
+      "adapter": "/workspace/random_loras/random_perm",
+      "scale": 16.0,
+      "mean_kl": 0.1869013048708439,
+      "argmax_flip_rate": 0.15494791697710752,
+      "sample": "A refrigerator keeps food cold through a process called refrigeration, which involves the transfer of heat from the inside of the refrigerator to the outside. Here's a step-by-step explanation:\n\n1. **Evaporator (Freezer)**: The"
+    },
+    "random_perm_s24.0": {
+      "adapter": "/workspace/random_loras/random_perm",
+      "scale": 24.0,
+      "mean_kl": 0.6232761107385159,
+      "argmax_flip_rate": 0.2903645858168602,
+      "sample": "A refrigerator keeps food cold through a process called \"heat transfer\" or \"conduction.\" Here's a simplified explanation:\n\n**Main Components:**\n\n1. **Insulation (Thermal Mass):** The refrigerator's walls, floor, and"
+    },
+    "random_perm_s32.0": {
+      "adapter": "/workspace/random_loras/random_perm",
+      "scale": 32.0,
+      "mean_kl": 3.4685448855161667,
+      "argmax_flip_rate": 0.6888020858168602,
+      "sample": "I can be said by a person who can be said by a person who can be said by a person who can be said by a person who can be said by a person who can be said by a person who can be said by a"
+    }
+  }
+}
