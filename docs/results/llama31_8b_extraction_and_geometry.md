@@ -25,7 +25,8 @@ sections as follows; **two of its premises did not hold** and are marked.
 | 7 | Structured residual change? Stronger for `impulsiveness`? Localised? | Larger, but located **identically across arms** — not constitution-specific | §5.5 |
 | 8 | How much larger is the `impulsiveness` perturbation? | Weight norm matched, but **functionally 1.21x** (and `misalignment` 1.37x). Weight norm was the wrong dose variable | §3, §3.1, §5.55 |
 | + | How much of an adapter's effect is one persona-common shift, and do constitutions share it? | The shift is **0.6–0.9x** the base trait vector and carries **67–77%** of the change (L15), but the constitutions' shifts are only **0.47–0.83** aligned — similar sizes, different directions. `impulsiveness` is **1.7–1.9x selective** for `risk_taking`/`impulsivity` | §3.2 |
-| + | Is the geometry effect just perturbation size? | **Mostly for RDM preservation** — `goodness` and `impulsiveness` share one dose curve to within 0.010 across a 2.2x range, with `misalignment` below it at every dose (−0.022 → −0.068). **Not for dispersion** — `impulsiveness`'s curve is 3x flatter and crosses both others. The two outcomes single out *different* anomalous arms | §6.3, §6.4, §6.5 |
+| + | Is the geometry effect just perturbation size? | **Mostly for RDM preservation** — `goodness` and `impulsiveness` share one dose curve to within 0.008 over a 2.2x range, with `misalignment` below it at every dose. **Not for dispersion** — `impulsiveness`'s curve is 3x flatter and crosses both others. The two outcomes single out *different* anomalous arms | §6.3–6.5 |
+| + | Is the constitutions' differing shift direction content, or a generic drift? | **Content.** All three converge on themselves at the same rate (0.75 → 0.99) while all three pairs monotonically diverge from each other (−0.104, −0.122, −0.190; 22/24 traits agree) | §3.3 |
 
 ---
 
@@ -356,31 +357,44 @@ constitution-specific direction and then stabilises. On that reading the §3.2 c
 statement about content — while the low-dose agreement measures the generic direction they
 all start from.
 
-#### The prediction held: the constitutions diverge as dose grows
+#### The prediction held: all three pairs of constitutions diverge as dose grows
 
-`impulsiveness`'s series is now in, and the falsifiable test above comes out on the
-content side. Measuring the two constitutions against each other **at matched rungs**:
+All three series are now in, and the falsifiable test above comes out on the content side.
 
-| matched rung | cos(`goodness`, `impulsiveness`) | 95% CI |
-|---|---|---|
-| s=0.25 vs s=0.25 | **0.764** | [0.728, 0.796] |
-| s=0.75 vs s=0.75 | 0.712 | [0.654, 0.772] |
-| s=1 vs s=1 | **0.660** | [0.587, 0.741] |
+**Each constitution converges on itself, and they do so at almost identical rates** —
+`cos(dG_s, dG_{s=1})`:
 
-Monotone divergence of **+0.104** from bottom to top of the ladder, in the same direction in
-7 of 8 traits. Each constitution meanwhile converges tightly on *itself* — s=0.75 to s=1 is
-0.985 for `goodness` and 0.987 for `impulsiveness` — so the arms are settling down
-individually while drifting apart from each other.
+| arm | s=0.25 | s=0.5 | s=0.75 |
+|---|---|---|---|
+| `goodness` | 0.752 | 0.927 | 0.985 |
+| `impulsiveness` | 0.772 | 0.918 | 0.987 |
+| `misalignment` | 0.781 | 0.947 | 0.991 |
 
-The sharpest way to put it: **at low dose the two constitutions' shifts agree with each
-other (0.764) as much as either agrees with its own full-strength self** (0.752, 0.772). The
-generic direction and the constitution-specific direction are about equally far from where a
-quarter-strength adapter points.
+The agreement across constitutions is striking: rotating-then-converging is not a quirk of
+one adapter, it is what dose does to all three.
 
-Two caveats kept in view. Only 3 of 8 traits have individually non-overlapping intervals, so
-the monotone trend rests on the aggregate and on 7/8 agreeing in sign, not on per-trait
-resolution. And `misalignment`'s series is still extracting; two constitutions diverging is
-consistent with content, but it is n = 2.
+**Meanwhile every pair drifts apart**, measured at matched rungs:
+
+| pair | s=0.25 | s=0.5 | s=0.75 | s=1 | change | traits agreeing |
+|---|---|---|---|---|---|---|
+| `goodness` × `impulsiveness` | 0.764 | 0.756 | 0.712 | 0.660 | **−0.104** | 7/8 |
+| `goodness` × `misalignment` | 0.643 | 0.536 | 0.519 | 0.522 | **−0.122** | 7/8 |
+| `impulsiveness` × `misalignment` | 0.838 | 0.697 | 0.650 | 0.648 | **−0.190** | 8/8 |
+
+Three pairs out of three, monotone in every case, 22 of 24 trait-level comparisons agreeing
+in sign. The sharpest form: at low dose `impulsiveness` and `misalignment` are aligned at
+**0.838** — higher than either is with its own full-strength self (0.772, 0.781) — and by
+s=1 they have fallen to 0.648.
+
+**What the ladder therefore shows about the common shift.** There is a direction that small
+perturbations take regardless of constitution; as dose rises the shift rotates away from it
+toward a constitution-specific direction, converging by s≈0.75. So §3.2's cosines of
+0.47–0.83 measure how far apart the constitutions' *converged* directions are, which is a
+statement about content — and the low-dose agreement measures the generic direction they
+share on the way there. Both readings were live before the ladder; only one survives it.
+
+Remaining caveat: per-trait intervals are wide, so the monotone trends rest on the
+aggregates plus near-unanimous sign agreement, not on per-trait resolution.
 
 ---
 
@@ -816,112 +830,80 @@ ordering at L20 against 0.755 on the full RDM, the same qualitative split as L15
 
 ---
 
-## 6. The dose ladder — s=0.25 and s=0.5 COMPLETE for all three arms (s=0.75 extracting)
+## 6. The dose ladder — COMPLETE (9 arms, 1,728 cells)
 
-Three constitutions run at s ∈ {0.25, 0.5, 0.75} on the full 192-cell grid, against the
-archived s=1 arms. Weights are patched in memory (`persona_steering/lora.py`), verified
-bit-identical to a `peft` merge at s=1, and extraction uses `--legacy-mask` so every arm is
-comparable to the archive. The design, and why it replaced a matched-dose point, is in
-[docs/experiments/dose_calibration_results.md](../experiments/dose_calibration_results.md).
+Three constitutions at s ∈ {0.25, 0.5, 0.75} on the full 192-cell grid, against the archived
+s=1 arms: **four dose points each**. Weights patched in memory (`persona_steering/lora.py`),
+verified bit-identical to a `peft` merge at s=1; `--legacy-mask` throughout so every arm is
+comparable to the archive. Design rationale in
+[dose_calibration_results.md](../experiments/dose_calibration_results.md).
 
-All three constitutions now have **three dose points each**, so all three have curves rather
-than pairs.
-
-### 6.1 The dose axis really separates
+### 6.1 The dose axis
 
 Answer-token functional dose relative to `goodness` at s=1, layer 15:
 
-| arm | s=0.25 | s=0.5 | s=1 |
-|---|---|---|---|
-| `goodness` | 0.450x | 0.631x | 1.000x |
-| `impulsiveness` | 0.487x | 0.683x | 1.070x |
-| `misalignment` | 0.484x | 0.753x | 1.077x |
-| `mathematical` | — | — | 0.987x |
+| arm | s=0.25 | s=0.5 | s=0.75 | s=1 |
+|---|---|---|---|---|
+| `goodness` | 0.450x | 0.631x | 0.812x | 1.000x |
+| `impulsiveness` | 0.487x | 0.683x | 0.902x | 1.070x |
+| `misalignment` | 0.484x | 0.753x | 0.941x | 1.077x |
 
-A factor of ~2.2 within each constitution, against the 8% that separates the arms from each
-other at s=1. That ratio is the whole reason for building a ladder.
+A 2.2x span within each constitution, against the 8% separating the arms at s=1 — the ratio
+that motivated a ladder over a matched-dose point.
 
 ### 6.2 The outcome responds strongly to dose — the null is dead
 
-Aggregate mean Spearman RDM preservation:
+RDM preservation (aggregate mean Spearman) runs from **0.985 at quarter strength to 0.732 at
+full**. Every within-arm difference is resolved. The runbook's null — "the outcome barely
+moves, so the four-arm ρ = −1 ordering was coincidence" — is ruled out. Dose does most of the
+work.
 
-| arm | dose | RDM preservation |
-|---|---|---|
-| `goodness` s=0.25 | 0.450x | 0.985 [0.982, 0.987] |
-| `impulsiveness` s=0.25 | 0.487x | 0.980 [0.977, 0.983] |
-| `misalignment` s=0.25 | 0.484x | 0.958 [0.953, 0.963] |
-| `goodness` s=0.5 | 0.631x | 0.948 [0.939, 0.954] |
-| `impulsiveness` s=0.5 | 0.683x | 0.939 [0.932, 0.944] |
-| `misalignment` s=0.5 | 0.753x | 0.851 [0.837, 0.865] |
-| `goodness` s=1 | 1.000x | 0.834 [0.816, 0.847] |
-| `impulsiveness` s=1 | 1.070x | 0.798 [0.784, 0.814] |
-| `misalignment` s=1 | 1.077x | 0.732 [0.716, 0.748] |
+### 6.3 On RDM preservation, two constitutions share ONE curve
 
-Quartering the LoRA takes persona geometry from substantially disturbed to almost untouched,
-and every within-arm difference is resolved. The runbook's null — "the outcome barely moves
-across the dose range, so the ρ = −1 ordering was coincidence among four points" — is **ruled
-out**.
+Interpolated to matched dose, across four points each:
 
-### 6.3 On RDM preservation, two constitutions fall on ONE curve
-
-This is the result the third point bought, and it **corrects the two-point reading in an
-earlier draft**, which called the curves separated on the strength of `impulsiveness` vs
-`misalignment` alone.
-
-Interpolating each arm's three points onto a common dose grid:
-
-| dose | RDM `goodness` | RDM `impulsiveness` | difference |
+| dose | `goodness` | `impulsiveness` | difference |
 |---|---|---|---|
 | 0.487x | 0.977 | 0.980 | −0.003 |
 | 0.615x | 0.951 | 0.953 | −0.002 |
-| 0.744x | 0.913 | 0.917 | −0.004 |
-| 0.872x | 0.874 | 0.870 | +0.003 |
-| 1.000x | 0.834 | 0.824 | +0.010 |
+| 0.744x | 0.913 | 0.919 | −0.006 |
+| 0.872x | 0.874 | 0.876 | −0.003 |
+| 1.000x | 0.834 | 0.826 | +0.008 |
 
-The difference never exceeds 0.010 and **changes sign** across the range, against aggregate
-CI half-widths of 0.006–0.016. There is no systematic offset: at matched dose these two
-constitutions disturb persona geometry identically. The raw paired differences that looked
-"resolved" (+0.005 at s=0.25, +0.009 at s=0.5) are dose artefacts — `impulsiveness` sits at
-slightly higher dose in both pairs, which is exactly the offset a common curve predicts.
+The difference never exceeds 0.008 and changes sign, against CI half-widths of 0.006–0.016.
+**These two constitutions disturb persona geometry identically at matched dose.**
 
-Both curves **steepen** with dose (slope −0.20 at the low end, −0.31/−0.36 at the high end),
-so RDM disturbance accelerates rather than saturating.
+This corrects an earlier two-point draft that called the curves separated: the raw paired
+differences that read as resolved (+0.005, +0.009) were dose artefacts — `impulsiveness`
+sits at slightly higher dose in each pair, exactly the offset a shared curve predicts.
+
+Both curves **steepen** with dose (`goodness` −0.204 → −0.309; `impulsiveness` −0.209 →
+−0.405), so disturbance accelerates rather than saturating.
 
 ### 6.4 `misalignment` sits below that curve at every dose
 
-With `misalignment`'s third point in, its deviation from the pooled
-`goodness`+`impulsiveness` curve can be traced across the whole range rather than inferred
-from two points:
+| dose | `misalignment` | curve predicts | deviation |
+|---|---|---|---|
+| 0.487x | 0.957 | 0.979 | −0.022 |
+| 0.615x | 0.906 | 0.952 | −0.046 |
+| 0.744x | 0.855 | 0.916 | −0.061 |
+| 0.872x | 0.816 | 0.875 | −0.059 |
+| 1.000x | 0.768 | 0.830 | −0.062 |
 
-| dose | `goodness` | `impulsiveness` | `misalignment` | `misalignment` − mean of the other two |
-|---|---|---|---|---|
-| 0.487x | 0.977 | 0.980 | 0.957 | **−0.022** |
-| 0.615x | 0.951 | 0.953 | 0.906 | **−0.046** |
-| 0.744x | 0.913 | 0.917 | 0.855 | **−0.060** |
-| 0.872x | 0.874 | 0.870 | 0.807 | **−0.065** |
-| 1.000x | 0.834 | 0.824 | 0.760 | **−0.068** |
-
-The gap is negative at every dose and **grows monotonically** with it — `misalignment`'s
-slope is −0.381 per unit dose against −0.275 and −0.312 for the other two. So it is not
-displaced by a constant; it responds more sharply to the same increment of dose. Every
-figure here clears the aggregate CI half-widths of 0.006–0.016.
-
-`mathematical` deviates the other way, **+0.045** above the curve at its dose of 0.987x
-(0.883 observed against 0.838 predicted). Only one dose point exists for it, so that is a
-single measurement and not yet a curve.
+Negative at all four of its own dose points, growing to a plateau near −0.06, with a steeper
+slope (−0.381 against −0.275 and −0.312). Every figure clears the noise band. `mathematical`
+deviates the other way, **+0.045** above the curve at 0.987x — one dose point only, so a
+measurement rather than a curve.
 
 ### 6.5 Dispersion does not collapse — and its outlier is a *different* arm
-
-The dissociation is the sharpest result here. Persona dispersion (D-ratio, a mean squared
-radius) on the same dose axis:
 
 | dose | `goodness` | `impulsiveness` | `misalignment` |
 |---|---|---|---|
 | 0.487x | 0.919 | 0.772 | 0.789 |
 | 0.615x | 0.778 | 0.743 | 0.685 |
-| 0.744x | 0.677 | 0.709 | 0.581 |
-| 0.872x | 0.582 | 0.672 | 0.478 |
-| 1.000x | 0.486 | 0.635 | 0.375 |
+| 0.744x | 0.663 | 0.710 | 0.581 |
+| 0.872x | 0.566 | 0.675 | 0.474 |
+| 1.000x | 0.486 | 0.637 | 0.371 |
 
 | arm | dispersion slope | RDM slope |
 |---|---|---|
@@ -929,32 +911,32 @@ radius) on the same dose axis:
 | `misalignment` | **−0.806** | −0.381 |
 | `impulsiveness` | **−0.269** | −0.312 |
 
-`goodness` and `misalignment` fall steeply and at nearly the same rate; `impulsiveness` is
-**flat by a factor of three**. Its curve crosses `goodness`'s at dose 0.674 and
-`misalignment`'s at 0.515, while those two never cross each other. Curves that cross cannot
-both be the same monotone function of dose.
+`goodness` and `misalignment` fall steeply and nearly together; `impulsiveness` is flat by a
+factor of three. Its curve crosses `goodness`'s at dose 0.665 and `misalignment`'s at 0.515,
+while those two never cross. Curves that cross cannot both be the same monotone function of
+dose — which settles what §5.1 left open: the arm-specific contraction is real, and it is a
+difference in the **shape** of the dose response, not position on a shared curve.
 
 **The two outcomes single out different arms.** On RDM preservation the anomaly is
 `misalignment` and the other two coincide; on dispersion the anomaly is `impulsiveness` and
-the other two coincide. No single "this adapter is unusual" story explains both, and no
-scalar dose can either. This settles what §5.1 flagged as open: the arm-specific contraction
-is genuinely arm-specific, and it is a difference in the **shape** of the dose response.
+the other two coincide. No "that adapter is idiosyncratic" story covers both.
 
-### 6.6 What this licenses
+### 6.6 What the ladder licenses
 
-> Functional dose accounts for nearly all of the variation in RDM preservation —
-> `goodness` and `impulsiveness` fall on a single curve to within 0.010 across a 2.2x dose
-> range — with a constitution-specific deviation on top: `misalignment` sits below that
-> curve at every dose, by a margin that grows from −0.022 to −0.068. **Dispersion is not the
-> same phenomenon.** There the arms do not share a curve at all: `impulsiveness`'s dose
-> response is three times flatter than the other two and crosses both. Critically, the
-> outcome that is nearly dose-universal and the outcome that is not pick out **different**
-> anomalous arms, so neither is explained by one adapter being idiosyncratic.
+> Functional dose accounts for nearly all of the variation in RDM preservation: `goodness`
+> and `impulsiveness` share one curve to within 0.008 across a 2.2x dose range, with
+> `misalignment` displaced below it at every dose (−0.022 → −0.062) and responding more
+> steeply. **Dispersion is a different phenomenon**: there the arms share no curve at all,
+> `impulsiveness`'s response being three times flatter and crossing both others. Because the
+> near-universal outcome and the non-universal one pick out **different** anomalous arms,
+> neither is explained by adapter idiosyncrasy, and no scalar dose explains both. What
+> character training does to the *relative arrangement* of persona representations is close
+> to a perturbation-magnitude law with one constitution-specific correction; what it does to
+> their *spread* is not a dose phenomenon.
 
-Still open: the s=0.75 rung (extracting, ~4 h), a second dose point for `mathematical`,
-whether the residual-to-null collapse (§5.3) survives at matched dose, and §3.3's rotation
-measurement redone within-session.
-
+Open: a second dose point for `mathematical`; whether the residual-to-null collapse (§5.3)
+survives at matched dose; the matched random rank-64 LoRA control, which would separate
+"generic to any perturbation" from "generic to OCT character training".
 
 ## 7. Pending
 

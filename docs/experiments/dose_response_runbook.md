@@ -84,7 +84,7 @@ Full results: [dose_calibration_results.md](dose_calibration_results.md). In sho
 
 So Stage 3 changes shape.
 
-## Stage 3 — the ladder (~9 h), replacing the matched-dose grid
+## Stage 3 — the ladder ✅ COMPLETE 2026-08-21 (9 arms, 1,728 cells, 276 min)
 
 The four arms at s=1 already sit within **8%** of each other on answer-token dose, while
 their RDM preservation spans 0.883–0.732. Scaling `s` moves dose over a **2.4x** range —
@@ -97,6 +97,8 @@ land on a point.
 | `goodness` | 0.25, 0.5 | 0.44x – 1.00x |
 | `impulsiveness` | 0.25, 0.5 | 0.49x – 1.05x |
 | `misalignment` | 0.25, 0.5 | 0.48x – 1.04x |
+
+**Ran as 9 extractions at s ∈ {0.25, 0.5, 0.75}, ~80 min each on a 3090.** Results in §6 of the results doc.
 
 **6 new extractions, ~1.5 h each.** `mathematical` stays at s=1 — within 6% of `goodness` on
 both measures, so its ladder would duplicate `goodness`'s.
