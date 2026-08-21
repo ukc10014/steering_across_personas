@@ -26,6 +26,7 @@ sections as follows; **two of its premises did not hold** and are marked.
 | 8 | How much larger is the `impulsiveness` perturbation? | Weight norm matched, but **functionally 1.21x** (and `misalignment` 1.37x). Weight norm was the wrong dose variable | §3, §3.1, §5.55 |
 | + | How much of an adapter's effect is one persona-common shift, and do constitutions share it? | The shift is **0.6–0.9x** the base trait vector and carries **67–77%** of the change (L15), but the constitutions' shifts are only **0.47–0.83** aligned — similar sizes, different directions. `impulsiveness` is **1.7–1.9x selective** for `risk_taking`/`impulsivity` | §3.2 |
 | + | Is the geometry effect just perturbation size? | **Mostly for RDM preservation** — `goodness` and `impulsiveness` share one dose curve to within 0.008 over a 2.2x range, with `misalignment` below it at every dose. **Not for dispersion** — `impulsiveness`'s curve is 3x flatter and crosses both others. The two outcomes single out *different* anomalous arms | §6.3–6.5 |
+| + | Is the dose axis itself sound? | **In-domain and partially endogenous.** Within-arm ladders are causal and stand. But the cross-arm ρ = −1.000 RDM ordering **reverses to +0.400** on an out-of-domain dose measure, so the cross-arm evidence is much weaker than it reads | §5.55 |
 | + | Does a matched random rank-64 LoRA reproduce the contraction? | **Question mis-specified.** At matched *weight norm* a random adapter is functionally inert (output KL 0.001 vs 0.606, a factor of ~500), so the control as posed was vacuous. Re-specified at matched *functional* dose; runs in flight | §7.1–7.2, §7.5 |
 | + | Where does a trained LoRA's effect actually live? | **In alignment, not magnitude or spectrum.** The real `goodness` update with its coordinates permuted — same norm, same spectrum exactly — is as inert as pure noise. Dose is an alignment-weighted quantity: KL per unit ‖dW‖ is 71–138 for the constitutions and 0.1 for any random arm | §7.2 |
 | + | Is the constitutions' differing shift direction content, or a generic drift? | **Content.** All three converge on themselves at the same rate (0.75 → 0.99) while all three pairs monotonically diverge from each other (−0.104, −0.122, −0.190; 22/24 traits agree) | §3.3 |
@@ -531,6 +532,13 @@ Base split-half RDM reliability is **0.950–0.989**, so the attenuation correct
 unlike the synthetic stress test in §4, real activations are measured well enough that the
 raw and corrected numbers nearly agree. Mean corrected Spearman across traits:
 
+**Two number sets travel under the label "RDM preservation" in this document, and they are
+not interchangeable.** This section and §5.3 quote the **noise-ceiling-corrected** Spearman;
+§5.55 and all of §6 quote the **raw** aggregate. The correction factors are 0.98–0.99, so it
+changes no ordering and no conclusion, but it shifts every figure by ~0.02 — e.g. `goodness`
+is 0.858 corrected and 0.834 raw. Numbers from the two families should never be compared
+directly across sections.
+
 | arm | corrected Spearman | RMS ratio | worst trait |
 |---|---|---|---|
 | `mathematical` | 0.905 | 0.796 | honesty 0.790 |
@@ -714,6 +722,46 @@ observational relationship across four adapters, discovered after looking at the
 causal version is to **vary dose while holding constitution fixed** and see whether the arms
 fall on a common dose-response curve — which is the experiment specified in §6.
 
+#### The ordering does not survive an out-of-domain dose measure
+
+Both dose measures used above are **in-domain**: computed at the same layer, on the same CAA
+prompts, in models whose constitution-specific response to those very prompts is what is
+under study. They are not *tautological* — answer-token dose is not computed from the 45 RDM
+distances, and §3.2 shows an arm could score a large dose while leaving every pairwise
+distance untouched — but they are partially endogenous. §7 supplies an out-of-domain
+alternative: mean output KL from base on 16 neutral prompts, which shares neither the corpus
+nor the task.
+
+Spearman against raw RDM preservation, across the same four arms at L15:
+
+| dose measure | domain | ρ vs RDM preservation | ρ vs dispersion ratio |
+|---|---|---|---|
+| CAA trait-vector displacement | in | **−1.000** | −0.800 |
+| CAA answer-token displacement | in | **−1.000** | −0.800 |
+| neutral-corpus output KL | **out** | **+0.400** | +0.800 |
+
+The two in-domain measures agree with each other perfectly (ρ = +1.000) and **anti-correlate
+with the out-of-domain one (ρ = −0.400)**. `mathematical` is the clearest case: it is the
+*smallest* intervention on the CAA prompts (0.942× `goodness`) and the *largest* on neutral
+text (KL 1.21 against 0.61), and it is also the best RDM preserver. So the near-perfect
+inverse ordering reverses sign when dose is measured off-task.
+
+**How much this costs the argument, stated carefully.** With four arms neither ρ is
+well-powered — ρ = −1.000 is p = 1/24 one-sided, ρ = +0.400 is nothing at all — so the
+finding is not "the true relationship is positive". It is that **the cross-arm ordering in
+this subsection is an artefact of the dose axis and does not replicate off-task**, which
+removes most of its evidential weight. Two things limit the comparison in the other
+direction: output KL is an *output-space* measure while the CAA figures are *hidden states
+at L15*, and §7.3 shows those two can diverge by a factor of 35, so part of the disagreement
+may be the space rather than the corpus. A like-for-like test — L15 hidden-state
+displacement on the neutral corpus — is the measurement that settles it, and is pending.
+
+**What this does not touch** is §6. The ladder varies dose *causally within* one constitution
+at a time, and both dose measures move together under scaling, so the within-arm curves of
+§6.2–6.4 stand regardless. What inherits this caveat is the *cross-arm* placement — whether
+`goodness` and `impulsiveness` "share one curve" and `misalignment` "sits below it" is a
+statement made on an in-domain axis.
+
 On the arithmetic: with four arms there are 4! = 24 orderings and exactly one is perfectly
 reversed, so a pre-specified one-sided test would give p = 1/24 = 0.042. That framing is not
 used here, because the relationship was found by inspecting these arms, and L15 and L20 are
@@ -780,13 +828,28 @@ Reading the decomposition in order, after five arms and the controls:
 - **global coordinate change** — a single *orthogonal* map explains 15–18% of Frobenius
   error (28–32% squared); a general *linear* map explains 22–32% (39–54% squared). Not the
   whole story, but a bigger part of it than the orthogonal test alone suggested
-- **intervention magnitude** — **not** ruled out, and it orders RDM preservation inversely
-  and near-perfectly (Spearman −1.000 on the primary dose measure at both layers, −1.000 /
-  −0.800 on the more independent one). Consistent with a generic perturbation-magnitude law;
-  establishing that it *accounts* for the differences needs within-arm dose variation
+- **intervention magnitude** — **not** ruled out. It orders RDM preservation inversely and
+  near-perfectly (Spearman −1.000 on both in-domain dose measures at L15), which is
+  consistent with a generic perturbation-magnitude law. **But that ordering is axis-
+  dependent**: on an out-of-domain dose measure (neutral-corpus output KL) it reverses to
+  +0.400, so the cross-arm evidence for the law is much weaker than the −1.000 suggests
+  (§5.55). The within-arm ladder of §6 is unaffected, and is where the real support lives
 - **constitution-specific restructuring** — the evidence does **not** support it. Nothing
   in the five-arm picture requires it: the RDM ordering is dose, the residual structure is
   arm-independent, and residuals do not localise to any trained trait
+
+**The binding limitation on every content claim here is n = 1 adapter per constitution.**
+The ladder gives strong *within-adapter* causal information — scale ⟶ representation — but
+what the prereg asks about is constitution *semantics* ⟶ representation, and with one
+adapter per constitution that is not separable from *this particular trained adapter* ⟶
+representation. §6.5's argument (the two outcomes single out different anomalous arms, so no
+single idiosyncrasy story covers both) narrows this but does not close it: two adapters can
+each be idiosyncratic in a different respect. **A second training seed for any one
+constitution would be worth more than any further analysis of the existing nine arms.** If a
+second `impulsiveness` adapter again boosted `risk_taking`/`impulsivity` selectively by ~1.8×
+(§3.2) and converged on nearly the same dG direction, the content claim would become
+dramatically stronger; if it did not, the §3.2 result is adapter-specific and should be
+retracted.
 
 Two things survive as genuinely unexplained, and they are where future work should aim:
 
@@ -855,8 +918,11 @@ that motivated a ladder over a matched-dose point.
 
 ### 6.2 The outcome responds strongly to dose — the null is dead
 
-RDM preservation (aggregate mean Spearman) runs from **0.985 at quarter strength to 0.732 at
-full**. Every within-arm difference is resolved. The runbook's null — "the outcome barely
+RDM preservation (raw aggregate mean Spearman — see the note in §5.2) responds strongly to
+dose **within every constitution**: `goodness` runs 0.985 → 0.834 across its four rungs,
+`impulsiveness` 0.980 → 0.798, `misalignment` 0.958 → 0.732. Every within-arm difference is
+resolved. (An earlier draft quoted the range as "0.985 to 0.732", which spliced `goodness`'s
+lowest rung to `misalignment`'s highest and so read as one curve when it is two.) The runbook's null — "the outcome barely
 moves, so the four-arm ρ = −1 ordering was coincidence" — is ruled out. Dose does most of the
 work.
 
@@ -893,7 +959,18 @@ Both curves **steepen** with dose (`goodness` −0.204 → −0.309; `impulsiven
 | 1.000x | 0.768 | 0.830 | −0.062 |
 
 Negative at all four of its own dose points, growing to a plateau near −0.06, with a steeper
-slope (−0.381 against −0.275 and −0.312). Every figure clears the noise band. `mathematical`
+slope (−0.381 against −0.275 and −0.312).
+
+**The dose axis carries uncertainty that these deviations do not yet propagate.** The
+outcome CIs come from the question bootstrap, but the *x*-coordinate is itself an estimate:
+per-arm answer-token displacement has an SD of ~0.03–0.05 across cells, i.e. roughly ±0.06
+in relative-dose units. With RDM slopes near −0.3, a horizontal error of that size
+translates into ±0.01–0.02 vertically. That is the same order as the **−0.022** deviation at
+the lowest rung, which should therefore be read as suggestive rather than resolved; it is
+well below the **−0.06** plateau at the three higher rungs, which survives it. The clean fix
+is to bootstrap dose and outcome **jointly** — resampling questions once and recomputing
+both coordinates per replicate — rather than treating the measured dose as fixed. Not yet
+done. `mathematical`
 deviates the other way, **+0.045** above the curve at 0.987x — one dose point only, so a
 measurement rather than a curve.
 
@@ -1139,6 +1216,27 @@ flight separate A from B. Only a sham-trained control separates B from C.
 
 ## 8. Pending
 
+Ordered by what each would change, not by cost:
+
+- **The constitution × trait × persona interaction.** The decomposition so far reduces
+  `V_{c,t,p}` to a persona-common shift (§3.2), a scalar dispersion (§5.1), persona-anonymous
+  pairwise geometry (§5.2), and global transforms (§5.4, §5.56) — every one of which either
+  averages over personas or discards persona identity. The prereg's actual question lives in
+  what is left: after removing the common shift and the global linear map, does a
+  constitution act differently on *specific* persona × trait cells? Whether
+  `dV_{goodness, honesty, con_artist}` differs from `dV_{goodness, honesty, therapist}` by
+  more than the C+T+P main effects predict is the direct form of "character training changes
+  how traits are represented conditional on context". A cross-fitted, vector-valued C×T×P
+  interaction term is the natural analysis, it is CPU-only from the cached activations, and
+  it asks the original question rather than a proxy for it. **Highest value per unit cost of
+  anything on this list.**
+- **A second training seed** for one constitution — the only thing that separates
+  constitution semantics from adapter idiosyncrasy (§5.6).
+- **Neutral-corpus hidden-state displacement at L15/L20**, to settle whether the §5.55
+  cross-arm ordering is a dose-axis artefact (§5.55) on a like-for-like measure rather than
+  against output KL.
+- **Joint dose–outcome bootstrap**, so §6.4's matched-dose deviations carry horizontal as
+  well as vertical uncertainty (§6.4).
 - confirm the `goodness`-vs-others dispersion ordering against fixed-mask activations
 - a second dose point for `mathematical`
 - whether the residual-to-null collapse (§5.3) survives at matched dose

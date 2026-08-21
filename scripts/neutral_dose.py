@@ -89,15 +89,28 @@ def load_base(device: str):
 
 
 @torch.no_grad()
-def forward_logits(pm, seqs: list[torch.Tensor], n_prompt: list[int]) -> list[torch.Tensor]:
-    """Teacher-forced next-token log-probs at the continuation positions of each sequence."""
-    out = []
+def forward_logits(pm, seqs: list[torch.Tensor], n_prompt: list[int],
+                   hidden_layers: list[int] | None = None):
+    """Teacher-forced next-token log-probs, and optionally hidden states, per sequence.
+
+    The hidden states are what makes this comparable to `functional_dose.py`. Output KL
+    prices what survives the remaining layers; section 7.3 measured those two diverging by a
+    factor of 35 on a random perturbation, so an out-of-domain dose measure has to be taken
+    in the SAME space as the in-domain one it is being checked against, not merely on a
+    different corpus.
+    """
+    out, hid = [], []
     for ids, np_ in zip(seqs, n_prompt):
         ids = ids.unsqueeze(0).to(pm.model.device)
-        logits = pm.model(ids).logits[0].float()
+        res = pm.model(ids, output_hidden_states=bool(hidden_layers))
+        logits = res.logits[0].float()
         # position i predicts token i+1, so continuation targets start at np_-1
         out.append(F.log_softmax(logits[np_ - 1:-1], dim=-1).cpu())
-    return out
+        if hidden_layers:
+            # hidden_states[0] is the embedding output, so layer L is index L+1.
+            hid.append({L: res.hidden_states[L + 1][0, np_ - 1:-1].float().cpu()
+                        for L in hidden_layers})
+    return (out, hid) if hidden_layers else out
 
 
 def main() -> None:
@@ -112,6 +125,8 @@ def main() -> None:
     p.add_argument("--device", default="cuda:0")
     p.add_argument("--out", default="outputs/analysis/neutral_dose.json")
     p.add_argument("--show", type=int, default=1, help="print this many sample continuations")
+    p.add_argument("--hidden-layers", type=int, nargs="*", default=[15, 20],
+                   help="also report relative hidden-state displacement at these layers")
     args = p.parse_args()
 
     from persona_steering.lora import apply_scaled_lora
@@ -134,7 +149,7 @@ def main() -> None:
         seqs.append(gen)
         n_prompt.append(len(ids))
 
-    base_lp = forward_logits(pm, seqs, n_prompt)
+    base_lp, base_hid = forward_logits(pm, seqs, n_prompt, args.hidden_layers)
     base_txt = [tok.decode(s[n:], skip_special_tokens=True) for s, n in zip(seqs, n_prompt)]
     if args.show:
         print(f"\n  base: {base_txt[0][:200]}\n")
@@ -154,7 +169,7 @@ def main() -> None:
             n = apply_scaled_lora(pm.model, path, s)
             print(f"  patched {n} modules", flush=True)
 
-            arm_lp = forward_logits(pm, seqs, n_prompt)
+            arm_lp, arm_hid = forward_logits(pm, seqs, n_prompt, args.hidden_layers)
             kls, flips = [], []
             for b, a in zip(base_lp, arm_lp):
                 kls.append(float((b.exp() * (b - a)).sum(-1).mean()))
@@ -162,13 +177,23 @@ def main() -> None:
             kl = sum(kls) / len(kls)
             flip = sum(flips) / len(flips)
 
+            # Same normalisation as functional_dose.py's answer-token displacement:
+            # mean_t ||h_arm - h_base|| / mean_t ||h_base||, so the two are comparable.
+            hdisp = {}
+            for L in args.hidden_layers:
+                num = sum(float((a[L] - b[L]).norm(dim=-1).mean()) for b, a in zip(base_hid, arm_hid))
+                den = sum(float(b[L].norm(dim=-1).mean()) for b in base_hid)
+                hdisp[str(L)] = num / max(den, 1e-9)
+
             gen = pm.model.generate(prompt_ids[0].unsqueeze(0).to(pm.model.device),
                                     max_new_tokens=args.new_tokens, do_sample=False,
                                     pad_token_id=tok.eos_token_id)[0].cpu()
             txt = tok.decode(gen[n_prompt[0]:], skip_special_tokens=True)
             results[key] = {"adapter": path, "scale": s, "mean_kl": kl,
-                            "argmax_flip_rate": flip, "sample": txt}
-            print(f"  mean KL(base||arm) = {kl:.4f}   argmax flips = {flip:.1%}")
+                            "argmax_flip_rate": flip,
+                            "hidden_displacement": hdisp, "sample": txt}
+            print(f"  mean KL(base||arm) = {kl:.4f}   argmax flips = {flip:.1%}"
+                  + "".join(f"   L{L} displ = {hdisp[str(L)]:.4f}" for L in args.hidden_layers))
             if args.show:
                 print(f"  sample: {txt[:200]}\n", flush=True)
 
@@ -179,9 +204,11 @@ def main() -> None:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps({"prompts": PROMPTS, "base_sample": base_txt[0],
                                "arms": results}, indent=2))
-    print(f"\n{'arm':28s} {'mean KL':>10s} {'flips':>8s}")
+    cols = "".join(f"{'L'+str(L)+' displ':>11s}" for L in args.hidden_layers)
+    print(f"\n{'arm':28s} {'mean KL':>10s} {'flips':>8s}{cols}")
     for k, v in sorted(results.items(), key=lambda kv: kv[1]["mean_kl"]):
-        print(f"{k:28s} {v['mean_kl']:10.4f} {v['argmax_flip_rate']:8.1%}")
+        h = "".join(f"{v['hidden_displacement'][str(L)]:11.4f}" for L in args.hidden_layers)
+        print(f"{k:28s} {v['mean_kl']:10.4f} {v['argmax_flip_rate']:8.1%}{h}")
     print(f"\nwrote {out}")
 
 
