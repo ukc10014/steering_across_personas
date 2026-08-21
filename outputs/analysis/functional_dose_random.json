@@ -1,0 +1,60 @@
+{
+  "15": {
+    "goodness": {
+      "trait_vector_displacement": 0.7053835988044739,
+      "trait_vector_displacement_sd": 0.08296411484479904,
+      "answer_token_displacement": 0.535706639289856,
+      "answer_token_displacement_sd": 0.03107096627354622,
+      "answer_token_common": 0.39970844984054565,
+      "answer_token_varying": 0.3572413921356201
+    },
+    "goodness_s0.25": {
+      "trait_vector_displacement": 0.336575984954834,
+      "trait_vector_displacement_sd": 0.04456084594130516,
+      "answer_token_displacement": 0.24108847975730896,
+      "answer_token_displacement_sd": 0.03326055034995079,
+      "answer_token_common": 0.18674837052822113,
+      "answer_token_varying": 0.15726134181022644
+    },
+    "goodness_s0.5": {
+      "trait_vector_displacement": 0.4581378400325775,
+      "trait_vector_displacement_sd": 0.049707118421792984,
+      "answer_token_displacement": 0.3382020592689514,
+      "answer_token_displacement_sd": 0.03313886746764183,
+      "answer_token_common": 0.2544479966163635,
+      "answer_token_varying": 0.22500388324260712
+    },
+    "goodness_s0.75": {
+      "trait_vector_displacement": 0.5861638784408569,
+      "trait_vector_displacement_sd": 0.06438048183917999,
+      "answer_token_displacement": 0.4351576864719391,
+      "answer_token_displacement_sd": 0.03154400736093521,
+      "answer_token_common": 0.32410794496536255,
+      "answer_token_varying": 0.2913763225078583
+    },
+    "misalignment": {
+      "trait_vector_displacement": 0.9665486216545105,
+      "trait_vector_displacement_sd": 0.1471129059791565,
+      "answer_token_displacement": 0.5771030187606812,
+      "answer_token_displacement_sd": 0.04597385227680206,
+      "answer_token_common": 0.43271303176879883,
+      "answer_token_varying": 0.38379523158073425
+    },
+    "random_perm_s8": {
+      "trait_vector_displacement": 0.39877885580062866,
+      "trait_vector_displacement_sd": 0.09378977119922638,
+      "answer_token_displacement": 0.2559223175048828,
+      "answer_token_displacement_sd": 0.02688216231763363,
+      "answer_token_common": 0.15916362404823303,
+      "answer_token_varying": 0.20251798629760742
+    },
+    "random_perm_s12": {
+      "trait_vector_displacement": 0.6159251928329468,
+      "trait_vector_displacement_sd": 0.13698270916938782,
+      "answer_token_displacement": 0.40416017174720764,
+      "answer_token_displacement_sd": 0.04156818240880966,
+      "answer_token_common": 0.25914427638053894,
+      "answer_token_varying": 0.3133535087108612
+    }
+  }
+}
