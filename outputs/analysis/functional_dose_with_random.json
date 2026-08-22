@@ -135,6 +135,14 @@
       "answer_token_displacement_sd": 0.03114851750433445,
       "answer_token_common": 0.3719649314880371,
       "answer_token_varying": 0.39858707785606384
+    },
+    "random_spec_s19": {
+      "trait_vector_displacement": 0.7508766651153564,
+      "trait_vector_displacement_sd": 0.06479690968990326,
+      "answer_token_displacement": 0.5679759383201599,
+      "answer_token_displacement_sd": 0.03756629303097725,
+      "answer_token_common": 0.38563671708106995,
+      "answer_token_varying": 0.4200668931007385
     }
   },
   "20": {

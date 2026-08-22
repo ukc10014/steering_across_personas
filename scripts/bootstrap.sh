@@ -67,3 +67,10 @@ export PATH=$HOME/.local/bin:/workspace/npm-global/bin:$PATH
 command -v claude >/dev/null || curl -fsSL https://claude.ai/install.sh | bash
 export CLAUDE_CODE_TMPDIR=/tmp/claude-${USER:-$(id -un)}
 mkdir -p "$CLAUDE_CODE_TMPDIR"
+
+# tmux, so a dropped SSH connection does not take a running session with it. The container
+# is rebuilt on every pod migration and apt packages go with it, so install idempotently
+# here rather than once by hand. The config lives on the network volume and survives.
+command -v tmux >/dev/null || apt-get install -y -qq tmux >/dev/null 2>&1 || true
+export TMUX_CONF=/workspace/.tmux.conf
+alias tm='tmux -f "$TMUX_CONF" new-session -A -s main'

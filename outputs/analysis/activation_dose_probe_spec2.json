@@ -1,0 +1,91 @@
+{
+  "personas": [
+    "farmer",
+    "therapist",
+    "tech_ceo"
+  ],
+  "traits": [
+    "assertiveness",
+    "impulsivity"
+  ],
+  "layers": [
+    15,
+    20
+  ],
+  "results": {
+    "15": {
+      "random_spec_s12": {
+        "trait_vector_displacement": 0.45280274748802185,
+        "trait_vector_displacement_sd": 0.06060962751507759,
+        "answer_token_displacement": 0.3395139276981354,
+        "answer_token_displacement_sd": 0.013415618799626827,
+        "n_cells": 6
+      },
+      "random_spec_s16": {
+        "trait_vector_displacement": 0.5969784259796143,
+        "trait_vector_displacement_sd": 0.08006662875413895,
+        "answer_token_displacement": 0.46138522028923035,
+        "answer_token_displacement_sd": 0.01484355702996254,
+        "n_cells": 6
+      },
+      "random_spec_s19": {
+        "trait_vector_displacement": 0.7018303871154785,
+        "trait_vector_displacement_sd": 0.08721223473548889,
+        "answer_token_displacement": 0.5751319527626038,
+        "answer_token_displacement_sd": 0.020482603460550308,
+        "n_cells": 6
+      },
+      "random_spec_s20": {
+        "trait_vector_displacement": 0.735908567905426,
+        "trait_vector_displacement_sd": 0.08761203289031982,
+        "answer_token_displacement": 0.6171302795410156,
+        "answer_token_displacement_sd": 0.02203109860420227,
+        "n_cells": 6
+      },
+      "random_iid_s16": {
+        "trait_vector_displacement": 0.6858339905738831,
+        "trait_vector_displacement_sd": 0.10130991786718369,
+        "answer_token_displacement": 0.545057475566864,
+        "answer_token_displacement_sd": 0.022646958008408546,
+        "n_cells": 6
+      }
+    },
+    "20": {
+      "random_spec_s12": {
+        "trait_vector_displacement": 0.5453314185142517,
+        "trait_vector_displacement_sd": 0.1090334802865982,
+        "answer_token_displacement": 0.3575134575366974,
+        "answer_token_displacement_sd": 0.01461627148091793,
+        "n_cells": 6
+      },
+      "random_spec_s16": {
+        "trait_vector_displacement": 0.7204651832580566,
+        "trait_vector_displacement_sd": 0.1454150527715683,
+        "answer_token_displacement": 0.483441025018692,
+        "answer_token_displacement_sd": 0.01639016903936863,
+        "n_cells": 6
+      },
+      "random_spec_s19": {
+        "trait_vector_displacement": 0.8372888565063477,
+        "trait_vector_displacement_sd": 0.15183323621749878,
+        "answer_token_displacement": 0.599527895450592,
+        "answer_token_displacement_sd": 0.026945240795612335,
+        "n_cells": 6
+      },
+      "random_spec_s20": {
+        "trait_vector_displacement": 0.8697047233581543,
+        "trait_vector_displacement_sd": 0.1481698900461197,
+        "answer_token_displacement": 0.6395073533058167,
+        "answer_token_displacement_sd": 0.02921006828546524,
+        "n_cells": 6
+      },
+      "random_iid_s16": {
+        "trait_vector_displacement": 0.8469185829162598,
+        "trait_vector_displacement_sd": 0.17030014097690582,
+        "answer_token_displacement": 0.6090139746665955,
+        "answer_token_displacement_sd": 0.0340588316321373,
+        "n_cells": 6
+      }
+    }
+  }
+}
