@@ -30,6 +30,7 @@ sections as follows; **two of its premises did not hold** and are marked.
 | + | Does a matched random rank-64 LoRA reproduce the contraction? | **Question mis-specified.** At matched *weight norm* a random adapter is functionally inert (output KL 0.001 vs 0.606, a factor of ~500), so the control as posed was vacuous. Re-specified at matched *functional* dose; runs in flight | §7.1–7.2, §7.5 |
 | + | Where does a trained LoRA's effect actually live? | **In alignment, not magnitude or spectrum.** The real `goodness` update with its coordinates permuted — same norm, same spectrum exactly — is as inert as pure noise. Dose is an alignment-weighted quantity: KL per unit ‖dW‖ is 71–138 for the constitutions and 0.1 for any random arm | §7.2 |
 | + | Is the constitutions' differing shift direction content, or a generic drift? | **Content.** All three converge on themselves at the same rate (0.75 → 0.99) while all three pairs monotonically diverge from each other (−0.104, −0.122, −0.190; 22/24 traits agree) | §3.3 |
+| + | Does an UNTRAINED perturbation at matched functional dose reproduce the contraction? | **Yes at dose ≈1** — `random_iid` lands within 0.015 of `goodness` on dispersion and both random arms sit inside the trained spread. **No at low/middle dose**, where trained arms contract 0.14–0.20 more. Matched *weight norm* is inert; matched *functional dose* is not | §7.2, §7.6 |
 
 ---
 
@@ -1184,35 +1185,99 @@ spectral contrast at 0.97x `goodness`'s dose. s=24 was dropped as off-axis.
 sits 1.57x beyond the most extreme constitution in the study, so that design would have
 placed two of its three runs outside the dose range it was meant to compare against.
 
-### 7.6 What is still open
+### 7.6 The geometry of an untrained perturbation at matched dose
 
-The four extractions (`random_perm` at s=8/12/16, `random_iid` at s=16) are running. They
-answer whether an untrained perturbation at matched functional dose reproduces the dispersion
-contraction of §5.1 and the RDM response of §6.3, and whether spectral concentration matters.
-Nothing in §7 yet licenses a claim about the geometry.
+The four extractions are **done** (`random_perm` at s=8/12/16, `random_iid` at s=16), and
+this is what they show. Dose is answer-token displacement relative to `goodness` s=1, so the
+random arms are compared on the axis the geometry actually lives on, not on ‖dW‖ or KL.
 
-What §7 does already establish is that the **question** §8 posed was mis-specified: "does a
-same-rank, same-weight-norm perturbation reproduce the contraction?" is nearly vacuous,
-because such a perturbation does essentially nothing at all. The answerable version is "does
-an untrained perturbation at matched *functional* dose reproduce it?", and the honest caveat
-is that reaching that dose requires 16–24x the weight-space perturbation, which is a
-different kind of object from a trained adapter, not merely a larger one.
+At the top of the range, where every arm has a real measurement rather than an interpolation:
 
-That points at the control this ultimately wants, which no random adapter can be: a
-**sham-trained LoRA** — same optimizer, schedule, rank, target modules and pipeline as the
-character adapters, with the character signal destroyed (permuted preference labels, say)
-rather than never present. That isolates training-induced alignment with the model's
-directions from coherent constitution semantics, and so separates the three claims this
-project has been circling:
+| arm | dose | D-ratio | 95% CI | RDM preservation | 95% CI |
+|---|---|---|---|---|---|
+| `impulsiveness` | 1.070x | 0.615 | [0.595, 0.638] | 0.798 | [0.784, 0.814] |
+| `random_perm_s16` | 1.113x | 0.557 | [0.528, 0.584] | **0.716** | [0.691, 0.742] |
+| `random_iid_s16` | 1.017x | 0.501 | [0.479, 0.525] | **0.879** | [0.859, 0.898] |
+| `goodness` | 1.000x | 0.486 | [0.474, 0.500] | 0.834 | [0.816, 0.847] |
+| `misalignment` | 1.077x | 0.313 | [0.297, 0.331] | 0.732 | [0.716, 0.748] |
 
-| | claim |
-|---|---|
-| **A** | any sufficiently large perturbation contracts persona geometry |
-| **B** | trained, model-aligned perturbations contract persona geometry |
-| **C** | constitutional character training specifically contracts persona geometry |
+**An untrained perturbation at matched functional dose does contract persona geometry, and
+lands inside the range the trained arms span.** On dispersion the trained family covers
+0.313–0.615 at this dose and the two random arms sit at 0.501 and 0.557 — within it, and
+`random_iid` is within 0.015 of `goodness`. This is the A-versus-B question of §7.6, and for
+dispersion the answer favours **A**: a large enough perturbation contracts, trained or not.
 
-§5.1 and §6.5 together already make C look less likely than B for dispersion. The runs in
-flight separate A from B. Only a sham-trained control separates B from C.
+That is a different conclusion from the one the §8 plan would have reached, and it is only
+reachable because the rungs were sited by measurement. The same control at *matched weight
+norm* is inert (§7.2); at matched functional dose it reproduces the headline effect.
+
+#### The two random arms differ more from each other than the trained family does
+
+The comparison that was not anticipated. `random_iid` and `random_perm` differ only in
+spectrum — effective rank 61.5 against 10.9, same rank-64 structure, both untrained — yet at
+comparable dose they differ by **0.163** in RDM preservation (0.879 vs 0.716). Interpolating
+`random_perm` down to `random_iid`'s dose of 1.017x gives ≈0.754, so ≈0.125 of that gap
+survives dose-matching. **The entire trained family spans 0.102** (0.732–0.834).
+
+So spectral concentration, with no learned alignment at all, moves relative persona geometry
+further than the difference between a goodness constitution and a misalignment one.
+
+§7.1 predicted the opposite sign for dispersion — that isotropic energy "acts as
+near-isotropic noise, which *inflates* dispersion". At matched **weight norm** that may hold;
+at matched **functional dose** it does not. `random_iid_s16` contracts dispersion by 29%
+linear, essentially `goodness`'s 30%. Recorded as a prediction the data did not bear out.
+
+#### Across the range, the trained arms contract more at equal dose
+
+Interpolated onto a common dose grid (`random_perm`, four points including base at dose 0):
+
+| dose | `random_perm` | `goodness` | `impulsiveness` | `misalignment` |
+|---|---|---|---|---|
+| 0.478x | 0.961 | 0.929 | 0.772 | 0.791 |
+| 0.628x | 0.903 | 0.765 | 0.739 | 0.675 |
+| 0.778x | 0.835 | 0.633 | 0.701 | 0.552 |
+| 0.927x | 0.711 | 0.531 | 0.659 | 0.427 |
+| 1.077x | 0.587 | 0.486 | 0.615 | 0.313 |
+
+`random_perm` contracts **less** than every trained arm through the low and middle range —
+the gap to `goodness` peaks at +0.202 around dose 0.78 — and only enters the trained band at
+the top. So the honest reading is not "untrained equals trained", but:
+
+> at low dose, trained perturbations contract persona geometry substantially more than an
+> untrained one of the same functional size; by dose ≈1 the difference has closed, and the
+> untrained arm sits inside the trained spread.
+
+On RDM preservation `random_perm` is *below* `goodness` and `impulsiveness` at every matched
+dose (−0.031 → −0.104) and tracks `misalignment` closely (0.948 vs 0.958 at the bottom, 0.730
+vs 0.732 at the top). Whatever makes `misalignment` the RDM outlier among the constitutions
+(§6.4), a coordinate-scrambled update reproduces it.
+
+**Interpolation caveat.** `random_perm` has three non-zero dose points with a wide gap
+between 0.754x and 1.113x, so the middle rows above are interpolated across it. The
+top-of-range table is measured; the grid table is not.
+
+### 7.7 What is still open
+
+`random_spec` — matched norm *and* singular values, random directions — is the arm that would
+separate "concentrated spectrum" from "the real update's coordinates" and so localise the
+0.125 RDM gap above. It is calibrated but not extracted: at s=16 it reaches answer-token
+0.4614 on the 12-cell subset against `goodness`'s 0.5596, so matched dose needs roughly
+s ≈ 22–26 and one more calibration point before a full run
+(`outputs/analysis/activation_dose_probe_spec.json`).
+
+The **sham-trained LoRA** — same optimizer, schedule, rank, targets and pipeline, with the
+character signal destroyed rather than never present — remains the control that separates B
+from C. Nothing here touches that.
+
+| | claim | status |
+|---|---|---|
+| **A** | any sufficiently large perturbation contracts persona geometry | **supported at dose ≈1**; the untrained arms land inside the trained spread |
+| **B** | trained, model-aligned perturbations contract persona geometry | still favoured at low and middle dose, where trained arms contract 0.14–0.20 more |
+| **C** | constitutional character training specifically contracts it | no support; `random_iid` reproduces `goodness` to within 0.015 |
+
+The caveat that governs all three: reaching matched functional dose took **16x** the
+weight-space perturbation. An untrained adapter that big is a different kind of object from a
+trained one, not merely a larger one, and no experiment here escapes that.
 
 ## 8. Pending
 
