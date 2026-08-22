@@ -31,6 +31,7 @@ sections as follows; **two of its premises did not hold** and are marked.
 | + | Where does a trained LoRA's effect actually live? | **In alignment, not magnitude or spectrum.** The real `goodness` update with its coordinates permuted — same norm, same spectrum exactly — is as inert as pure noise. Dose is an alignment-weighted quantity: KL per unit ‖dW‖ is 71–138 for the constitutions and 0.1 for any random arm | §7.2 |
 | + | Is the constitutions' differing shift direction content, or a generic drift? | **Content.** All three converge on themselves at the same rate (0.75 → 0.99) while all three pairs monotonically diverge from each other (−0.104, −0.122, −0.190; 22/24 traits agree) | §3.3 |
 | + | Does an UNTRAINED perturbation at matched functional dose reproduce the contraction? | **Yes at dose ≈1** — `random_iid` lands within 0.015 of `goodness` on dispersion and both random arms sit inside the trained spread. **No at low/middle dose**, where trained arms contract 0.14–0.20 more. Matched *weight norm* is inert; matched *functional dose* is not | §7.2, §7.6 |
+| + | Is the geometric effect about alignment with the model? | **Potency is; geometric character is not.** Trained-vs-untrained is ~700x in KL per unit ‖dW‖ — that is alignment. But the 0.125 RDM spread among the three *untrained* arms exceeds the trained family's 0.102, and splits into spectral concentration (−0.040) and singular-vector shape (−0.085), with no alignment anywhere | §7.7 |
 
 ---
 
@@ -1256,18 +1257,125 @@ vs 0.732 at the top). Whatever makes `misalignment` the RDM outlier among the co
 between 0.754x and 1.113x, so the middle rows above are interpolated across it. The
 top-of-range table is measured; the grid table is not.
 
-### 7.7 What is still open
+### 7.7 The three-way contrast: what actually drives the RDM differences
 
-`random_spec` — matched norm *and* singular values, random directions — is the arm that would
-separate "concentrated spectrum" from "the real update's coordinates" and so localise the
-0.125 RDM gap above. It is calibrated but not extracted: at s=16 it reaches answer-token
-0.4614 on the 12-cell subset against `goodness`'s 0.5596, so matched dose needs roughly
-s ≈ 22–26 and one more calibration point before a full run
-(`outputs/analysis/activation_dose_probe_spec.json`).
+`random_spec` — matched ‖dW‖_F *and* matched singular values, random singular vectors — is
+the arm that separates "spectrally concentrated" from "built out of the real update's
+coordinates". It was sited by measurement at s=19 (answer-token 1.028x `goodness` on the
+calibration subset, the tightest rung in the control set) and extracted over the full grid.
 
-The **sham-trained LoRA** — same optimizer, schedule, rank, targets and pipeline, with the
-character signal destroyed rather than never present — remains the control that separates B
-from C. Nothing here touches that.
+Random arms are corrected to dose 1.000 using the local slope of `random_perm`'s own curve
+(−0.401 per unit dose), because `random_spec` is a **single** dose point and cannot supply
+its own. Trained arms are quoted at their measured dose.
+
+| arm | eff. rank | singular vectors | trained | RDM @ dose 1.0 | dispersion D-ratio |
+|---|---|---|---|---|---|
+| `random_iid_s16` | 61.5 | random orthonormal | no | **0.886** | 0.501 |
+| `random_spec_s19` | 10.9 | random orthonormal | no | **0.846** | 0.491 |
+| `goodness` | 10.9 | real | **yes** | 0.834 | 0.486 |
+| `impulsiveness` | ~11 | real | **yes** | 0.798 | 0.615 |
+| `random_perm_s16` | 10.9 | real, **permuted** | no | **0.761** | 0.557 |
+| `misalignment` | ~11 | real | **yes** | 0.732 | 0.313 |
+
+#### The 0.125 spread is entirely among UNTRAINED arms
+
+This is the point to hold onto, and it corrects a framing this write-up came close to
+adopting. `random_iid`, `random_spec` and `random_perm` differ from each other by **0.125** in
+RDM preservation — more than the whole trained family spans (0.102, `goodness` to
+`misalignment`). **None of the three has any learned alignment with the model.** So that
+spread cannot be attributed to alignment; it is entirely a property of the perturbation's
+*shape*:
+
+| step | change | cost in RDM preservation |
+|---|---|---|
+| rank 61.5 → 10.9, directions random throughout | **spectral concentration** | **−0.040** |
+| directions random orthonormal → the real update's, permuted | **singular-vector structure** | **−0.085** |
+
+The reviewing model's summary framed the open question as "what notion of alignment with the
+pretrained computation explains the effect". For **potency** that framing is right and §7.2
+quantifies it: trained versus untrained is a factor of ~700 in output KL per unit ‖dW‖, and
+matching functional dose costs 16–19x the weight norm. But for the **geometry** statistics it
+is the wrong question, because the largest differences here occur between perturbations that
+are all equally unaligned. Two separate phenomena, and they need separating:
+
+> **potency** — how much a given weight-space budget moves the model — is about alignment.
+> **geometric character** — what kind of distortion that movement produces — is about
+> spectrum and singular-vector shape, and is visible with no alignment at all.
+
+Corroborating that split: trained `goodness` (0.834) sits **between** `random_spec` (0.846)
+and `random_perm` (0.761). Training does not make an arm extremal on this statistic. Whatever
+learned alignment buys, it is not a distinctive signature in RDM preservation.
+
+#### The result I cannot explain
+
+`random_perm` (0.761) disturbs relative persona geometry **more** than `random_spec` (0.846),
+though both have effective rank 10.9 and neither is aligned to anything. Destroying the
+learned correspondence did not merely remove the update's function — it produced something
+*more* disruptive than random directions of identical spectrum.
+
+Working hypothesis, offered as a hypothesis: a permutation preserves the **entry
+distribution** of the singular vectors. If the trained update's singular vectors are sparse
+in the neuron basis — a few coordinates carrying most of each vector's mass — then the
+permuted version is still sparse, merely on the wrong coordinates. A random orthonormal
+vector in 4096 dimensions is dense, spreading its mass over every coordinate. So
+"pointedness in the neuron basis" survives permutation, and pointed-but-misdirected damages
+relative structure more than diffuse does.
+
+That is testable without a GPU: measure the entry kurtosis (or participation ratio) of the
+trained singular vectors against random orthonormal ones. If they differ sharply, the
+hypothesis has support and the natural next control is a fourth random arm matching that
+sparsity without using the real coordinates. If they do not, the hypothesis is wrong and the
+gap needs another account.
+
+It also reframes the reviewing model's suggested "structured permutation" control. That was
+proposed to ask whether the trained update's cross-module coherence matters. The result above
+says the prior question is sharper: **why does any permutation of a real update outperform
+random directions at disrupting geometry?** Cross-module coherence is one candidate answer;
+within-vector sparsity is another and is cheaper to test.
+
+#### Dispersion, by contrast, is fully generic
+
+All three untrained arms land on `goodness` for dispersion — 0.501, 0.491, 0.557 against
+0.486, a spread of 0.07 against `goodness`'s own 0.51 drop from base. Neither spectrum nor
+coordinate structure matters. At matched functional dose, **contraction of persona geometry
+is what being perturbed looks like**, not what character training looks like.
+
+The two trained tails survive this: `misalignment` contracts more (0.313) and
+`impulsiveness` less (0.615) than any untrained arm. The generic effect accounts for the
+centre of the range; the arm-specific tails are still unexplained by it, which is consistent
+with §6.5's finding that the two outcomes have different outlier arms.
+
+#### The claim ladder, updated
+
+| | claim | status after `random_spec` |
+|---|---|---|
+| **A** | any sufficiently large perturbation contracts persona geometry | **supported.** Three untrained constructions all reproduce `goodness`'s contraction at matched dose |
+| **B** | trained, model-aligned perturbations contract persona geometry | not distinguishable from A on dispersion; alignment buys potency, not this |
+| **C** | constitutional character training specifically contracts it | **no support** for the contraction itself |
+
+What still resists a generic account, and is therefore what the project actually has:
+`impulsiveness`'s trait-selective common shift (§3.2), the monotone divergence of the three
+constitutions' shift directions with dose while each converges on itself (§3.3),
+`misalignment` below the shared RDM curve at every dose (§6.4), and `impulsiveness`'s
+dispersion curve crossing the others (§6.5). None is reproducible by magnitude, spectrum, or
+scrambled coordinates.
+
+### 7.8 What is still open
+
+`random_spec` is **done** (§7.7). What it leaves open is the mechanism behind the
+`random_perm`-vs-`random_spec` gap, testable on CPU by comparing the entry sparsity of the
+trained singular vectors against random orthonormal ones, and — if they differ — by a fourth
+random arm matching that sparsity without the real coordinates.
+
+Two structural limits stand regardless. One seed per random construction, so n=1 on the
+control side exactly as on the constitution side. And s=16–19 sits within a factor of two of
+the measured coherence cliff at s=32 (repetition loops, 69% argmax flips), so these arms
+operate closer to model damage than any trained arm does; nothing here rules out that some of
+their geometric effect is early degradation rather than a clean large perturbation.
+
+The **sham-trained LoRA** — same optimizer, schedule, rank, targets and pipeline, character
+signal destroyed rather than never present — remains the control that separates B from C, and
+nothing in §7 substitutes for it.
 
 | | claim | status |
 |---|---|---|
