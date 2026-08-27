@@ -32,18 +32,30 @@ ladder of increasingly tight matches:
             perturbation of this magnitude?
 
   spectrum  dW = U diag(s_ref) V^T with s_ref the reference module's singular values and
-            U, V random orthonormal. Matches magnitude AND spectral concentration; only the
-            singular DIRECTIONS are random. Answers: is the effect generic to any
-            perturbation of this magnitude and this concentration?
+            U, V random orthonormal, drawn independently for each module. Matches magnitude
+            AND spectral concentration; only the singular DIRECTIONS are random. Answers: is
+            the effect generic to any perturbation of this magnitude and this concentration?
 
   permute   dW = P_out dW_ref P_in with P random permutations, i.e. the real adapter with
             its input and output coordinates scrambled. Singular values are preserved
             exactly (permutations are orthogonal) and so is the empirical distribution of
-            singular-vector entries; what is destroyed is the correspondence between the
-            perturbation and the model's own neuron basis. Answers: is the effect generic
-            to any perturbation with this adapter's spectrum, absent learned alignment?
-            Not "trained on nothing" -- trained, then scrambled -- so it is a companion to
-            the other two rather than a substitute.
+            singular-vector entries.
+
+            THE PERMUTATIONS ARE DRAWN PER MODULE, inside the loop below, so all 224 modules
+            get different ones. That destroys two things, not one: each module's update no
+            longer lines up with that module's own neurons, and it no longer lines up with
+            the next module's either -- a trained update that reads a feature an earlier
+            layer wrote stops reading it. So this is 224 independent scrambles rather than
+            one scramble of the adapter: it removes strictly more structure than a single
+            shared relabelling of the coordinates would. Whether that shows up as a larger
+            measured effect is open. `spectrum` is per-module
+            in the same way, so the two arms remain comparable; a shared-permutation arm,
+            which would isolate the cross-module part, is on the results doc's section 8
+            pending list and is deliberately NOT what this mode builds.
+
+            Answers: is the effect generic to any perturbation with this adapter's spectrum,
+            absent learned alignment? Not "trained on nothing" -- trained, then scrambled --
+            so it is a companion to the other two rather than a substitute.
 
 WHAT IS DELIBERATELY NOT MATCHED. Functional dose. Section 3.1 established that weight-space
 norm is not functional dose, and section 6 established that the way to compare arms is a
@@ -60,7 +72,12 @@ Kaiming-uniform init and is nearly constitution-independent; B is where the trai
 adapter's A and randomises only B, which makes the arm "the goodness adapter with an
 untrained B" rather than a wholly unrelated object. `--a-mode fresh` draws A from the same
 empirical scale if a fully independent draw is wanted; the two are statistically close
-because A is random to begin with.
+because A is random to begin with. That last claim is measured rather than assumed:
+`scripts/lora_A_diagnostic.py` finds A's participation-ratio effective rank is 63.0 against
+63.1 for a Gaussian of identical shape and variance, and its scale 2.133x the Kaiming
+default, so `reuse` contributes a rescaled generic random projection and not learned
+structure. Section 7.7 relies on this when it attributes the `random_iid`-vs-`random_spec`
+gap to spectral concentration alone.
 
 USAGE
 

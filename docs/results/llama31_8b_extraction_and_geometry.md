@@ -27,7 +27,7 @@ sections as follows; **two of its premises did not hold** and are marked.
 | + | How much of an adapter's effect is one persona-common shift, and do constitutions share it? | The shift is **0.6–0.9x** the base trait vector and carries **67–77%** of the change (L15), but the constitutions' shifts are only **0.47–0.83** aligned — similar sizes, different directions. `impulsiveness` is **1.7–1.9x selective** for `risk_taking`/`impulsivity` | §3.2 |
 | + | Is the geometry effect just perturbation size? | **Mostly for RDM preservation** — `goodness` and `impulsiveness` share one dose curve to within 0.008 over a 2.2x range, with `misalignment` below it at every dose. **Not for dispersion** — `impulsiveness`'s curve is 3x flatter and crosses both others. The two outcomes single out *different* anomalous arms | §6.3–6.5 |
 | + | Is the dose axis itself sound? | **In-domain and partially endogenous.** Within-arm ladders are causal and stand. But the cross-arm ρ = −1.000 RDM ordering **reverses to +0.400** on an out-of-domain dose measure, so the cross-arm evidence is much weaker than it reads | §5.55 |
-| + | Does a matched random rank-64 LoRA reproduce the contraction? | **Question mis-specified.** At matched *weight norm* a random adapter is functionally inert (output KL 0.001 vs 0.606, a factor of ~500), so the control as posed was vacuous. Re-specified at matched *functional* dose; runs in flight | §7.1–7.2, §7.5 |
+| + | Does a matched random rank-64 LoRA reproduce the contraction? | **Question mis-specified.** At matched *weight norm* a random adapter is functionally inert (output KL 0.001 vs 0.606, a factor of ~500), so the control as posed was vacuous. Re-specified at matched *functional* dose, and there the answer is **yes**: all three untrained constructions reproduce the contraction and land inside the trained spread | §7.1–7.2, §7.5–7.7 |
 | + | Where does a trained LoRA's effect actually live? | **In alignment, not magnitude or spectrum.** The real `goodness` update with its coordinates permuted — same norm, same spectrum exactly — is as inert as pure noise. Dose is an alignment-weighted quantity: KL per unit ‖dW‖ is 71–138 for the constitutions and 0.1 for any random arm | §7.2 |
 | + | Is the constitutions' differing shift direction content, or a generic drift? | **Content.** All three converge on themselves at the same rate (0.75 → 0.99) while all three pairs monotonically diverge from each other (−0.104, −0.122, −0.190; 22/24 traits agree) | §3.3 |
 | + | Does an UNTRAINED perturbation at matched functional dose reproduce the contraction? | **Yes at dose ≈1** — `random_iid` lands within 0.015 of `goodness` on dispersion and both random arms sit inside the trained spread. **No at low/middle dose**, where trained arms contract 0.14–0.20 more. Matched *weight norm* is inert; matched *functional dose* is not | §7.2, §7.6 |
@@ -1021,12 +1021,16 @@ survives at matched dose; the matched random rank-64 LoRA control, which would s
 
 ## 7. The untrained-LoRA control: weight norm is not a control variable
 
-**Status: the adapters are built and priced; the geometry runs are in flight.** What is
-settled here is the *calibration*, and it invalidated the control as §8 originally specified
-it. Adapters: `scripts/make_random_lora.py`. Measurements: `scripts/neutral_dose.py`
-(output KL on neutral text), `scripts/activation_dose_probe.py` (hidden-state displacement
-on a 12-cell CAA subset). Data: `outputs/analysis/neutral_dose{,_random_sweep}.json`,
-`outputs/analysis/activation_dose_probe{,_constitutions}.json`.
+**Status: complete.** Five extractions — `random_perm` at s=8/12/16, `random_iid` at s=16,
+`random_spec` at s=19, 960 cells — are done, and the geometry is in §7.6 and §7.7. The
+calibration came first, and it invalidated the control as §8 originally specified it.
+Adapters: `scripts/make_random_lora.py`. Runs: `scripts/run_random_ladder.sh`. Measurements:
+`scripts/neutral_dose.py` (output KL on neutral text), `scripts/activation_dose_probe.py`
+(hidden-state displacement on a 12-cell CAA subset), `scripts/lora_A_diagnostic.py` (whether
+the `A` that `random_iid` inherits is generic, §7.7). Data:
+`outputs/analysis/neutral_dose{,_random_sweep}.json`,
+`outputs/analysis/activation_dose_probe{,_constitutions,_spec,_spec2}.json`,
+`outputs/analysis/lora_A_diagnostic.json`.
 
 ### 7.1 What the control is, and why there are three of them
 
