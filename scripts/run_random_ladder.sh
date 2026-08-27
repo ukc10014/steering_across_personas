@@ -1,49 +1,74 @@
 #!/usr/bin/env bash
 # The untrained-LoRA control, run as a dose ladder rather than a single matched point.
 #
-#   bash scripts/run_random_ladder.sh                    # the agreed three runs
-#   RUNS="random_perm:16 random_iid:24" bash scripts/run_random_ladder.sh
+#   bash scripts/run_random_ladder.sh                    # the five arms that were run
+#   RUNS="random_perm:16 random_iid:16" bash scripts/run_random_ladder.sh
 #
-# RUNS is a list of <adapter>:<scale> pairs, not a cross product: the design is
-# random_perm at two doses plus random_iid at one, and a cross product would spend an extra
-# 80 minutes on a rung nobody wants.
+# RUNS is a list of <adapter>:<scale> pairs, not a cross product: the design is a three-rung
+# `random_perm` ladder plus one dose-matched point for each of the other two constructions.
+# A cross product would spend hours on rungs nobody wants.
 #
-# THE SCALES ARE FUNCTIONAL, NOT WEIGHT-SPACE. scripts/neutral_dose.py measured that a
-# weight-norm-matched random adapter (s=1) is functionally inert -- mean output KL 0.001
-# against goodness's 0.606, a factor of ~500 -- and that s ~ 24 is where a random adapter
-# reaches goodness's functional dose. So the rungs here are s=16 (intermediate) and s=24
-# (goodness-matched), with the base model serving as the s=0 point of the curve. s=8 is
-# omitted deliberately: at KL 0.04 it is still an order of magnitude below goodness and
-# would buy little leverage for 80 minutes. s=32 is REFUSED below, not merely skipped.
+# THE SCALES ARE FUNCTIONAL, NOT WEIGHT-SPACE -- AND THEY ARE SITED ON THE CAA AXIS.
+# A weight-norm-matched random adapter (s=1) is functionally inert: scripts/neutral_dose.py
+# measured mean output KL 0.001 against `goodness`'s 0.606, a factor of ~500. But output KL is
+# the wrong axis to site rungs on. It prices what survives the remaining seventeen layers,
+# whereas the dependent variables here are hidden states at L15/L20, and the two axes disagree
+# by half again on what "matched to goodness" means -- s ~ 24 on neutral KL, s ~ 16 on CAA
+# answer-token displacement (scripts/activation_dose_probe.py). The rungs below are sited on
+# the SECOND axis, the one the geometry actually lives on.
+#
+# Measured answer-token displacement at L15 against the nearest constitution rung, all on the
+# same 12 CAA cells so the ~5% subset offset cancels
+# (outputs/analysis/activation_dose_probe{,_constitutions,_spec2}.json):
+#
+#     random_perm:8    0.2525   vs  goodness_s0.25  0.2645   0.95x
+#     random_perm:12   0.3981   vs  goodness_s0.5   0.3652   1.09x
+#     random_iid:16    0.5451   vs  goodness s=1    0.5596   0.97x
+#     random_spec:19   0.5751   vs  goodness s=1    0.5596   1.03x
+#     random_perm:16   0.5980   vs  misalignment    0.6046   0.99x
+#
+# s=8 is therefore IN, not omitted. On this axis it lands on `goodness_s0.25`, the bottom of
+# the constitutions' own range, and it anchors the low end of the curve. s=24 is OUT: it
+# measures 0.9507, which is 1.57x beyond `misalignment`, the most extreme constitution in the
+# study, so running it would place a rung outside the range it is meant to be compared
+# against. An earlier version of this script had exactly the opposite defaults -- s=24 as "the
+# goodness-matched rung" and s=8 dismissed on its neutral KL of 0.04 -- because both
+# judgements were read off the neutral-KL axis alone. Siting by measurement on the correct
+# axis reversed both. s=32 is REFUSED below, not merely skipped.
 #
 # WHY A LADDER AND NOT ONE POINT. Section 6 established that the only sound way to compare
 # these arms is against MEASURED dose, because the outcome moves strongly with dose and the
 # arms cannot be matched in advance. That applies with more force here: a random adapter is
 # matched to `goodness` on weight-space norm, and section 3.1 established that weight-space
 # norm is not functional dose. Where the control lands on the dose axis is not knowable
-# before it is measured (scripts/neutral_dose.py prices it on neutral text first, which is
-# cheap; the CAA-conditioned dose still has to come from the extraction itself). Running the
-# same rungs as the constitutions puts the control on the same axis, so the question becomes
-# the answerable one -- does the untrained arm fall on the constitutions' curve? -- rather
-# than an unanswerable comparison of two points at unknown and different doses.
+# before it is measured (scripts/activation_dose_probe.py prices it on a 12-cell CAA subset,
+# which is cheap enough to run before committing to a rung). Running the same rungs as the
+# constitutions puts the control on the same axis, so the question becomes the answerable one
+# -- does the untrained arm fall on the constitutions' curve? -- rather than an unanswerable
+# comparison of two points at unknown and different doses.
 #
-# WHAT EACH ARM IS. See scripts/make_random_lora.py. In short: `random_iid` is the control
-# as pre-specified (matched norm, i.i.d. B, effective rank 61 of 64); `random_spec` also
-# matches the reference's singular values (effective rank 10.9, as measured on `goodness`),
-# which matters because dispersion is sensitive to how concentrated the perturbation is and
+# WHAT EACH ARM IS. See scripts/make_random_lora.py. In short: `random_iid` is the control as
+# pre-specified (matched norm, i.i.d. B, effective rank 61 of 64); `random_spec` also matches
+# the reference's singular values (effective rank 10.9, as measured on `goodness`), which
+# matters because dispersion is sensitive to how concentrated the perturbation is and
 # `random_iid` alone confounds "untrained" with "spectrally flat"; `random_perm` is the real
-# adapter with its coordinates scrambled.
+# adapter with its coordinates scrambled INDEPENDENTLY PER MODULE -- torch.randperm is drawn
+# inside the module loop, so each of the 224 modules gets its own input and output
+# permutation. It therefore destroys the cross-module correspondence of coordinates as well as
+# each module's alignment to the neuron basis; it is not a single scramble of the adapter.
 #
 # ORDERING is scale-major so every prefix of the run is a complete comparison, matching
-# run_dose_ladder.sh. Extraction uses --legacy-mask throughout so the arms are comparable to
-# the archive, for the reason in section 2 of the results doc.
+# run_dose_ladder.sh: the three `random_perm` rungs give the dose curve, `random_iid:16` adds
+# the spectral contrast at matched dose, and `random_spec:19` closes the three-way. Extraction
+# uses --legacy-mask throughout so the arms are comparable to the archive, for the reason in
+# section 2 of the results doc.
 #
 # Resumable: 2c_caa_activations.py skips cells whose .pt already exists, and
 # build_question_cache.py skips arms whose .npz already exists.
 set -uo pipefail
 cd "$(dirname "$0")/.."
 
-RUNS=${RUNS:-"random_perm:16 random_perm:24 random_iid:24"}
+RUNS=${RUNS:-"random_perm:8 random_perm:12 random_perm:16 random_iid:16 random_spec:19"}
 ADAPTER_ROOT=${ADAPTER_ROOT:-/workspace/random_loras}
 LOGDIR=${LOGDIR:-/workspace/ladder_logs}
 mkdir -p "$LOGDIR"

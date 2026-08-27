@@ -1054,11 +1054,16 @@ control was spectrally unmatched", and could not separate them. Hence three:
 |---|---|---|---|
 | `random_iid` | per-module ‖dW‖_F | 61.5 | any rank-64 perturbation of this size |
 | `random_spec` | ‖dW‖_F + singular values | 10.9 | ...of this size *and* concentration |
-| `random_perm` | the real `dW`, coordinates permuted | 10.9 (exact) | ...minus learned alignment |
+| `random_perm` | the real `dW`, coordinates permuted **per module** | 10.9 (exact) | ...minus learned alignment, within and across modules |
 
-`random_perm` is the sharpest: permutations are orthogonal, so it preserves the reference's
-spectrum exactly and its singular-vector entry distribution, destroying only the
-correspondence between the update and the model's own coordinates.
+`random_perm` is the sharpest: permutations are orthogonal, so it keeps the reference's
+spectrum exactly, and keeps the distribution of entries in its singular vectors. The
+permutations are drawn **separately for each of the 224 modules**, which destroys two things
+rather than one. Each module's update no longer lines up with that module's own neurons, and
+it no longer lines up with the next module's either — a trained update that reads a feature an
+earlier layer wrote stops reading it. So this is 224 independent scrambles, not one scramble
+of the adapter as a whole. `random_spec` draws its `U` and `V` per module too, so the two arms
+are alike in this respect and the comparison between them is unaffected.
 
 ### 7.2 A norm-matched random LoRA is functionally inert
 
@@ -1082,7 +1087,8 @@ that had been shown is that a functionally inert perturbation is inert. This bel
 §4 list of defects that would each have produced a confident wrong answer.
 
 **`random_perm` is inert too, and that is the interesting part.** It is the *real* `goodness`
-update — same norm, same spectrum, same entry statistics — with its coordinates scrambled,
+update — same norm, same spectrum, same entry statistics — with its coordinates scrambled
+per module,
 and it moves the output distribution as little as pure noise does. The effect of a trained
 LoRA is therefore not principally in how much weight-space energy it carries, nor in how that
 energy is distributed spectrally, but in **where its directions point relative to the
@@ -1251,7 +1257,7 @@ the top. So the honest reading is not "untrained equals trained", but:
 On RDM preservation `random_perm` is *below* `goodness` and `impulsiveness` at every matched
 dose (−0.031 → −0.104) and tracks `misalignment` closely (0.948 vs 0.958 at the bottom, 0.730
 vs 0.732 at the top). Whatever makes `misalignment` the RDM outlier among the constitutions
-(§6.4), a coordinate-scrambled update reproduces it.
+(§6.4), a per-module coordinate-scrambled update reproduces it.
 
 **Interpolation caveat.** `random_perm` has three non-zero dose points with a wide gap
 between 0.754x and 1.113x, so the middle rows above are interpolated across it. The
@@ -1282,14 +1288,33 @@ its own. Trained arms are quoted at their measured dose.
 This is the point to hold onto, and it corrects a framing this write-up came close to
 adopting. `random_iid`, `random_spec` and `random_perm` differ from each other by **0.125** in
 RDM preservation — more than the whole trained family spans (0.102, `goodness` to
-`misalignment`). **None of the three has any learned alignment with the model.** So that
-spread cannot be attributed to alignment; it is entirely a property of the perturbation's
-*shape*:
+`misalignment`). **None of the three has any learned alignment with the model.**
+`random_perm` keeps the trained update's spectrum and entry statistics but not its
+correspondence to the model's coordinates; `random_spec` keeps only the spectrum; `random_iid`
+keeps neither. The `A` that `random_iid` inherits is not a hidden exception to that — measured
+below. So the spread cannot be attributed to alignment; it is entirely a property of the
+perturbation's *shape*:
 
 | step | change | cost in RDM preservation |
 |---|---|---|
 | rank 61.5 → 10.9, directions random throughout | **spectral concentration** | **−0.040** |
-| directions random orthonormal → the real update's, permuted | **singular-vector structure** | **−0.085** |
+| directions random orthonormal → the real update's, permuted per module | **singular-vector structure** | **−0.085** |
+
+**The inherited `A` is not a second cause hiding inside the −0.040.** The two random arms
+differ on the input side as well: `random_iid` keeps the reference adapter's `A`
+(`make_random_lora.py --a-mode reuse`, the default) while `random_spec` draws a fresh random
+`V`. If `A` carried anything the training had learned, the −0.040 step would be measuring that
+as well as concentration. It does not. Over all 224 modules, `A`'s effective rank is **63.0**
+against **63.1** for a random Gaussian matrix of identical shape and variance — a shortfall of
+0.1%, where the concentration effect under test is a factor of 5.6 — and cos(A, A′) between
+`goodness` and `impulsiveness` is **0.996**, so training barely moves it. `A` sits at 2.133x
+PEFT's default init scale, confirming §7.1. It is a rescaled generic random projection, both
+arms draw their input side from the same distribution, and the step is concentration alone
+(`scripts/lora_A_diagnostic.py`, `outputs/analysis/lora_A_diagnostic.json`). The one
+qualification: about 8.6% of `A`'s norm does differ between the two constitutions once a pure
+rescaling is projected out, so `A` is not literally frozen. That difference is spread across a
+flat spectrum rather than concentrated into a few learned directions, which is why the input
+subspace stays generic.
 
 The reviewing model's summary framed the open question as "what notion of alignment with the
 pretrained computation explains the effect". For **potency** that framing is right and §7.2
@@ -1413,6 +1438,15 @@ Ordered by what each would change, not by cost:
 - confirm the `goodness`-vs-others dispersion ordering against fixed-mask activations
 - a second dose point for `mathematical`
 - whether the residual-to-null collapse (§5.3) survives at matched dose
+- a **shared-permutation** random arm — one input and one output permutation drawn per
+  *dimension* and reused across all 224 modules, instead of the independent draw per module
+  `random_perm` uses. This is the direct test of the cross-module-coherence hypothesis for the
+  gap §7.7 cannot explain: it breaks each module's alignment to its own neurons exactly as
+  `random_perm` does, while keeping one module's coordinates consistent with the next. If the
+  gap is about coherence, this arm should move back toward `random_spec`; if it is about
+  within-vector sparsity, it should sit with `random_perm`. One change to
+  `make_random_lora.py` plus one extraction. The entry-kurtosis measurement §7.8 already lists
+  is cheaper and tests the other candidate, so the two are complementary.
 - a **sham-trained** LoRA (§7.6) — the control that separates claim B from claim C
 
 The "matched random rank-64 LoRA" that this section used to call for has been built and
