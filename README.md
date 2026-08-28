@@ -16,7 +16,7 @@ conditioning**. Full write-up in [docs/overview.md](docs/overview.md).
 | [docs/overview.md](docs/overview.md) | Research question, method, headline findings, safety implications — **read this first** |
 | [docs/experiments.md](docs/experiments.md) | Runbook: exact commands for each extended experiment (E2–E7) |
 | [docs/causal_pipeline.md](docs/causal_pipeline.md) | The causal-figures X-series pipeline |
-| [docs/results/](docs/results/) | Full results: [summary](docs/results/summary.md) (multi-model), [robustness_iv](docs/results/robustness_iv.md), [robustness_caa](docs/results/robustness_caa.md), [gemma4_e4b](docs/results/gemma4_e4b.md) |
+| [docs/results/](docs/results/) | Full results: [summary](docs/results/summary.md) (multi-model + the Llama-3.1-8B character-training arms), [robustness_iv](docs/results/robustness_iv.md), [robustness_caa](docs/results/robustness_caa.md), [gemma4_e4b](docs/results/gemma4_e4b.md) |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Setup, the branch→PR workflow, and the data policy |
 
 ## Data — no GPU needed to start

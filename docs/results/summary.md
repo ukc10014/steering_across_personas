@@ -1,6 +1,12 @@
 # Complete Results: Context-Dependent Trait Representations
 
-Results across two models (Gemma 2 27B IT, Gemma 3 27B IT), two extraction methods (IV, CAA), five robustness experiments (R1-R5), and SAE feature comparison (Gemma 3 only).
+**Two experiment lines.** Sections 1-4 and 6 are the persona-steering replication on
+Gemma 2 27B IT and Gemma 3 27B IT -- two extraction methods (IV, CAA), five robustness
+experiments (R1-R5), and SAE feature comparison (Gemma 3 only). Section 5 is constitutional
+character training on Llama-3.1-8B-Instruct with the OCT adapters, summarised from
+[llama31_8b_extraction_and_geometry.md](llama31_8b_extraction_and_geometry.md).
+
+_Last updated 2026-08-28._
 
 ---
 
@@ -243,7 +249,109 @@ W&B: [Gemma 3 landscape](https://wandb.ai/persona-steering/personas/runs/ezvn2rd
 
 ---
 
-## 5. Cross-Model Summary
+## 5. Character Training: Llama-3.1-8B OCT Arms
+
+**Different model, different question.** Sections 1-4 ask whether persona reshapes trait
+representations. This section asks whether *constitutional character training* changes that
+geometry, on `Llama-3.1-8B-Instruct` with the OCT LoRA adapters of
+[Maiya et al. 2025](https://arxiv.org/pdf/2511.01689). Headline only -- full detail, with
+every estimator caveat, is in
+[llama31_8b_extraction_and_geometry.md](llama31_8b_extraction_and_geometry.md), and section
+references below point there.
+
+Arms: base plus the `goodness`, `mathematical`, `impulsiveness` and `misalignment`
+constitutions; 8 CAA traits x 10 semantic personas plus `null` and `nonsense`; headline
+layer 15, confirmed at layer 20. Untrained controls: `random_iid`, `random_spec`,
+`random_perm`.
+
+### Persona dispersion contracts under every arm
+
+Dispersion is measured after centring each trait's ten personas on their own centroid, so
+the persona-common component is removed by construction. D is a mean *squared* distance;
+the linear column is the figure to quote.
+
+| arm | D-ratio vs base (squared) | 95% CI | linear contraction |
+|---|---|---|---|
+| `misalignment` | **0.313** | [0.297, 0.331] | **44%** |
+| `goodness` | 0.486 | [0.474, 0.500] | 30% |
+| `impulsiveness` | 0.615 | [0.595, 0.638] | 22% |
+| `mathematical` | 0.635 | [0.622, 0.650] | 20% |
+
+`mathematical` reproduces about two thirds of `goodness`'s contraction (67% in linear
+terms). Note what this does *not* license: `mathematical` is not an orthogonal control --
+its constitution talks about weighing pros and cons, risk versus reward and consistency,
+which plausibly bear on risk-taking, impulsivity, confidence and deference -- and all four
+arms are OCT adapters sharing one training pipeline. (§5.1)
+
+### Most of an adapter's effect is one persona-common shift
+
+The shift is 0.6-0.9x the norm of the base trait vector and carries **67-77%** of each
+adapter's total change at L15. The constitutions' shifts are similar in size but only
+0.47-0.83 aligned with each other, and they diverge monotonically as dose grows while each
+converges on itself (0.75 -> 0.99) -- so the differing directions are content, not drift.
+`impulsiveness` is 1.7-1.9x selective for `risk_taking`/`impulsivity`. (§3.2, §3.3)
+
+### Weight norm is the wrong dose variable
+
+A random rank-64 LoRA matched on *weight norm* is functionally inert -- output KL 0.001
+against 0.606, a factor of ~500 -- so the control as originally posed was vacuous. Dose is
+an alignment-weighted quantity: KL per unit ||dW||_F is 71-138 for the trained
+constitutions and 0.1 for any random arm, a ~700x gap. Re-specified at matched *functional*
+dose, which takes 16x the weight-space perturbation, untrained arms **do** reproduce the
+contraction and land inside the trained spread. (§7.1-7.2, §7.5-7.6)
+
+### The geometric differences are shape, not alignment
+
+The three untrained arms differ from each other by **0.125** in RDM preservation -- more
+than the whole trained family spans (0.102) -- and none of them has any learned alignment.
+The spread decomposes into spectral concentration (-0.040) and singular-vector structure
+(-0.085). Alignment buys potency, not geometric character. (§7.7)
+
+### The constitution x trait x persona interaction
+
+The prereg's own question, asked directly rather than through a proxy: a cross-fitted
+vector-valued ANOVA of V_{c,t,p} - V_base_{t,p}, with the untrained arms computed in the
+same run on the same question splits.
+
+| band | L15 CTP share | L20 CTP share |
+|---|---|---|
+| trained (4 arms) | +0.036 [0.035, 0.038] | +0.046 [0.043, 0.049] |
+| **untrained (3 arms)** | **+0.072 [0.068, 0.077]** | **+0.107 [0.100, 0.114]** |
+
+After removing what the constitution, the trait and the persona each do on average, only
+**3.6%** of a constitution's change is specific to the particular triple at L15 (4.6% at
+L20). A random perturbation of matched functional dose produces about twice that. The gap
+survives matching the degrees of freedom -- every 3-arm subset of the trained band sits
+below the 3-arm untrained band with no overlapping interval -- and is not a share artefact,
+since the untrained band is larger in absolute RMS per cell too. Per-cell, only **2 of 320**
+trained cells exceed the untrained band's p95, where 16 would be expected if the
+distributions matched.
+
+**So "character training changes how traits are represented conditional on persona" is not
+supported in the form the prereg asks it.** If anything the trained constitutions act *more*
+uniformly across persona x trait cells than untrained perturbations do. (§9)
+
+### What is not settled
+
+1. **n = 1 adapter per constitution.** The binding limitation on every content claim here:
+   constitution *semantics* -> representation is not separable from *this particular trained
+   adapter* -> representation. A second training seed for one constitution is worth more
+   than any further analysis of the existing arms; if a second `impulsiveness` adapter did
+   not reproduce the 1.8x selective boost, that result is adapter-specific. (§5.6)
+2. **The coherence caveat.** The untrained arms sit at s = 16-19, within a factor of two of
+   the measured coherence cliff at s = 32, and incoherence would present *exactly* as
+   cell-specific idiosyncrasy -- which is the quantity the interaction measures. A
+   sham-trained LoRA (same pipeline, character signal destroyed) is the control that would
+   separate this. (§7.8, §9.4)
+3. **Cross-arm dose evidence is weaker than it reads.** The rho = -1.000 RDM ordering on
+   in-domain dose reverses to +0.400 on an out-of-domain measure. Within-arm ladders are
+   causal and stand; the cross-arm ordering does not. (§5.55)
+
+The full pending list, ordered by what each would change, is §8 of the detail document.
+
+---
+
+## 6. Cross-Model Summary (Gemma 2 vs Gemma 3)
 
 ### What replicates
 
