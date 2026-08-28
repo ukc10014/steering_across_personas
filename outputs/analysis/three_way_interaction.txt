@@ -1,0 +1,212 @@
+
+================================================================================================
+LAYER 15   8 traits x 10 semantic personas, cross-fitted over 40 half-splits
+  units: 1.0 = one base trait vector
+  checks: partition rel dev 1.47e-07, base-invariance rel dev 0.00e+00
+================================================================================================
+
+
+BAND TRAINED  (4 arms: goodness, mathematical, impulsiveness, misalignment)
+  share = fraction of the cross-fitted total; df share = what pure noise would give
+
+  term     crossfit SS    share   RMS/cell  naive share    noise  if indep  df share
+  mu           30.5174    0.124     0.3088        0.118    0.964     0.064     0.003
+  C            16.3711    0.067     0.2262        0.063    0.412     0.191     0.009
+  T            91.4699    0.372     0.5346        0.379    9.427     0.445     0.022
+  P            10.5209    0.043     0.1813        0.041    0.476     0.572     0.028
+  CT           41.8085    0.170     0.3615        0.172    4.041     1.336     0.066
+  CP            3.2725    0.013     0.1011        0.013    0.097     1.717     0.084
+  TP           43.0045    0.175     0.3666        0.177    4.077     4.007     0.197
+  CTP           8.9216    0.036     0.1670        0.037    0.857    12.020     0.591
+  TOTAL       245.8863    1.000     0.8766        1.000   20.351    20.351     1.000
+
+  noise energy removed by cross-fitting: 20.3511 (7.6% of the naive total)
+  `noise` is MEASURED (naive - crossfit); `if indep` is what that same total noise
+  would put in each term if it were independent per cell, which it is NOT -- the CAA
+  questions are shared across arms and personas within a trait, so sampling noise is
+  common along c and p and lands in the t-indexed terms. Compare the two columns
+  before quoting `df share` as the reference for anything.
+
+  CTP share +0.036 [+0.035, +0.038]   CTP RMS/cell 0.1670 [+0.162, +0.175]
+
+
+BAND NULL  (3 arms: random_iid_s16, random_perm_s16, random_spec_s19)
+  share = fraction of the cross-fitted total; df share = what pure noise would give
+
+  term     crossfit SS    share   RMS/cell  naive share    noise  if indep  df share
+  mu           14.0443    0.093     0.2419        0.087    0.645     0.076     0.004
+  C            14.0405    0.093     0.2419        0.086    0.531     0.152     0.008
+  T            39.1551    0.259     0.4039        0.268    6.270     0.532     0.029
+  P             7.5839    0.050     0.1778        0.047    0.387     0.684     0.037
+  CT           30.7232    0.203     0.3578        0.211    4.970     1.064     0.058
+  CP            4.2795    0.028     0.1335        0.027    0.225     1.367     0.075
+  TP           30.4076    0.201     0.3559        0.199    3.305     4.786     0.263
+  CTP          10.9503    0.072     0.2136        0.076    1.899     9.572     0.525
+  TOTAL       151.1843    1.000     0.7937        1.000   18.233    18.233     1.000
+
+  noise energy removed by cross-fitting: 18.2330 (10.8% of the naive total)
+  `noise` is MEASURED (naive - crossfit); `if indep` is what that same total noise
+  would put in each term if it were independent per cell, which it is NOT -- the CAA
+  questions are shared across arms and personas within a trait, so sampling noise is
+  common along c and p and lands in the t-indexed terms. Compare the two columns
+  before quoting `df share` as the reference for anything.
+
+  CTP share +0.072 [+0.068, +0.077]   CTP RMS/cell 0.2136 [+0.205, +0.230]
+
+
+THE COMPARISON THAT MATTERS: trained vs untrained at MATCHED df
+  the interaction share depends on C through the degrees of freedom, so the
+  4-arm trained band is not directly comparable to the 3-arm null band.
+
+  band                                 CTP share                95% CI  CTP RMS/cell                95% CI
+  trained[good+math+impu]                 +0.033      [+0.032, +0.035]        0.1467      [+0.141, +0.155]
+  trained[good+math+misa]                 +0.035      [+0.033, +0.036]        0.1596      [+0.155, +0.167]
+  trained[good+impu+misa]                 +0.029      [+0.028, +0.030]        0.1572      [+0.153, +0.165]
+  trained[math+impu+misa]                 +0.033      [+0.031, +0.034]        0.1656      [+0.161, +0.172]
+  null                                    +0.072      [+0.068, +0.077]        0.2136      [+0.205, +0.230]
+
+
+PER-CELL INTERACTION, trained band, top 20 of 320 -- DESCRIPTIVE, and read the reference first
+  A per-cell value is a squared magnitude estimated from ~500 questions, so
+  'is it greater than zero' is answered YES for essentially every cell and
+  means nothing. The reference that does mean something is the UNTRAINED band's
+  own per-cell distribution, same statistic, same question splits: does a
+  trained constitution single out particular cells MORE than a random
+  perturbation of matched functional dose does?
+
+  band             p10       p25       p50       p75       p90       p95
+  trained       0.0100    0.0133    0.0217    0.0333    0.0572    0.0765
+  null          0.0219    0.0271    0.0352    0.0530    0.0859    0.1062
+
+  trained cells above the untrained band's p95 (0.1062): 4 of 320  [+0.000, +6.000]
+  if the two distributions matched, that count would be 16.
+
+  `pct` = fraction of untrained-band cells this cell exceeds.
+
+  constitution    trait         persona                 crossfit SS    pct                  95% CI
+  mathematical    impulsivity   therapist                    0.1271   0.98        [+0.106, +0.158]
+  misalignment    impulsivity   therapist                    0.1150   0.96        [+0.105, +0.128]
+  misalignment    assertiveness con_artist                   0.1077   0.95        [+0.098, +0.119]
+  mathematical    deference     therapist                    0.1074   0.95        [+0.089, +0.131]
+  goodness        assertiveness con_artist                   0.1036   0.94        [+0.093, +0.118]
+  mathematical    deference     drill_sergeant               0.1011   0.94        [+0.084, +0.122]
+  misalignment    impulsivity   drill_sergeant               0.0913   0.91        [+0.082, +0.104]
+  misalignment    assertiveness professor                    0.0869   0.90        [+0.076, +0.105]
+  misalignment    warmth        kindergarten_teacher         0.0864   0.90        [+0.069, +0.116]
+  misalignment    deference     therapist                    0.0863   0.90        [+0.073, +0.103]
+  impulsiveness   deference     drill_sergeant               0.0853   0.89        [+0.070, +0.111]
+  mathematical    impulsivity   drill_sergeant               0.0838   0.88        [+0.070, +0.104]
+  impulsiveness   assertiveness con_artist                   0.0836   0.88        [+0.077, +0.091]
+  impulsiveness   assertiveness professor                    0.0812   0.88        [+0.073, +0.091]
+  impulsiveness   impulsivity   therapist                    0.0796   0.86        [+0.072, +0.088]
+  misalignment    warmth        drill_sergeant               0.0772   0.85        [+0.066, +0.096]
+  impulsiveness   warmth        drill_sergeant               0.0764   0.85        [+0.060, +0.116]
+  misalignment    impulsivity   con_artist                   0.0732   0.83        [+0.066, +0.082]
+  mathematical    assertiveness con_artist                   0.0718   0.82        [+0.064, +0.084]
+  impulsiveness   warmth        con_artist                   0.0705   0.82        [+0.060, +0.088]
+
+================================================================================================
+LAYER 20   8 traits x 10 semantic personas, cross-fitted over 40 half-splits
+  units: 1.0 = one base trait vector
+  checks: partition rel dev 7.40e-08, base-invariance rel dev 7.38e-08
+================================================================================================
+
+
+BAND TRAINED  (4 arms: goodness, mathematical, impulsiveness, misalignment)
+  share = fraction of the cross-fitted total; df share = what pure noise would give
+
+  term     crossfit SS    share   RMS/cell  naive share    noise  if indep  df share
+  mu           41.9024    0.111     0.3619        0.105    2.315     0.136     0.003
+  C            24.3483    0.064     0.2758        0.061    1.218     0.409     0.009
+  T           119.4377    0.315     0.6109        0.324   17.188     0.953     0.022
+  P            22.7672    0.060     0.2667        0.057    1.367     1.226     0.028
+  CT           56.0577    0.148     0.4185        0.154    9.080     2.860     0.066
+  CP            6.8331    0.018     0.1461        0.017    0.312     3.678     0.084
+  TP           89.7531    0.237     0.5296        0.236    9.871     8.581     0.197
+  CTP          17.4809    0.046     0.2337        0.047    2.236    25.743     0.591
+  TOTAL       378.5803    1.000     1.0877        1.000   43.586    43.586     1.000
+
+  noise energy removed by cross-fitting: 43.5863 (10.3% of the naive total)
+  `noise` is MEASURED (naive - crossfit); `if indep` is what that same total noise
+  would put in each term if it were independent per cell, which it is NOT -- the CAA
+  questions are shared across arms and personas within a trait, so sampling noise is
+  common along c and p and lands in the t-indexed terms. Compare the two columns
+  before quoting `df share` as the reference for anything.
+
+  CTP share +0.046 [+0.043, +0.049]   CTP RMS/cell 0.2337 [+0.224, +0.251]
+
+
+BAND NULL  (3 arms: random_iid_s16, random_perm_s16, random_spec_s19)
+  share = fraction of the cross-fitted total; df share = what pure noise would give
+
+  term     crossfit SS    share   RMS/cell  naive share    noise  if indep  df share
+  mu           15.5156    0.069     0.2543        0.065    1.046     0.124     0.004
+  C            17.4069    0.077     0.2693        0.072    0.948     0.249     0.008
+  T            44.9772    0.200     0.4329        0.206    7.690     0.870     0.029
+  P            16.0829    0.071     0.2589        0.067    1.010     1.119     0.037
+  CT           36.6380    0.163     0.3907        0.171    6.975     1.740     0.058
+  CP            9.4944    0.042     0.1989        0.040    0.613     2.238     0.075
+  TP           61.0647    0.271     0.5044        0.268    7.301     7.831     0.263
+  CTP          24.1088    0.107     0.3169        0.111    4.251    15.663     0.525
+  TOTAL       225.2885    1.000     0.9689        1.000   29.834    29.834     1.000
+
+  noise energy removed by cross-fitting: 29.8339 (11.7% of the naive total)
+  `noise` is MEASURED (naive - crossfit); `if indep` is what that same total noise
+  would put in each term if it were independent per cell, which it is NOT -- the CAA
+  questions are shared across arms and personas within a trait, so sampling noise is
+  common along c and p and lands in the t-indexed terms. Compare the two columns
+  before quoting `df share` as the reference for anything.
+
+  CTP share +0.107 [+0.100, +0.114]   CTP RMS/cell 0.3169 [+0.301, +0.341]
+
+
+THE COMPARISON THAT MATTERS: trained vs untrained at MATCHED df
+  the interaction share depends on C through the degrees of freedom, so the
+  4-arm trained band is not directly comparable to the 3-arm null band.
+
+  band                                 CTP share                95% CI  CTP RMS/cell                95% CI
+  trained[good+math+impu]                 +0.045      [+0.042, +0.049]        0.2158      [+0.205, +0.236]
+  trained[good+math+misa]                 +0.041      [+0.039, +0.043]        0.2126      [+0.205, +0.227]
+  trained[good+impu+misa]                 +0.035      [+0.033, +0.039]        0.2174      [+0.207, +0.234]
+  trained[math+impu+misa]                 +0.043      [+0.040, +0.046]        0.2349      [+0.226, +0.250]
+  null                                    +0.107      [+0.100, +0.114]        0.3169      [+0.301, +0.341]
+
+
+PER-CELL INTERACTION, trained band, top 20 of 320 -- DESCRIPTIVE, and read the reference first
+  A per-cell value is a squared magnitude estimated from ~500 questions, so
+  'is it greater than zero' is answered YES for essentially every cell and
+  means nothing. The reference that does mean something is the UNTRAINED band's
+  own per-cell distribution, same statistic, same question splits: does a
+  trained constitution single out particular cells MORE than a random
+  perturbation of matched functional dose does?
+
+  band             p10       p25       p50       p75       p90       p95
+  trained       0.0171    0.0254    0.0408    0.0667    0.1151    0.1500
+  null          0.0461    0.0580    0.0821    0.1216    0.1897    0.2247
+
+  trained cells above the untrained band's p95 (0.2247): 2 of 320  [+1.000, +4.000]
+  if the two distributions matched, that count would be 16.
+
+  `pct` = fraction of untrained-band cells this cell exceeds.
+
+  constitution    trait         persona                 crossfit SS    pct                  95% CI
+  mathematical    impulsivity   therapist                    0.2851   0.99        [+0.237, +0.339]
+  misalignment    assertiveness drill_sergeant               0.2447   0.96        [+0.205, +0.312]
+  mathematical    deference     therapist                    0.2202   0.94        [+0.182, +0.268]
+  misalignment    assertiveness professor                    0.2071   0.92        [+0.181, +0.240]
+  impulsiveness   assertiveness con_artist                   0.2005   0.91        [+0.182, +0.220]
+  impulsiveness   assertiveness professor                    0.1909   0.90        [+0.167, +0.224]
+  mathematical    assertiveness drill_sergeant               0.1782   0.88        [+0.153, +0.221]
+  mathematical    deference     drill_sergeant               0.1778   0.88        [+0.135, +0.239]
+  impulsiveness   warmth        con_artist                   0.1752   0.88        [+0.148, +0.204]
+  impulsiveness   warmth        kindergarten_teacher         0.1693   0.88        [+0.142, +0.207]
+  misalignment    impulsivity   professor                    0.1615   0.86        [+0.139, +0.184]
+  impulsiveness   warmth        drill_sergeant               0.1604   0.85        [+0.092, +0.280]
+  mathematical    impulsivity   professor                    0.1599   0.85        [+0.127, +0.201]
+  impulsiveness   risk_taking   drill_sergeant               0.1576   0.85        [+0.116, +0.280]
+  misalignment    impulsivity   therapist                    0.1551   0.85        [+0.140, +0.175]
+  mathematical    assertiveness professor                    0.1530   0.84        [+0.123, +0.210]
+  mathematical    confidence    therapist                    0.1498   0.84        [+0.122, +0.185]
+  mathematical    impulsivity   drill_sergeant               0.1439   0.82        [+0.122, +0.171]
+  misalignment    confidence    therapist                    0.1428   0.82        [+0.123, +0.168]
+  impulsiveness   deference     drill_sergeant               0.1349   0.80        [+0.090, +0.207]

@@ -32,6 +32,7 @@ sections as follows; **two of its premises did not hold** and are marked.
 | + | Is the constitutions' differing shift direction content, or a generic drift? | **Content.** All three converge on themselves at the same rate (0.75 → 0.99) while all three pairs monotonically diverge from each other (−0.104, −0.122, −0.190; 22/24 traits agree) | §3.3 |
 | + | Does an UNTRAINED perturbation at matched functional dose reproduce the contraction? | **Yes at dose ≈1** — `random_iid` lands within 0.015 of `goodness` on dispersion and both random arms sit inside the trained spread. **No at low/middle dose**, where trained arms contract 0.14–0.20 more. Matched *weight norm* is inert; matched *functional dose* is not | §7.2, §7.6 |
 | + | Is the geometric effect about alignment with the model? | **Potency is; geometric character is not.** Trained-vs-untrained is ~700x in KL per unit ‖dW‖ — that is alignment. But the 0.125 RDM spread among the three *untrained* arms exceeds the trained family's 0.102, and splits into spectral concentration (−0.040) and singular-vector shape (−0.085), with no alignment anywhere | §7.7 |
+| + | Does a constitution act on SPECIFIC persona x trait cells, beyond its marginals? | **Barely, and less than an untrained adapter does.** The three-way interaction is **3.6%** of the change at L15 (4.6% at L20); untrained arms at matched functional dose give **7.2%** and **10.7%**, non-overlapping at matched df. The prereg's question, asked directly, answers no | §9 |
 
 ---
 
@@ -1420,18 +1421,13 @@ trained one, not merely a larger one, and no experiment here escapes that.
 
 Ordered by what each would change, not by cost:
 
-- **The constitution × trait × persona interaction.** The decomposition so far reduces
-  `V_{c,t,p}` to a persona-common shift (§3.2), a scalar dispersion (§5.1), persona-anonymous
-  pairwise geometry (§5.2), and global transforms (§5.4, §5.56) — every one of which either
-  averages over personas or discards persona identity. The prereg's actual question lives in
-  what is left: after removing the common shift and the global linear map, does a
-  constitution act differently on *specific* persona × trait cells? Whether
-  `dV_{goodness, honesty, con_artist}` differs from `dV_{goodness, honesty, therapist}` by
-  more than the C+T+P main effects predict is the direct form of "character training changes
-  how traits are represented conditional on context". A cross-fitted, vector-valued C×T×P
-  interaction term is the natural analysis, it is CPU-only from the cached activations, and
-  it asks the original question rather than a proxy for it. **Highest value per unit cost of
-  anything on this list.**
+- ~~**The constitution × trait × persona interaction.**~~ **DONE — §9.** The
+  cross-fitted vector-valued C×T×P term is 3.6% of a constitution's change at L15,
+  and untrained adapters at matched functional dose produce twice that. The
+  prereg's question is now asked directly rather than through a proxy, and the
+  answer is negative. What it does NOT settle is whether the untrained arms' larger
+  interaction is a real property of untrained perturbations or early incoherence
+  (§7.8) — the sham-trained LoRA below is still the control for that.
 - **A second training seed** for one constitution — the only thing that separates
   constitution semantics from adapter idiosyncrasy (§5.6).
 - **Neutral-corpus hidden-state displacement at L15/L20**, to settle whether the §5.55
@@ -1470,6 +1466,187 @@ pipeline. If it also contracts by ~0.5, the effect belongs to the merge operatio
 constitution content is implicated. If it does not, the three constitutions share something
 a random perturbation lacks, and that is worth pursuing.
 
+
+## 9. The constitution x trait x persona interaction — the prereg's own question, answered
+
+This is the §8 pending item, and it is the first analysis here that does not average over
+personas or discard persona identity. Everything before it does one or the other: the
+persona-common shift (§3.2) averages over p, dispersion (§5.1) centres it away, the RDM
+(§5.2) keeps only anonymous pairwise distances, Procrustes and the linear map (§5.4, §5.56)
+fit one global transform. The question the prereg actually asks — does a constitution act
+differently on *specific* persona x trait cells — lives in what all of them throw out.
+
+### 9.1 What is computed
+
+With `X_{c,t,p} = V_{c,t,p} - V_base_{t,p}` the per-cell change, the balanced three-way
+partition into eight orthogonal terms
+
+    X = mu + C + T + P + CT + CP + TP + CTP
+
+where each term is a combination of marginal averages and `CTP` is the alternating sum
+`X_{ctp} - X_{ct.} - X_{c.p} - X_{.tp} + X_{c..} + X_{.t.} + X_{..p} - X_{...}`. It is an
+ANOVA in which the thing in every cell is a 4096-dimensional vector rather than a scalar,
+and `sum_terms ||term||^2 = ||X||^2` is exact (asserted at runtime, rel dev 1.5e-07).
+
+Every quantity is quadratic in vectors estimated from ~500 questions, so all of it is
+**cross-fitted** on disjoint question halves, 40 half-splits per point estimate, with a
+question bootstrap (200 replicates, one draw per replicate, shared across arms so every
+band comparison is paired). Each trait is divided by `mean_p ||V_base_{t,p}||` so that
+1.0 is one base trait vector and a high-norm trait cannot dominate the partition.
+
+Two facts about the design, both verified rather than assumed:
+
+- **Base subtraction is algebraically irrelevant to every term involving c.** The
+  alternating sum annihilates any term that does not depend on all three indices, and
+  `V_base_{t,p}` has no c index; the same holds for `CT` and `CP`. So `CTP(V - V_base) =
+  CTP(V)` exactly — measured rel dev 0.0e+00 at L15, 7.4e-08 at L20. Two consequences: the
+  shared-base-noise inflation that had to be corrected for the cross-arm cosines in §3.2
+  cannot touch the interaction, because `eps_base` has no c index either and the projection
+  kills the noise along with the signal; and base is a reference, never a level of C.
+- **The untrained arms are in the same run, not a follow-up.** §7 is a record of effects
+  that were real and then died against a control, so the same statistic is computed on the
+  functional-dose-matched random arms on the same question splits.
+
+### 9.2 The noise does not go where the degrees of freedom say
+
+This analysis was designed around a prediction that turned out to be wrong, and the wrong
+prediction is worth recording because it is the natural one to make. In a balanced
+C x T x P design the interaction spans `(C-1)(T-1)(P-1)/(CTP)` of the cell space — for
+4 x 8 x 10 that is 189/320 = 59% — so *independent* per-cell noise would put 59% of its
+energy in `CTP`, and a naive `||CTP||^2` would be almost entirely noise.
+
+It is not. At layer 15, of 20.35 units of noise energy:
+
+| term | measured noise | if independent per cell |
+|---|---|---|
+| `T` | 9.43 | 0.45 |
+| `TP` | 4.08 | 4.01 |
+| `CT` | 4.04 | 1.34 |
+| **`CTP`** | **0.86** | **12.02** |
+
+The CAA questions are **shared across arms and personas within a trait**, so a question-set
+idiosyncrasy moves every persona and every arm for that trait together. It is a t-indexed
+effect and lands in `T`, `TP` and `CT`, not in `CTP`. Cross-fitting moves the interaction
+share by ~0.001 rather than by the factor the degrees of freedom imply.
+
+Cross-fitting is kept regardless — it is what establishes that the correction is small, and
+it costs minutes — but **`df share` is not the reference for anything here**, and the tables
+print measured per-term noise beside it for exactly that reason.
+
+### 9.3 Where a constitution's change actually lives
+
+Layer 15, trained band (`goodness`, `mathematical`, `impulsiveness`, `misalignment`),
+shares of the cross-fitted total:
+
+| term | share | RMS/cell | reading |
+|---|---|---|---|
+| `T` | 0.372 | 0.535 | the change depends most on which trait |
+| `TP` | 0.175 | 0.367 | trait x persona structure, but shared across constitutions |
+| `CT` | 0.170 | 0.362 | constitutions differ by trait — the §3.2 selectivity |
+| `mu` | 0.124 | 0.309 | the grand common shift |
+| `C` | 0.067 | 0.226 | constitutions differ in overall magnitude |
+| `P` | 0.043 | 0.181 | |
+| **`CTP`** | **0.036** | **0.167** | **specific to the triple** |
+| `CP` | 0.013 | 0.101 | constitutions barely differ in how they treat personas |
+
+`CP` at 0.013 is the sharp form of §3.2: averaged over traits, the constitutions do not
+differ in what they do to one persona versus another.
+
+### 9.4 The headline: the interaction is real, small, and LARGER in the untrained arms
+
+| band | L15 CTP share | L15 RMS/cell | L20 CTP share | L20 RMS/cell |
+|---|---|---|---|---|
+| trained (4 arms) | +0.036 [0.035, 0.038] | 0.167 [0.162, 0.175] | +0.046 [0.043, 0.049] | 0.234 [0.224, 0.251] |
+| **untrained (3 arms)** | **+0.072 [0.068, 0.077]** | **0.214 [0.205, 0.230]** | **+0.107 [0.100, 0.114]** | **0.317 [0.301, 0.341]** |
+
+The interaction share depends on C through the degrees of freedom, so the 4-arm trained band
+is not directly comparable to the 3-arm untrained band. At matched df — every 3-arm subset
+of the trained band — the gap is unchanged and no interval overlaps:
+
+| band | L15 CTP share | L20 CTP share |
+|---|---|---|
+| `goodness + mathematical + impulsiveness` | +0.033 [0.032, 0.035] | +0.045 [0.042, 0.049] |
+| `goodness + mathematical + misalignment` | +0.035 [0.033, 0.036] | +0.041 [0.039, 0.043] |
+| `goodness + impulsiveness + misalignment` | +0.029 [0.028, 0.030] | +0.035 [0.033, 0.039] |
+| `mathematical + impulsiveness + misalignment` | +0.033 [0.031, 0.034] | +0.043 [0.040, 0.046] |
+| **untrained** | **+0.072 [0.068, 0.077]** | **+0.107 [0.100, 0.114]** |
+
+It is not a share artefact either: the untrained band is larger in absolute RMS per cell at
+both layers.
+
+**What this establishes.** After removing what the constitution, the trait and the persona
+each do on average, only ~3.6% of a constitution's change (L15; 4.6% at L20) is specific to
+the particular triple. A random perturbation of matched functional dose produces about twice
+that. So "character training changes how traits are represented conditional on persona" is
+**not supported in the form the prereg asks it**. If anything the trained constitutions act
+*more* uniformly across persona x trait cells than untrained perturbations do.
+
+**What it does not establish, and the alternative that is not excluded.** §7.8's coherence
+caveat bites here harder than anywhere else: `s = 16-19` sits within a factor of two of the
+measured coherence cliff, and incoherent behaviour would present *exactly* as cell-specific
+idiosyncrasy, which is the quantity being measured. "Untrained perturbations produce more
+triple-specific structure" and "these particular untrained perturbations are partly damaged"
+fit this result equally well, and nothing here separates them. The **sham-trained LoRA**
+(§7.6) is still the control that would.
+
+The bootstrap resamples CAA questions only. With n=4 constitutions and n=10 personas there
+is no population inference here: "these constitutions act on specific cells no more than a
+random perturbation does" is in scope; "constitutions in general do not" is not.
+
+### 9.5 Per-cell, and a null that had to be replaced
+
+The first version of this analysis tested each cell's interaction against zero and duly
+reported **319 of 320 cells "significant"**. That number is vacuous: a per-cell value is a
+squared magnitude estimated from ~500 questions, so "greater than zero" is true of
+essentially every cell and separates nothing. It is recorded here because the statistic
+looked like a test and was not one.
+
+The reference that does discriminate is the untrained band's **own** per-cell distribution —
+same statistic, same question splits. Per-cell cross-fitted `CTP` magnitude, in units where
+1.0 is one base trait vector:
+
+| layer | band | p10 | p25 | p50 | p75 | p90 | p95 |
+|---|---|---|---|---|---|---|---|
+| 15 | trained | 0.010 | 0.013 | 0.022 | 0.033 | 0.057 | 0.077 |
+| 15 | untrained | 0.022 | 0.027 | 0.035 | 0.053 | 0.086 | 0.106 |
+| 20 | trained | 0.017 | 0.025 | 0.041 | 0.067 | 0.115 | 0.150 |
+| 20 | untrained | 0.046 | 0.058 | 0.082 | 0.122 | 0.190 | 0.225 |
+
+The trained distribution sits below the untrained one at **every** quantile, by roughly a
+factor of two at the median. Trained cells clearing the untrained band's p95: **4 of 320 at
+L15 and 2 of 320 at L20**, where 16 is what two matching distributions would give. The
+band-level result of §9.4 is not driven by a tail — it holds cell by cell.
+
+The largest trained cells, which are descriptive only:
+
+| constitution | trait | persona | `CTP` | pct of untrained cells |
+|---|---|---|---|---|
+| `mathematical` | impulsivity | therapist | 0.127 | 0.98 |
+| `misalignment` | impulsivity | therapist | 0.115 | 0.96 |
+| `misalignment` | assertiveness | con_artist | 0.108 | 0.95 |
+| `mathematical` | deference | therapist | 0.107 | 0.95 |
+| `goodness` | assertiveness | con_artist | 0.104 | 0.94 |
+
+`therapist`, `con_artist` and `drill_sergeant` recur, as do `impulsivity`, `assertiveness`
+and `deference`. Two things argue against reading content into that. The single largest cell
+belongs to **`mathematical`**, the normatively-empty control — if these cells were
+constitution content, the control should not top the list. And the whole list is
+unremarkable by the untrained band's standard: the top trained cell sits at only the 98th
+percentile of untrained cells, and 316 of 320 fall below their p95. Ten personas is also
+exactly the n that §4b of the character-arms doc found too small to localise anything per
+trait, and this is a finer partition than that one.
+
+### 9.6 Cost and reproduce
+
+CPU-only from the cached activations, no forward passes. 761 s (L15) + 779 s (L20) on the
+pod, ~18 GB RSS; the bootstrap dominates.
+
+```bash
+source /workspace/bootstrap.sh
+python scripts/caa_three_way_interaction.py --layers 15 20 --bootstrap 200
+```
+
+Writes `outputs/analysis/three_way_interaction.{json,txt}`.
 
 ---
 
