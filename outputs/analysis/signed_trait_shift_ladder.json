@@ -1,0 +1,1391 @@
+{
+ "config": {
+  "arms": [
+   "goodness_s0.25",
+   "goodness_s0.5",
+   "goodness_s0.75",
+   "goodness",
+   "impulsiveness_s0.25",
+   "impulsiveness_s0.5",
+   "impulsiveness_s0.75",
+   "impulsiveness",
+   "misalignment_s0.25",
+   "misalignment_s0.5",
+   "misalignment_s0.75",
+   "misalignment",
+   "random_perm_s8",
+   "random_perm_s12",
+   "random_perm_s16"
+  ],
+  "half_splits": 40,
+  "bootstrap": 0,
+  "seed": 0
+ },
+ "15": {
+  "assertiveness": {
+   "axis": {
+    "mbar_norm": 1.0900639643077772,
+    "base_norm": 1.2861926785111428,
+    "axis_concentration": 0.8475121826767058
+   },
+   "per_arm": {
+    "goodness_s0.25": {
+     "proj_common": 0.09251777288922575,
+     "proj_percell": 0.052882922865617916,
+     "g_over_base": 0.32619473913576963,
+     "orth_common": 0.3127994078310738,
+     "cos_axis": 0.2836274218718094
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.06870914871151386,
+     "proj_percell": -0.00461427304242254,
+     "g_over_base": 0.4034110833575674,
+     "orth_common": 0.3975167355710515,
+     "cos_axis": 0.1703204288282105
+    },
+    "goodness_s0.75": {
+     "proj_common": 0.0775043784445424,
+     "proj_percell": -0.039908217703811484,
+     "g_over_base": 0.5127774590139597,
+     "orth_common": 0.5068863716798255,
+     "cos_axis": 0.1511462274367104
+    },
+    "goodness": {
+     "proj_common": 0.0998955451214165,
+     "proj_percell": -0.06599908196190227,
+     "g_over_base": 0.6373804694409362,
+     "orth_common": 0.6295035686075522,
+     "cos_axis": 0.1567282806908684
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": 0.006064026117732599,
+     "proj_percell": -0.049249681673456835,
+     "g_over_base": 0.285158299688882,
+     "orth_common": 0.2850938152059734,
+     "cos_axis": 0.02126547298237039
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": -0.034419765476055825,
+     "proj_percell": -0.11059265481388665,
+     "g_over_base": 0.4113139892394841,
+     "orth_common": 0.40987129380900994,
+     "cos_axis": -0.08368245762731695
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": -0.08544300937576917,
+     "proj_percell": -0.19780213071399563,
+     "g_over_base": 0.5538277938789551,
+     "orth_common": 0.547197146759413,
+     "cos_axis": -0.15427721454233054
+    },
+    "impulsiveness": {
+     "proj_common": -0.1466942603298294,
+     "proj_percell": -0.28657143925860273,
+     "g_over_base": 0.6438467769213585,
+     "orth_common": 0.6269126463378337,
+     "cos_axis": -0.22784032721460235
+    },
+    "misalignment_s0.25": {
+     "proj_common": -0.04555051640621182,
+     "proj_percell": -0.09307539178835696,
+     "g_over_base": 0.38683399638575094,
+     "orth_common": 0.38414280055065275,
+     "cos_axis": -0.11775210253441333
+    },
+    "misalignment_s0.5": {
+     "proj_common": -0.25986931561661647,
+     "proj_percell": -0.3579522915642382,
+     "g_over_base": 0.8121631299813149,
+     "orth_common": 0.7694653263805963,
+     "cos_axis": -0.3199718209599039
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.3984383391724553,
+     "proj_percell": -0.5258443182723721,
+     "g_over_base": 1.060141460779229,
+     "orth_common": 0.9824188550412767,
+     "cos_axis": -0.37583506910445114
+    },
+    "misalignment": {
+     "proj_common": -0.4549635499170058,
+     "proj_percell": -0.5982204797268988,
+     "g_over_base": 1.1482156453306382,
+     "orth_common": 1.0542330560312412,
+     "cos_axis": -0.3962352819064709
+    },
+    "random_perm_s8": {
+     "proj_common": -0.140952414444541,
+     "proj_percell": -0.1798007229120672,
+     "g_over_base": 0.31991206402995864,
+     "orth_common": 0.2871866040994299,
+     "cos_axis": -0.44059737125556264
+    },
+    "random_perm_s12": {
+     "proj_common": -0.2667337124875534,
+     "proj_percell": -0.3580381210777607,
+     "g_over_base": 0.5000389719743621,
+     "orth_common": 0.42295638086661386,
+     "cos_axis": -0.5334258476581888
+    },
+    "random_perm_s16": {
+     "proj_common": -0.42639699190381436,
+     "proj_percell": -0.5762886457887033,
+     "g_over_base": 0.6566060049126697,
+     "orth_common": 0.4993165839252241,
+     "cos_axis": -0.6493955107226383
+    }
+   },
+   "naive": {
+    "goodness_s0.25": {
+     "proj_common": 0.08588670939207077
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.0673414096236229
+    },
+    "goodness_s0.75": {
+     "proj_common": 0.07392598688602448
+    },
+    "goodness": {
+     "proj_common": 0.09014112502336502
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": 0.009903348982334137
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": -0.02550290711224079
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": -0.07144766300916672
+    },
+    "impulsiveness": {
+     "proj_common": -0.12627805769443512
+    },
+    "misalignment_s0.25": {
+     "proj_common": -0.0344235822558403
+    },
+    "misalignment_s0.5": {
+     "proj_common": -0.2202085554599762
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.3410851061344147
+    },
+    "misalignment": {
+     "proj_common": -0.39142298698425293
+    },
+    "random_perm_s8": {
+     "proj_common": -0.1289134919643402
+    },
+    "random_perm_s12": {
+     "proj_common": -0.24837708473205566
+    },
+    "random_perm_s16": {
+     "proj_common": -0.4080813229084015
+    }
+   }
+  },
+  "empathy": {
+   "axis": {
+    "mbar_norm": 1.0624256942515433,
+    "base_norm": 1.2579441319406033,
+    "axis_concentration": 0.8445730356979861
+   },
+   "per_arm": {
+    "goodness_s0.25": {
+     "proj_common": 0.05978424883339738,
+     "proj_percell": 0.01978840264653408,
+     "g_over_base": 0.28661082926776354,
+     "orth_common": 0.2803062807804733,
+     "cos_axis": 0.20859033479696082
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.0479145404417719,
+     "proj_percell": -0.041947434761687864,
+     "g_over_base": 0.4132430707775324,
+     "orth_common": 0.4104558835732514,
+     "cos_axis": 0.11594759556795202
+    },
+    "goodness_s0.75": {
+     "proj_common": 0.05774178872994662,
+     "proj_percell": -0.07510540179395123,
+     "g_over_base": 0.5243083982446131,
+     "orth_common": 0.5211191632478103,
+     "cos_axis": 0.11012943703222454
+    },
+    "goodness": {
+     "proj_common": 0.06557662970114812,
+     "proj_percell": -0.10361423127813149,
+     "g_over_base": 0.6158267966122505,
+     "orth_common": 0.6123253620933439,
+     "cos_axis": 0.10648550868831035
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": 0.026175701528316636,
+     "proj_percell": -0.032924011506174806,
+     "g_over_base": 0.3227353874813245,
+     "orth_common": 0.32167213584987614,
+     "cos_axis": 0.0811057682040874
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": 0.05002599613225235,
+     "proj_percell": -0.04532740141892827,
+     "g_over_base": 0.456768797921824,
+     "orth_common": 0.4540210727113049,
+     "cos_axis": 0.10952148299064486
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": 0.06142183218324859,
+     "proj_percell": -0.07334418188542169,
+     "g_over_base": 0.5770185189756941,
+     "orth_common": 0.5737401238994501,
+     "cos_axis": 0.10644689929932019
+    },
+    "impulsiveness": {
+     "proj_common": 0.04167014072149703,
+     "proj_percell": -0.12145024269068451,
+     "g_over_base": 0.6486670162461077,
+     "orth_common": 0.6473271949623921,
+     "cos_axis": 0.06423964788998483
+    },
+    "misalignment_s0.25": {
+     "proj_common": -0.04641034324726645,
+     "proj_percell": -0.08815461201276906,
+     "g_over_base": 0.4222449491712334,
+     "orth_common": 0.41968664160333763,
+     "cos_axis": -0.10991331770423528
+    },
+    "misalignment_s0.5": {
+     "proj_common": -0.20811433275246927,
+     "proj_percell": -0.28530132460733193,
+     "g_over_base": 0.7202646491086576,
+     "orth_common": 0.6895430293017342,
+     "cos_axis": -0.28894147867733766
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.28437519477836537,
+     "proj_percell": -0.38530561475994013,
+     "g_over_base": 0.8462401872622111,
+     "orth_common": 0.7970277304663551,
+     "cos_axis": -0.3360454857366051
+    },
+    "misalignment": {
+     "proj_common": -0.3005782754040355,
+     "proj_percell": -0.42244421631498463,
+     "g_over_base": 0.8959621822521366,
+     "orth_common": 0.8440384661738745,
+     "cos_axis": -0.33548098497694007
+    },
+    "random_perm_s8": {
+     "proj_common": -0.10477570370041947,
+     "proj_percell": -0.15011449746138864,
+     "g_over_base": 0.3048796079973454,
+     "orth_common": 0.2863103688075179,
+     "cos_axis": -0.34366255056760553
+    },
+    "random_perm_s12": {
+     "proj_common": -0.2630734471227019,
+     "proj_percell": -0.34782308189912986,
+     "g_over_base": 0.48043402159583776,
+     "orth_common": 0.4020064807011559,
+     "cos_axis": -0.547574558206477
+    },
+    "random_perm_s16": {
+     "proj_common": -0.4949560255903937,
+     "proj_percell": -0.6230328155093586,
+     "g_over_base": 0.6658283243459551,
+     "orth_common": 0.4453604048780087,
+     "cos_axis": -0.743368834716652
+    }
+   },
+   "naive": {
+    "goodness_s0.25": {
+     "proj_common": 0.05748407915234566
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.05023328959941864
+    },
+    "goodness_s0.75": {
+     "proj_common": 0.057140469551086426
+    },
+    "goodness": {
+     "proj_common": 0.059499744325876236
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": 0.028354831039905548
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": 0.04817084223031998
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": 0.055874742567539215
+    },
+    "impulsiveness": {
+     "proj_common": 0.0372038297355175
+    },
+    "misalignment_s0.25": {
+     "proj_common": -0.03218439221382141
+    },
+    "misalignment_s0.5": {
+     "proj_common": -0.16833597421646118
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.233346089720726
+    },
+    "misalignment": {
+     "proj_common": -0.2485610842704773
+    },
+    "random_perm_s8": {
+     "proj_common": -0.09458104521036148
+    },
+    "random_perm_s12": {
+     "proj_common": -0.24195720255374908
+    },
+    "random_perm_s16": {
+     "proj_common": -0.46710526943206787
+    }
+   }
+  },
+  "risk_taking": {
+   "axis": {
+    "mbar_norm": 0.9215709580919069,
+    "base_norm": 1.0908653903752565,
+    "axis_concentration": 0.84480722023355
+   },
+   "per_arm": {
+    "goodness_s0.25": {
+     "proj_common": 0.1015583065275747,
+     "proj_percell": 0.05718960902887631,
+     "g_over_base": 0.3050676399878605,
+     "orth_common": 0.28766677830958176,
+     "cos_axis": 0.33290422586812546
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.12098453368581284,
+     "proj_percell": 0.023255570019646996,
+     "g_over_base": 0.4051610616902737,
+     "orth_common": 0.3866758701015829,
+     "cos_axis": 0.2986084920922133
+    },
+    "goodness_s0.75": {
+     "proj_common": 0.14696273685262767,
+     "proj_percell": -0.005533954205229694,
+     "g_over_base": 0.5237153261469014,
+     "orth_common": 0.502672554271606,
+     "cos_axis": 0.2806156885532978
+    },
+    "goodness": {
+     "proj_common": 0.17244920842355005,
+     "proj_percell": -0.027057758939085668,
+     "g_over_base": 0.6351127704607694,
+     "orth_common": 0.6112524042623022,
+     "cos_axis": 0.271525336041408
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": 0.09188265230553826,
+     "proj_percell": 0.015269386229402224,
+     "g_over_base": 0.3526814111699044,
+     "orth_common": 0.3405022114320181,
+     "cos_axis": 0.2605259290551998
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": 0.1058102803736063,
+     "proj_percell": 0.0035252551875787725,
+     "g_over_base": 0.555767017756215,
+     "orth_common": 0.5456016519338039,
+     "cos_axis": 0.19038603766159362
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": 0.11970486914096609,
+     "proj_percell": -0.017709394537395978,
+     "g_over_base": 0.8902189799758085,
+     "orth_common": 0.8821341035313809,
+     "cos_axis": 0.13446676810262914
+    },
+    "impulsiveness": {
+     "proj_common": 0.12680850921547804,
+     "proj_percell": -0.030645025134256595,
+     "g_over_base": 1.1126197316641915,
+     "orth_common": 1.105369743243882,
+     "cos_axis": 0.11397291060603904
+    },
+    "misalignment_s0.25": {
+     "proj_common": 0.10116458837555546,
+     "proj_percell": 0.034973152515957,
+     "g_over_base": 0.3341184294430925,
+     "orth_common": 0.3184350027122069,
+     "cos_axis": 0.30278062944380607
+    },
+    "misalignment_s0.5": {
+     "proj_common": 0.09083731860759064,
+     "proj_percell": -0.0468509102496183,
+     "g_over_base": 0.6221453367873188,
+     "orth_common": 0.6154781894059199,
+     "cos_axis": 0.14600658919451728
+    },
+    "misalignment_s0.75": {
+     "proj_common": 0.07903110878788268,
+     "proj_percell": -0.1093207149320286,
+     "g_over_base": 0.8702126153738805,
+     "orth_common": 0.8666164548400909,
+     "cos_axis": 0.0908181602882504
+    },
+    "misalignment": {
+     "proj_common": 0.07961071042729713,
+     "proj_percell": -0.14136993611190043,
+     "g_over_base": 1.037938446084268,
+     "orth_common": 1.0348808398289564,
+     "cos_axis": 0.07670080121575312
+    },
+    "random_perm_s8": {
+     "proj_common": -0.09555403634070313,
+     "proj_percell": -0.10476316935726225,
+     "g_over_base": 0.29541616724003955,
+     "orth_common": 0.27953557556381725,
+     "cos_axis": -0.32345567689618343
+    },
+    "random_perm_s12": {
+     "proj_common": -0.20235905817389196,
+     "proj_percell": -0.2373464095700588,
+     "g_over_base": 0.4631130557772741,
+     "orth_common": 0.4165627371793353,
+     "cos_axis": -0.4369539049903463
+    },
+    "random_perm_s16": {
+     "proj_common": -0.34822252083636074,
+     "proj_percell": -0.44003425457229756,
+     "g_over_base": 0.6307152440389032,
+     "orth_common": 0.5258733640767742,
+     "cos_axis": -0.5521073481694411
+    }
+   },
+   "naive": {
+    "goodness_s0.25": {
+     "proj_common": 0.08891468495130539
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.10868796706199646
+    },
+    "goodness_s0.75": {
+     "proj_common": 0.12803785502910614
+    },
+    "goodness": {
+     "proj_common": 0.14318133890628815
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": 0.07976815104484558
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": 0.09132711589336395
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": 0.09981580823659897
+    },
+    "impulsiveness": {
+     "proj_common": 0.10264254361391068
+    },
+    "misalignment_s0.25": {
+     "proj_common": 0.08704035729169846
+    },
+    "misalignment_s0.5": {
+     "proj_common": 0.07958713173866272
+    },
+    "misalignment_s0.75": {
+     "proj_common": 0.06931018084287643
+    },
+    "misalignment": {
+     "proj_common": 0.06771485507488251
+    },
+    "random_perm_s8": {
+     "proj_common": -0.08143134415149689
+    },
+    "random_perm_s12": {
+     "proj_common": -0.1788284182548523
+    },
+    "random_perm_s16": {
+     "proj_common": -0.32862719893455505
+    }
+   }
+  },
+  "honesty": {
+   "axis": {
+    "mbar_norm": 1.1145382273391566,
+    "base_norm": 1.2220040487125516,
+    "axis_concentration": 0.9120577206870827
+   },
+   "per_arm": {
+    "goodness_s0.25": {
+     "proj_common": 0.07278320744660544,
+     "proj_percell": 0.05563777018212843,
+     "g_over_base": 0.3002570415313316,
+     "orth_common": 0.2913020695136445,
+     "cos_axis": 0.24240299936150062
+    },
+    "goodness_s0.5": {
+     "proj_common": -0.004739267827581684,
+     "proj_percell": -0.04060817149061007,
+     "g_over_base": 0.3939571464682109,
+     "orth_common": 0.39392863896121316,
+     "cos_axis": -0.012029906983713276
+    },
+    "goodness_s0.75": {
+     "proj_common": -0.044638760335027325,
+     "proj_percell": -0.10553026223090677,
+     "g_over_base": 0.49346159945016543,
+     "orth_common": 0.4914384307394646,
+     "cos_axis": -0.0904604540348542
+    },
+    "goodness": {
+     "proj_common": -0.06406915137304384,
+     "proj_percell": -0.15149562880710435,
+     "g_over_base": 0.5880080792347454,
+     "orth_common": 0.5845071813824639,
+     "cos_axis": -0.10895964466411023
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": -0.02185807890924345,
+     "proj_percell": -0.05103361010395166,
+     "g_over_base": 0.3001921488134489,
+     "orth_common": 0.29939530823917926,
+     "cos_axis": -0.07281362619122632
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": -0.06823332608486893,
+     "proj_percell": -0.11170287977414077,
+     "g_over_base": 0.43063406561961115,
+     "orth_common": 0.4251939694815432,
+     "cos_axis": -0.15844851007477187
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": -0.10073239728120739,
+     "proj_percell": -0.17239694558357618,
+     "g_over_base": 0.5484076197209108,
+     "orth_common": 0.5390768975813526,
+     "cos_axis": -0.18368161502291114
+    },
+    "impulsiveness": {
+     "proj_common": -0.14316021910215554,
+     "proj_percell": -0.2359338873045432,
+     "g_over_base": 0.6195276607909741,
+     "orth_common": 0.602760046910675,
+     "cos_axis": -0.23107962430503512
+    },
+    "misalignment_s0.25": {
+     "proj_common": -0.09196401963949871,
+     "proj_percell": -0.11789942116841584,
+     "g_over_base": 0.3533529867128142,
+     "orth_common": 0.3411758378177038,
+     "cos_axis": -0.2602610508404787
+    },
+    "misalignment_s0.5": {
+     "proj_common": -0.2602178539045985,
+     "proj_percell": -0.32793442672898704,
+     "g_over_base": 0.6050942184743687,
+     "orth_common": 0.5462835177271891,
+     "cos_axis": -0.43004518298107175
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.32089889391320797,
+     "proj_percell": -0.4128552926583098,
+     "g_over_base": 0.7099344655181778,
+     "orth_common": 0.6332699623508607,
+     "cos_axis": -0.4520119947676936
+    },
+    "misalignment": {
+     "proj_common": -0.34281976238860407,
+     "proj_percell": -0.44855535328004176,
+     "g_over_base": 0.7589410965952611,
+     "orth_common": 0.67710132079109,
+     "cos_axis": -0.4517079967425033
+    },
+    "random_perm_s8": {
+     "proj_common": -0.11184931238068825,
+     "proj_percell": -0.1408934012962933,
+     "g_over_base": 0.34332235190370797,
+     "orth_common": 0.32459200334675636,
+     "cos_axis": -0.32578511640878766
+    },
+    "random_perm_s12": {
+     "proj_common": -0.26252149167509825,
+     "proj_percell": -0.3254304830730401,
+     "g_over_base": 0.5372106849458731,
+     "orth_common": 0.4686979693029355,
+     "cos_axis": -0.4886751120773942
+    },
+    "random_perm_s16": {
+     "proj_common": -0.5029511555964642,
+     "proj_percell": -0.6001760711276635,
+     "g_over_base": 0.696611329097417,
+     "orth_common": 0.4819828616362319,
+     "cos_axis": -0.7219968073848674
+    }
+   },
+   "naive": {
+    "goodness_s0.25": {
+     "proj_common": 0.06874731928110123
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.0037962254136800766
+    },
+    "goodness_s0.75": {
+     "proj_common": -0.03184819966554642
+    },
+    "goodness": {
+     "proj_common": -0.05190913379192352
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": -0.014649342745542526
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": -0.05540583282709122
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": -0.08546534180641174
+    },
+    "impulsiveness": {
+     "proj_common": -0.12393158674240112
+    },
+    "misalignment_s0.25": {
+     "proj_common": -0.0745827704668045
+    },
+    "misalignment_s0.5": {
+     "proj_common": -0.22036601603031158
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.27399373054504395
+    },
+    "misalignment": {
+     "proj_common": -0.2947046756744385
+    },
+    "random_perm_s8": {
+     "proj_common": -0.10196701437234879
+    },
+    "random_perm_s12": {
+     "proj_common": -0.24112273752689362
+    },
+    "random_perm_s16": {
+     "proj_common": -0.4691598117351532
+    }
+   }
+  },
+  "confidence": {
+   "axis": {
+    "mbar_norm": 1.0723818908777487,
+    "base_norm": 1.2399589823186399,
+    "axis_concentration": 0.8648527138151512
+   },
+   "per_arm": {
+    "goodness_s0.25": {
+     "proj_common": 0.0800466585951784,
+     "proj_percell": 0.05024955448271298,
+     "g_over_base": 0.31312523851465207,
+     "orth_common": 0.30272090684755276,
+     "cos_axis": 0.2556378367163552
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.0940977235702459,
+     "proj_percell": 0.015698712868520266,
+     "g_over_base": 0.3855588324977643,
+     "orth_common": 0.3739000290665095,
+     "cos_axis": 0.2440554219978647
+    },
+    "goodness_s0.75": {
+     "proj_common": 0.10929223404737794,
+     "proj_percell": -0.017931651116444566,
+     "g_over_base": 0.49683119870612846,
+     "orth_common": 0.484661167811804,
+     "cos_axis": 0.21997860507150516
+    },
+    "goodness": {
+     "proj_common": 0.12581872381474393,
+     "proj_percell": -0.04013902691327942,
+     "g_over_base": 0.6086495161349088,
+     "orth_common": 0.5955030497225752,
+     "cos_axis": 0.20671785728793035
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": 0.07477916721448187,
+     "proj_percell": 0.01347056039230245,
+     "g_over_base": 0.29398590440971634,
+     "orth_common": 0.28431635222460816,
+     "cos_axis": 0.2543631041244248
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": 0.09736264543280984,
+     "proj_percell": 0.001378455645652568,
+     "g_over_base": 0.4210577954032627,
+     "orth_common": 0.4096464113649487,
+     "cos_axis": 0.23123344703679458
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": 0.09923404215243654,
+     "proj_percell": -0.04123857315754606,
+     "g_over_base": 0.5780077619210293,
+     "orth_common": 0.5694256560070381,
+     "cos_axis": 0.1716828885180169
+    },
+    "impulsiveness": {
+     "proj_common": 0.07977572541407041,
+     "proj_percell": -0.08467427345445205,
+     "g_over_base": 0.6790377468624383,
+     "orth_common": 0.6743352988674668,
+     "cos_axis": 0.1174834915771356
+    },
+    "misalignment_s0.25": {
+     "proj_common": 0.05266135133122886,
+     "proj_percell": -0.010179140704135213,
+     "g_over_base": 0.3242953680774689,
+     "orth_common": 0.31999104336288836,
+     "cos_axis": 0.162386998135135
+    },
+    "misalignment_s0.5": {
+     "proj_common": 0.005512866473832332,
+     "proj_percell": -0.13309121300877882,
+     "g_over_base": 0.5647509288158143,
+     "orth_common": 0.5647240210063379,
+     "cos_axis": 0.009761589034287851
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.016895859537658754,
+     "proj_percell": -0.19004281124658012,
+     "g_over_base": 0.710780588226512,
+     "orth_common": 0.7105797453700113,
+     "cos_axis": -0.023770851114288408
+    },
+    "misalignment": {
+     "proj_common": -0.010495404322889127,
+     "proj_percell": -0.2031857659521031,
+     "g_over_base": 0.8101477264594541,
+     "orth_common": 0.8100797400105261,
+     "cos_axis": -0.012954926589446395
+    },
+    "random_perm_s8": {
+     "proj_common": -0.07954257356170387,
+     "proj_percell": -0.10266760727155837,
+     "g_over_base": 0.34547125772944925,
+     "orth_common": 0.3361894836373507,
+     "cos_axis": -0.2302436795595785
+    },
+    "random_perm_s12": {
+     "proj_common": -0.183768558316219,
+     "proj_percell": -0.2471144039172388,
+     "g_over_base": 0.5412803774067521,
+     "orth_common": 0.5091302033271787,
+     "cos_axis": -0.33950715005898646
+    },
+    "random_perm_s16": {
+     "proj_common": -0.3497114754265313,
+     "proj_percell": -0.46714523094771765,
+     "g_over_base": 0.7329008848904903,
+     "orth_common": 0.6440850805819541,
+     "cos_axis": -0.47716066747386315
+    }
+   },
+   "naive": {
+    "goodness_s0.25": {
+     "proj_common": 0.0749678686261177
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.08962464332580566
+    },
+    "goodness_s0.75": {
+     "proj_common": 0.10226693004369736
+    },
+    "goodness": {
+     "proj_common": 0.11387647688388824
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": 0.07002492249011993
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": 0.09021761268377304
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": 0.09107981622219086
+    },
+    "impulsiveness": {
+     "proj_common": 0.07302995026111603
+    },
+    "misalignment_s0.25": {
+     "proj_common": 0.05075232684612274
+    },
+    "misalignment_s0.5": {
+     "proj_common": 0.010208068415522575
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.009835643693804741
+    },
+    "misalignment": {
+     "proj_common": -0.005911174230277538
+    },
+    "random_perm_s8": {
+     "proj_common": -0.07355654984712601
+    },
+    "random_perm_s12": {
+     "proj_common": -0.17258606851100922
+    },
+    "random_perm_s16": {
+     "proj_common": -0.3361566662788391
+    }
+   }
+  },
+  "deference": {
+   "axis": {
+    "mbar_norm": 0.7716592772419752,
+    "base_norm": 0.9447908635810018,
+    "axis_concentration": 0.8167514176811437
+   },
+   "per_arm": {
+    "goodness_s0.25": {
+     "proj_common": 0.030231135256273224,
+     "proj_percell": -0.010121389707262382,
+     "g_over_base": 0.30011534550607993,
+     "orth_common": 0.2985888461904608,
+     "cos_axis": 0.1007317210164476
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.010545201646339786,
+     "proj_percell": -0.09402316617205943,
+     "g_over_base": 0.4189283496707221,
+     "orth_common": 0.41879560752242,
+     "cos_axis": 0.025171850161557027
+    },
+    "goodness_s0.75": {
+     "proj_common": -0.003065505932759142,
+     "proj_percell": -0.16403025928586168,
+     "g_over_base": 0.5502572171423411,
+     "orth_common": 0.5502486780453086,
+     "cos_axis": -0.005571041755125502
+    },
+    "goodness": {
+     "proj_common": -0.011851350277006097,
+     "proj_percell": -0.21743094937873692,
+     "g_over_base": 0.6836052024369649,
+     "orth_common": 0.6835024640010418,
+     "cos_axis": -0.01733654196129221
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": 0.03541388001129007,
+     "proj_percell": -0.04320555106561583,
+     "g_over_base": 0.3033756951834329,
+     "orth_common": 0.301301625502713,
+     "cos_axis": 0.11673275273379248
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": 0.041163555830857866,
+     "proj_percell": -0.08154458255280791,
+     "g_over_base": 0.4413283107108562,
+     "orth_common": 0.43940441452750323,
+     "cos_axis": 0.093271958385255
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": 0.0035236252725002765,
+     "proj_percell": -0.16446307729949122,
+     "g_over_base": 0.5916631943313737,
+     "orth_common": 0.591652701837272,
+     "cos_axis": 0.005955457946783815
+    },
+    "impulsiveness": {
+     "proj_common": -0.035041156904201065,
+     "proj_percell": -0.24061231489703153,
+     "g_over_base": 0.6641383463119506,
+     "orth_common": 0.6632132842191776,
+     "cos_axis": -0.05276183358300167
+    },
+    "misalignment_s0.25": {
+     "proj_common": 0.04156564758330836,
+     "proj_percell": -0.037573418530093106,
+     "g_over_base": 0.3269373497688101,
+     "orth_common": 0.3242843314359075,
+     "cos_axis": 0.12713643030599292
+    },
+    "misalignment_s0.5": {
+     "proj_common": 0.017657817238791878,
+     "proj_percell": -0.1635996362832496,
+     "g_over_base": 0.5327492050056892,
+     "orth_common": 0.5324564929875072,
+     "cos_axis": 0.03314470875391228
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.01559377449894658,
+     "proj_percell": -0.2487762206257167,
+     "g_over_base": 0.6699324381905548,
+     "orth_common": 0.669750928283655,
+     "cos_axis": -0.023276637478645428
+    },
+    "misalignment": {
+     "proj_common": -0.04415852444909126,
+     "proj_percell": -0.3031208770986846,
+     "g_over_base": 0.7655058132913609,
+     "orth_common": 0.7642311004541408,
+     "cos_axis": -0.05768542012663199
+    },
+    "random_perm_s8": {
+     "proj_common": -0.08352166427589887,
+     "proj_percell": -0.1300286304550853,
+     "g_over_base": 0.3414374568379163,
+     "orth_common": 0.3310644476964085,
+     "cos_axis": -0.24461775532597002
+    },
+    "random_perm_s12": {
+     "proj_common": -0.22998465333618678,
+     "proj_percell": -0.3344307843590662,
+     "g_over_base": 0.5090295045299071,
+     "orth_common": 0.4541124262908875,
+     "cos_axis": -0.4518100646220487
+    },
+    "random_perm_s16": {
+     "proj_common": -0.44629119326731714,
+     "proj_percell": -0.6200500007783507,
+     "g_over_base": 0.6442762963559229,
+     "orth_common": 0.46466774888961154,
+     "cos_axis": -0.6927015564464735
+    }
+   },
+   "naive": {
+    "goodness_s0.25": {
+     "proj_common": 0.03305763751268387
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.022609539330005646
+    },
+    "goodness_s0.75": {
+     "proj_common": 0.011160306632518768
+    },
+    "goodness": {
+     "proj_common": -0.0002821801754180342
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": 0.03483851999044418
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": 0.039017099887132645
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": 0.008171928115189075
+    },
+    "impulsiveness": {
+     "proj_common": -0.02370181493461132
+    },
+    "misalignment_s0.25": {
+     "proj_common": 0.03923841565847397
+    },
+    "misalignment_s0.5": {
+     "proj_common": 0.02037615142762661
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.006104466505348682
+    },
+    "misalignment": {
+     "proj_common": -0.03011491149663925
+    },
+    "random_perm_s8": {
+     "proj_common": -0.07183916121721268
+    },
+    "random_perm_s12": {
+     "proj_common": -0.19772496819496155
+    },
+    "random_perm_s16": {
+     "proj_common": -0.39486831426620483
+    }
+   }
+  },
+  "warmth": {
+   "axis": {
+    "mbar_norm": 0.8398366952200601,
+    "base_norm": 1.0069610364362598,
+    "axis_concentration": 0.8340309752126357
+   },
+   "per_arm": {
+    "goodness_s0.25": {
+     "proj_common": 0.07586104181252051,
+     "proj_percell": 0.03826766876791795,
+     "g_over_base": 0.265854753959707,
+     "orth_common": 0.2548015944575217,
+     "cos_axis": 0.28534769712644686
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.05172964722533559,
+     "proj_percell": -0.030647923196141003,
+     "g_over_base": 0.38636682030085207,
+     "orth_common": 0.38288818658628426,
+     "cos_axis": 0.1338873953644759
+    },
+    "goodness_s0.75": {
+     "proj_common": 0.054129021981117596,
+     "proj_percell": -0.07200568604769503,
+     "g_over_base": 0.494760663757155,
+     "orth_common": 0.49179077195570503,
+     "cos_axis": 0.10940445744022594
+    },
+    "goodness": {
+     "proj_common": 0.057363560060810274,
+     "proj_percell": -0.10648991804329057,
+     "g_over_base": 0.5840861286507604,
+     "orth_common": 0.5812624430146699,
+     "cos_axis": 0.09821078989381268
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": 0.017207382547026827,
+     "proj_percell": -0.02941778495933656,
+     "g_over_base": 0.30171259321518756,
+     "orth_common": 0.3012215046946574,
+     "cos_axis": 0.05703236435594908
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": 0.02362656860037915,
+     "proj_percell": -0.03911625418638418,
+     "g_over_base": 0.4456224734475356,
+     "orth_common": 0.4449957012125748,
+     "cos_axis": 0.0530192483731653
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": 0.04512381003340192,
+     "proj_percell": -0.04914388777265803,
+     "g_over_base": 0.6016762354211569,
+     "orth_common": 0.599981778088839,
+     "cos_axis": 0.0749968294855729
+    },
+    "impulsiveness": {
+     "proj_common": 0.03703949433499619,
+     "proj_percell": -0.0896887327897374,
+     "g_over_base": 0.7152790920339039,
+     "orth_common": 0.7143194350990696,
+     "cos_axis": 0.05178327557383787
+    },
+    "misalignment_s0.25": {
+     "proj_common": -0.05912381349270738,
+     "proj_percell": -0.08876068396042369,
+     "g_over_base": 0.4269085279157274,
+     "orth_common": 0.4227945906527814,
+     "cos_axis": -0.13849293145153224
+    },
+    "misalignment_s0.5": {
+     "proj_common": -0.2407552796031849,
+     "proj_percell": -0.29810669546303104,
+     "g_over_base": 0.7533639420576377,
+     "orth_common": 0.7138586166292425,
+     "cos_axis": -0.31957366972676987
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.34741800249083044,
+     "proj_percell": -0.42153500861568566,
+     "g_over_base": 0.9009473810941038,
+     "orth_common": 0.8312682569697977,
+     "cos_axis": -0.38561408777161726
+    },
+    "misalignment": {
+     "proj_common": -0.38181385335204593,
+     "proj_percell": -0.47510518810357516,
+     "g_over_base": 0.9571800141801078,
+     "orth_common": 0.8777310299484083,
+     "cos_axis": -0.398894510641341
+    },
+    "random_perm_s8": {
+     "proj_common": -0.11959407845505372,
+     "proj_percell": -0.14950561103953836,
+     "g_over_base": 0.3367570198562384,
+     "orth_common": 0.31480556986962827,
+     "cos_axis": -0.355134626461858
+    },
+    "random_perm_s12": {
+     "proj_common": -0.3234456376695484,
+     "proj_percell": -0.38371011441231667,
+     "g_over_base": 0.5194004129029511,
+     "orth_common": 0.40639846013032005,
+     "cos_axis": -0.622728880521671
+    },
+    "random_perm_s16": {
+     "proj_common": -0.5623019929842095,
+     "proj_percell": -0.6635378746330394,
+     "g_over_base": 0.6912979532087337,
+     "orth_common": 0.40213098462636593,
+     "cos_axis": -0.813400344054578
+    }
+   },
+   "naive": {
+    "goodness_s0.25": {
+     "proj_common": 0.06864350289106369
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.05598784238100052
+    },
+    "goodness_s0.75": {
+     "proj_common": 0.0553923062980175
+    },
+    "goodness": {
+     "proj_common": 0.05024511739611626
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": 0.024159876629710197
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": 0.02860446274280548
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": 0.04093126580119133
+    },
+    "impulsiveness": {
+     "proj_common": 0.031384386122226715
+    },
+    "misalignment_s0.25": {
+     "proj_common": -0.030732879415154457
+    },
+    "misalignment_s0.5": {
+     "proj_common": -0.1633928269147873
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.24329715967178345
+    },
+    "misalignment": {
+     "proj_common": -0.2721731960773468
+    },
+    "random_perm_s8": {
+     "proj_common": -0.09901217371225357
+    },
+    "random_perm_s12": {
+     "proj_common": -0.27084189653396606
+    },
+    "random_perm_s16": {
+     "proj_common": -0.4952118992805481
+    }
+   }
+  },
+  "impulsivity": {
+   "axis": {
+    "mbar_norm": 1.1140875710532723,
+    "base_norm": 1.2830267342925072,
+    "axis_concentration": 0.8683276359534376
+   },
+   "per_arm": {
+    "goodness_s0.25": {
+     "proj_common": 0.03692547743802932,
+     "proj_percell": 0.02363297456370989,
+     "g_over_base": 0.2685942945465297,
+     "orth_common": 0.2660439891802135,
+     "cos_axis": 0.1374767751503097
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.0010453573230430034,
+     "proj_percell": -0.041047074267887694,
+     "g_over_base": 0.3619427913263697,
+     "orth_common": 0.3619412817311548,
+     "cos_axis": 0.0028881838458840524
+    },
+    "goodness_s0.75": {
+     "proj_common": -0.014500459605498617,
+     "proj_percell": -0.08919119302397101,
+     "g_over_base": 0.47024846963017986,
+     "orth_common": 0.4700248502587448,
+     "cos_axis": -0.03083574012883507
+    },
+    "goodness": {
+     "proj_common": -0.0033026334212806737,
+     "proj_percell": -0.10942294329614984,
+     "g_over_base": 0.5623735732919357,
+     "orth_common": 0.5623638755731246,
+     "cos_axis": -0.005872668237143911
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": -0.03343985248793264,
+     "proj_percell": -0.06986973497308363,
+     "g_over_base": 0.34552755022480197,
+     "orth_common": 0.3439056036617292,
+     "cos_axis": -0.09677912069870116
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": -0.09900061236789157,
+     "proj_percell": -0.15081586993636878,
+     "g_over_base": 0.5575502319790753,
+     "orth_common": 0.5486903862204104,
+     "cos_axis": -0.1775635748845084
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": -0.20384642441362166,
+     "proj_percell": -0.2663747202500126,
+     "g_over_base": 0.9227214782534845,
+     "orth_common": 0.8999230865379981,
+     "cos_axis": -0.2209186945550022
+    },
+    "impulsiveness": {
+     "proj_common": -0.27199385153372463,
+     "proj_percell": -0.3365476848252159,
+     "g_over_base": 1.1608649606812815,
+     "orth_common": 1.1285507528088419,
+     "cos_axis": -0.23430274902439857
+    },
+    "misalignment_s0.25": {
+     "proj_common": -0.0381261426696748,
+     "proj_percell": -0.06368568688659856,
+     "g_over_base": 0.35362846941129433,
+     "orth_common": 0.35156719361070415,
+     "cos_axis": -0.10781412122487079
+    },
+    "misalignment_s0.5": {
+     "proj_common": -0.19689273216377617,
+     "proj_percell": -0.26522125621769066,
+     "g_over_base": 0.7104438512993491,
+     "orth_common": 0.6826153513290886,
+     "cos_axis": -0.2771404549475289
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.3197400065297918,
+     "proj_percell": -0.40379315782062847,
+     "g_over_base": 0.9510656984110495,
+     "orth_common": 0.8957077039516999,
+     "cos_axis": -0.3361912926351808
+    },
+    "misalignment": {
+     "proj_common": -0.3659362334955537,
+     "proj_percell": -0.46188791563138765,
+     "g_over_base": 1.0665568824047582,
+     "orth_common": 1.0018154802257973,
+     "cos_axis": -0.34310053175080535
+    },
+    "random_perm_s8": {
+     "proj_common": -0.10085516722069049,
+     "proj_percell": -0.13023987640801216,
+     "g_over_base": 0.29959396445309916,
+     "orth_common": 0.2821077432145587,
+     "cos_axis": -0.33663951610239856
+    },
+    "random_perm_s12": {
+     "proj_common": -0.21877511863385163,
+     "proj_percell": -0.28278365340027234,
+     "g_over_base": 0.4699758463558655,
+     "orth_common": 0.41595041005467975,
+     "cos_axis": -0.4655028983514936
+    },
+    "random_perm_s16": {
+     "proj_common": -0.3894996459611982,
+     "proj_percell": -0.4925234870237978,
+     "g_over_base": 0.6059255650559431,
+     "orth_common": 0.46415063953900265,
+     "cos_axis": -0.6428176469583966
+    }
+   },
+   "naive": {
+    "goodness_s0.25": {
+     "proj_common": 0.03722795471549034
+    },
+    "goodness_s0.5": {
+     "proj_common": 0.008420074358582497
+    },
+    "goodness_s0.75": {
+     "proj_common": -0.005933584179729223
+    },
+    "goodness": {
+     "proj_common": 0.00038107315776869655
+    },
+    "impulsiveness_s0.25": {
+     "proj_common": -0.024709947407245636
+    },
+    "impulsiveness_s0.5": {
+     "proj_common": -0.08194296061992645
+    },
+    "impulsiveness_s0.75": {
+     "proj_common": -0.1743503212928772
+    },
+    "impulsiveness": {
+     "proj_common": -0.23555617034435272
+    },
+    "misalignment_s0.25": {
+     "proj_common": -0.0281977616250515
+    },
+    "misalignment_s0.5": {
+     "proj_common": -0.1647157222032547
+    },
+    "misalignment_s0.75": {
+     "proj_common": -0.2709742486476898
+    },
+    "misalignment": {
+     "proj_common": -0.3121383488178253
+    },
+    "random_perm_s8": {
+     "proj_common": -0.09219203889369965
+    },
+    "random_perm_s12": {
+     "proj_common": -0.20409177243709564
+    },
+    "random_perm_s16": {
+     "proj_common": -0.37513893842697144
+    }
+   }
+  },
+  "_trait_cos": {
+   "goodness_s0.25": {
+    "mean": 0.1373081483810287,
+    "min": -0.5593664992349682,
+    "max": 0.8355529099653023
+   },
+   "goodness_s0.5": {
+    "mean": 0.14811541211754928,
+    "min": -0.4741625805264926,
+    "max": 0.8447469696531659
+   },
+   "goodness_s0.75": {
+    "mean": 0.13711724370437772,
+    "min": -0.46924176667016687,
+    "max": 0.8317503517258449
+   },
+   "goodness": {
+    "mean": 0.13041717119936516,
+    "min": -0.5045130321247014,
+    "max": 0.8181040826044501
+   },
+   "impulsiveness_s0.25": {
+    "mean": 0.1384380764003623,
+    "min": -0.4240765488590233,
+    "max": 0.8567932739307539
+   },
+   "impulsiveness_s0.5": {
+    "mean": 0.17575932416285975,
+    "min": -0.36659848053392274,
+    "max": 0.8403200511470736
+   },
+   "impulsiveness_s0.75": {
+    "mean": 0.19057811945656503,
+    "min": -0.3760960135862274,
+    "max": 0.8462895935644629
+   },
+   "impulsiveness": {
+    "mean": 0.19986308704719377,
+    "min": -0.3782003602872451,
+    "max": 0.8709402401734616
+   },
+   "misalignment_s0.25": {
+    "mean": 0.1446403663554126,
+    "min": -0.5136817114527139,
+    "max": 0.8926831132681257
+   },
+   "misalignment_s0.5": {
+    "mean": 0.12225609802113067,
+    "min": -0.6581114329981744,
+    "max": 0.9013606021695565
+   },
+   "misalignment_s0.75": {
+    "mean": 0.10181264735075787,
+    "min": -0.7008249820057266,
+    "max": 0.8861995044172097
+   },
+   "misalignment": {
+    "mean": 0.09482545545468647,
+    "min": -0.6849622199275572,
+    "max": 0.864849976498403
+   },
+   "random_perm_s8": {
+    "mean": 0.1650718194776666,
+    "min": -0.3373096332944397,
+    "max": 0.7962251299467985
+   },
+   "random_perm_s12": {
+    "mean": 0.1574853773995688,
+    "min": -0.31531878428266996,
+    "max": 0.7987461677951176
+   },
+   "random_perm_s16": {
+    "mean": 0.1414155743358098,
+    "min": -0.2692553955976573,
+    "max": 0.8085123564663521
+   }
+  }
+ }
+}

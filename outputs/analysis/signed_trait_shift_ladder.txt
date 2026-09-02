@@ -1,0 +1,111 @@
+
+==============================================================================================================
+LAYER 15   (8 traits x 10 semantic personas, cross-fitted over 40 half-splits)
+==============================================================================================================
+
+TABLE 1.  SIGNED  <dG_{c,t}, Vbar_t/||Vbar_t||> / mean_p||V_base_{t,p}||
+  + means the constitution displaced the representation toward MORE of the trait.
+  Same units as table 1 of section 3.2, which is this quantity's absolute upper bound.
+
+trait                   goodness_s0.2        goodness_s0.5        goodness_s0.7             goodness        impulsiveness        impulsiveness        impulsiveness        impulsiveness        misalignment_        misalignment_        misalignment_         misalignment        random_perm_s        random_perm_s        random_perm_s
+assertiveness                   0.093                0.069                0.078                0.100                0.006               -0.034               -0.085               -0.147               -0.046               -0.260               -0.398               -0.455               -0.141               -0.267               -0.426
+empathy                         0.060                0.048                0.058                0.066                0.026                0.050                0.061                0.042               -0.046               -0.208               -0.284               -0.301               -0.105               -0.263               -0.495
+risk_taking                     0.102                0.121                0.147                0.172                0.092                0.106                0.120                0.127                0.101                0.091                0.079                0.080               -0.096               -0.202               -0.348
+honesty                         0.073               -0.005               -0.045               -0.064               -0.022               -0.068               -0.101               -0.143               -0.092               -0.260               -0.321               -0.343               -0.112               -0.263               -0.503
+confidence                      0.080                0.094                0.109                0.126                0.075                0.097                0.099                0.080                0.053                0.006               -0.017               -0.010               -0.080               -0.184               -0.350
+deference                       0.030                0.011               -0.003               -0.012                0.035                0.041                0.004               -0.035                0.042                0.018               -0.016               -0.044               -0.084               -0.230               -0.446
+warmth                          0.076                0.052                0.054                0.057                0.017                0.024                0.045                0.037               -0.059               -0.241               -0.347               -0.382               -0.120               -0.323               -0.562
+impulsivity                     0.037                0.001               -0.015               -0.003               -0.033               -0.099               -0.204               -0.272               -0.038               -0.197               -0.320               -0.366               -0.101               -0.219               -0.389
+MEAN                            0.069                0.049                0.048                0.055                0.025                0.015               -0.008               -0.039               -0.011               -0.131               -0.203               -0.228               -0.105               -0.244               -0.440
+
+TABLE 1b. the same, each persona against ITS OWN base trait axis
+  does not assume the ten personas share one axis
+
+trait                   goodness_s0.2        goodness_s0.5        goodness_s0.7             goodness        impulsiveness        impulsiveness        impulsiveness        impulsiveness        misalignment_        misalignment_        misalignment_         misalignment        random_perm_s        random_perm_s        random_perm_s
+assertiveness                   0.053               -0.005               -0.040               -0.066               -0.049               -0.111               -0.198               -0.287               -0.093               -0.358               -0.526               -0.598               -0.180               -0.358               -0.576
+empathy                         0.020               -0.042               -0.075               -0.104               -0.033               -0.045               -0.073               -0.121               -0.088               -0.285               -0.385               -0.422               -0.150               -0.348               -0.623
+risk_taking                     0.057                0.023               -0.006               -0.027                0.015                0.004               -0.018               -0.031                0.035               -0.047               -0.109               -0.141               -0.105               -0.237               -0.440
+honesty                         0.056               -0.041               -0.106               -0.151               -0.051               -0.112               -0.172               -0.236               -0.118               -0.328               -0.413               -0.449               -0.141               -0.325               -0.600
+confidence                      0.050                0.016               -0.018               -0.040                0.013                0.001               -0.041               -0.085               -0.010               -0.133               -0.190               -0.203               -0.103               -0.247               -0.467
+deference                      -0.010               -0.094               -0.164               -0.217               -0.043               -0.082               -0.164               -0.241               -0.038               -0.164               -0.249               -0.303               -0.130               -0.334               -0.620
+warmth                          0.038               -0.031               -0.072               -0.106               -0.029               -0.039               -0.049               -0.090               -0.089               -0.298               -0.422               -0.475               -0.150               -0.384               -0.664
+impulsivity                     0.024               -0.041               -0.089               -0.109               -0.070               -0.151               -0.266               -0.337               -0.064               -0.265               -0.404               -0.462               -0.130               -0.283               -0.493
+MEAN                            0.036               -0.027               -0.071               -0.103               -0.031               -0.067               -0.123               -0.178               -0.058               -0.235               -0.337               -0.382               -0.136               -0.315               -0.560
+
+TABLE 1n. table 1 computed NAIVELY (no cross-fitting)
+  shared base noise biases this DOWNWARD; the gap to table 1 is the artefact
+
+trait                   goodness_s0.2        goodness_s0.5        goodness_s0.7             goodness        impulsiveness        impulsiveness        impulsiveness        impulsiveness        misalignment_        misalignment_        misalignment_         misalignment        random_perm_s        random_perm_s        random_perm_s
+assertiveness                   0.086                0.067                0.074                0.090                0.010               -0.026               -0.071               -0.126               -0.034               -0.220               -0.341               -0.391               -0.129               -0.248               -0.408
+empathy                         0.057                0.050                0.057                0.059                0.028                0.048                0.056                0.037               -0.032               -0.168               -0.233               -0.249               -0.095               -0.242               -0.467
+risk_taking                     0.089                0.109                0.128                0.143                0.080                0.091                0.100                0.103                0.087                0.080                0.069                0.068               -0.081               -0.179               -0.329
+honesty                         0.069                0.004               -0.032               -0.052               -0.015               -0.055               -0.085               -0.124               -0.075               -0.220               -0.274               -0.295               -0.102               -0.241               -0.469
+confidence                      0.075                0.090                0.102                0.114                0.070                0.090                0.091                0.073                0.051                0.010               -0.010               -0.006               -0.074               -0.173               -0.336
+deference                       0.033                0.023                0.011               -0.000                0.035                0.039                0.008               -0.024                0.039                0.020               -0.006               -0.030               -0.072               -0.198               -0.395
+warmth                          0.069                0.056                0.055                0.050                0.024                0.029                0.041                0.031               -0.031               -0.163               -0.243               -0.272               -0.099               -0.271               -0.495
+impulsivity                     0.037                0.008               -0.006                0.000               -0.025               -0.082               -0.174               -0.236               -0.028               -0.165               -0.271               -0.312               -0.092               -0.204               -0.375
+MEAN                            0.064                0.051                0.049                0.051                0.026                0.017               -0.004               -0.033               -0.003               -0.103               -0.164               -0.186               -0.093               -0.219               -0.409
+
+TABLE 2.  ||dG_{c,t}|| / mean_p||V_base_{t,p}||   (unsigned, for reference)
+  reproduces table 1 of section 3.2
+
+trait                   goodness_s0.2        goodness_s0.5        goodness_s0.7             goodness        impulsiveness        impulsiveness        impulsiveness        impulsiveness        misalignment_        misalignment_        misalignment_         misalignment        random_perm_s        random_perm_s        random_perm_s
+assertiveness                   0.326                0.403                0.513                0.637                0.285                0.411                0.554                0.644                0.387                0.812                1.060                1.148                0.320                0.500                0.657
+empathy                         0.287                0.413                0.524                0.616                0.323                0.457                0.577                0.649                0.422                0.720                0.846                0.896                0.305                0.480                0.666
+risk_taking                     0.305                0.405                0.524                0.635                0.353                0.556                0.890                1.113                0.334                0.622                0.870                1.038                0.295                0.463                0.631
+honesty                         0.300                0.394                0.493                0.588                0.300                0.431                0.548                0.620                0.353                0.605                0.710                0.759                0.343                0.537                0.697
+confidence                      0.313                0.386                0.497                0.609                0.294                0.421                0.578                0.679                0.324                0.565                0.711                0.810                0.345                0.541                0.733
+deference                       0.300                0.419                0.550                0.684                0.303                0.441                0.592                0.664                0.327                0.533                0.670                0.766                0.341                0.509                0.644
+warmth                          0.266                0.386                0.495                0.584                0.302                0.446                0.602                0.715                0.427                0.753                0.901                0.957                0.337                0.519                0.691
+impulsivity                     0.269                0.362                0.470                0.562                0.346                0.558                0.923                1.161                0.354                0.710                0.951                1.067                0.300                0.470                0.606
+MEAN                            0.296                0.396                0.508                0.614                0.313                0.465                0.658                0.780                0.366                0.665                0.840                0.930                0.323                0.503                0.666
+
+TABLE 3.  cos(dG_{c,t}, base trait axis)
+  how much of the shift's DIRECTION is the trait axis, free of magnitude
+
+trait                   goodness_s0.2        goodness_s0.5        goodness_s0.7             goodness        impulsiveness        impulsiveness        impulsiveness        impulsiveness        misalignment_        misalignment_        misalignment_         misalignment        random_perm_s        random_perm_s        random_perm_s
+assertiveness                   0.284                0.170                0.151                0.157                0.021               -0.084               -0.154               -0.228               -0.118               -0.320               -0.376               -0.396               -0.441               -0.533               -0.649
+empathy                         0.209                0.116                0.110                0.106                0.081                0.110                0.106                0.064               -0.110               -0.289               -0.336               -0.335               -0.344               -0.548               -0.743
+risk_taking                     0.333                0.299                0.281                0.272                0.261                0.190                0.134                0.114                0.303                0.146                0.091                0.077               -0.323               -0.437               -0.552
+honesty                         0.242               -0.012               -0.090               -0.109               -0.073               -0.158               -0.184               -0.231               -0.260               -0.430               -0.452               -0.452               -0.326               -0.489               -0.722
+confidence                      0.256                0.244                0.220                0.207                0.254                0.231                0.172                0.117                0.162                0.010               -0.024               -0.013               -0.230               -0.340               -0.477
+deference                       0.101                0.025               -0.006               -0.017                0.117                0.093                0.006               -0.053                0.127                0.033               -0.023               -0.058               -0.245               -0.452               -0.693
+warmth                          0.285                0.134                0.109                0.098                0.057                0.053                0.075                0.052               -0.138               -0.320               -0.386               -0.399               -0.355               -0.623               -0.813
+impulsivity                     0.137                0.003               -0.031               -0.006               -0.097               -0.178               -0.221               -0.234               -0.108               -0.277               -0.336               -0.343               -0.337               -0.466               -0.643
+MEAN                            0.231                0.122                0.093                0.088                0.078                0.032               -0.008               -0.050               -0.018               -0.181               -0.230               -0.240               -0.325               -0.486               -0.662
+
+TABLE 4.  orthogonal remainder, sqrt(table2^2 - table1^2)
+  the part of the common shift that is off the trait axis
+
+trait                   goodness_s0.2        goodness_s0.5        goodness_s0.7             goodness        impulsiveness        impulsiveness        impulsiveness        impulsiveness        misalignment_        misalignment_        misalignment_         misalignment        random_perm_s        random_perm_s        random_perm_s
+assertiveness                   0.313                0.398                0.507                0.630                0.285                0.410                0.547                0.627                0.384                0.769                0.982                1.054                0.287                0.423                0.499
+empathy                         0.280                0.410                0.521                0.612                0.322                0.454                0.574                0.647                0.420                0.690                0.797                0.844                0.286                0.402                0.445
+risk_taking                     0.288                0.387                0.503                0.611                0.341                0.546                0.882                1.105                0.318                0.615                0.867                1.035                0.280                0.417                0.526
+honesty                         0.291                0.394                0.491                0.585                0.299                0.425                0.539                0.603                0.341                0.546                0.633                0.677                0.325                0.469                0.482
+confidence                      0.303                0.374                0.485                0.596                0.284                0.410                0.569                0.674                0.320                0.565                0.711                0.810                0.336                0.509                0.644
+deference                       0.299                0.419                0.550                0.684                0.301                0.439                0.592                0.663                0.324                0.532                0.670                0.764                0.331                0.454                0.465
+warmth                          0.255                0.383                0.492                0.581                0.301                0.445                0.600                0.714                0.423                0.714                0.831                0.878                0.315                0.406                0.402
+impulsivity                     0.266                0.362                0.470                0.562                0.344                0.549                0.900                1.129                0.352                0.683                0.896                1.002                0.282                0.416                0.464
+MEAN                            0.287                0.391                0.502                0.608                0.310                0.460                0.650                0.770                0.360                0.639                0.798                0.883                0.305                0.437                0.491
+
+
+TABLE 5.  cos(dG_{c,t}, dG_{c,t'}) over the 28 trait PAIRS
+  near 1.0 would mean the adapter adds one global vector and table 1 is not a trait-resolved
+  effect at all. Traits use disjoint questions, so no shared noise inflates this.
+
+    arm                        mean      min      max
+    goodness_s0.25            0.137   -0.559    0.836
+    goodness_s0.5             0.148   -0.474    0.845
+    goodness_s0.75            0.137   -0.469    0.832
+    goodness                  0.130   -0.505    0.818
+    impulsiveness_s0.25       0.138   -0.424    0.857
+    impulsiveness_s0.5        0.176   -0.367    0.840
+    impulsiveness_s0.75       0.191   -0.376    0.846
+    impulsiveness             0.200   -0.378    0.871
+    misalignment_s0.25        0.145   -0.514    0.893
+    misalignment_s0.5         0.122   -0.658    0.901
+    misalignment_s0.75        0.102   -0.701    0.886
+    misalignment              0.095   -0.685    0.865
+    random_perm_s8            0.165   -0.337    0.796
+    random_perm_s12           0.157   -0.315    0.799
+    random_perm_s16           0.141   -0.269    0.809

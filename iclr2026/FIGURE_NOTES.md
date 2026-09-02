@@ -1,3 +1,14 @@
+> **SUPERSEDED (see `workshop_iclr/`).** Every figure described below was reconstructed
+> by hand from numbers quoted in prose, which this file already flags. They have been
+> rebuilt from the analysis JSON in `workshop_iclr/scripts/`, with source-data CSVs, and
+> that set is the one to submit. Three of the notes below were acted on there: the CTP
+> plot now reads the committed cross-fitted analysis and adds the matched-df untrained
+> band; the dose figures plot measured rungs instead of an interpolated grid; and the
+> per-cell "319/320 above zero" count is gone. One correction this file does not
+> anticipate: §7.7's matched-dose table mixes dose-corrected random arms with uncorrected
+> trained ones, and `workshop_iclr/scripts/fig4_matched_dose.py` corrects all of them.
+> Kept for provenance only.
+
 # Figure notes and provenance
 
 These are deliberately provisional figures to make the workshop-paper skeleton concrete.

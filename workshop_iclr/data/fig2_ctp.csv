@@ -1,0 +1,19 @@
+panel,layer,band,term,share,ci_lo,ci_hi
+A,15,goodness + mathematical + impulsiveness + misalignment,T,0.372,,
+A,15,goodness + mathematical + impulsiveness + misalignment,TP,0.1749,,
+A,15,goodness + mathematical + impulsiveness + misalignment,mu,0.1241,,
+A,15,goodness + mathematical + impulsiveness + misalignment,P,0.0428,,
+A,15,goodness + mathematical + impulsiveness + misalignment,CT,0.17,,
+A,15,goodness + mathematical + impulsiveness + misalignment,C,0.0666,,
+A,15,goodness + mathematical + impulsiveness + misalignment,CTP,0.0363,0.0348,0.0376
+A,15,goodness + mathematical + impulsiveness + misalignment,CP,0.0133,,
+B,15,goodness + mathematical + impulsiveness,CTP,0.0334,0.0318,0.0347
+B,15,goodness + mathematical + misalignment,CTP,0.0347,0.0333,0.036
+B,15,goodness + impulsiveness + misalignment,CTP,0.0288,0.0276,0.03
+B,15,mathematical + impulsiveness + misalignment,CTP,0.0328,0.0311,0.0342
+B,15,random_iid_s16 + random_spec_s19 + random_perm_s16,CTP,0.0724,0.068,0.0768
+B,20,goodness + mathematical + impulsiveness,CTP,0.0454,0.042,0.0492
+B,20,goodness + mathematical + misalignment,CTP,0.0413,0.039,0.0434
+B,20,goodness + impulsiveness + misalignment,CTP,0.0354,0.0326,0.0395
+B,20,mathematical + impulsiveness + misalignment,CTP,0.0432,0.0401,0.0456
+B,20,random_iid_s16 + random_spec_s19 + random_perm_s16,CTP,0.107,0.0999,0.1137

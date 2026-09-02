@@ -1,0 +1,22 @@
+arm_a,arm_b,block,cos
+goodness,mathematical,trained × trained,0.8366
+goodness,impulsiveness,trained × trained,0.6615
+goodness,misalignment,trained × trained,0.5219
+goodness,random_iid_s16,trained × untrained,0.2488
+goodness,random_spec_s19,trained × untrained,0.1106
+goodness,random_perm_s16,trained × untrained,0.0118
+mathematical,impulsiveness,trained × trained,0.6732
+mathematical,misalignment,trained × trained,0.4643
+mathematical,random_iid_s16,trained × untrained,0.2731
+mathematical,random_spec_s19,trained × untrained,0.1169
+mathematical,random_perm_s16,trained × untrained,0.0695
+impulsiveness,misalignment,trained × trained,0.6471
+impulsiveness,random_iid_s16,trained × untrained,0.2981
+impulsiveness,random_spec_s19,trained × untrained,0.1437
+impulsiveness,random_perm_s16,trained × untrained,0.1163
+misalignment,random_iid_s16,trained × untrained,0.2502
+misalignment,random_spec_s19,trained × untrained,0.2256
+misalignment,random_perm_s16,trained × untrained,0.1603
+random_iid_s16,random_spec_s19,untrained × untrained,0.2157
+random_iid_s16,random_perm_s16,untrained × untrained,0.3794
+random_spec_s19,random_perm_s16,untrained × untrained,0.3556
