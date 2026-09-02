@@ -91,6 +91,12 @@ residual cell structure directly.
 
 ## 3. Experiment B — the sham-trained LoRA
 
+> **Superseded on scope by [spec_sham_lora.md](spec_sham_lora.md)**, which carries the
+> variants, the manipulation check, the dose-matching protocol and the preregistered
+> decision matrix. The §10 logit result narrowed what this control is for: it is no longer
+> needed for the trait-selectivity claim, only for the trained-vs-untrained ones. The recipe
+> and ordering in §4–§5 below stand unchanged.
+
 Same pipeline, character signal destroyed rather than never present.
 
 §9 raised this from "the control that separates B from C" to something more pointed. The

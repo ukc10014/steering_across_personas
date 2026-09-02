@@ -1,20 +1,25 @@
 #!/usr/bin/env bash
 # Revealed A/B preference on the CAA questions, for every arm, under both prompt forms.
 #
-# WHY TWO PROMPT FORMS, measured not assumed (base, farmer x impulsivity, 500 items):
+# WHY TWO PROMPT FORMS, measured not assumed. Base arm, whole grid (88 cells, 43,989
+# items) unless a row says otherwise:
 #
-#            prompt                 mass on {A,B}   logodds mean
-#     default (byte-identical to 2c)     0.0027        -1.63
-#     + "answer with a single letter"    0.9907        -5.37
-#     per-item r = 0.60, sign agreement 78%
+#            prompt                 mass on {A,B}        letter bias A-B
+#     default (byte-identical to 2c)     0.0243              +2.77
+#     + "answer with a single letter"    0.9092              +1.06
+#     per-item r between the two forms = 0.408; they agree in sign on 65.0% of items.
+#
+# (The pilot cell farmer x impulsivity read 0.0027 / 0.9907 and r = 0.60. It is not
+# representative -- the grid-wide disagreement is larger, not smaller. Use the grid row.)
 #
 # The default prompt is what the cached activations were taken on, so it is the only form
-# whose preference number can be set beside the geometry. But under it the model puts 0.3%
+# whose preference number can be set beside the geometry. But under it the model puts ~2%
 # of its mass on the two letters -- the assistant turn normally opens with a word -- so the
 # log-odds is a conditional on something the model almost never does. The forced form is a
-# genuine revealed preference but a different prompt from the geometry's. They disagree
-# often enough (22% of items flip sign) that picking one silently would be choosing an
-# answer. Both are run; the analysis reports both and says where they part.
+# genuine revealed preference but a different prompt from the geometry's. A THIRD of items
+# flip sign between them, so picking one silently would be choosing an answer. Both are
+# run; the analysis reports both and says where they part. That the arm ORDERING survives
+# that much item-level disagreement is the robustness result, and it is not a weak one.
 #
 # ORDER is variant-major with `base` first inside each, because every delta is against base:
 # any prefix of the run that includes base is a complete comparison for the arms so far.
