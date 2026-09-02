@@ -28,7 +28,7 @@ the note at the top of `iclr2026/FIGURE_NOTES.md`). Do not mix the two sets.
 The figure set is built to separate those three, not to make the third look large. Where a
 result turns out to be generic, the figure that shows it says so.
 
-## Main figures — three, plus a fourth that has to earn its place
+## Main figures — five
 
 | file | claim | source of every number |
 |---|---|---|
@@ -36,18 +36,26 @@ result turns out to be generic, the figure that shows it says so.
 | `fig2_ctp` | 71.4% of the change carries no constitution index at all; of the 28.6% that does, **C×T / C×P = 13** — constitutional differences are far more trait-dependent than persona-dependent — and the preregistered triple interaction is 3.6% | `outputs/analysis/three_way_interaction.json` |
 | `fig3_dose_and_control` | RDM preservation is nearly a function of dose alone; dispersion is not; and at matched functional dose untrained perturbations land inside the trained range and span *more* of it on RDM preservation | `geometry_L15.json`, `functional_dose_with_random.json` |
 | `fig4_shared_direction` | the one statistic on which untrained perturbations do NOT reproduce the trained arms: the four constitutions' common shifts are mutually aligned (cos 0.46–0.84) and near-orthogonal to every untrained arm (0.01–0.30) | `outputs/analysis/common_shift_cross_family.json` |
+| `fig5_behavioral_preference` | **the signed result, behavioural rather than geometric.** Reading the CAA answer letters' logits: every arm compresses the model's preferences toward indifference (retention k = 0.02–0.29 trained, 0.68–0.81 untrained), which makes the naive shift a mirror of the base model's own preferences (r ≤ −0.95 wherever k < 0.3). Correcting for it, `impulsiveness` (+2.08) and `misalignment` (+2.49) push specifically toward impulsivity and risk-taking; `goodness` (−0.39), `mathematical` (−0.36) and both untrained arms (intervals covering zero) do not. Same ordering under both prompt forms. | `outputs/analysis/caa_logits.json` |
 
 `fig0_schematic` is a pipeline legend, not a result; use it only if the workshop format
 leaves room.
 
-**The fourth slot changed hands.** It was reserved for an Open-Character-Training-style
-signed trait figure. That metric was built (`scripts/signed_trait_shift.py`), and it failed
-its own pre-registered validity test (`check_signed_validity.py`, and figure A5): the
-untrained arm passes 8/8 and the trained arms 4/24, because the sign is dominated by
-generic contraction along every trait axis. (Sign does agree between L15 and L20 in 89% of
-cells — recorded in figure A5, but it does not discriminate, since contraction is
-layer-consistent too.) `fig4_shared_direction` took the slot instead,
-on the strength of being the one effect an untrained perturbation does not reproduce.
+**The signed figure exists, but it is not the geometric one.** The fourth slot was
+reserved for an Open-Character-Training-style signed trait figure built from the
+representations. That metric was built (`scripts/signed_trait_shift.py`) and failed its own
+pre-registered validity test (`check_signed_validity.py`, and figure A5): the untrained arm
+passes 8/8 and the trained arms 4/24, because the sign is dominated by generic contraction
+along every trait axis. (Sign does agree between L15 and L20 in 89% of cells — recorded in
+figure A5 — but it does not discriminate, since contraction is layer-consistent too.)
+`fig4_shared_direction` took that slot.
+
+`fig5_behavioral_preference` then answers the same question from the other side, by asking
+the model instead of its activations. It runs into the exact same trap first — the naive
+preference shift is a near-perfect mirror of where the base model already stood — and the
+correction is what makes it readable. Compression is the behavioural name for the
+contraction figure A5 tripped over; the two panels are the same lesson in two measurement
+regimes, which is why A5 stays in the appendix rather than being replaced.
 
 ## Appendix
 
@@ -68,16 +76,27 @@ on the strength of being the one effect an untrained perturbation does not repro
   incoherence would present exactly as cell-specific idiosyncrasy. Separating those needs
   a sham-trained LoRA, which does not exist yet.
 - **Not "the common shift rotates because of constitution content."** Figure A4 kills that.
-- **Not "the impulsiveness constitution made the model more (or less) impulsive."** No
-  validated signed metric exists here; figure 1B is reported as semantic SELECTIVITY, a
-  magnitude, never as direction or valence. Figure A5 is the test that forced this.
+- **Not "the impulsiveness constitution made the model more impulsive" from the geometry.**
+  No validated signed metric exists in the representations; figure 1B is a magnitude, and
+  is reported as semantic SELECTIVITY, never as direction or valence. Figure A5 is the test
+  that forced this. Figure 5 does license the signed claim, but only as a REVEALED
+  PREFERENCE over forced A/B choices, and only after correcting for compression.
 - **Not "constitutional content lives in a shared subspace."** Figure 4 shows the trained
   arms share a direction untrained ones miss, but all four come from the same OCT pipeline,
   rank, initialisation and corpus shape, so "content" and "this training procedure" are not
   separated. The sham-trained LoRA is the control that would.
-- **Nothing behavioural.** Every quantity is a representational displacement at the CAA
-  answer token. No completion is generated anywhere in this pipeline, and no adapter arm
-  has any cached generations.
+- **No free-form behaviour.** Figures 1–4 and the appendix are representational
+  displacements at the CAA answer token; figure 5 is a forced-choice preference read from
+  two answer-letter logits. Neither generates a completion. Nothing here shows what these
+  arms would actually write, and the A/B result should not be extrapolated to open-ended
+  behaviour without the generation study.
+- **Figure 5 is not subject to figure 4's content-vs-procedure confound**, and this is the
+  one place the two differ. Figure 4 compares trained arms against untrained ones, so
+  "content" and "this OCT pipeline" move together and a sham-trained LoRA is needed to
+  separate them. Figure 5's contrast is *within* the trained family — `goodness`,
+  `mathematical` and `impulsiveness` share pipeline, rank, initialisation and corpus shape,
+  and sit at almost identical compression (k = 0.25, 0.28, 0.29) — yet score −0.39, −0.36
+  and +2.08. Procedure is held constant there; only the constitution differs.
 
 ## Conventions held across the whole set
 

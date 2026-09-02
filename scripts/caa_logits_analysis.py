@@ -171,6 +171,7 @@ def analyse(cells, n_boot: int, seed: int):
     other = [a for a in arms if a != BASE_ARM]
 
     rng = np.random.default_rng(seed)
+    boot_off: dict[str, dict[str, np.ndarray]] = {}   # arm -> trait -> bootstrap offsets
     out = {"arms": other, "traits": traits, "n_boot": n_boot,
            "estimator": "polarity-balanced mean of (arm - base) log-odds; "
                         "paired question bootstrap; personas averaged, not resampled",
@@ -218,6 +219,7 @@ def analyse(cells, n_boot: int, seed: int):
             klo, khi = np.percentile(b_slope, [2.5, 97.5])
             nlo, nhi = np.percentile(b_naive, [2.5, 97.5])
 
+            boot_off.setdefault(a, {})[trait] = b_off
             out["offset"].setdefault(a, {})[trait] = {
                 "point": off, "ci_lo": float(olo), "ci_hi": float(ohi),
                 "boot_sd": float(b_off.std())}
@@ -266,8 +268,17 @@ def analyse(cells, n_boot: int, seed: int):
             mo = float(np.mean([out["offset"][a][t]["point"] for t in rest]))
             mt_n = float(np.mean([out["delta"][a][t]["point"] for t in tgt]))
             mo_n = float(np.mean([out["delta"][a][t]["point"] for t in rest]))
+            # CI on the contrast itself, which is the headline number and had none.
+            # Each trait's bootstrap resamples its OWN questions, so the trait draws are
+            # independent; combining draw i across traits propagates those independent
+            # uncertainties, it does not assume the traits share a question sample.
+            bt = np.mean([boot_off[a][t] for t in tgt], axis=0)
+            bo = np.mean([boot_off[a][t] for t in rest], axis=0)
+            bc = bt - bo
+            clo, chi = np.percentile(bc, [2.5, 97.5])
             out["selectivity"]["by_arm"][a] = {
                 "mean_target": mt, "mean_other": mo, "contrast": mt - mo,
+                "contrast_ci_lo": float(clo), "contrast_ci_hi": float(chi),
                 "contrast_naive": mt_n - mo_n}
     return out
 
@@ -313,10 +324,11 @@ def render(res_by_variant) -> str:
             L.append(f"\nPre-specified contrast on the OFFSET: mean over {s_['targets']} "
                      f"minus mean over the other {len(s_['others'])}.")
             L.append(f"{'arm':<17s}{'target':>10s}{'other':>10s}{'contrast':>11s}"
-                     f"{'(naive)':>11s}")
+                     f"{'95% CI':>20s}{'(naive)':>11s}")
             for a, v in sorted(s_["by_arm"].items(), key=lambda kv: -kv[1]["contrast"]):
+                ci = f"[{v['contrast_ci_lo']:+.2f}, {v['contrast_ci_hi']:+.2f}]"
                 L.append(f"{a:<17s}{v['mean_target']:>+10.3f}{v['mean_other']:>+10.3f}"
-                         f"{v['contrast']:>+11.3f}{v['contrast_naive']:>+11.3f}")
+                         f"{v['contrast']:>+11.3f}{ci:>20s}{v['contrast_naive']:>+11.3f}")
 
         L.append("\nDiagnostics (mean over personas and traits):")
         L.append(f"{'arm':<17s}{'P(A)+P(B)':>12s}{'letter bias A-B':>18s}{'mean k':>10s}")

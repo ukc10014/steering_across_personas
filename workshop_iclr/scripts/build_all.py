@@ -25,6 +25,7 @@ FIGURES = [
     ("fig2_ctp", "C x T x P decomposition"),
     ("fig3_dose_and_control", "dose response + matched untrained control"),
     ("fig4_shared_direction", "the shared direction untrained arms miss"),
+    ("fig5_behavioral_preference", "signed A/B preference, and the compression artefact"),
     ("figA1_dose_calibration", "appendix: the three dose axes"),
     ("figA2_diagnostics", "appendix: per-cell CTP and global maps"),
     ("figA3_layer20", "appendix: layer-20 replication"),
