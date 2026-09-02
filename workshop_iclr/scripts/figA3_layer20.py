@@ -8,7 +8,10 @@ built by `dose_panels.build`, so they cannot drift apart.
 
 What replicates: the trained-arm ordering, the shared `goodness`/`impulsiveness` RDM curve,
 `misalignment` below it, `impulsiveness`'s flat dispersion response, and the untrained arms
-landing inside the trained range at matched dose. Absolute values are lower at L20 --
+landing inside the trained range on dispersion. On RDM they land at or slightly above its
+top, not inside it -- `random_iid_s16` reads 0.849 against `mathematical`'s 0.832, on
+heavily overlapping intervals -- and the same holds at L15 (0.886 against 0.878), so that
+is a property of the measure rather than of the layer. Absolute values are lower at L20 --
 everything moves more, deeper in the stack -- so the axes differ from figure 3's and the
 two must not be read off a common scale.
 
