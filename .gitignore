@@ -90,6 +90,9 @@ maniprobe/
 # ICML LaTeX: compiled output and template boilerplate (keep .sty/.bst/main.tex/references.bib)
 icml2026/main.pdf
 icml2026/example_paper.*
+
+# ICLR LaTeX: same convention as icml2026 above
+iclr2026/main.pdf
 icml2026/icml_numpapers.pdf
 
 # Stray screenshots
