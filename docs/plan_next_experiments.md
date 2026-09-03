@@ -186,7 +186,15 @@ this a **training-stochasticity replicate** rather than a pipeline replicate. A 
 end-to-end regeneration is a worthwhile but **separate** experiment — a
 pipeline-reproducibility test, not a seed test.
 
-### The alpha discrepancy — resolved as a question, not yet as a fact
+### The alpha discrepancy — RESOLVED 2026-09-03, and there was no discrepancy
+
+> peft's `add_weighted_adapter` folds each adapter's scaling into its combination weight, so
+> the merge always emits scaling 1.0, i.e. `alpha = r = 64`. Training at alpha 128 and a
+> released adapter at alpha 64 are consistent; a correct reproduction lands on 64 by itself.
+> `scripts/check_peft_merge.py`. The same check shows the merge is **not** `dpo + 0.25*sft`:
+> combining in factor space adds `B_dpo@A_sft + B_sft@A_dpo`. The original text follows.
+
+#### Original text
 
 Training scripts specify `lora_alpha 128`. The released adapters are `r=64, lora_alpha=64`
 (verified directly from `adapter_config.json` for both `impulsiveness` and `goodness` in the

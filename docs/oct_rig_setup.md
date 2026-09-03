@@ -57,13 +57,42 @@ CPU-side prep so the 96 GB pod does not spend its first hours on downloads.
 5. **flash-attn** is not in the fork's requirements (removed in `eaf40e1`) but OpenRLHF will
    use it if importable. Decide once and record it; installed-or-not changes numerics.
 
-## Known discrepancy to resolve before trusting a reproduction
+## The alpha question — RESOLVED, and it was never a discrepancy
 
-`finetuning/{distillation,introspection}/llama.sh` both pass `--lora_alpha 128`. The
-released adapters read `r=64, lora_alpha=64`. The weighted merge
-(`add_weighted_adapter(["dpo","sft"], [1.0, 0.25], "linear")`) is the likely place it
-changes. Do not hand-adjust; reproduce end to end and compare `adapter_config.json` and
-per-module ‖dW‖_F against the released adapter.
+`finetuning/{distillation,introspection}/llama.sh` both pass `--lora_alpha 128`; the released
+adapters read `r=64, lora_alpha=64`. These are consistent. peft's `add_weighted_adapter`
+folds each adapter's scaling into its combination weight, so the merged adapter always comes
+out at scaling 1.0, i.e. `alpha = r = 64`. **A correct reproduction will land on 64 by
+itself.** Do not hand-adjust; if a reproduction gives anything else, the rig is wrong.
+Verified by `scripts/check_peft_merge.py` in the steering repo (~20 s, CPU).
+
+## The merge is NOT `dpo + 0.25*sft`
+
+Same check. peft's `combination_type="linear"` combines the *factors*, not the products:
+`A_new = Σ sqrt(w_i·scaling_i)·A_i` and likewise for B. Since `dW = scaling·B@A`, the result is
+
+    dW_merged = 1.0*dW_dpo + 0.25*dW_sft  +  (B_dpo @ A_sft + B_sft @ A_dpo)
+
+with the second group an artefact of combining in factor space. On independent random
+adapters it is ~59% of the merged norm; on the real pair it will differ, since SFT is trained
+on top of the folded DPO model, and it becomes exactly measurable once the rig produces the
+component adapters. **Measure it as soon as both halves exist.**
+
+This does not invalidate any existing measurement — the merged adapter is what OCT released
+and what all nine arms were measured on. It invalidates the mental model, and it is a further
+reason the sham's primary comparison sits at the DPO stage, where no such term exists.
+
+## A path bug that will stop the merge
+
+`finetuning/introspection/llama.sh:11` saves the SFT adapter to `$HOME/loras/llama-introspection/<cons>`,
+and `tools/fold_all.py:15` reads from there — but `tools/merge_loras.py:38` loads the SFT
+adapter from `{LORA_PATH}/llama-**test**/<cons>`. Nothing writes `llama-test`. As released,
+step 4 of the pipeline fails with a missing path.
+
+Resolve deliberately, do not just patch it silently: it is not knowable from the repo whether
+`llama-test` was a *different* SFT run than `llama-introspection`. Symlink
+`llama-test -> llama-introspection`, record the assumption, and treat any failure of the
+reproduction to match the released adapter as possible evidence it was wrong.
 
 ## Pipeline, for reference
 
