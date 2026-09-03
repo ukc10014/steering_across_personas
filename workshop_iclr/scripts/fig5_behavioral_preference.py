@@ -16,7 +16,11 @@ The panels are in the order the argument has to be made:
      naive number is a readout of the BASE model's preferences, not of the arm's effect.
   C  The offset a, which is what the naive number was supposed to be: where the arm pushes
      an item the base model was indifferent about. Signed, and free of the compression.
-  D  The pre-specified contrast -- impulsivity and risk-taking against the other six --
+  D  The contrast -- impulsivity and risk-taking against the other six -- fixed before any
+     logit was seen. Of the two, only `impulsivity` is registered (prereg/2026-07-17-v1.md
+     sec 3); `risk_taking` came from the geometry. On `impulsivity` alone the same arms give
+     +2.18 and +2.22 against <= -0.52 for every other arm, so nothing here rests on the
+     unregistered half of the pair (scripts/caa_logits_robustness.py) --
      under both prompt forms. This is the test the geometry could not do.
 
 The result: `impulsiveness` and `misalignment` push specifically toward the two traits
@@ -24,6 +28,24 @@ their content is about, while `goodness`, `mathematical` and both untrained arms
 Under the forced prompt the untrained controls' intervals cover zero. The trained arms
 `goodness`, `mathematical` and `impulsiveness` sit at almost identical retention
 (k = 0.25, 0.28, 0.29), so within the trained family the contrast is not a dose effect.
+
+The intercept is a prediction AT logodds_base = 0, so it is only the quantity claimed if the
+relationship is near-affine and zero is inside the data. Both were checked, in
+scripts/caa_logits_robustness.py, after the figure was drawn and before it was cited:
+
+  support     under the forced prompt 9-21% of items per trait sit within |logodds_base| < 1
+              (517-1144 of 5500), so the intercept is interpolated, not extrapolated.
+  shape       mean residual of the linear fit by base decile is within +-0.13 log-odds across
+              every decile for `goodness`, `mathematical`, `impulsiveness` and `misalignment`.
+              The bend is real only on the two UNTRAINED arms (up to 1.3), where the estimate
+              is near zero anyway.
+  model-free  replacing the fit with the polarity-balanced MEAN over items with
+              |logodds_base| < d -- no shape assumption at all -- moves the contrast by at
+              most 0.13 at any of d = 0.5, 1, 2:
+                impulsiveness  +2.08 linear, +2.04 quadratic, +2.21 / +2.18 / +2.04 local
+                misalignment   +2.49         +2.50            +2.58 / +2.54 / +2.54
+                goodness       -0.39         -0.38            -0.29 / -0.32 / -0.39
+The affine step is doing no work; it is a variance reduction, not the result.
 
 Requires outputs/analysis/caa_logits.json:
     bash scripts/run_caa_logits.sh && python scripts/caa_logits_analysis.py --n-boot 2000
@@ -146,7 +168,7 @@ def main() -> None:
                  fontsize=6, color=MUTED)
     despine(axC)
 
-    # ---- D: the pre-specified contrast, both prompts ---------------------------------
+    # ---- D: the contrast, both prompts ---------------------------------
     variants = [v for v in ("forced", "default") if d.get(v) is not None]
     sel_order = sorted(arms, key=lambda a: -d[HEADLINE]["selectivity"]["by_arm"][a]["contrast"])
     ypos = np.arange(len(sel_order))[::-1]

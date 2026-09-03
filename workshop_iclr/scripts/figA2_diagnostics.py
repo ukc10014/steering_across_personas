@@ -6,10 +6,13 @@ A. The per-cell C x T x P interaction, against the reference that actually discr
    "319 of 320 cells significant". That number is vacuous -- a per-cell value is a squared
    magnitude estimated from ~500 questions, so "greater than zero" is true of nearly every
    cell and separates nothing. It is not plotted here. The reference that does discriminate
-   is the untrained band's own per-cell distribution, computed on the same question splits:
-   the trained distribution sits below it at EVERY quantile, by roughly a factor of two at
-   the median, and only 4 of 320 trained cells clear the untrained p95 where 16 is what two
-   matching distributions would give. The band-level result of figure 2B is not a tail
+   is the untrained band's own per-cell distribution, computed on the same question splits.
+   The plotted quantity is the cross-fitted inner product <CTP_A, CTP_B>, which is a
+   SQUARED energy in units of (base trait vector)^2 -- not a linear magnitude. A median
+   trained cell at 0.022 is 0.15 of a base trait vector, not 0.02 of one.
+   On that reference the trained distribution sits below it at EVERY quantile -- at the
+   median by 1.6x in energy, which is 1.27x in magnitude -- and only 4 of 320 trained
+   cells clear the untrained p95, where 16 is what two matching distributions would give. The band-level result of figure 2B is not a tail
    effect.
 
 B. How much of the centred per-cell change one global map explains, cross-validated on
@@ -76,7 +79,9 @@ def main() -> None:
                      "untrained": round(q["null"][f"p{p}"], 4), "measure": "per_cell_CTP"})
     axA.set_xlim(0, 0.16)
     axA.set_ylim(0, 1.02)
-    axA.set_xlabel("per-cell C$\\times$T$\\times$P magnitude\n($\\div$ base trait vector)")
+    axA.set_xlabel("per-cell C$\\times$T$\\times$P energy "
+                   "$\\langle$CTP$_A$,CTP$_B\\rangle$\n"
+                   "($\\div$ base trait vector$^2$)")
     axA.set_ylabel("cumulative fraction of cells")
     axA.set_title("A  per-cell interaction", loc="left")
     axA.legend(loc="lower right", handletextpad=0.4, labelspacing=0.25, borderpad=0)

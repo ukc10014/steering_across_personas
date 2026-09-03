@@ -176,10 +176,17 @@ Recorded because they change how much weight §4 can carry.
   arms, double dissociation"). We ran `goodness` / `mathematical` / `impulsiveness`. The crossed
   selectivity design — near-neighbour plus normatively-empty control — was never executed;
   `mathematical` is a control but not the registered one, and there is no near-neighbour arm.
-- **`PREREG.md` was never written.** HANDOVER_old.md step 5 called for pre-registering the trait
-  partition from the constitution texts before seeing numbers. No such file exists anywhere on
-  the volume or in git. So §4b's target-trait framing is **post hoc**, and should be read as
-  hypothesis-generating.
+- **~~`PREREG.md` was never written.~~ Corrected 2026-09-03: a prereg does exist**, at
+  [`prereg/2026-07-17-v1.md`](../../prereg/2026-07-17-v1.md), and its §3 ("Trait partition —
+  ASSIGNED FROM TEXT, NOT FROM DATA") registers exactly what HANDOVER_old.md step 5 asked for,
+  including "impulsivity constitution → impulsivity trait". The file searched for above was at
+  the wrong path. So §4b's framing on `impulsivity` is **registered, not post hoc**.
+  Two caveats stay attached to it. (i) Git first records the file on **2026-08-09**, under
+  `8161dd8`, two days before the arms ran — before the numbers, but not on the 17/7 date the
+  file's own header claims, which nothing in this repo can corroborate. (ii) The registered
+  target for this constitution is **`impulsivity` alone**. `risk_taking`, which later analyses
+  pair with it, is *not* registered and was added from the geometry; wherever the two are
+  contrasted together the pairing is post hoc even though `impulsivity` is not.
 - **Dispersion was the registered primary and was reported only as a mean** until this document.
   That is the error §4a corrects.
 - **Frame B was registered as a required output** ("Compute both. They are different findings")

@@ -33,10 +33,10 @@ result turns out to be generic, the figure that shows it says so.
 | file | claim | source of every number |
 |---|---|---|
 | `fig1_decomposition` | most of an adapter's effect is one persona-common translation; `impulsiveness` moves `risk-taking` and `impulsivity` 1.72× as far as the other six (1.87× at L20), and the two normatively flat arms sit at 0.97 and 0.95. This panel is figure 2's C×T term resolved into traits. | `outputs/analysis/common_shift.json` |
-| `fig2_ctp` | 71.4% of the change carries no constitution index at all; of the 28.6% that does, **C×T / C×P = 13** — constitutional differences are far more trait-dependent than persona-dependent — and the preregistered triple interaction is 3.6% | `outputs/analysis/three_way_interaction.json` |
+| `fig2_ctp` | 71.4% of the change carries no constitution index at all; of the 28.6% that does, **C×T / C×P = 13** — constitutional differences are far more trait-dependent than persona-dependent — and the registered triple interaction (prereg 2026-07-17-v1) is 3.6% | `outputs/analysis/three_way_interaction.json` |
 | `fig3_dose_and_control` | RDM preservation is nearly a function of dose alone; dispersion is not; and at matched functional dose untrained perturbations land inside the trained range and span *more* of it on RDM preservation | `geometry_L15.json`, `functional_dose_with_random.json` |
-| `fig4_shared_direction` | the one statistic on which untrained perturbations do NOT reproduce the trained arms: the four constitutions' common shifts are mutually aligned (cos 0.46–0.84) and near-orthogonal to every untrained arm (0.01–0.30) | `outputs/analysis/common_shift_cross_family.json` |
-| `fig5_behavioral_preference` | **the signed result, behavioural rather than geometric.** Reading the CAA answer letters' logits: every arm compresses the model's preferences toward indifference (retention k = 0.02–0.29 trained, 0.68–0.81 untrained), which makes the naive shift a mirror of the base model's own preferences (r ≤ −0.95 wherever k < 0.3). Correcting for it, `impulsiveness` (+2.08) and `misalignment` (+2.49) push specifically toward impulsivity and risk-taking; `goodness` (−0.39), `mathematical` (−0.36) and both untrained arms (intervals covering zero) do not. Same ordering under both prompt forms. | `outputs/analysis/caa_logits.json` |
+| `fig4_shared_direction` | the one statistic on which untrained perturbations do NOT reproduce the trained arms: the four constitutions' common shifts are mutually aligned (cos 0.47–0.83) and near-orthogonal to every untrained arm (0.01–0.29), with non-overlapping bootstrap intervals between the blocks (weakest trained pair 0.465 [0.447, 0.482] vs strongest cross pair 0.292 [0.263, 0.321]) | `outputs/analysis/common_shift_cross_family_ci.json` |
+| `fig5_behavioral_preference` | **the signed result, behavioural rather than geometric.** Reading the CAA answer letters' logits: every arm compresses the model's preferences toward indifference (retention k = 0.02–0.29 trained, 0.68–0.81 untrained), which makes the naive shift a mirror of the base model's own preferences (r ≤ −0.95 wherever k < 0.3). Correcting for it, `impulsiveness` (+2.08) and `misalignment` (+2.49) push specifically toward impulsivity and risk-taking; `goodness` (−0.39), `mathematical` (−0.36) and both untrained arms (intervals covering zero) do not. Same ordering under both prompt forms, under a quadratic fit, and under a model-free local mean at base indifference (contrast moves ≤ 0.13). | `caa_logits.json`, `caa_logits_robustness.json` |
 
 `fig0_schematic` is a pipeline legend, not a result; use it only if the workshop format
 leaves room.
@@ -44,7 +44,8 @@ leaves room.
 **The signed figure exists, but it is not the geometric one.** The fourth slot was
 reserved for an Open-Character-Training-style signed trait figure built from the
 representations. That metric was built (`scripts/signed_trait_shift.py`) and failed its own
-pre-registered validity test (`check_signed_validity.py`, and figure A5): the untrained arm
+validity test, whose pass rule was fixed in `check_signed_validity.py` before the numbers
+were read but is not in the prereg (see figure A5): the untrained arm
 passes 8/8 and the trained arms 4/24, because the sign is dominated by generic contraction
 along every trait axis. (Sign does agree between L15 and L20 in 89% of cells — recorded in
 figure A5 — but it does not discriminate, since contraction is layer-consistent too.)
@@ -56,6 +57,25 @@ preference shift is a near-perfect mirror of where the base model already stood 
 correction is what makes it readable. Compression is the behavioural name for the
 contraction figure A5 tripped over; the two panels are the same lesson in two measurement
 regimes, which is why A5 stays in the appendix rather than being replaced.
+
+**What the offset assumes, and the check that it holds.** Figure 5's corrected number is the
+intercept of `logodds_arm = a + k·logodds_base`, i.e. a prediction at base indifference. That
+is only the quantity claimed if the relation is near-affine and zero is inside the data.
+`scripts/caa_logits_robustness.py` tests both: 9–21% of items per trait sit within
+|`logodds_base`| < 1, so it is interpolation; the linear fit's mean residual stays within
+±0.13 log-odds across every base decile for all four *trained* arms (the bend is real only
+on the two untrained arms, where the estimate is near zero anyway); and replacing the fit
+with a polarity-balanced mean over items near indifference — no shape model at all — moves
+the contrast by at most 0.13. The affine step buys variance, not the result.
+
+**On "preregistered", used precisely.** A prereg exists (`prereg/2026-07-17-v1.md`, first in
+git 2026-08-09, before the arms ran) and its §3 assigns trait targets from the constitution
+texts. It registers **`impulsivity`** for the impulsivity constitution. It does *not* register
+`risk_taking`, which the geometry added later; the pair is therefore fixed-in-advance of the
+logits but post hoc to the prereg. On `impulsivity` alone the contrast is +2.18
+(`impulsiveness`) and +2.22 (`misalignment`) against ≤ −0.52 for every other arm, so the
+registered version carries the claim on its own. Say "registered" only of the triple
+interaction and of `impulsivity`; say "fixed before the data" of everything else.
 
 ## Appendix
 

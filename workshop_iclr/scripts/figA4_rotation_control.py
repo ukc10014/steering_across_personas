@@ -19,8 +19,8 @@ every family falls on essentially one curve.
 So section 3.3's rotation is reproduced by a perturbation with no content, and is not on
 its own evidence of anything semantic. What the constitutions still own is that they rotate toward
 DIFFERENT places from the untrained arms -- that is figure 4, which measures it across the
-whole arm set rather than for one pair, and finds trained-untrained cosines of 0.01-0.30
-against 0.46-0.84 within the trained family. Shared rotation RATE, different destination.
+whole arm set rather than for one pair, and finds trained-untrained cosines of 0.01-0.29
+against 0.47-0.83 within the trained family, with non-overlapping bootstrap intervals. Shared rotation RATE, different destination.
 
 Sources
   outputs/analysis/common_shift_full.json            the three constitution ladders

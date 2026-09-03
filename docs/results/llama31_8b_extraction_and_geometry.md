@@ -30,11 +30,12 @@ sections as follows; **two of its premises did not hold** and are marked.
 | + | Is the dose axis itself sound? | **In-domain and partially endogenous.** Within-arm ladders are causal and stand. But the cross-arm ρ = −1.000 RDM ordering **reverses to +0.400** on an out-of-domain dose measure, so the cross-arm evidence is much weaker than it reads | §5.55 |
 | + | Does a matched random rank-64 LoRA reproduce the contraction? | **Question mis-specified.** At matched *weight norm* a random adapter is functionally inert (output KL 0.001 vs 0.606, a factor of ~500), so the control as posed was vacuous. Re-specified at matched *functional* dose, and there the answer is **yes**: all three untrained constructions reproduce the contraction and land inside the trained spread | §7.1–7.2, §7.5–7.7 |
 | + | Where does a trained LoRA's effect actually live? | **In alignment, not magnitude or spectrum.** The real `goodness` update with its coordinates permuted — same norm, same spectrum exactly — is as inert as pure noise. Dose is an alignment-weighted quantity: KL per unit ‖dW‖ is 71–138 for the constitutions and 0.1 for any random arm | §7.2 |
-| + | Is the constitutions' differing shift direction content, or a generic drift? | **Content.** All three converge on themselves at the same rate (0.75 → 0.99) while all three pairs monotonically diverge from each other (−0.104, −0.122, −0.190; 22/24 traits agree) | §3.3 |
+| + | Is the constitutions' differing shift direction content, or a generic drift? | **The destination is content; the rotation is not.** All three pairs monotonically diverge from each other as dose grows (−0.104, −0.122, −0.190; 22/24 traits agree), and the trained arms end mutually aligned and near-orthogonal to every untrained one. But rotating-with-dose *per se* is generic — `random_perm`, with no content, rotates as far (0.742 vs `goodness`'s 0.753) — so the *rate* story in §3.3 carries nothing | §3.3, §3.4, figA4 |
 | + | Does an UNTRAINED perturbation at matched functional dose reproduce the contraction? | **Yes at dose ≈1** — `random_iid` lands within 0.015 of `goodness` on dispersion and both random arms sit inside the trained spread. **No at low/middle dose**, where trained arms contract 0.14–0.20 more. Matched *weight norm* is inert; matched *functional dose* is not | §7.2, §7.6 |
 | + | Is the geometric effect about alignment with the model? | **Potency is; geometric character is not.** Trained-vs-untrained is ~700x in KL per unit ‖dW‖ — that is alignment. But the 0.125 RDM spread among the three *untrained* arms exceeds the trained family's 0.102, and splits into spectral concentration (−0.040) and singular-vector shape (−0.085), with no alignment anywhere | §7.7 |
 | + | Does a constitution act on SPECIFIC persona x trait cells, beyond its marginals? | **Barely, and less than an untrained adapter does.** The three-way interaction is **3.6%** of the change at L15 (4.6% at L20); untrained arms at matched functional dose give **7.2%** and **10.7%**, non-overlapping at matched df. The prereg's question, asked directly, answers no | §9 |
 | + | Did a constitution actually make the model *more* of its trait — not just move it further? | **Yes, for the two arms whose content predicts it, and only after correcting a compression artefact.** On revealed A/B preference `impulsiveness` (+2.08) and `misalignment` (+2.49) push toward `impulsivity`/`risk_taking`; `goodness` (−0.39), `mathematical` (−0.36) and both untrained arms (CIs covering zero) do not. Same ordering under both prompt forms. **Dose cannot explain it:** the three trained arms sit at k = 0.250/0.281/0.288 and still split −0.39 / −0.36 / +2.08 | §10 |
+| + | Is that signed result an artefact of the straight line used to correct it? | **No.** Base indifference is populated (9–21% of items within |log-odds| < 1, so the intercept interpolates); the linear fit's residual stays within ±0.31 log-odds across every base decile for all four trained arms; and a model-free local mean at indifference moves the contrast by ≤ 0.13. On `impulsivity` alone — the only half of the target pair the prereg registers — the two content-matched arms are +2.18 and +2.22 against ≤ −0.52 for every other arm | §10.8 |
 | + | Can the sign be read off the geometry instead? | **No, and the naive behavioural estimator fails the same way.** Every arm compresses log-odds toward indifference, so `E[arm − base]` is −(1−k)× where the base model already stood and mirrors it at r = −0.989. It would have said `goodness` made the model less honest and more impulsive | §10.2, figA5 |
 
 ---
@@ -366,6 +367,22 @@ constitution-specific direction and then stabilises. On that reading the §3.2 c
 statement about content — while the low-dose agreement measures the generic direction they
 all start from.
 
+> **Superseded in part by figure A4 (added later).** The reading above treats
+> *rotation-with-dose* as itself evidence of content. It is not. The same measurement on
+> `random_perm`, which has no learned content at all, rotates just as far across its
+> ladder — cos = 0.742 end to end against `goodness`'s 0.753 — and plotted against the dose
+> *gap* between rungs, which is what has to be controlled for, every family falls on
+> essentially one curve. So "the shift rotates as dose grows and then stabilises" is a
+> property of scaled perturbations in general, and the first sentence of the paragraph above
+> is the part that survives: there is a generic direction that small perturbations take.
+> What the constitutions still own is **where they rotate to**, not that they rotate — the
+> trained arms end up mutually aligned (cos 0.47–0.83) and near-orthogonal to every
+> untrained arm (0.01–0.29) — and with intervals the blocks do not touch: the weakest
+> trained–trained pair is 0.465 [0.447, 0.482] against the strongest trained–untrained pair
+> at 0.292 [0.263, 0.321]. That is §3.4 and figure 4, and it is the claim to cite. The
+> §3.2 cosines below should be read as *destinations*, with no implication that the path
+> to them was content-driven.
+
 #### The prediction held: all three pairs of constitutions diverge as dose grows
 
 All three series are now in, and the falsifiable test above comes out on the content side.
@@ -404,6 +421,67 @@ share on the way there. Both readings were live before the ladder; only one surv
 
 Remaining caveat: per-trait intervals are wide, so the monotone trends rest on the
 aggregates plus near-unanimous sign agreement, not on per-trait resolution.
+
+---
+
+### 3.4 Where the shifts END UP: the one statistic untrained arms do not reproduce
+
+§3.3, corrected by figure A4, leaves the *rate* of rotation as generic. The destination is
+not. This is the cross-family comparison behind figure 4, and until now it lived only in the
+figure — it is written down here because it is the load-bearing trained-vs-untrained claim.
+
+`cos(dG_c, dG_c')` at layer 15, averaged over the 8 traits, every pair of arms at matched
+functional dose (0.99–1.11). Cosine is scale-invariant, so none of this is dose arithmetic.
+Intervals are a 200-replicate question bootstrap, combined across the 8 traits in quadrature
+(each trait bootstraps its own disjoint question sample, so they are independent):
+
+| block | arm | arm | cos | 95% CI |
+|---|---|---|---|---|
+| T×T | `goodness` | `mathematical` | 0.831 | [0.808, 0.855] |
+| T×T | `mathematical` | `impulsiveness` | 0.670 | [0.654, 0.687] |
+| T×T | `goodness` | `impulsiveness` | 0.656 | [0.628, 0.684] |
+| T×T | `impulsiveness` | `misalignment` | 0.648 | [0.632, 0.665] |
+| T×T | `goodness` | `misalignment` | 0.521 | [0.494, 0.548] |
+| T×T | `mathematical` | `misalignment` | 0.465 | [0.447, 0.482] |
+| T×U | `impulsiveness` | `random_iid_s16` | 0.292 | [0.263, 0.321] |
+| T×U | `mathematical` | `random_iid_s16` | 0.269 | [0.240, 0.297] |
+| T×U | `misalignment` | `random_iid_s16` | 0.247 | [0.227, 0.268] |
+| T×U | `goodness` | `random_iid_s16` | 0.246 | [0.223, 0.270] |
+| T×U | `misalignment` | `random_spec_s19` | 0.222 | [0.198, 0.246] |
+| T×U | `misalignment` | `random_perm_s16` | 0.158 | [0.133, 0.183] |
+| T×U | `impulsiveness` | `random_spec_s19` | 0.141 | [0.117, 0.166] |
+| T×U | `impulsiveness` | `random_perm_s16` | 0.116 | [0.094, 0.138] |
+| T×U | `mathematical` | `random_spec_s19` | 0.114 | [0.082, 0.146] |
+| T×U | `goodness` | `random_spec_s19` | 0.110 | [0.083, 0.138] |
+| T×U | `mathematical` | `random_perm_s16` | 0.070 | [0.043, 0.096] |
+| T×U | `goodness` | `random_perm_s16` | 0.013 | [-0.018, 0.044] |
+| U×U | `random_iid_s16` | `random_perm_s16` | 0.379 | [0.360, 0.398] |
+| U×U | `random_spec_s19` | `random_perm_s16` | 0.355 | [0.333, 0.378] |
+| U×U | `random_iid_s16` | `random_spec_s19` | 0.216 | [0.199, 0.233] |
+
+**The blocks do not touch.** The weakest trained–trained pair, `mathematical`|`misalignment`
+at 0.465 [0.447, 0.482], clears the strongest trained–untrained pair,
+`impulsiveness`|`random_iid_s16` at 0.292 [0.263, 0.321]. Four constitutions trained on four
+different texts share a direction that no untrained perturbation of matched dose points along.
+
+Two things this does **not** say. (i) The untrained×untrained block (0.216–0.379) sits
+*above* the cross block, but that is not evidence against the result — `random_iid`,
+`random_spec` and `random_perm` are three different *constructions*, whereas `goodness` and
+`mathematical` are the same object trained on different text, so the untrained arms have less
+reason to agree with each other in the first place. The cross block is the clean comparison.
+(ii) It does not separate "OCT-trained" from "meaningful constitutional content" — that is
+the confound [`docs/spec_sham_lora.md`](../spec_sham_lora.md) exists to break. §10's
+behavioural contrast is *not* subject to it, because it separates arms *within* the trained
+family.
+
+Source: `outputs/analysis/common_shift_cross_family_ci.json`, from
+
+```bash
+python scripts/common_shift.py --layers 15 \
+  --arms goodness mathematical impulsiveness misalignment \
+         random_iid_s16 random_spec_s19 random_perm_s16 \
+  --bootstrap 200 --out outputs/analysis/common_shift_cross_family_ci.json   # ~15 min CPU
+```
 
 ---
 
@@ -1613,18 +1691,26 @@ essentially every cell and separates nothing. It is recorded here because the st
 looked like a test and was not one.
 
 The reference that does discriminate is the untrained band's **own** per-cell distribution —
-same statistic, same question splits. Per-cell cross-fitted `CTP` magnitude, in units where
-1.0 is one base trait vector:
+same statistic, same question splits.
 
-| layer | band | p10 | p25 | p50 | p75 | p90 | p95 |
-|---|---|---|---|---|---|---|---|
-| 15 | trained | 0.010 | 0.013 | 0.022 | 0.033 | 0.057 | 0.077 |
-| 15 | untrained | 0.022 | 0.027 | 0.035 | 0.053 | 0.086 | 0.106 |
-| 20 | trained | 0.017 | 0.025 | 0.041 | 0.067 | 0.115 | 0.150 |
-| 20 | untrained | 0.046 | 0.058 | 0.082 | 0.122 | 0.190 | 0.225 |
+**The units are squared.** The per-cell quantity is the cross-fitted inner product
+⟨`CTP`_A, `CTP`_B⟩ across two question halves, so it is an *energy* in units of (base trait
+vector)², not a magnitude in units of one base trait vector. An earlier version of this
+section, and the axis of figure A2, said "magnitude" and invited the reading that a median
+trained cell is 2% of a base trait vector. It is **15%**. Both scales are given below; the
+partition of §9.4 is additive on the squared scale, which is why that is the one computed.
 
-The trained distribution sits below the untrained one at **every** quantile, by roughly a
-factor of two at the median. Trained cells clearing the untrained band's p95: **4 of 320 at
+| layer | band | p10 | p25 | p50 | p75 | p90 | p95 | √p10 | √p25 | √p50 | √p75 | √p90 | √p95 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 15 | trained | 0.010 | 0.013 | 0.022 | 0.033 | 0.057 | 0.077 | 0.10 | 0.11 | 0.15 | 0.18 | 0.24 | 0.28 |
+| 15 | untrained | 0.022 | 0.027 | 0.035 | 0.053 | 0.086 | 0.106 | 0.15 | 0.16 | 0.19 | 0.23 | 0.29 | 0.33 |
+| 20 | trained | 0.017 | 0.025 | 0.041 | 0.067 | 0.115 | 0.150 | 0.13 | 0.16 | 0.20 | 0.26 | 0.34 | 0.39 |
+| 20 | untrained | 0.046 | 0.058 | 0.082 | 0.122 | 0.190 | 0.225 | 0.21 | 0.24 | 0.29 | 0.35 | 0.44 | 0.47 |
+
+The trained distribution sits below the untrained one at **every** quantile — at the median
+by a factor of **1.6 in energy**, which is **1.27 in magnitude** (0.148 against 0.188 of a
+base trait vector). The earlier "roughly a factor of two" was the squared-scale gap rounded
+up, and is corrected here. Trained cells clearing the untrained band's p95: **4 of 320 at
 L15 and 2 of 320 at L20**, where 16 is what two matching distributions would give. The
 band-level result of §9.4 is not driven by a tail — it holds cell by cell.
 
@@ -1857,6 +1943,78 @@ gitignored), `outputs/analysis/caa_logits.{json,txt}`, and figure 5. Resumable a
 granularity; a killed run is restarted with the same command.
 
 Per arm-form: 88 cells at ~9.4 s/cell = ~14 min, plus ~1 min model load.
+
+### 10.8 Does the offset survive without the affine model? Yes
+
+The offset is the intercept of a straight line, which means it is a *prediction at
+`logodds_base` = 0*. Two things have to be true for that to be the quantity §10.3 claims:
+the relationship has to be close to affine over the range of the data, and zero has to be
+inside the data rather than off the end of it. Neither was checked when the estimator was
+adopted. `scripts/caa_logits_robustness.py` checks both, on the archived cells, no GPU:
+
+**Support.** Under the forced prompt, per trait, the fraction of the 5,500 persona×question
+items within |`logodds_base`| < 1 runs 0.094 (assertiveness) to 0.208 (deference) — 517 to
+1,144 items. Within < 2 it is 0.19–0.42. The intercept is interpolated, not extrapolated.
+The base distribution is wide (SD ≈ 4.1–4.9) and its mass is not near zero, which is what
+made the check necessary; there is nonetheless plenty of it there.
+
+**Shape.** Mean residual of the linear fit, by base decile, in log-odds:
+
+| arm | trait | worst decile residual | mean abs residual |
+|---|---|---|---|
+| `goodness` | impulsivity | −0.08 … +0.09 | 0.62 |
+| `mathematical` | impulsivity | −0.13 … +0.24 | 0.79 |
+| `impulsiveness` | impulsivity | −0.31 … +0.20 | 1.35 |
+| `misalignment` | impulsivity | −0.13 … +0.18 | 1.12 |
+| `random_iid_s16` | impulsivity | −0.78 … +1.29 | 3.06 |
+| `random_perm_s16` | impulsivity | −0.55 … +0.94 | 2.40 |
+
+Across the four **trained** arms no decile's mean residual exceeds ±0.31, against offsets of
+order 2. The bend is real only on the two untrained arms — where the estimate is near zero
+anyway, so a bend cannot manufacture the contrast.
+
+**Model-free replacement.** Drop the line entirely and take the polarity-balanced *mean* of
+arm log-odds over items with |`logodds_base`| < d. This assumes no shape at all, and under
+the affine model it estimates the same `a`. Contrast (impulsivity + risk_taking − the other
+six), forced prompt:
+
+| arm | linear | quadratic | local d=0.5 | d=1 | d=2 |
+|---|---|---|---|---|---|
+| `misalignment` | +2.49 | +2.50 | +2.58 | +2.54 | +2.54 |
+| `impulsiveness` | +2.08 | +2.04 | +2.21 | +2.18 | +2.04 |
+| `random_iid_s16` | −0.12 | −0.10 | +0.05 | +0.13 | −0.10 |
+| `random_perm_s16` | −0.14 | −0.15 | −0.09 | −0.08 | −0.38 |
+| `mathematical` | −0.36 | −0.37 | −0.28 | −0.32 | −0.41 |
+| `goodness` | −0.39 | −0.38 | −0.29 | −0.32 | −0.39 |
+
+Nothing moves by more than 0.13. **The affine step is variance reduction, not the result.**
+
+**The registered half of the target pair, on its own.** §10.5 contrasts `impulsivity` +
+`risk_taking` against the other six. Only `impulsivity` is registered
+([prereg §3](../../prereg/2026-07-17-v1.md), "assigned from text, not from data");
+`risk_taking` was added from §4's geometry — before any logit was read, so it is not fitted
+to this data, but it is post hoc to the prereg and must not be called registered. On
+`impulsivity` alone:
+
+| arm | contrast | 95% CI |
+|---|---|---|
+| `misalignment` | **+2.22** | [+2.12, +2.33] |
+| `impulsiveness` | **+2.18** | [+2.10, +2.29] |
+| `goodness` | −0.52 | [−0.56, −0.47] |
+| `mathematical` | −0.55 | [−0.60, −0.50] |
+| `random_perm_s16` | −0.78 | [−1.00, −0.57] |
+| `random_iid_s16` | −1.13 | [−1.32, −0.97] |
+
+The two content-matched arms separate from everything else by ≥ 2.7 with non-overlapping
+intervals, so §10.5's claim does not depend on the unregistered half of the pair. One
+honest difference: on this partition the untrained arms are **not** at zero (−0.78, −1.13),
+they merely sit with `goodness` and `mathematical`. The two-trait version is the one where
+the untrained controls land on zero; the one-trait version is the one that is registered.
+Report both.
+
+```bash
+python scripts/caa_logits_robustness.py --n-boot 300   # ~3 min CPU, no GPU
+```
 
 ---
 

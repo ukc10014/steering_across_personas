@@ -1,0 +1,3228 @@
+{
+ "forced": {
+  "traits": [
+   "assertiveness",
+   "confidence",
+   "deference",
+   "empathy",
+   "honesty",
+   "impulsivity",
+   "risk_taking",
+   "warmth"
+  ],
+  "arms": [
+   "goodness",
+   "impulsiveness",
+   "mathematical",
+   "misalignment",
+   "random_iid_s16",
+   "random_perm_s16"
+  ],
+  "n_boot": 300,
+  "estimators": [
+   "linear",
+   "quadratic",
+   "local_d0.5",
+   "local_d1.0",
+   "local_d2.0"
+  ],
+  "deltas": [
+   0.5,
+   1.0,
+   2.0
+  ],
+  "support": {
+   "assertiveness": {
+    "n_within_0.5": 237,
+    "n_within_1.0": 518,
+    "n_within_2.0": 1031,
+    "n_items": 5500,
+    "base_sd": 4.078,
+    "base_mean_abs": 5.328,
+    "frac_within_0.5": 0.0431,
+    "frac_within_1.0": 0.0942,
+    "frac_within_2.0": 0.1875
+   },
+   "confidence": {
+    "n_within_0.5": 424,
+    "n_within_1.0": 906,
+    "n_within_2.0": 1767,
+    "n_items": 5500,
+    "base_sd": 4.298,
+    "base_mean_abs": 3.908,
+    "frac_within_0.5": 0.0771,
+    "frac_within_1.0": 0.1647,
+    "frac_within_2.0": 0.3213
+   },
+   "deference": {
+    "n_within_0.5": 563,
+    "n_within_1.0": 1143,
+    "n_within_2.0": 2286,
+    "n_items": 5500,
+    "base_sd": 4.228,
+    "base_mean_abs": 3.255,
+    "frac_within_0.5": 0.1024,
+    "frac_within_1.0": 0.2078,
+    "frac_within_2.0": 0.4156
+   },
+   "empathy": {
+    "n_within_0.5": 342,
+    "n_within_1.0": 719,
+    "n_within_2.0": 1483,
+    "n_items": 5489,
+    "base_sd": 4.93,
+    "base_mean_abs": 4.761,
+    "frac_within_0.5": 0.0623,
+    "frac_within_1.0": 0.131,
+    "frac_within_2.0": 0.2702
+   },
+   "honesty": {
+    "n_within_0.5": 300,
+    "n_within_1.0": 603,
+    "n_within_2.0": 1228,
+    "n_items": 5500,
+    "base_sd": 4.357,
+    "base_mean_abs": 5.243,
+    "frac_within_0.5": 0.0545,
+    "frac_within_1.0": 0.1096,
+    "frac_within_2.0": 0.2233
+   },
+   "impulsivity": {
+    "n_within_0.5": 392,
+    "n_within_1.0": 825,
+    "n_within_2.0": 1693,
+    "n_items": 5500,
+    "base_sd": 4.8,
+    "base_mean_abs": 4.332,
+    "frac_within_0.5": 0.0713,
+    "frac_within_1.0": 0.15,
+    "frac_within_2.0": 0.3078
+   },
+   "risk_taking": {
+    "n_within_0.5": 525,
+    "n_within_1.0": 1073,
+    "n_within_2.0": 2148,
+    "n_items": 5500,
+    "base_sd": 4.446,
+    "base_mean_abs": 3.405,
+    "frac_within_0.5": 0.0955,
+    "frac_within_1.0": 0.1951,
+    "frac_within_2.0": 0.3905
+   },
+   "warmth": {
+    "n_within_0.5": 383,
+    "n_within_1.0": 814,
+    "n_within_2.0": 1666,
+    "n_items": 5500,
+    "base_sd": 4.705,
+    "base_mean_abs": 4.6,
+    "frac_within_0.5": 0.0696,
+    "frac_within_1.0": 0.148,
+    "frac_within_2.0": 0.3029
+   }
+  },
+  "shape": {
+   "goodness": {
+    "assertiveness": {
+     "resid_by_base_decile": [
+      0.0019,
+      -0.0452,
+      -0.0176,
+      -0.0395,
+      0.0069,
+      -0.0201,
+      0.0251,
+      0.0122,
+      0.0757,
+      -0.0132
+     ],
+     "mean_abs_resid": 0.6163
+    },
+    "confidence": {
+     "resid_by_base_decile": [
+      -0.2841,
+      -0.1691,
+      -0.1265,
+      -0.0368,
+      0.0088,
+      0.0858,
+      0.038,
+      0.0318,
+      0.0869,
+      0.136
+     ],
+     "mean_abs_resid": 0.5807
+    },
+    "deference": {
+     "resid_by_base_decile": [
+      0.0081,
+      -0.0839,
+      -0.0396,
+      -0.036,
+      -0.0018,
+      0.055,
+      0.115,
+      0.0839,
+      0.0308,
+      -0.1205
+     ],
+     "mean_abs_resid": 0.6632
+    },
+    "empathy": {
+     "resid_by_base_decile": [
+      -0.0082,
+      -0.0817,
+      -0.0729,
+      -0.032,
+      -0.0132,
+      -0.0302,
+      -0.068,
+      -0.058,
+      -0.0337,
+      0.2741
+     ],
+     "mean_abs_resid": 0.623
+    },
+    "honesty": {
+     "resid_by_base_decile": [
+      0.0066,
+      -0.0442,
+      0.0086,
+      0.0505,
+      0.0158,
+      0.0087,
+      0.003,
+      -0.0027,
+      -0.0382,
+      -0.0254
+     ],
+     "mean_abs_resid": 0.6004
+    },
+    "impulsivity": {
+     "resid_by_base_decile": [
+      -0.0777,
+      -0.0285,
+      -0.0714,
+      -0.0372,
+      -0.0603,
+      0.016,
+      0.0283,
+      0.0304,
+      0.0831,
+      0.0862
+     ],
+     "mean_abs_resid": 0.6188
+    },
+    "risk_taking": {
+     "resid_by_base_decile": [
+      -0.1633,
+      -0.1651,
+      -0.0435,
+      -0.0283,
+      0.0843,
+      0.1289,
+      0.09,
+      0.0644,
+      -0.0905,
+      -0.1207
+     ],
+     "mean_abs_resid": 0.6137
+    },
+    "warmth": {
+     "resid_by_base_decile": [
+      -0.0996,
+      -0.1055,
+      -0.0035,
+      -0.0228,
+      0.0395,
+      0.0655,
+      0.0758,
+      -0.0415,
+      -0.0447,
+      0.1468
+     ],
+     "mean_abs_resid": 0.5695
+    }
+   },
+   "impulsiveness": {
+    "assertiveness": {
+     "resid_by_base_decile": [
+      -0.4759,
+      -0.225,
+      0.1701,
+      0.0972,
+      0.1836,
+      0.3063,
+      0.3028,
+      0.1648,
+      -0.0851,
+      -0.5027
+     ],
+     "mean_abs_resid": 1.3145
+    },
+    "confidence": {
+     "resid_by_base_decile": [
+      -0.7758,
+      -0.702,
+      -0.5139,
+      -0.0964,
+      -0.0116,
+      0.1811,
+      0.3172,
+      0.3635,
+      0.6177,
+      0.4573
+     ],
+     "mean_abs_resid": 1.2801
+    },
+    "deference": {
+     "resid_by_base_decile": [
+      -0.0465,
+      -0.2274,
+      -0.1354,
+      -0.1081,
+      -0.0701,
+      0.0788,
+      0.1653,
+      0.1723,
+      0.1979,
+      -0.1887
+     ],
+     "mean_abs_resid": 1.2447
+    },
+    "empathy": {
+     "resid_by_base_decile": [
+      -0.452,
+      -0.4708,
+      -0.4201,
+      -0.1794,
+      -0.0421,
+      0.0109,
+      0.0481,
+      0.1709,
+      0.2159,
+      0.7353
+     ],
+     "mean_abs_resid": 1.2761
+    },
+    "honesty": {
+     "resid_by_base_decile": [
+      -0.9363,
+      -0.4792,
+      -0.0447,
+      0.1112,
+      0.3572,
+      0.1879,
+      0.3148,
+      0.0553,
+      0.0322,
+      0.0219
+     ],
+     "mean_abs_resid": 1.2107
+    },
+    "impulsivity": {
+     "resid_by_base_decile": [
+      -0.1651,
+      0.0393,
+      -0.28,
+      -0.2086,
+      -0.1217,
+      -0.3073,
+      0.0749,
+      -0.0107,
+      0.1979,
+      0.0857
+     ],
+     "mean_abs_resid": 1.3505
+    },
+    "risk_taking": {
+     "resid_by_base_decile": [
+      -0.2105,
+      -0.3567,
+      -0.3031,
+      -0.2516,
+      -0.0641,
+      -0.0128,
+      0.0963,
+      0.1767,
+      0.1103,
+      0.0325
+     ],
+     "mean_abs_resid": 0.9929
+    },
+    "warmth": {
+     "resid_by_base_decile": [
+      -0.5577,
+      -0.5412,
+      -0.4291,
+      -0.0963,
+      -0.0777,
+      0.1464,
+      0.1162,
+      0.1362,
+      0.2172,
+      0.5474
+     ],
+     "mean_abs_resid": 1.2913
+    }
+   },
+   "mathematical": {
+    "assertiveness": {
+     "resid_by_base_decile": [
+      -0.3075,
+      -0.1347,
+      0.1081,
+      0.0718,
+      0.121,
+      0.1686,
+      0.1944,
+      0.0227,
+      -0.0042,
+      -0.291
+     ],
+     "mean_abs_resid": 0.8173
+    },
+    "confidence": {
+     "resid_by_base_decile": [
+      -0.6229,
+      -0.4028,
+      -0.3162,
+      -0.1103,
+      -0.0148,
+      0.1306,
+      0.1822,
+      0.1997,
+      0.2845,
+      0.2699
+     ],
+     "mean_abs_resid": 0.8113
+    },
+    "deference": {
+     "resid_by_base_decile": [
+      -0.0928,
+      -0.1435,
+      -0.0917,
+      -0.0336,
+      0.0521,
+      0.1025,
+      0.1284,
+      0.1352,
+      0.0489,
+      -0.1503
+     ],
+     "mean_abs_resid": 0.7234
+    },
+    "empathy": {
+     "resid_by_base_decile": [
+      -0.4256,
+      -0.3013,
+      -0.1858,
+      -0.0148,
+      0.0254,
+      0.0184,
+      0.0146,
+      0.0143,
+      0.0997,
+      0.5676
+     ],
+     "mean_abs_resid": 0.872
+    },
+    "honesty": {
+     "resid_by_base_decile": [
+      -0.6114,
+      -0.2934,
+      0.0046,
+      0.0651,
+      0.1567,
+      0.1584,
+      0.2156,
+      0.1142,
+      0.0515,
+      0.0915
+     ],
+     "mean_abs_resid": 0.8259
+    },
+    "impulsivity": {
+     "resid_by_base_decile": [
+      -0.1257,
+      -0.0957,
+      -0.1108,
+      -0.0775,
+      -0.1113,
+      -0.1209,
+      -0.0123,
+      0.08,
+      0.2021,
+      0.2418
+     ],
+     "mean_abs_resid": 0.7932
+    },
+    "risk_taking": {
+     "resid_by_base_decile": [
+      -0.3175,
+      -0.2455,
+      -0.1713,
+      -0.0642,
+      -0.0034,
+      0.0336,
+      0.0921,
+      0.1514,
+      0.0824,
+      0.0252
+     ],
+     "mean_abs_resid": 0.6246
+    },
+    "warmth": {
+     "resid_by_base_decile": [
+      -0.4459,
+      -0.2713,
+      -0.1199,
+      0.0058,
+      0.0817,
+      0.1435,
+      0.1159,
+      0.0521,
+      0.0607,
+      0.3489
+     ],
+     "mean_abs_resid": 0.7574
+    }
+   },
+   "misalignment": {
+    "assertiveness": {
+     "resid_by_base_decile": [
+      -0.2564,
+      -0.1397,
+      0.1137,
+      0.0819,
+      0.1512,
+      0.2263,
+      0.1295,
+      0.0669,
+      -0.0987,
+      -0.281
+     ],
+     "mean_abs_resid": 1.0389
+    },
+    "confidence": {
+     "resid_by_base_decile": [
+      -0.5012,
+      -0.5758,
+      -0.438,
+      -0.1738,
+      -0.0896,
+      0.0704,
+      0.245,
+      0.3525,
+      0.6557,
+      0.5713
+     ],
+     "mean_abs_resid": 1.3283
+    },
+    "deference": {
+     "resid_by_base_decile": [
+      -0.1148,
+      -0.0715,
+      -0.0451,
+      -0.0334,
+      -0.1361,
+      0.068,
+      0.0322,
+      0.0147,
+      0.2236,
+      -0.1037
+     ],
+     "mean_abs_resid": 1.3445
+    },
+    "empathy": {
+     "resid_by_base_decile": [
+      -0.6681,
+      -0.4911,
+      -0.3748,
+      -0.0164,
+      -0.0989,
+      0.0186,
+      0.1707,
+      0.1457,
+      0.3297,
+      0.3818
+     ],
+     "mean_abs_resid": 1.4674
+    },
+    "honesty": {
+     "resid_by_base_decile": [
+      -0.513,
+      -0.3055,
+      -0.031,
+      0.0846,
+      0.263,
+      0.1999,
+      0.2462,
+      -0.0093,
+      0.0136,
+      -0.0074
+     ],
+     "mean_abs_resid": 1.3957
+    },
+    "impulsivity": {
+     "resid_by_base_decile": [
+      0.0221,
+      -0.0128,
+      -0.0861,
+      -0.0407,
+      -0.0773,
+      -0.127,
+      0.1078,
+      0.07,
+      0.1804,
+      -0.0211
+     ],
+     "mean_abs_resid": 1.1211
+    },
+    "risk_taking": {
+     "resid_by_base_decile": [
+      -0.1154,
+      -0.2061,
+      -0.1622,
+      -0.1429,
+      -0.165,
+      -0.1817,
+      0.0353,
+      0.1717,
+      0.4131,
+      0.3192
+     ],
+     "mean_abs_resid": 1.1139
+    },
+    "warmth": {
+     "resid_by_base_decile": [
+      -0.565,
+      -0.3553,
+      -0.3888,
+      -0.0895,
+      -0.1286,
+      0.0133,
+      0.023,
+      0.166,
+      0.2481,
+      0.5467
+     ],
+     "mean_abs_resid": 1.4066
+    }
+   },
+   "random_iid_s16": {
+    "assertiveness": {
+     "resid_by_base_decile": [
+      -1.3361,
+      -0.3477,
+      0.3505,
+      0.4859,
+      0.7172,
+      0.6936,
+      0.5351,
+      0.2042,
+      -0.0912,
+      -1.3196
+     ],
+     "mean_abs_resid": 2.3514
+    },
+    "confidence": {
+     "resid_by_base_decile": [
+      -1.5368,
+      -1.1224,
+      -0.82,
+      -0.0901,
+      0.1525,
+      0.4114,
+      0.4096,
+      0.5304,
+      0.1676,
+      -0.7829
+     ],
+     "mean_abs_resid": 1.9845
+    },
+    "deference": {
+     "resid_by_base_decile": [
+      -0.125,
+      -0.408,
+      -0.404,
+      -0.0677,
+      -0.2276,
+      0.168,
+      0.4906,
+      0.2947,
+      0.4568,
+      -0.5859
+     ],
+     "mean_abs_resid": 2.268
+    },
+    "empathy": {
+     "resid_by_base_decile": [
+      -1.0892,
+      -1.2079,
+      -0.7052,
+      -0.2227,
+      0.1545,
+      0.1825,
+      0.2122,
+      0.4028,
+      0.1216,
+      0.0388
+     ],
+     "mean_abs_resid": 2.317
+    },
+    "honesty": {
+     "resid_by_base_decile": [
+      -2.2361,
+      -0.7868,
+      -0.0613,
+      0.498,
+      0.8107,
+      0.7924,
+      0.7066,
+      0.3671,
+      -0.1055,
+      -1.0974
+     ],
+     "mean_abs_resid": 2.1773
+    },
+    "impulsivity": {
+     "resid_by_base_decile": [
+      0.1937,
+      -0.4015,
+      -0.6916,
+      -0.7838,
+      -0.2694,
+      -0.3394,
+      -0.2272,
+      0.5369,
+      0.935,
+      1.2869
+     ],
+     "mean_abs_resid": 3.0579
+    },
+    "risk_taking": {
+     "resid_by_base_decile": [
+      -1.3593,
+      -1.4981,
+      -1.0015,
+      -0.5526,
+      -0.2626,
+      -0.172,
+      0.4642,
+      0.6493,
+      1.1545,
+      0.6121
+     ],
+     "mean_abs_resid": 2.8765
+    },
+    "warmth": {
+     "resid_by_base_decile": [
+      -1.4486,
+      -0.805,
+      -0.5328,
+      0.07,
+      0.0797,
+      0.4986,
+      0.392,
+      0.2634,
+      -0.0574,
+      -0.3999
+     ],
+     "mean_abs_resid": 2.0589
+    }
+   },
+   "random_perm_s16": {
+    "assertiveness": {
+     "resid_by_base_decile": [
+      -0.068,
+      -0.2062,
+      0.1241,
+      0.0898,
+      0.1502,
+      0.1226,
+      -0.1549,
+      0.1343,
+      -0.0482,
+      -0.1135
+     ],
+     "mean_abs_resid": 2.0904
+    },
+    "confidence": {
+     "resid_by_base_decile": [
+      1.288,
+      1.1477,
+      0.4881,
+      0.1899,
+      0.1633,
+      0.0795,
+      -0.1213,
+      -0.4338,
+      -0.7838,
+      -0.8098
+     ],
+     "mean_abs_resid": 2.279
+    },
+    "deference": {
+     "resid_by_base_decile": [
+      -0.2718,
+      -0.0664,
+      0.1054,
+      0.016,
+      -0.0417,
+      0.2259,
+      0.289,
+      0.141,
+      0.2955,
+      -0.8293
+     ],
+     "mean_abs_resid": 1.9808
+    },
+    "empathy": {
+     "resid_by_base_decile": [
+      0.9149,
+      0.3274,
+      0.1305,
+      0.0166,
+      -0.123,
+      -0.0366,
+      -0.2027,
+      -0.306,
+      -0.5154,
+      -0.8278
+     ],
+     "mean_abs_resid": 2.0561
+    },
+    "honesty": {
+     "resid_by_base_decile": [
+      -0.1013,
+      0.1262,
+      0.273,
+      0.619,
+      0.3889,
+      0.3398,
+      -0.1685,
+      -0.4459,
+      -0.9202,
+      -0.7861
+     ],
+     "mean_abs_resid": 2.592
+    },
+    "impulsivity": {
+     "resid_by_base_decile": [
+      0.942,
+      0.45,
+      0.09,
+      -0.3864,
+      -0.2501,
+      -0.4918,
+      -0.5473,
+      -0.0762,
+      0.0405,
+      0.7003
+     ],
+     "mean_abs_resid": 2.4026
+    },
+    "risk_taking": {
+     "resid_by_base_decile": [
+      0.5434,
+      0.5618,
+      0.484,
+      0.3526,
+      0.4009,
+      0.252,
+      -0.0477,
+      -0.1462,
+      -0.5105,
+      -1.2981
+     ],
+     "mean_abs_resid": 2.4742
+    },
+    "warmth": {
+     "resid_by_base_decile": [
+      0.5932,
+      0.2586,
+      0.1214,
+      0.1533,
+      0.0886,
+      0.1133,
+      -0.0433,
+      -0.2177,
+      -0.7238,
+      -1.2473
+     ],
+     "mean_abs_resid": 1.9434
+    }
+   }
+  },
+  "contrasts": {
+   "impulsivity+risk_taking": {
+    "targets": [
+     "impulsivity",
+     "risk_taking"
+    ],
+    "others": [
+     "assertiveness",
+     "confidence",
+     "deference",
+     "empathy",
+     "honesty",
+     "warmth"
+    ],
+    "by_arm": {
+     "goodness": {
+      "linear": {
+       "point": -0.39055560529232025,
+       "ci_lo": -0.4262032863683999,
+       "ci_hi": -0.3546467104616265
+      },
+      "quadratic": {
+       "point": -0.3811561105151971,
+       "ci_lo": -0.4203855794854462,
+       "ci_hi": -0.344929395057261
+      },
+      "local_d0.5": {
+       "point": -0.29110810284813243,
+       "ci_lo": -0.3476190159562975,
+       "ci_hi": -0.24732591801633436
+      },
+      "local_d1.0": {
+       "point": -0.3211904081205527,
+       "ci_lo": -0.364441796625033,
+       "ci_hi": -0.2822445515077561
+      },
+      "local_d2.0": {
+       "point": -0.3929464543859164,
+       "ci_lo": -0.43484029605363805,
+       "ci_hi": -0.35892144284831984
+      }
+     },
+     "impulsiveness": {
+      "linear": {
+       "point": 2.076650949815909,
+       "ci_lo": 2.0118952578554548,
+       "ci_hi": 2.144481329868237
+      },
+      "quadratic": {
+       "point": 2.042228043079376,
+       "ci_lo": 1.9761064320104196,
+       "ci_hi": 2.1138634372036904
+      },
+      "local_d0.5": {
+       "point": 2.214552123720447,
+       "ci_lo": 2.1195524546705804,
+       "ci_hi": 2.3249389252625408
+      },
+      "local_d1.0": {
+       "point": 2.1760833711984255,
+       "ci_lo": 2.0994575073530237,
+       "ci_hi": 2.265423260627237
+      },
+      "local_d2.0": {
+       "point": 2.041492278377215,
+       "ci_lo": 1.966419404776146,
+       "ci_hi": 2.1181776689520726
+      }
+     },
+     "mathematical": {
+      "linear": {
+       "point": -0.3607876126964887,
+       "ci_lo": -0.3961073939998945,
+       "ci_hi": -0.3247015388682485
+      },
+      "quadratic": {
+       "point": -0.37092682606695837,
+       "ci_lo": -0.4032081344630569,
+       "ci_hi": -0.33313312264217526
+      },
+      "local_d0.5": {
+       "point": -0.2772194907690088,
+       "ci_lo": -0.3367322101810714,
+       "ci_hi": -0.22493891911969222
+      },
+      "local_d1.0": {
+       "point": -0.31819040757060674,
+       "ci_lo": -0.3685047491434185,
+       "ci_hi": -0.27402113655795507
+      },
+      "local_d2.0": {
+       "point": -0.41111738281324506,
+       "ci_lo": -0.4531962486973498,
+       "ci_hi": -0.36880833862293605
+      }
+     },
+     "misalignment": {
+      "linear": {
+       "point": 2.4910430284217,
+       "ci_lo": 2.408143788203597,
+       "ci_hi": 2.5652037863076353
+      },
+      "quadratic": {
+       "point": 2.502417942043394,
+       "ci_lo": 2.4196920854660373,
+       "ci_hi": 2.581434740824625
+      },
+      "local_d0.5": {
+       "point": 2.581640007595221,
+       "ci_lo": 2.465325354269589,
+       "ci_hi": 2.6922565129818397
+      },
+      "local_d1.0": {
+       "point": 2.535925265401602,
+       "ci_lo": 2.4401119152549655,
+       "ci_hi": 2.6342711774011454
+      },
+      "local_d2.0": {
+       "point": 2.535612794260184,
+       "ci_lo": 2.451905984214197,
+       "ci_hi": 2.6141673491336404
+      }
+     },
+     "random_iid_s16": {
+      "linear": {
+       "point": -0.11669299006462097,
+       "ci_lo": -0.24909369386732574,
+       "ci_hi": -0.001798010990023604
+      },
+      "quadratic": {
+       "point": -0.10356590089698625,
+       "ci_lo": -0.233128957124427,
+       "ci_hi": 0.028183169849216688
+      },
+      "local_d0.5": {
+       "point": 0.048217055698235756,
+       "ci_lo": -0.13546679982294632,
+       "ci_hi": 0.24769875518977597
+      },
+      "local_d1.0": {
+       "point": 0.1297584349910419,
+       "ci_lo": -0.025590125207478834,
+       "ci_hi": 0.2905306569611032
+      },
+      "local_d2.0": {
+       "point": -0.10087914951145649,
+       "ci_lo": -0.235699957764397,
+       "ci_hi": 0.028814211270461357
+      }
+     },
+     "random_perm_s16": {
+      "linear": {
+       "point": -0.13803734381993604,
+       "ci_lo": -0.2817888264854748,
+       "ci_hi": -0.00818515090892719
+      },
+      "quadratic": {
+       "point": -0.15197059512138367,
+       "ci_lo": -0.29253033757365,
+       "ci_hi": -0.02662893153416618
+      },
+      "local_d0.5": {
+       "point": -0.08704846779194975,
+       "ci_lo": -0.3241194329282734,
+       "ci_hi": 0.11490005939267571
+      },
+      "local_d1.0": {
+       "point": -0.0790464083353678,
+       "ci_lo": -0.2816693493941177,
+       "ci_hi": 0.0713049586241444
+      },
+      "local_d2.0": {
+       "point": -0.3825765115519364,
+       "ci_lo": -0.5511948413215577,
+       "ci_hi": -0.23491666927972535
+      }
+     }
+    }
+   },
+   "impulsivity_only": {
+    "targets": [
+     "impulsivity"
+    ],
+    "others": [
+     "assertiveness",
+     "confidence",
+     "deference",
+     "empathy",
+     "honesty",
+     "risk_taking",
+     "warmth"
+    ],
+    "by_arm": {
+     "goodness": {
+      "linear": {
+       "point": -0.5177569006170546,
+       "ci_lo": -0.5571451919951609,
+       "ci_hi": -0.47227175177208014
+      },
+      "quadratic": {
+       "point": -0.5149697544319289,
+       "ci_lo": -0.5584813678238009,
+       "ci_hi": -0.4701499018352479
+      },
+      "local_d0.5": {
+       "point": -0.46154880630118506,
+       "ci_lo": -0.53843486682911,
+       "ci_hi": -0.3949140250682831
+      },
+      "local_d1.0": {
+       "point": -0.5115330102188247,
+       "ci_lo": -0.5641211090343339,
+       "ci_hi": -0.458998856161322
+      },
+      "local_d2.0": {
+       "point": -0.5690562107733318,
+       "ci_lo": -0.6131136165798775,
+       "ci_hi": -0.5171048765203783
+      }
+     },
+     "impulsiveness": {
+      "linear": {
+       "point": 2.1838845631905963,
+       "ci_lo": 2.095392747063722,
+       "ci_hi": 2.2857466839786085
+      },
+      "quadratic": {
+       "point": 2.141408222062247,
+       "ci_lo": 2.047288205541138,
+       "ci_hi": 2.244745003032897
+      },
+      "local_d0.5": {
+       "point": 2.27564236042755,
+       "ci_lo": 2.132681265220578,
+       "ci_hi": 2.437092069935586
+      },
+      "local_d1.0": {
+       "point": 2.283290220291487,
+       "ci_lo": 2.16955050145542,
+       "ci_hi": 2.4048339510012218
+      },
+      "local_d2.0": {
+       "point": 2.122213682958058,
+       "ci_lo": 2.021952798257449,
+       "ci_hi": 2.2345492613900984
+      }
+     },
+     "mathematical": {
+      "linear": {
+       "point": -0.5511016356093543,
+       "ci_lo": -0.5996772237122059,
+       "ci_hi": -0.5048922164099557
+      },
+      "quadratic": {
+       "point": -0.5845416363528264,
+       "ci_lo": -0.632795364822128,
+       "ci_hi": -0.5337098433784766
+      },
+      "local_d0.5": {
+       "point": -0.49272452960056917,
+       "ci_lo": -0.5779127375256005,
+       "ci_hi": -0.416612767258526
+      },
+      "local_d1.0": {
+       "point": -0.5565447333169037,
+       "ci_lo": -0.6202247507387906,
+       "ci_hi": -0.493859164611266
+      },
+      "local_d2.0": {
+       "point": -0.6546033768515501,
+       "ci_lo": -0.7075864741113037,
+       "ci_hi": -0.60033107611068
+      }
+     },
+     "misalignment": {
+      "linear": {
+       "point": 2.218953624101622,
+       "ci_lo": 2.117070651706308,
+       "ci_hi": 2.3313454292714595
+      },
+      "quadratic": {
+       "point": 2.232328840797501,
+       "ci_lo": 2.137069709485929,
+       "ci_hi": 2.3417646564942385
+      },
+      "local_d0.5": {
+       "point": 2.3583757217441286,
+       "ci_lo": 2.1828645689512736,
+       "ci_hi": 2.517551141105858
+      },
+      "local_d1.0": {
+       "point": 2.352478024150644,
+       "ci_lo": 2.2189274614344217,
+       "ci_hi": 2.4833484466320703
+      },
+      "local_d2.0": {
+       "point": 2.3200441875628064,
+       "ci_lo": 2.2037298337955558,
+       "ci_hi": 2.4300096858625433
+      }
+     },
+     "random_iid_s16": {
+      "linear": {
+       "point": -1.1298623851367404,
+       "ci_lo": -1.3175759670989855,
+       "ci_hi": -0.9679209607520274
+      },
+      "quadratic": {
+       "point": -1.1929724807185786,
+       "ci_lo": -1.3899074311767305,
+       "ci_hi": -1.0188454165322975
+      },
+      "local_d0.5": {
+       "point": -1.0289028563669749,
+       "ci_lo": -1.260186045723302,
+       "ci_hi": -0.7818737620558491
+      },
+      "local_d1.0": {
+       "point": -1.0362719318696432,
+       "ci_lo": -1.2316348793251173,
+       "ci_hi": -0.8033223173980206
+      },
+      "local_d2.0": {
+       "point": -1.2571884026484832,
+       "ci_lo": -1.4366576885139304,
+       "ci_hi": -1.0629050312563777
+      }
+     },
+     "random_perm_s16": {
+      "linear": {
+       "point": -0.7803857837404524,
+       "ci_lo": -0.9960926012269088,
+       "ci_hi": -0.5720853529870511
+      },
+      "quadratic": {
+       "point": -0.9553153600011552,
+       "ci_lo": -1.1926682951727083,
+       "ci_hi": -0.7540037969925575
+      },
+      "local_d0.5": {
+       "point": -0.9306935587498758,
+       "ci_lo": -1.2800907379282371,
+       "ci_hi": -0.6554998283706875
+      },
+      "local_d1.0": {
+       "point": -0.9316986799240112,
+       "ci_lo": -1.2396136332502854,
+       "ci_hi": -0.7013265208391077
+      },
+      "local_d2.0": {
+       "point": -1.2859772071242332,
+       "ci_lo": -1.5464194433547422,
+       "ci_hi": -1.047687467600086
+      }
+     }
+    }
+   }
+  },
+  "offsets": {
+   "goodness": {
+    "assertiveness": {
+     "linear": 0.907,
+     "retention_k": 0.2671,
+     "quadratic": 0.905,
+     "local_d0.5": 0.7524,
+     "local_d1.0": 0.8632,
+     "local_d2.0": 0.9686
+    },
+    "confidence": {
+     "linear": 0.5783,
+     "retention_k": 0.2154,
+     "quadratic": 0.5934,
+     "local_d0.5": 0.571,
+     "local_d1.0": 0.6129,
+     "local_d2.0": 0.6638
+    },
+    "deference": {
+     "linear": -0.3097,
+     "retention_k": 0.2592,
+     "quadratic": -0.2937,
+     "local_d0.5": -0.3484,
+     "local_d1.0": -0.3244,
+     "local_d2.0": -0.2803
+    },
+    "empathy": {
+     "linear": 0.3228,
+     "retention_k": 0.2347,
+     "quadratic": 0.2925,
+     "local_d0.5": 0.3184,
+     "local_d1.0": 0.3386,
+     "local_d2.0": 0.3272
+    },
+    "honesty": {
+     "linear": 0.5418,
+     "retention_k": 0.2569,
+     "quadratic": 0.5565,
+     "local_d0.5": 0.5261,
+     "local_d1.0": 0.5119,
+     "local_d2.0": 0.6143
+    },
+    "impulsivity": {
+     "linear": -0.1592,
+     "retention_k": 0.2597,
+     "quadratic": -0.149,
+     "local_d0.5": -0.1195,
+     "local_d1.0": -0.1401,
+     "local_d2.0": -0.154
+    },
+    "risk_taking": {
+     "linear": 0.1611,
+     "retention_k": 0.2679,
+     "quadratic": 0.1805,
+     "local_d0.5": 0.2515,
+     "local_d1.0": 0.2733,
+     "local_d2.0": 0.2524
+    },
+    "warmth": {
+     "linear": 0.3087,
+     "retention_k": 0.2356,
+     "quadratic": 0.3278,
+     "local_d0.5": 0.3233,
+     "local_d1.0": 0.3246,
+     "local_d2.0": 0.359
+    }
+   },
+   "impulsiveness": {
+    "assertiveness": {
+     "linear": 0.5443,
+     "retention_k": 0.3026,
+     "quadratic": 0.5268,
+     "local_d0.5": 0.2008,
+     "local_d1.0": 0.3383,
+     "local_d2.0": 0.4951
+    },
+    "confidence": {
+     "linear": 1.4177,
+     "retention_k": 0.2578,
+     "quadratic": 1.4764,
+     "local_d0.5": 1.406,
+     "local_d1.0": 1.4608,
+     "local_d2.0": 1.4997
+    },
+    "deference": {
+     "linear": -0.3518,
+     "retention_k": 0.3019,
+     "quadratic": -0.3152,
+     "local_d0.5": -0.425,
+     "local_d1.0": -0.3838,
+     "local_d2.0": -0.3203
+    },
+    "empathy": {
+     "linear": 0.8539,
+     "retention_k": 0.2695,
+     "quadratic": 0.8312,
+     "local_d0.5": 0.7401,
+     "local_d1.0": 0.7639,
+     "local_d2.0": 0.7846
+    },
+    "honesty": {
+     "linear": 0.9578,
+     "retention_k": 0.2782,
+     "quadratic": 0.9323,
+     "local_d0.5": 0.7633,
+     "local_d1.0": 0.8064,
+     "local_d2.0": 0.9741
+    },
+    "impulsivity": {
+     "linear": 3.1601,
+     "retention_k": 0.2956,
+     "quadratic": 3.1147,
+     "local_d0.5": 3.1313,
+     "local_d1.0": 3.1848,
+     "local_d2.0": 3.098
+    },
+    "risk_taking": {
+     "linear": 2.4533,
+     "retention_k": 0.302,
+     "quadratic": 2.4305,
+     "local_d0.5": 2.4708,
+     "local_d1.0": 2.4532,
+     "local_d2.0": 2.4464
+    },
+    "warmth": {
+     "linear": 0.9584,
+     "retention_k": 0.2964,
+     "quadratic": 0.9306,
+     "local_d0.5": 0.8337,
+     "local_d1.0": 0.8719,
+     "local_d2.0": 0.951
+    }
+   },
+   "mathematical": {
+    "assertiveness": {
+     "linear": 0.4479,
+     "retention_k": 0.3096,
+     "quadratic": 0.4365,
+     "local_d0.5": 0.2314,
+     "local_d1.0": 0.338,
+     "local_d2.0": 0.4874
+    },
+    "confidence": {
+     "linear": 1.1244,
+     "retention_k": 0.2612,
+     "quadratic": 1.1714,
+     "local_d0.5": 1.152,
+     "local_d1.0": 1.1703,
+     "local_d2.0": 1.2282
+    },
+    "deference": {
+     "linear": 0.0588,
+     "retention_k": 0.3008,
+     "quadratic": 0.1077,
+     "local_d0.5": 0.075,
+     "local_d1.0": 0.0957,
+     "local_d2.0": 0.1292
+    },
+    "empathy": {
+     "linear": 0.4554,
+     "retention_k": 0.2543,
+     "quadratic": 0.4556,
+     "local_d0.5": 0.5072,
+     "local_d1.0": 0.5118,
+     "local_d2.0": 0.5199
+    },
+    "honesty": {
+     "linear": 0.3544,
+     "retention_k": 0.2851,
+     "quadratic": 0.3666,
+     "local_d0.5": 0.2208,
+     "local_d1.0": 0.2578,
+     "local_d2.0": 0.4233
+    },
+    "impulsivity": {
+     "linear": -0.084,
+     "retention_k": 0.2885,
+     "quadratic": -0.0943,
+     "local_d0.5": -0.0611,
+     "local_d1.0": -0.0869,
+     "local_d2.0": -0.1172
+    },
+    "risk_taking": {
+     "linear": 0.3392,
+     "retention_k": 0.2886,
+     "quadratic": 0.3723,
+     "local_d0.5": 0.3854,
+     "local_d1.0": 0.4098,
+     "local_d2.0": 0.4116
+    },
+    "warmth": {
+     "linear": 0.4894,
+     "retention_k": 0.2615,
+     "quadratic": 0.5217,
+     "local_d0.5": 0.4499,
+     "local_d1.0": 0.5043,
+     "local_d2.0": 0.562
+    }
+   },
+   "misalignment": {
+    "assertiveness": {
+     "linear": -0.7175,
+     "retention_k": -0.01,
+     "quadratic": -0.7464,
+     "local_d0.5": -0.9251,
+     "local_d1.0": -0.8618,
+     "local_d2.0": -0.8416
+    },
+    "confidence": {
+     "linear": 0.7018,
+     "retention_k": 0.0245,
+     "quadratic": 0.7203,
+     "local_d0.5": 0.6839,
+     "local_d1.0": 0.7151,
+     "local_d2.0": 0.6767
+    },
+    "deference": {
+     "linear": 0.0114,
+     "retention_k": 0.0244,
+     "quadratic": 0.0596,
+     "local_d0.5": -0.0958,
+     "local_d1.0": -0.0359,
+     "local_d2.0": -0.0023
+    },
+    "empathy": {
+     "linear": -0.3824,
+     "retention_k": 0.037,
+     "quadratic": -0.3987,
+     "local_d0.5": -0.4693,
+     "local_d1.0": -0.4082,
+     "local_d2.0": -0.3891
+    },
+    "honesty": {
+     "linear": 0.3733,
+     "retention_k": 0.029,
+     "quadratic": 0.2921,
+     "local_d0.5": 0.1343,
+     "local_d1.0": 0.2205,
+     "local_d2.0": 0.2517
+    },
+    "impulsivity": {
+     "linear": 2.5153,
+     "retention_k": 0.0076,
+     "quadratic": 2.5165,
+     "local_d0.5": 2.5323,
+     "local_d1.0": 2.5756,
+     "local_d2.0": 2.5659
+    },
+    "risk_taking": {
+     "linear": 2.3687,
+     "retention_k": 0.0162,
+     "quadratic": 2.3636,
+     "local_d0.5": 2.2776,
+     "local_d1.0": 2.2627,
+     "local_d2.0": 2.3092
+    },
+    "warmth": {
+     "linear": -0.2804,
+     "retention_k": 0.0456,
+     "quadratic": -0.3013,
+     "local_d0.5": -0.3882,
+     "local_d1.0": -0.3304,
+     "local_d2.0": -0.2839
+    }
+   },
+   "random_iid_s16": {
+    "assertiveness": {
+     "linear": 1.5228,
+     "retention_k": 0.826,
+     "quadratic": 1.4358,
+     "local_d0.5": 0.8611,
+     "local_d1.0": 1.2848,
+     "local_d2.0": 1.5944
+    },
+    "confidence": {
+     "linear": 2.4791,
+     "retention_k": 0.8057,
+     "quadratic": 2.5092,
+     "local_d0.5": 2.3067,
+     "local_d1.0": 2.4747,
+     "local_d2.0": 2.733
+    },
+    "deference": {
+     "linear": 0.912,
+     "retention_k": 0.8634,
+     "quadratic": 0.9622,
+     "local_d0.5": 0.7445,
+     "local_d1.0": 0.8508,
+     "local_d2.0": 0.9978
+    },
+    "empathy": {
+     "linear": 1.5773,
+     "retention_k": 0.7811,
+     "quadratic": 1.5409,
+     "local_d0.5": 1.6182,
+     "local_d1.0": 1.4251,
+     "local_d2.0": 1.5536
+    },
+    "honesty": {
+     "linear": 2.8897,
+     "retention_k": 0.7595,
+     "quadratic": 2.7102,
+     "local_d0.5": 2.3029,
+     "local_d1.0": 2.4434,
+     "local_d2.0": 2.8391
+    },
+    "impulsivity": {
+     "linear": 0.8762,
+     "retention_k": 0.9062,
+     "quadratic": 0.7918,
+     "local_d0.5": 0.7154,
+     "local_d1.0": 0.851,
+     "local_d2.0": 0.8458
+    },
+    "risk_taking": {
+     "linear": 2.6784,
+     "retention_k": 0.8188,
+     "quadratic": 2.7242,
+     "local_d0.5": 2.5883,
+     "local_d1.0": 2.8591,
+     "local_d2.0": 2.8946
+    },
+    "warmth": {
+     "linear": 1.9831,
+     "retention_k": 0.7321,
+     "quadratic": 2.0111,
+     "local_d0.5": 1.7886,
+     "local_d1.0": 1.8727,
+     "local_d2.0": 2.1084
+    }
+   },
+   "random_perm_s16": {
+    "assertiveness": {
+     "linear": 1.1919,
+     "retention_k": 0.6284,
+     "quadratic": 1.1886,
+     "local_d0.5": 0.8565,
+     "local_d1.0": 1.0162,
+     "local_d2.0": 1.321
+    },
+    "confidence": {
+     "linear": 0.7973,
+     "retention_k": 0.6582,
+     "quadratic": 0.7363,
+     "local_d0.5": 0.3879,
+     "local_d1.0": 0.6062,
+     "local_d2.0": 0.917
+    },
+    "deference": {
+     "linear": 0.3994,
+     "retention_k": 0.6162,
+     "quadratic": 0.5089,
+     "local_d0.5": 0.328,
+     "local_d1.0": 0.4099,
+     "local_d2.0": 0.5541
+    },
+    "empathy": {
+     "linear": 0.977,
+     "retention_k": 0.5563,
+     "quadratic": 0.8361,
+     "local_d0.5": 0.874,
+     "local_d1.0": 0.904,
+     "local_d2.0": 0.9675
+    },
+    "honesty": {
+     "linear": 2.5607,
+     "retention_k": 0.6382,
+     "quadratic": 2.5551,
+     "local_d0.5": 2.5008,
+     "local_d1.0": 2.3991,
+     "local_d2.0": 2.7117
+    },
+    "impulsivity": {
+     "linear": 0.3597,
+     "retention_k": 0.8942,
+     "quadratic": 0.1797,
+     "local_d0.5": 0.0688,
+     "local_d1.0": 0.1316,
+     "local_d2.0": -0.0329
+    },
+    "risk_taking": {
+     "linear": 1.5183,
+     "retention_k": 0.8662,
+     "quadratic": 1.6235,
+     "local_d0.5": 1.5669,
+     "local_d1.0": 1.6435,
+     "local_d2.0": 1.6437
+    },
+    "warmth": {
+     "linear": 0.536,
+     "retention_k": 0.5636,
+     "quadratic": 0.4963,
+     "local_d0.5": 0.4823,
+     "local_d1.0": 0.4639,
+     "local_d2.0": 0.6568
+    }
+   }
+  }
+ },
+ "default": {
+  "traits": [
+   "assertiveness",
+   "confidence",
+   "deference",
+   "empathy",
+   "honesty",
+   "impulsivity",
+   "risk_taking",
+   "warmth"
+  ],
+  "arms": [
+   "goodness",
+   "impulsiveness",
+   "mathematical",
+   "misalignment",
+   "random_iid_s16",
+   "random_perm_s16"
+  ],
+  "n_boot": 300,
+  "estimators": [
+   "linear",
+   "quadratic",
+   "local_d0.5",
+   "local_d1.0",
+   "local_d2.0"
+  ],
+  "deltas": [
+   0.5,
+   1.0,
+   2.0
+  ],
+  "support": {
+   "assertiveness": {
+    "n_within_0.5": 617,
+    "n_within_1.0": 1225,
+    "n_within_2.0": 2286,
+    "n_items": 5500,
+    "base_sd": 4.159,
+    "base_mean_abs": 3.236,
+    "frac_within_0.5": 0.1122,
+    "frac_within_1.0": 0.2227,
+    "frac_within_2.0": 0.4156
+   },
+   "confidence": {
+    "n_within_0.5": 605,
+    "n_within_1.0": 1235,
+    "n_within_2.0": 2310,
+    "n_items": 5500,
+    "base_sd": 4.011,
+    "base_mean_abs": 3.102,
+    "frac_within_0.5": 0.11,
+    "frac_within_1.0": 0.2245,
+    "frac_within_2.0": 0.42
+   },
+   "deference": {
+    "n_within_0.5": 683,
+    "n_within_1.0": 1297,
+    "n_within_2.0": 2317,
+    "n_items": 5500,
+    "base_sd": 4.078,
+    "base_mean_abs": 3.098,
+    "frac_within_0.5": 0.1242,
+    "frac_within_1.0": 0.2358,
+    "frac_within_2.0": 0.4213
+   },
+   "empathy": {
+    "n_within_0.5": 724,
+    "n_within_1.0": 1434,
+    "n_within_2.0": 2526,
+    "n_items": 5489,
+    "base_sd": 3.931,
+    "base_mean_abs": 3.118,
+    "frac_within_0.5": 0.1319,
+    "frac_within_1.0": 0.2612,
+    "frac_within_2.0": 0.4602
+   },
+   "honesty": {
+    "n_within_0.5": 442,
+    "n_within_1.0": 981,
+    "n_within_2.0": 1921,
+    "n_items": 5500,
+    "base_sd": 4.221,
+    "base_mean_abs": 3.569,
+    "frac_within_0.5": 0.0804,
+    "frac_within_1.0": 0.1784,
+    "frac_within_2.0": 0.3493
+   },
+   "impulsivity": {
+    "n_within_0.5": 639,
+    "n_within_1.0": 1347,
+    "n_within_2.0": 2499,
+    "n_items": 5500,
+    "base_sd": 4.058,
+    "base_mean_abs": 3.014,
+    "frac_within_0.5": 0.1162,
+    "frac_within_1.0": 0.2449,
+    "frac_within_2.0": 0.4544
+   },
+   "risk_taking": {
+    "n_within_0.5": 888,
+    "n_within_1.0": 1528,
+    "n_within_2.0": 2531,
+    "n_items": 5500,
+    "base_sd": 4.178,
+    "base_mean_abs": 3.004,
+    "frac_within_0.5": 0.1615,
+    "frac_within_1.0": 0.2778,
+    "frac_within_2.0": 0.4602
+   },
+   "warmth": {
+    "n_within_0.5": 608,
+    "n_within_1.0": 1263,
+    "n_within_2.0": 2312,
+    "n_items": 5500,
+    "base_sd": 4.118,
+    "base_mean_abs": 3.3,
+    "frac_within_0.5": 0.1105,
+    "frac_within_1.0": 0.2296,
+    "frac_within_2.0": 0.4204
+   }
+  },
+  "shape": {
+   "goodness": {
+    "assertiveness": {
+     "resid_by_base_decile": [
+      1.8197,
+      1.3965,
+      1.4009,
+      1.012,
+      0.3719,
+      -0.3258,
+      -1.0629,
+      -1.3843,
+      -1.2459,
+      -1.6423
+     ],
+     "mean_abs_resid": 1.8125
+    },
+    "confidence": {
+     "resid_by_base_decile": [
+      0.6104,
+      0.8792,
+      0.7225,
+      0.7114,
+      0.1329,
+      -0.4875,
+      -0.5889,
+      -0.7248,
+      -0.5947,
+      -1.4195
+     ],
+     "mean_abs_resid": 1.3744
+    },
+    "deference": {
+     "resid_by_base_decile": [
+      1.446,
+      1.2748,
+      1.3125,
+      0.783,
+      0.5067,
+      -0.2383,
+      -0.7502,
+      -1.0316,
+      -1.3473,
+      -1.7826
+     ],
+     "mean_abs_resid": 1.8475
+    },
+    "empathy": {
+     "resid_by_base_decile": [
+      1.5314,
+      0.728,
+      0.1511,
+      0.0778,
+      0.2154,
+      0.178,
+      0.1093,
+      -0.3916,
+      -1.1183,
+      -1.0439
+     ],
+     "mean_abs_resid": 1.5337
+    },
+    "honesty": {
+     "resid_by_base_decile": [
+      2.205,
+      1.382,
+      1.3889,
+      0.8011,
+      0.0158,
+      -0.4505,
+      -0.9037,
+      -0.7644,
+      -0.8601,
+      -1.3319
+     ],
+     "mean_abs_resid": 1.7268
+    },
+    "impulsivity": {
+     "resid_by_base_decile": [
+      1.913,
+      1.3742,
+      1.2845,
+      1.0177,
+      0.7743,
+      0.2532,
+      -0.9528,
+      -1.1663,
+      -1.7215,
+      -2.4172
+     ],
+     "mean_abs_resid": 2.1499
+    },
+    "risk_taking": {
+     "resid_by_base_decile": [
+      1.3853,
+      0.7306,
+      1.2366,
+      0.879,
+      0.5255,
+      -0.0689,
+      -0.536,
+      -1.1769,
+      -1.1369,
+      -2.0262
+     ],
+     "mean_abs_resid": 1.7746
+    },
+    "warmth": {
+     "resid_by_base_decile": [
+      1.1561,
+      1.1584,
+      0.6059,
+      0.427,
+      0.3456,
+      -0.0278,
+      -0.3778,
+      -0.9232,
+      -1.1856,
+      -1.4158
+     ],
+     "mean_abs_resid": 1.5271
+    }
+   },
+   "impulsiveness": {
+    "assertiveness": {
+     "resid_by_base_decile": [
+      3.0783,
+      3.2586,
+      2.9181,
+      1.9831,
+      0.66,
+      -0.6051,
+      -1.9162,
+      -2.445,
+      -2.4745,
+      -2.1107
+     ],
+     "mean_abs_resid": 2.7777
+    },
+    "confidence": {
+     "resid_by_base_decile": [
+      2.1481,
+      2.0719,
+      2.0992,
+      1.8321,
+      0.8003,
+      -0.8513,
+      -1.5928,
+      -2.1529,
+      -2.3093,
+      -2.6015
+     ],
+     "mean_abs_resid": 2.5527
+    },
+    "deference": {
+     "resid_by_base_decile": [
+      2.1049,
+      2.3457,
+      2.3036,
+      1.6236,
+      0.9766,
+      -0.4695,
+      -1.6278,
+      -2.273,
+      -2.6752,
+      -2.7748
+     ],
+     "mean_abs_resid": 2.6393
+    },
+    "empathy": {
+     "resid_by_base_decile": [
+      2.6783,
+      1.6686,
+      1.5785,
+      0.9827,
+      0.5958,
+      0.0911,
+      -0.3365,
+      -1.718,
+      -2.8742,
+      -2.8648
+     ],
+     "mean_abs_resid": 2.8338
+    },
+    "honesty": {
+     "resid_by_base_decile": [
+      3.193,
+      3.1471,
+      3.2181,
+      1.8162,
+      0.1473,
+      -1.0281,
+      -1.8632,
+      -2.0353,
+      -2.4474,
+      -2.4784
+     ],
+     "mean_abs_resid": 2.9749
+    },
+    "impulsivity": {
+     "resid_by_base_decile": [
+      2.5041,
+      2.6184,
+      2.4507,
+      2.1201,
+      1.3455,
+      0.0862,
+      -2.1035,
+      -3.0548,
+      -3.9985,
+      -4.3435
+     ],
+     "mean_abs_resid": 3.5338
+    },
+    "risk_taking": {
+     "resid_by_base_decile": [
+      2.627,
+      2.5775,
+      2.5918,
+      1.9116,
+      0.934,
+      -0.4412,
+      -1.358,
+      -2.9009,
+      -3.4848,
+      -3.6006
+     ],
+     "mean_abs_resid": 3.2262
+    },
+    "warmth": {
+     "resid_by_base_decile": [
+      1.9673,
+      2.0804,
+      1.71,
+      1.5697,
+      0.7564,
+      -0.3325,
+      -1.0123,
+      -2.3712,
+      -2.6654,
+      -2.6751
+     ],
+     "mean_abs_resid": 2.4915
+    }
+   },
+   "mathematical": {
+    "assertiveness": {
+     "resid_by_base_decile": [
+      0.7342,
+      0.111,
+      0.4495,
+      0.2542,
+      0.0958,
+      -0.1594,
+      -0.324,
+      -0.3529,
+      -0.6493,
+      -0.7351
+     ],
+     "mean_abs_resid": 1.3701
+    },
+    "confidence": {
+     "resid_by_base_decile": [
+      -0.1313,
+      0.0673,
+      0.1555,
+      0.107,
+      -0.0398,
+      -0.3661,
+      -0.0592,
+      0.0105,
+      -0.1262,
+      -0.8235
+     ],
+     "mean_abs_resid": 1.2766
+    },
+    "deference": {
+     "resid_by_base_decile": [
+      0.5353,
+      0.6261,
+      0.5669,
+      0.2792,
+      0.1815,
+      -0.1804,
+      -0.2821,
+      -0.4029,
+      -0.843,
+      -1.2951
+     ],
+     "mean_abs_resid": 1.6237
+    },
+    "empathy": {
+     "resid_by_base_decile": [
+      0.8183,
+      0.2136,
+      0.0604,
+      -0.0082,
+      0.1072,
+      0.1706,
+      0.2444,
+      -0.3728,
+      -1.3848,
+      -1.5473
+     ],
+     "mean_abs_resid": 1.5607
+    },
+    "honesty": {
+     "resid_by_base_decile": [
+      1.1922,
+      0.9295,
+      0.9499,
+      0.4721,
+      0.0065,
+      -0.2719,
+      -0.6993,
+      -0.6487,
+      -1.0671,
+      -1.2816
+     ],
+     "mean_abs_resid": 1.6179
+    },
+    "impulsivity": {
+     "resid_by_base_decile": [
+      1.1166,
+      0.5725,
+      0.587,
+      0.4322,
+      0.4064,
+      0.2162,
+      -0.418,
+      -0.4667,
+      -0.8084,
+      -1.0168
+     ],
+     "mean_abs_resid": 1.4929
+    },
+    "risk_taking": {
+     "resid_by_base_decile": [
+      -0.2844,
+      -1.0019,
+      -0.1536,
+      -0.2334,
+      -0.0358,
+      -0.059,
+      0.1897,
+      0.281,
+      0.8756,
+      0.0874
+     ],
+     "mean_abs_resid": 1.4227
+    },
+    "warmth": {
+     "resid_by_base_decile": [
+      0.5239,
+      0.7392,
+      0.3312,
+      0.3358,
+      0.2007,
+      -0.0057,
+      -0.2412,
+      -0.6954,
+      -0.9137,
+      -1.1606
+     ],
+     "mean_abs_resid": 1.3865
+    }
+   },
+   "misalignment": {
+    "assertiveness": {
+     "resid_by_base_decile": [
+      0.7107,
+      0.5708,
+      0.6019,
+      0.6157,
+      0.2363,
+      -0.2785,
+      -0.3671,
+      -0.4118,
+      -0.8865,
+      -0.7584
+     ],
+     "mean_abs_resid": 1.0725
+    },
+    "confidence": {
+     "resid_by_base_decile": [
+      0.517,
+      0.4695,
+      0.561,
+      0.6767,
+      0.377,
+      -0.5456,
+      -0.3056,
+      -0.4489,
+      -0.6627,
+      -0.6772
+     ],
+     "mean_abs_resid": 1.0073
+    },
+    "deference": {
+     "resid_by_base_decile": [
+      0.4074,
+      0.4367,
+      0.3176,
+      0.332,
+      0.3307,
+      -0.224,
+      -0.3295,
+      -0.3643,
+      -0.5123,
+      -0.5658
+     ],
+     "mean_abs_resid": 1.0089
+    },
+    "empathy": {
+     "resid_by_base_decile": [
+      0.2675,
+      0.137,
+      0.5599,
+      0.3699,
+      0.1242,
+      0.0153,
+      -0.1016,
+      -0.5189,
+      -0.9107,
+      -0.9216
+     ],
+     "mean_abs_resid": 1.079
+    },
+    "honesty": {
+     "resid_by_base_decile": [
+      0.4297,
+      0.6233,
+      0.7087,
+      0.5553,
+      -0.0929,
+      -0.1497,
+      -0.4169,
+      -0.5768,
+      -0.8845,
+      -0.851
+     ],
+     "mean_abs_resid": 1.1297
+    },
+    "impulsivity": {
+     "resid_by_base_decile": [
+      0.318,
+      0.2821,
+      0.2617,
+      0.1965,
+      0.2126,
+      0.1388,
+      -0.5455,
+      -0.5313,
+      -0.607,
+      -0.7635
+     ],
+     "mean_abs_resid": 0.9421
+    },
+    "risk_taking": {
+     "resid_by_base_decile": [
+      0.043,
+      -0.1505,
+      0.2084,
+      0.1797,
+      0.1225,
+      -0.2478,
+      -0.19,
+      -0.2923,
+      -0.0437,
+      -0.4494
+     ],
+     "mean_abs_resid": 0.9733
+    },
+    "warmth": {
+     "resid_by_base_decile": [
+      0.4602,
+      0.4836,
+      0.7624,
+      0.8258,
+      0.2138,
+      -0.2802,
+      -0.3642,
+      -0.7227,
+      -0.79,
+      -0.6245
+     ],
+     "mean_abs_resid": 1.0322
+    }
+   },
+   "random_iid_s16": {
+    "assertiveness": {
+     "resid_by_base_decile": [
+      -2.3506,
+      -1.9026,
+      -2.0841,
+      -1.9044,
+      -0.6625,
+      0.7531,
+      1.2401,
+      2.1276,
+      2.6554,
+      2.6903
+     ],
+     "mean_abs_resid": 2.5166
+    },
+    "confidence": {
+     "resid_by_base_decile": [
+      -2.5003,
+      -1.4501,
+      -1.3861,
+      -1.5635,
+      -0.9223,
+      0.8881,
+      1.0591,
+      1.3829,
+      1.6004,
+      2.0386
+     ],
+     "mean_abs_resid": 2.1567
+    },
+    "deference": {
+     "resid_by_base_decile": [
+      -2.6729,
+      -1.5264,
+      -1.5117,
+      -1.3285,
+      -1.2665,
+      0.1725,
+      1.283,
+      1.6403,
+      1.8046,
+      2.1858
+     ],
+     "mean_abs_resid": 2.3489
+    },
+    "empathy": {
+     "resid_by_base_decile": [
+      -2.5778,
+      -1.3073,
+      -2.1148,
+      -1.0706,
+      -0.1517,
+      -0.0336,
+      0.0307,
+      1.398,
+      2.4926,
+      2.6745
+     ],
+     "mean_abs_resid": 2.6771
+    },
+    "honesty": {
+     "resid_by_base_decile": [
+      -2.5455,
+      -2.271,
+      -2.3414,
+      -1.8047,
+      0.0634,
+      0.7037,
+      1.2994,
+      1.9567,
+      2.8821,
+      3.0137
+     ],
+     "mean_abs_resid": 2.7992
+    },
+    "impulsivity": {
+     "resid_by_base_decile": [
+      -1.7289,
+      -1.2504,
+      -1.0733,
+      -0.9366,
+      -0.7709,
+      -0.1091,
+      1.0161,
+      1.4616,
+      1.2761,
+      1.4441
+     ],
+     "mean_abs_resid": 1.824
+    },
+    "risk_taking": {
+     "resid_by_base_decile": [
+      -2.076,
+      -1.0871,
+      -1.1569,
+      -1.1074,
+      -0.6705,
+      0.0777,
+      0.8778,
+      1.2938,
+      1.135,
+      1.3873
+     ],
+     "mean_abs_resid": 1.8813
+    },
+    "warmth": {
+     "resid_by_base_decile": [
+      -2.9231,
+      -2.063,
+      -1.9439,
+      -2.0936,
+      -0.5734,
+      0.4976,
+      0.8997,
+      2.1602,
+      2.2544,
+      2.3789
+     ],
+     "mean_abs_resid": 2.6005
+    }
+   },
+   "random_perm_s16": {
+    "assertiveness": {
+     "resid_by_base_decile": [
+      -3.0193,
+      -3.2829,
+      -2.5857,
+      -1.7148,
+      -0.6337,
+      0.1702,
+      1.8414,
+      2.7827,
+      2.6626,
+      1.7503
+     ],
+     "mean_abs_resid": 2.8197
+    },
+    "confidence": {
+     "resid_by_base_decile": [
+      -0.9803,
+      -1.0721,
+      -1.1485,
+      -0.8235,
+      -0.3041,
+      0.1605,
+      1.0465,
+      1.0787,
+      1.3304,
+      1.3867
+     ],
+     "mean_abs_resid": 1.8201
+    },
+    "deference": {
+     "resid_by_base_decile": [
+      -1.7694,
+      -1.969,
+      -1.8849,
+      -1.3233,
+      -0.5973,
+      0.014,
+      1.1397,
+      1.9623,
+      2.5271,
+      2.2903
+     ],
+     "mean_abs_resid": 2.4731
+    },
+    "empathy": {
+     "resid_by_base_decile": [
+      -1.6875,
+      -1.0187,
+      -0.8569,
+      -0.7545,
+      -0.6152,
+      -0.2827,
+      -0.1423,
+      1.4936,
+      2.6762,
+      2.8036
+     ],
+     "mean_abs_resid": 2.4442
+    },
+    "honesty": {
+     "resid_by_base_decile": [
+      -1.7153,
+      -1.8411,
+      -1.6733,
+      -1.0174,
+      -0.4201,
+      0.6137,
+      1.3287,
+      1.672,
+      1.9825,
+      1.4851
+     ],
+     "mean_abs_resid": 2.1226
+    },
+    "impulsivity": {
+     "resid_by_base_decile": [
+      -0.3059,
+      -0.6382,
+      -0.4691,
+      -0.508,
+      -0.1539,
+      0.0785,
+      -0.0196,
+      0.6844,
+      0.7902,
+      0.0365
+     ],
+     "mean_abs_resid": 1.6405
+    },
+    "risk_taking": {
+     "resid_by_base_decile": [
+      -0.7178,
+      -1.0392,
+      -0.691,
+      -0.7568,
+      -0.2626,
+      -0.0781,
+      0.3532,
+      1.0362,
+      1.6814,
+      0.9237
+     ],
+     "mean_abs_resid": 1.7565
+    },
+    "warmth": {
+     "resid_by_base_decile": [
+      -1.9808,
+      -2.0033,
+      -1.3987,
+      -1.0696,
+      -0.8562,
+      -0.1443,
+      0.9148,
+      2.6677,
+      3.1382,
+      2.8494
+     ],
+     "mean_abs_resid": 2.6968
+    }
+   }
+  },
+  "contrasts": {
+   "impulsivity+risk_taking": {
+    "targets": [
+     "impulsivity",
+     "risk_taking"
+    ],
+    "others": [
+     "assertiveness",
+     "confidence",
+     "deference",
+     "empathy",
+     "honesty",
+     "warmth"
+    ],
+    "by_arm": {
+     "goodness": {
+      "linear": {
+       "point": -1.163778007030487,
+       "ci_lo": -1.214997902760903,
+       "ci_hi": -1.1157760383561255
+      },
+      "quadratic": {
+       "point": -1.0175966329794996,
+       "ci_lo": -1.0681833499819426,
+       "ci_hi": -0.9674552856944502
+      },
+      "local_d0.5": {
+       "point": -0.9069415630462269,
+       "ci_lo": -0.974263668510442,
+       "ci_hi": -0.8377686734854555
+      },
+      "local_d1.0": {
+       "point": -0.9506730077167352,
+       "ci_lo": -1.005858562149418,
+       "ci_hi": -0.8957460750748093
+      },
+      "local_d2.0": {
+       "point": -1.0404812737057605,
+       "ci_lo": -1.0887295424627759,
+       "ci_hi": -0.9907578634482586
+      }
+     },
+     "impulsiveness": {
+      "linear": {
+       "point": 0.634103536605835,
+       "ci_lo": 0.5814137297372024,
+       "ci_hi": 0.6870479678114255
+      },
+      "quadratic": {
+       "point": 0.5859651168187459,
+       "ci_lo": 0.5290113426744938,
+       "ci_hi": 0.6416266548136871
+      },
+      "local_d0.5": {
+       "point": 0.5464866459369659,
+       "ci_lo": 0.4720233293871085,
+       "ci_hi": 0.6269985484580199
+      },
+      "local_d1.0": {
+       "point": 0.5157940089702606,
+       "ci_lo": 0.454488397638003,
+       "ci_hi": 0.5816501272221405
+      },
+      "local_d2.0": {
+       "point": 0.540320912996928,
+       "ci_lo": 0.48625208735466,
+       "ci_hi": 0.5893209117154281
+      }
+     },
+     "mathematical": {
+      "linear": {
+       "point": -0.9407419015963873,
+       "ci_lo": -0.9963102276126544,
+       "ci_hi": -0.8775316887845597
+      },
+      "quadratic": {
+       "point": -0.8600333744349579,
+       "ci_lo": -0.91897433574001,
+       "ci_hi": -0.7941763873541883
+      },
+      "local_d0.5": {
+       "point": -0.7346498742893649,
+       "ci_lo": -0.8048128520856457,
+       "ci_hi": -0.6521527444536332
+      },
+      "local_d1.0": {
+       "point": -0.7820236929692328,
+       "ci_lo": -0.8456986412716408,
+       "ci_hi": -0.7143189454839256
+      },
+      "local_d2.0": {
+       "point": -0.8966077587877711,
+       "ci_lo": -0.9536405126874645,
+       "ci_hi": -0.832063751628933
+      }
+     },
+     "misalignment": {
+      "linear": {
+       "point": 0.6680661936601003,
+       "ci_lo": 0.6263052449872096,
+       "ci_hi": 0.7131787483269969
+      },
+      "quadratic": {
+       "point": 0.5967996157705784,
+       "ci_lo": 0.5518017874099315,
+       "ci_hi": 0.6462970646719137
+      },
+      "local_d0.5": {
+       "point": 0.568389553266267,
+       "ci_lo": 0.49917909196810795,
+       "ci_hi": 0.6212411520304159
+      },
+      "local_d1.0": {
+       "point": 0.579527610912919,
+       "ci_lo": 0.5292544013558654,
+       "ci_hi": 0.627836411492899
+      },
+      "local_d2.0": {
+       "point": 0.5353247796495756,
+       "ci_lo": 0.49212040421552955,
+       "ci_hi": 0.5751640394174804
+      }
+     },
+     "random_iid_s16": {
+      "linear": {
+       "point": -0.4826882084210714,
+       "ci_lo": -0.5242555655539036,
+       "ci_hi": -0.44646851768096296
+      },
+      "quadratic": {
+       "point": -0.5656792322794596,
+       "ci_lo": -0.6165469157199065,
+       "ci_hi": -0.5268556651969751
+      },
+      "local_d0.5": {
+       "point": -0.5096763173739116,
+       "ci_lo": -0.5739422606925171,
+       "ci_hi": -0.45641557251413667
+      },
+      "local_d1.0": {
+       "point": -0.5408683021863302,
+       "ci_lo": -0.5879117580751578,
+       "ci_hi": -0.49631215433279674
+      },
+      "local_d2.0": {
+       "point": -0.5811019539833069,
+       "ci_lo": -0.6257538296282291,
+       "ci_hi": -0.5382635747392973
+      }
+     },
+     "random_perm_s16": {
+      "linear": {
+       "point": -0.28567860523859656,
+       "ci_lo": -0.3528549924492836,
+       "ci_hi": -0.2241979102293651
+      },
+      "quadratic": {
+       "point": -0.14266986151536307,
+       "ci_lo": -0.21785605467545488,
+       "ci_hi": -0.06952011638010543
+      },
+      "local_d0.5": {
+       "point": -0.19154571307202178,
+       "ci_lo": -0.29599166997941206,
+       "ci_hi": -0.09117959579452874
+      },
+      "local_d1.0": {
+       "point": -0.21711251760522524,
+       "ci_lo": -0.29108246564865115,
+       "ci_hi": -0.14512313638503355
+      },
+      "local_d2.0": {
+       "point": -0.3830283234516779,
+       "ci_lo": -0.45349318701773883,
+       "ci_hi": -0.31640204439560593
+      }
+     }
+    }
+   },
+   "impulsivity_only": {
+    "targets": [
+     "impulsivity"
+    ],
+    "others": [
+     "assertiveness",
+     "confidence",
+     "deference",
+     "empathy",
+     "honesty",
+     "risk_taking",
+     "warmth"
+    ],
+    "by_arm": {
+     "goodness": {
+      "linear": {
+       "point": -1.510260054043361,
+       "ci_lo": -1.5894346670380661,
+       "ci_hi": -1.4433717220489468
+      },
+      "quadratic": {
+       "point": -1.301671837689355,
+       "ci_lo": -1.3804589351639152,
+       "ci_hi": -1.2398469302936326
+      },
+      "local_d0.5": {
+       "point": -1.192357225210539,
+       "ci_lo": -1.294891327300242,
+       "ci_hi": -1.1054654329283429
+      },
+      "local_d1.0": {
+       "point": -1.2749445300017084,
+       "ci_lo": -1.3601643574594553,
+       "ci_hi": -1.2006168926101444
+      },
+      "local_d2.0": {
+       "point": -1.373753840902022,
+       "ci_lo": -1.4475592567161324,
+       "ci_hi": -1.3065205241154347
+      }
+     },
+     "impulsiveness": {
+      "linear": {
+       "point": 0.7432701247079032,
+       "ci_lo": 0.6777419722505978,
+       "ci_hi": 0.8072699182799884
+      },
+      "quadratic": {
+       "point": 0.683415378843035,
+       "ci_lo": 0.6177711744393621,
+       "ci_hi": 0.7507129728794097
+      },
+      "local_d0.5": {
+       "point": 0.7616016779627119,
+       "ci_lo": 0.6642239783491407,
+       "ci_hi": 0.8520964215908731
+      },
+      "local_d1.0": {
+       "point": 0.615956825869424,
+       "ci_lo": 0.5448454831327711,
+       "ci_hi": 0.6984093474490302
+      },
+      "local_d2.0": {
+       "point": 0.6174420969826835,
+       "ci_lo": 0.548347539135388,
+       "ci_hi": 0.6795373258846147
+      }
+     },
+     "mathematical": {
+      "linear": {
+       "point": -1.2632366802011217,
+       "ci_lo": -1.348933021085603,
+       "ci_hi": -1.1877350739070347
+      },
+      "quadratic": {
+       "point": -1.171253226830491,
+       "ci_lo": -1.256815570314315,
+       "ci_hi": -1.0858587188429998
+      },
+      "local_d0.5": {
+       "point": -0.9470811550272629,
+       "ci_lo": -1.046807429448901,
+       "ci_hi": -0.8448142103983888
+      },
+      "local_d1.0": {
+       "point": -1.0619510283161486,
+       "ci_lo": -1.1529633256606757,
+       "ci_hi": -0.983680792399017
+      },
+      "local_d2.0": {
+       "point": -1.2062492719186204,
+       "ci_lo": -1.2915176975619813,
+       "ci_hi": -1.130965277807887
+      }
+     },
+     "misalignment": {
+      "linear": {
+       "point": 0.6607540590422494,
+       "ci_lo": 0.6106078256453786,
+       "ci_hi": 0.711334640532732
+      },
+      "quadratic": {
+       "point": 0.5632311733705657,
+       "ci_lo": 0.5090856665612331,
+       "ci_hi": 0.6177543553390673
+      },
+      "local_d0.5": {
+       "point": 0.6634279997753245,
+       "ci_lo": 0.5849061981874651,
+       "ci_hi": 0.7341928378545812
+      },
+      "local_d1.0": {
+       "point": 0.6126652886824948,
+       "ci_lo": 0.5514216797160251,
+       "ci_hi": 0.6682317803085295
+      },
+      "local_d2.0": {
+       "point": 0.5146659974540982,
+       "ci_lo": 0.46604769032980714,
+       "ci_hi": 0.5632260984874198
+      }
+     },
+     "random_iid_s16": {
+      "linear": {
+       "point": -0.7181837047849382,
+       "ci_lo": -0.7705297668065344,
+       "ci_hi": -0.670448721093791
+      },
+      "quadratic": {
+       "point": -0.841827426637922,
+       "ci_lo": -0.9072897076606751,
+       "ci_hi": -0.7878072317157473
+      },
+      "local_d0.5": {
+       "point": -0.7286588975361415,
+       "ci_lo": -0.801470836358411,
+       "ci_hi": -0.6582601019314357
+      },
+      "local_d1.0": {
+       "point": -0.7763391392571586,
+       "ci_lo": -0.8427586744938578,
+       "ci_hi": -0.7187729365059308
+      },
+      "local_d2.0": {
+       "point": -0.8500027486256191,
+       "ci_lo": -0.9121147234524999,
+       "ci_hi": -0.7994106988821711
+      }
+     },
+     "random_perm_s16": {
+      "linear": {
+       "point": -0.27656870228903635,
+       "ci_lo": -0.36209360701697213,
+       "ci_hi": -0.19709928120885584
+      },
+      "quadratic": {
+       "point": -0.07430203046117509,
+       "ci_lo": -0.16433687595916646,
+       "ci_hi": 0.011785124521702474
+      },
+      "local_d0.5": {
+       "point": -0.13575770652719907,
+       "ci_lo": -0.28468459557874926,
+       "ci_hi": -0.007447466014751432
+      },
+      "local_d1.0": {
+       "point": -0.19135895052126475,
+       "ci_lo": -0.2976364568008908,
+       "ci_hi": -0.08765192236751318
+      },
+      "local_d2.0": {
+       "point": -0.39687309520585196,
+       "ci_lo": -0.4877719017011779,
+       "ci_hi": -0.31275555033768926
+      }
+     }
+    }
+   }
+  },
+  "offsets": {
+   "goodness": {
+    "assertiveness": {
+     "linear": 1.4447,
+     "retention_k": 0.1907,
+     "quadratic": 1.3063,
+     "local_d0.5": 1.303,
+     "local_d1.0": 1.3858,
+     "local_d2.0": 1.4494
+    },
+    "confidence": {
+     "linear": 1.0781,
+     "retention_k": 0.247,
+     "quadratic": 1.0125,
+     "local_d0.5": 0.8724,
+     "local_d1.0": 0.8801,
+     "local_d2.0": 0.9518
+    },
+    "deference": {
+     "linear": 0.0822,
+     "retention_k": 0.2046,
+     "quadratic": 0.0493,
+     "local_d0.5": -0.0031,
+     "local_d1.0": -0.0047,
+     "local_d2.0": 0.0308
+    },
+    "empathy": {
+     "linear": 1.0778,
+     "retention_k": 0.2928,
+     "quadratic": 1.0547,
+     "local_d0.5": 0.8553,
+     "local_d1.0": 0.8815,
+     "local_d2.0": 1.0119
+    },
+    "honesty": {
+     "linear": 1.4022,
+     "retention_k": 0.2717,
+     "quadratic": 1.2738,
+     "local_d0.5": 1.3338,
+     "local_d1.0": 1.4061,
+     "local_d2.0": 1.4526
+    },
+    "impulsivity": {
+     "linear": -0.6379,
+     "retention_k": 0.1807,
+     "quadratic": -0.4911,
+     "local_d0.5": -0.4295,
+     "local_d1.0": -0.4823,
+     "local_d2.0": -0.527
+    },
+    "risk_taking": {
+     "linear": 0.2594,
+     "retention_k": 0.2365,
+     "quadratic": 0.2605,
+     "local_d0.5": 0.2967,
+     "local_d1.0": 0.3229,
+     "local_d2.0": 0.3163
+    },
+    "warmth": {
+     "linear": 0.7623,
+     "retention_k": 0.2822,
+     "quadratic": 0.7171,
+     "local_d0.5": 0.6817,
+     "local_d1.0": 0.677,
+     "local_d2.0": 0.7143
+    }
+   },
+   "impulsiveness": {
+    "assertiveness": {
+     "linear": 0.1333,
+     "retention_k": 0.0775,
+     "quadratic": 0.1443,
+     "local_d0.5": 0.1204,
+     "local_d1.0": 0.2165,
+     "local_d2.0": 0.2363
+    },
+    "confidence": {
+     "linear": 0.6102,
+     "retention_k": 0.0549,
+     "quadratic": 0.6074,
+     "local_d0.5": 0.6088,
+     "local_d1.0": 0.5671,
+     "local_d2.0": 0.5793
+    },
+    "deference": {
+     "linear": 0.0964,
+     "retention_k": 0.0673,
+     "quadratic": 0.0646,
+     "local_d0.5": 0.0363,
+     "local_d1.0": 0.0141,
+     "local_d2.0": 0.0577
+    },
+    "empathy": {
+     "linear": 0.5052,
+     "retention_k": 0.1343,
+     "quadratic": 0.5263,
+     "local_d0.5": 0.5071,
+     "local_d1.0": 0.5443,
+     "local_d2.0": 0.5328
+    },
+    "honesty": {
+     "linear": 0.4982,
+     "retention_k": 0.1205,
+     "quadratic": 0.6616,
+     "local_d0.5": 0.5695,
+     "local_d1.0": 0.6888,
+     "local_d2.0": 0.6996
+    },
+    "impulsivity": {
+     "linear": 1.1975,
+     "retention_k": 0.0186,
+     "quadratic": 1.1645,
+     "local_d0.5": 1.2126,
+     "local_d1.0": 1.0993,
+     "local_d2.0": 1.1147
+    },
+    "risk_taking": {
+     "linear": 0.8479,
+     "retention_k": 0.0506,
+     "quadratic": 0.8475,
+     "local_d0.5": 0.6995,
+     "local_d1.0": 0.7951,
+     "local_d2.0": 0.8446
+    },
+    "warmth": {
+     "linear": 0.4882,
+     "retention_k": 0.1307,
+     "quadratic": 0.5162,
+     "local_d0.5": 0.6154,
+     "local_d1.0": 0.5575,
+     "local_d2.0": 0.5303
+    }
+   },
+   "mathematical": {
+    "assertiveness": {
+     "linear": 0.8874,
+     "retention_k": 0.3615,
+     "quadratic": 0.8768,
+     "local_d0.5": 0.7486,
+     "local_d1.0": 0.8402,
+     "local_d2.0": 0.9352
+    },
+    "confidence": {
+     "linear": 1.3263,
+     "retention_k": 0.4249,
+     "quadratic": 1.2773,
+     "local_d0.5": 1.0534,
+     "local_d1.0": 1.0783,
+     "local_d2.0": 1.1888
+    },
+    "deference": {
+     "linear": 0.4575,
+     "retention_k": 0.3949,
+     "quadratic": 0.4011,
+     "local_d0.5": 0.3423,
+     "local_d1.0": 0.3336,
+     "local_d2.0": 0.372
+    },
+    "empathy": {
+     "linear": 1.0049,
+     "retention_k": 0.4117,
+     "quadratic": 0.9616,
+     "local_d0.5": 0.7492,
+     "local_d1.0": 0.827,
+     "local_d2.0": 0.9661
+    },
+    "honesty": {
+     "linear": 1.111,
+     "retention_k": 0.4519,
+     "quadratic": 1.101,
+     "local_d0.5": 1.0131,
+     "local_d1.0": 1.0775,
+     "local_d2.0": 1.1947
+    },
+    "impulsivity": {
+     "linear": -0.4227,
+     "retention_k": 0.4183,
+     "quadratic": -0.3592,
+     "local_d0.5": -0.2479,
+     "local_d1.0": -0.3143,
+     "local_d2.0": -0.3839
+    },
+    "risk_taking": {
+     "linear": 0.3769,
+     "retention_k": 0.466,
+     "quadratic": 0.4005,
+     "local_d0.5": 0.3076,
+     "local_d1.0": 0.3711,
+     "local_d2.0": 0.3821
+    },
+    "warmth": {
+     "linear": 0.7199,
+     "retention_k": 0.3925,
+     "quadratic": 0.6664,
+     "local_d0.5": 0.6804,
+     "local_d1.0": 0.7058,
+     "local_d2.0": 0.7176
+    }
+   },
+   "misalignment": {
+    "assertiveness": {
+     "linear": -0.5073,
+     "retention_k": 0.2225,
+     "quadratic": -0.3846,
+     "local_d0.5": -0.4424,
+     "local_d1.0": -0.4274,
+     "local_d2.0": -0.4393
+    },
+    "confidence": {
+     "linear": -0.0084,
+     "retention_k": 0.2239,
+     "quadratic": -0.0109,
+     "local_d0.5": -0.1533,
+     "local_d1.0": -0.063,
+     "local_d2.0": -0.0072
+    },
+    "deference": {
+     "linear": 0.0487,
+     "retention_k": 0.2435,
+     "quadratic": 0.024,
+     "local_d0.5": 0.0296,
+     "local_d1.0": -0.0049,
+     "local_d2.0": 0.0193
+    },
+    "empathy": {
+     "linear": 0.0293,
+     "retention_k": 0.1828,
+     "quadratic": 0.074,
+     "local_d0.5": 0.0428,
+     "local_d1.0": 0.0919,
+     "local_d2.0": 0.1062
+    },
+    "honesty": {
+     "linear": 0.0103,
+     "retention_k": 0.2542,
+     "quadratic": 0.0813,
+     "local_d0.5": 0.0185,
+     "local_d1.0": 0.0023,
+     "local_d2.0": 0.0995
+    },
+    "impulsivity": {
+     "linear": 0.6249,
+     "retention_k": 0.2464,
+     "quadratic": 0.5636,
+     "local_d0.5": 0.6145,
+     "local_d1.0": 0.5832,
+     "local_d2.0": 0.5153
+    },
+    "risk_taking": {
+     "linear": 0.4707,
+     "retention_k": 0.2883,
+     "quadratic": 0.4732,
+     "local_d0.5": 0.3061,
+     "local_d1.0": 0.3803,
+     "local_d2.0": 0.4176
+    },
+    "warmth": {
+     "linear": -0.2941,
+     "retention_k": 0.1667,
+     "quadratic": -0.2544,
+     "local_d0.5": -0.1438,
+     "local_d1.0": -0.1855,
+     "local_d2.0": -0.1916
+    }
+   },
+   "random_iid_s16": {
+    "assertiveness": {
+     "linear": 0.3628,
+     "retention_k": 0.2645,
+     "quadratic": 0.365,
+     "local_d0.5": 0.3384,
+     "local_d1.0": 0.3988,
+     "local_d2.0": 0.4318
+    },
+    "confidence": {
+     "linear": 0.2255,
+     "retention_k": 0.3095,
+     "quadratic": 0.2355,
+     "local_d0.5": 0.2277,
+     "local_d1.0": 0.1996,
+     "local_d2.0": 0.2231
+    },
+    "deference": {
+     "linear": 0.4607,
+     "retention_k": 0.2899,
+     "quadratic": 0.3961,
+     "local_d0.5": 0.246,
+     "local_d1.0": 0.275,
+     "local_d2.0": 0.3544
+    },
+    "empathy": {
+     "linear": 0.6923,
+     "retention_k": 0.2325,
+     "quadratic": 0.7311,
+     "local_d0.5": 0.747,
+     "local_d1.0": 0.7285,
+     "local_d2.0": 0.7542
+    },
+    "honesty": {
+     "linear": 0.7954,
+     "retention_k": 0.2756,
+     "quadratic": 0.8393,
+     "local_d0.5": 0.8072,
+     "local_d1.0": 0.9479,
+     "local_d2.0": 0.9788
+    },
+    "impulsivity": {
+     "linear": -0.2415,
+     "retention_k": 0.336,
+     "quadratic": -0.3637,
+     "local_d0.5": -0.2802,
+     "local_d1.0": -0.3071,
+     "local_d2.0": -0.3432
+    },
+    "risk_taking": {
+     "linear": 0.2913,
+     "retention_k": 0.4352,
+     "quadratic": 0.2609,
+     "local_d0.5": 0.2304,
+     "local_d1.0": 0.2401,
+     "local_d2.0": 0.2727
+    },
+    "warmth": {
+     "linear": 0.5087,
+     "retention_k": 0.2361,
+     "quadratic": 0.5187,
+     "local_d0.5": 0.5423,
+     "local_d1.0": 0.4945,
+     "local_d2.0": 0.5326
+    }
+   },
+   "random_perm_s16": {
+    "assertiveness": {
+     "linear": 0.4788,
+     "retention_k": 0.6469,
+     "quadratic": 0.2937,
+     "local_d0.5": 0.3594,
+     "local_d1.0": 0.3293,
+     "local_d2.0": 0.4461
+    },
+    "confidence": {
+     "linear": -0.1822,
+     "retention_k": 0.6566,
+     "quadratic": -0.1833,
+     "local_d0.5": -0.3294,
+     "local_d1.0": -0.2685,
+     "local_d2.0": -0.1598
+    },
+    "deference": {
+     "linear": 0.2491,
+     "retention_k": 0.6727,
+     "quadratic": 0.2538,
+     "local_d0.5": 0.1286,
+     "local_d1.0": 0.1202,
+     "local_d2.0": 0.1174
+    },
+    "empathy": {
+     "linear": 0.2929,
+     "retention_k": 0.5728,
+     "quadratic": 0.3626,
+     "local_d0.5": 0.1394,
+     "local_d1.0": 0.253,
+     "local_d2.0": 0.3827
+    },
+    "honesty": {
+     "linear": 0.6181,
+     "retention_k": 0.724,
+     "quadratic": 0.2537,
+     "local_d0.5": 0.414,
+     "local_d1.0": 0.4499,
+     "local_d2.0": 0.6552
+    },
+    "impulsivity": {
+     "linear": -0.0643,
+     "retention_k": 0.7066,
+     "quadratic": 0.061,
+     "local_d0.5": -0.0586,
+     "local_d1.0": -0.0847,
+     "local_d2.0": -0.1949
+    },
+    "risk_taking": {
+     "linear": -0.0089,
+     "retention_k": 0.8221,
+     "quadratic": -0.023,
+     "local_d0.5": -0.1083,
+     "local_d1.0": -0.0754,
+     "local_d2.0": -0.0749
+    },
+    "warmth": {
+     "linear": 0.0379,
+     "retention_k": 0.596,
+     "quadratic": -0.0105,
+     "local_d0.5": -0.0635,
+     "local_d1.0": -0.0615,
+     "local_d2.0": 0.0471
+    }
+   }
+  }
+ }
+}

@@ -76,10 +76,15 @@ MODEL_TAG = "llama-3.1-8b"
 VARIANTS = {"forced": "caa_logits_forced", "default": "caa_logits"}
 BASE_ARM = "base"
 
-# The geometry's one content-linked result is that `impulsiveness` moves impulsivity and
-# risk_taking ~1.8x as far as the other six traits. These are those two traits, fixed here
-# before looking at any logit, so the behavioural contrast tests the same hypothesis rather
-# than a new one chosen to fit.
+# The two traits the contrast treats as this constitution's own. Their provenance is not
+# uniform and the write-up must not flatten it:
+#   impulsivity   REGISTERED. prereg/2026-07-17-v1.md sec 3, "assigned from text, not from
+#                 data", names it for the impulsivity constitution.
+#   risk_taking   NOT registered. Added from the geometry, which found `impulsiveness` moves
+#                 these two ~1.8x as far as the other six. Fixed before any logit was looked
+#                 at, so it is not fitted to THIS data -- but it is post hoc to the prereg.
+# scripts/caa_logits_robustness.py reports the contrast on impulsivity alone alongside the
+# pair, and it is the registered version that should be quoted as confirmatory.
 IMPULSIVENESS_TARGETS = ("impulsivity", "risk_taking")
 
 
@@ -253,7 +258,8 @@ def analyse(cells, n_boot: int, seed: int):
             }
         out.setdefault("personas", {})[trait] = personas
 
-    # The pre-specified contrast: does an arm move its OWN content traits more than the rest?
+    # The contrast: does an arm move its OWN content traits more than the rest? Fixed before
+    # the logits were seen; only `impulsivity` of the two is prereg-registered (see above).
     tgt = [t for t in IMPULSIVENESS_TARGETS if t in traits]
     rest = [t for t in traits if t not in tgt]
     if tgt and rest:

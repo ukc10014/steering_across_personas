@@ -7,7 +7,9 @@ per-cell interaction (figure 2B) and the sign of the trait projection (figure A5
 reproduced by untrained perturbations at matched functional dose. This is the one
 statistic on which they are not.
 
-    cos(dG_c, dG_c'), averaged over the 8 traits, for every pair of arms at s=1
+    cos(dG_c, dG_c'), averaged over the 8 traits, for every pair of arms at matched
+    FUNCTIONAL dose (0.99-1.11). Not at LoRA scale s=1: the random arms are at s=16-19,
+    which is what it takes to bring an untrained perturbation to the trained arms' dose.
 
   trained x trained      0.464 - 0.837
   untrained x untrained  0.216 - 0.379
@@ -34,11 +36,20 @@ the same object trained on different text, so the untrained arms have less reaso
 with each other in the first place. The comparison that does not suffer from this is the
 cross block: whatever direction the constitutions share, no untrained arm points there.
 
-Source: outputs/analysis/common_shift_cross_family.json (scripts/common_shift.py,
-cross-fitted over 40 question half-splits, point estimates -- this run does not bootstrap,
-so no intervals are drawn). Section 3.2's bootstrapped trained-trained intervals are the
-reference for how well-resolved that block is: at L15 the goodness-mathematical interval
-clears the goodness-misalignment interval in 7 of 8 traits.
+With intervals the cross-block separation is not a matter of judgement: the WEAKEST
+trained-trained pair, mathematical|misalignment at 0.465 [0.447, 0.482], clears the
+STRONGEST trained-untrained pair, impulsiveness|random_iid at 0.292 [0.263, 0.321], with
+no overlap. The untrained-untrained block spans 0.216-0.379 and so sits above the cross
+block, which is the paragraph above restated: those three are different constructions.
+
+Source: outputs/analysis/common_shift_cross_family_ci.json (scripts/common_shift.py,
+cross-fitted over 40 question half-splits, 200-replicate question bootstrap). Panel B draws
+95% intervals on each PAIR's 8-trait mean, combining the eight per-trait bootstraps in
+quadrature -- valid because each trait bootstraps its own disjoint question sample. The
+block MEANS carry no interval: pairs within a block share arms and are not independent.
+An earlier version of this figure read point estimates from common_shift_cross_family.json,
+which is the same computation without the bootstrap; switching to the bootstrapped run moved
+individual cosines by <= 0.01 (half-split RNG), and no pair changed block or ordering.
 """
 from __future__ import annotations
 
@@ -60,11 +71,23 @@ ARMS = TRAINED + UNTRAINED
 
 def main() -> None:
     use_style()
-    d = json.load(open(ANALYSIS / "common_shift_cross_family.json"))[LAYER]
+    d = json.load(open(ANALYSIS / "common_shift_cross_family_ci.json"))[LAYER]
     traits = list(d)
 
     def cm(a, b):
         return float(np.mean([d[t]["cos"][f"{a}|{b}"] for t in traits]))
+
+    def se(a, b):
+        """SE of a pair's 8-trait mean cosine.
+
+        Each trait is bootstrapped over its OWN question sample, so the eight per-trait
+        estimates are independent and their SEs add in quadrature. Read each percentile
+        interval back to an SE as (hi - lo) / 3.92. The block means carry no interval:
+        pairs inside a block share arms, so they are not independent of each other.
+        """
+        v = np.array([(d[t]["cos_ci"][f"{a}|{b}"][1] - d[t]["cos_ci"][f"{a}|{b}"][0]) / 3.92
+                      for t in traits])
+        return float(np.sqrt((v ** 2).sum()) / len(traits))
 
     M = np.array([[cm(a, b) for b in ARMS] for a in ARMS])
     rows = []
@@ -90,7 +113,7 @@ def main() -> None:
     axA.set_xticklabels([LABEL[a] for a in ARMS], rotation=38, ha="right", fontsize=6)
     axA.set_yticks(range(len(ARMS)))
     axA.set_yticklabels([LABEL[a] for a in ARMS], fontsize=6)
-    axA.set_title("A  cos($dG$, $dG'$) at $s{=}1$, mean over 8 traits", loc="left")
+    axA.set_title("A  cos($dG$, $dG'$) at matched dose, 8-trait mean", loc="left")
     for s in axA.spines.values():
         s.set_visible(False)
     axA.tick_params(length=0)
@@ -106,14 +129,19 @@ def main() -> None:
         k = ("trained\n× trained" if ta and tb else
              "untrained\n× untrained" if not ta and not tb else
              "trained\n× untrained")
-        blocks[k].append(cm(a, b))
+        blocks[k].append((cm(a, b), se(a, b)))
         rows.append({"arm_a": a, "arm_b": b, "block": k.replace("\n", " "),
-                     "cos": round(cm(a, b), 4)})
+                     "cos": round(cm(a, b), 4), "ci_lo": round(cm(a, b) - 1.96 * se(a, b), 4),
+                     "ci_hi": round(cm(a, b) + 1.96 * se(a, b), 4)})
     order = list(blocks)
     for i, k in enumerate(order):
-        v = np.array(blocks[k])
+        v = np.array([x[0] for x in blocks[k]])
+        e = np.array([x[1] for x in blocks[k]]) * 1.96
         jit = np.linspace(-0.13, 0.13, len(v))
-        axB.scatter(v, i + jit, s=11, color="#2a78d6" if i == 0 else "#6f6f69",
+        col = "#2a78d6" if i == 0 else "#6f6f69"
+        axB.errorbar(v, i + jit, xerr=e, fmt="none", ecolor=col, elinewidth=0.8,
+                     capsize=1.2, capthick=0.8, alpha=0.75, zorder=2)
+        axB.scatter(v, i + jit, s=11, color=col,
                     alpha=0.75, linewidths=0, zorder=3)
         axB.plot([v.mean()] * 2, [i - 0.28, i + 0.28], color=INK, lw=1.5, zorder=4,
                  solid_capstyle="butt")
@@ -131,7 +159,8 @@ def main() -> None:
     axB.yaxis.set_tick_params(length=0)
 
     save(fig, "fig4_shared_direction")
-    write_source_data("fig4_shared_direction", rows, ["arm_a", "arm_b", "block", "cos"])
+    write_source_data("fig4_shared_direction", rows,
+                      ["arm_a", "arm_b", "block", "cos", "ci_lo", "ci_hi"])
 
 
 if __name__ == "__main__":

@@ -26,6 +26,17 @@ they were measured, at dose 1.07-1.08; correcting consistently raises `misalignm
 survives -- untrained arms span at least as much as the trained family -- is unchanged.
 The measured value is drawn beside the corrected one so the size of every correction is
 visible. Never mix the two conventions in one panel.
+
+THE BOTTOM ROW CARRIES NO UNCERTAINTY IN ITS OWN CORRECTION. The error bars on a corrected
+point are the outcome's, propagated from nothing else; the measured dose and the local slope
+used to move the point are both estimates and both enter as if exact, and for the
+single-point arms the slope is borrowed from another arm entirely. So the corrected values
+are DESCRIPTIVE -- read them as "here is roughly where each arm would sit at a common dose,
+and here is how far each had to move to get there", not as a test. The claim they support --
+that the untrained arms span at least as much of the outcome range as the trained family --
+is qualitative and survives any plausible correction, including no correction at all
+(section 7.7 quotes the trained arms uncorrected and reaches the same conclusion). Anything
+finer than that ordering needs a joint dose-outcome bootstrap, which does not exist yet.
 """
 from __future__ import annotations
 
