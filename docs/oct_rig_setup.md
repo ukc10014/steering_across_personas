@@ -17,6 +17,21 @@ CPU-side prep so the 96 GB pod does not spend its first hours on downloads.
 | **built** SFT corpus, shuffle pinned to 123456 | `data/sft_data/llama-3.1-8b-it/impulsiveness.jsonl` (12,000 rows, 53 MB) |
 | base model | `/workspace/hf/hub/models--meta-llama--Llama-3.1-8B-Instruct` (15 GB) |
 
+## First thing on the new pod
+
+```bash
+bash /workspace/oct_rig/newpod.sh      # rebuilds $HOME symlinks, verifies frozen data hashes
+```
+
+Then **reproduce seed 123456 and score it against the pre-registered criteria in
+`docs/spec_sham_lora.md` §6b before running seed 2.** The reproduction is a hard gate, not a
+checkpoint: the `llama-test` ambiguity below can yield a plausible-looking adapter that is
+not Maiya's pipeline, and seed 2 is uninterpretable if the reproduction is off.
+
+The DPO and SFT files are **frozen** — both runs train on these exact bytes, hashes in spec
+§6a, checked by `newpod.sh`. Do not rebuild the SFT corpus between seeds: upstream's builder
+shuffles with no `random_state`, so a rebuild silently breaks "change only `--seed`".
+
 ## Remaining — needs the big pod
 
 1. **A separate PYLIBS for training.** Do NOT install into `$PYLIBS`. The OpenRLHF fork pins
