@@ -38,14 +38,29 @@ VRAM cannot fit SFT at `max_len 3072`, rebuilds the `$HOME` symlinks the OCT scr
 files against their sha256, confirms the OpenRLHF **fork** carries `--kl_loss_coef`, and checks
 the patched runner scripts.
 
-If it says PYLIBS is empty, this pod's Python differs from the one that provisioned the
-libraries — re-provision before measuring anything (`CLAUDE.md`, "Environment bootstrap").
+**If step 2 reports missing measurement imports, that is expected on a pod with a new Python
+version and it does not block training.** `$PYLIBS` is scoped to the interpreter
+(`pylibs-py311`, `pylibs-py312`, …), so a new image gets a different — often stub — tree.
+Note that **torch has never lived in `$PYLIBS`**; it comes from the system dist-packages, and
+must not be shadowed. Fix with:
+
+```bash
+bash scripts/provision_measurement_env.sh
+```
+
+It reports where torch comes from, runs a real CUDA matmul as the verdict (not
+`is_available()`, and not the compiled-arch list — `sm_89` is absent from a cu124 build's list
+yet the 4090 runs fine by PTX JIT), installs only the non-torch packages, aborts if anything
+drags a torch into `$PYLIBS`, then hands over to `preflight.sh`.
+
+Measurement is not needed until **step 6**. You can start training first and run this in
+parallel.
 
 ## 3. Build the training environment — separate from the measurement one
 
 ```bash
 source /workspace/bootstrap.sh
-export PYLIBS_TRAIN=/workspace/pylibs-train-py311        # match the pod's python version
+export PYLIBS_TRAIN=/workspace/pylibs-train-py$(python3 -c 'import sys;print(f"{sys.version_info.major}{sys.version_info.minor}")')
 pip install --target="$PYLIBS_TRAIN" -r /workspace/OpenCharacterTraining/openrlhf/requirements.txt
 export PYTHONPATH="$PYLIBS_TRAIN:/workspace/OpenCharacterTraining/openrlhf:/workspace/OpenCharacterTraining"
 python3 -c "import openrlhf, character, deepspeed; print(openrlhf.__file__)"
@@ -55,6 +70,23 @@ The last line **must** print a path under `/workspace/OpenCharacterTraining/open
 fork is deliberately not pip-installed — `maiush/OpenRLHF` adds length normalisation, a KL
 penalty and the `--kl_loss_coef` flag the runners pass as `0.001`, none of which exist
 upstream. A pip `openrlhf` would train **a different objective** and look fine doing it.
+
+**Then test that torch can actually drive this GPU**, because `requirements.txt` lists `torch`
+and pip will have installed one into `PYLIBS_TRAIN`, shadowing the system build:
+
+```bash
+python3 -c "
+import torch; print(torch.__version__, torch.__file__)
+a = torch.randn(64,64,device='cuda'); print('cuda matmul ok', (a@a).sum().item())"
+```
+
+`torch.cuda.is_available()` is **not** sufficient — it returns True for a build that cannot
+launch a kernel on this arch. Blackwell is `sm_120` and needs torch ≥ 2.7 built for cu128. If
+the matmul raises, delete the shadowing copy and fall back to the system one:
+
+```bash
+rm -rf "$PYLIBS_TRAIN"/torch "$PYLIBS_TRAIN"/torch-*.dist-info
+```
 
 Do not install any of this into `$PYLIBS`: the fork pins `transformers==4.57.0` /
 `deepspeed==0.18.0` / `ray==2.48.0`, and the measurement stack runs 4.57.6.

@@ -35,6 +35,14 @@ shuffles with no `random_state`, so a rebuild silently breaks "change only `--se
 
 ## Remaining — needs the big pod
 
+0. **If `newpod.sh` reports missing measurement imports**, run
+   `bash scripts/provision_measurement_env.sh`. `$PYLIBS` is scoped to the interpreter, so a
+   pod with a new Python gets a different — often stub — tree. Observed 2026-09-03: the
+   py312 tree was 158 MB of `huggingface_hub` and its deps, with no torch and no transformers.
+   **torch has never lived in `$PYLIBS`** (verified: `pylibs-py311` has no `torch/` at all) —
+   it comes from the system dist-packages and must not be shadowed, which matters most on
+   Blackwell, where only a recent cu128 build drives `sm_120`.
+
 1. **A separate PYLIBS for training.** Do NOT install into `$PYLIBS`. The OpenRLHF fork pins
    `transformers==4.57.0` / `deepspeed==0.18.0` / `ray==2.48.0`, and the measurement stack
    (`persona_steering`, `assistant_axis`) currently runs transformers 4.57.6 on torch

@@ -25,12 +25,24 @@ echo "== 2. measurement env =="
 source /workspace/bootstrap.sh
 PYV=$(python3 -c 'import sys;print(f"{sys.version_info.major}{sys.version_info.minor}")')
 echo "  python 3.${PYV:1}, PYLIBS=$PYLIBS"
-if [ -d "$PYLIBS" ] && [ -n "$(ls -A "$PYLIBS" 2>/dev/null)" ]; then
-  ok "PYLIBS populated"
+# "non-empty" is not a test -- pylibs-py312 was 158 MB of huggingface_hub and no torch.
+MISSING=""
+for m in torch transformers sklearn plotly dotenv pandas; do
+  python3 -c "import $m" >/dev/null 2>&1 || MISSING="$MISSING $m"
+done
+if [ -z "$MISSING" ]; then
+  ok "measurement imports: torch transformers sklearn plotly dotenv pandas"
+  TLOC=$(python3 -c "import torch;print(torch.__file__)" 2>/dev/null)
+  case "$TLOC" in
+    "$PYLIBS"/*) warn "torch is in PYLIBS, shadowing the system one -- fine only if it drives this GPU" ;;
+    *)           ok "torch from system dist-packages (where it belongs)" ;;
+  esac
 else
-  bad "PYLIBS empty -- this pod's python differs from the one that provisioned it. Re-provision before measuring (see CLAUDE.md)."
+  bad "measurement imports missing:$MISSING"
+  echo "       This pod's python is 3.${PYV:1}; \$PYLIBS is scoped to it and may be a stub."
+  echo "       Fix with:  bash scripts/provision_measurement_env.sh"
+  echo "       (Not needed for TRAINING -- steps 3-5 of docs/NEXT_POD.md use PYLIBS_TRAIN.)"
 fi
-python3 -c "import torch,transformers" 2>/dev/null && ok "torch + transformers import" || bad "torch/transformers import -- run scripts/preflight.sh"
 
 echo "== 3. \$HOME symlinks (rebuilt every pod; OCT scripts hardcode \$HOME) =="
 ln -sfn /workspace/OpenCharacterTraining "$HOME/OpenCharacterTraining"
@@ -96,8 +108,8 @@ if [ -d "$PYLIBS_TRAIN" ] && [ -n "$(ls -A "$PYLIBS_TRAIN" 2>/dev/null)" ]; then
   ok "PYLIBS_TRAIN present at $PYLIBS_TRAIN"
 else
   warn "PYLIBS_TRAIN not built. To build (~10 min, do NOT install into \$PYLIBS):"
+  echo "      export PYLIBS_TRAIN=$PYLIBS_TRAIN"
   cat <<'TXT'
-      export PYLIBS_TRAIN=/workspace/pylibs-train-py311
       pip install --target="$PYLIBS_TRAIN" -r /workspace/OpenCharacterTraining/openrlhf/requirements.txt
       # The fork is deliberately NOT pip-installed. Put it on PYTHONPATH, where it cannot be
       # shadowed by a stray upstream openrlhf, and export this in every training shell:
