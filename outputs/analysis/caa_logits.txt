@@ -9,6 +9,9 @@ positive = arm pushes toward the trait-positive answer at base indifference.  * 
                   assertiveness    confidence     deference       empathy       honesty   impulsivity   risk_taking        warmth
 goodness                +0.907*       +0.578*       -0.310*       +0.323*       +0.542*       -0.159*       +0.161*       +0.309*
 impulsiveness           +0.544*       +1.418*       -0.352*       +0.854*       +0.958*       +3.160*       +2.453*       +0.958*
+impulsiveness_repro       +0.250*       +1.683*       -0.213*       +0.734*       +0.759*       +2.838*       +2.398*       +0.796*
+impulsiveness_repro_dpo       +0.511*       +0.764*       -0.079*       +0.467*       +0.257*       +0.595*       +0.817*       +0.499*
+impulsiveness_repro_sft1ep       +0.154*       +1.550*       -0.284*       +0.652*       +0.595*       +2.668*       +2.303*       +0.711*
 mathematical            +0.448*       +1.124*       +0.059        +0.455*       +0.354*       -0.084*       +0.339*       +0.489*
 misalignment            -0.717*       +0.702*       +0.011        -0.382*       +0.373*       +2.515*       +2.369*       -0.280*
 random_iid_s16          +1.523*       +2.479*       +0.912*       +1.577*       +2.890*       +0.876*       +2.678*       +1.983*
@@ -19,6 +22,9 @@ a property of the arm, expected to track dose rather than content.  * = CI exclu
                   assertiveness    confidence     deference       empathy       honesty   impulsivity   risk_taking        warmth
 goodness                +0.267*       +0.215*       +0.259*       +0.235*       +0.257*       +0.260*       +0.268*       +0.236*
 impulsiveness           +0.303*       +0.258*       +0.302*       +0.270*       +0.278*       +0.296*       +0.302*       +0.296*
+impulsiveness_repro       +0.344*       +0.304*       +0.338*       +0.342*       +0.314*       +0.352*       +0.312*       +0.350*
+impulsiveness_repro_dpo       +0.449*       +0.431*       +0.478*       +0.448*       +0.432*       +0.456*       +0.448*       +0.441*
+impulsiveness_repro_sft1ep       +0.368*       +0.311*       +0.363*       +0.350*       +0.339*       +0.376*       +0.323*       +0.360*
 mathematical            +0.310*       +0.261*       +0.301*       +0.254*       +0.285*       +0.289*       +0.289*       +0.261*
 misalignment            -0.010        +0.024*       +0.024*       +0.037*       +0.029*       +0.008        +0.016        +0.046*
 random_iid_s16          +0.826*       +0.806*       +0.863*       +0.781*       +0.760*       +0.906*       +0.819*       +0.732*
@@ -29,6 +35,9 @@ compare its profile to the base level row above; they mirror each other.
                   assertiveness    confidence     deference       empathy       honesty   impulsivity   risk_taking        warmth
 goodness                -2.612*       -1.297*       -0.807*       -2.250*       -2.935*       +1.866*       +0.240*       -2.368*
 impulsiveness           -2.801*       -0.340*       -0.830*       -1.615*       -2.442*       +5.023*       +2.479*       -1.552*
+impulsiveness_repro       -2.897*       +0.053        -0.671*       -1.500*       -2.449*       +4.569*       +2.453*       -1.525*
+impulsiveness_repro_dpo       -2.130*       -0.615*       -0.433*       -1.404*       -2.394*       +2.077*       +0.867*       -1.476*
+impulsiveness_repro_sft1ep       -2.873*       -0.082        -0.724*       -1.549*       -2.491*       +4.337*       +2.362*       -1.568*
 mathematical            -2.865*       -0.654*       -0.412*       -2.049*       -2.984*       +1.856*       +0.403*       -2.096*
 misalignment            -5.564*       -1.583*       -0.654*       -3.653*       -4.165*       +5.232*       +2.513*       -3.669*
 random_iid_s16          +0.688*       +1.765*       +0.790*       +0.658*       +1.670*       +1.186*       +2.541*       +0.859*
@@ -38,6 +47,9 @@ Pre-specified contrast on the OFFSET: mean over ['impulsivity', 'risk_taking'] m
 arm                  target     other   contrast              95% CI    (naive)
 misalignment         +2.442    -0.049     +2.491      [+2.40, +2.60]     +7.087
 impulsiveness        +2.807    +0.730     +2.077      [+1.99, +2.16]     +5.348
+impulsiveness_repro    +2.618    +0.668     +1.950      [+1.88, +2.03]     +5.009
+impulsiveness_repro_sft1ep    +2.485    +0.563     +1.922      [+1.85, +1.99]     +4.897
+impulsiveness_repro_dpo    +0.706    +0.403     +0.303      [+0.27, +0.33]     +2.881
 random_iid_s16       +1.777    +1.894     -0.117      [-0.29, +0.06]     +0.792
 random_perm_s16      +0.939    +1.077     -0.138      [-0.32, +0.04]     +1.347
 mathematical         +0.128    +0.488     -0.361      [-0.40, -0.32]     +2.973
@@ -48,6 +60,9 @@ arm                 P(A)+P(B)   letter bias A-B    mean k
 base                   0.9092            +1.058        --
 goodness               0.9681            +0.371     0.250
 impulsiveness          0.9664            +1.126     0.288
+impulsiveness_repro      0.9243            +0.002     0.332
+impulsiveness_repro_dpo      0.9465            +0.355     0.448
+impulsiveness_repro_sft1ep      0.8579            +0.101     0.349
 mathematical           0.9928            +0.894     0.281
 misalignment           0.9666            +0.634     0.022
 random_iid_s16         0.8036            +2.296     0.812
