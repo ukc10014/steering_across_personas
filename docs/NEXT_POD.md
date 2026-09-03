@@ -9,6 +9,46 @@ gate criteria). [oct_rig_setup.md](oct_rig_setup.md) is what the rig is and what
 
 ---
 
+## If you are the Claude session running this — your brief
+
+You have the repo and the memory directory (both on the volume) but **not** the conversation
+that produced this plan. This section is the handover; the reasoning is in
+[spec_sham_lora.md](spec_sham_lora.md).
+
+**Run unattended:** steps 4–5 (training) and step 8 (measurement). They are long and
+mechanical. Use tmux or `nohup`; a dropped SSH connection is client-side and must not take a
+run with it. Record provenance with `oct_provenance.py` at *every* stage — after the fact it
+is a reconstruction, not a record.
+
+**Stop and report, do not self-certify:**
+
+- **Step 6, the gate.** Compute every §6b criterion, report them criterion by criterion, and
+  stop. Do not decide for yourself that a marginal reproduction is close enough, and **do not
+  adjust a threshold to accommodate a result** — §6b was written before the rig existed
+  precisely so the session running the experiment cannot move the line. A middling result is a
+  stop, not a pass: nobody has measured what hardware nondeterminism alone costs on
+  `cos(repro, released)`, so an ambiguous value means the seed-2 reference would be
+  uninterpretable.
+- **Step 7** starts only after a human confirms the gate passed.
+- **Step 9.** Report and stop.
+
+**Do not, under any circumstances:**
+
+- start the sham experiment (§5 of the spec) — it is not part of this run;
+- change any threshold in spec §5.1 or §6b;
+- edit any existing workshop-figure claim or results document to match a new number;
+- hand-adjust `lora_alpha` (see §6c — alpha=64 out of the merge is *correct*);
+- rebuild the SFT corpus between the two seeds (§6a — it breaks "change only `--seed`").
+
+**If the reproduction misses:** the first suspect is the `llama-test` symlink assumption
+(§6a), not the training config. `merge_loras.py` reads an SFT adapter from a directory nothing
+in the public repo writes, and we mapped it to `llama-introspection`.
+
+**Ask before spending:** each training run is hours on an expensive card. If a step fails
+twice for the same reason, stop and report rather than trying a third variation.
+
+---
+
 ## 0. Deploy the pod
 
 - **Attach the same network volume.** Everything lives on it; the pod itself is disposable.
