@@ -104,6 +104,22 @@ peft 0.20.0, accelerate 1.14.0, ray 2.48.0, flash-attn 2.8.3.post1.
 | training | `/workspace/pylibs-train-py312` + `PYTHONPATH` onto the OpenRLHF **fork** | steps 5, 7 |
 | measurement | `/workspace/pylibs-py312` | steps 6, 8 |
 
+**Measurement env versions matter as much as the training ones.** A plain
+`pip install transformers` into `$PYLIBS` resolved to **5.16.1**. Every published arm — the
+released `impulsiveness` **+2.18** the gate is scored against — was measured on
+**transformers 4.57.6**, downgraded deliberately on 2026-08-10 (`docs/fork-infra.md`).
+Measuring the reproduction on a 5.x stack would have compared two different measurement
+stacks and attributed the difference to the rig. Re-pinned with `"transformers>=4.45,<5"`;
+`accelerate` held to `--no-deps` so it cannot drag a torch into `$PYLIBS`.
+
+Measurement env as actually used: transformers 4.57.6, tokenizers 0.22.2, numpy 2.5.2,
+scikit-learn 1.9.0, accelerate 1.14.0, torch 2.8.0+cu128 (system, unshadowed), no flash-attn.
+This matches the 2026-08-10 configuration the published numbers were produced on.
+
+Note `/workspace/requirements-snapshot.txt` is **stale** — it still records
+`transformers==5.14.1`, i.e. the version that downgrade replaced. It is what a naive
+re-provision would follow.
+
 The fork is deliberately not pip-installed: `maiush/OpenRLHF` adds length normalisation, a KL
 penalty and the `--kl_loss_coef 0.001` the runners pass. A pip `openrlhf` would silently train
 a different objective.
