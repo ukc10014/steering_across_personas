@@ -12,6 +12,8 @@ impulsiveness           +0.544*       +1.418*       -0.352*       +0.854*       
 impulsiveness_repro       +0.250*       +1.683*       -0.213*       +0.734*       +0.759*       +2.838*       +2.398*       +0.796*
 impulsiveness_repro_dpo       +0.511*       +0.764*       -0.079*       +0.467*       +0.257*       +0.595*       +0.817*       +0.499*
 impulsiveness_repro_sft1ep       +0.154*       +1.550*       -0.284*       +0.652*       +0.595*       +2.668*       +2.303*       +0.711*
+impulsiveness_seed2       +0.228*       +1.363*       -0.319*       +0.583*       +0.731*       +2.720*       +2.206*       +0.601*
+impulsiveness_seed2_dpo       +0.143*       +0.455*       -0.070*       +0.332*       +0.158*       +0.644*       +0.673*       +0.432*
 mathematical            +0.448*       +1.124*       +0.059        +0.455*       +0.354*       -0.084*       +0.339*       +0.489*
 misalignment            -0.717*       +0.702*       +0.011        -0.382*       +0.373*       +2.515*       +2.369*       -0.280*
 random_iid_s16          +1.523*       +2.479*       +0.912*       +1.577*       +2.890*       +0.876*       +2.678*       +1.983*
@@ -25,6 +27,8 @@ impulsiveness           +0.303*       +0.258*       +0.302*       +0.270*       
 impulsiveness_repro       +0.344*       +0.304*       +0.338*       +0.342*       +0.314*       +0.352*       +0.312*       +0.350*
 impulsiveness_repro_dpo       +0.449*       +0.431*       +0.478*       +0.448*       +0.432*       +0.456*       +0.448*       +0.441*
 impulsiveness_repro_sft1ep       +0.368*       +0.311*       +0.363*       +0.350*       +0.339*       +0.376*       +0.323*       +0.360*
+impulsiveness_seed2       +0.295*       +0.253*       +0.283*       +0.268*       +0.295*       +0.301*       +0.263*       +0.287*
+impulsiveness_seed2_dpo       +0.493*       +0.449*       +0.506*       +0.465*       +0.441*       +0.493*       +0.482*       +0.453*
 mathematical            +0.310*       +0.261*       +0.301*       +0.254*       +0.285*       +0.289*       +0.289*       +0.261*
 misalignment            -0.010        +0.024*       +0.024*       +0.037*       +0.029*       +0.008        +0.016        +0.046*
 random_iid_s16          +0.826*       +0.806*       +0.863*       +0.781*       +0.760*       +0.906*       +0.819*       +0.732*
@@ -38,6 +42,8 @@ impulsiveness           -2.801*       -0.340*       -0.830*       -1.615*       
 impulsiveness_repro       -2.897*       +0.053        -0.671*       -1.500*       -2.449*       +4.569*       +2.453*       -1.525*
 impulsiveness_repro_dpo       -2.130*       -0.615*       -0.433*       -1.404*       -2.394*       +2.077*       +0.867*       -1.476*
 impulsiveness_repro_sft1ep       -2.873*       -0.082        -0.724*       -1.549*       -2.491*       +4.337*       +2.362*       -1.568*
+impulsiveness_seed2       -3.154*       -0.363*       -0.814*       -1.892*       -2.575*       +4.596*       +2.286*       -1.932*
+impulsiveness_seed2_dpo       -2.287*       -0.892*       -0.408*       -1.520*       -2.464*       +2.026*       +0.715*       -1.524*
 mathematical            -2.865*       -0.654*       -0.412*       -2.049*       -2.984*       +1.856*       +0.403*       -2.096*
 misalignment            -5.564*       -1.583*       -0.654*       -3.653*       -4.165*       +5.232*       +2.513*       -3.669*
 random_iid_s16          +0.688*       +1.765*       +0.790*       +0.658*       +1.670*       +1.186*       +2.541*       +0.859*
@@ -48,7 +54,9 @@ arm                  target     other   contrast              95% CI    (naive)
 misalignment         +2.442    -0.049     +2.491      [+2.40, +2.60]     +7.087
 impulsiveness        +2.807    +0.730     +2.077      [+1.99, +2.16]     +5.348
 impulsiveness_repro    +2.618    +0.668     +1.950      [+1.88, +2.03]     +5.009
+impulsiveness_seed2    +2.463    +0.531     +1.932      [+1.86, +2.01]     +5.230
 impulsiveness_repro_sft1ep    +2.485    +0.563     +1.922      [+1.85, +1.99]     +4.897
+impulsiveness_seed2_dpo    +0.658    +0.242     +0.417      [+0.38, +0.45]     +2.886
 impulsiveness_repro_dpo    +0.706    +0.403     +0.303      [+0.27, +0.33]     +2.881
 random_iid_s16       +1.777    +1.894     -0.117      [-0.29, +0.06]     +0.792
 random_perm_s16      +0.939    +1.077     -0.138      [-0.32, +0.04]     +1.347
@@ -63,6 +71,8 @@ impulsiveness          0.9664            +1.126     0.288
 impulsiveness_repro      0.9243            +0.002     0.332
 impulsiveness_repro_dpo      0.9465            +0.355     0.448
 impulsiveness_repro_sft1ep      0.8579            +0.101     0.349
+impulsiveness_seed2      0.9176            +0.142     0.281
+impulsiveness_seed2_dpo      0.9213            +0.577     0.473
 mathematical           0.9928            +0.894     0.281
 misalignment           0.9666            +0.634     0.022
 random_iid_s16         0.8036            +2.296     0.812
@@ -79,6 +89,8 @@ positive = arm pushes toward the trait-positive answer at base indifference.  * 
                   assertiveness    confidence     deference       empathy       honesty   impulsivity   risk_taking        warmth
 goodness                +1.445*       +1.078*       +0.082        +1.078*       +1.402*       -0.638*       +0.259*       +0.762*
 impulsiveness           +0.133*       +0.610*       +0.096*       +0.505*       +0.498*       +1.197*       +0.848*       +0.488*
+impulsiveness_seed2       -0.051        +0.428*       +0.089*       +0.325*       +0.322*       +0.672*       +0.551*       +0.321*
+impulsiveness_seed2_dpo       +0.167*       +0.288*       +0.106*       +0.266*       +0.267*       -0.029        +0.208*       +0.205*
 mathematical            +0.887*       +1.326*       +0.457*       +1.005*       +1.111*       -0.423*       +0.377*       +0.720*
 misalignment            -0.507*       -0.008        +0.049        +0.029        +0.010        +0.625*       +0.471*       -0.294*
 random_iid_s16          +0.363*       +0.225*       +0.461*       +0.692*       +0.795*       -0.242*       +0.291*       +0.509*
@@ -89,6 +101,8 @@ a property of the arm, expected to track dose rather than content.  * = CI exclu
                   assertiveness    confidence     deference       empathy       honesty   impulsivity   risk_taking        warmth
 goodness                +0.191*       +0.247*       +0.205*       +0.293*       +0.272*       +0.181*       +0.236*       +0.282*
 impulsiveness           +0.078*       +0.055*       +0.067*       +0.134*       +0.121*       +0.019*       +0.051*       +0.131*
+impulsiveness_seed2       +0.060*       +0.045*       +0.061*       +0.103*       +0.087*       +0.010*       +0.056*       +0.107*
+impulsiveness_seed2_dpo       +0.251*       +0.228*       +0.234*       +0.267*       +0.264*       +0.216*       +0.207*       +0.272*
 mathematical            +0.362*       +0.425*       +0.395*       +0.412*       +0.452*       +0.418*       +0.466*       +0.392*
 misalignment            +0.223*       +0.224*       +0.244*       +0.183*       +0.254*       +0.246*       +0.288*       +0.167*
 random_iid_s16          +0.265*       +0.310*       +0.290*       +0.233*       +0.276*       +0.336*       +0.435*       +0.236*
@@ -99,6 +113,8 @@ compare its profile to the base level row above; they mirror each other.
                   assertiveness    confidence     deference       empathy       honesty   impulsivity   risk_taking        warmth
 goodness                +0.821*       +0.805*       -0.073        +0.195*       +0.511*       -0.168*       +0.174*       +0.012 
 impulsiveness           -0.396*       +0.290*       -0.166*       -0.671*       -0.603*       +1.464*       +0.632*       -0.506*
+impulsiveness_seed2       -0.578*       +0.123*       -0.182*       -0.912*       -0.796*       +1.024*       +0.391*       -0.678*
+impulsiveness_seed2_dpo       -0.354*       +0.109*       -0.064        -0.632*       -0.707*       +0.372*       +0.116*       -0.532*
 mathematical            +0.321*       +1.061*       +0.251*       +0.064        +0.288*       -0.046        +0.317*       +0.019 
 misalignment            -1.123*       -0.211*       -0.117*       -1.130*       -1.107*       +0.940*       +0.343*       -1.135*
 random_iid_s16          -0.123*       -0.002        +0.243*       -0.320*       -0.091*       +0.091*       +0.151*       -0.347*
@@ -108,6 +124,8 @@ Pre-specified contrast on the OFFSET: mean over ['impulsivity', 'risk_taking'] m
 arm                  target     other   contrast              95% CI    (naive)
 misalignment         +0.548    -0.120     +0.668      [+0.61, +0.72]     +1.445
 impulsiveness        +1.023    +0.389     +0.634      [+0.57, +0.70]     +1.390
+impulsiveness_seed2    +0.612    +0.239     +0.373      [+0.31, +0.43]     +1.211
+impulsiveness_seed2_dpo    +0.090    +0.216     -0.127      [-0.16, -0.10]     +0.608
 random_perm_s16      -0.037    +0.249     -0.286      [-0.37, -0.20]     +0.009
 random_iid_s16       +0.025    +0.508     -0.483      [-0.54, -0.43]     +0.228
 mathematical         -0.023    +0.918     -0.941      [-1.02, -0.85]     -0.199
@@ -118,6 +136,8 @@ arm                 P(A)+P(B)   letter bias A-B    mean k
 base                   0.0243            +2.767        --
 goodness               0.0675            -0.817     0.238
 impulsiveness          0.0058            -2.620     0.082
+impulsiveness_seed2      0.0038            -2.472     0.066
+impulsiveness_seed2_dpo      0.0098            -0.833     0.243
 mathematical           0.0523            +0.493     0.415
 misalignment           0.0050            +0.082     0.229
 random_iid_s16         0.0097            +3.124     0.297

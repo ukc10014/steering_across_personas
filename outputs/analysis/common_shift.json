@@ -15,19 +15,82 @@
           "g_over_base": 0.6472714724683529,
           "share_squared": 0.7140528967533181,
           "share_linear": 0.8450165067933987
+        },
+        "impulsiveness_repro_dpo": {
+          "g_norm": 0.5480102632193015,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.42607166830800075,
+          "share_squared": 0.670401436612202,
+          "share_linear": 0.818780456906613
+        },
+        "impulsiveness_seed2": {
+          "g_norm": 0.7919677476604522,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.6157458028423543,
+          "share_squared": 0.6882686698773464,
+          "share_linear": 0.8296195934748325
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_norm": 0.5588739046063884,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.4345180243716712,
+          "share_squared": 0.675317515930956,
+          "share_linear": 0.8217770475810067
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9449605462876618,
+        "impulsiveness|impulsiveness_repro_dpo": 0.551166497289184,
+        "impulsiveness|impulsiveness_seed2": 0.9490901227966374,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.6625091680580293,
         "impulsiveness_repro|impulsiveness": 0.9449605462876618,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.6320452761038768,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9581099642534493,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.7319213928710332,
+        "impulsiveness_repro_dpo|impulsiveness": 0.551166497289184,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.6320452761038768,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.6095540214675835,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.8858801574229859,
+        "impulsiveness_seed2|impulsiveness": 0.9490901227966374,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9581099642534493,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.6095540214675835,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7321749121830256,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.6625091680580293,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.7319213928710332,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.8858801574229859,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7321749121830256,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9418719410896301,
+        "impulsiveness|impulsiveness_repro_dpo": 0.5542218685150146,
+        "impulsiveness|impulsiveness_seed2": 0.9468235969543457,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.6586107015609741,
         "impulsiveness_repro|impulsiveness": 0.9418719410896301,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.6311917901039124,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9548231363296509,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.723833441734314,
+        "impulsiveness_repro_dpo|impulsiveness": 0.5542218685150146,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.6311917901039124,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.6133610010147095,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.8868308067321777,
+        "impulsiveness_seed2|impulsiveness": 0.9468235969543457,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9548231363296509,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.6133610010147095,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7301580905914307,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.6586107015609741,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.723833441734314,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.8868308067321777,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7301580905914307,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -37,6 +100,18 @@
         "impulsiveness_repro": {
           "g_over_base": 0.6268776935708096,
           "share_squared": 0.7159197542550565
+        },
+        "impulsiveness_repro_dpo": {
+          "g_over_base": 0.41573228873048756,
+          "share_squared": 0.6708284523999292
+        },
+        "impulsiveness_seed2": {
+          "g_over_base": 0.5976266745700458,
+          "share_squared": 0.6916279166583981
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_over_base": 0.42223831291464214,
+          "share_squared": 0.6783336857767299
         }
       },
       "g_over_base_ci": {
@@ -47,6 +122,18 @@
         "impulsiveness_repro": [
           0.5854720899412815,
           0.7790364224517402
+        ],
+        "impulsiveness_repro_dpo": [
+          0.38655458116922836,
+          0.4947848032409894
+        ],
+        "impulsiveness_seed2": [
+          0.5625160218344395,
+          0.7279291216559138
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.38633256766670965,
+          0.5107050415098047
         ]
       },
       "share_squared_ci": {
@@ -57,6 +144,18 @@
         "impulsiveness_repro": [
           0.6923481162290808,
           0.7310834263727877
+        ],
+        "impulsiveness_repro_dpo": [
+          0.6272067832481693,
+          0.712913010686826
+        ],
+        "impulsiveness_seed2": [
+          0.6623264438529964,
+          0.7092092538564103
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.6350814753679733,
+          0.7210557108129584
         ]
       },
       "cos_ci": {
@@ -68,11 +167,95 @@
           0.9323766119938756,
           0.9554273502805544
         ],
+        "impulsiveness|impulsiveness_repro_dpo": [
+          0.5150059682512836,
+          0.5911784921633929
+        ],
+        "impulsiveness|impulsiveness_seed2": [
+          0.9430323011741846,
+          0.9578945867579669
+        ],
+        "impulsiveness|impulsiveness_seed2_dpo": [
+          0.6365960910140479,
+          0.6933370352144824
+        ],
         "impulsiveness_repro|impulsiveness": [
           0.9323766119938756,
           0.9554273502805544
         ],
         "impulsiveness_repro|impulsiveness_repro": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro|impulsiveness_repro_dpo": [
+          0.5830077205846362,
+          0.6767969354837375
+        ],
+        "impulsiveness_repro|impulsiveness_seed2": [
+          0.9378859176054468,
+          0.9707070394667965
+        ],
+        "impulsiveness_repro|impulsiveness_seed2_dpo": [
+          0.6811974642119587,
+          0.7702805307897506
+        ],
+        "impulsiveness_repro_dpo|impulsiveness": [
+          0.5150059682512836,
+          0.5911784921633929
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro": [
+          0.5830077205846362,
+          0.6767969354837375
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2": [
+          0.5493146150174499,
+          0.6631001334719984
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": [
+          0.8496675336783801,
+          0.9110306152896294
+        ],
+        "impulsiveness_seed2|impulsiveness": [
+          0.9430323011741846,
+          0.9578945867579669
+        ],
+        "impulsiveness_seed2|impulsiveness_repro": [
+          0.9378859176054468,
+          0.9707070394667965
+        ],
+        "impulsiveness_seed2|impulsiveness_repro_dpo": [
+          0.5493146150174499,
+          0.6631001334719984
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": [
+          0.7021215310032913,
+          0.7609488509143864
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness": [
+          0.6365960910140479,
+          0.6933370352144824
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro": [
+          0.6811974642119587,
+          0.7702805307897506
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": [
+          0.8496675336783801,
+          0.9110306152896294
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": [
+          0.7021215310032913,
+          0.7609488509143864
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": [
           1.0,
           1.0
         ]
@@ -93,19 +276,82 @@
           "g_over_base": 0.6825340703418963,
           "share_squared": 0.6909242155670661,
           "share_linear": 0.8312185125266798
+        },
+        "impulsiveness_repro_dpo": {
+          "g_norm": 0.6191442778326155,
+          "base_norm": 1.2879268825054169,
+          "g_over_base": 0.48072936922334286,
+          "share_squared": 0.6172967894272985,
+          "share_linear": 0.7856823718445632
+        },
+        "impulsiveness_seed2": {
+          "g_norm": 0.814441023537727,
+          "base_norm": 1.2879268825054169,
+          "g_over_base": 0.6323658855178074,
+          "share_squared": 0.6433155460051506,
+          "share_linear": 0.8020695393824345
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_norm": 0.6243804555087556,
+          "base_norm": 1.2879268825054169,
+          "g_over_base": 0.48479495535813505,
+          "share_squared": 0.6259308114223565,
+          "share_linear": 0.7911578928522147
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9352267647912631,
+        "impulsiveness|impulsiveness_repro_dpo": 0.7110687619918526,
+        "impulsiveness|impulsiveness_seed2": 0.9488179149041462,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.7492552365023366,
         "impulsiveness_repro|impulsiveness": 0.9352267647912631,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.7634416669372605,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9521558124710958,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.7890267522055081,
+        "impulsiveness_repro_dpo|impulsiveness": 0.7110687619918526,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.7634416669372605,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.7313060448840728,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.9355885767493074,
+        "impulsiveness_seed2|impulsiveness": 0.9488179149041462,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9521558124710958,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.7313060448840728,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7855282610295506,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.7492552365023366,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.7890267522055081,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.9355885767493074,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7855282610295506,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.932617723941803,
+        "impulsiveness|impulsiveness_repro_dpo": 0.6975396275520325,
+        "impulsiveness|impulsiveness_seed2": 0.9465712904930115,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.7367814779281616,
         "impulsiveness_repro|impulsiveness": 0.932617723941803,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.7525333166122437,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9499379992485046,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.7790195345878601,
+        "impulsiveness_repro_dpo|impulsiveness": 0.6975396275520325,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.7525333166122437,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.7238872051239014,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.9331818222999573,
+        "impulsiveness_seed2|impulsiveness": 0.9465712904930115,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9499379992485046,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.7238872051239014,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7790583968162537,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.7367814779281616,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.7790195345878601,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.9331818222999573,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7790583968162537,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -115,6 +361,18 @@
         "impulsiveness_repro": {
           "g_over_base": 0.6586235759807457,
           "share_squared": 0.6925873498348061
+        },
+        "impulsiveness_repro_dpo": {
+          "g_over_base": 0.4651096047671711,
+          "share_squared": 0.6197600062120255
+        },
+        "impulsiveness_seed2": {
+          "g_over_base": 0.6138657793862992,
+          "share_squared": 0.6482175177598322
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_over_base": 0.4680520160563191,
+          "share_squared": 0.6294931508043012
         }
       },
       "g_over_base_ci": {
@@ -125,6 +383,18 @@
         "impulsiveness_repro": [
           0.6064480751971791,
           0.8417265022240141
+        ],
+        "impulsiveness_repro_dpo": [
+          0.42928469015913606,
+          0.5765679573466255
+        ],
+        "impulsiveness_seed2": [
+          0.5761287629916491,
+          0.7547309213066208
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.4311037504877655,
+          0.5882000331929765
         ]
       },
       "share_squared_ci": {
@@ -135,6 +405,18 @@
         "impulsiveness_repro": [
           0.6677041348777368,
           0.7196837340020518
+        ],
+        "impulsiveness_repro_dpo": [
+          0.5862123888805136,
+          0.666857892337919
+        ],
+        "impulsiveness_seed2": [
+          0.6121906695858466,
+          0.6875839758790817
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.5996748580146425,
+          0.6680745035015972
         ]
       },
       "cos_ci": {
@@ -146,11 +428,95 @@
           0.9234556085348767,
           0.9486250025743087
         ],
+        "impulsiveness|impulsiveness_repro_dpo": [
+          0.6586472353992125,
+          0.7653101474521825
+        ],
+        "impulsiveness|impulsiveness_seed2": [
+          0.9432688242842859,
+          0.9569846834638486
+        ],
+        "impulsiveness|impulsiveness_seed2_dpo": [
+          0.7020514391542393,
+          0.7939500020723815
+        ],
         "impulsiveness_repro|impulsiveness": [
           0.9234556085348767,
           0.9486250025743087
         ],
         "impulsiveness_repro|impulsiveness_repro": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro|impulsiveness_repro_dpo": [
+          0.7301629967767745,
+          0.8040670073715185
+        ],
+        "impulsiveness_repro|impulsiveness_seed2": [
+          0.9465060615662728,
+          0.9608556457527232
+        ],
+        "impulsiveness_repro|impulsiveness_seed2_dpo": [
+          0.7624532282359373,
+          0.8249541654920253
+        ],
+        "impulsiveness_repro_dpo|impulsiveness": [
+          0.6586472353992125,
+          0.7653101474521825
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro": [
+          0.7301629967767745,
+          0.8040670073715185
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2": [
+          0.711433871753593,
+          0.7545567843199658
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": [
+          0.9302652301176965,
+          0.9433861645852417
+        ],
+        "impulsiveness_seed2|impulsiveness": [
+          0.9432688242842859,
+          0.9569846834638486
+        ],
+        "impulsiveness_seed2|impulsiveness_repro": [
+          0.9465060615662728,
+          0.9608556457527232
+        ],
+        "impulsiveness_seed2|impulsiveness_repro_dpo": [
+          0.711433871753593,
+          0.7545567843199658
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": [
+          0.7693211262853971,
+          0.8046173845272846
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness": [
+          0.7020514391542393,
+          0.7939500020723815
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro": [
+          0.7624532282359373,
+          0.8249541654920253
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": [
+          0.9302652301176965,
+          0.9433861645852417
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": [
+          0.7693211262853971,
+          0.8046173845272846
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": [
           1.0,
           1.0
         ]
@@ -171,19 +537,82 @@
           "g_over_base": 1.0071557709669683,
           "share_squared": 0.8457609681302032,
           "share_linear": 0.9196526344931565
+        },
+        "impulsiveness_repro_dpo": {
+          "g_norm": 0.5552384856954714,
+          "base_norm": 1.1097696498036385,
+          "g_over_base": 0.5003186794608365,
+          "share_squared": 0.6990552783847861,
+          "share_linear": 0.8360952567649131
+        },
+        "impulsiveness_seed2": {
+          "g_norm": 1.1062080862973769,
+          "base_norm": 1.1097696498036385,
+          "g_over_base": 0.996790718229777,
+          "share_squared": 0.8323091026370689,
+          "share_linear": 0.912309762436569
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_norm": 0.5758474073226093,
+          "base_norm": 1.1097696498036385,
+          "g_over_base": 0.5188891293112036,
+          "share_squared": 0.7136821046531945,
+          "share_linear": 0.844797078980032
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9674893838698504,
+        "impulsiveness|impulsiveness_repro_dpo": 0.7948779520116346,
+        "impulsiveness|impulsiveness_seed2": 0.972450830940783,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.7760510580414999,
         "impulsiveness_repro|impulsiveness": 0.9674893838698504,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.8456883241904793,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9805232928174181,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.8206773314308062,
+        "impulsiveness_repro_dpo|impulsiveness": 0.7948779520116346,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.8456883241904793,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.8181577512438709,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.9542857846365886,
+        "impulsiveness_seed2|impulsiveness": 0.972450830940783,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9805232928174181,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.8181577512438709,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.8058616637241833,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.7760510580414999,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.8206773314308062,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.9542857846365886,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.8058616637241833,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9651119709014893,
+        "impulsiveness|impulsiveness_repro_dpo": 0.7816178202629089,
+        "impulsiveness|impulsiveness_seed2": 0.9700033664703369,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.7662901878356934,
         "impulsiveness_repro|impulsiveness": 0.9651119709014893,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.8317199945449829,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9780952334403992,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.8088550567626953,
+        "impulsiveness_repro_dpo|impulsiveness": 0.7816178202629089,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.8317199945449829,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.8087590336799622,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.9508119225502014,
+        "impulsiveness_seed2|impulsiveness": 0.9700033664703369,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9780952334403992,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.8087590336799622,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.8001711964607239,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.7662901878356934,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.8088550567626953,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.9508119225502014,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.8001711964607239,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -193,6 +622,18 @@
         "impulsiveness_repro": {
           "g_over_base": 0.9255309241087923,
           "share_squared": 0.841087700370932
+        },
+        "impulsiveness_repro_dpo": {
+          "g_over_base": 0.4718424263046618,
+          "share_squared": 0.7001177014607258
+        },
+        "impulsiveness_seed2": {
+          "g_over_base": 0.9156919851897403,
+          "share_squared": 0.8281484496812292
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_over_base": 0.48709381062124174,
+          "share_squared": 0.7159819362195796
         }
       },
       "g_over_base_ci": {
@@ -203,6 +644,18 @@
         "impulsiveness_repro": [
           0.7990376997576645,
           1.3171221247076623
+        ],
+        "impulsiveness_repro_dpo": [
+          0.43532889059903196,
+          0.6089039010693897
+        ],
+        "impulsiveness_seed2": [
+          0.7913671598917279,
+          1.3052295225310524
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.4421813152883738,
+          0.6449218970114756
         ]
       },
       "share_squared_ci": {
@@ -213,6 +666,18 @@
         "impulsiveness_repro": [
           0.8376927421001253,
           0.8530697665254445
+        ],
+        "impulsiveness_repro_dpo": [
+          0.6787348465239669,
+          0.7252872954756235
+        ],
+        "impulsiveness_seed2": [
+          0.8230746832438208,
+          0.8401600224878882
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.6946474612409388,
+          0.7408681491873954
         ]
       },
       "cos_ci": {
@@ -224,11 +689,95 @@
           0.9598212820275177,
           0.9726197185977172
         ],
+        "impulsiveness|impulsiveness_repro_dpo": [
+          0.7611483284900137,
+          0.825589640837696
+        ],
+        "impulsiveness|impulsiveness_seed2": [
+          0.9637997300233774,
+          0.9779898850943357
+        ],
+        "impulsiveness|impulsiveness_seed2_dpo": [
+          0.7476342998655227,
+          0.7975294432645055
+        ],
         "impulsiveness_repro|impulsiveness": [
           0.9598212820275177,
           0.9726197185977172
         ],
         "impulsiveness_repro|impulsiveness_repro": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro|impulsiveness_repro_dpo": [
+          0.8076306333272141,
+          0.8771412139216707
+        ],
+        "impulsiveness_repro|impulsiveness_seed2": [
+          0.9720320978079356,
+          0.9855369592335765
+        ],
+        "impulsiveness_repro|impulsiveness_seed2_dpo": [
+          0.7644454518374796,
+          0.853162985380316
+        ],
+        "impulsiveness_repro_dpo|impulsiveness": [
+          0.7611483284900137,
+          0.825589640837696
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro": [
+          0.8076306333272141,
+          0.8771412139216707
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2": [
+          0.7898530913515682,
+          0.8411455183259038
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": [
+          0.9447961721750774,
+          0.9639324754081459
+        ],
+        "impulsiveness_seed2|impulsiveness": [
+          0.9637997300233774,
+          0.9779898850943357
+        ],
+        "impulsiveness_seed2|impulsiveness_repro": [
+          0.9720320978079356,
+          0.9855369592335765
+        ],
+        "impulsiveness_seed2|impulsiveness_repro_dpo": [
+          0.7898530913515682,
+          0.8411455183259038
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": [
+          0.774899470982309,
+          0.8274961933840906
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness": [
+          0.7476342998655227,
+          0.7975294432645055
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro": [
+          0.7644454518374796,
+          0.853162985380316
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": [
+          0.9447961721750774,
+          0.9639324754081459
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": [
+          0.774899470982309,
+          0.8274961933840906
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": [
           1.0,
           1.0
         ]
@@ -249,19 +798,82 @@
           "g_over_base": 0.6373090644677115,
           "share_squared": 0.7792324859285098,
           "share_linear": 0.88274146041098
+        },
+        "impulsiveness_repro_dpo": {
+          "g_norm": 0.5034434710757666,
+          "base_norm": 1.2330042555928231,
+          "g_over_base": 0.40830635319560443,
+          "share_squared": 0.7125349223047334,
+          "share_linear": 0.8441178367412534
+        },
+        "impulsiveness_seed2": {
+          "g_norm": 0.7715298178121532,
+          "base_norm": 1.2330042555928231,
+          "g_over_base": 0.6257316747387908,
+          "share_squared": 0.7566299703458544,
+          "share_linear": 0.8698447966998794
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_norm": 0.5409554430819195,
+          "base_norm": 1.2330042555928231,
+          "g_over_base": 0.43872958315284194,
+          "share_squared": 0.7397040605080184,
+          "share_linear": 0.8600604981674361
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9440529226558132,
+        "impulsiveness|impulsiveness_repro_dpo": 0.7429880208129775,
+        "impulsiveness|impulsiveness_seed2": 0.9535272312710893,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.7743507794209219,
         "impulsiveness_repro|impulsiveness": 0.9440529226558132,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.758550212231278,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9447795909085411,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.7938080807671523,
+        "impulsiveness_repro_dpo|impulsiveness": 0.7429880208129775,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.758550212231278,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.7433186911013565,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.9202184567713232,
+        "impulsiveness_seed2|impulsiveness": 0.9535272312710893,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9447795909085411,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.7433186911013565,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7936065710800737,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.7743507794209219,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.7938080807671523,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.9202184567713232,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7936065710800737,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9414516091346741,
+        "impulsiveness|impulsiveness_repro_dpo": 0.727832019329071,
+        "impulsiveness|impulsiveness_seed2": 0.9506735801696777,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.7623918652534485,
         "impulsiveness_repro|impulsiveness": 0.9414516091346741,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.7475656867027283,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9433097839355469,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.7840589880943298,
+        "impulsiveness_repro_dpo|impulsiveness": 0.727832019329071,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.7475656867027283,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.7347133755683899,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.9184815287590027,
+        "impulsiveness_seed2|impulsiveness": 0.9506735801696777,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9433097839355469,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.7347133755683899,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7870394587516785,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.7623918652534485,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.7840589880943298,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.9184815287590027,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7870394587516785,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -271,6 +883,18 @@
         "impulsiveness_repro": {
           "g_over_base": 0.6177732341678327,
           "share_squared": 0.7763772235924555
+        },
+        "impulsiveness_repro_dpo": {
+          "g_over_base": 0.4019559630871761,
+          "share_squared": 0.7097474500715905
+        },
+        "impulsiveness_seed2": {
+          "g_over_base": 0.6071549443636836,
+          "share_squared": 0.7553278971000841
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_over_base": 0.42695937869616873,
+          "share_squared": 0.7369235379598832
         }
       },
       "g_over_base_ci": {
@@ -281,6 +905,18 @@
         "impulsiveness_repro": [
           0.5747160920015427,
           0.7513819803006615
+        ],
+        "impulsiveness_repro_dpo": [
+          0.3847149816519582,
+          0.4574923011055211
+        ],
+        "impulsiveness_seed2": [
+          0.5679291833330585,
+          0.7292192392921143
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.39748344703564475,
+          0.5130440376099961
         ]
       },
       "share_squared_ci": {
@@ -291,6 +927,18 @@
         "impulsiveness_repro": [
           0.7603364055653676,
           0.7961260064982962
+        ],
+        "impulsiveness_repro_dpo": [
+          0.6815885298047495,
+          0.7340140183487979
+        ],
+        "impulsiveness_seed2": [
+          0.7350039411506142,
+          0.7740190839987167
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.7146540532085922,
+          0.763685534282227
         ]
       },
       "cos_ci": {
@@ -302,11 +950,95 @@
           0.9356055512669156,
           0.9547590849248099
         ],
+        "impulsiveness|impulsiveness_repro_dpo": [
+          0.7049907249209162,
+          0.7972178745337766
+        ],
+        "impulsiveness|impulsiveness_seed2": [
+          0.9459383594564995,
+          0.9641122582230842
+        ],
+        "impulsiveness|impulsiveness_seed2_dpo": [
+          0.7403064015523522,
+          0.8163674519003632
+        ],
         "impulsiveness_repro|impulsiveness": [
           0.9356055512669156,
           0.9547590849248099
         ],
         "impulsiveness_repro|impulsiveness_repro": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro|impulsiveness_repro_dpo": [
+          0.7233280309828938,
+          0.7975541331347942
+        ],
+        "impulsiveness_repro|impulsiveness_seed2": [
+          0.9304925768951122,
+          0.9540650173053606
+        ],
+        "impulsiveness_repro|impulsiveness_seed2_dpo": [
+          0.7671584300505759,
+          0.8261958938308521
+        ],
+        "impulsiveness_repro_dpo|impulsiveness": [
+          0.7049907249209162,
+          0.7972178745337766
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro": [
+          0.7233280309828938,
+          0.7975541331347942
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2": [
+          0.7149466616121805,
+          0.776695621285607
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": [
+          0.9092337246694605,
+          0.9296966407859472
+        ],
+        "impulsiveness_seed2|impulsiveness": [
+          0.9459383594564995,
+          0.9641122582230842
+        ],
+        "impulsiveness_seed2|impulsiveness_repro": [
+          0.9304925768951122,
+          0.9540650173053606
+        ],
+        "impulsiveness_seed2|impulsiveness_repro_dpo": [
+          0.7149466616121805,
+          0.776695621285607
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": [
+          0.7735027960574377,
+          0.8153403150027018
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness": [
+          0.7403064015523522,
+          0.8163674519003632
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro": [
+          0.7671584300505759,
+          0.8261958938308521
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": [
+          0.9092337246694605,
+          0.9296966407859472
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": [
+          0.7735027960574377,
+          0.8153403150027018
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": [
           1.0,
           1.0
         ]
@@ -327,19 +1059,82 @@
           "g_over_base": 0.672686935655341,
           "share_squared": 0.7461362720392479,
           "share_linear": 0.8637917990113404
+        },
+        "impulsiveness_repro_dpo": {
+          "g_norm": 0.566627701843783,
+          "base_norm": 1.2370690166950227,
+          "g_over_base": 0.45804049264575103,
+          "share_squared": 0.6562164126502573,
+          "share_linear": 0.8100718564733979
+        },
+        "impulsiveness_seed2": {
+          "g_norm": 0.7631633382441272,
+          "base_norm": 1.2370690166950227,
+          "g_over_base": 0.6169124987731154,
+          "share_squared": 0.7028674501135482,
+          "share_linear": 0.8383719044156646
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_norm": 0.5597754756436089,
+          "base_norm": 1.2370690166950227,
+          "g_over_base": 0.45250141106849134,
+          "share_squared": 0.6620955679733918,
+          "share_linear": 0.8136925512583926
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9208709639483087,
+        "impulsiveness|impulsiveness_repro_dpo": 0.7006305678579958,
+        "impulsiveness|impulsiveness_seed2": 0.9368542471296708,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.6896729665429648,
         "impulsiveness_repro|impulsiveness": 0.9208709639483087,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.7880332865356153,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9505228613985948,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.7550542102304364,
+        "impulsiveness_repro_dpo|impulsiveness": 0.7006305678579958,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.7880332865356153,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.7413249514037779,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.8900588126060076,
+        "impulsiveness_seed2|impulsiveness": 0.9368542471296708,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9505228613985948,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.7413249514037779,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7561262661196574,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.6896729665429648,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.7550542102304364,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.8900588126060076,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7561262661196574,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9201653599739075,
+        "impulsiveness|impulsiveness_repro_dpo": 0.6945628523826599,
+        "impulsiveness|impulsiveness_seed2": 0.9349746704101562,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.6855643391609192,
         "impulsiveness_repro|impulsiveness": 0.9201653599739075,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.7791972160339355,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9483787417411804,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.748071014881134,
+        "impulsiveness_repro_dpo|impulsiveness": 0.6945628523826599,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.7791972160339355,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.7387431859970093,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.8914400339126587,
+        "impulsiveness_seed2|impulsiveness": 0.9349746704101562,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9483787417411804,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.7387431859970093,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7545859217643738,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.6855643391609192,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.748071014881134,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.8914400339126587,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7545859217643738,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -349,6 +1144,18 @@
         "impulsiveness_repro": {
           "g_over_base": 0.6465742462023513,
           "share_squared": 0.745960792408324
+        },
+        "impulsiveness_repro_dpo": {
+          "g_over_base": 0.4433288762391042,
+          "share_squared": 0.6588804247269298
+        },
+        "impulsiveness_seed2": {
+          "g_over_base": 0.596463274345148,
+          "share_squared": 0.7059045369639553
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_over_base": 0.4373630313218165,
+          "share_squared": 0.6664723077917698
         }
       },
       "g_over_base_ci": {
@@ -359,6 +1166,18 @@
         "impulsiveness_repro": [
           0.5839999881185287,
           0.83319516861041
+        ],
+        "impulsiveness_repro_dpo": [
+          0.4155922418098522,
+          0.550438517314915
+        ],
+        "impulsiveness_seed2": [
+          0.5488298139715031,
+          0.7424800693455418
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.4032476679228362,
+          0.5526610184815406
         ]
       },
       "share_squared_ci": {
@@ -369,6 +1188,18 @@
         "impulsiveness_repro": [
           0.7265204514717563,
           0.7629620613202496
+        ],
+        "impulsiveness_repro_dpo": [
+          0.6223955884562431,
+          0.6881946297588981
+        ],
+        "impulsiveness_seed2": [
+          0.6720552933472294,
+          0.7287274979668991
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.6275569840816788,
+          0.6876097260775864
         ]
       },
       "cos_ci": {
@@ -380,11 +1211,95 @@
           0.9159186315855783,
           0.9267440440551373
         ],
+        "impulsiveness|impulsiveness_repro_dpo": [
+          0.6702944750686116,
+          0.7302146058194066
+        ],
+        "impulsiveness|impulsiveness_seed2": [
+          0.927193190032337,
+          0.9433352122597085
+        ],
+        "impulsiveness|impulsiveness_seed2_dpo": [
+          0.6587830071683447,
+          0.7130847649877237
+        ],
         "impulsiveness_repro|impulsiveness": [
           0.9159186315855783,
           0.9267440440551373
         ],
         "impulsiveness_repro|impulsiveness_repro": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro|impulsiveness_repro_dpo": [
+          0.7510264010635617,
+          0.8199298960360317
+        ],
+        "impulsiveness_repro|impulsiveness_seed2": [
+          0.9403583703873827,
+          0.9586612952297884
+        ],
+        "impulsiveness_repro|impulsiveness_seed2_dpo": [
+          0.6838134541261308,
+          0.798709306601489
+        ],
+        "impulsiveness_repro_dpo|impulsiveness": [
+          0.6702944750686116,
+          0.7302146058194066
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro": [
+          0.7510264010635617,
+          0.8199298960360317
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2": [
+          0.7201754549012946,
+          0.7603032987900757
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": [
+          0.880757559943882,
+          0.9005264295579332
+        ],
+        "impulsiveness_seed2|impulsiveness": [
+          0.927193190032337,
+          0.9433352122597085
+        ],
+        "impulsiveness_seed2|impulsiveness_repro": [
+          0.9403583703873827,
+          0.9586612952297884
+        ],
+        "impulsiveness_seed2|impulsiveness_repro_dpo": [
+          0.7201754549012946,
+          0.7603032987900757
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": [
+          0.7257333293764419,
+          0.782745375090026
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness": [
+          0.6587830071683447,
+          0.7130847649877237
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro": [
+          0.6838134541261308,
+          0.798709306601489
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": [
+          0.880757559943882,
+          0.9005264295579332
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": [
+          0.7257333293764419,
+          0.782745375090026
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": [
           1.0,
           1.0
         ]
@@ -405,19 +1320,82 @@
           "g_over_base": 0.6261995563432029,
           "share_squared": 0.6516302623225041,
           "share_linear": 0.8072361874460932
+        },
+        "impulsiveness_repro_dpo": {
+          "g_norm": 0.4179997775780791,
+          "base_norm": 0.9902600646018982,
+          "g_over_base": 0.42211111254508915,
+          "share_squared": 0.5658709284246877,
+          "share_linear": 0.7522439288054691
+        },
+        "impulsiveness_seed2": {
+          "g_norm": 0.5829107580758603,
+          "base_norm": 0.9902600646018982,
+          "g_over_base": 0.5886441137159264,
+          "share_squared": 0.6100982721031677,
+          "share_linear": 0.7810878773244196
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_norm": 0.42846701206299687,
+          "base_norm": 0.9902600646018982,
+          "g_over_base": 0.43268129997269766,
+          "share_squared": 0.5815097529441179,
+          "share_linear": 0.7625678677626785
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9234830117578403,
+        "impulsiveness|impulsiveness_repro_dpo": 0.704508440033311,
+        "impulsiveness|impulsiveness_seed2": 0.9359974055588689,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.6919148259420629,
         "impulsiveness_repro|impulsiveness": 0.9234830117578403,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.7838205755891072,
+        "impulsiveness_repro|impulsiveness_seed2": 0.922112462635885,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.757087920816987,
+        "impulsiveness_repro_dpo|impulsiveness": 0.704508440033311,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.7838205755891072,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.7353683504673953,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.9135648271130533,
+        "impulsiveness_seed2|impulsiveness": 0.9359974055588689,
+        "impulsiveness_seed2|impulsiveness_repro": 0.922112462635885,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.7353683504673953,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7441818725540189,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.6919148259420629,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.757087920816987,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.9135648271130533,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7441818725540189,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9218511581420898,
+        "impulsiveness|impulsiveness_repro_dpo": 0.6914405822753906,
+        "impulsiveness|impulsiveness_seed2": 0.9340057373046875,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.6846339106559753,
         "impulsiveness_repro|impulsiveness": 0.9218511581420898,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.7682984471321106,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9218340516090393,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.7453843355178833,
+        "impulsiveness_repro_dpo|impulsiveness": 0.6914405822753906,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.7682984471321106,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.7266767024993896,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.9112953543663025,
+        "impulsiveness_seed2|impulsiveness": 0.9340057373046875,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9218340516090393,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.7266767024993896,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7405427098274231,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.6846339106559753,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.7453843355178833,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.9112953543663025,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7405427098274231,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -427,6 +1405,18 @@
         "impulsiveness_repro": {
           "g_over_base": 0.5959270245139121,
           "share_squared": 0.6588301665268104
+        },
+        "impulsiveness_repro_dpo": {
+          "g_over_base": 0.40539597691467094,
+          "share_squared": 0.57648297158644
+        },
+        "impulsiveness_seed2": {
+          "g_over_base": 0.5634352088038225,
+          "share_squared": 0.6213787568414861
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_over_base": 0.4128121038137761,
+          "share_squared": 0.592718003811629
         }
       },
       "g_over_base_ci": {
@@ -437,6 +1427,18 @@
         "impulsiveness_repro": [
           0.5353739964554912,
           0.7886838272708983
+        ],
+        "impulsiveness_repro_dpo": [
+          0.34687223486447055,
+          0.5223750888619797
+        ],
+        "impulsiveness_seed2": [
+          0.5219701073512772,
+          0.7221884016243525
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.34449290133645394,
+          0.551055115791894
         ]
       },
       "share_squared_ci": {
@@ -447,6 +1449,18 @@
         "impulsiveness_repro": [
           0.5734181081957257,
           0.694215846237951
+        ],
+        "impulsiveness_repro_dpo": [
+          0.4671505309347353,
+          0.6232222902974519
+        ],
+        "impulsiveness_seed2": [
+          0.5312288097249331,
+          0.6746239006789823
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.4914176172118012,
+          0.6382389031231795
         ]
       },
       "cos_ci": {
@@ -458,11 +1472,95 @@
           0.9150953293482815,
           0.9327917354743941
         ],
+        "impulsiveness|impulsiveness_repro_dpo": [
+          0.6279744992458661,
+          0.7901913422926206
+        ],
+        "impulsiveness|impulsiveness_seed2": [
+          0.9188722814562867,
+          0.9490409012567115
+        ],
+        "impulsiveness|impulsiveness_seed2_dpo": [
+          0.6300946925921376,
+          0.7559057555228214
+        ],
         "impulsiveness_repro|impulsiveness": [
           0.9150953293482815,
           0.9327917354743941
         ],
         "impulsiveness_repro|impulsiveness_repro": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro|impulsiveness_repro_dpo": [
+          0.6948455472968894,
+          0.8689046981500855
+        ],
+        "impulsiveness_repro|impulsiveness_seed2": [
+          0.9058684185694319,
+          0.9371465608839755
+        ],
+        "impulsiveness_repro|impulsiveness_seed2_dpo": [
+          0.67758174751253,
+          0.8223958160398288
+        ],
+        "impulsiveness_repro_dpo|impulsiveness": [
+          0.6279744992458661,
+          0.7901913422926206
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro": [
+          0.6948455472968894,
+          0.8689046981500855
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2": [
+          0.6705655173899993,
+          0.8074769909429071
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": [
+          0.88975986206975,
+          0.9360335752988955
+        ],
+        "impulsiveness_seed2|impulsiveness": [
+          0.9188722814562867,
+          0.9490409012567115
+        ],
+        "impulsiveness_seed2|impulsiveness_repro": [
+          0.9058684185694319,
+          0.9371465608839755
+        ],
+        "impulsiveness_seed2|impulsiveness_repro_dpo": [
+          0.6705655173899993,
+          0.8074769909429071
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": [
+          0.6809665608406091,
+          0.8182279381508358
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness": [
+          0.6300946925921376,
+          0.7559057555228214
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro": [
+          0.67758174751253,
+          0.8223958160398288
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": [
+          0.88975986206975,
+          0.9360335752988955
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": [
+          0.6809665608406091,
+          0.8182279381508358
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": [
           1.0,
           1.0
         ]
@@ -483,19 +1581,82 @@
           "g_over_base": 0.684211902700354,
           "share_squared": 0.7085235787609266,
           "share_linear": 0.841738426567854
+        },
+        "impulsiveness_repro_dpo": {
+          "g_norm": 0.48739911886412135,
+          "base_norm": 1.0716712489724158,
+          "g_over_base": 0.45480283186795345,
+          "share_squared": 0.6455594815024117,
+          "share_linear": 0.8034671626783585
+        },
+        "impulsiveness_seed2": {
+          "g_norm": 0.6733232359190039,
+          "base_norm": 1.0716712489724158,
+          "g_over_base": 0.6282927124942724,
+          "share_squared": 0.6740681839602425,
+          "share_linear": 0.8210165552290907
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_norm": 0.48920906570240474,
+          "base_norm": 1.0716712489724158,
+          "g_over_base": 0.4564917330491869,
+          "share_squared": 0.6444165262666782,
+          "share_linear": 0.8027555831426388
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9385188504925973,
+        "impulsiveness|impulsiveness_repro_dpo": 0.6672437369360772,
+        "impulsiveness|impulsiveness_seed2": 0.9459281345618537,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.6785342982645003,
         "impulsiveness_repro|impulsiveness": 0.9385188504925973,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.7594626765581066,
+        "impulsiveness_repro|impulsiveness_seed2": 0.952841187677216,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.7555203834665329,
+        "impulsiveness_repro_dpo|impulsiveness": 0.6672437369360772,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.7594626765581066,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.7165601920405039,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.9400387797982057,
+        "impulsiveness_seed2|impulsiveness": 0.9459281345618537,
+        "impulsiveness_seed2|impulsiveness_repro": 0.952841187677216,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.7165601920405039,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7531220967834104,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.6785342982645003,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.7555203834665329,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.9400387797982057,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7531220967834104,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9355840086936951,
+        "impulsiveness|impulsiveness_repro_dpo": 0.6515960693359375,
+        "impulsiveness|impulsiveness_seed2": 0.9436294436454773,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.6673708558082581,
         "impulsiveness_repro|impulsiveness": 0.9355840086936951,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.7430328130722046,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9502898454666138,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.7434333562850952,
+        "impulsiveness_repro_dpo|impulsiveness": 0.6515960693359375,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.7430328130722046,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.7058500647544861,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.9362082481384277,
+        "impulsiveness_seed2|impulsiveness": 0.9436294436454773,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9502898454666138,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.7058500647544861,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7458840608596802,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.6673708558082581,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.7434333562850952,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.9362082481384277,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7458840608596802,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -505,6 +1666,18 @@
         "impulsiveness_repro": {
           "g_over_base": 0.6555223875206032,
           "share_squared": 0.708606933681932
+        },
+        "impulsiveness_repro_dpo": {
+          "g_over_base": 0.441205820245476,
+          "share_squared": 0.6467040741829297
+        },
+        "impulsiveness_seed2": {
+          "g_over_base": 0.6069633251590864,
+          "share_squared": 0.6772510873528802
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_over_base": 0.4409229120272423,
+          "share_squared": 0.6480089399311071
         }
       },
       "g_over_base_ci": {
@@ -515,6 +1688,18 @@
         "impulsiveness_repro": [
           0.5780502200563801,
           0.8865067181717171
+        ],
+        "impulsiveness_repro_dpo": [
+          0.41369561158030654,
+          0.5528826364790665
+        ],
+        "impulsiveness_seed2": [
+          0.5508295235439395,
+          0.7851982323986066
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.4052399666639396,
+          0.5745984286493154
         ]
       },
       "share_squared_ci": {
@@ -525,6 +1710,18 @@
         "impulsiveness_repro": [
           0.6795189229651148,
           0.7353794918545427
+        ],
+        "impulsiveness_repro_dpo": [
+          0.58037462834878,
+          0.6998493395711928
+        ],
+        "impulsiveness_seed2": [
+          0.6284846282040173,
+          0.7155122022888902
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.5900467820295904,
+          0.6952665410260643
         ]
       },
       "cos_ci": {
@@ -536,11 +1733,95 @@
           0.9243512086272397,
           0.954685313334933
         ],
+        "impulsiveness|impulsiveness_repro_dpo": [
+          0.6066880783299375,
+          0.7501985726725995
+        ],
+        "impulsiveness|impulsiveness_seed2": [
+          0.9392264708162065,
+          0.9543211565979869
+        ],
+        "impulsiveness|impulsiveness_seed2_dpo": [
+          0.6359340617603133,
+          0.7343251150563388
+        ],
         "impulsiveness_repro|impulsiveness": [
           0.9243512086272397,
           0.954685313334933
         ],
         "impulsiveness_repro|impulsiveness_repro": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro|impulsiveness_repro_dpo": [
+          0.6994547252405169,
+          0.8360762164581341
+        ],
+        "impulsiveness_repro|impulsiveness_seed2": [
+          0.9406681088767953,
+          0.9665789085950656
+        ],
+        "impulsiveness_repro|impulsiveness_seed2_dpo": [
+          0.7186059852851487,
+          0.8047009466381221
+        ],
+        "impulsiveness_repro_dpo|impulsiveness": [
+          0.6066880783299375,
+          0.7501985726725995
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro": [
+          0.6994547252405169,
+          0.8360762164581341
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2": [
+          0.6807366271399845,
+          0.7666538635220813
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": [
+          0.9259470698233982,
+          0.9591381829770476
+        ],
+        "impulsiveness_seed2|impulsiveness": [
+          0.9392264708162065,
+          0.9543211565979869
+        ],
+        "impulsiveness_seed2|impulsiveness_repro": [
+          0.9406681088767953,
+          0.9665789085950656
+        ],
+        "impulsiveness_seed2|impulsiveness_repro_dpo": [
+          0.6807366271399845,
+          0.7666538635220813
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": [
+          0.7314084236111404,
+          0.7825587385193299
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness": [
+          0.6359340617603133,
+          0.7343251150563388
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro": [
+          0.7186059852851487,
+          0.8047009466381221
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": [
+          0.9259470698233982,
+          0.9591381829770476
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": [
+          0.7314084236111404,
+          0.7825587385193299
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": [
           1.0,
           1.0
         ]
@@ -561,19 +1842,82 @@
           "g_over_base": 1.0418079488309326,
           "share_squared": 0.84430312927123,
           "share_linear": 0.9188596896541006
+        },
+        "impulsiveness_repro_dpo": {
+          "g_norm": 0.6163672610137255,
+          "base_norm": 1.2937401369214059,
+          "g_over_base": 0.47642277102141845,
+          "share_squared": 0.6910599850661673,
+          "share_linear": 0.8313001774727149
+        },
+        "impulsiveness_seed2": {
+          "g_norm": 1.3319979252380245,
+          "base_norm": 1.2937401369214059,
+          "g_over_base": 1.029571462788236,
+          "share_squared": 0.8277395260416669,
+          "share_linear": 0.9098019158265533
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_norm": 0.6372765625181898,
+          "base_norm": 1.2937401369214059,
+          "g_over_base": 0.4925846731745202,
+          "share_squared": 0.7053351354165597,
+          "share_linear": 0.8398423277119103
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9692566635343728,
+        "impulsiveness|impulsiveness_repro_dpo": 0.7480615526905089,
+        "impulsiveness|impulsiveness_seed2": 0.978458513220504,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.7434892128209127,
         "impulsiveness_repro|impulsiveness": 0.9692566635343728,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.8077234589298855,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9821132180359173,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.8009030082467307,
+        "impulsiveness_repro_dpo|impulsiveness": 0.7480615526905089,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.8077234589298855,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.7880654228439582,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.9626187348864721,
+        "impulsiveness_seed2|impulsiveness": 0.978458513220504,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9821132180359173,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.7880654228439582,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7889106916109878,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.7434892128209127,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.8009030082467307,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.9626187348864721,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7889106916109878,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_repro": 0.9676395654678345,
+        "impulsiveness|impulsiveness_repro_dpo": 0.7353857755661011,
+        "impulsiveness|impulsiveness_seed2": 0.9769442677497864,
+        "impulsiveness|impulsiveness_seed2_dpo": 0.7343310117721558,
         "impulsiveness_repro|impulsiveness": 0.9676395654678345,
-        "impulsiveness_repro|impulsiveness_repro": 1.0
+        "impulsiveness_repro|impulsiveness_repro": 1.0,
+        "impulsiveness_repro|impulsiveness_repro_dpo": 0.7959991693496704,
+        "impulsiveness_repro|impulsiveness_seed2": 0.9806285500526428,
+        "impulsiveness_repro|impulsiveness_seed2_dpo": 0.7915751934051514,
+        "impulsiveness_repro_dpo|impulsiveness": 0.7353857755661011,
+        "impulsiveness_repro_dpo|impulsiveness_repro": 0.7959991693496704,
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": 1.0,
+        "impulsiveness_repro_dpo|impulsiveness_seed2": 0.7779163122177124,
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": 0.9592021107673645,
+        "impulsiveness_seed2|impulsiveness": 0.9769442677497864,
+        "impulsiveness_seed2|impulsiveness_repro": 0.9806285500526428,
+        "impulsiveness_seed2|impulsiveness_repro_dpo": 0.7779163122177124,
+        "impulsiveness_seed2|impulsiveness_seed2": 1.0,
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": 0.7825539112091064,
+        "impulsiveness_seed2_dpo|impulsiveness": 0.7343310117721558,
+        "impulsiveness_seed2_dpo|impulsiveness_repro": 0.7915751934051514,
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": 0.9592021107673645,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": 0.7825539112091064,
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -583,6 +1927,18 @@
         "impulsiveness_repro": {
           "g_over_base": 0.9878483643383883,
           "share_squared": 0.8414038872194515
+        },
+        "impulsiveness_repro_dpo": {
+          "g_over_base": 0.46183288560786145,
+          "share_squared": 0.6927258354658086
+        },
+        "impulsiveness_seed2": {
+          "g_over_base": 0.9761009743492236,
+          "share_squared": 0.8251223433365916
+        },
+        "impulsiveness_seed2_dpo": {
+          "g_over_base": 0.4753090340333692,
+          "share_squared": 0.7074785028356215
         }
       },
       "g_over_base_ci": {
@@ -593,6 +1949,18 @@
         "impulsiveness_repro": [
           0.9003650535072543,
           1.2820467896175043
+        ],
+        "impulsiveness_repro_dpo": [
+          0.44258625578914523,
+          0.5512829578350711
+        ],
+        "impulsiveness_seed2": [
+          0.884786226048615,
+          1.2617518213446277
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.45054210358029917,
+          0.5743075548941545
         ]
       },
       "share_squared_ci": {
@@ -603,6 +1971,18 @@
         "impulsiveness_repro": [
           0.8344001471825573,
           0.854061742721963
+        ],
+        "impulsiveness_repro_dpo": [
+          0.6627225565166678,
+          0.7136374573671219
+        ],
+        "impulsiveness_seed2": [
+          0.8178952030963066,
+          0.8366111951332493
+        ],
+        "impulsiveness_seed2_dpo": [
+          0.680058642222782,
+          0.7293571459773494
         ]
       },
       "cos_ci": {
@@ -614,11 +1994,95 @@
           0.9617010401453274,
           0.9753587334650919
         ],
+        "impulsiveness|impulsiveness_repro_dpo": [
+          0.7034547782323224,
+          0.7990315356085614
+        ],
+        "impulsiveness|impulsiveness_seed2": [
+          0.9722283409710732,
+          0.983622540418162
+        ],
+        "impulsiveness|impulsiveness_seed2_dpo": [
+          0.7163323321241708,
+          0.7747749321377242
+        ],
         "impulsiveness_repro|impulsiveness": [
           0.9617010401453274,
           0.9753587334650919
         ],
         "impulsiveness_repro|impulsiveness_repro": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro|impulsiveness_repro_dpo": [
+          0.7750616710872013,
+          0.8537010643713575
+        ],
+        "impulsiveness_repro|impulsiveness_seed2": [
+          0.9767049155286847,
+          0.9870046957667293
+        ],
+        "impulsiveness_repro|impulsiveness_seed2_dpo": [
+          0.7757608722590952,
+          0.8362073217805958
+        ],
+        "impulsiveness_repro_dpo|impulsiveness": [
+          0.7034547782323224,
+          0.7990315356085614
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro": [
+          0.7750616710872013,
+          0.8537010643713575
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_repro_dpo": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2": [
+          0.7627994910355582,
+          0.8236455741552552
+        ],
+        "impulsiveness_repro_dpo|impulsiveness_seed2_dpo": [
+          0.9545117645103772,
+          0.9744515270863708
+        ],
+        "impulsiveness_seed2|impulsiveness": [
+          0.9722283409710732,
+          0.983622540418162
+        ],
+        "impulsiveness_seed2|impulsiveness_repro": [
+          0.9767049155286847,
+          0.9870046957667293
+        ],
+        "impulsiveness_seed2|impulsiveness_repro_dpo": [
+          0.7627994910355582,
+          0.8236455741552552
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_seed2|impulsiveness_seed2_dpo": [
+          0.7719465280853172,
+          0.8131190967538721
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness": [
+          0.7163323321241708,
+          0.7747749321377242
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro": [
+          0.7757608722590952,
+          0.8362073217805958
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_repro_dpo": [
+          0.9545117645103772,
+          0.9744515270863708
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2": [
+          0.7719465280853172,
+          0.8131190967538721
+        ],
+        "impulsiveness_seed2_dpo|impulsiveness_seed2_dpo": [
           1.0,
           1.0
         ]
