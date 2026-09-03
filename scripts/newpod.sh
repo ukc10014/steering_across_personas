@@ -73,7 +73,24 @@ else
   ok "no stray openrlhf on the default path; put the fork on PYTHONPATH explicitly when training"
 fi
 
-echo "== 6. training env (separate from measurement) =="
+echo "== 6. patched runner scripts =="
+for f in finetuning/distillation/llama_local.sh finetuning/introspection/llama_local.sh \
+         finetuning/distillation/llama_seed2.sh finetuning/introspection/llama_seed2.sh; do
+  [ -f "/workspace/OpenCharacterTraining/$f" ] && ok "$(basename "$f")" || bad "$f missing"
+done
+if diff -q /workspace/OpenCharacterTraining/finetuning/distillation/llama_local.sh \
+           /workspace/OpenCharacterTraining/finetuning/distillation/llama_seed2.sh \
+   >/dev/null 2>&1; then
+  bad "seed2 runner is identical to the repro runner -- the seed was not changed"
+else
+  NDIFF=$(diff /workspace/OpenCharacterTraining/finetuning/distillation/llama_local.sh \
+                /workspace/OpenCharacterTraining/finetuning/distillation/llama_seed2.sh \
+          | grep -c '^[<>]')
+  [ "$NDIFF" -eq 2 ] && ok "seed2 runner differs from repro in exactly --seed" \
+    || bad "seed2 runner differs in $((NDIFF/2)) lines, expected 1 (--seed only)"
+fi
+
+echo "== 7. training env (separate from measurement) =="
 export PYLIBS_TRAIN=/workspace/pylibs-train-py${PYV}
 if [ -d "$PYLIBS_TRAIN" ] && [ -n "$(ls -A "$PYLIBS_TRAIN" 2>/dev/null)" ]; then
   ok "PYLIBS_TRAIN present at $PYLIBS_TRAIN"
@@ -82,9 +99,9 @@ else
   cat <<'TXT'
       export PYLIBS_TRAIN=/workspace/pylibs-train-py311
       pip install --target="$PYLIBS_TRAIN" -r /workspace/OpenCharacterTraining/openrlhf/requirements.txt
-      pip install --target="$PYLIBS_TRAIN" -e /workspace/OpenCharacterTraining/openrlhf --no-deps
-      # then, to train:
-      export PYTHONPATH="$PYLIBS_TRAIN:/workspace/OpenCharacterTraining"
+      # The fork is deliberately NOT pip-installed. Put it on PYTHONPATH, where it cannot be
+      # shadowed by a stray upstream openrlhf, and export this in every training shell:
+      export PYTHONPATH="$PYLIBS_TRAIN:/workspace/OpenCharacterTraining/openrlhf:/workspace/OpenCharacterTraining"
 TXT
 fi
 

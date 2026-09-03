@@ -63,6 +63,10 @@ BASE=/workspace/hf/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e3
 PERSONAS_SNAP=/workspace/hf/hub/models--maius--llama-3.1-8b-it-personas/snapshots/318b5f7e1428097a1a61d5f0ed205ee048b3f620
 MISALIGN_SNAP=/workspace/hf/hub/models--maius--llama-3.1-8b-it-misalignment/snapshots/f1a019278e90f6547c049894d2ff89752818cd11
 RANDOM_ROOT=${RANDOM_ROOT:-/workspace/random_loras}
+# Adapters produced by our own OCT rig (docs/NEXT_POD.md). Each training run writes into a
+# fresh loras/ tree which is then renamed, so the two seeds cannot overwrite each other and
+# merge_loras.py's hardcoded {family}-personas / -distillation / -test names stay untouched.
+RIG=${RIG:-/workspace/oct_rig}
 
 # arm -> "adapter_path scale"; the literal NONE means the unmodified base model.
 # NOT an empty field: `read` collapses leading whitespace, so " 1" would parse as
@@ -76,6 +80,12 @@ adapter_of() {
     random_perm_s8)  echo "$RANDOM_ROOT/random_perm 8" ;;
     random_perm_s12) echo "$RANDOM_ROOT/random_perm 12" ;;
     random_spec_s19) echo "$RANDOM_ROOT/random_spec 19" ;;
+    # our reproduction of seed 123456, and seed 2. _dpo is the DPO-stage adapter, which is
+    # the sham's primary comparator and is free of the peft merge cross terms (spec 6c).
+    impulsiveness_repro)     echo "$RIG/loras_repro/llama-personas/impulsiveness 1" ;;
+    impulsiveness_repro_dpo) echo "$RIG/loras_repro/llama-distillation/impulsiveness 1" ;;
+    impulsiveness_seed2)     echo "$RIG/loras_seed2/llama-personas/impulsiveness 1" ;;
+    impulsiveness_seed2_dpo) echo "$RIG/loras_seed2/llama-distillation/impulsiveness 1" ;;
     *)               echo "$PERSONAS_SNAP/$1 1" ;;
   esac
 }

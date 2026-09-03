@@ -3,6 +3,19 @@
 ## Project Overview
 Research repo investigating whether steering vectors for the same trait change depending on the active persona. Uses concrete character personas to test whether trait interactions differ across identities (e.g. assertiveness in a farmer vs a politician). Uses `assistant_axis` (from assistant-axis-ref/) for model loading, activation extraction, and steering. Uses Claude API for LLM-as-judge evaluation and data generation.
 
+## If you are a fresh session on a new pod — START HERE
+
+**[docs/NEXT_POD.md](docs/NEXT_POD.md)** is the ordered runbook for the current work: bring the
+pod up, build the training rig, reproduce OCT seed 123456, and only then run the second
+`impulsiveness` seed. Step 6 is a hard gate. First command on any new pod:
+
+```bash
+bash /workspace/oct_rig/newpod.sh      # must print NEWPOD OK
+```
+
+Current state: the workshop figures and the CAA-logit behavioural result are done and pushed.
+The OCT training rig is **staged but never run** — no training has been attempted.
+
 ## Docs & data (read these first)
 - **Docs live in `docs/`**: [docs/overview.md](docs/overview.md) (research question, method, findings), [docs/experiments.md](docs/experiments.md) (E-series runbook), [docs/causal_pipeline.md](docs/causal_pipeline.md), [docs/results/](docs/results/). Historical artifacts in `docs/archive/`.
 - **Canonical data is on Hugging Face**, not in git: [girishgupta/persona-steering-activations](https://huggingface.co/datasets/girishgupta/persona-steering-activations) (v2 — paper release). Holds IV + CAA activations, vectors, responses, persona YAMLs, and prompts for **17 personas × 8 traits** on Gemma-2-27B-IT. `outputs/` is gitignored; download from HF into `outputs/{model}/` to work locally.

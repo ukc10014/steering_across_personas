@@ -7,6 +7,12 @@ live copies exist only on the network volume and nothing else backs them up.
 | file | what it is |
 |---|---|
 | `character_constants.py` | reconstructed from the four import sites; copy to `<oct>/character/constants.py` |
+| `finetuning/*/llama_local.sh` | upstream `llama.sh` with wandb removed (`--use_wandb False`); every hyperparameter unchanged |
+| `finetuning/*/llama_seed2.sh` | `llama_local.sh` differing in **exactly one line**, `--seed` — asserted by `scripts/newpod.sh` |
+
+The seed-2 runners are kept here because "change only `--seed`" is a claim about a diff, and a
+diff should be auditable from git rather than trusted. Copy all four back into
+`<oct>/finetuning/{distillation,introspection}/` if the volume is ever rebuilt.
 
 The training data is **not** kept here (153 MB). Rebuild it from Hugging Face:
 
