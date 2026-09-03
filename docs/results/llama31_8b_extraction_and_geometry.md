@@ -1535,8 +1535,11 @@ Ordered by what each would change, not by cost:
   **Narrowed by §10.** It is no longer needed for the trait-selectivity result: §10's
   contrast is a comparison *within* the trained family, where pipeline, rank, initialisation
   and compression are all held constant and only the constitution differs. It is still the
-  control for §3.2's shared-direction claim and §9's low-C×T×P claim, both of which are
+  control for §3.4's shared-direction claim and §9's low-C×T×P claim, both of which are
   trained-vs-untrained. Spec and preregistered thresholds: [../spec_sham_lora.md](../spec_sham_lora.md)
+  (revision 2: the causal sham is random-polarity, not the cross-constitution shuffle;
+  retention k is scored rather than gating; and the primary comparison is at the **DPO
+  stage**, because the released introspection-SFT corpus reintroduces the character in text)
 
 The "matched random rank-64 LoRA" that this section used to call for has been built and
 calibrated in §7. Its premise did not survive contact with measurement: weight-norm matching
