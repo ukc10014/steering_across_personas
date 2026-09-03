@@ -15,6 +15,7 @@ CPU-side prep so the 96 GB pod does not spend its first hours on downloads.
 | `impulsiveness` DPO data (35 MB) | `data/dpo/llama-3.1-8b-it/impulsiveness.jsonl` |
 | `impulsiveness` introspection data (118 MB) | `data/self_reflection/`, `data/self_interaction/` |
 | **built** SFT corpus, shuffle pinned to 123456 | `data/sft_data/llama-3.1-8b-it/impulsiveness.jsonl` (12,000 rows, 53 MB) |
+| rebuild recipe for both of the above | `scripts/build_oct_sft_corpus.py`, `reference/oct/` in the steering repo |
 | base model | `/workspace/hf/hub/models--meta-llama--Llama-3.1-8B-Instruct` (15 GB) |
 
 ## First thing on the new pod
