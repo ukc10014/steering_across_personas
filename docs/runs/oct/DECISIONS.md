@@ -45,15 +45,34 @@ differing from FA2 only in accumulation order, i.e. the same class of difference
 nondeterminism §6b already accepts — recorded as a named deviation. That fallback was not
 needed.
 
-## Decision 2 — wandb: OFF
+## Decision 2 — wandb: OFF, by omitting the flag (not by `--use_wandb False`)
 
-Training uses the patched runners (`llama_local.sh`, `llama_seed2.sh`), which pass
-`--use_wandb False`. No `.env` is read and no run is logged to wandb. The upstream `llama.sh`
-path — which expects wandb credentials — is **not** used.
+No run is logged to wandb. No `.env` is read. Upstream's `llama.sh` path, which does
+`wandb login $WANDB_TOKEN` and passes `--use_wandb True`, is not used.
 
-The `wandb` package is nonetheless present in `PYLIBS_TRAIN` because it is in the fork's
-`requirements.txt`; installed-but-unused is recorded here so a later reader does not infer
-logging from the package list.
+**`--use_wandb False` does not disable wandb, and the first training attempt died on it.**
+`--use_wandb` is declared `type=str, default=None`, and `dpo_trainer.py:82` gates on
+`if self.strategy.args.use_wandb:` — so the *string* `"False"` is truthy, wandb is switched
+**on**, and `wandb.login(key="False")` is called with `"False"` as the API key:
+
+```
+wandb.errors.errors.AuthenticationError: API key must have 40+ characters, has 5.
+```
+
+It fails ~90 s in, after both models and the tokenized dataset have loaded, which is late
+enough to look like a training problem rather than a flag problem. Fixed by **deleting the
+`--use_wandb` line** from the patched runners; the argparse default of `None` is falsy, so
+the whole wandb block is skipped. Verified in the relaunched process's command line.
+
+This is a rig bug in our own patched runners, not in upstream, and it changes no numerics —
+wandb was meant to be off and is off. It is recorded because "the wandb choice" was supposed
+to be settled at this step, and the first way of expressing it silently meant the opposite.
+
+Fixed in three of the four runners: `distillation/llama_local.sh`,
+`distillation/llama_seed2.sh`, `introspection/llama_local.sh`. **`introspection/llama_seed2.sh`
+still carries the bad line** — two edit attempts were blocked by the sandbox — and must be
+fixed before step 7, or the seed-2 SFT stage will fail the same way. `newpod.sh`'s "differs in
+exactly `--seed`" check currently reports the extra line, which is the intended tripwire.
 
 ## Decision 3 — torch: the system build, not the one pip chose
 
