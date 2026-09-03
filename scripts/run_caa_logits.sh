@@ -80,12 +80,24 @@ adapter_of() {
     random_perm_s8)  echo "$RANDOM_ROOT/random_perm 8" ;;
     random_perm_s12) echo "$RANDOM_ROOT/random_perm 12" ;;
     random_spec_s19) echo "$RANDOM_ROOT/random_spec 19" ;;
-    # our reproduction of seed 123456, and seed 2. _dpo is the DPO-stage adapter, which is
-    # the sham's primary comparator and is free of the peft merge cross terms (spec 6c).
+    # Our reproduction of seed 123456, and seed 2. All THREE adapters per seed are kept and
+    # addressable, not just the merged one OCT ships:
+    #   <no suffix>  llama-personas/     the weighted merge -- the released artifact's analogue
+    #   _dpo         llama-distillation/ the DPO-stage adapter. The sham's primary comparator
+    #                                    and the stage free of peft merge cross terms (spec 6c)
+    #   _sft         llama-introspection/ the introspection-SFT adapter, alone
+    #
+    # CAVEAT on _sft, which is not symmetric with _dpo: the SFT stage trains on the FOLDED
+    # distilled model (base + dW_dpo), not on the base. Applying it to the plain base -- which
+    # is what this arm does -- is therefore not "the SFT half of the pipeline"; it is that
+    # adapter evaluated off the base it was fitted to. Useful as a component measurement and
+    # for the cross-term work in spec 6c; do not read it as a standalone training arm.
     impulsiveness_repro)     echo "$RIG/loras_repro/llama-personas/impulsiveness 1" ;;
     impulsiveness_repro_dpo) echo "$RIG/loras_repro/llama-distillation/impulsiveness 1" ;;
+    impulsiveness_repro_sft) echo "$RIG/loras_repro/llama-introspection/impulsiveness 1" ;;
     impulsiveness_seed2)     echo "$RIG/loras_seed2/llama-personas/impulsiveness 1" ;;
     impulsiveness_seed2_dpo) echo "$RIG/loras_seed2/llama-distillation/impulsiveness 1" ;;
+    impulsiveness_seed2_sft) echo "$RIG/loras_seed2/llama-introspection/impulsiveness 1" ;;
     *)               echo "$PERSONAS_SNAP/$1 1" ;;
   esac
 }
