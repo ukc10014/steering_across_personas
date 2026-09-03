@@ -211,12 +211,27 @@ Only after the gate passes. The runners differ from step 5's in exactly one line
 ```bash
 cd /workspace/OpenCharacterTraining
 bash finetuning/distillation/llama_seed2.sh impulsiveness
+
+# The SFT runner's --pretrain is hardcoded to models/distilled/llama-3.1-8b-it-impulsiveness
+# (that is the one line seed2 must NOT differ in), and fold_loras.py skips any output dir
+# that already exists and is non-empty. So seed 1's distilled model has to be moved OUT of
+# the way rather than folded alongside -- otherwise fold silently no-ops and the seed-2 SFT
+# trains on seed 1's distilled base.
+mv /workspace/oct_rig/models/distilled /workspace/oct_rig/models/distilled_repro
 python tools/fold_loras.py --model_name llama-3.1-8b-it \
-  --loras_dir $HOME/loras/llama-distillation --save_dir_name distilled_seed2
+  --loras_dir $HOME/loras/llama-distillation --save_dir_name distilled
+
 bash finetuning/introspection/llama_seed2.sh impulsiveness
 python tools/merge_loras.py --model_name llama-3.1-8b-it --constitution impulsiveness
 mv /workspace/oct_rig/loras /workspace/oct_rig/loras_seed2
+mv /workspace/oct_rig/models/distilled /workspace/oct_rig/models/distilled_seed2
 ```
+
+> Corrected 2026-09-03 while running step 5. The earlier `--save_dir_name distilled_seed2`
+> was wrong in **both** directions: `fold_loras.py` would have skipped nothing but the SFT
+> runner would still have read `distilled/`, i.e. seed 1's base. Verified: the two seed2
+> runners differ from the repro runners in exactly `--seed 987654` vs `123456`, and nothing
+> else -- including the `--pretrain` path.
 
 **Keep both adapters for each seed** — the DPO-stage one and the final merge. The DPO stage is
 the sham's primary comparator and is free of the merge cross terms.
