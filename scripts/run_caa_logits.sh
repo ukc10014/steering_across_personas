@@ -95,6 +95,11 @@ adapter_of() {
     impulsiveness_repro)     echo "$RIG/loras_repro/llama-personas/impulsiveness 1" ;;
     impulsiveness_repro_dpo) echo "$RIG/loras_repro/llama-distillation/impulsiveness 1" ;;
     impulsiveness_repro_sft) echo "$RIG/loras_repro/llama-introspection/impulsiveness 1" ;;
+    # The first reproduction attempt trained the introspection SFT for 1 epoch, which is
+    # HEAD's config; the released adapters used 3 (docs/runs/oct/FINDING_sft_epochs.md).
+    # Kept as a measured epoch-count ablation, NOT as a reproduction of anything.
+    impulsiveness_repro_sft1ep)
+                             echo "$RIG/loras_repro_sft1ep/llama-personas/impulsiveness 1" ;;
     impulsiveness_seed2)     echo "$RIG/loras_seed2/llama-personas/impulsiveness 1" ;;
     impulsiveness_seed2_dpo) echo "$RIG/loras_seed2/llama-distillation/impulsiveness 1" ;;
     impulsiveness_seed2_sft) echo "$RIG/loras_seed2/llama-introspection/impulsiveness 1" ;;
