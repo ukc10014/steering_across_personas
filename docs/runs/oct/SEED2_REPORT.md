@@ -50,7 +50,52 @@ independent reruns, so the similarity is **plausibly upward-biased**.
 
 ---
 
-## 2. The merged stage replicates well
+## 2. Seed 2 against the **released** adapter — all nine §6b criteria
+
+The gate was written to score the *reproduction*. Scoring seed 2 by the same criteria answers
+the separate question "does a second seed also land on OCT's released artifact?" It does —
+**all nine pass**, independently of seed 1.
+
+| # | check | pass band | seed 2 | |
+|---|---|---|---|---|
+| A1 | `adapter_config`: r, alpha, targets, base | exact | r=64, α=64, 7 modules | **PASS** |
+| A2 | overall ‖dW‖_F ratio | [0.7, 1.4] | **0.915** | **PASS** |
+| A3 | per-module ‖dW‖_F profile (Spearman) | ≥ 0.80 | **0.975** | **PASS** |
+| A4 | measured functional dose | [0.7, 1.4] | **0.935** | **PASS** |
+| B1 | contrast, `impulsivity` alone (released +2.18) | ≥ +1.5 | **+1.95** | **PASS** |
+| B2 | contrast, `impulsivity`+`risk_taking` (released +2.08) | ≥ +1.4 | **+1.932** | **PASS** |
+| B3 | trait selectivity, target/other (released 1.722) | ≥ 1.4 | **1.640** | **PASS** |
+| B4 | mean cos(dG) vs released @ L15 | ≥ 0.85 | **0.9526** (0.936–0.979) | **PASS** |
+| B5 | retention `k` (released 0.288) | ±0.08 | **0.007** | **PASS** |
+
+On B5 seed 2 is nearer the released adapter than seed 1 was (Δ 0.007 vs 0.044), and on B4 and
+B3 likewise. There is no sense in which seed 1 is the "better" reproduction; the two bracket
+the released values.
+
+### But both seeds fall short in the *same* direction
+
+| quantity | released | seed 1 | seed 2 | shortfall |
+|---|---|---|---|---|
+| contrast, `impulsivity` alone | +2.18 | +1.92 | +1.95 | **−11%** |
+| contrast, pair | +2.077 | +1.950 | +1.932 | −7% |
+| trait selectivity | 1.722 | 1.556 | 1.640 | −7% |
+| ‖dW‖_F | 1.000 | 0.918 | 0.915 | **−8%** |
+| measured functional dose | 1.000 | 0.960 | 0.935 | −5% |
+| retention `k` | 0.288 | 0.332 | 0.281 | mixed |
+
+Every magnitude-like quantity comes in **below** the released value, in **both** seeds. Two
+independent draws missing in the same direction is not seed scatter — it is a small systematic
+difference between this rig and whatever produced the release. It sits well inside the §6b
+tolerances and changes no conclusion, but it should be described as systematic, not as noise.
+
+Candidate causes, none tested: different GPU and DeepSpeed nondeterminism; peft 0.20.0 versus
+the release's ~0.17.x; and the unverified `llama-test` assumption (§6a) — if the released merge
+consumed a different SFT artifact than the one we mapped it to, a uniform magnitude offset is
+exactly the signature that would produce.
+
+---
+
+## 3. The merged stage replicates well
 
 | quantity | seed 1 | seed 2 | released |
 |---|---|---|---|
@@ -68,7 +113,7 @@ either is to the released adapter. Seed 2 independently passes every §6b criter
 
 ---
 
-## 3. The DPO stage does not, and this is the finding that matters
+## 4. The DPO stage does not, and this is the finding that matters
 
 | quantity | seed 1 | seed 2 | ratio |
 |---|---|---|---|
@@ -107,7 +152,7 @@ against these two numbers *before* generating any sham data, as §6d requires.
 
 ---
 
-## 4. Deviations and ambiguities
+## 5. Deviations and ambiguities
 
 1. **The `llama-test` symlink assumption stands, unverified** — as in the gate report. Both
    seeds inherit it identically, so it cancels in the seed1-vs-seed2 comparison but not in
@@ -120,7 +165,7 @@ against these two numbers *before* generating any sham data, as §6d requires.
 4. **n = 1.** One seed pair. The question-bootstrap CIs above measure CAA question
    uncertainty, **not** seed-to-seed uncertainty, and must never be reported as though they did.
 
-## 5. Artifacts
+## 6. Artifacts
 
 Adapters (all three stages × both seeds) are on the Hub at
 `kanad/oct-impulsiveness-seed-replication` (private), and on the volume at
