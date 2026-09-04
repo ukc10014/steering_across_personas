@@ -1,0 +1,17 @@
+arm,trait,dose_hi,proj_at_s1,sign_stable,rho_dose,passes
+impulsiveness,assertiveness,1.0702,-0.1467,no,1.0,no
+impulsiveness,empathy,1.0702,0.0417,yes,0.4,no
+impulsiveness,risk_taking,1.0702,0.1268,yes,1.0,no
+impulsiveness,honesty,1.0702,-0.1432,yes,1.0,no
+impulsiveness,confidence,1.0702,0.0798,yes,0.4,no
+impulsiveness,deference,1.0702,-0.035,no,-0.6,no
+impulsiveness,warmth,1.0702,0.037,yes,0.8,no
+impulsiveness,impulsivity,1.0702,-0.272,yes,1.0,no
+random_perm_s16,assertiveness,1.113,-0.4264,yes,1.0,yes
+random_perm_s16,empathy,1.113,-0.495,yes,1.0,yes
+random_perm_s16,risk_taking,1.113,-0.3482,yes,1.0,yes
+random_perm_s16,honesty,1.113,-0.503,yes,1.0,yes
+random_perm_s16,confidence,1.113,-0.3497,yes,1.0,yes
+random_perm_s16,deference,1.113,-0.4463,yes,1.0,yes
+random_perm_s16,warmth,1.113,-0.5623,yes,1.0,yes
+random_perm_s16,impulsivity,1.113,-0.3895,yes,1.0,yes
