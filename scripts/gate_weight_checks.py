@@ -46,13 +46,18 @@ def module_dW_norms(adapter_dir: str | Path) -> tuple[dict[str, float], dict]:
         m = KEY.match(k)
         if not m:
             continue
-        pairs.setdefault(m.group(1), {})[m.group(2)] = v.to(torch.float32)
+        pairs.setdefault(m.group(1), {})[m.group(2)] = v.to(torch.float64)
     out = {}
     for mod, ab in pairs.items():
         if "A" not in ab or "B" not in ab:
             continue
         # ||dW||_F with dW = scaling * B @ A, formed one module at a time
-        out[mod] = float(torch.linalg.matrix_norm(scaling * (ab["B"] @ ab["A"]), ord="fro"))
+        # fp64: ||B@A||_F in fp32 sums ~58M squared terms and comes out ~0.45% low
+        # (checked against an fp64 reference and the exact low-rank trace identity).
+        # Ratios of two such norms are unaffected -- the bias cancels -- so A2/A3 and
+        # the 6c cross-term share as already reported stand; absolute norms shift ~0.45%.
+        out[mod] = float(torch.linalg.matrix_norm(
+            scaling * (ab["B"].double() @ ab["A"].double()), ord="fro"))
     return out, cfg
 
 
