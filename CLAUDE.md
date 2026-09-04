@@ -13,8 +13,12 @@ pod up, build the training rig, reproduce OCT seed 123456, and only then run the
 bash /workspace/oct_rig/newpod.sh      # must print NEWPOD OK
 ```
 
-Current state: the workshop figures and the CAA-logit behavioural result are done and pushed.
-The OCT training rig is **staged but never run** — no training has been attempted.
+Current state: the reproduction gate **passed** (seed 123456, all nine §6b criteria) and
+seed 987654 **passed independently** — see [docs/runs/oct/GATE_REPORT_repro-123456.md](docs/runs/oct/GATE_REPORT_repro-123456.md)
+and [docs/runs/oct/SEED2_REPORT.md](docs/runs/oct/SEED2_REPORT.md). Adapters for both seeds are on the
+volume and on HF (`kanad/oct-impulsiveness-seed-replication`, private). The current experiment is
+**stage localisation** — [docs/spec_stage_localisation.md](docs/spec_stage_localisation.md). No sham
+arm has been run and no threshold has been changed.
 
 ## Docs & data (read these first)
 - **Docs live in `docs/`**: [docs/overview.md](docs/overview.md) (research question, method, findings), [docs/experiments.md](docs/experiments.md) (E-series runbook), [docs/causal_pipeline.md](docs/causal_pipeline.md), [docs/results/](docs/results/). Historical artifacts in `docs/archive/`.
