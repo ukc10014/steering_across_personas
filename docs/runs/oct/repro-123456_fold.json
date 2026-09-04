@@ -1,0 +1,48 @@
+{
+  "run": "repro-123456",
+  "stage": "fold",
+  "utc": "2026-09-03T11:23:19+00:00",
+  "command": "python tools/fold_loras.py --model_name llama-3.1-8b-it --loras_dir $HOME/loras/llama-distillation --save_dir_name distilled",
+  "notes": "",
+  "oct_commit": "d1da9f03628cb4c5482ba2e494a7cba33bcd5818",
+  "oct_dirty": true,
+  "submodules": {
+    "openrlhf": "eaf40e10e0471a9e50d33697bcef15f7b0a32b05",
+    "repeng": "acbdbcbb7c5f27ae7294baa761c8de9fb1f32892"
+  },
+  "steering_repo_commit": "cf7c84afaa33da6b9f41d741a18c9ae9a27c33a4",
+  "versions": {
+    "python": "3.12.3",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39",
+    "torch": "2.8.0+cu128",
+    "transformers": "4.57.0",
+    "deepspeed": "0.18.0",
+    "peft": "0.20.0",
+    "ray": "2.48.0",
+    "accelerate": "1.14.0",
+    "flash_attn": "2.8.3.post1",
+    "vllm": null,
+    "datasets": "5.0.1",
+    "cuda": "12.8",
+    "gpu": [
+      "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+    ]
+  },
+  "base_model": {
+    "path": "/workspace/oct_rig/models/llama-3.1-8b-it",
+    "revision": "0e9e39f249a16976918f6564b8830bc894c89659"
+  },
+  "frozen_data": {
+    "dpo/llama-3.1-8b-it/impulsiveness.jsonl": {
+      "sha256": "53c6a54c581e6c68660b039991ff5ab9a490f01bd1f382be2c099975230ffc91",
+      "bytes": 35301875
+    },
+    "sft_data/llama-3.1-8b-it/impulsiveness.jsonl": {
+      "sha256": "14f28fdad11c4120b9ff3144bd2db333299c388ca6075bb5bdbc310db886d58d",
+      "bytes": 52665003
+    }
+  },
+  "assumptions": [
+    "loras/llama-test is a symlink to loras/llama-introspection; merge_loras.py:38 reads llama-test but nothing in the public repo writes it. If this reproduction differs materially from the released adapter, an unpublished/different llama-test SFT artifact is a candidate explanation."
+  ]
+}

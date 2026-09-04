@@ -287,9 +287,19 @@ arms are OCT adapters sharing one training pipeline. (§5.1)
 
 The shift is 0.6-0.9x the norm of the base trait vector and carries **67-77%** of each
 adapter's total change at L15. The constitutions' shifts are similar in size but only
-0.47-0.83 aligned with each other, and they diverge monotonically as dose grows while each
-converges on itself (0.75 -> 0.99) -- so the differing directions are content, not drift.
-`impulsiveness` is 1.7-1.9x selective for `risk_taking`/`impulsivity`. (§3.2, §3.3)
+0.47-0.83 aligned with each other, and they diverge monotonically from each other as dose
+grows -- and where they END UP is content: the four trained arms are mutually aligned
+(0.47-0.83) and near-orthogonal to every untrained arm (0.01-0.29); with a 200-replicate
+question bootstrap the two blocks do not overlap -- weakest trained-trained pair
+0.465 [0.447, 0.482] against strongest trained-untrained pair 0.292 [0.263, 0.321].
+`impulsiveness` is 1.7-1.9x selective for `risk_taking`/`impulsivity`. (§3.2, §7.7)
+
+An earlier version of this paragraph also offered "each converges on itself as dose grows
+(0.75 -> 0.99)" as evidence that the direction is content. **It is not.** `random_perm`,
+which has no learned content, rotates just as far across its own ladder (0.742 against
+`goodness`'s 0.753), and against the dose GAP between rungs every family falls on one curve
+(figure A4). Rotation-with-dose is a property of scaled perturbations. Only the destination
+discriminates.
 
 ### Weight norm is the wrong dose variable
 
@@ -323,9 +333,9 @@ After removing what the constitution, the trait and the persona each do on avera
 L20). A random perturbation of matched functional dose produces about twice that. The gap
 survives matching the degrees of freedom -- every 3-arm subset of the trained band sits
 below the 3-arm untrained band with no overlapping interval -- and is not a share artefact,
-since the untrained band is larger in absolute RMS per cell too. Per-cell, only **2 of 320**
-trained cells exceed the untrained band's p95, where 16 would be expected if the
-distributions matched.
+since the untrained band is larger in absolute RMS per cell too. Per-cell, only **4 of 320**
+trained cells exceed the untrained band's p95 at L15 (2 of 320 at L20), where 16 would be
+expected if the distributions matched.
 
 **So "character training changes how traits are represented conditional on persona" is not
 supported in the form the prereg asks it.** If anything the trained constitutions act *more*

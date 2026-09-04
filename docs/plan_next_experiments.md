@@ -91,6 +91,24 @@ residual cell structure directly.
 
 ## 3. Experiment B — the sham-trained LoRA
 
+> **Superseded on scope by [spec_sham_lora.md](spec_sham_lora.md)**, which carries the
+> variants, the manipulation checks, the dose-matching protocol and the preregistered
+> scoring. The §10 logit result narrowed what this control is for: it is no longer needed
+> for the trait-selectivity claim, only for the trained-vs-untrained ones. The recipe and
+> ordering in §4–§5 below stand — **with one exception added 2026-09-03**: §5's "reuse the
+> released DPO *and* SFT data" is correct for the **seed replicate** and wrong for the
+> **sham**. The introspection corpus is generated *by that constitution's own DPO adapter*,
+> so every assistant turn is the distilled character talking about itself — a sham that
+> reuses it is a DPO ablation followed by genuine character SFT. (The constitution's trait
+> text shapes the generation prompt but does **not** reach the training data: measured, 0 of
+> 12,000 rows.) See spec §3.3, which moves the sham's primary comparison to the DPO stage
+> for exactly this reason.
+>
+> Also note `sft_data/` is **not** published — it is derived from the released
+> `self_reflection/` and `self_interaction/` files by `character/introspection/data.py`,
+> whose shuffle has no `random_state`. Build it once with the shuffle pinned and reuse that
+> file for every arm, or "change only `--seed`" is not true.
+
 Same pipeline, character signal destroyed rather than never present.
 
 §9 raised this from "the control that separates B from C" to something more pointed. The
@@ -168,7 +186,15 @@ this a **training-stochasticity replicate** rather than a pipeline replicate. A 
 end-to-end regeneration is a worthwhile but **separate** experiment — a
 pipeline-reproducibility test, not a seed test.
 
-### The alpha discrepancy — resolved as a question, not yet as a fact
+### The alpha discrepancy — RESOLVED 2026-09-03, and there was no discrepancy
+
+> peft's `add_weighted_adapter` folds each adapter's scaling into its combination weight, so
+> the merge always emits scaling 1.0, i.e. `alpha = r = 64`. Training at alpha 128 and a
+> released adapter at alpha 64 are consistent; a correct reproduction lands on 64 by itself.
+> `scripts/check_peft_merge.py`. The same check shows the merge is **not** `dpo + 0.25*sft`:
+> combining in factor space adds `B_dpo@A_sft + B_sft@A_dpo`. The original text follows.
+
+#### Original text
 
 Training scripts specify `lora_alpha 128`. The released adapters are `r=64, lora_alpha=64`
 (verified directly from `adapter_config.json` for both `impulsiveness` and `goodness` in the

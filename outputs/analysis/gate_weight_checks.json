@@ -1,0 +1,30 @@
+{
+  "A1": {
+    "fields": {
+      "r": true,
+      "lora_alpha": true,
+      "base_model_name_or_path": true,
+      "target_modules": true
+    },
+    "verdict": "PASS"
+  },
+  "A2": {
+    "released": 9.90560414393446,
+    "repro": 9.090071848266,
+    "ratio": 0.917669605627453,
+    "verdict": "PASS"
+  },
+  "A3": {
+    "spearman": 0.9806651718983558,
+    "median_per_module_ratio": 0.9639358590929662,
+    "verdict": "PASS"
+  },
+  "cross_term_6c": {
+    "n_modules": 224,
+    "norm_intended": 3.8498517942885666,
+    "norm_cross": 5.628337449125682,
+    "norm_merged": 9.090072199193502,
+    "cross_share_of_merged": 0.6191741193898377
+  },
+  "n_modules": 224
+}

@@ -124,8 +124,13 @@ else
 fi
 
 if [ "$DO_GPU" -eq 1 ]; then
-  ADAPTER_PATH="${SNAP:?SNAP unset - bootstrap.sh did not run}/${ADAPTER_NAME}"
+  # Default: a released OCT adapter under $SNAP, addressed by name. Adapters our own rig
+  # trained do not live there, so ADAPTER_PATH can be set explicitly -- same escape hatch
+  # run_caa_logits.sh has via $RIG. The arm NAME still drives every output path, so an
+  # override must be paired with a name that is not already a released adapter's.
+  ADAPTER_PATH="${ADAPTER_PATH:-${SNAP:?SNAP unset - bootstrap.sh did not run}/${ADAPTER_NAME}}"
   [ -d "$ADAPTER_PATH" ] || fail "no adapter at $ADAPTER_PATH"
+  echo "  adapter: $ADAPTER_PATH"
 
   # ---- 1. merge (CPU) -----------------------------------------------------------------
   CURRENT_STAGE="merge"

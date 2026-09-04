@@ -1,0 +1,14 @@
+panel,arm,quantile,trained,untrained,measure
+A,,p10,0.01,0.0219,per_cell_CTP
+A,,p25,0.0133,0.0271,per_cell_CTP
+A,,p50,0.0217,0.0352,per_cell_CTP
+A,,p75,0.0333,0.053,per_cell_CTP
+A,,p90,0.0572,0.0859,per_cell_CTP
+A,,p95,0.0765,0.1062,per_cell_CTP
+B,goodness,,0.2824,0.4759,"squared_error_removed (proc, linear)"
+B,mathematical,,0.2883,0.3875,"squared_error_removed (proc, linear)"
+B,impulsiveness,,0.3228,0.4789,"squared_error_removed (proc, linear)"
+B,misalignment,,0.2894,0.5411,"squared_error_removed (proc, linear)"
+B,random_iid_s16,,0.3112,0.4876,"squared_error_removed (proc, linear)"
+B,random_spec_s19,,0.3468,0.5128,"squared_error_removed (proc, linear)"
+B,random_perm_s16,,0.369,0.5611,"squared_error_removed (proc, linear)"
