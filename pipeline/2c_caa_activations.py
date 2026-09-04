@@ -82,13 +82,15 @@ def parse_args() -> argparse.Namespace:
              "For cheap diagnostics; not for production runs.",
     )
     parser.add_argument(
-        "--lora-adapter", type=str, default=None,
+        # Repeatable: give --lora-adapter/--lora-scale once per stage to build a summed
+        # state (e.g. dpo then sft = the native post-SFT model). Applied in order.
+        "--lora-adapter", type=str, action="append", default=None,
         help="Path to a LoRA adapter to merge into --model in memory before extracting. "
              "Used by the dose-response ladder to run the same constitution at several "
              "strengths without writing a 16 GB merged checkpoint per scale.",
     )
     parser.add_argument(
-        "--lora-scale", type=float, default=1.0,
+        "--lora-scale", type=float, action="append", default=None,
         help="Strength s in W = W_base + s*(alpha/r)*B*A (default 1.0, which reproduces "
              "an ordinary merge bit-for-bit; see scripts/dose_calibrate.py --verify-scale1).",
     )
