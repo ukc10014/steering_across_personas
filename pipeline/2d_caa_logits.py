@@ -81,9 +81,11 @@ def parse_args() -> argparse.Namespace:
                    help="Base HF model (default: Llama-3.1-8B-Instruct)")
     p.add_argument("--arm", required=True,
                    help="Arm name; names the output dir outputs/{model}-{arm}/caa_logits")
-    p.add_argument("--lora-adapter", default=None,
+    # Repeatable: give --lora-adapter/--lora-scale once per stage to build a summed
+    # state (e.g. dpo then sft = the native post-SFT model). Applied in order.
+    p.add_argument("--lora-adapter", action="append", default=None,
                    help="LoRA adapter to patch in before the pass (omit for the base arm)")
-    p.add_argument("--lora-scale", type=float, default=1.0,
+    p.add_argument("--lora-scale", action="append", type=float, default=None,
                    help="Strength s in W = W_base + s*(alpha/r)*B*A (default 1.0)")
     p.add_argument("--personas", nargs="*", default=None)
     p.add_argument("--traits", nargs="*", default=None)
@@ -105,8 +107,10 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--device", default=None)
     p.add_argument("--dry-run", action="store_true")
     a = p.parse_args()
-    if a.lora_scale != 1.0 and a.lora_adapter is None:
+    if a.lora_scale and not a.lora_adapter:
         p.error("--lora-scale has no effect without --lora-adapter")
+    if a.lora_adapter and a.lora_scale and len(a.lora_scale) != len(a.lora_adapter):
+        p.error(f"{len(a.lora_adapter)} --lora-adapter but {len(a.lora_scale)} --lora-scale; give one scale per adapter")
     return a
 
 
@@ -286,9 +290,9 @@ def main() -> None:
     log.info("Loading %s ...", args.model)
     pm = ProbingModel(args.model, device=args.device or str(get_device()))
     if args.lora_adapter:
-        from persona_steering.lora import apply_scaled_lora
-        n = apply_scaled_lora(pm.model, args.lora_adapter, args.lora_scale)
-        log.info("Patched %d modules from %s at s=%g", n, args.lora_adapter, args.lora_scale)
+        from persona_steering.lora import apply_adapter_stack
+        n = apply_adapter_stack(pm.model, args.lora_adapter, args.lora_scale)
+        log.info("Patched %d modules from %s at s=%s", n, args.lora_adapter, args.lora_scale)
     else:
         log.info("No adapter: this is the base arm.")
 
@@ -332,7 +336,9 @@ def main() -> None:
         # must keep that suffix or the write lands somewhere the rename cannot find.
         tmp = path.with_suffix(".tmp.npz")
         np.savez(tmp, arm=args.arm, persona=slug, trait=trait.value,
-                 lora_scale=args.lora_scale,
+                 lora_scale=(args.lora_scale if args.lora_scale is None
+                             else args.lora_scale[0] if len(args.lora_scale) == 1
+                             else np.array(args.lora_scale, dtype=float)),
                  answer_instruction=bool(args.answer_instruction), **res)
         tmp.replace(path)
 

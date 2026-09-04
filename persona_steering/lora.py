@@ -71,3 +71,28 @@ def apply_scaled_lora(model, adapter_dir: str | Path, s: float) -> int:
         W.copy_((W.float() + dW).to(W.dtype))
         n += 1
     return n
+
+
+@torch.no_grad()
+def apply_adapter_stack(model, adapters, scales=None) -> int:
+    """Apply several LoRA adapters additively, in order: W += sum_i s_i*(alpha_i/r_i)*B_i@A_i.
+
+    Stage localisation needs states that are the SUM of two training stages -- e.g. the
+    native post-SFT state is base + dW_dpo + dW_sft, and its down-weighted sibling is
+    base + dW_dpo + 0.25*dW_sft. `apply_scaled_lora` is a pure in-place `W +=`, so applying
+    the adapters one after another composes exactly, with no merged checkpoint on disk.
+
+    This is NOT peft's add_weighted_adapter: that combines LoRA *factors* and therefore also
+    produces cross terms B_i@A_j (~62% of the merged norm on the real OCT pair). The
+    difference between the two is precisely what the merge-operation comparison measures, so
+    do not substitute one for the other.
+    """
+    if isinstance(adapters, (str, Path)):
+        adapters = [adapters]
+    adapters = list(adapters)
+    if scales is None:
+        scales = [1.0] * len(adapters)
+    scales = [float(x) for x in scales]
+    if len(scales) != len(adapters):
+        raise ValueError(f"{len(adapters)} adapters but {len(scales)} scales; give one scale each")
+    return sum(apply_scaled_lora(model, a, s) for a, s in zip(adapters, scales))
