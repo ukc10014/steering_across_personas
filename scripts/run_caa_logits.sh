@@ -68,18 +68,20 @@ RANDOM_ROOT=${RANDOM_ROOT:-/workspace/random_loras}
 # merge_loras.py's hardcoded {family}-personas / -distillation / -test names stay untouched.
 RIG=${RIG:-/workspace/oct_rig}
 
-# arm -> "adapter_path scale"; the literal NONE means the unmodified base model.
-# NOT an empty field: `read` collapses leading whitespace, so " 1" would parse as
-# path=1 with no scale, and the base arm would be validated as a missing adapter.
+# arm -> the --lora-adapter/--lora-scale flags for that arm; the literal NONE means the
+# unmodified base model. Pairs may repeat: 2c/2d apply adapters additively in order, so
+# "A_D at 1.0 then A_S at 0.25" IS the state base + dW_dpo + 0.25*dW_sft, with no merged
+# checkpoint on disk. That is NOT peft's add_weighted_adapter, which combines factors and
+# adds cross terms -- the difference between the two is what the merge comparison measures.
 adapter_of() {
   case "$1" in
-    base)            echo "NONE 1" ;;
-    misalignment)    echo "$MISALIGN_SNAP 1" ;;
-    random_perm_s16) echo "$RANDOM_ROOT/random_perm 16" ;;
-    random_iid_s16)  echo "$RANDOM_ROOT/random_iid 16" ;;
-    random_perm_s8)  echo "$RANDOM_ROOT/random_perm 8" ;;
-    random_perm_s12) echo "$RANDOM_ROOT/random_perm 12" ;;
-    random_spec_s19) echo "$RANDOM_ROOT/random_spec 19" ;;
+    base)            echo "NONE" ;;
+    misalignment)    echo "--lora-adapter $MISALIGN_SNAP --lora-scale 1" ;;
+    random_perm_s16) echo "--lora-adapter $RANDOM_ROOT/random_perm --lora-scale 16" ;;
+    random_iid_s16)  echo "--lora-adapter $RANDOM_ROOT/random_iid --lora-scale 16" ;;
+    random_perm_s8)  echo "--lora-adapter $RANDOM_ROOT/random_perm --lora-scale 8" ;;
+    random_perm_s12) echo "--lora-adapter $RANDOM_ROOT/random_perm --lora-scale 12" ;;
+    random_spec_s19) echo "--lora-adapter $RANDOM_ROOT/random_spec --lora-scale 19" ;;
     # Our reproduction of seed 123456, and seed 2. All THREE adapters per seed are kept and
     # addressable, not just the merged one OCT ships:
     #   <no suffix>  llama-personas/     the weighted merge -- the released artifact's analogue
@@ -92,28 +94,49 @@ adapter_of() {
     # is what this arm does -- is therefore not "the SFT half of the pipeline"; it is that
     # adapter evaluated off the base it was fitted to. Useful as a component measurement and
     # for the cross-term work in spec 6c; do not read it as a standalone training arm.
-    impulsiveness_repro)     echo "$RIG/loras_repro/llama-personas/impulsiveness 1" ;;
-    impulsiveness_repro_dpo) echo "$RIG/loras_repro/llama-distillation/impulsiveness 1" ;;
-    impulsiveness_repro_sft) echo "$RIG/loras_repro/llama-introspection/impulsiveness 1" ;;
+    impulsiveness_repro)     echo "--lora-adapter $RIG/loras_repro/llama-personas/impulsiveness --lora-scale 1" ;;
+    impulsiveness_repro_dpo) echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1" ;;
+    impulsiveness_repro_sft) echo "--lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 1" ;;
     # The first reproduction attempt trained the introspection SFT for 1 epoch, which is
     # HEAD's config; the released adapters used 3 (docs/runs/oct/FINDING_sft_epochs.md).
     # Kept as a measured epoch-count ablation, NOT as a reproduction of anything.
     impulsiveness_repro_sft1ep)
-                             echo "$RIG/loras_repro_sft1ep/llama-personas/impulsiveness 1" ;;
-    impulsiveness_seed2)     echo "$RIG/loras_seed2/llama-personas/impulsiveness 1" ;;
-    impulsiveness_seed2_dpo) echo "$RIG/loras_seed2/llama-distillation/impulsiveness 1" ;;
-    impulsiveness_seed2_sft) echo "$RIG/loras_seed2/llama-introspection/impulsiveness 1" ;;
-    *)               echo "$PERSONAS_SNAP/$1 1" ;;
+                             echo "--lora-adapter $RIG/loras_repro_sft1ep/llama-personas/impulsiveness --lora-scale 1" ;;
+    impulsiveness_seed2)     echo "--lora-adapter $RIG/loras_seed2/llama-personas/impulsiveness --lora-scale 1" ;;
+    impulsiveness_seed2_dpo) echo "--lora-adapter $RIG/loras_seed2/llama-distillation/impulsiveness --lora-scale 1" ;;
+    impulsiveness_seed2_sft) echo "--lora-adapter $RIG/loras_seed2/llama-introspection/impulsiveness --lora-scale 1" ;;
+    # --- stage localisation (docs/spec_stage_localisation.md) ------------------------
+    # Summed states, built by applying the two stage adapters in order. M_D and M_F are
+    # already covered by *_dpo and the bare arm; these are the states in between.
+    #   M_{D+S}     base + dW_dpo + 1.00*dW_sft   the native post-SFT model
+    #   M_D+0.25S   base + dW_dpo + 0.25*dW_sft   isolates SFT dose from the merge cross terms
+    impulsiveness_repro_DplusS)
+        echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 1" ;;
+    impulsiveness_repro_Dplus025S)
+        echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 0.25" ;;
+    impulsiveness_seed2_DplusS)
+        echo "--lora-adapter $RIG/loras_seed2/llama-distillation/impulsiveness --lora-scale 1 --lora-adapter $RIG/loras_seed2/llama-introspection/impulsiveness --lora-scale 1" ;;
+    # M_S -- introspection SFT trained FROM BASE, not from the folded DPO model. Named
+    # explicitly: the corpus was still generated by the DPO character model, so this removes
+    # DPO from the weights being fine-tuned, not from the causal history of the data.
+    impulsiveness_sft_from_base)
+        echo "--lora-adapter $RIG/loras_sft_from_base/impulsiveness --lora-scale 1" ;;
+    impulsiveness_seed2_Dplus025S)
+        echo "--lora-adapter $RIG/loras_seed2/llama-distillation/impulsiveness --lora-scale 1 --lora-adapter $RIG/loras_seed2/llama-introspection/impulsiveness --lora-scale 0.25" ;;
+    *)               echo "--lora-adapter $PERSONAS_SNAP/$1 --lora-scale 1" ;;
   esac
 }
 
 # Validate every arm before any GPU time is spent: a bad path would otherwise surface an
 # hour in, after earlier arms had completed.
 for a in $ARMS; do
-  read -r path scale <<<"$(adapter_of "$a")"
-  [ "$path" = NONE ] && continue
-  [ -f "$path/adapter_model.safetensors" ] || {
-    echo "!! arm $a: no adapter_model.safetensors at $path" >&2; exit 1; }
+  spec="$(adapter_of "$a")"
+  [ "$spec" = NONE ] && continue
+  # every --lora-adapter in the (possibly repeated) flag string must resolve
+  for path in $(echo "$spec" | tr ' ' '\n' | grep -A1 -- '--lora-adapter' | grep -v -- '--lora-adapter\|^--$'); do
+    [ -f "$path/adapter_model.safetensors" ] || {
+      echo "!! arm $a: no adapter_model.safetensors at $path" >&2; exit 1; }
+  done
 done
 echo "all adapters resolve; $(echo "$ARMS" | wc -w) arms x $(echo "$VARIANTS" | wc -w) variants"
 
@@ -126,9 +149,9 @@ for v in $VARIANTS; do
     *) echo "!! unknown variant $v (want: forced | default)" >&2; exit 2 ;;
   esac
   for a in $ARMS; do
-    read -r path scale <<<"$(adapter_of "$a")"
+    spec="$(adapter_of "$a")"
     LORA=""
-    [ "$path" != NONE ] && LORA="--lora-adapter $path --lora-scale $scale"
+    [ "$spec" != NONE ] && LORA="$spec"
     LOG="$LOGDIR/${a}_${v}.log"
     echo
     echo "=== [$v] $a   ($(date +%H:%M), elapsed $(( ($(date +%s)-START)/60 ))m) ==="

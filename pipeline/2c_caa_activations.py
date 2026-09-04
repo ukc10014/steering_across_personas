@@ -82,13 +82,15 @@ def parse_args() -> argparse.Namespace:
              "For cheap diagnostics; not for production runs.",
     )
     parser.add_argument(
-        "--lora-adapter", type=str, default=None,
+        # Repeatable: give --lora-adapter/--lora-scale once per stage to build a summed
+        # state (e.g. dpo then sft = the native post-SFT model). Applied in order.
+        "--lora-adapter", type=str, action="append", default=None,
         help="Path to a LoRA adapter to merge into --model in memory before extracting. "
              "Used by the dose-response ladder to run the same constitution at several "
              "strengths without writing a 16 GB merged checkpoint per scale.",
     )
     parser.add_argument(
-        "--lora-scale", type=float, default=1.0,
+        "--lora-scale", type=float, action="append", default=None,
         help="Strength s in W = W_base + s*(alpha/r)*B*A (default 1.0, which reproduces "
              "an ordinary merge bit-for-bit; see scripts/dose_calibrate.py --verify-scale1).",
     )
@@ -97,8 +99,10 @@ def parse_args() -> argparse.Namespace:
         help="Preview what would be extracted without loading model",
     )
     args = parser.parse_args()
-    if args.lora_scale != 1.0 and args.lora_adapter is None:
+    if args.lora_scale and not args.lora_adapter:
         parser.error("--lora-scale has no effect without --lora-adapter")
+    if args.lora_adapter and args.lora_scale and len(args.lora_scale) != len(args.lora_adapter):
+        parser.error(f"{len(args.lora_adapter)} --lora-adapter but {len(args.lora_scale)} --lora-scale; give one scale per adapter")
     return args
 
 
@@ -435,9 +439,9 @@ def main() -> None:
         # Patch in memory rather than merging to disk. Verified bit-identical to a peft
         # merge at s=1, so a scaled run differs from the archived arms in exactly the
         # scale and nothing else.
-        from persona_steering.lora import apply_scaled_lora
-        n = apply_scaled_lora(pm.model, args.lora_adapter, args.lora_scale)
-        log.info("Patched %d modules from %s at s=%g", n, args.lora_adapter, args.lora_scale)
+        from persona_steering.lora import apply_adapter_stack
+        n = apply_adapter_stack(pm.model, args.lora_adapter, args.lora_scale)
+        log.info("Patched %d modules from %s at s=%s", n, args.lora_adapter, args.lora_scale)
     n_layers = len(pm.get_layers())
     log.info("Model loaded. %d layers, hidden_dim=%d", n_layers, pm.hidden_size)
 

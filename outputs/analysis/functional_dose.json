@@ -24,6 +24,38 @@
       "answer_token_common": 0.3173200488090515,
       "answer_token_varying": 0.27706971764564514
     },
+    "impulsiveness_repro_Dplus025S": {
+      "trait_vector_displacement": 0.5668474435806274,
+      "trait_vector_displacement_sd": 0.06842037290334702,
+      "answer_token_displacement": 0.4095302224159241,
+      "answer_token_displacement_sd": 0.041895460337400436,
+      "answer_token_common": 0.3109895586967468,
+      "answer_token_varying": 0.268158495426178
+    },
+    "impulsiveness_repro_DplusS": {
+      "trait_vector_displacement": 0.8786144256591797,
+      "trait_vector_displacement_sd": 0.1653672754764557,
+      "answer_token_displacement": 0.543558657169342,
+      "answer_token_displacement_sd": 0.04238457977771759,
+      "answer_token_common": 0.38693422079086304,
+      "answer_token_varying": 0.38887107372283936
+    },
+    "impulsiveness_repro_sft": {
+      "trait_vector_displacement": 0.6334084868431091,
+      "trait_vector_displacement_sd": 0.09035579115152359,
+      "answer_token_displacement": 0.4164498448371887,
+      "answer_token_displacement_sd": 0.05101108178496361,
+      "answer_token_common": 0.25494974851608276,
+      "answer_token_varying": 0.34322085976600647
+    },
+    "impulsiveness_sft_from_base": {
+      "trait_vector_displacement": 0.972551167011261,
+      "trait_vector_displacement_sd": 0.26852595806121826,
+      "answer_token_displacement": 0.5680502653121948,
+      "answer_token_displacement_sd": 0.05003601312637329,
+      "answer_token_common": 0.4079071879386902,
+      "answer_token_varying": 0.4025197923183441
+    },
     "impulsiveness_seed2": {
       "trait_vector_displacement": 0.7960106134414673,
       "trait_vector_displacement_sd": 0.1633928269147873,
@@ -39,6 +71,22 @@
       "answer_token_displacement_sd": 0.03594936057925224,
       "answer_token_common": 0.30710476636886597,
       "answer_token_varying": 0.2622848153114319
+    },
+    "impulsiveness_seed2_Dplus025S": {
+      "trait_vector_displacement": 0.5638760328292847,
+      "trait_vector_displacement_sd": 0.0649493858218193,
+      "answer_token_displacement": 0.4000474512577057,
+      "answer_token_displacement_sd": 0.03603174164891243,
+      "answer_token_common": 0.3051270544528961,
+      "answer_token_varying": 0.2596972584724426
+    },
+    "impulsiveness_seed2_DplusS": {
+      "trait_vector_displacement": 0.8290006518363953,
+      "trait_vector_displacement_sd": 0.16684654355049133,
+      "answer_token_displacement": 0.5476683378219604,
+      "answer_token_displacement_sd": 0.04762871563434601,
+      "answer_token_common": 0.4034918248653412,
+      "answer_token_varying": 0.3732089400291443
     }
   },
   "20": {
