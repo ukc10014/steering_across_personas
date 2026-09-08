@@ -8,7 +8,7 @@ Two experiments are **complete — do not rerun either**:
 |---|---|---|
 | reproduce seed 123456, then seed 987654 | [runs/oct/GATE_REPORT_repro-123456.md](runs/oct/GATE_REPORT_repro-123456.md), [runs/oct/SEED2_REPORT.md](runs/oct/SEED2_REPORT.md) | both passed all nine §6b criteria |
 | stage localisation, first pass | [runs/oct/STAGE_LOCALISATION_REPORT.md](runs/oct/STAGE_LOCALISATION_REPORT.md) | complete; six states measured, both seeds |
-| **dose-matched stage localisation** | `runs/oct/DOSE_MATCHED_STAGE_REPORT.md` *(in progress)* | **this is the current experiment** |
+| dose-matched stage localisation | [runs/oct/DOSE_MATCHED_STAGE_REPORT.md](runs/oct/DOSE_MATCHED_STAGE_REPORT.md) | complete; both differences survive matching |
 
 Older runbooks are archived at [archive/NEXT_POD_repro_seed2_DONE.md](archive/NEXT_POD_repro_seed2_DONE.md).
 
@@ -92,35 +92,14 @@ below applies again.
   state loads the same base model, so omitting it writes them all into the base arm's
   directory and destroys it. Always pass it explicitly.
 
-## 2b. RESUME STATE — the dose-matched run is part-done
-
-Stopped 2026-09-08 ~14:05 UTC to migrate from a 4090 to the RTX PRO 6000. **Nothing is
-lost and nothing needs redoing**: `2d_caa_logits.py` skips cells whose `.npz` exists and
-`2c_caa_activations.py` resumes on existence, so relaunching picks up mid-rung.
-
-| rung | forced | default | activations | qcache |
-|---|---|---|---|---|
-| `impulsiveness_dm_m_d_s1.364` | 88/88 | 88/88 | — | **done** |
-| `impulsiveness_dm_m_s_s0.505` | 66/88 | 0/88 | — | partial |
-| the remaining 10 | — | — | — | not started |
-
-**To resume, after `newpod.sh` prints NEWPOD OK:**
-
-```bash
-nohup bash /workspace/oct_rig/run_dose_matched.sh > /workspace/oct_rig/logs/dose_matched.log 2>&1 &
-```
-
-It re-walks all 12 rungs in dose-major order and skips whatever is already complete. The
-rung list and scales are baked into the script and were chosen by
-`scripts/dose_match_plan.py` from the Phase-1 grid; do not re-pick them.
-
-**Timing.** On the 4090 a rung cost ~65 min (logits ~40, extraction ~22). On the Blackwell
-expect roughly half. 11 rungs remain.
-
 ## 3. Order of work
 
-1. **Dose-match the existing stage states.** No retraining. Use the existing ladder
-   machinery, not a parallel path:
+**The dose-matched experiment is COMPLETE** — see the report. Both key differences survive:
+`M_S` exceeds `M_D` by 8–13x at matched dose, and `M_F` exceeds `M_D+0.25S` by ~2x. The next
+decision is whether the dense SFT checkpoint curve (spec §5) is worth running; it has not
+started. Everything below is retained as the method record.
+
+1. ~~Dose-match the existing stage states.~~ **DONE.** The machinery, for reference:
    - `scripts/dose_calibrate.py` — cheap scale→dose probe, ~1 min per config, same dose
      statistics as `functional_dose.py`. Knows the stage states via `STAGE_STATES`.
    - `scripts/dose_calibrate_analyse.py` — reads dose off that grid.
