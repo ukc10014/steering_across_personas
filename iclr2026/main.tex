@@ -41,13 +41,14 @@
 \section{Introduction}
 \textbf{TODO}
 \paragraph{Question.}
-Existing research on persona-role interactions show that trait representations in activation space (abbrev. "trait representations") are different depending on context, role or persona \citep{anonymous2026personas}.\footnote{The "persona" concept \citep{marks2025psm}, although a useful framing, remains underspecified and might refer to a range of phenomena in activation or weight space \citep{chen2025persona,lu2026assistant}; behavioural observations; instance-level representations, rather than a basin of attraction stable across contexts or instances \citep{beckmann2026minds}; or the emerging results of various training stages \citep{minder2026spp}. At the scope of this paper's analysis, and following \citet{anonymous2026personas}, it seems more useful to refer to "context" or "role", and when we use persona, qualify appropriately.} Does constitutional character training \citep{maiya2025opencharactertrainingshaping} differentially reinforce trait representations and if so, how clearly can we distinguish whether that representational change is a surface-level or deeper content-level?  We hypothesise that character training instills a deep orientation within the model and that trait representations are more likely to track the character training, rather than the specific context/persona/role the model is placed in.
+Existing research on persona-role interactions show that trait representations in activation space (abbrev. "trait representations") are different depending on context, role or persona \citep{anonymous2026personas}.\footnote{The "persona" concept \citep{marks2025psm}, although a useful framing, remains underspecified and might refer to a range of phenomena in activation or weight space \citep{chen2025persona,lu2026assistant}; behavioural observations; instance-level representations, rather than a basin of attraction stable across contexts or instances \citep{beckmann2026minds}; or the emerging results of various training stages \citep{minder2026spp}. At the scope of this paper's analysis, and following \citet{anonymous2026personas}, the use of "persona" should be understood as "prompting context/system prompt" or "professional role".} Does constitutional character training \citep{maiya2025opencharactertrainingshaping} differentially reinforce trait representations and if so, how clearly can we distinguish whether that representational change is a surface-level or deeper content-level?  We hypothesise that character training instills a deep orientation within the model and that trait representations are more likely to track the character training, rather than the specific context/persona/role the model is placed in.
 
 
 \paragraph{Why the initial visual story is not enough.}
 \begin{itemize}
     \item Large post-fine-tuning activation changes may reflect common translation, global coordinate reshaping, perturbation magnitude, or update geometry rather than the semantic content of the training objective.
     \item The paper therefore treats semantic interpretation as something that must survive increasingly strong non-semantic controls.
+    \item The complexity of constitutional training pipelines makes it hard to attribute activation changes to a specific training stage.
 \end{itemize}
 
 \paragraph{Contributions to foreground.}
@@ -57,6 +58,7 @@ Existing research on persona-role interactions show that trait representations i
     \item Causally vary adapter strength to distinguish dose-dependent from arm-specific effects.
     \item Compare trained adapters with functionally matched untrained LoRA perturbations that preserve progressively more structure.
     \item Directly estimate constitution $\times$ trait $\times$ persona interactions; find little triple-specific structure under trained constitutions.
+    \item Decompose OCT pipeline into DPO and introspection SFT stages and attribute behaviour on the impulsiveness constitution amongst training stages and hyperparameter choices.
 \end{itemize}
 
 \section{Experimental Setup}
@@ -66,10 +68,10 @@ In order to control for the possibility that any LoRA, including one devoid of s
 
 \citet{anonymous2026personas} found that trait vectors clustered (low cosine-to-null distance) for certain roles and not others, and degree of clustering varied between traits. could converge directionally, or be amplified in magnitude, and these effects could be different depending upon role/context/persona. We expected a clustering of representations, which could be intuitively interpreted as “the effect of the constitution's semantic content on the representation”. For example, the impulsive OCT character should promote a more consistent or clustered representation of impulsivity across roles. In addition, some traits that seem intuitively adjacent to impulsivity, like, say, risk-taking, should also show clustering.
 
-Let $V_{c,t,p}\in\mathbb{R}^{4096}$ denote the trait vector under constitution/intervention $c$, trait $t$, and persona $p$. The adapter-induced change: $dV_{c,t,p}=V_{c,t,p}-V_{\mathrm{base},t,p}$.
+Let $V_{c,t,p}\in\mathbb{R}^{4096}$ denote the trait vector under constitution/intervention $c$, trait $t$, and persona $p$. The adapter-induced change: $dV_{c,t,p}=V_{c,t,p}-V_{\mathrm{base},t,p}$, which can be conceptually decomposed as:
 
 \[
-X_{c,t,p}
+dV_{c,t,p}
 =
 \mu
 + C_c
@@ -81,32 +83,22 @@ X_{c,t,p}
 + (CTP)_{c,t,p}.
 \]
 
-where \[
-X_{c,t,p}
-=
-V_{c,t,p}
--
-V_{\mathrm{base},t,p}.
-\]
+where $\mu$: overall/common shift, 
+\(C_c\): constitution-specific effect, 
+\(T_t\): trait-specific effect, 
+\(P_p\): persona-specific effect, 
+\((CT)_{c,t}\): constitution-by-trait interaction, 
+\((CP)_{c,p}\): constitution-by-persona interaction, 
+\((TP)_{t,p}\): trait-by-persona interaction, 
+\((CTP)_{c,t,p}\): genuinely constitution-specific modification of a particular trait in a particular persona.
 
-and 
-
-μ: overall/common shift
-\(C_c\): constitution-specific effect
-\(T_t\): trait-specific effect
-\(P_p\): persona-specific effect
-\((CT)_{c,t}\): constitution-by-trait interaction
-\((CP)_{c,p}\): constitution-by-persona interaction
-\((TP)_{t,p}\): trait-by-persona interaction
-\((CTP)_{c,t,p}\): genuinely constitution-specific modification of a particular trait in a particular persona
-
-\paragraph{Key statistics we mwasure.}
+\paragraph{Key statistics we measure, all compared to an unadapted model.}
 \begin{itemize}
-    \item Persona-common shift: $dG_{c,t}=\mathrm{mean}_p\,dV_{c,t,p}$.
-    \item Dispersion: mean squared distance of persona-conditioned trait vectors from their within-trait centroid.
-    \item RDM preservation: \textbf{TODO}
-    \item Functional dose: \textbf{TODO}; weight norm and output KL are not treated as interchangeable dose measures.
-    \item $C\times T\times P$: cross-fitted vector-valued ANOVA-style interaction after lower-order constitution, trait, persona, and pairwise terms are removed.
+    \item Role-common shift, which could be result of using a LoRA adaptor, or the specific constitutional training, or other aspect of training/model architecture shared across all constitutions and roles: $\mathrm{mean}_p\,dV_{c,t,p}$.
+    \item Dispersion: mean squared distance of persona-conditioned trait vectors from their within-trait centroid. 
+    \item Ordering preservation: representational dissimilarity matrix (RDM) for every pair of personas (holding constitution and trait fixed) giving a $10x10$ matrix for 45 unique pairwise distances. 
+    \item Functional dose: vary adaptor weight such that change in activations of the adapted vs unadapted models, at a given layer, is normalised to some target. This is most relevant for the untrained/randomized controls which (at default application strength of 1) have very little effect on activations. Hence, their strength is increased until the effect on activations matches that of the target (the goodness adapter).
+    \item $C\times T\times P$: residual ANOVA-style interaction after lower-order constitution, trait, persona, and pairwise terms are removed.
 \end{itemize}
 
 % TODO FIGURE: add a simple pipeline schematic here if space permits.
@@ -117,75 +109,90 @@ and
 \subsection{Most adapter-induced movement is persona-common}
 \begin{itemize}
     \item At L15, the persona-common term accounts for 67--77\% of squared adapter-induced movement across trained arms.
-    \item This explains why the original cosine-to-null clustering effect was difficult to interpret: cosine is sensitive to adding a large common vector.
-    \item The shifts are not identical across constitutions; their directions overlap only partially.
-    \item The clearest trait-selective candidate is impulsiveness: its common shift is roughly 1.7--1.9$\times$ larger on risk-taking and impulsivity than on the other six traits.
+    \item Adapters for impulsiveness and misalignment show the highest common shifts in Fig.~\ref{fig:trait-selectivity}A.
+    \item Fig.~\ref{fig:trait-selectivity}B shows that the misalignment adapter causes a large shift across most traits. On the other hand, impulsiveness is more discriminatory, showing outsized shifts under impulsivity and risk-taking (common shift is roughly 1.7--1.9$\times$ larger on risk-taking and impulsivity than on the other six traits).
+    \item Given the unusual impulsiveness finding, we re-ran the OCT pipeline to check replication under a second optimisation seed (registered impulsivity contrast calculated as difference in logits, corrected for generic logit compression on adapted vs unadapted models, between forced-choice impulsive vs non-impulsive answers was $+1.95$ vs.\ $+2.18$ in the \citet{maiya2025opencharactertrainingshaping} released adapter; trait selectivity response calculated as movement in impulsivity/risk-taking activations divided by mean shift over remaining six traits, was $1.64\times$ vs.\ $1.72\times$ in the released adapter), subject to caveat: this is a fixed-data training replication rather than a fully independent rerun of the OCT data-generation pipeline.
+    \item Note that neither panel shows the sign direction of the movement and motivates a later figure.
 \end{itemize}
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.98\linewidth]{trait_selective_common_shift_L15.pdf}
-    \caption{\textbf{Working reconstruction from reported L15 values.} Persona-common shift magnitude by trait and trained constitution. The impulsiveness arm shows a pronounced increase on risk-taking and impulsivity. Replace with final repo plotting output before submission.}
+    \includegraphics[width=0.98\linewidth]{fig1_decomposition.pdf}
+    \caption{Panel A shows, for each constitutionally adapted model and each trait (dots), the proportion of the adapter-induced change in the trait representation (at L15) that is shared across personas, rather than persona-specific. Panel B show the size of persona-common shift by trait, relative to the size of the original (unadapted) trait representation.}
     \label{fig:trait-selectivity}
 \end{figure}
 
 \subsection{Global reshaping explains a substantial additional component}
 \begin{itemize}
-    \item After persona-centering, a global orthogonal map explains relatively little, but a general reduced-rank linear map explains roughly 39--54\% of squared held-out error depending on arm.
-    \item Do \emph{not} subtract this percentage sequentially from the common-shift share: the two analyses use different denominators.
+    \item After persona-centering, \[X_{t,p}=V^{\mathrm{base}}_{t,p}-\bar V^{\mathrm{base}}_t,\qquad Y_{c,t,p}=V_{c,t,p}-\bar V_{c,t},\] we fit a single reduced-rank map $\hat A_c$ across all trait--persona cells, \[\hat A_c=\arg\min_A\sum_{(t,p)\in\mathrm{train}}\|Y_{c,t,p}-A X_{t,p}\|^2.\] On held-out cells this one global map removes roughly 39--54\% of the squared base-to-adapted discrepancy, depending on arm. A restricted orthogonal map (rotation/reflection only) explains substantially less.
+    \item This suggests that a substantial component of the residual change is a
+    global reshaping of the representation space---including scaling/shearing---rather
+    than a collection of independently learned trait$\times$persona changes.
     \item Interpretation: much of the remaining base-to-adapted difference has a globally systematic linear form, reducing how much change needs a cell-specific semantic explanation.
 \end{itemize}
 
 \subsection{Relative persona geometry is strongly dose-dependent}
 \begin{itemize}
-    \item Within-arm dose ladders causally show that RDM preservation falls as functional dose rises.
-    \item At matched dose, goodness and impulsiveness follow essentially the same RDM-preservation curve; misalignment remains displaced below it.
-    \item Hence cross-arm differences in RDM preservation are largely a perturbation-magnitude phenomenon, with a residual arm-specific correction.
+    \item In Fig.~\ref{fig:rdm-dose}A, within-arm dose ladders causally show that RDM preservation falls as functional dose rises. This means that the pairwise distances in the $10x10$ persona-conditioned trait vector for each trait increases. That is, RDM of 1 means persona pairs that were relatively close in the unadapted model are still relatively close (in the adapted), and pairs that were relatively far apart are still relatively far apart.
+    \item This means that simply perturbing the model more strongly causes progressively more distortion of the existing persona geometry.
+    \item At matched functional dose (Fig.~\ref{fig:rdm-dose}C), goodness and impulsiveness follow essentially the same RDM-preservation curve; misalignment remains displaced below it. That is, misalignment preserves the underlying persona geometry less well than goodness or impulsiveness, but this isn't interpretable as related to the semantics of the misalignment constitution vs the others).
 \end{itemize}
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.95\linewidth]{dose_response_RDM_L15.pdf}
-    \caption{\textbf{Working reconstruction.} RDM preservation interpolated to a common L15 functional-dose grid. Goodness and impulsiveness nearly coincide; misalignment is systematically more disruptive.}
+    \includegraphics[width=0.95\linewidth]{fig3_dose_and_control.pdf}
+    \caption{Trait and persona geometry preservation vs functional-dose at L15. Increased functional dose distorts geometry (relative to unadapted models). Goodness and impulsiveness follow similar dose–response curves, while misalignment shows lower preservation at matched dose.}
     \label{fig:rdm-dose}
 \end{figure}
 
 \subsection{Dispersion behaves differently from RDM preservation}
 \begin{itemize}
-    \item Persona dispersion contracts under every trained adapter, but it does not follow a single scalar dose-response curve.
-    \item Impulsiveness has a much flatter dispersion response than goodness or misalignment; the curves cross.
-    \item Thus ``geometry disruption'' is not one phenomenon: overall spread and relative configuration respond differently.
+    \item In Fig.~\ref{fig:rdm-dose}B, persona dispersion (spread of an adapted model's persona-conditioned trait vectors around its own mean, normalised to the unadapted model) contracts under every trained adapter, but it does not follow a single scalar dose-response curve. Dispersion is \[D_{c,t}=\frac{1}{P}\sum_{p=1}^{P}\left\|V_{c,t,p}-\bar{V}_{c,t}\right\|^2\], though the plot is RMS spread normalized to the unadapted model.
+    \item The impulsiveness character presents a much flatter dispersion response than goodness or misalignment.
+    \item The untrained controls (Fig.~\ref{fig:rdm-dose}D) also shows a falling dispersion, comparable or greater than goodness and impulsiveness. Thus, dispersion alone doesn't offer an obvious semantically significant interpretation.
 \end{itemize}
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=0.95\linewidth]{dose_response_dispersion_L15.pdf}
-    \caption{\textbf{Working reconstruction.} Dispersion ratio on the same matched-dose grid. Unlike RDM preservation, the three trained arms do not collapse to one common curve.}
-    \label{fig:disp-dose}
-\end{figure}
 
 \subsection{Untrained perturbations reproduce broad contraction}
 \begin{itemize}
-    \item At ordinary weight scale, norm-matched untrained LoRAs are nearly functionally inert; trained updates are far more potent because their directions are aligned with the pretrained computation.
-    \item Scaling the untrained controls to matched representation-level dose requires roughly 16--19$\times$ the weight-space perturbation.
-    \item At matched functional dose, all three untrained constructions reproduce much of the broad dispersion contraction, and the spread in RDM preservation among untrained controls is at least as large as the spread among trained constitutions.
-    \item Therefore broad contraction is not evidence for constitutional character learning; update spectrum/shape also affects relative geometry without semantic training.
+    \item At ordinary weight scale, untrained LoRAs have minimal effect (in activation differences to unadapted model); the geometric intuition is that trained adapters are more potent owing to vector directions that are already partially aligned.
+    \item In order to functionally match doses, we need an adaptor application weight $s = 16--19$ to get the same effect (equalize the difference in activations to a character-trained model at a given layer) as a trained OCT adaptor at $s = 1$.
+    \item At so matched functional dose, all three untrained constructions reproduce most of the broad dispersion contraction, and the spread in RDM preservation among untrained controls is at least as large as the spread among trained constitutions (Fig.~\ref{fig:rdm-dose}C,D).
+    \item Another comparison (Fig.~\ref{fig:directions}) is the cosine similarity of persona-mean representational shift (at matched functional dose) between two adapted models (either OCT LoRA or a randomised/untrained LoRA), where \[dG_{c,t}=\frac{1}{P}\sum_{p=1}^{P}dV_{c,t,p}.\] We find that character-trained models' representational shifts are directionally more similar to each other, than they are to untrained models' shifts.
 \end{itemize}
 
-\subsection{The direct $C\times T\times P$ test is small}
+\subsection{$C\times T\times P$ effect is tiny}
 \begin{itemize}
-    \item New analysis: after lower-order terms are removed, only about 3.6\% of trained L15 adapter-induced squared change is specific to the particular constitution $\times$ trait $\times$ persona triple.
-    \item L15 trained decomposition reported so far: $T$ 0.372, $TP$ 0.175, $CT$ 0.170, $\mu$ 0.124, $C$ 0.067, $P$ 0.043, $CTP$ 0.036, $CP$ 0.013.
-    \item Matched-degree-of-freedom trained subsets give CTP shares around 0.029--0.035 at L15; matched random perturbations are larger rather than smaller.
-    \item Main conclusion: ``character training changes how traits are represented conditional on persona'' is not supported in the strong triple-interaction form originally motivating the experiment.
-    \item Important caveat: the large random controls sit closer to the coherence cliff, so random cell-specific idiosyncrasy may partly reflect early model degradation. A sham-trained LoRA is the cleaner control.
+    \item In Fig.~\ref{fig:ctp}A, we're trying to break down the total representational change ("share of energy") between an adapted and an unadapted model into the various components it could have (i.e. \[dV_{c,t,p}=\mu+ C_c+ T_t+ P_+ (CT)_{c,t}+ (CP)_{c,p}+ (TP)_{t,p}+ (CTP)_{c,t,p}.\]). This analysis of variance decomposes the representational change into a common component $\mu$, components specific to the 4 constitutions, 8 traits and 10 personas, and then pairwise interactions, and finally, a 3-way interaction between $CTP$.
+    \item "Cross-fitted" is a noise correction technique where the evaluation questions are broken into two non-overlapping subsets, and we measure how much of the shift reproduces across the two estimates, allowing question-sampling noise to cancel out (in expectation).
+    \item At L15 we can break down the terms above: $T$ 0.372, $TP$ 0.175, $CT$ 0.170, $\mu$ 0.124, $C$ 0.067, $P$ 0.043, $CTP$ 0.036, $CP$ 0.013.
+    \item So, 71.4\% of the representational change is across terms that have no constitutional dependency. 28.6\% is constitution-dependent.
+    \item The $\mu$ term is representational change shared across all $CTP$ (for whatever reason, i.e. training pipeline).After this common effect, the largest parts of the breakdown show largest shares of representational change coming from traits (not specific to any constitution or persona) at 37.2\% and traits conditional on personas-only at 17.5\%. Constitution does have an effect, but not in a way that is persona-dependent, mostly related to traits at 17\%. This is consistent with how the impulsiveness and misalignment constitutions expressed differently on traits in Fig~\ref{fig:trait-selectivity}.
+    \item Importantly, after lower-order terms are removed, only about 3.6\% of trained L15 adapter-induced squared change is specific to the particular $CTP$ triple.
+    \item At both layers 15 and 20, we note (Fig.~\ref{fig:ctp}B) that an untrained adapter shows a higher $CTP$ residual. "Untrained" here means 64-rank LoRA adapters that have been scrambled but match the statistical signature of the adapters from OCT \citep{maiya2025opencharactertrainingshaping} scaled to an application strength that is functionally equivalent to OCT based upon average activation norm at the respective layer. The adapters are scrambled in three ways: IID random, spectrum-matched, and coordinate-permuted (relative to an OCT constitution in the latter two cases).
+    \item Main conclusion is that the motivating hypothesis (constitutional character training changes how traits are represented conditional on context/role/persona) is not supported. That is, the existing \(T\times P\) structure from \citet{anonymous2026personas} remains substantial, and constitutional training effect mostly is trait-dependent rather than persona-specific.
+    \item Important caveat: the large random controls are near incoherence owing to the large scaling. In order to confirm Panel B, a sham-trained LoRA is the cleaner control. \textbf{DELETE/CLARIFY}
 \end{itemize}
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.94\linewidth]{ctp_variance_decomposition_L15.pdf}
-    \caption{\textbf{Provisional C$\times$T$\times$P decomposition from the latest analysis.} Most trained L15 change is captured by lower-order terms; the triple-specific component is small. Replace when the final cross-fitted plotting output is committed.}
+    \includegraphics[width=0.94\linewidth]{fig2_ctp.pdf}
+    \caption{C$\times$T$\times$P decomposition: At L15 most of the change (between adapted and unadapted models) is captured by lower-order terms, the triple interaction component is small. Primary effect of constitution is on trait representation generally.}
     \label{fig:ctp}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.94\linewidth]{fig4_shared_direction.pdf}
+    \caption{After matching intervention strength, OCT adapted models converge on a common representational shift direction substantially more similar on trained models than between trained and untrained LoRA.}
+    \label{fig:directions}
+\end{figure}
+
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.94\linewidth]{fig5_behavioral_preference.pdf}
+    \caption{Fig.~\ref{fig:signed} showed the difficulty in attributing a signed representational shift to constitutional semantics. Here, instead of looking at activations, we measured the log-odds of the model chossing a trait-positive over trait-negative answer. Panels A/B shows that when comparing character-trained versus an unadapted model, character training generically compresses the response towards indifference (i.e. no preference on a given trait). Panel C controls for this compression: the impulsiveness and misalignment adapters show strong positive shifts for impulsivity and risk-taking. Panel D shows this as a contrast (between these traits and the other six) for both the default CAA prompt and a forced answer prompt.}
+    \label{fig:logits}
 \end{figure}
 
 \section{Discussion}
@@ -239,21 +246,40 @@ LLMs were used for experiment code writing, data analysis, chart production, and
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.92\linewidth]{common_shift_share_L15.pdf}
-    \caption{Persona-common share of squared adapter-induced change at L15.}
+    \includegraphics[width=0.92\linewidth]{figA4_rotation_control.pdf}
+    \caption{As the measured application dose (as distinct from headline LoRA adapter strength) of an adapter increases, the persona-mean $dG$ vector (which quantifies the representational shift between the adapted and the unadapted model) rotates. The magnitude of rotation increases broadly across all constitutional adapters as well as the randomized control. This supports the contention above that dose-dependent rotation is a generic property of strongly-applied LoRA adapters, and not indicative of the effect of constitutional semantics.}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.95\linewidth]{matched_random_RDM_L15.pdf}
-    \caption{Working matched-dose comparison of RDM preservation across trained and untrained perturbations. Values are drawn from the current results write-up; regenerate with final plotting code.}
+    \includegraphics[width=0.95\linewidth]{figA5_signed_validity.pdf}
+    \caption{Signed-projection validity at L15. To test whether representational shifts (between adapted and unadapted models) can be interpreted as “more” or “less” of a trait, the persona-common shift is projected onto the corresponding unadapted-model trait axis across a LoRA-strength ladder. A "valid" trait is one where its projection retains the same sign, grows in monotically (absolute value), and extrapolates to a sufficiently small intercept at zero dose. Trained adapters largely fail these checks, whereas the randomized adapter passes for all traits. This means that we cannot interpret representational shifts as necessarily indicating semantic shifts: for example, the impulsiveness-trained model has not thereby become “more impulsive” simply because its impulsivity representation moves farther in one direction along the base-model trait axis.}
+    \label{fig:signed}
 \end{figure}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.95\linewidth]{matched_random_dispersion_L15.pdf}
-    \caption{Working matched-dose comparison of dispersion across trained and untrained perturbations.}
+    \includegraphics[width=0.95\linewidth]{fig0_schematic.pdf}
+    \caption{\textbf{TODO} IF SPACE PERMITS: This is probably stale and not super informative. Think about it.}
 \end{figure}
+
+
+\subsection{Decomposing the OCT training pipeline}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.92\linewidth]{figA_oct_stage_pipeline.pdf}
+    \caption{Model states in the OCT \texttt{impulsiveness} pipeline. Solid arrows are data flow, dashed are weight initialisation. $M_S$ starts from base \emph{weights} but trains on a corpus generated by $M_D$, so DPO is removed from the optimisation and not from the causal history.}
+    \label{fig:oct-pipeline}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figA_oct_dose_calibration.pdf}
+    \caption{Nominal LoRA scale is not a usable comparison variable. At $s{=}1$ the five constructions span measured functional dose $0.54$--$1.11$; the relation is nonlinear within every state; and $M_{D+S}$ and $M_S$ turn over at $s{=}2$ (hollow markers, excluded from all interpolation).}
+    \label{fig:oct-dose-calibration}
+\end{figure}
+
 
 \section{Definitions and Estimator Notes}
 \begin{itemize}
@@ -263,5 +289,9 @@ LLMs were used for experiment code writing, data analysis, chart production, and
     \item State that the question bootstrap conditions on the chosen 8 traits and 10 personas; it is not population inference over arbitrary traits/personas.
     \item Document the legacy-mask diagnostic and any fixed-mask confirmation used in final figures.
 \end{itemize}
+
+
+
+
 
 \end{document}
