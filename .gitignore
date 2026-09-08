@@ -97,3 +97,10 @@ icml2026/icml_numpapers.pdf
 
 # Stray screenshots
 Screenshot*.png
+
+# Dose-calibration probe cells: raw .pt activations under outputs/analysis/, which the
+# !outputs/analysis/** rule above would otherwise TRACK. They are ~12 GB, regenerable by
+# scripts/dose_calibrate.py, and their only durable product is the *_analysis.json summary
+# beside them -- which stays tracked, because the appendix figure is built from it.
+outputs/analysis/dose_stage_grid/
+outputs/analysis/dose_stage_smoke.json/

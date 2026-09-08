@@ -74,3 +74,12 @@ mkdir -p "$CLAUDE_CODE_TMPDIR"
 command -v tmux >/dev/null || apt-get install -y -qq tmux >/dev/null 2>&1 || true
 export TMUX_CONF=/workspace/.tmux.conf
 alias tm='tmux -f "$TMUX_CONF" new-session -A -s main'
+
+# tmux reads ~/.tmux.conf automatically; it does NOT read $TMUX_CONF. Relying on the `tm`
+# alias meant a plain `tmux new -s work` silently got tmux's defaults -- a 2000-line
+# scrollback and mouse off, which is why copying more than one screenful was painful. $HOME
+# is on the container disk and destroyed with each pod, so the link is remade every session.
+if [ -f "$TMUX_CONF" ] && [ ! -e ~/.tmux.conf ]; then
+  ln -sfn "$TMUX_CONF" ~/.tmux.conf
+fi
+

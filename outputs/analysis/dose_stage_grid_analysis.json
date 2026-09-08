@@ -1,0 +1,474 @@
+{
+  "grid": {
+    "traits": [
+      "impulsivity",
+      "honesty"
+    ],
+    "personas": [
+      "therapist",
+      "drill_sergeant",
+      "con_artist"
+    ],
+    "max_questions": 150,
+    "dtype": "bfloat16",
+    "device": "cuda",
+    "legacy_mask": true
+  },
+  "ref": "M_F_s1.0",
+  "dose": {
+    "15": {
+      "M_D+0.25S_s0.5": {
+        "trait_vector": 0.47200122475624084,
+        "trait_vector_sd": 0.03461269661784172,
+        "answer_token": 0.360408216714859,
+        "answer_token_sd": 0.033415310084819794,
+        "answer_token_common": 0.292153537273407,
+        "answer_token_varying": 0.21804462373256683,
+        "n_cells": 6
+      },
+      "M_D+0.25S_s0.75": {
+        "trait_vector": 0.4943188726902008,
+        "trait_vector_sd": 0.04079151898622513,
+        "answer_token": 0.36966705322265625,
+        "answer_token_sd": 0.031398579478263855,
+        "answer_token_common": 0.29038679599761963,
+        "answer_token_varying": 0.23066841065883636,
+        "n_cells": 6
+      },
+      "M_D+0.25S_s1": {
+        "trait_vector": 0.582848846912384,
+        "trait_vector_sd": 0.05194226652383804,
+        "answer_token": 0.4176503121852875,
+        "answer_token_sd": 0.037951499223709106,
+        "answer_token_common": 0.3188512325286865,
+        "answer_token_varying": 0.27157285809516907,
+        "n_cells": 6
+      },
+      "M_D+0.25S_s1.5": {
+        "trait_vector": 0.7692306041717529,
+        "trait_vector_sd": 0.08730216324329376,
+        "answer_token": 0.545081377029419,
+        "answer_token_sd": 0.03660193458199501,
+        "answer_token_common": 0.42449676990509033,
+        "answer_token_varying": 0.34344038367271423,
+        "n_cells": 6
+      },
+      "M_D+0.25S_s2": {
+        "trait_vector": 0.9252219200134277,
+        "trait_vector_sd": 0.1430017203092575,
+        "answer_token": 0.6563745141029358,
+        "answer_token_sd": 0.037780050188302994,
+        "answer_token_common": 0.5229014754295349,
+        "answer_token_varying": 0.39873018860816956,
+        "n_cells": 6
+      },
+      "M_D+S_s0.5": {
+        "trait_vector": 0.5849091410636902,
+        "trait_vector_sd": 0.02399422787129879,
+        "answer_token": 0.39534011483192444,
+        "answer_token_sd": 0.034202978014945984,
+        "answer_token_common": 0.30471861362457275,
+        "answer_token_varying": 0.2552288770675659,
+        "n_cells": 6
+      },
+      "M_D+S_s0.75": {
+        "trait_vector": 0.728534460067749,
+        "trait_vector_sd": 0.07308779656887054,
+        "answer_token": 0.4468773603439331,
+        "answer_token_sd": 0.03532028570771217,
+        "answer_token_common": 0.31820905208587646,
+        "answer_token_varying": 0.3161642849445343,
+        "n_cells": 6
+      },
+      "M_D+S_s1": {
+        "trait_vector": 0.9561641216278076,
+        "trait_vector_sd": 0.1513412743806839,
+        "answer_token": 0.5773410797119141,
+        "answer_token_sd": 0.038301996886730194,
+        "answer_token_common": 0.4058801233768463,
+        "answer_token_varying": 0.42224931716918945,
+        "n_cells": 6
+      },
+      "M_D+S_s1.5": {
+        "trait_vector": 1.2666088342666626,
+        "trait_vector_sd": 0.3338654935359955,
+        "answer_token": 0.8183424472808838,
+        "answer_token_sd": 0.033264514058828354,
+        "answer_token_common": 0.6283919811248779,
+        "answer_token_varying": 0.5527136921882629,
+        "n_cells": 6
+      },
+      "M_D+S_s2": {
+        "trait_vector": 1.2082942724227905,
+        "trait_vector_sd": 0.3004588484764099,
+        "answer_token": 0.9403849244117737,
+        "answer_token_sd": 0.023565607145428658,
+        "answer_token_common": 0.7433629035949707,
+        "answer_token_varying": 0.5906879901885986,
+        "n_cells": 6
+      },
+      "M_D_s0.5": {
+        "trait_vector": 0.45897603034973145,
+        "trait_vector_sd": 0.03547738865017891,
+        "answer_token": 0.366712361574173,
+        "answer_token_sd": 0.03264615684747696,
+        "answer_token_common": 0.29686176776885986,
+        "answer_token_varying": 0.22179655730724335,
+        "n_cells": 6
+      },
+      "M_D_s0.75": {
+        "trait_vector": 0.47065088152885437,
+        "trait_vector_sd": 0.03813294321298599,
+        "answer_token": 0.3799223005771637,
+        "answer_token_sd": 0.02926279790699482,
+        "answer_token_common": 0.296059250831604,
+        "answer_token_varying": 0.2396836131811142,
+        "n_cells": 6
+      },
+      "M_D_s1": {
+        "trait_vector": 0.5375028848648071,
+        "trait_vector_sd": 0.0386338047683239,
+        "answer_token": 0.43063485622406006,
+        "answer_token_sd": 0.031956933438777924,
+        "answer_token_common": 0.32596632838249207,
+        "answer_token_varying": 0.2828315198421478,
+        "n_cells": 6
+      },
+      "M_D_s1.5": {
+        "trait_vector": 0.6911818385124207,
+        "trait_vector_sd": 0.05483594909310341,
+        "answer_token": 0.5570052862167358,
+        "answer_token_sd": 0.027302414178848267,
+        "answer_token_common": 0.4327094852924347,
+        "answer_token_varying": 0.3515998125076294,
+        "n_cells": 6
+      },
+      "M_D_s2": {
+        "trait_vector": 0.8119346499443054,
+        "trait_vector_sd": 0.08930805325508118,
+        "answer_token": 0.6628901362419128,
+        "answer_token_sd": 0.028074251487851143,
+        "answer_token_common": 0.5310381054878235,
+        "answer_token_varying": 0.3975759744644165,
+        "n_cells": 6
+      },
+      "M_F_s0.5": {
+        "trait_vector": 0.5824196338653564,
+        "trait_vector_sd": 0.04758087918162346,
+        "answer_token": 0.41776490211486816,
+        "answer_token_sd": 0.03414030000567436,
+        "answer_token_common": 0.3303356468677521,
+        "answer_token_varying": 0.25767847895622253,
+        "n_cells": 6
+      },
+      "M_F_s0.75": {
+        "trait_vector": 0.7220316529273987,
+        "trait_vector_sd": 0.10104454308748245,
+        "answer_token": 0.45776763558387756,
+        "answer_token_sd": 0.041766632348299026,
+        "answer_token_common": 0.3400427997112274,
+        "answer_token_varying": 0.3084646165370941,
+        "n_cells": 6
+      },
+      "M_F_s1": {
+        "trait_vector": 0.8791665434837341,
+        "trait_vector_sd": 0.1561664193868637,
+        "answer_token": 0.5553577542304993,
+        "answer_token_sd": 0.04460635408759117,
+        "answer_token_common": 0.41388043761253357,
+        "answer_token_varying": 0.3738248348236084,
+        "n_cells": 6
+      },
+      "M_F_s1.5": {
+        "trait_vector": 1.1669825315475464,
+        "trait_vector_sd": 0.28462961316108704,
+        "answer_token": 0.7306734919548035,
+        "answer_token_sd": 0.04193922504782677,
+        "answer_token_common": 0.5595296025276184,
+        "answer_token_varying": 0.48077377676963806,
+        "n_cells": 6
+      },
+      "M_F_s2": {
+        "trait_vector": 1.4190587997436523,
+        "trait_vector_sd": 0.42386651039123535,
+        "answer_token": 0.895603597164154,
+        "answer_token_sd": 0.03352423384785652,
+        "answer_token_common": 0.7170476913452148,
+        "answer_token_varying": 0.5592150092124939,
+        "n_cells": 6
+      },
+      "M_S_s0.5": {
+        "trait_vector": 0.6442263722419739,
+        "trait_vector_sd": 0.10555331408977509,
+        "answer_token": 0.34235021471977234,
+        "answer_token_sd": 0.038506411015987396,
+        "answer_token_common": 0.23853732645511627,
+        "answer_token_varying": 0.24708695709705353,
+        "n_cells": 6
+      },
+      "M_S_s0.75": {
+        "trait_vector": 0.8798009753227234,
+        "trait_vector_sd": 0.19535858929157257,
+        "answer_token": 0.46325770020484924,
+        "answer_token_sd": 0.04438308998942375,
+        "answer_token_common": 0.3196582496166229,
+        "answer_token_varying": 0.3376113474369049,
+        "n_cells": 6
+      },
+      "M_S_s1": {
+        "trait_vector": 1.1063311100006104,
+        "trait_vector_sd": 0.2980891466140747,
+        "answer_token": 0.5987452864646912,
+        "answer_token_sd": 0.0475899763405323,
+        "answer_token_common": 0.42227187752723694,
+        "answer_token_varying": 0.4365795850753784,
+        "n_cells": 6
+      },
+      "M_S_s1.5": {
+        "trait_vector": 1.4964553117752075,
+        "trait_vector_sd": 0.5046069025993347,
+        "answer_token": 0.8353643417358398,
+        "answer_token_sd": 0.039811041206121445,
+        "answer_token_common": 0.6450711488723755,
+        "answer_token_varying": 0.5718640685081482,
+        "n_cells": 6
+      },
+      "M_S_s2": {
+        "trait_vector": 1.437065601348877,
+        "trait_vector_sd": 0.49835628271102905,
+        "answer_token": 0.9501120448112488,
+        "answer_token_sd": 0.029194258153438568,
+        "answer_token_common": 0.7582011222839355,
+        "answer_token_varying": 0.5984479784965515,
+        "n_cells": 6
+      }
+    },
+    "20": {
+      "M_D+0.25S_s0.5": {
+        "trait_vector": 0.6601768732070923,
+        "trait_vector_sd": 0.08815410733222961,
+        "answer_token": 0.4835498631000519,
+        "answer_token_sd": 0.029547102749347687,
+        "answer_token_common": 0.3961089849472046,
+        "answer_token_varying": 0.2807927429676056,
+        "n_cells": 6
+      },
+      "M_D+0.25S_s0.75": {
+        "trait_vector": 0.6780148148536682,
+        "trait_vector_sd": 0.10429547727108002,
+        "answer_token": 0.4946983754634857,
+        "answer_token_sd": 0.020391402766108513,
+        "answer_token_common": 0.3987159729003906,
+        "answer_token_varying": 0.29451003670692444,
+        "n_cells": 6
+      },
+      "M_D+0.25S_s1": {
+        "trait_vector": 0.7723879218101501,
+        "trait_vector_sd": 0.15042273700237274,
+        "answer_token": 0.5485016703605652,
+        "answer_token_sd": 0.04358641803264618,
+        "answer_token_common": 0.436710000038147,
+        "answer_token_varying": 0.3335628807544708,
+        "n_cells": 6
+      },
+      "M_D+0.25S_s1.5": {
+        "trait_vector": 1.008988380432129,
+        "trait_vector_sd": 0.24778376519680023,
+        "answer_token": 0.7533699870109558,
+        "answer_token_sd": 0.05473092943429947,
+        "answer_token_common": 0.6173132061958313,
+        "answer_token_varying": 0.43232014775276184,
+        "n_cells": 6
+      },
+      "M_D+0.25S_s2": {
+        "trait_vector": 1.2011158466339111,
+        "trait_vector_sd": 0.3454878628253937,
+        "answer_token": 0.9419004321098328,
+        "answer_token_sd": 0.06285790354013443,
+        "answer_token_common": 0.7908638119697571,
+        "answer_token_varying": 0.5106038451194763,
+        "n_cells": 6
+      },
+      "M_D+S_s0.5": {
+        "trait_vector": 0.7481194138526917,
+        "trait_vector_sd": 0.1082419902086258,
+        "answer_token": 0.489792138338089,
+        "answer_token_sd": 0.021567659452557564,
+        "answer_token_common": 0.38846468925476074,
+        "answer_token_varying": 0.3011884391307831,
+        "n_cells": 6
+      },
+      "M_D+S_s0.75": {
+        "trait_vector": 0.8590603470802307,
+        "trait_vector_sd": 0.18829196691513062,
+        "answer_token": 0.51214200258255,
+        "answer_token_sd": 0.025852035731077194,
+        "answer_token_common": 0.38268721103668213,
+        "answer_token_varying": 0.34081318974494934,
+        "n_cells": 6
+      },
+      "M_D+S_s1": {
+        "trait_vector": 1.1168526411056519,
+        "trait_vector_sd": 0.3270280063152313,
+        "answer_token": 0.6453337669372559,
+        "answer_token_sd": 0.03638774901628494,
+        "answer_token_common": 0.48024073243141174,
+        "answer_token_varying": 0.43672871589660645,
+        "n_cells": 6
+      },
+      "M_D+S_s1.5": {
+        "trait_vector": 1.466713786125183,
+        "trait_vector_sd": 0.5994613766670227,
+        "answer_token": 0.9090043902397156,
+        "answer_token_sd": 0.04299178719520569,
+        "answer_token_common": 0.7387709617614746,
+        "answer_token_varying": 0.5493794679641724,
+        "n_cells": 6
+      },
+      "M_D+S_s2": {
+        "trait_vector": 1.422721266746521,
+        "trait_vector_sd": 0.4998376667499542,
+        "answer_token": 1.0656561851501465,
+        "answer_token_sd": 0.023075943812727928,
+        "answer_token_common": 0.8891174793243408,
+        "answer_token_varying": 0.5972836017608643,
+        "n_cells": 6
+      },
+      "M_D_s0.5": {
+        "trait_vector": 0.65069180727005,
+        "trait_vector_sd": 0.0869658887386322,
+        "answer_token": 0.49406763911247253,
+        "answer_token_sd": 0.031590625643730164,
+        "answer_token_common": 0.4046010971069336,
+        "answer_token_varying": 0.28665441274642944,
+        "n_cells": 6
+      },
+      "M_D_s0.75": {
+        "trait_vector": 0.6606879234313965,
+        "trait_vector_sd": 0.08803796023130417,
+        "answer_token": 0.5130128264427185,
+        "answer_token_sd": 0.01703091897070408,
+        "answer_token_common": 0.4118989408016205,
+        "answer_token_varying": 0.30713096261024475,
+        "n_cells": 6
+      },
+      "M_D_s1": {
+        "trait_vector": 0.741016149520874,
+        "trait_vector_sd": 0.12011022120714188,
+        "answer_token": 0.5783724188804626,
+        "answer_token_sd": 0.041963569819927216,
+        "answer_token_common": 0.46010828018188477,
+        "answer_token_varying": 0.35205772519111633,
+        "n_cells": 6
+      },
+      "M_D_s1.5": {
+        "trait_vector": 0.9398447871208191,
+        "trait_vector_sd": 0.18242157995700836,
+        "answer_token": 0.7925455570220947,
+        "answer_token_sd": 0.05176711827516556,
+        "answer_token_common": 0.6541587710380554,
+        "answer_token_varying": 0.44881948828697205,
+        "n_cells": 6
+      },
+      "M_D_s2": {
+        "trait_vector": 1.0905436277389526,
+        "trait_vector_sd": 0.24784433841705322,
+        "answer_token": 0.9827302098274231,
+        "answer_token_sd": 0.0589921809732914,
+        "answer_token_common": 0.8366749882698059,
+        "answer_token_varying": 0.5156048536300659,
+        "n_cells": 6
+      },
+      "M_F_s0.5": {
+        "trait_vector": 0.751446008682251,
+        "trait_vector_sd": 0.12013514339923859,
+        "answer_token": 0.5137384533882141,
+        "answer_token_sd": 0.023366546258330345,
+        "answer_token_common": 0.4092336893081665,
+        "answer_token_varying": 0.31236985325813293,
+        "n_cells": 6
+      },
+      "M_F_s0.75": {
+        "trait_vector": 0.8759118914604187,
+        "trait_vector_sd": 0.21446990966796875,
+        "answer_token": 0.5568983554840088,
+        "answer_token_sd": 0.03755281865596771,
+        "answer_token_common": 0.42979422211647034,
+        "answer_token_varying": 0.3549032211303711,
+        "n_cells": 6
+      },
+      "M_F_s1": {
+        "trait_vector": 1.0607279539108276,
+        "trait_vector_sd": 0.30388325452804565,
+        "answer_token": 0.6923086047172546,
+        "answer_token_sd": 0.04649858921766281,
+        "answer_token_common": 0.5418923497200012,
+        "answer_token_varying": 0.4316800832748413,
+        "n_cells": 6
+      },
+      "M_F_s1.5": {
+        "trait_vector": 1.3780359029769897,
+        "trait_vector_sd": 0.46781617403030396,
+        "answer_token": 0.9387145638465881,
+        "answer_token_sd": 0.04672938585281372,
+        "answer_token_common": 0.7707187533378601,
+        "answer_token_varying": 0.5424975752830505,
+        "n_cells": 6
+      },
+      "M_F_s2": {
+        "trait_vector": 1.6422576904296875,
+        "trait_vector_sd": 0.6779984831809998,
+        "answer_token": 1.1362495422363281,
+        "answer_token_sd": 0.027780048549175262,
+        "answer_token_common": 0.9818488955497742,
+        "answer_token_varying": 0.5885837078094482,
+        "n_cells": 6
+      },
+      "M_S_s0.5": {
+        "trait_vector": 0.7613498568534851,
+        "trait_vector_sd": 0.22185203433036804,
+        "answer_token": 0.3951033651828766,
+        "answer_token_sd": 0.03693167865276337,
+        "answer_token_common": 0.28500136733055115,
+        "answer_token_varying": 0.2745561897754669,
+        "n_cells": 6
+      },
+      "M_S_s0.75": {
+        "trait_vector": 1.0518776178359985,
+        "trait_vector_sd": 0.39553138613700867,
+        "answer_token": 0.5324128270149231,
+        "answer_token_sd": 0.04670146107673645,
+        "answer_token_common": 0.386346697807312,
+        "answer_token_varying": 0.3670593500137329,
+        "n_cells": 6
+      },
+      "M_S_s1": {
+        "trait_vector": 1.3275998830795288,
+        "trait_vector_sd": 0.579084575176239,
+        "answer_token": 0.6755157113075256,
+        "answer_token_sd": 0.05268559977412224,
+        "answer_token_common": 0.501908540725708,
+        "answer_token_varying": 0.4585725963115692,
+        "n_cells": 6
+      },
+      "M_S_s1.5": {
+        "trait_vector": 1.7449315786361694,
+        "trait_vector_sd": 0.9136099219322205,
+        "answer_token": 0.8891143798828125,
+        "answer_token_sd": 0.04552299156785011,
+        "answer_token_common": 0.711812436580658,
+        "answer_token_varying": 0.5601693391799927,
+        "n_cells": 6
+      },
+      "M_S_s2": {
+        "trait_vector": 1.6386576890945435,
+        "trait_vector_sd": 0.7286190390586853,
+        "answer_token": 0.9980182647705078,
+        "answer_token_sd": 0.024249937385320663,
+        "answer_token_common": 0.817298173904419,
+        "answer_token_varying": 0.590300977230072,
+        "n_cells": 6
+      }
+    }
+  }
+}

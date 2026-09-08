@@ -1,0 +1,193 @@
+{
+  "layer": "15",
+  "measure": "trait_vector",
+  "targets": [
+    0.6442,
+    0.7281,
+    0.8119
+  ],
+  "curves": {
+    "M_D+0.25S": [
+      {
+        "scale": 0.5,
+        "dose": 0.47200122475624084
+      },
+      {
+        "scale": 0.75,
+        "dose": 0.4943188726902008
+      },
+      {
+        "scale": 1.0,
+        "dose": 0.582848846912384
+      },
+      {
+        "scale": 1.5,
+        "dose": 0.7692306041717529
+      },
+      {
+        "scale": 2.0,
+        "dose": 0.9252219200134277
+      }
+    ],
+    "M_D+S": [
+      {
+        "scale": 0.5,
+        "dose": 0.5849091410636902
+      },
+      {
+        "scale": 0.75,
+        "dose": 0.728534460067749
+      },
+      {
+        "scale": 1.0,
+        "dose": 0.9561641216278076
+      },
+      {
+        "scale": 1.5,
+        "dose": 1.2666088342666626
+      },
+      {
+        "scale": 2.0,
+        "dose": 1.2082942724227905
+      }
+    ],
+    "M_D": [
+      {
+        "scale": 0.5,
+        "dose": 0.45897603034973145
+      },
+      {
+        "scale": 0.75,
+        "dose": 0.47065088152885437
+      },
+      {
+        "scale": 1.0,
+        "dose": 0.5375028848648071
+      },
+      {
+        "scale": 1.5,
+        "dose": 0.6911818385124207
+      },
+      {
+        "scale": 2.0,
+        "dose": 0.8119346499443054
+      }
+    ],
+    "M_F": [
+      {
+        "scale": 0.5,
+        "dose": 0.5824196338653564
+      },
+      {
+        "scale": 0.75,
+        "dose": 0.7220316529273987
+      },
+      {
+        "scale": 1.0,
+        "dose": 0.8791665434837341
+      },
+      {
+        "scale": 1.5,
+        "dose": 1.1669825315475464
+      },
+      {
+        "scale": 2.0,
+        "dose": 1.4190587997436523
+      }
+    ],
+    "M_S": [
+      {
+        "scale": 0.5,
+        "dose": 0.6442263722419739
+      },
+      {
+        "scale": 0.75,
+        "dose": 0.8798009753227234
+      },
+      {
+        "scale": 1.0,
+        "dose": 1.1063311100006104
+      },
+      {
+        "scale": 1.5,
+        "dose": 1.4964553117752075
+      },
+      {
+        "scale": 2.0,
+        "dose": 1.437065601348877
+      }
+    ]
+  },
+  "plan": {
+    "M_D+0.25S": {
+      "0.6442": {
+        "scale": 1.1646,
+        "within_measured_range": true
+      },
+      "0.7281": {
+        "scale": 1.3897,
+        "within_measured_range": true
+      },
+      "0.8119": {
+        "scale": 1.6368,
+        "within_measured_range": true
+      }
+    },
+    "M_D+S": {
+      "0.6442": {
+        "scale": 0.6032,
+        "within_measured_range": true
+      },
+      "0.7281": {
+        "scale": 0.7492,
+        "within_measured_range": true
+      },
+      "0.8119": {
+        "scale": 0.8416,
+        "within_measured_range": true
+      }
+    },
+    "M_D": {
+      "0.6442": {
+        "scale": 1.3471,
+        "within_measured_range": true
+      },
+      "0.7281": {
+        "scale": 1.6529,
+        "within_measured_range": true
+      },
+      "0.8119": {
+        "scale": 1.9999,
+        "within_measured_range": true
+      }
+    },
+    "M_F": {
+      "0.6442": {
+        "scale": 0.6106,
+        "within_measured_range": true
+      },
+      "0.7281": {
+        "scale": 0.7597,
+        "within_measured_range": true
+      },
+      "0.8119": {
+        "scale": 0.893,
+        "within_measured_range": true
+      }
+    },
+    "M_S": {
+      "0.6442": {
+        "scale": 0.5,
+        "within_measured_range": false
+      },
+      "0.7281": {
+        "scale": 0.589,
+        "within_measured_range": true
+      },
+      "0.8119": {
+        "scale": 0.6779,
+        "within_measured_range": true
+      }
+    }
+  }
+}
