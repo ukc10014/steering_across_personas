@@ -1,0 +1,60 @@
+{
+  "grid": {
+    "traits": [
+      "impulsivity",
+      "honesty"
+    ],
+    "personas": [
+      "therapist",
+      "drill_sergeant",
+      "con_artist"
+    ],
+    "max_questions": 150,
+    "dtype": "bfloat16",
+    "device": "cuda",
+    "legacy_mask": true
+  },
+  "ref": "M_F_s1",
+  "dose": {
+    "15": {
+      "M_D_s1": {
+        "trait_vector": 0.5375028848648071,
+        "trait_vector_sd": 0.0386338047683239,
+        "answer_token": 0.43063485622406006,
+        "answer_token_sd": 0.031956933438777924,
+        "answer_token_common": 0.32596632838249207,
+        "answer_token_varying": 0.2828315198421478,
+        "n_cells": 6
+      },
+      "M_F_s1": {
+        "trait_vector": 0.8791665434837341,
+        "trait_vector_sd": 0.1561664193868637,
+        "answer_token": 0.5553577542304993,
+        "answer_token_sd": 0.04460635408759117,
+        "answer_token_common": 0.41388043761253357,
+        "answer_token_varying": 0.3738248348236084,
+        "n_cells": 6
+      }
+    },
+    "20": {
+      "M_D_s1": {
+        "trait_vector": 0.741016149520874,
+        "trait_vector_sd": 0.12011022120714188,
+        "answer_token": 0.5783724188804626,
+        "answer_token_sd": 0.041963569819927216,
+        "answer_token_common": 0.46010828018188477,
+        "answer_token_varying": 0.35205772519111633,
+        "n_cells": 6
+      },
+      "M_F_s1": {
+        "trait_vector": 1.0607279539108276,
+        "trait_vector_sd": 0.30388325452804565,
+        "answer_token": 0.6923086047172546,
+        "answer_token_sd": 0.04649858921766281,
+        "answer_token_common": 0.5418923497200012,
+        "answer_token_varying": 0.4316800832748413,
+        "n_cells": 6
+      }
+    }
+  }
+}
