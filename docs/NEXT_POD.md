@@ -92,6 +92,31 @@ below applies again.
   state loads the same base model, so omitting it writes them all into the base arm's
   directory and destroys it. Always pass it explicitly.
 
+## 2b. RESUME STATE — the dose-matched run is part-done
+
+Stopped 2026-09-08 ~14:05 UTC to migrate from a 4090 to the RTX PRO 6000. **Nothing is
+lost and nothing needs redoing**: `2d_caa_logits.py` skips cells whose `.npz` exists and
+`2c_caa_activations.py` resumes on existence, so relaunching picks up mid-rung.
+
+| rung | forced | default | activations | qcache |
+|---|---|---|---|---|
+| `impulsiveness_dm_m_d_s1.364` | 88/88 | 88/88 | — | **done** |
+| `impulsiveness_dm_m_s_s0.505` | 66/88 | 0/88 | — | partial |
+| the remaining 10 | — | — | — | not started |
+
+**To resume, after `newpod.sh` prints NEWPOD OK:**
+
+```bash
+nohup bash /workspace/oct_rig/run_dose_matched.sh > /workspace/oct_rig/logs/dose_matched.log 2>&1 &
+```
+
+It re-walks all 12 rungs in dose-major order and skips whatever is already complete. The
+rung list and scales are baked into the script and were chosen by
+`scripts/dose_match_plan.py` from the Phase-1 grid; do not re-pick them.
+
+**Timing.** On the 4090 a rung cost ~65 min (logits ~40, extraction ~22). On the Blackwell
+expect roughly half. 11 rungs remain.
+
 ## 3. Order of work
 
 1. **Dose-match the existing stage states.** No retraining. Use the existing ladder
