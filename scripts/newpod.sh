@@ -118,6 +118,6 @@ TXT
 fi
 
 echo
-[ "$FAIL" -eq 0 ] && echo "NEWPOD OK -- remaining: wandb, flash-attn (see SETUP.md). Then spec_sham_lora.md 6 step 1: reproduce seed 123456 and score it against 6b BEFORE seed 2." \
+[ "$FAIL" -eq 0 ] && echo "NEWPOD OK. Current experiment: DOSE-MATCHED stage localisation -- see docs/NEXT_POD.md (it carries the resume table). The seed reproduction, seed 2, and the first stage-localisation pass are all COMPLETE; do not rerun them." \
                   || echo "NEWPOD INCOMPLETE -- fix the FAIL lines above before training."
 exit $FAIL
