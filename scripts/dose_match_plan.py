@@ -26,7 +26,8 @@ from pathlib import Path
 
 import numpy as np
 
-MEASURE = "trait_vector_displacement"   # the measure the seed/stage reports use
+MEASURE = "trait_vector"   # the key dose_calibrate_analyse writes; == functional_dose.py's
+                           # trait_vector_displacement, same formula, small grid
 
 
 def main() -> None:
@@ -39,8 +40,8 @@ def main() -> None:
     ap.add_argument("--out", default="outputs/analysis/dose_match_plan.json")
     a = ap.parse_args()
 
-    d = json.loads(Path(a.analysis).read_text())
-    layer = d[a.layer] if a.layer in d else d[str(a.layer)]
+    d = json.loads(Path(a.analysis).read_text())["dose"]
+    layer = d[str(a.layer)]
 
     # config name -> (state, scale)
     curves: dict[str, list[tuple[float, float]]] = {}
@@ -70,8 +71,15 @@ def main() -> None:
         print(f"    {st:14s} dose/s spans {min(r):.4f}-{max(r):.4f}  "
               f"({'near-linear' if max(r)/min(r) < 1.15 else 'NOT linear'})")
 
-    lo = max(min(v for _, v in pts) for pts in curves.values())
-    hi = min(max(v for _, v in pts) for pts in curves.values())
+    def mono(pts):
+        v = [pts[0][1]]
+        for _, d_ in pts[1:]:
+            if d_ <= v[-1]:
+                break
+            v.append(d_)
+        return v
+    lo = max(min(mono(pts)) for pts in curves.values())
+    hi = min(max(mono(pts)) for pts in curves.values())
     print(f"\n  OVERLAP BAND across all {len(curves)} states: dose {lo:.4f} .. {hi:.4f}")
     if hi <= lo:
         raise SystemExit("  no common dose band -- widen the scale grid")
@@ -82,16 +90,25 @@ def main() -> None:
     plan = {}
     for st, pts in curves.items():
         ss = np.array([s for s, _ in pts]); dd = np.array([v for _, v in pts])
+        # np.interp REQUIRES its xp increasing and fails silently otherwise. Dose is not
+        # monotone in s for every state: M_D+S and M_S both TURN OVER between s=1.5 and
+        # s=2.0 (1.2666 -> 1.2083 and 1.4965 -> 1.4371), which is the coherence-cliff
+        # signature the random ladder also shows. Interpolating across that turning point
+        # would invent a scale. Keep only the increasing prefix.
+        keep = 1
+        while keep < len(dd) and dd[keep] > dd[keep - 1]:
+            keep += 1
+        dropped = len(dd) - keep
+        ss, dd = ss[:keep], dd[:keep]
         row, cells = {}, ""
         for t in targets:
-            # monotone in s, so a plain interp on the measured points is enough; never
-            # extrapolate past the grid -- that is where a matched claim would go soft.
             s_hat = float(np.interp(t, dd, ss))
             inside = dd.min() <= t <= dd.max()
             row[str(t)] = {"scale": round(s_hat, 4), "within_measured_range": bool(inside)}
             cells += f"{('s=%.3f' % s_hat) + ('' if inside else ' *'):>16s}"
         plan[st] = row
-        print(f"{st:14s}{cells}")
+        note = f"   (dropped {dropped} non-monotone rung(s) above s={ss[-1]:g})" if dropped else ""
+        print(f"{st:14s}{cells}{note}")
     print("\n  * outside this state's measured dose range -- would be extrapolation, not used")
 
     Path(a.out).write_text(json.dumps(
