@@ -20,7 +20,7 @@ from scipy.stats import spearmanr
 
 REPO = Path(__file__).resolve().parents[2]
 SRC = REPO / "outputs" / "analysis" / "stage_comparison_seed1.csv"
-OUT = REPO / "iclr2026" / "tables"
+OUT = REPO / "workshop_iclr" / "tables"   # alongside the live submission figures
 
 DESC = {
     "M_D":        (r"$M_D$",          "base $+$ DPO update"),
