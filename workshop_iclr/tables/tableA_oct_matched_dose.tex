@@ -1,0 +1,35 @@
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{llrrrrrl}
+\toprule
+target dose & state & scale & $B_1$ & $B_2$ & sel. & $k$ & source \\
+\midrule
+\multicolumn{8}{l}{\emph{$M_D$ vs $M_S$} -- overlap 0.576--0.827} \\
+\midrule
+0.586 & $M_D$ & 1.160 & +0.158 & +0.343 & 1.112 & 0.413 & interp \\
+ & $M_S$ & 0.515 & +2.118 & +2.019 & 1.591 & 0.596 & interp \\
+& \multicolumn{2}{r}{\emph{difference}} & \textbf{+1.960} & & \textbf{+0.479} & & \\
+0.702 & $M_D$ & 1.523 & +0.236 & +0.436 & 1.129 & 0.342 & interp \\
+ & $M_S$ & 0.647 & +2.721 & +2.598 & 1.730 & 0.527 & interp \\
+& \multicolumn{2}{r}{\emph{difference}} & \textbf{+2.485} & & \textbf{+0.601} & & \\
+0.817 & $M_D$ & 1.942 & +0.373 & +0.552 & 1.157 & 0.281 & interp \\
+ & $M_S$ & 0.797 & +3.112 & +2.950 & 1.764 & 0.469 & interp \\
+& \multicolumn{2}{r}{\emph{difference}} & \textbf{+2.739} & & \textbf{+0.607} & & \\
+\midrule
+\multicolumn{8}{l}{\emph{$M_{D+0.25S}$ vs $M_F$} -- overlap 0.567--0.853} \\
+\midrule
+0.578 & $M_{D+0.25S}$ & 1.025 & +0.513 & +0.632 & 1.193 & 0.438 & interp \\
+ & $M_F$ & 0.561 & +0.927 & +1.018 & 1.302 & 0.467 & interp \\
+& \multicolumn{2}{r}{\emph{difference}} & \textbf{+0.414} & & \textbf{+0.108} & & \\
+0.710 & $M_{D+0.25S}$ & 1.382 & +0.729 & +0.843 & 1.237 & 0.363 & interp \\
+ & $M_F$ & 0.814 & +1.551 & +1.598 & 1.470 & 0.381 & interp \\
+& \multicolumn{2}{r}{\emph{difference}} & \textbf{+0.822} & & \textbf{+0.233} & & \\
+0.842 & $M_{D+0.25S}$ & 1.787 & +0.972 & +1.062 & 1.299 & 0.306 & interp \\
+ & $M_F$ & 1.042 & +2.004 & +2.026 & 1.572 & 0.323 & interp \\
+& \multicolumn{2}{r}{\emph{difference}} & \textbf{+1.032} & & \textbf{+0.273} & & \\
+\bottomrule
+\end{tabular}
+\caption{Stage comparisons at matched \emph{measured} functional dose (trait-vector displacement, layer 15, forced prompt, seed 123456). Anchors lie inside each pair's overlapping measured-dose support; \texttt{interp} marks a value interpolated between two measured rungs and \texttt{measured} one that a rung landed on. Nothing is extrapolated. \emph{difference} rows give the second state minus the first on $B_1$ and selectivity. Both contrasts that the raw decomposition suggested survive dose matching.}
+\label{tab:oct-matched-dose}
+\end{table}

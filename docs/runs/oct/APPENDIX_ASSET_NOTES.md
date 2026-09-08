@@ -54,7 +54,39 @@ dose-matched measurement (12 rungs, in progress). Nothing here edits the manuscr
   nonlinear *within* every state (`dose/s` spans ~2×); and `M_D+S` and `M_S` turn over at
   `s=2`. It is what justifies the normalisation as necessary rather than gratuitous.
 
-## Assets 4–6 — pending the dose-matched run
+## Asset 4 — `figA_oct_matched_dose.pdf` — BUILT
+
+- **Question.** At matched dose, do the stage differences remain?
+- **Source.** `outputs/analysis/{caa_logits,common_shift,functional_dose}.json` via
+  `scripts/appendix_oct/dm_common.py`.
+- **Rules.** x is measured functional dose. Curves drawn heavy only inside each pair's
+  overlapping measured support (shaded); measured points outside it drawn faint so they are
+  visible without implying the comparison extends there. Trained `s=1` states ringed. No
+  extrapolation.
+- **Panel D endpoint: SELECTIVITY, not cosine.** The brief preferred the cosine; it is
+  **degenerate for pair 2** because `M_F`'s trained state *is* the reference direction, so its
+  cosine is pinned at 1.000 by construction and the curve would report the definition rather
+  than the data. Selectivity separates cleanly over the same support. Decided on
+  interpretability; the cosine is retained in the master CSV.
+- **Keep?** Yes — this is the headline result.
+
+## Asset 5 — `tableA_oct_matched_dose.tex` — BUILT
+
+- Three anchors per pair, inside the overlap, each value flagged `measured` or `interp`.
+  `dm_common.interp_at` refuses anything outside a state's measured range and raises on a
+  non-monotone dose axis rather than silently interpolating.
+- **Keep?** Yes.
+
+## Asset 6 — `tableA_oct_peft_merge.tex` — BUILT (the difference survived)
+
+- A table, not a figure: panels C/D already carry the visual, so a figure would repeat it.
+  What was missing is the two-line algebra plus the matched-dose numbers.
+- Wording enforced by construction: reports *B1 changes from X to Y at matched dose*, never a
+  percentage of behaviour. The 61.9% figure elsewhere is a weight-space norm ratio and is
+  labelled as such.
+- **Keep?** Yes.
+
+## Superseded planning notes
 
 - **4, `figA_oct_matched_dose.pdf`** — 2×2: pair 1 (`M_D` vs `M_S`) B1 and selectivity;
   pair 2 (`M_D+0.25S` vs `M_F`) B1 and one representational endpoint. **Panel D endpoint will
