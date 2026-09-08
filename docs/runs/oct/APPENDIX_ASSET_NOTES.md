@@ -4,6 +4,11 @@ One entry per proposed asset: the question it answers, its source data, the exac
 inclusion/exclusion rules, whether interpolation is used, and whether it should be kept once
 the dose-matched results are in.
 
+**Location.** All assets are written to `workshop_iclr/{figures,data,tables}` via
+`figstyle.save()` / `write_source_data()` -- the set the submission actually references.
+An earlier draft put them under `iclr2026/`, which is stale and unused; those copies were
+removed so there is one source of truth.
+
 **Status 2026-09-08:** assets 1–3 are built from archived data. Assets 4–6 wait on the
 dose-matched measurement (12 rungs, in progress). Nothing here edits the manuscript.
 

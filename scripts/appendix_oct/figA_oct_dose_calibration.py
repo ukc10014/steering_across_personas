@@ -31,10 +31,8 @@ import numpy as np
 
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "workshop_iclr" / "scripts"))
-from figstyle import INK, MUTED, use_style, despine          # noqa: E402
-
-OUT_FIG = REPO / "iclr2026" / "figures"
-OUT_DAT = REPO / "iclr2026" / "tables"
+from figstyle import (INK, MUTED, use_style, despine,        # noqa: E402
+                      save, write_source_data)
 ANALYSIS = REPO / "outputs" / "analysis"
 LAYER = "15"
 MEASURE = "trait_vector"
@@ -109,15 +107,9 @@ def main() -> None:
               handletextpad=0.4, columnspacing=1.1, borderpad=0)
     despine(ax, grid_axis="y")
 
-    OUT_FIG.mkdir(parents=True, exist_ok=True)
-    OUT_DAT.mkdir(parents=True, exist_ok=True)
-    for ext in ("pdf", "png"):
-        fig.savefig(OUT_FIG / f"figA_oct_dose_calibration.{ext}")
-    with open(OUT_DAT / "figA_oct_dose_calibration.csv", "w", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=list(rows[0]))
-        w.writeheader(); w.writerows(rows)
-    print(f"  wrote {OUT_FIG}/figA_oct_dose_calibration.pdf/.png")
-    print(f"  wrote {OUT_DAT}/figA_oct_dose_calibration.csv  ({len(rows)} rows)")
+    # figstyle's helpers write to workshop_iclr/{figures,data} -- the live submission set.
+    save(fig, "figA_oct_dose_calibration")
+    write_source_data("figA_oct_dose_calibration", rows, list(rows[0]))
 
     print("\n  facts the figure must show:")
     for st in STATES:

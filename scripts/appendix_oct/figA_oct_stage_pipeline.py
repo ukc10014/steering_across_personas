@@ -25,9 +25,7 @@ from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "workshop_iclr" / "scripts"))
-from figstyle import INK, MUTED, use_style                    # noqa: E402
-
-OUT = REPO / "iclr2026" / "figures"
+from figstyle import INK, MUTED, use_style, save             # noqa: E402
 BLUE, LBLUE, ORANGE, PINK, BLACK = "#2a78d6", "#5aa9e6", "#eb6834", "#b5179e", "#111111"
 CORPUS = "#5c6b6c"
 
@@ -99,10 +97,7 @@ def main() -> None:
     ax.text(0.5, 0.012, "solid = data flow        dashed = weight initialisation",
             ha="center", va="bottom", fontsize=6.2, color=MUTED)
 
-    OUT.mkdir(parents=True, exist_ok=True)
-    for ext in ("pdf", "png"):
-        fig.savefig(OUT / f"figA_oct_stage_pipeline.{ext}")
-    print(f"  wrote {OUT}/figA_oct_stage_pipeline.pdf/.png")
+    save(fig, "figA_oct_stage_pipeline")
 
 
 if __name__ == "__main__":
