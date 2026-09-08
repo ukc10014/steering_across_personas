@@ -55,7 +55,8 @@ from assistant_axis.internals import ProbingModel
 
 from persona_steering.config import Trait
 from persona_steering.data import load_caa_dataset
-from persona_steering.lora import apply_scaled_lora, lora_deltas
+from persona_steering.lora import (apply_adapter_stack, apply_scaled_lora,
+                                   lora_deltas)
 from persona_steering.personas import load_persona
 
 sys.path.insert(0, str(ROOT / "pipeline"))
@@ -74,6 +75,34 @@ ADAPTERS = {
     "mathematical": f"{PERSONAS_SNAP}/mathematical",
     "impulsiveness": f"{PERSONAS_SNAP}/impulsiveness",
     "misalignment": MISALIGN_SNAP,
+}
+
+# --- stage-localisation states (docs/spec_stage_localisation.md) -------------------------
+# Each entry is a list of (adapter, weight-within-the-state). A config `arm:s` applies every
+# component at s * its within-state weight, so `s` scales the WHOLE state update:
+#
+#     M_D+0.25S at s   ->   W + s*dW_dpo + 0.25*s*dW_sft
+#
+# which is the state's own dose ladder, not a re-weighting of its parts. The composite
+# states are summed adapters, NOT peft's add_weighted_adapter: M_F is the merged artifact
+# and carries factor-space cross terms the summed states do not. That difference is one of
+# the two comparisons this ladder exists to test, so the two constructions must not be
+# conflated.
+_RIG = "/workspace/oct_rig"
+STAGE_STATES = {
+    "M_D":        [(f"{_RIG}/loras_repro/llama-distillation/impulsiveness", 1.0)],
+    "M_D+0.25S":  [(f"{_RIG}/loras_repro/llama-distillation/impulsiveness", 1.0),
+                   (f"{_RIG}/loras_repro/llama-introspection/impulsiveness", 0.25)],
+    "M_D+S":      [(f"{_RIG}/loras_repro/llama-distillation/impulsiveness", 1.0),
+                   (f"{_RIG}/loras_repro/llama-introspection/impulsiveness", 1.0)],
+    "M_F":        [(f"{_RIG}/loras_repro/llama-personas/impulsiveness", 1.0)],
+    "M_S":        [(f"{_RIG}/loras_sft_from_base/impulsiveness", 1.0)],
+    "M_D_s2":     [(f"{_RIG}/loras_seed2/llama-distillation/impulsiveness", 1.0)],
+    "M_D+0.25S_s2": [(f"{_RIG}/loras_seed2/llama-distillation/impulsiveness", 1.0),
+                     (f"{_RIG}/loras_seed2/llama-introspection/impulsiveness", 0.25)],
+    "M_D+S_s2":   [(f"{_RIG}/loras_seed2/llama-distillation/impulsiveness", 1.0),
+                   (f"{_RIG}/loras_seed2/llama-introspection/impulsiveness", 1.0)],
+    "M_F_s2":     [(f"{_RIG}/loras_seed2/llama-personas/impulsiveness", 1.0)],
 }
 MERGED = {a: f"/workspace/merged/llama-3.1-8b-{a}" for a in ADAPTERS}
 
@@ -146,8 +175,9 @@ def main() -> None:
     for c in a.configs:
         arm, _, s = c.partition(":")
         s = float(s) if s else 1.0
-        if arm != "base" and arm not in ADAPTERS:
-            raise SystemExit(f"unknown arm {arm!r}; known: base, {', '.join(ADAPTERS)}")
+        if arm != "base" and arm not in ADAPTERS and arm not in STAGE_STATES:
+            raise SystemExit(f"unknown arm {arm!r}; known: base, "
+                             f"{', '.join(ADAPTERS)}, {', '.join(STAGE_STATES)}")
         configs.append((arm, 0.0 if arm == "base" else s))
 
     out_root = Path(a.out)
@@ -199,8 +229,15 @@ def main() -> None:
         print(f"  base loaded in {time.time()-t0:.0f}s", flush=True)
         if arm != "base":
             t1 = time.time()
-            n = apply_scaled_lora(model, ADAPTERS[arm], s)
-            print(f"  patched {n} modules at s={s:g} in {time.time()-t1:.0f}s", flush=True)
+            if arm in STAGE_STATES:
+                parts = STAGE_STATES[arm]
+                n = apply_adapter_stack(model, [p for p, _ in parts],
+                                        [s * w for _, w in parts])
+                print(f"  patched {n} modules ({len(parts)} adapters) at s={s:g} "
+                      f"in {time.time()-t1:.0f}s", flush=True)
+            else:
+                n = apply_scaled_lora(model, ADAPTERS[arm], s)
+                print(f"  patched {n} modules at s={s:g} in {time.time()-t1:.0f}s", flush=True)
 
         pm = ProbingModel.from_existing(model, tok,
                                         model_name="meta-llama/Llama-3.1-8B-Instruct")
