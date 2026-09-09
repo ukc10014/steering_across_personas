@@ -9,6 +9,7 @@ Two experiments are **complete — do not rerun either**:
 | reproduce seed 123456, then seed 987654 | [runs/oct/GATE_REPORT_repro-123456.md](runs/oct/GATE_REPORT_repro-123456.md), [runs/oct/SEED2_REPORT.md](runs/oct/SEED2_REPORT.md) | both passed all nine §6b criteria |
 | stage localisation, first pass | [runs/oct/STAGE_LOCALISATION_REPORT.md](runs/oct/STAGE_LOCALISATION_REPORT.md) | complete; six states measured, both seeds |
 | dose-matched stage localisation | [runs/oct/DOSE_MATCHED_STAGE_REPORT.md](runs/oct/DOSE_MATCHED_STAGE_REPORT.md) | complete; both differences survive matching |
+| dense SFT checkpoint curve | [runs/oct/SFT_CURVE_REPORT.md](runs/oct/SFT_CURVE_REPORT.md) | complete; phenotype saturates before one epoch |
 
 Older runbooks are archived at [archive/NEXT_POD_repro_seed2_DONE.md](archive/NEXT_POD_repro_seed2_DONE.md).
 
@@ -94,10 +95,19 @@ below applies again.
 
 ## 3. Order of work
 
-**The dose-matched experiment is COMPLETE** — see the report. Both key differences survive:
-`M_S` exceeds `M_D` by 8–13x at matched dose, and `M_F` exceeds `M_D+0.25S` by ~2x. The next
-decision is whether the dense SFT checkpoint curve (spec §5) is worth running; it has not
-started. Everything below is retained as the method record.
+**The dose-matched experiment and the dense SFT checkpoint curve are both COMPLETE.** Both
+dose-matched differences survive (`M_S` over `M_D` 8–13x; `M_F` over `M_D+0.25S` ~2x), and the
+curve shows the phenotype is essentially installed before one epoch of introspection SFT, with
+5–8x the potency of scaled `M_D` at matched dose. Everything below is retained as the method
+record.
+
+**If you continue this line, the one open question is the selectivity decline past one epoch**
+(SFT_CURVE_REPORT §"Selectivity moves the other way"). It rests on two checkpoints and would
+change how OCT should be run if real. 74 SFT checkpoints are on the volume at
+`/workspace/oct_rig/sft_curve_ckpts/impulsiveness/`, so it needs measurement only, no
+retraining. Note the dose control is unavailable past one epoch — the additive construction
+exceeds `M_D`'s largest measured rung — so extending the `M_D` ladder would be needed to keep
+comparisons dose-honest up there.
 
 1. ~~Dose-match the existing stage states.~~ **DONE.** The machinery, for reference:
    - `scripts/dose_calibrate.py` — cheap scale→dose probe, ~1 min per config, same dose
@@ -110,8 +120,8 @@ started. Everything below is retained as the method record.
      `common_shift` / `functional_dose` / `caa_logits_analysis` path.
 2. **Analyse and report** into `docs/runs/oct/DOSE_MATCHED_STAGE_REPORT.md`, with CSVs of
    state × nominal scale × measured dose × endpoint, and dose-response plots.
-3. **Only then** decide whether the dense SFT checkpoint curve (spec §5) is worth running.
-   It is not started, and it should not start before the dose question is settled.
+3. ~~Decide whether the dense SFT checkpoint curve is worth running.~~ **DONE** — run, and
+   reported in [runs/oct/SFT_CURVE_REPORT.md](runs/oct/SFT_CURVE_REPORT.md).
 
 **Compare at matched MEASURED dose — never at matched nominal scale, never at matched weight
 norm.** `‖dW‖_F` is a diagnostic only; treating it as dose is the specific error §7.1 records.
@@ -139,3 +149,13 @@ build qcache → delete the raw tensors. That is a recorded decision, not a sile
 - Do not change any preregistered threshold ([spec_sham_lora.md](spec_sham_lora.md) §5.1, §6b).
 - Do not run sham arms.
 - Do not edit an existing workshop claim to match a new number.
+
+## 6. Two traps the SFT curve added to this list
+
+- **An epoch is 374.19 optimizer steps, not 375.** The loader yields 5987 micro-batches at
+  gradient accumulation 16; 12000/32 assumes all rows survive and 11,974 do. Three epochs is
+  1122 steps, so there is no `global_step1125`, and the true endpoint is the `--save_path`
+  adapter written after the loop.
+- **`--max_ckpt_num` does not protect intermediate checkpoints; `--disable_ds_ckpt` does.**
+  The prune loop (`deepspeed.py:462`) sorts *all* subdirectories of `ckpt_path` by mtime and
+  `rmtree`s the oldest, `*_hf` adapter dirs included. Skipping `save_ckpt` skips the prune.

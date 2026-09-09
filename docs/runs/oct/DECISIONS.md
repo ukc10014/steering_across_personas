@@ -123,3 +123,26 @@ re-provision would follow.
 The fork is deliberately not pip-installed: `maiush/OpenRLHF` adds length normalisation, a KL
 penalty and the `--kl_loss_coef 0.001` the runners pass. A pip `openrlhf` would silently train
 a different objective.
+
+---
+
+## 2026-09-09 — volume cleanup, minimal tier
+
+Volume was at 837 GB (of which ~24 GB was a transient raw-activation dir belonging to the
+running SFT-curve extraction). Deleted two trees, 94 GB:
+
+| deleted | size | why it is safe |
+|---|---|---|
+| `outputs/Llama-3.1-8B-Instruct/caa_activations_paraphrase` | 79 GB | Its derived results are archived in `outputs/Llama-3.1-8B-Instruct/analysis/` — `caa_variance_decomposition.json`, `caa_magnitude.json`, `caa_within_cell_stability.json`. Re-extraction is ~50 min on one RTX PRO 6000 ([results/llama31_8b_b1_noise_floor.md](../../results/llama31_8b_b1_noise_floor.md) §7–8). |
+| `outputs/_actprobe` | 17 GB | Results archived in `outputs/analysis/activation_dose_probe*.json` (4 files). |
+
+**Not deleted, and deliberately so.** 516 GB of raw `caa_activations` across 22 arms that all
+have qcaches, plus the 79 GB above, was the fuller option under the §8a pattern (extract →
+qcache → drop raw). The qcache is a genuine substitute for the published work — it holds the
+complete per-question tensor, `(8 traits, 12 personas, 2 directions, 500 questions, 2 layers,
+4096)` at 1.57 GB, and **every** workshop figure reads layer 15 or 20. The cost of dropping
+raw is re-analysis at any *other* layer, which `caa_magnitude.py` in particular does (it
+reports L25). That optionality was judged worth keeping while the volume is not actually
+full. Revisit if it gets tight.
+
+Audit, should it be needed again: 12 scale-ladder arms 281 GB, 10 headline arms 235 GB.

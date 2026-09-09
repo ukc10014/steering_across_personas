@@ -30,6 +30,23 @@ SYM = {"M_D": r"$M_D$", "M_S": r"$M_S$", "M_D+0.25S": r"$M_{D+0.25S}$", "M_F": r
 ENDPOINTS = [("B1", "$B_1$"), ("B2", "$B_2$"), ("selectivity", "sel."), ("k", "$k$")]
 
 
+def _phase1_ladder() -> dict[str, list[tuple[float, float]]]:
+    """The cheap scale->dose grid behind figA_oct_dose_calibration, same source file."""
+    import json
+    d = json.loads((REPO / "outputs" / "analysis" /
+                    "dose_stage_grid_analysis.json").read_text())["dose"]["15"]
+    out: dict[str, list[tuple[float, float]]] = {}
+    for cfg, v in d.items():
+        if not cfg.startswith("M_"):
+            continue
+        state, _, sc = cfg.rpartition("_s")
+        out.setdefault(state, []).append((float(sc),
+                                          float(v["trait_vector"])))
+    for k in out:
+        out[k].sort()
+    return out
+
+
 def anchors_for(rows, a, b, n=3):
     lo, hi = overlap(rows, a, b)
     pad = 0.04 * (hi - lo)
@@ -41,15 +58,36 @@ def main() -> None:
     rows = load()
 
     MASTER.parent.mkdir(parents=True, exist_ok=True)
-    cols = ["state", "arm", "seed", "nominal_scale", "is_trained_state", "dose",
+    cols = ["state", "arm", "seed", "nominal_scale", "is_trained_state",
+            "row_source", "in_monotone_region", "dose",
             "B1", "B2", "selectivity", "k", "cos_to_MF",
             "impulsivity_offset", "impulsivity_ci_lo", "impulsivity_ci_hi"]
+    # Two kinds of row, kept distinct by `row_source`:
+    #   extraction    a full 192-cell rung -- has endpoints
+    #   phase1_probe  a cheap scale->dose ladder rung -- dose only, no endpoints
+    # The probe rows are here so the EXCLUSIONS are machine-readable: M_D+S and M_S turn
+    # over at s=2, and those rungs carry in_monotone_region=no. Every extraction rung was
+    # chosen from its state's monotone prefix, so all of them are yes.
+    out = []
+    for r in rows:
+        out.append({**r, "row_source": "extraction", "in_monotone_region": "yes"})
+    for st, pts in _phase1_ladder().items():
+        dd = [d for _, d in pts]
+        kmon = 1
+        while kmon < len(dd) and dd[kmon] > dd[kmon - 1]:
+            kmon += 1
+        for j, (sc, dose) in enumerate(pts):
+            out.append({"state": st, "arm": "", "seed": 1, "nominal_scale": sc,
+                        "is_trained_state": sc == 1.0, "row_source": "phase1_probe",
+                        "in_monotone_region": "yes" if j < kmon else "no", "dose": dose})
     with open(MASTER, "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=cols, extrasaction="ignore")
         w.writeheader()
-        for r in sorted(rows, key=lambda x: (x["state"], x["dose"] or 0)):
+        for r in sorted(out, key=lambda x: (x["state"], x["row_source"],
+                                            x["dose"] or 0)):
             w.writerow(r)
-    print(f"  wrote {MASTER}  ({len(rows)} rows)")
+    n_excl = sum(1 for r in out if r["in_monotone_region"] == "no")
+    print(f"  wrote {MASTER}  ({len(out)} rows, {n_excl} flagged non-monotone)")
 
     flat, L = [], []
     L += [r"\begin{table}[h]", r"\centering", r"\small",
@@ -87,6 +125,11 @@ def main() -> None:
                              "source": src})
             d1 = flat[-2]["B1"], flat[-1]["B1"]
             s1 = flat[-2]["selectivity"], flat[-1]["selectivity"]
+            # carry the pairwise differences into the CSV too, on the second state's row,
+            # so the machine-readable table needs no re-derivation to be read
+            flat[-1]["diff_B1"] = round(d1[1] - d1[0], 4)
+            flat[-1]["diff_selectivity"] = round(s1[1] - s1[0], 4)
+            flat[-2]["diff_B1"] = flat[-2]["diff_selectivity"] = None
             L.append(rf"& \multicolumn{{2}}{{r}}{{\emph{{difference}}}} & "
                      rf"\textbf{{{d1[1]-d1[0]:+.3f}}} & & "
                      rf"\textbf{{{s1[1]-s1[0]:+.3f}}} & & \\")
@@ -104,7 +147,9 @@ def main() -> None:
     OUT_T.mkdir(parents=True, exist_ok=True); OUT_D.mkdir(parents=True, exist_ok=True)
     (OUT_T / "tableA_oct_matched_dose.tex").write_text("\n".join(L) + "\n")
     with open(OUT_D / "tableA_oct_matched_dose.csv", "w", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=list(flat[0])); w.writeheader(); w.writerows(flat)
+        w = csv.DictWriter(fh, fieldnames=list(flat[0]) + ["diff_B1", "diff_selectivity"]
+                           if "diff_B1" not in flat[0] else list(flat[0]))
+        w.writeheader(); w.writerows(flat)
     print(f"  wrote {OUT_T}/tableA_oct_matched_dose.tex")
     print(f"  wrote {OUT_D}/tableA_oct_matched_dose.csv  ({len(flat)} rows)")
 
