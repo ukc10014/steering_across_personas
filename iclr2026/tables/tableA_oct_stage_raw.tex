@@ -1,0 +1,21 @@
+\begin{table}[h]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{llrrrrrr}
+\toprule
+state & construction & $B_1$ & $B_2$ & sel. & $k$ & dose & $\cos\!\to\! M_F$ \\
+\midrule
+$M_D$ & base $+$ DPO update & +0.132 & +0.303 & 1.106 & 0.448 & 0.531 & 0.767 \\
+$M_{D+0.25S}$ & $\Delta W_{D}+0.25\Delta W_{S}$, no cross terms & +0.499 & +0.617 & 1.191 & 0.446 & 0.567 & 0.879 \\
+$M_{D+S}$ & SFT update on folded DPO state & +2.190 & +2.108 & 1.441 & 0.393 & 0.879 & 0.972 \\
+$M_F$ & released-style PEFT merge & +1.923 & +1.950 & 1.556 & 0.332 & 0.818 & 1.000 \\
+$M_S$ & SFT trained \emph{from base}, same corpus & +3.613 & +3.398 & 1.797 & 0.393 & 0.973 & 0.941 \\
+\midrule
+$M_0{+}A_S$\dag & existing SFT adapter, off-base & +1.859 & +1.812 & 1.077 & 0.822 & 0.633 & 0.782 \\
+released & the OCT-published adapter & +2.184 & +2.077 & 1.722 & 0.288 & 0.852 & 0.943 \\
+\bottomrule
+\end{tabular}
+\caption{Raw decomposition of the OCT \texttt{impulsiveness} pipeline, seed 123456, layer 15, forced prompt. $B_1$ is the registered \texttt{impulsivity} contrast against the other seven traits; $B_2$ adds \texttt{risk\_taking}; sel.\ is the target/other common-shift ratio; $k$ is retention; dose is \emph{measured} functional dose (trait-vector displacement), never weight norm. \textbf{This is not a dose-matched causal comparison.} Across the measured states the ordering of $B_1$ is perfectly rank-correlated with dose (Spearman $=+1.000$), so stage and displacement are not separated here; see Fig.~\ref{fig:oct-matched-dose}. \dag~off-base diagnostic: that adapter was fitted on the folded DPO state, so applying it to the base model is a component measurement, not ``SFT alone''.}
+\label{tab:oct-stage-raw}
+\end{table}

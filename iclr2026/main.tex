@@ -15,6 +15,20 @@
 \usepackage{multirow}
 
 \graphicspath{{figures/}}
+
+% ---------------------------------------------------------------------------
+% Figure provenance. Every caption links to the plotting script and to the CSV
+% of the exact numbers plotted, so a reader can reconstruct any chart.
+% ANONYMITY: \provbase below names the author's GitHub account. Repoint it at an
+% anonymised mirror before any double-blind submission.
+% ---------------------------------------------------------------------------
+\newcommand{\provbase}{https://github.com/ukc10014/steering_across_personas/blob/main}
+\DeclareRobustCommand{\provlink}[1]{\href{\provbase/#1}{\nolinkurl{#1}}}
+\newcommand{\prov}[3]{\\[2pt]{\footnotesize\emph{Provenance:} figure \provlink{#1};
+  script \provlink{#2}; plotted values \provlink{#3}.}}
+\newcommand{\provns}[2]{\\[2pt]{\footnotesize\emph{Provenance:} figure \provlink{#1};
+  script \provlink{#2}. Schematic --- no source data.}}
+
 \setlist[itemize]{leftmargin=*,nosep}
 
 % Keep commented for anonymous submission; uncomment only when venue rules allow.
@@ -34,7 +48,10 @@
     \item We apply a contrastive activation addition (CAA) extraction pipeline to Llama-3.1-8B-Instruct under several Open Character Training (OCT) LoRA adapters, measuring 8 traits across 10 semantic personas at layers 15 and 20.
     \item Most adapter-induced movement is broad rather than triple-specific: at L15, 67--77\% of squared movement is persona-common; a global linear map explains a substantial fraction of centered base-to-adapted change; and the new $C\!\times\!T\!\times\!P$ term is only about 3.6\% of trained change.
     \item Dose ladders and functionally matched untrained LoRA controls show that several large geometric signatures, especially dispersion contraction, are not diagnostic of constitutional semantics.
-    \item Narrower content-correlated effects remain, especially the larger common shift on impulsivity/risk-taking under the impulsiveness constitution, but one trained seed per constitution remains the binding limitation.
+    \item Narrower content-correlated effects remain, especially the larger common shift on impulsivity/risk-taking under the impulsiveness constitution.
+    \item Read behaviourally rather than geometrically, a signed effect does survive: on forced-choice preferences the impulsiveness and misalignment arms move specifically toward impulsivity/risk-taking ($+2.08$, $+2.49$) while goodness and mathematical do not ($-0.39$, $-0.36$), at near-identical compression.
+    \item Decomposing the OCT pipeline at matched functional dose localises most of the impulsiveness phenotype to SFT on the DPO-generated corpus rather than to the DPO weight update, and shows the released adapter merge is not the additive update it is usually read as.
+    \item Binding limitation is $n=1$ trained adapter for three of the four constitutions (impulsiveness has two seeds), and no sham-trained control.
 \end{itemize}
 \end{abstract}
 
@@ -58,15 +75,15 @@ Existing research on persona-role interactions show that trait representations i
     \item Causally vary adapter strength to distinguish dose-dependent from arm-specific effects.
     \item Compare trained adapters with functionally matched untrained LoRA perturbations that preserve progressively more structure.
     \item Directly estimate constitution $\times$ trait $\times$ persona interactions; find little triple-specific structure under trained constitutions.
-    \item Decompose OCT pipeline into DPO and introspection SFT stages and attribute behaviour on the impulsiveness constitution amongst training stages and hyperparameter choices.
+    \item Decompose the OCT pipeline into its DPO and introspection-SFT stages and compare those stages \emph{at matched measured functional dose}, since the raw stage ordering is rank-confounded with displacement.
 \end{itemize}
 
 \section{Experimental Setup}
-We apply the pipeline in \citet{anonymous2026personas}, to the open character constitutionally trained models in \citet{maiya2025opencharactertrainingshaping} (OCT). Following the latter, we use the OCT LoRAs published for Llama-3.1-8b-instruct, specifically: goodness (aka "flourishing"), mathematical, impulsiveness, misalignment. In order to assess the geometry of context-dependent trait representations conditional on character, we apply the pipeline in \citet{anonymous2026personas}: trait vectors calculated via contrastive-pair activation difference \citep{rimsky2024steering} for traits when the model has been in-context prompted to adopt a profession/role. Professional roles are farmer, politician, therapist, drill sergeant, street hustler, professor, tech CEO, kindergarten teacher, surgeon, con artist; traits investigated are traits are assertiveness, empathy, risk-taking, honesty, confidence, deference, warmth, and impulsivity. CAA vectors are also extracted using length-matched nonsense prompts and default/null role (i.e. which should correspond to the "assistant persona" of \citet{lu2026assistant}). The primary measurement of interest is cosine similarity on the trait-extracted vector versus the vector extracted under null/assistant, at a mid/late layer (15, 20).
+We apply the pipeline in \citet{anonymous2026personas}, to the open character constitutionally trained models in \citet{maiya2025opencharactertrainingshaping} (OCT). Following the latter, we use the OCT LoRAs published for Llama-3.1-8b-instruct, specifically: goodness (aka "flourishing"), mathematical, impulsiveness, misalignment. In order to assess the geometry of context-dependent trait representations conditional on character, we apply the pipeline in \citet{anonymous2026personas}: trait vectors calculated via contrastive-pair activation difference \citep{rimsky2024steering} for traits when the model has been in-context prompted to adopt a profession/role. Professional roles are farmer, politician, therapist, drill sergeant, street hustler, professor, tech CEO, kindergarten teacher, surgeon, con artist; traits investigated are assertiveness, empathy, risk-taking, honesty, confidence, deference, warmth, and impulsivity. CAA vectors are also extracted using length-matched nonsense prompts and default/null role (i.e. which should correspond to the "assistant persona" of \citet{lu2026assistant}). The primary measurement of interest is cosine similarity on the trait-extracted vector versus the vector extracted under null/assistant, at a mid/late layer (15, 20).
 
-In order to control for the possibility that any LoRA, including one devoid of semantic content, would cause a representational shift, we used untrained scrambled LoRA in three ways: random-IID weights, singular-spectrum-matched random directions, and per-module coordinate-permuted trained updates
+In order to control for the possibility that any LoRA, including one devoid of semantic content, would cause a representational shift, we used untrained scrambled LoRA in three ways: random-IID weights, singular-spectrum-matched random directions, and per-module coordinate-permuted trained updates.
 
-\citet{anonymous2026personas} found that trait vectors clustered (low cosine-to-null distance) for certain roles and not others, and degree of clustering varied between traits. could converge directionally, or be amplified in magnitude, and these effects could be different depending upon role/context/persona. We expected a clustering of representations, which could be intuitively interpreted as “the effect of the constitution's semantic content on the representation”. For example, the impulsive OCT character should promote a more consistent or clustered representation of impulsivity across roles. In addition, some traits that seem intuitively adjacent to impulsivity, like, say, risk-taking, should also show clustering.
+\citet{anonymous2026personas} found that trait vectors clustered (low cosine-to-null distance) for certain roles and not others, and degree of clustering varied between traits. Under character training those representations could converge directionally, or be amplified in magnitude, and these effects could differ by role/context/persona. We expected a clustering of representations, which could be intuitively interpreted as “the effect of the constitution's semantic content on the representation”. For example, the impulsive OCT character should promote a more consistent or clustered representation of impulsivity across roles. In addition, some traits that seem intuitively adjacent to impulsivity, like, say, risk-taking, should also show clustering.
 
 Let $V_{c,t,p}\in\mathbb{R}^{4096}$ denote the trait vector under constitution/intervention $c$, trait $t$, and persona $p$. The adapter-induced change: $dV_{c,t,p}=V_{c,t,p}-V_{\mathrm{base},t,p}$, which can be conceptually decomposed as:
 
@@ -96,7 +113,7 @@ where $\mu$: overall/common shift,
 \begin{itemize}
     \item Role-common shift, which could be result of using a LoRA adaptor, or the specific constitutional training, or other aspect of training/model architecture shared across all constitutions and roles: $\mathrm{mean}_p\,dV_{c,t,p}$.
     \item Dispersion: mean squared distance of persona-conditioned trait vectors from their within-trait centroid. 
-    \item Ordering preservation: representational dissimilarity matrix (RDM) for every pair of personas (holding constitution and trait fixed) giving a $10x10$ matrix for 45 unique pairwise distances. 
+    \item Ordering preservation: representational dissimilarity matrix (RDM) for every pair of personas (holding constitution and trait fixed) giving a $10\times10$ matrix for 45 unique pairwise distances. 
     \item Functional dose: vary adaptor weight such that change in activations of the adapted vs unadapted models, at a given layer, is normalised to some target. This is most relevant for the untrained/randomized controls which (at default application strength of 1) have very little effect on activations. Hence, their strength is increased until the effect on activations matches that of the target (the goodness adapter).
     \item $C\times T\times P$: residual ANOVA-style interaction after lower-order constitution, trait, persona, and pairwise terms are removed.
 \end{itemize}
@@ -110,15 +127,19 @@ where $\mu$: overall/common shift,
 \begin{itemize}
     \item At L15, the persona-common term accounts for 67--77\% of squared adapter-induced movement across trained arms.
     \item Adapters for impulsiveness and misalignment show the highest common shifts in Fig.~\ref{fig:trait-selectivity}A.
-    \item Fig.~\ref{fig:trait-selectivity}B shows that the misalignment adapter causes a large shift across most traits. On the other hand, impulsiveness is more discriminatory, showing outsized shifts under impulsivity and risk-taking (common shift is roughly 1.7--1.9$\times$ larger on risk-taking and impulsivity than on the other six traits).
-    \item Given the unusual impulsiveness finding, we re-ran the OCT pipeline to check replication under a second optimisation seed (registered impulsivity contrast calculated as difference in logits, corrected for generic logit compression on adapted vs unadapted models, between forced-choice impulsive vs non-impulsive answers was $+1.95$ vs.\ $+2.18$ in the \citet{maiya2025opencharactertrainingshaping} released adapter; trait selectivity response calculated as movement in impulsivity/risk-taking activations divided by mean shift over remaining six traits, was $1.64\times$ vs.\ $1.72\times$ in the released adapter), subject to caveat: this is a fixed-data training replication rather than a fully independent rerun of the OCT data-generation pipeline.
+    \item Fig.~\ref{fig:trait-selectivity}B shows that the misalignment adapter causes a large shift across most traits. On the other hand, impulsiveness is more discriminatory, showing outsized shifts under impulsivity and risk-taking (common shift is roughly 1.7--1.9$\times$ larger on risk-taking and impulsivity than on the other six traits: $1.72\times$ at L15, $1.87\times$ at L20).
+    \item Wording discipline on what was fixed in advance: the preregistration names \texttt{impulsivity} and the triple interaction; \texttt{risk\_taking} was added by the geometry afterwards, so the pair is fixed before the behavioural data but post hoc to the prereg. On \texttt{impulsivity} alone the registered contrast is $+2.18$ (impulsiveness) and $+2.22$ (misalignment) against $\leq-0.52$ for every other arm, so the registered version carries the claim unaided.
+    \item Given the unusual impulsiveness finding, we re-ran the OCT pipeline twice: a reproduction at the released seed, and a second optimisation seed. Both passed all nine preregistered gate criteria.
+    \item The registered impulsivity contrast (difference in logits between forced-choice impulsive and non-impulsive answers, corrected for the generic logit compression of adapted vs unadapted models) was $+1.92$ (reproduction) and $+1.95$ (second seed) against $+2.18$ for the \citet{maiya2025opencharactertrainingshaping} released adapter.
+    \item Trait selectivity (movement in impulsivity/risk-taking activations divided by mean shift over the remaining six traits) was $1.56\times$ and $1.64\times$ respectively, against $1.72\times$ released. Both replications therefore land \emph{below} the released adapter on selectivity, and the $1.7$--$1.9\times$ figure quoted above is a property of the released artifact.
+    \item Caveats, both binding. This is a fixed-data training replication, not an independent rerun of the OCT data-generation pipeline. And seed effect is not separable from rig noise at $n=1$: seed-to-seed $\cos(dG)$ at the merged stage is $0.955$, against $0.943$ for the same seed reproduced in a different environment --- a gap of $0.012$ on a quantity whose within-comparison spread is $\sim\!0.06$. Report it as ``$\approx\!0.95$, not resolvable into seed vs rig'', not as a noise ceiling or an estimate of seed variance. Holding the SFT corpus fixed across seeds also biases the similarity upward.
     \item Note that neither panel shows the sign direction of the movement and motivates a later figure.
 \end{itemize}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.98\linewidth]{fig1_decomposition.pdf}
-    \caption{Panel A shows, for each constitutionally adapted model and each trait (dots), the proportion of the adapter-induced change in the trait representation (at L15) that is shared across personas, rather than persona-specific. Panel B show the size of persona-common shift by trait, relative to the size of the original (unadapted) trait representation.}
+    \caption{Panel A shows, for each constitutionally adapted model and each trait (dots), the proportion of the adapter-induced change in the trait representation (at L15) that is shared across personas, rather than persona-specific. Panel B shows the size of persona-common shift by trait, relative to the size of the original (unadapted) trait representation.\prov{workshop_iclr/figures/fig1_decomposition.pdf}{workshop_iclr/scripts/fig1_decomposition.py}{workshop_iclr/data/fig1_decomposition.csv}}
     \label{fig:trait-selectivity}
 \end{figure}
 
@@ -129,19 +150,22 @@ where $\mu$: overall/common shift,
     global reshaping of the representation space---including scaling/shearing---rather
     than a collection of independently learned trait$\times$persona changes.
     \item Interpretation: much of the remaining base-to-adapted difference has a globally systematic linear form, reducing how much change needs a cell-specific semantic explanation.
+    \item This signature is not diagnostic of training either, and fails the same control as the others. In Fig.~\ref{fig:diagnostics}B the untrained arms sit at the \emph{top} of the linear-map column --- \texttt{random\_perm} $0.561$, \texttt{random\_spec} $0.513$, \texttt{random\_iid} $0.488$ --- at or above every trained arm ($0.388$--$0.541$). A large fraction of centered change being globally linear is a property of being perturbed, not of being trained.
 \end{itemize}
 
 \subsection{Relative persona geometry is strongly dose-dependent}
 \begin{itemize}
-    \item In Fig.~\ref{fig:rdm-dose}A, within-arm dose ladders causally show that RDM preservation falls as functional dose rises. This means that the pairwise distances in the $10x10$ persona-conditioned trait vector for each trait increases. That is, RDM of 1 means persona pairs that were relatively close in the unadapted model are still relatively close (in the adapted), and pairs that were relatively far apart are still relatively far apart.
+    \item In Fig.~\ref{fig:rdm-dose}A, within-arm dose ladders causally show that RDM preservation falls as functional dose rises. This means that the pairwise distances in the $10\times10$ persona-conditioned trait vector for each trait increases. That is, RDM of 1 means persona pairs that were relatively close in the unadapted model are still relatively close (in the adapted), and pairs that were relatively far apart are still relatively far apart.
     \item This means that simply perturbing the model more strongly causes progressively more distortion of the existing persona geometry.
-    \item At matched functional dose (Fig.~\ref{fig:rdm-dose}C), goodness and impulsiveness follow essentially the same RDM-preservation curve; misalignment remains displaced below it. That is, misalignment preserves the underlying persona geometry less well than goodness or impulsiveness, but this isn't interpretable as related to the semantics of the misalignment constitution vs the others).
+    \item At matched functional dose (Fig.~\ref{fig:rdm-dose}C), goodness and impulsiveness follow essentially the same RDM-preservation curve ($0.834$, $0.826$); mathematical sits above both ($0.878$) and misalignment below them ($0.768$).
+    \item That ordering is not interpretable as constitutional semantics, because the untrained arms straddle the whole trained range: \texttt{random\_iid} preserves geometry \emph{better} than every trained arm ($0.886$) and \texttt{random\_perm} preserves it \emph{worse} than misalignment ($0.761$). Misalignment is not the outlier; it is inside a band that untrained perturbations also occupy.
+    \item Estimator note: panels C/D dose-correct \emph{every} arm, whereas \S7.7 of the underlying results write-up corrects only the random arms and quotes the trained arms at their measured doses. This changes the printed ordering (misalignment rises from $0.732$ to $0.768$) but not the claim, which it slightly strengthens: untrained spread $0.125$ against trained spread $0.110$.
 \end{itemize}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.95\linewidth]{fig3_dose_and_control.pdf}
-    \caption{Trait and persona geometry preservation vs functional-dose at L15. Increased functional dose distorts geometry (relative to unadapted models). Goodness and impulsiveness follow similar dose–response curves, while misalignment shows lower preservation at matched dose.}
+    \caption{Trait and persona geometry preservation vs functional-dose at L15. Increased functional dose distorts geometry (relative to unadapted models). Goodness and impulsiveness follow similar dose–response curves. Misalignment shows lower preservation at matched dose than the other trained arms, but not lower than the untrained \texttt{random\_perm} control, and \texttt{random\_iid} preserves geometry better than any trained arm --- the untrained spread brackets the trained one. All arms in panels C/D are dose-corrected.\prov{workshop_iclr/figures/fig3_dose_and_control.pdf}{workshop_iclr/scripts/fig3_dose_and_control.py}{workshop_iclr/data/fig3_dose_and_control.csv}}
     \label{fig:rdm-dose}
 \end{figure}
 
@@ -155,7 +179,8 @@ where $\mu$: overall/common shift,
 \subsection{Untrained perturbations reproduce broad contraction}
 \begin{itemize}
     \item At ordinary weight scale, untrained LoRAs have minimal effect (in activation differences to unadapted model); the geometric intuition is that trained adapters are more potent owing to vector directions that are already partially aligned.
-    \item In order to functionally match doses, we need an adaptor application weight $s = 16--19$ to get the same effect (equalize the difference in activations to a character-trained model at a given layer) as a trained OCT adaptor at $s = 1$.
+    \item In order to functionally match doses, we need an adaptor application weight $s = 16--19$ to get the same effect (equalize the difference in activations to a character-trained model at a given layer) as a trained OCT adaptor at $s = 1$ (Fig.~\ref{fig:dose-calibration}B: CAA answer-token displacement $0.545$ at \texttt{random\_iid} $s{=}16$, $0.575$ at \texttt{random\_spec} $s{=}19$, $0.598$ at \texttt{random\_perm} $s{=}16$, against $0.560$ for goodness at $s{=}1$).
+    \item The size of that gap is itself the reason nominal scale cannot be used as the comparison variable. At $s{=}1$ an untrained LoRA is essentially inert: neutral-prompt KL is $0.0012$ (\texttt{random\_iid}) and $0.0008$ (\texttt{random\_spec}) against $0.606$ for goodness, roughly $500$--$700\times$ less (Fig.~\ref{fig:dose-calibration}A).
     \item At so matched functional dose, all three untrained constructions reproduce most of the broad dispersion contraction, and the spread in RDM preservation among untrained controls is at least as large as the spread among trained constitutions (Fig.~\ref{fig:rdm-dose}C,D).
     \item Another comparison (Fig.~\ref{fig:directions}) is the cosine similarity of persona-mean representational shift (at matched functional dose) between two adapted models (either OCT LoRA or a randomised/untrained LoRA), where \[dG_{c,t}=\frac{1}{P}\sum_{p=1}^{P}dV_{c,t,p}.\] We find that character-trained models' representational shifts are directionally more similar to each other, than they are to untrained models' shifts.
 \end{itemize}
@@ -166,39 +191,55 @@ where $\mu$: overall/common shift,
     \item "Cross-fitted" is a noise correction technique where the evaluation questions are broken into two non-overlapping subsets, and we measure how much of the shift reproduces across the two estimates, allowing question-sampling noise to cancel out (in expectation).
     \item At L15 we can break down the terms above: $T$ 0.372, $TP$ 0.175, $CT$ 0.170, $\mu$ 0.124, $C$ 0.067, $P$ 0.043, $CTP$ 0.036, $CP$ 0.013.
     \item So, 71.4\% of the representational change is across terms that have no constitutional dependency. 28.6\% is constitution-dependent.
-    \item The $\mu$ term is representational change shared across all $CTP$ (for whatever reason, i.e. training pipeline).After this common effect, the largest parts of the breakdown show largest shares of representational change coming from traits (not specific to any constitution or persona) at 37.2\% and traits conditional on personas-only at 17.5\%. Constitution does have an effect, but not in a way that is persona-dependent, mostly related to traits at 17\%. This is consistent with how the impulsiveness and misalignment constitutions expressed differently on traits in Fig~\ref{fig:trait-selectivity}.
+    \item The $\mu$ term is representational change shared across all $CTP$ (for whatever reason, i.e. training pipeline). After this common effect, the largest parts of the breakdown show largest shares of representational change coming from traits (not specific to any constitution or persona) at 37.2\% and traits conditional on personas-only at 17.5\%. Constitution does have an effect, but not in a way that is persona-dependent, mostly related to traits at 17\%. This is consistent with how the impulsiveness and misalignment constitutions expressed differently on traits in Fig~\ref{fig:trait-selectivity}.
     \item Importantly, after lower-order terms are removed, only about 3.6\% of trained L15 adapter-induced squared change is specific to the particular $CTP$ triple.
     \item At both layers 15 and 20, we note (Fig.~\ref{fig:ctp}B) that an untrained adapter shows a higher $CTP$ residual. "Untrained" here means 64-rank LoRA adapters that have been scrambled but match the statistical signature of the adapters from OCT \citep{maiya2025opencharactertrainingshaping} scaled to an application strength that is functionally equivalent to OCT based upon average activation norm at the respective layer. The adapters are scrambled in three ways: IID random, spectrum-matched, and coordinate-permuted (relative to an OCT constitution in the latter two cases).
     \item Main conclusion is that the motivating hypothesis (constitutional character training changes how traits are represented conditional on context/role/persona) is not supported. That is, the existing \(T\times P\) structure from \citet{anonymous2026personas} remains substantial, and constitutional training effect mostly is trait-dependent rather than persona-specific.
-    \item Important caveat: the large random controls are near incoherence owing to the large scaling. In order to confirm Panel B, a sham-trained LoRA is the cleaner control. \textbf{DELETE/CLARIFY}
+    \item This panel is a control, and it licenses only the narrow reading: a nonzero fine-grained interaction is not by itself evidence of semantics, because an untrained perturbation produces more of it. It does not license the causal claim that training \emph{suppresses} context-specific interaction.
+    \item Caveat that must stay attached to it: reaching matched dose puts the random arms within roughly a factor of two of the measured coherence cliff. Neutral-prompt KL for \texttt{random\_iid} runs $0.176$ at $s{=}16$ (the rung used), $0.529$ at $s{=}24$ and $1.81$ at $s{=}32$ (Fig.~\ref{fig:dose-calibration}A). Incoherence would present exactly as cell-specific idiosyncrasy, which is the thing being measured.
+    \item Separating those two explanations needs a sham-trained LoRA --- same optimiser, schedule, rank and target modules, with the character signal destroyed --- which does not exist yet. Until it does, Panel B bounds the triple interaction rather than explaining it.
 \end{itemize}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.94\linewidth]{fig2_ctp.pdf}
-    \caption{C$\times$T$\times$P decomposition: At L15 most of the change (between adapted and unadapted models) is captured by lower-order terms, the triple interaction component is small. Primary effect of constitution is on trait representation generally.}
+    \caption{C$\times$T$\times$P decomposition: At L15 most of the change (between adapted and unadapted models) is captured by lower-order terms, the triple interaction component is small. Primary effect of constitution is on trait representation generally.\prov{workshop_iclr/figures/fig2_ctp.pdf}{workshop_iclr/scripts/fig2_ctp.py}{workshop_iclr/data/fig2_ctp.csv}}
     \label{fig:ctp}
 \end{figure}
 
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.94\linewidth]{fig4_shared_direction.pdf}
-    \caption{After matching intervention strength, OCT adapted models converge on a common representational shift direction substantially more similar on trained models than between trained and untrained LoRA.}
+    \caption{After matching intervention strength, OCT adapted models converge on a common representational shift direction: trained--trained cosine similarity (0.46--0.83) substantially exceeds trained--untrained (0.01--0.29), with non-overlapping bootstrap intervals between the two blocks.\prov{workshop_iclr/figures/fig4_shared_direction.pdf}{workshop_iclr/scripts/fig4_shared_direction.py}{workshop_iclr/data/fig4_shared_direction.csv}}
     \label{fig:directions}
 \end{figure}
 
 
+
+\subsection{A signed effect survives behaviourally, though not geometrically}
+\begin{itemize}
+    \item Fig.~\ref{fig:signed} shows that no validated \emph{signed} statement can be made from the representations: projecting the persona-common shift onto the base-model trait axis fails its own validity checks for trained adapters and passes for the randomized control.
+    \item Fig.~\ref{fig:logits} asks the same question of the model's outputs rather than its activations, reading the log-odds of a trait-positive over a trait-negative answer on forced-choice CAA items.
+    \item The naive shift is invalid as a preference measure. Every arm compresses preferences toward indifference (retention $k=0.02$--$0.29$ trained, $0.68$--$0.81$ untrained), so the raw change is close to a mirror image of wherever the base model already stood (Fig.~\ref{fig:logits}A,B).
+    \item Correcting for compression means reporting the fitted preference at base indifference rather than the raw shift. This is interpolation, not extrapolation: $9$--$21\%$ of items per trait sit within $|\text{log-odds}_{\text{base}}|<1$.
+    \item Corrected, the impulsiveness and misalignment arms move specifically toward impulsivity ($+3.16$, $+2.52$) and risk-taking ($+2.45$, $+2.37$); the trait-vs-others contrast is $+2.08$ and $+2.49$ (Fig.~\ref{fig:logits}C,D).
+    \item Goodness ($-0.39$), mathematical ($-0.36$) and both untrained arms (intervals covering zero: $-0.12$, $-0.14$) do not. The ordering is the same under the default CAA prompt.
+    \item This is the one comparison in the paper not exposed to the content-versus-procedure confound of Fig.~\ref{fig:directions}. Goodness, mathematical and impulsiveness share pipeline, rank, initialisation and corpus shape, and sit at almost identical compression ($k=0.25$, $0.28$, $0.29$), yet score $-0.39$, $-0.36$ and $+2.08$. Procedure is held constant; only the constitution differs.
+    \item Scope limit: this is a forced choice between two answer letters, not free-form behaviour. Nothing here generates a completion, and the result should not be extrapolated to open-ended output without a generation study.
+\end{itemize}
+
 \begin{figure}[t]
     \centering
     \includegraphics[width=0.94\linewidth]{fig5_behavioral_preference.pdf}
-    \caption{Fig.~\ref{fig:signed} showed the difficulty in attributing a signed representational shift to constitutional semantics. Here, instead of looking at activations, we measured the log-odds of the model chossing a trait-positive over trait-negative answer. Panels A/B shows that when comparing character-trained versus an unadapted model, character training generically compresses the response towards indifference (i.e. no preference on a given trait). Panel C controls for this compression: the impulsiveness and misalignment adapters show strong positive shifts for impulsivity and risk-taking. Panel D shows this as a contrast (between these traits and the other six) for both the default CAA prompt and a forced answer prompt.}
+    \caption{Fig.~\ref{fig:signed} showed the difficulty in attributing a signed representational shift to constitutional semantics. Here, instead of looking at activations, we measured the log-odds of the model choosing a trait-positive over trait-negative answer. Panels A/B show that when comparing character-trained versus an unadapted model, character training generically compresses the response towards indifference (i.e. no preference on a given trait). Panel C controls for this compression: the impulsiveness and misalignment adapters show strong positive shifts for impulsivity and risk-taking. Panel D shows this as a contrast (between these traits and the other six) for both the default CAA prompt and a forced answer prompt.\prov{workshop_iclr/figures/fig5_behavioral_preference.pdf}{workshop_iclr/scripts/fig5_behavioral_preference.py}{workshop_iclr/data/fig5_behavioral_preference.csv}}
     \label{fig:logits}
 \end{figure}
 
 \section{Discussion}
 \paragraph{Constitutional character training operates generally across roles.}
 \begin{itemize}
-    \item Constitution $\times$ trait effects are materially larger than constitution $\times$ persona or full triple interactions.
+    \item Constitution $\times$ trait effects are materially larger than constitution $\times$ persona or full triple interactions: $CT/CP \approx 13$ ($0.170$ against $0.013$).
+    \item Constitutional differences are therefore an order of magnitude more trait-dependent than persona-dependent.
     \item Tentative interpretation: character training modulates trait representations relatively consistently across role contexts rather than installing a separate context-specific policy for every persona.
     \item Do not convert this directly into a behavioural-generalization claim without output-level evaluation.
 \end{itemize}
@@ -211,16 +252,38 @@ where $\mu$: overall/common shift,
 \end{itemize}
 
 \paragraph{Character training contributes to existing structure rather than creating new entanglements.}
+\begin{itemize}
+    \item The dominant terms are the ones that were already there before any constitution was applied: $T$ $0.372$ and $TP$ $0.175$ together are over half the change, against $CTP$ $0.036$.
+    \item Reading: character training scales and shifts a trait$\times$persona structure the base model already has, rather than writing a new persona-specific arrangement on top of it.
+    \item This is a statement about where the variance sits, not about mechanism. The decomposition cannot distinguish ``the existing structure is reused'' from ``the perturbation is too small to overwrite it''.
+    \item It is also the reading most exposed to the dose confound, since every term above scales with displacement. It should be stated at matched dose or not at all.
+\end{itemize}
+
+\paragraph{A signed claim is available behaviourally, and only behaviourally.}
+\begin{itemize}
+    \item The representational route to a signed claim failed its validity test (Fig.~\ref{fig:signed}); the behavioural route survives it (Fig.~\ref{fig:logits}).
+    \item Both failures have the same shape: generic contraction in the geometry, generic compression toward indifference in the logits. The correction is what makes either readable.
+    \item Practical implication: a gain/loss chart built on unvalidated signed projections would have reported the impulsiveness adapter as having made the model \emph{less} impulsive. The validity check is not optional bookkeeping.
+    \item The behavioural contrast is also the only place where content and training procedure are separated, because it compares arms within the trained family rather than trained against untrained.
+\end{itemize}
+
+\paragraph{Where in the pipeline the phenotype lives.}
+\begin{itemize}
+    \item At matched functional dose, SFT on the DPO-generated introspection corpus carries far more of the impulsiveness phenotype than the DPO weight update does (\S\ref{sec:oct-stage}).
+    \item This does not make DPO dispensable: DPO generated the corpus that SFT trains on, so removing it from the weights does not remove it from the causal history.
+    \item The released adapter merge also turns out not to be the additive update it is generally read as, which matters for anyone comparing published OCT artifacts to their own reconstructions.
+    \item Both statements are single-constitution, single-seed, layer 15.
+\end{itemize}
 
 
 \section{Limitations and Next Experiments}
 \begin{itemize}
-    \item $n=1$ trained adapter per constitution: semantics cannot yet be separated from adapter idiosyncrasy.
-    \item Retrain impulsiveness with a second seed; save post-SFT and post-DPO checkpoints separately.
-    \item Run a sham-trained LoRA through the same optimizer/schedule/rank/targets with character signal destroyed.
-    \item Add behavioural evaluations for the same traits/personas.
-    \item Re-run any remaining direction/dose analyses on the random arms before assigning semantic meaning to them.
-    \item Replace provisional figures with final plotting code and propagate dose uncertainty jointly where needed.
+    \item $n=1$ trained adapter for goodness, mathematical and misalignment: semantics cannot be separated from adapter idiosyncrasy for those three. Impulsiveness has two seeds, but at $n=2$ the seed contribution is still not separable from rig nondeterminism.
+    \item No sham-trained LoRA. This is the single most load-bearing gap: it is the control that would separate ``constitutional content'' from ``this training procedure'' in Fig.~\ref{fig:directions}, and the control that would settle whether the untrained arms' higher $CTP$ residual is idiosyncrasy or incoherence.
+    \item No free-form behavioural evaluation. Fig.~\ref{fig:logits} is a forced choice between two answer letters; nothing in this work generates a completion, so none of it constrains what these arms would actually write.
+    \item Stage decomposition is one constitution, one seed, one layer, and its cleaner pair ($M_{D+0.25S}$ vs $M_F$) answers a question about the merge rather than about training stages.
+    \item Bootstrap intervals condition on the chosen 8 traits and 10 personas and cover question-sampling uncertainty only; they are not population inference and not uncertainty over training seeds.
+    \item Dose uncertainty is not propagated jointly into the matched-dose comparisons.
 \end{itemize}
 
 \section{Conclusion}
@@ -231,7 +294,14 @@ where $\mu$: overall/common shift,
 \end{itemize}
 
 \section*{Reproducibility Statement}
-\textbf{TODO.} Point to the anonymous code release, exact adapter identifiers, extraction scripts, cached activations, random-control constructors, and bootstrap/cross-fitting code. State which figures are regenerated from archived results and which require new inference.
+\label{sec:repro}
+\begin{itemize}
+    \item All figure paths quoted in the captions are relative to the code release at \url{\provbase}.
+    \item Every figure caption names the script that draws it and a CSV of the exact values it plots. Those CSVs are written by the same scripts from cached analysis outputs under \path{outputs/analysis/}, so every number in every figure is auditable without rerunning inference.
+    \item No figure in this paper requires a forward pass to rebuild. The whole set is CPU-reproducible from the archived analysis outputs.
+    \item Arm names, ordering, colour and marker come from a single style module; the palette is validated against Machado colour-vision-deficiency transforms rather than asserted.
+    \item \textbf{TODO.} Add exact adapter identifiers, the extraction scripts and their environment pins, the random-control constructors, the bootstrap and cross-fitting code, and the preregistration.
+\end{itemize}
 
 \section*{AI Use Statement}
 LLMs were used for experiment code writing, data analysis, chart production, and typsetting/LaTeX. The text of the manuscript was human-written, and experiments were designed and results interpreted by human authors.
@@ -242,46 +312,124 @@ LLMs were used for experiment code writing, data analysis, chart production, and
 \bibliography{references}
 
 \appendix
-\section{Additional Working Figures}
+\section{Appendix: Additional Working Figures}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figA1_dose_calibration.pdf}
+    \caption{Three different dose axes --- weight norm, output KL, and CAA answer-token displacement --- do not agree, which is why every matched comparison in this paper is sited by measurement rather than by nominal LoRA scale. At $s{=}1$ a norm-matched untrained LoRA is effectively inert (neutral-prompt KL $\sim\!500$--$700\times$ below a trained adapter). Panel A is also what bounds the untrained arms: the rungs used ($s = 16$--$19$) sit within roughly a factor of two of the point where KL climbs steeply.\prov{workshop_iclr/figures/figA1_dose_calibration.pdf}{workshop_iclr/scripts/figA1_dose_calibration.py}{workshop_iclr/data/figA1_dose_calibration.csv}}
+    \label{fig:dose-calibration}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figA2_diagnostics.pdf}
+    \caption{Panel A: per-cell $C\times T\times P$ against a calibrated reference rather than against zero; the untrained distribution sits above the trained one at every quantile (median $0.035$ against $0.022$). Panel B: fraction of centered base-to-adapted discrepancy removed by a restricted orthogonal map and by a general linear map. The untrained arms are at the top of the linear column, above every trained arm, so ``a global linear map explains a lot of it'' is not a signature of training.\prov{workshop_iclr/figures/figA2_diagnostics.pdf}{workshop_iclr/scripts/figA2_diagnostics.py}{workshop_iclr/data/figA2_diagnostics.csv}}
+    \label{fig:diagnostics}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figA3_layer20.pdf}
+    \caption{Fig.~\ref{fig:rdm-dose} replicated at layer 20. The dose-dependence of RDM preservation and the failure of dispersion to follow a single dose-response curve both replicate. The arm ordering does not transfer intact: at L20 misalignment ($0.631$) falls below \texttt{random\_perm} ($0.662$), reversing their L15 order, which is a further reason not to read the ordering of trained arms as constitutional content.\prov{workshop_iclr/figures/figA3_layer20.pdf}{workshop_iclr/scripts/figA3_layer20.py}{workshop_iclr/data/figA3_layer20.csv}}
+    \label{fig:layer20}
+\end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.92\linewidth]{figA4_rotation_control.pdf}
-    \caption{As the measured application dose (as distinct from headline LoRA adapter strength) of an adapter increases, the persona-mean $dG$ vector (which quantifies the representational shift between the adapted and the unadapted model) rotates. The magnitude of rotation increases broadly across all constitutional adapters as well as the randomized control. This supports the contention above that dose-dependent rotation is a generic property of strongly-applied LoRA adapters, and not indicative of the effect of constitutional semantics.}
+    \label{fig:rotation}
+    \caption{As the measured application dose (as distinct from headline LoRA adapter strength) of an adapter increases, the persona-mean $dG$ vector (which quantifies the representational shift between the adapted and the unadapted model) rotates. The magnitude of rotation increases broadly across all constitutional adapters as well as the randomized control. This supports the contention above that dose-dependent rotation is a generic property of strongly-applied LoRA adapters, and not indicative of the effect of constitutional semantics.\prov{workshop_iclr/figures/figA4_rotation_control.pdf}{workshop_iclr/scripts/figA4_rotation_control.py}{workshop_iclr/data/figA4_rotation_control.csv}}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.95\linewidth]{figA5_signed_validity.pdf}
-    \caption{Signed-projection validity at L15. To test whether representational shifts (between adapted and unadapted models) can be interpreted as “more” or “less” of a trait, the persona-common shift is projected onto the corresponding unadapted-model trait axis across a LoRA-strength ladder. A "valid" trait is one where its projection retains the same sign, grows in monotically (absolute value), and extrapolates to a sufficiently small intercept at zero dose. Trained adapters largely fail these checks, whereas the randomized adapter passes for all traits. This means that we cannot interpret representational shifts as necessarily indicating semantic shifts: for example, the impulsiveness-trained model has not thereby become “more impulsive” simply because its impulsivity representation moves farther in one direction along the base-model trait axis.}
+    \caption{Signed-projection validity at L15. To test whether representational shifts (between adapted and unadapted models) can be interpreted as “more” or “less” of a trait, the persona-common shift is projected onto the corresponding unadapted-model trait axis across a LoRA-strength ladder. A "valid" trait is one where its projection retains the same sign, grows in monotically (absolute value), and extrapolates to a sufficiently small intercept at zero dose. Trained adapters largely fail these checks, whereas the randomized adapter passes for all traits. This means that we cannot interpret representational shifts as necessarily indicating semantic shifts: for example, the impulsiveness-trained model has not thereby become “more impulsive” simply because its impulsivity representation moves farther in one direction along the base-model trait axis.\prov{workshop_iclr/figures/figA5_signed_validity.pdf}{workshop_iclr/scripts/figA5_signed_validity.py}{workshop_iclr/data/figA5_signed_validity.csv}}
     \label{fig:signed}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.95\linewidth]{fig0_schematic.pdf}
-    \caption{\textbf{TODO} IF SPACE PERMITS: This is probably stale and not super informative. Think about it.}
+    \label{fig:schematic}
+    \caption{\textbf{TODO} IF SPACE PERMITS: This is probably stale and not super informative. Think about it.\provns{workshop_iclr/figures/fig0_schematic.pdf}{workshop_iclr/scripts/fig0_schematic.py}}
 \end{figure}
 
 
-\subsection{Decomposing the OCT training pipeline}
+\section{Appendix: Decomposing the OCT training pipeline}
+\label{sec:oct-stage}
+
+\paragraph{Why the question is asked at all.}
+\begin{itemize}
+    \item Every result above is measured on the merged OCT artifact, so it is worth knowing where in the pipeline the \texttt{impulsiveness} phenotype actually appears.
+    \item The OCT pipeline is DPO, then generation of an introspection corpus \emph{by the DPO model}, then SFT on that corpus, then a weighted adapter merge. Fig.~\ref{fig:oct-pipeline} shows the data flow; the effect could come from any stage, or from the merge implementation itself.
+    \item Legend for the model states: M (the unmodified base model, Llama-3.1-8B-Instruct); $M_D$ (base plus the DPO adapter; the DPO weight update alone, before any SFT); $M_{D+S}$ (base plus the full DPO and SFT updates; the native post-SFT state, i.e. the SFT adapter applied to the model it was actually trained on); $M_{D+0.25S}$ (base plus the DPO update and a quarter of the SFT update, summed directly in weight space; the merge OCT intended, with no cross terms); $M_F$ (the released-style artifact: peft's \texttt{add\_weighted\_adapter([DPO, SFT], [1, 0.25], "linear")}, which combines the LoRA factors and so equals $M_{D+0.25S}$ plus factor-space cross terms); $M_S$ (a separately trained SFT adapter whose optimisation started from base weights instead of the DPO model, on the identical frozen corpus; DPO is removed from the weights but not from the corpus, which the DPO model generated); $M+A_S$ (the existing SFT adapter (fitted around $M_D$) applied to plain base; an off-base diagnostic, not "SFT alone")
+\end{itemize}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.92\linewidth]{figA_oct_stage_pipeline.pdf}
-    \caption{Model states in the OCT \texttt{impulsiveness} pipeline. Solid arrows are data flow, dashed are weight initialisation. $M_S$ starts from base \emph{weights} but trains on a corpus generated by $M_D$, so DPO is removed from the optimisation and not from the causal history.}
+    \caption{Model states in the OCT \texttt{impulsiveness} pipeline. Solid arrows are data flow, dashed are weight initialisation. $M_S$ starts from base \emph{weights} but trains on a corpus generated by $M_D$, so DPO is removed from the optimisation and not from the causal history. $M_{D+0.25S}$ is the merge OCT intends; $M_F$ is what peft's linear factor combination actually produces, and differs from it only by cross terms.\provns{workshop_iclr/figures/figA_oct_stage_pipeline.pdf}{scripts/appendix_oct/figA_oct_stage_pipeline.py}}
     \label{fig:oct-pipeline}
 \end{figure}
+
+\paragraph{The raw stage ordering is confounded with dose and carries nothing on its own.}
+\begin{itemize}
+    \item Table~\ref{tab:oct-stage-raw} reports each state on the registered forced-prompt contrast $B_1$ and the geometric endpoints. Read naively it looks like a clean localisation.
+    \item It is not. Across the measured states the ordering of $B_1$ is \emph{perfectly} rank-correlated with measured functional dose (Spearman $=+1.000$), so stage and displacement are not separated by that table.
+    \item Nominal LoRA scale cannot rescue it. At $s{=}1$ the five constructions already span measured dose $0.54$--$1.11$, the relation is nonlinear within every state ($\mathrm{dose}/s$ spans $\sim\!2\times$), and two states turn over at $s{=}2$ (Fig.~\ref{fig:oct-dose-calibration}).
+    \item This table should therefore never be shown as a stage result without that caveat attached. It is orientation only.
+\end{itemize}
+
+\input{tables/tableA_oct_stage_raw.tex}
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.95\linewidth]{figA_oct_dose_calibration.pdf}
-    \caption{Nominal LoRA scale is not a usable comparison variable. At $s{=}1$ the five constructions span measured functional dose $0.54$--$1.11$; the relation is nonlinear within every state; and $M_{D+S}$ and $M_S$ turn over at $s{=}2$ (hollow markers, excluded from all interpolation).}
+    \caption{Nominal LoRA scale is not a usable comparison variable. At $s{=}1$ the five constructions span measured functional dose $0.54$--$1.11$; the relation is nonlinear within every state; and $M_{D+S}$ and $M_S$ turn over at $s{=}2$ (hollow markers, excluded from all interpolation).\prov{workshop_iclr/figures/figA_oct_dose_calibration.pdf}{scripts/appendix_oct/figA_oct_dose_calibration.py}{workshop_iclr/data/figA_oct_dose_calibration.csv}}
     \label{fig:oct-dose-calibration}
 \end{figure}
 
+\paragraph{At matched functional dose, both stage differences survive.}
+\begin{itemize}
+    \item Each pair is compared only inside the range of measured dose where \emph{both} members were actually measured (shaded in Fig.~\ref{fig:oct-matched-dose}); nothing is extrapolated, and interpolation is restricted to each state's monotone prefix.
+    \item $M_S$ against $M_D$: at matched dose $M_S$ exceeds $M_D$ on the registered endpoint by $8$--$13\times$ ($+2.12$ vs $+0.16$ at dose $0.586$, rising to $+3.11$ vs $+0.37$ at dose $0.817$), and is markedly more selective ($1.59$--$1.76$ against $1.11$--$1.16$).
+    \item Reading: at comparable functional displacement, the DPO-generated introspection corpus learned through SFT is a far more potent carrier of the phenotype than the DPO weight update itself.
+    \item What that does \emph{not} say: DPO is not shown to be unnecessary. DPO generated the corpus $M_S$ trains on, so removing DPO from the weights does not remove it from the causal history.
+    \item Caveat bounding how strongly pair 1 can be phrased: reaching the overlap needs $M_D$ at $s\approx1.4$--$2.0$ and $M_S$ at $s\approx0.5$--$0.7$, so the comparison is between two scaled artifacts, neither of which is a trained state. This is inherent --- $M_D$ is simply the weakest perturbation.
+\end{itemize}
 
-\section{Definitions and Estimator Notes}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\linewidth]{figA_oct_matched_dose.pdf}
+    \caption{Stage comparisons at matched measured functional dose. \textbf{A,B} $M_D$ versus $M_S$; \textbf{C,D} $M_{D+0.25S}$ versus $M_F$, which differ only by peft's factor-space cross terms. Shading marks each pair's overlapping measured support, the only region in which the comparison is made; points outside it are drawn faint. Rings mark the trained $s{=}1$ state of each construction. Panel D reports selectivity rather than cosine because $M_F$'s trained state is itself the reference direction, so its cosine is pinned at $1.000$ by construction.\prov{workshop_iclr/figures/figA_oct_matched_dose.pdf}{scripts/appendix_oct/figA_oct_matched_dose.py}{workshop_iclr/data/figA_oct_matched_dose.csv}}
+    \label{fig:oct-matched-dose}
+\end{figure}
+
+\input{tables/tableA_oct_matched_dose.tex}
+
+\paragraph{The released merge is not the additive update it is read as.}
+\begin{itemize}
+    \item $M_F$ and $M_{D+0.25S}$ contain the same DPO and SFT components in the same $1{:}0.25$ proportion. They differ only in that peft combines LoRA \emph{factors}, which introduces the cross terms $B_D A_S + B_S A_D$.
+    \item At matched dose those terms roughly double the behavioural contrast: $B_1$ goes from $+0.51$ to $+0.93$ at dose $0.578$, and from $+0.97$ to $+2.00$ at dose $0.842$ (Table~\ref{tab:oct-peft-merge}).
+    \item This pair is the cleaner of the two: its overlap sits comfortably inside both states' measured ranges and contains both trained states.
+    \item No share of behaviour is attributed to the cross terms. Behaviour is nonlinear in the weight update, so no such share is defined; the $61.9\%$ figure quoted elsewhere is a Frobenius norm ratio in weight space.
+    \item Practical consequence: a reconstruction that merges DPO and SFT additively is not the same model as the released artifact, which matters for anyone comparing published OCT adapters against their own.
+\end{itemize}
+
+\input{tables/tableA_oct_peft_merge.tex}
+
+\paragraph{Scope.}
+\begin{itemize}
+    \item Single constitution (\texttt{impulsiveness}), single seed for the dose ladders, layer 15, forced prompt.
+    \item Twelve rungs, no retraining: every state is an existing adapter rescaled.
+    \item $M_S$ against $M_F$ is \emph{not} tested here --- no overlapping dose support was constructed for that pair.
+    \item Question-bootstrap intervals in the source data are uncertainty over CAA questions, not over training seeds.
+\end{itemize}
+
+
+\section{Appendix: Definitions and Estimator Notes}
 \begin{itemize}
     \item Clarify the exact CAA vector construction and answer-token extraction point.
     \item Explain cross-fitting for quadratic vector statistics and shared question bootstrap.

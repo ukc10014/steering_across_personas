@@ -1,0 +1,16 @@
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{rrrrr}
+\toprule
+matched dose & $B_1$ without & $B_1$ with & sel. without & sel. with \\
+ & cross terms & cross terms & cross terms & cross terms \\
+\midrule
+0.578 & +0.513 & \textbf{+0.927} & 1.193 & \textbf{1.302} \\
+0.710 & +0.729 & \textbf{+1.551} & 1.237 & \textbf{1.470} \\
+0.842 & +0.972 & \textbf{+2.004} & 1.299 & \textbf{1.572} \\
+\bottomrule
+\end{tabular}
+\caption{The released-style merge is not the additive update it is often read as. peft's \texttt{add\_weighted\_adapter([DPO, SFT], [1, 0.25], \texttt{linear})} combines LoRA \emph{factors}, so $\Delta W_F = \Delta W_D + 0.25\,\Delta W_S + B_D A_S + B_S A_D$; $M_{D+0.25S}$ is the same construction with the two cross terms removed and is otherwise identical. At matched \emph{measured} functional dose, including the cross terms changes $B_1$ from $+0.51$ to $+0.93$ at dose $0.578$ and from $+0.97$ to $+2.00$ at dose $0.842$. We do not report a share of behaviour attributable to the cross terms: behaviour is nonlinear in the weight update, so no such share is defined. (The $61.9\%$ figure quoted elsewhere is a Frobenius norm ratio in weight space, not a behavioural one.)}
+\label{tab:oct-peft-merge}
+\end{table}
