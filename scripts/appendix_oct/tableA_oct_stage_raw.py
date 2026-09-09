@@ -77,7 +77,7 @@ def main() -> None:
         r"(trait-vector displacement), never weight norm. "
         r"\textbf{This is not a dose-matched causal comparison.} Across the measured states the "
         rf"ordering of $B_1$ is perfectly rank-correlated with dose (Spearman $={rho:+.3f}$), so "
-        r"stage and displacement are not separated here; see Fig.~\ref{{fig:oct-matched-dose}}. "
+        r"stage and displacement are not separated here; see Fig.~\ref{fig:oct-matched-dose}. "
         r"\dag~off-base diagnostic: that adapter was fitted on the folded DPO state, so applying "
         r"it to the base model is a component measurement, not ``SFT alone''.}")
     L.append(r"\label{tab:oct-stage-raw}")
