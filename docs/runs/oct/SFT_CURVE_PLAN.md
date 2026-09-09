@@ -139,3 +139,18 @@ adapter. It is `strategy.save_model` that emits `adapter_model.safetensors`.
 The folded model `models/distilled/llama-3.1-8b-it-impulsiveness` was deleted in the §8a
 disk cleanup and is rebuilt by stage A from the surviving seed-1 DPO adapter. The fold is a
 pure function of that adapter, so this reconstructs it rather than approximating it.
+
+## Scope decision, 2026-09-09: no third construction
+
+Only the two constructions of §5b are measured. A third — `A_D` at 1.0 with `A_S(t)` at 0.25,
+the `M_D+0.25S` analogue at every checkpoint — would give the cross-term contribution along
+the whole curve. Considered and **declined** (~7 states, ~5 h).
+
+Reasons: the curve's question is *when* SFT installs the phenotype, and the cross-term
+question already has a clean dose-matched answer at the endpoint (`M_F` vs `M_D+0.25S`, ~2x).
+
+**The consequence must be respected in the write-up.** `mrg` minus `seq` is NOT the cross-term
+contribution, because `seq` carries SFT at weight 1.00 and `mrg` at 0.25 — a four-fold
+difference on top of the merge. That difference is negative at every checkpoint, which invites
+exactly the wrong reading. Figure panel D therefore shows dose-controlled potency instead, and
+the figure docstring records why.
