@@ -104,19 +104,52 @@ Nothing here was attempted. Flagged for you and the pod agent.
 
 ## 3. NOT DONE — needs checking with the pod agent
 
-- **`workshop_iclr/README.md` may be stale on Fig. 5 robustness.** It states "the linear
-  fit's mean residual stays within ±0.13 log-odds across every base decile for all four
-  trained arms". The regenerated `outputs/analysis/caa_logits_robustness.txt` does not
-  show that: `impulsiveness`/`impulsivity` has decile residuals of −0.31, −0.28, +0.20,
-  mean|r| 1.35. `caa_logits_robustness.json` was rewritten in the commits just pulled
-  (12,370 lines changed), so the README paragraph probably predates it. **I did not put
-  the ±0.13 claim in the paper.** The support-near-indifference figure (9–21% of items
-  within |log-odds| < 1) *does* check out and is in.
-- **Upstream typo**: `workshop_iclr/tables/tableA_oct_stage_raw.tex` line 18 contains
-  `\ref{{fig:oct-matched-dose}}` — an f-string double-brace leak. It is a hard LaTeX
-  error ("too many }'s"). ~~Fixed in the `iclr2026/` copy and in `make sync-tables`~~ —
-  but **still open at source**, in `scripts/appendix_oct/tableA_oct_stage_raw.py`.
-- **`iclr2026/tables/tableA_oct_stage_raw.tex` diverges from source** by design: it is
+- ~~**`workshop_iclr/README.md` may be stale on Fig. 5 robustness.**~~ **RESOLVED —
+  pod agent tested all three claims 2026-09-09.** Not drift; one claim is simply wrong.
+
+  | claim in the README paragraph | verdict |
+  |---|---|
+  | 9–21% of items within \|logodds_base\|<1 | holds (9.4–20.8%) |
+  | affine step moves contrast ≤ 0.13 | marginal miss — 0.139, 0.138; should read 0.14 |
+  | linear fit residual within ±0.13 per base decile, trained arms | **fails badly** — 0.94 forced, 4.34 default |
+
+  The worst decile is ~7× the claim (`impulsiveness`/`honesty`, first decile) and no
+  reading rescues it. Likely origin: the sentence contains two "0.13"s and only the
+  second is near-true, so the number appears to have been carried backward across the
+  clause during drafting.
+
+  **Figure 5's result is not in danger.** The paragraph's conclusion — "the affine step
+  buys variance, not the result" — rests on the contrast-shift numbers, which hold at
+  ≤ 0.14. The residual claim was offered as evidence the relation is near-affine, and it
+  is not, in the tails; but the model-free local-mean estimator assumes no shape at all
+  and still moves the contrast ≤ 0.14, so the conclusion survives on the stronger leg.
+
+  **Action taken in `main.tex`:** the ±0.13 residual claim was never included. §3.6 now
+  carries the model-free check instead ("moves the contrast by at most 0.14 ... that
+  model-free check, not the goodness of the linear fit, is what the result stands on"),
+  and asserts nothing about near-affineness. Pod agent's recommendation, followed:
+  restating the residuals honestly would invite the question of why an affine fit is
+  used at all, which the local-mean check already answers better.
+
+  Still open: `workshop_iclr/README.md` itself is unedited. How much to say there is a
+  tone call.
+- ~~**Upstream typo**: `workshop_iclr/tables/tableA_oct_stage_raw.tex` contains
+  `\ref{{fig:oct-matched-dose}}`, an f-string double-brace leak.~~ **FIXED at source by
+  the pod agent, commit `c1d60dc`.** Cause: the generating script mixes `r"..."` and
+  f-strings, and this `\ref` was written on a plain string, so the doubled braces were
+  never collapsed. Every other `appendix_oct` script was checked for the same mismatch;
+  this was the only one.
+
+  **Correction to what this note said before:** it is *not* a hard LaTeX error. The
+  braces are balanced, so it compiles — `\ref` takes `{fig:oct-matched-dose}` as its
+  argument, matches no label, and silently renders `??` with an undefined-reference
+  warning. Verified in a minimal document. Wrong output rather than a failed build,
+  which is why it survived; my earlier characterisation was wrong.
+
+  `c1d60dc` is **not yet on `origin/main`** as of this writing, so the defensive `sed`
+  in `make sync-tables` should stay until it lands (it is a no-op once the source is
+  fixed).
+- **STILL OPEN — `iclr2026/tables/tableA_oct_stage_raw.tex` diverges from source** by design: it is
   `\footnotesize` with tighter `\tabcolsep` and four shortened cell descriptions, to fit
   the ICLR text width. `make sync-tables` reapplies this. If the table is regenerated
   upstream, that patch has to survive.
@@ -128,6 +161,14 @@ Nothing here was attempted. Flagged for you and the pod agent.
   candidates to move or drop are `fig0_schematic` (your own caption says it is probably
   stale), `figA5b_signed_validity_2panel` (unused — it is a two-panel variant of figA5,
   pick one), and possibly `tableA_oct_stage_raw`, which exists mainly to be argued with.
+- ~~**The untracked audit PDF**, `workshop_iclr/iclr_workshop_figure_audit_2026-09-03.pdf`.~~
+  **RESOLVED — leave it untracked.** Pod agent: it is not in the pod checkout at all, so
+  it is local to this machine only, and no generator script exists for it. Ignoring built
+  PDFs is already the convention here (`iclr2026/main.pdf`, `icml2026/main.pdf`), and a
+  dated one-off audit is much closer to those than to the 15 tracked figure PDFs, which
+  are regenerable. If any of its content matters, the durable move is a short note in
+  `docs/`, not a binary in git. No `.gitignore` entry added — say the word if you want one
+  to stop it showing in `git status`.
 - **`fig0_schematic`** still carries your `\textbf{TODO} IF SPACE PERMITS ... probably
   stale` caption. Left untouched.
 - **`\textbf{TODO}` markers** at the top of the Abstract and Introduction are yours and
