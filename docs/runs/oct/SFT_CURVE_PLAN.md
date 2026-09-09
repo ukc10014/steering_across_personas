@@ -22,12 +22,43 @@ runs would change the LR schedule, warmup and momentum, confounding stage with t
   (`deepspeed.py:462`) sorts **all** subdirectories of `ckpt_path` by mtime and `rmtree`s the
   oldest — it would delete the `*_hf` adapter dirs too. Skipping `save_ckpt` skips the prune.
 
-### QC check, free
+### QC check — run, and what it found
 
-Hyperparameters and seed are byte-identical to `llama_local.sh`, so the **step-1125 adapter
-should reproduce `loras_repro/llama-introspection/impulsiveness`**. Checked before any
-measurement time is spent; a mismatch means the trajectory is not the seed-1 one and the
-curve does not attach to the existing results.
+Hyperparameters and seed are byte-identical to `llama_local.sh`, so the final adapter should
+reproduce `loras_repro/llama-introspection/impulsiveness`. Two corrections came out of it.
+
+**There is no step 1125.** The loader yields 5987 micro-batches per epoch, so at gradient
+accumulation 16 an epoch is **374.19** optimizer steps, not 375 — the spec's figure assumed
+all 12,000 rows survive, and 5987x2 = 11,974 do. Three epochs is 1122 steps, which is not a
+multiple of 15, so the last periodic checkpoint is 1110 and the true endpoint is the
+`--save_path` adapter written after the loop.
+
+**The rerun is close to, but not identical with, the original.** Comparing materialised
+updates (`scripts/compare_adapters.py`):
+
+| | |
+|---|---|
+| `\|dW\|_F` rerun / original | 11.329495 / 11.328856 — agree to 0.006% |
+| global cosine | 0.994630 (5.9 degrees apart) |
+| relative Frobenius difference | 1.04e-01 |
+| per-module cosine (float64) | min 0.9347, median 0.9984, max 0.9995 |
+
+Read: the same training process, with floating-point divergence compounded over 1122 steps
+on different hardware. A genuinely different trajectory would not land on the same update
+magnitude to 6 parts in 100,000. The divergence is spread across every module, worst in the
+early attention layers (0–4 `q_proj`/`k_proj`, 0.93–0.95).
+
+**Compute per-module cosines in float64.** In float32 they are unusable — the median came
+out as 1.000007 and the maximum as 1.011937, both impossible for a cosine. The global figure
+is unaffected (identical to six digits in both precisions); it is the per-module ratios of
+similar-magnitude sums where the cancellation bites.
+
+**Consequence for the design:** the curve is anchored on its OWN endpoint, measured as one
+extra step, rather than borrowing the previously-measured `M_D+S` and `M_F`. That costs
+~1.3 h and removes every claim that would otherwise depend on the two adapters matching.
+The original states are still reported alongside, as a cross-check on how much this level of
+hardware nondeterminism moves the endpoint — which is itself a useful number for a project
+about reproducing OCT.
 
 ## Which checkpoints get measured
 
@@ -41,9 +72,9 @@ recorded, not the nominal fractions (§5a).
 | 0.25 | 94   | 90   | 0.240 | measure |
 | 0.50 | 188  | 180  | 0.480 | measure |
 | 0.75 | 281  | 285  | 0.760 | measure |
-| 1.00 | 375  | 375  | 1.000 | measure (exact) |
-| 2.00 | 750  | 750  | 2.000 | measure (exact) |
-| 3.00 | 1125 | 1125 | 3.000 | **free** — this is the existing endpoint |
+| 1.00 | 374  | 375  | 1.002 | measure |
+| 2.00 | 748  | 750  | 2.004 | measure |
+| 3.00 | 1122 | 1122 (`final`) | 3.000 | measure — this rerun's own endpoint |
 
 ## Two constructions per checkpoint (§5b)
 
@@ -54,12 +85,12 @@ recorded, not the nominal fractions (§5a).
 
 Separating these is what distinguishes *what SFT learns* from *what the merge contributes*.
 
-At the two free endpoints these coincide with states already measured — construction 1 at
-step 0 and 1125 is `M_D` and `M_D+S`; construction 2 is `M_D` and `M_F` — so the curve is
-anchored at both ends by existing numbers rather than by new ones.
+At step 0 both constructions are `M_D` (an SFT adapter with `B=0` contributes nothing under
+either), so the low end is free. The high end is measured rather than borrowed — see the QC
+note above.
 
-**New states: 6 steps × 2 constructions = 12.** At ~38 min each (the dose-matched cadence),
-≈ 7.5 h of measurement.
+**New states: 7 steps x 2 constructions = 14.** At ~38 min each (the dose-matched cadence),
+~8.9 h of measurement.
 
 ## Endpoints
 
