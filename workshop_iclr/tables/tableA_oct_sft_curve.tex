@@ -1,0 +1,35 @@
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrrrrrl}
+\toprule
+construction & step & epoch & dose & $B_1$ & sel. & $k$ & vs $M_D$ \\
+\midrule
+\multicolumn{8}{l}{\emph{$M_D{+}\Delta W_S$}} \\
+$M_D$ (no SFT) & 0 & 0.000 & 0.531 & +0.132 & 1.106 & 0.448 & 1.0$\times$ \\
+$M_D{+}\Delta W_S$ & 45 & 0.120 & 0.579 & +0.798 & 1.241 & 0.445 & 5.2$\times$ \\
+$M_D{+}\Delta W_S$ & 90 & 0.240 & 0.662 & +1.484 & 1.448 & 0.405 & 7.5$\times$ \\
+$M_D{+}\Delta W_S$ & 180 & 0.481 & 0.743 & +1.804 & 1.537 & 0.382 & 6.5$\times$ \\
+$M_D{+}\Delta W_S$ & 255 & 0.681 & 0.743 & +2.049 & 1.581 & 0.397 & 7.4$\times$ \\
+$M_D{+}\Delta W_S$ & 270 & 0.722 & 0.748 & +1.887 & 1.531 & 0.380 & 6.7$\times$ \\
+$M_D{+}\Delta W_S$ & 285 & 0.762 & 0.754 & +2.333 & 1.686 & 0.399 & 8.0$\times$ \\
+$M_D{+}\Delta W_S$ & 300 & 0.802 & 0.764 & +2.146 & 1.602 & 0.378 & 7.1$\times$ \\
+$M_D{+}\Delta W_S$ & 330 & 0.882 & 0.818 & +2.067 & 1.500 & 0.363 & 5.5$\times$ \\
+$M_D{+}\Delta W_S$ & 375 & 1.002 & 0.782 & +2.071 & 1.495 & 0.374 & 6.3$\times$ \\
+$M_D{+}\Delta W_S$ & 750 & 2.004 & 0.908 & +2.134 & 1.384 & 0.385 & \textit{n/a} \\
+$M_D{+}\Delta W_S$ & 1122 & 2.998 & 0.903 & +2.197 & 1.415 & 0.388 & \textit{n/a} \\
+\midrule
+\multicolumn{8}{l}{\emph{merge}} \\
+$M_D$ (no SFT) & 0 & 0.000 & 0.531 & +0.132 & 1.106 & 0.448 & 1.0$\times$ \\
+merge & 45 & 0.120 & 0.677 & +0.778 & 1.225 & 0.363 & 3.7$\times$ \\
+merge & 90 & 0.240 & 0.735 & +1.214 & 1.356 & 0.343 & 4.5$\times$ \\
+merge & 180 & 0.481 & 0.753 & +1.490 & 1.530 & 0.318 & 5.1$\times$ \\
+merge & 285 & 0.762 & 0.775 & +1.943 & 1.658 & 0.338 & 6.1$\times$ \\
+merge & 375 & 1.002 & 0.770 & +1.781 & 1.552 & 0.324 & 5.7$\times$ \\
+merge & 750 & 2.004 & 0.821 & +1.881 & 1.506 & 0.328 & 5.0$\times$ \\
+merge & 1122 & 2.998 & 0.828 & +1.935 & 1.534 & 0.331 & \textit{n/a} \\
+\bottomrule
+\end{tabular}
+\caption{The introspection SFT measured at checkpoints through training (seed 123456, layer 15, forced prompt). \emph{step} is optimizer steps; one epoch is 374.2 steps, so the run is 1122 steps and the final row is the trained endpoint. \emph{dose} is \emph{measured} functional dose, never weight norm. The last column is the dose control: $B_1$ divided by $B_1$ of $M_D$ scaled to the same measured dose, so $1.0\times$ would mean the checkpoint is worth no more than moving the model that far with the DPO adapter alone. Nothing is extrapolated outside $M_D$'s measured range. The two constructions differ in SFT weight ($1.00$ against $0.25$) as well as in the merge, so the gap between them is not the cross-term contribution.}
+\label{tab:oct-sft-curve}
+\end{table}

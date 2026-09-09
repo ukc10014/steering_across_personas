@@ -94,7 +94,7 @@ def main() -> None:
                     label=CON_LABEL[con], zorder=4)
         sel = cc.series(rows, con, "selectivity")
         if sel:
-            axC.plot([p[2] for p in sel], [p[3] for p in sel], "-o", color=CON_COLOR[con],
+            axC.plot([p[1] for p in sel], [p[3] for p in sel], "-o", color=CON_COLOR[con],
                      lw=1.4, ms=3.2, mew=0, zorder=4)
         for st, epv, dv, v in pts:
             src.append({"construction": con, "step": st, "epoch": epv,
@@ -104,9 +104,18 @@ def main() -> None:
     for st, series in refs.items():
         d = [p[0] for p in series]
         axB.plot(d, [p[1] for p in series], "--s", color=REF_COLOR[st], lw=1.0, ms=2.6,
-                 mew=0, alpha=0.75, label=f"{st} scaled to dose", zorder=2)
-        axC.plot(d, [p[2] for p in series], "--s", color=REF_COLOR[st], lw=1.0, ms=2.6,
-                 mew=0, alpha=0.75, zorder=2)
+                 mew=0, alpha=0.75, zorder=2,
+                 label=f"$M_{{{st[2:]}}}$ scaled to dose")
+        # C's x-axis is epochs, which the scaled reference states do not have; show their
+        # trained-state selectivity as a level instead.
+        trained = next((r for r in rows if r["state"] == st and r["kind"] == "reference"), None)
+        if trained and trained.get("selectivity") is not None:
+            axC.axhline(trained["selectivity"], color=REF_COLOR[st], lw=0.9, ls="--",
+                        alpha=0.75, zorder=2)
+            axC.text(0.015, trained["selectivity"], f"${{{st.replace('M_', 'M_')}}}$",
+                     color=REF_COLOR[st], fontsize=6, va="center", ha="left",
+                     transform=axC.get_yaxis_transform(),
+                     bbox=dict(fc="white", ec="none", pad=0.6))
 
     # the original run's endpoints, hollow: this rerun has its own
     for arm, st in (("impulsiveness_repro_DplusS", "M_D+S"), ("impulsiveness_repro", "M_F")):
@@ -115,7 +124,7 @@ def main() -> None:
             axB.plot([r["dose"]], [r["B1"]], "o", mfc="none", mec=INK, mew=0.9, ms=5,
                      zorder=5)
             axB.annotate(st, (r["dose"], r["B1"]), textcoords="offset points",
-                         xytext=(5, -1), fontsize=6, color=INK)
+                         xytext=(-7, -1), fontsize=6, color=INK, ha="right")
 
     # D -- dose-controlled potency against the scaled-M_D reference. Interpolation is
     # refused outside M_D's measured dose range rather than extrapolated.
@@ -139,12 +148,13 @@ def main() -> None:
     axA.set_title("A  phenotype against training time", loc="left", fontsize=7.5)
     axB.set_xlabel("measured functional dose"); axB.set_ylabel("$B_1$")
     axB.set_title("B  against measured dose", loc="left", fontsize=7.5)
-    axC.set_xlabel("measured functional dose"); axC.set_ylabel("selectivity")
-    axC.set_title("C  selectivity against dose", loc="left", fontsize=7.5)
+    axC.set_xlabel("introspection SFT epochs"); axC.set_ylabel("selectivity")
+    axC.set_title("C  selectivity against training time", loc="left", fontsize=7.5)
     axD.set_xlabel("introspection SFT epochs"); axD.set_ylabel("$B_1$ $\\div$ scaled $M_D$")
     axD.set_title("D  potency at equal displacement", loc="left", fontsize=7.5)
     for ax in (axA, axB, axC, axD):
         despine(ax)
+        ax.margins(x=0.06)
     axB.legend(fontsize=5.9, frameon=False, loc="upper left", handletextpad=0.5,
                borderpad=0.1, labelspacing=0.25)
     fig.tight_layout(pad=0.4)
