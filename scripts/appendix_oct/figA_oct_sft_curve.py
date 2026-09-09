@@ -13,8 +13,17 @@ Panels:
      it asks whether a partially-trained SFT checkpoint beats simply scaling the DPO adapter
      to the same displacement.
   C  selectivity against measured dose, same references.
-  D  the merge contribution, mrg minus seq at each checkpoint, against epoch. Positive means
-     the peft factor-space cross terms add phenotype beyond the additive update.
+  D  dose-controlled potency: B1 at each checkpoint divided by B1 of M_D scaled to that same
+     measured dose. 1.0 means the checkpoint is worth no more than moving the model that far
+     with the DPO adapter alone; above 1.0 is phenotype that the displacement does not explain.
+
+     NOT a cross-term panel. `mrg` minus `seq` would be a tempting difference to draw here and
+     it does not mean what it looks like: seq is dW_D + 1.00*dW_S(t) while mrg is
+     dW_D + 0.25*dW_S(t) + cross terms, so the two differ by a FOUR-FOLD SFT weight as well as
+     by the merge, and their difference reads as the merge hurting when most of the gap is
+     simply less SFT. The clean cross-term comparison is M_F vs M_D+0.25S at matched dose,
+     which the dose-matched experiment already reports; doing it along the curve would need a
+     third construction (A_D at 1.0 with A_S(t) at 0.25) that is not measured here.
 
 Reference states are drawn as anchors, never joined into the curve: M_D is step 0 for both
 constructions, and the original run's M_D+S / M_F endpoints are shown hollow because this
@@ -108,18 +117,23 @@ def main() -> None:
             axB.annotate(st, (r["dose"], r["B1"]), textcoords="offset points",
                          xytext=(5, -1), fontsize=6, color=INK)
 
-    # D -- merge contribution at the steps where both constructions exist
-    seq = {s: v for s, _, _, v in cc.series(rows, "seq", "B1")}
-    mrg = {s: v for s, _, _, v in cc.series(rows, "mrg", "B1")}
-    both = sorted(set(seq) & set(mrg))
-    if both:
-        eps = [s / cc.STEPS_PER_EPOCH for s in both]
-        dif = [mrg[s] - seq[s] for s in both]
-        axD.axhline(0, color=MUTED, lw=0.7, zorder=2)
-        axD.plot(eps, dif, "-o", color="#1baf7a", lw=1.4, ms=3.2, mew=0, zorder=4)
-        for s, e, v in zip(both, eps, dif):
-            src.append({"construction": "mrg-minus-seq", "step": s, "epoch": round(e, 4),
-                        "dose": "", "B1": round(v, 4)})
+    # D -- dose-controlled potency against the scaled-M_D reference. Interpolation is
+    # refused outside M_D's measured dose range rather than extrapolated.
+    md = refs.get("M_D", [])
+    axD.axhline(1.0, color=MUTED, lw=0.7, zorder=2)
+    if md:
+        rd = np.array([p[0] for p in md]); rb = np.array([p[1] for p in md])
+        for con in ("seq", "mrg"):
+            pts = [(e, d, v) for _, e, d, v in cc.series(rows, con, "B1")
+                   if rd.min() <= d <= rd.max()]
+            if not pts:
+                continue
+            eps = [p[0] for p in pts]
+            rat = [p[2] / float(np.interp(p[1], rd, rb)) for p in pts]
+            axD.plot(eps, rat, "-o", color=CON_COLOR[con], lw=1.4, ms=3.2, mew=0, zorder=4)
+            for e, r_ in zip(eps, rat):
+                src.append({"construction": f"{con}-potency-vs-MD", "step": "",
+                            "epoch": round(e, 4), "dose": "", "B1": round(r_, 4)})
 
     axA.set_xlabel("introspection SFT epochs"); axA.set_ylabel("$B_1$")
     axA.set_title("A  phenotype against training time", loc="left", fontsize=7.5)
@@ -127,8 +141,8 @@ def main() -> None:
     axB.set_title("B  against measured dose", loc="left", fontsize=7.5)
     axC.set_xlabel("measured functional dose"); axC.set_ylabel("selectivity")
     axC.set_title("C  selectivity against dose", loc="left", fontsize=7.5)
-    axD.set_xlabel("introspection SFT epochs"); axD.set_ylabel("$B_1$ merge $-$ additive")
-    axD.set_title("D  what the PEFT cross terms add", loc="left", fontsize=7.5)
+    axD.set_xlabel("introspection SFT epochs"); axD.set_ylabel("$B_1$ $\\div$ scaled $M_D$")
+    axD.set_title("D  potency at equal displacement", loc="left", fontsize=7.5)
     for ax in (axA, axB, axC, axD):
         despine(ax)
     axB.legend(fontsize=5.9, frameon=False, loc="upper left", handletextpad=0.5,
