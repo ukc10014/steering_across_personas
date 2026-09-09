@@ -40,12 +40,15 @@ ACCUM = 16
 STEPS_PER_EPOCH = MICRO_PER_EPOCH / ACCUM      # 374.1875
 FINAL_STEP = int(3 * MICRO_PER_EPOCH) // ACCUM  # 1122
 
-# states the curve attaches to but does not re-measure
+# States the curve attaches to but does not re-measure, mapped to the step of THIS training
+# run that they correspond to. M_S is None on purpose: it is SFT trained from the base model,
+# not a checkpoint of this run, so it has no step here -- giving it FINAL_STEP would imply it
+# is this curve's endpoint, which is exactly the confusion the SFT-from-base arm invites.
 REFERENCE = {
-    "impulsiveness_repro_dpo":     "M_D",       # = both constructions at step 0
-    "impulsiveness_repro_DplusS":  "M_D+S",     # original run's seq endpoint
-    "impulsiveness_repro":         "M_F",       # original run's mrg endpoint
-    "impulsiveness_sft_from_base": "M_S",
+    "impulsiveness_repro_dpo":     ("M_D",   0),           # both constructions at step 0
+    "impulsiveness_repro_DplusS":  ("M_D+S", None),        # original run's seq endpoint
+    "impulsiveness_repro":         ("M_F",   None),        # original run's mrg endpoint
+    "impulsiveness_sft_from_base": ("M_S",   None),        # a different construction entirely
 }
 CONSTRUCTION = {"seq": "native sequential", "mrg": "released-style merge"}
 
@@ -82,13 +85,12 @@ def load(variant: str = "forced") -> list[dict]:
             con, step = p
             r = {"kind": "curve", "construction": con, "step": step}
         elif arm in REFERENCE:
-            r = {"kind": "reference", "construction": None,
-                 "step": 0 if REFERENCE[arm] == "M_D" else FINAL_STEP}
+            r = {"kind": "reference", "construction": None, "step": REFERENCE[arm][1]}
         else:
             continue
         r["arm"] = arm
-        r["state"] = REFERENCE.get(arm)
-        r["epoch"] = round(r["step"] / STEPS_PER_EPOCH, 4)
+        r["state"] = REFERENCE[arm][0] if arm in REFERENCE else None
+        r["epoch"] = None if r["step"] is None else round(r["step"] / STEPS_PER_EPOCH, 4)
         r["dose"] = (fd.get(arm) or {}).get("trait_vector_displacement")
 
         off = (lg.get("offset") or {}).get(arm)
