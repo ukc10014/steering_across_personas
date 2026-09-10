@@ -96,6 +96,22 @@
       "answer_token_common": 0.5263257026672363,
       "answer_token_varying": 0.3911326825618744
     },
+    "impulsiveness_dm_m_d_s2.25": {
+      "trait_vector_displacement": 0.9015084505081177,
+      "trait_vector_displacement_sd": 0.11527874320745468,
+      "answer_token_displacement": 0.716902494430542,
+      "answer_token_displacement_sd": 0.040464576333761215,
+      "answer_token_common": 0.5851709246635437,
+      "answer_token_varying": 0.41606712341308594
+    },
+    "impulsiveness_dm_m_d_s2.5": {
+      "trait_vector_displacement": 0.9718239903450012,
+      "trait_vector_displacement_sd": 0.13120581209659576,
+      "answer_token_displacement": 0.7776044607162476,
+      "answer_token_displacement_sd": 0.04169893264770508,
+      "answer_token_common": 0.6435790657997131,
+      "answer_token_varying": 0.43899646401405334
+    },
     "impulsiveness_dm_m_f_s0.518": {
       "trait_vector_displacement": 0.5559094548225403,
       "trait_vector_displacement_sd": 0.06557630002498627,
@@ -200,6 +216,14 @@
       "answer_token_common": 0.4097641408443451,
       "answer_token_varying": 0.36174219846725464
     },
+    "impulsiveness_curve_seq_step1050": {
+      "trait_vector_displacement": 0.906546413898468,
+      "trait_vector_displacement_sd": 0.167605459690094,
+      "answer_token_displacement": 0.5618835687637329,
+      "answer_token_displacement_sd": 0.042413435876369476,
+      "answer_token_common": 0.4006361961364746,
+      "answer_token_varying": 0.4038224220275879
+    },
     "impulsiveness_curve_seq_step180": {
       "trait_vector_displacement": 0.7432209253311157,
       "trait_vector_displacement_sd": 0.15532872080802917,
@@ -264,6 +288,30 @@
       "answer_token_common": 0.3271586000919342,
       "answer_token_varying": 0.2752004563808441
     },
+    "impulsiveness_curve_seq_step450": {
+      "trait_vector_displacement": 0.8736431002616882,
+      "trait_vector_displacement_sd": 0.16552430391311646,
+      "answer_token_displacement": 0.5315170288085938,
+      "answer_token_displacement_sd": 0.041719596832990646,
+      "answer_token_common": 0.3861117660999298,
+      "answer_token_varying": 0.3717743456363678
+    },
+    "impulsiveness_curve_seq_step570": {
+      "trait_vector_displacement": 0.8713045120239258,
+      "trait_vector_displacement_sd": 0.16634510457515717,
+      "answer_token_displacement": 0.5477302670478821,
+      "answer_token_displacement_sd": 0.04277849197387695,
+      "answer_token_common": 0.3927099108695984,
+      "answer_token_varying": 0.3903568685054779
+    },
+    "impulsiveness_curve_seq_step690": {
+      "trait_vector_displacement": 0.904608428478241,
+      "trait_vector_displacement_sd": 0.16548779606819153,
+      "answer_token_displacement": 0.5618396997451782,
+      "answer_token_displacement_sd": 0.04362952336668968,
+      "answer_token_common": 0.3998493552207947,
+      "answer_token_varying": 0.40382662415504456
+    },
     "impulsiveness_curve_seq_step750": {
       "trait_vector_displacement": 0.908074676990509,
       "trait_vector_displacement_sd": 0.16629275679588318,
@@ -272,6 +320,14 @@
       "answer_token_common": 0.3959292769432068,
       "answer_token_varying": 0.4042348861694336
     },
+    "impulsiveness_curve_seq_step810": {
+      "trait_vector_displacement": 0.889666736125946,
+      "trait_vector_displacement_sd": 0.1670231819152832,
+      "answer_token_displacement": 0.5498822331428528,
+      "answer_token_displacement_sd": 0.04320152848958969,
+      "answer_token_common": 0.390043169260025,
+      "answer_token_varying": 0.3968189060688019
+    },
     "impulsiveness_curve_seq_step90": {
       "trait_vector_displacement": 0.662010669708252,
       "trait_vector_displacement_sd": 0.1153663843870163,
@@ -279,6 +335,14 @@
       "answer_token_displacement_sd": 0.042212191969156265,
       "answer_token_common": 0.33660566806793213,
       "answer_token_varying": 0.2937015891075134
+    },
+    "impulsiveness_curve_seq_step930": {
+      "trait_vector_displacement": 0.9043042063713074,
+      "trait_vector_displacement_sd": 0.16489526629447937,
+      "answer_token_displacement": 0.5694633722305298,
+      "answer_token_displacement_sd": 0.04249655082821846,
+      "answer_token_common": 0.40680328011512756,
+      "answer_token_varying": 0.4098619520664215
     },
     "impulsiveness_curve_seq_stepfinal": {
       "trait_vector_displacement": 0.902962863445282,

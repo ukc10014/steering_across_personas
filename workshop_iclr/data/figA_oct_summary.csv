@@ -25,7 +25,13 @@ dose,SFT checkpoints,0.7537,,,2.3329,1.6856
 dose,SFT checkpoints,0.7635,,,2.1462,1.6019
 dose,SFT checkpoints,0.7824,,,2.0707,1.4949
 dose,SFT checkpoints,0.8184,,,2.0669,1.5002
+dose,SFT checkpoints,0.8713,,,2.2543,1.4469
+dose,SFT checkpoints,0.8736,,,2.1575,1.4178
+dose,SFT checkpoints,0.8897,,,2.1767,1.4121
 dose,SFT checkpoints,0.903,,,2.1969,1.4152
+dose,SFT checkpoints,0.9043,,,2.2112,1.4001
+dose,SFT checkpoints,0.9046,,,2.2521,1.393
+dose,SFT checkpoints,0.9065,,,2.2242,1.4117
 dose,SFT checkpoints,0.9081,,,2.1337,1.3839
 time,seq,,0.0,0,0.1321,
 time,seq,,0.1203,45,0.7984,
@@ -37,7 +43,13 @@ time,seq,,0.7617,285,2.3329,
 time,seq,,0.8017,300,2.1462,
 time,seq,,0.8819,330,2.0669,
 time,seq,,1.0022,375,2.0707,
+time,seq,,1.2026,450,2.1575,
+time,seq,,1.5233,570,2.2543,
+time,seq,,1.844,690,2.2521,
 time,seq,,2.0043,750,2.1337,
+time,seq,,2.1647,810,2.1767,
+time,seq,,2.4854,930,2.2112,
+time,seq,,2.8061,1050,2.2242,
 time,seq,,2.9985,1122,2.1969,
 time,mrg,,0.0,0,0.1321,
 time,mrg,,0.1203,45,0.7784,
