@@ -27,7 +27,7 @@ Two questions, kept apart:
 from __future__ import annotations
 
 import argparse
-import csv
+import json
 import statistics as st
 import sys
 from pathlib import Path
@@ -38,26 +38,59 @@ REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO / "scripts" / "appendix_oct"))
 import curve_common as cc  # noqa: E402
 
-MASTER = REPO / "outputs" / "analysis" / "oct_stage_dose_master.csv"
+ANALYSIS = REPO / "outputs" / "analysis"
 SLOPE_SE_THRESHOLD = 2.0
 
 
 def md_ladder(rows):
-    """(dose, selectivity) for M_D, from the dose-matched rungs plus any new ones."""
+    """(dose, selectivity) for every measured M_D rung, read from the analysis JSONs.
+
+    Read from the analyses DIRECTLY, not from oct_stage_dose_master.csv. The first version of
+    this function trusted that CSV and silently produced a 4-rung ladder stopping at dose
+    0.827, which put every late checkpoint outside its range and killed the dose control --
+    even though the two rungs that fix it had already been measured. The CSV is written by
+    tableA_oct_matched_dose.py and was simply not regenerated.
+
+    Regenerating it is deliberately NOT the fix here: extra M_D rungs widen the M_D/M_S
+    overlap band, which moves the anchors in the published dose-matched table. That is a
+    change to a published result and belongs to a human, not to a bug fix.
+    """
+    fd = json.loads((ANALYSIS / "functional_dose.json").read_text())[cc.LAYER]
+    cs = json.loads((ANALYSIS / "common_shift.json").read_text())[cc.LAYER]
+    traits = list(cs)
     pts = []
-    for r in rows:
-        if r["kind"] == "reference" and r["state"] == "M_D" and r["dose"] and r.get("selectivity"):
-            pts.append((r["dose"], r["selectivity"]))
-    if MASTER.exists():
-        with open(MASTER) as fh:
-            for r in csv.DictReader(fh):
-                if r["state"] == "M_D" and r["row_source"] == "extraction" and r["dose"] and r.get("selectivity"):
-                    pts.append((float(r["dose"]), float(r["selectivity"])))
+    for arm in fd:
+        if arm != "impulsiveness_repro_dpo" and not arm.startswith("impulsiveness_dm_m_d_s"):
+            continue
+        dose = (fd.get(arm) or {}).get("trait_vector_displacement")
+        if dose is None or arm not in cs[traits[0]]["per_arm"]:
+            continue
+        g = lambda t: cs[t]["per_arm"][arm]["g_over_base"]
+        tgt = st.mean(g(t) for t in cc.TARGETS_PAIR)
+        oth = st.mean(g(t) for t in traits if t not in cc.TARGETS_PAIR)
+        if oth:
+            pts.append((float(dose), tgt / oth))
     seen, out = set(), []
-    for d, s in sorted(pts):
+    for d, sel in sorted(pts):
         if round(d, 4) not in seen:
-            seen.add(round(d, 4)); out.append((d, s))
+            seen.add(round(d, 4)); out.append((d, sel))
     return out
+
+
+def jackknife(x, y, threshold=2.0):
+    """Refit dropping each point in turn. A verdict that survives only with one particular
+    point present is leverage, not evidence, so it is reported as such rather than as a
+    finding. This check exists because the first run of this script reported "the decline
+    survives the dose control" off a slope that collapsed from -2.1 SE to -0.9 SE when a
+    single point was removed."""
+    out = []
+    for i in range(len(x)):
+        xs = [v for j, v in enumerate(x) if j != i]
+        ys = [v for j, v in enumerate(y) if j != i]
+        b, _, _, se = fit(xs, ys)
+        out.append((x[i], b, (b / se) if se and se == se else float("nan")))
+    zs = [z for _, _, z in out]
+    return out, all(z < -threshold for z in zs), min(zs), max(zs)
 
 
 def fit(x, y):
@@ -142,12 +175,37 @@ def main() -> None:
         if len(ex_x) >= 4:
             eb, _, es, ese = fit(ex_x, ex_y)
             ez = eb / ese if ese and ese == ese else float("nan")
+            jk, robust, zmin, zmax = jackknife(ex_x, ex_y, SLOPE_SE_THRESHOLD)
+            passes = ez < -SLOPE_SE_THRESHOLD
             L += [f"Excess-over-$M_D$ slope: **{eb:+.4f}** per epoch (SE {ese:.4f}, {ez:+.1f} SE), "
                   f"residual scatter {es:.4f}.", "",
-                  f"**{'The decline survives the dose control' if ez < -SLOPE_SE_THRESHOLD else 'The decline does NOT survive the dose control'}**"
-                  " — so the loss of specificity "
-                  + ("is not explained by the model simply moving further." if ez < -SLOPE_SE_THRESHOLD
-                     else "cannot be separated from displacement on this evidence."), ""]
+                  f"Leave-one-out refits span **{zmin:+.1f} to {zmax:+.1f} SE**"
+                  f" — the slope {'holds' if robust else 'does NOT hold'} without every "
+                  "individual point.", ""]
+            if passes and robust:
+                L += ["**The decline survives the dose control**, and survives dropping any "
+                      "single checkpoint — so the loss of specificity is not explained by the "
+                      "model simply moving further.", ""]
+            elif passes and not robust:
+                # the influential point is the one whose REMOVAL most weakens the slope,
+                # i.e. the largest (least negative) leave-one-out z, not the smallest
+                worst = max(jk, key=lambda t: t[2])
+                keep = [(x_, y_) for x_, y_ in zip(ex_x, ex_y) if x_ != worst[0]]
+                flat_x = [x_ for x_, _ in keep]
+                flat_y = [y_ for _, y_ in keep]
+                L += [f"**Not established: the slope depends on a single checkpoint.** It reads "
+                      f"{ez:+.1f} SE with all points but {worst[2]:+.1f} SE once the "
+                      f"{worst[0]:.2f}-epoch point is dropped, which is leverage rather than "
+                      "evidence.", ""]
+                if len(flat_y) > 1:
+                    L += [f"Excluding that point, the remaining {len(flat_y)} checkpoints "
+                          f"({min(flat_x):.2f}–{max(flat_x):.2f} epochs) have excess "
+                          f"{st.mean(flat_y):+.3f} with sd {st.stdev(flat_y):.3f} — flat. So "
+                          "there is no gradual loss of specificity across the later epochs; "
+                          "specificity settles and stays put.", ""]
+            else:
+                L += ["**The decline does NOT survive the dose control** — the loss of "
+                      "specificity cannot be separated from displacement on this evidence.", ""]
         else:
             L += [f"Only {len(ex_x)} late checkpoints fall inside M_D's measured dose range, "
                   "which is too few to fit the control. The M_D ladder needs extending further.", ""]

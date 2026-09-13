@@ -29,21 +29,27 @@ For scale, checkpoints between 0.68 and 0.88 epochs have selectivity mean 1.580,
 
 ## 2. Is it training time, or just displacement?
 
-M_D's selectivity ladder spans dose **0.531–0.827** (4 rungs). Excess is the checkpoint's selectivity minus M_D's at the same measured dose; nothing is extrapolated.
+M_D's selectivity ladder spans dose **0.531–0.972** (6 rungs). Excess is the checkpoint's selectivity minus M_D's at the same measured dose; nothing is extrapolated.
 
 | epoch | dose | curve sel. | $M_D$ sel. at that dose | excess |
 |---|---|---|---|---|
 | 1.00 | 0.782 | 1.495 | 1.147 | +0.348 |
-| 1.20 | 0.874 | 1.418 | — *outside the ladder* | — |
-| 1.52 | 0.871 | 1.447 | — *outside the ladder* | — |
-| 1.84 | 0.905 | 1.393 | — *outside the ladder* | — |
-| 2.00 | 0.908 | 1.384 | — *outside the ladder* | — |
-| 2.16 | 0.890 | 1.412 | — *outside the ladder* | — |
-| 2.49 | 0.904 | 1.400 | — *outside the ladder* | — |
-| 2.81 | 0.907 | 1.412 | — *outside the ladder* | — |
-| 3.00 | 0.903 | 1.415 | — *outside the ladder* | — |
+| 1.20 | 0.874 | 1.418 | 1.174 | +0.243 |
+| 1.52 | 0.871 | 1.447 | 1.174 | +0.273 |
+| 1.84 | 0.905 | 1.393 | 1.184 | +0.209 |
+| 2.00 | 0.908 | 1.384 | 1.186 | +0.198 |
+| 2.16 | 0.890 | 1.412 | 1.180 | +0.233 |
+| 2.49 | 0.904 | 1.400 | 1.184 | +0.216 |
+| 2.81 | 0.907 | 1.412 | 1.185 | +0.227 |
+| 3.00 | 0.903 | 1.415 | 1.184 | +0.231 |
 
-Only 1 late checkpoints fall inside M_D's measured dose range, which is too few to fit the control. The M_D ladder needs extending further.
+Excess-over-$M_D$ slope: **-0.0405** per epoch (SE 0.0195, -2.1 SE), residual scatter 0.0380.
+
+Leave-one-out refits span **-2.3 to -0.9 SE** — the slope does NOT hold without every individual point.
+
+**Not established: the slope depends on a single checkpoint.** It reads -2.1 SE with all points but -0.9 SE once the 1.00-epoch point is dropped, which is leverage rather than evidence.
+
+Excluding that point, the remaining 8 checkpoints (1.20–3.00 epochs) have excess +0.229 with sd 0.023 — flat. So there is no gradual loss of specificity across the later epochs; specificity settles and stays put.
 
 ## Limits
 
