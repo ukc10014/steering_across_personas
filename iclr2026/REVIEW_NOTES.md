@@ -83,6 +83,38 @@ the missing full stop after "coordinate-permuted trained updates", the broken
 
 ---
 
+## 1b. Applied 2026-09-12 — the pod's 18 new commits, folded in
+
+~~The pod pushed the dense SFT checkpoint curve, a cross-experiment summary, and the
+merge algebra while the paper was being reorganised.~~ **All bullets, no narrative.**
+
+- ~~**New: "The phenotype is installed well before one epoch of SFT."**~~ 82% of endpoint
+  $B_1$ by 0.48 epochs, flat from ~0.68 on; 5–8× the DPO adapter at matched dose. OCT
+  trains three epochs and needs well under one. Figure `figA_oct_sft_curve` + Table
+  `tableA_oct_sft_curve` copied in and cited.
+- ~~**New: "Two negative results from the curve."**~~ Both are results, not omissions:
+  - The apparent overshoot at 0.76 epochs **did not survive** denser sampling. Adjacent
+    checkpoints 15 steps apart move $B_1$ by up to 0.446 against plateau sd 0.129.
+  - The apparent late **selectivity decline is NOT established** — slope −0.028/epoch,
+    SE 0.015, 1.8 SE from zero against a threshold of 2 SE fixed in the script before the
+    numbers existed. Earlier reports described it as probably real; the verdict retired it.
+    **The paper states it as not established.**
+- ~~**New: the merge cross-terms are now derived, not asserted.**~~ Extracting the factor
+  coefficients gives $\Delta W_{merged} = \Delta W_D + 0.25\Delta W_S + (B_DA_S + B_SA_D)$
+  with the two intended terms at *exactly* the nominal 1.0 and 0.25. So the merge does not
+  mis-weight what OCT asked for; it adds structure OCT did not ask for.
+- ~~**New: the 8m23s finding**, added to the reproduction appendix.~~ OCT commit `bd20b87`
+  ("introspection 1 epoch instead of 3") lands 8m23s *after* the final upload of the
+  released adapters, so the public repo no longer describes the pipeline that made its own
+  models. Included mainly for how it was caught: every behavioural gate criterion passed
+  the wrong artifact, and only a weight-norm check failed it.
+- ~~**Scope block rewritten.**~~ "Dense SFT checkpoint curve not started" was stale. Now
+  records the single-construction caveat (`mrg` shares `seq`'s SFT weights, so they are not
+  independent), and adds the cross-GPU reproduction result: cosine 0.9946 between reruns,
+  behaviourally invisible (+2.197 vs +2.190).
+
+**Page count: 20 → 24.** The SFT curve table alone is 28 rows. See open questions.
+
 ## 2. NOT DONE — needs new analysis or new plots
 
 Nothing here was attempted. Flagged for you and the pod agent.
@@ -99,6 +131,13 @@ Nothing here was attempted. Flagged for you and the pod agent.
 - **`M_S` vs `M_F`.** No overlapping dose support was constructed, so it is untested. The
   appendix says so explicitly rather than letting the raw ordering imply it.
 - **Layer 20 for the stage work.** Everything in §B is layer 15.
+- **Extending `M_D`'s dose ladder past 0.827.** This is the blocker on the late-selectivity
+  question: only 1 of 9 late checkpoints falls inside the measured ladder, so training time
+  and displacement cannot be separated past one epoch. Named in the paper as a limit.
+- **Two unused summary figures.** `figA_oct_summary_dose` and `figA_oct_summary_time` are
+  copied into `figures/` but not cited — they are cross-experiment views that overlap the
+  individual figures already in the appendix. Worth considering as *replacements* for
+  several of them if the page count has to come down.
 - **`figA3_layer20` has no `random_spec` arm**, so the L20 panel shows two untrained arms
   where L15 shows three. Not a problem for any claim made, but a reviewer may ask.
 
@@ -156,7 +195,13 @@ Nothing here was attempted. Flagged for you and the pod agent.
 
 ## 4. NOT DONE — open questions for you
 
-- **Page budget.** 19 pages, of which the appendix is roughly half. No workshop CFP is
+- **Page budget — now 24 pages**, of which the appendix is well over half. The two biggest
+  single additions are `tableA_oct_sft_curve` (28 rows) and Table 4, the symbols table
+  (spans two pages). If this has to come down, the cheapest cuts in order: trim the SFT
+  curve table to the plateau-defining rows and let the figure carry the rest; replace
+  several individual OCT figures with `figA_oct_summary_dose` / `figA_oct_summary_time`;
+  then the items below.
+- **(superseded) Page budget.** 19 pages, of which the appendix is roughly half. No workshop CFP is
   live yet, so nothing has been cut, but if the main body has a hard limit the
   candidates to move or drop are `fig0_schematic` (your own caption says it is probably
   stale), `figA5b_signed_validity_2panel` (unused — it is a two-panel variant of figA5,
