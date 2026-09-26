@@ -131,9 +131,27 @@ Nothing here was attempted. Flagged for you and the pod agent.
 - **`M_S` vs `M_F`.** No overlapping dose support was constructed, so it is untested. The
   appendix says so explicitly rather than letting the raw ordering imply it.
 - **Layer 20 for the stage work.** Everything in §B is layer 15.
-- **Extending `M_D`'s dose ladder past 0.827.** This is the blocker on the late-selectivity
-  question: only 1 of 9 late checkpoints falls inside the measured ladder, so training time
-  and displacement cannot be separated past one epoch. Named in the paper as a limit.
+- ~~**Extending `M_D`'s dose ladder past 0.827.** The blocker on the late-selectivity
+  question.~~ **RESOLVED 2026-09-13 (`2e59d9e`) — it was never a measurement gap.** The
+  `s=2.25` and `s=2.5` rungs had already been measured and were sitting in the analysis
+  JSONs; the verdict script was reading a stale `oct_stage_dose_master.csv` and so saw a
+  4-rung ladder stopping at 0.827. It now reads the analyses directly. The ladder spans
+  **0.531–0.972**, and all nine late checkpoints are inside it.
+
+  Two consequences for the paper, both applied:
+  - The "cannot yet be dose-controlled" bullet was **wrong** and is gone.
+  - The verdict is still *not established*, but for a better reason. The dose-controlled
+    slope reads −0.041/epoch (SE 0.020, 2.1 SE) — which would cross the threshold — but
+    leave-one-out refits span −2.3 to −0.9 SE. It rests on the 1.00-epoch checkpoint,
+    which sits 5.2 sd from the other eight and at a markedly lower dose. Excluding it, the
+    eight checkpoints from 1.20–3.00 epochs are flat: excess +0.229, sd 0.023.
+  - So a **positive** statement is now available and the paper makes it: past ~1.2 epochs
+    specificity settles and stays put rather than eroding.
+
+  Note the pod's deliberate non-fix: regenerating `oct_stage_dose_master.csv` would widen
+  the `M_D`/`M_S` overlap and move the anchors in the **published** dose-matched table.
+  They left that as a human call rather than folding it into a bug fix. **That decision is
+  still open** — see whether you want those anchors re-sited.
 - **Two unused summary figures.** `figA_oct_summary_dose` and `figA_oct_summary_time` are
   copied into `figures/` but not cited — they are cross-experiment views that overlap the
   individual figures already in the appendix. Worth considering as *replacements* for
