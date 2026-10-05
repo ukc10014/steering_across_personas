@@ -55,7 +55,10 @@ def contrast(off_arm, targets):
 
 def load(variant: str = "forced") -> list[dict]:
     lg = json.loads((ANALYSIS / "caa_logits.json").read_text())[variant]
-    cs = json.loads((ANALYSIS / "common_shift.json").read_text())[LAYER]
+    # the OCT stage/curve arms live in their own file: common_shift.json is the
+    # four-constitution headline decomposition that fig1 publishes, and a stage run
+    # must not clobber it (it did, 2026-09-10; cost fig1 its L20 block).
+    cs = json.loads((ANALYSIS / "common_shift_oct_stage.json").read_text())[LAYER]
     fd = json.loads((ANALYSIS / "functional_dose.json").read_text())[LAYER]
     traits = list(cs)
 

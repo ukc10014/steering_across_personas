@@ -114,7 +114,10 @@ def main():
     a = ap.parse_args()
 
     lg = (jload("caa_logits.json") or {}).get(a.variant, {})
-    cs = (jload("common_shift.json") or {}).get(a.layer, {})
+    # the OCT stage/curve arms live in their own file: common_shift.json is the
+    # four-constitution headline decomposition that fig1 publishes, and a stage run
+    # must not clobber it (it did, 2026-09-10; cost fig1 its L20 block).
+    cs = (jload("common_shift_oct_stage.json") or {}).get(a.layer, {})
     fd = (jload("functional_dose.json") or {}).get(a.layer, {})
     final = FINAL[a.seed]
     traits = list(cs) if cs else []

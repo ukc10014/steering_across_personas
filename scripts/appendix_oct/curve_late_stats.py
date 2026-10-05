@@ -56,7 +56,10 @@ def md_ladder(rows):
     change to a published result and belongs to a human, not to a bug fix.
     """
     fd = json.loads((ANALYSIS / "functional_dose.json").read_text())[cc.LAYER]
-    cs = json.loads((ANALYSIS / "common_shift.json").read_text())[cc.LAYER]
+    # the OCT stage/curve arms live in their own file: common_shift.json is the
+    # four-constitution headline decomposition that fig1 publishes, and a stage run
+    # must not clobber it (it did, 2026-09-10; cost fig1 its L20 block).
+    cs = json.loads((ANALYSIS / "common_shift_oct_stage.json").read_text())[cc.LAYER]
     traits = list(cs)
     pts = []
     for arm in fd:
