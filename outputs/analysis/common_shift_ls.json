@@ -1,0 +1,5542 @@
+{
+  "15": {
+    "assertiveness": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.8197940923120918,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.6373804653375217,
+          "share_squared": 0.7096465948293427,
+          "share_linear": 0.8424052438282555
+        },
+        "mathematical": {
+          "g_norm": 0.7537879356877576,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.5860614387442644,
+          "share_squared": 0.7233852563358887,
+          "share_linear": 0.8505205796075064
+        },
+        "impulsiveness": {
+          "g_norm": 0.8281110069604166,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.643846770692042,
+          "share_squared": 0.6837394122115468,
+          "share_linear": 0.8268853682412979
+        },
+        "misalignment": {
+          "g_norm": 1.4768265725201937,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 1.1482156517631865,
+          "share_squared": 0.8256766248326408,
+          "share_linear": 0.9086674996018295
+        },
+        "loving": {
+          "g_norm": 0.8466294261617293,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.6582446283474427,
+          "share_squared": 0.7029782208384555,
+          "share_linear": 0.8384379648122189
+        },
+        "sycophancy": {
+          "g_norm": 0.9008621313502676,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.7004099320422926,
+          "share_squared": 0.7009887271557195,
+          "share_linear": 0.8372506955241777
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8470190149592501,
+        "goodness|impulsiveness": 0.5448278668332827,
+        "goodness|misalignment": 0.12281184563920747,
+        "goodness|loving": 0.7685084978733046,
+        "goodness|sycophancy": 0.5041004721746388,
+        "mathematical|goodness": 0.8470190149592501,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.6029533330670143,
+        "mathematical|misalignment": 0.23069204968699103,
+        "mathematical|loving": 0.83126717034663,
+        "mathematical|sycophancy": 0.5555568524515163,
+        "impulsiveness|goodness": 0.5448278668332827,
+        "impulsiveness|mathematical": 0.6029533330670143,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.6839672902724493,
+        "impulsiveness|loving": 0.7328301628010421,
+        "impulsiveness|sycophancy": 0.7958268384686089,
+        "misalignment|goodness": 0.12281184563920747,
+        "misalignment|mathematical": 0.23069204968699103,
+        "misalignment|impulsiveness": 0.6839672902724493,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.4219757450764133,
+        "misalignment|sycophancy": 0.7559020515036736,
+        "loving|goodness": 0.7685084978733046,
+        "loving|mathematical": 0.83126717034663,
+        "loving|impulsiveness": 0.7328301628010421,
+        "loving|misalignment": 0.4219757450764133,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.7508128297997242,
+        "sycophancy|goodness": 0.5041004721746388,
+        "sycophancy|mathematical": 0.5555568524515163,
+        "sycophancy|impulsiveness": 0.7958268384686089,
+        "sycophancy|misalignment": 0.7559020515036736,
+        "sycophancy|loving": 0.7508128297997242,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8322732448577881,
+        "goodness|impulsiveness": 0.5443088412284851,
+        "goodness|misalignment": 0.14385072886943817,
+        "goodness|loving": 0.7611467242240906,
+        "goodness|sycophancy": 0.5070077776908875,
+        "mathematical|goodness": 0.8322732448577881,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.6028668880462646,
+        "mathematical|misalignment": 0.24548648297786713,
+        "mathematical|loving": 0.8216153979301453,
+        "mathematical|sycophancy": 0.5553972721099854,
+        "impulsiveness|goodness": 0.5443088412284851,
+        "impulsiveness|mathematical": 0.6028668880462646,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.6776465773582458,
+        "impulsiveness|loving": 0.727903425693512,
+        "impulsiveness|sycophancy": 0.7768311500549316,
+        "misalignment|goodness": 0.14385072886943817,
+        "misalignment|mathematical": 0.24548648297786713,
+        "misalignment|impulsiveness": 0.6776465773582458,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.42875370383262634,
+        "misalignment|sycophancy": 0.7406371831893921,
+        "loving|goodness": 0.7611467242240906,
+        "loving|mathematical": 0.8216153979301453,
+        "loving|impulsiveness": 0.727903425693512,
+        "loving|misalignment": 0.42875370383262634,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.7473982572555542,
+        "sycophancy|goodness": 0.5070077776908875,
+        "sycophancy|mathematical": 0.5553972721099854,
+        "sycophancy|impulsiveness": 0.7768311500549316,
+        "sycophancy|misalignment": 0.7406371831893921,
+        "sycophancy|loving": 0.7473982572555542,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.6174352218630974,
+          "share_squared": 0.7110294860308655
+        },
+        "mathematical": {
+          "g_over_base": 0.5694828163545618,
+          "share_squared": 0.7235998248015453
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6257611328539757,
+          "share_squared": 0.6878143402629341
+        },
+        "misalignment": {
+          "g_over_base": 1.0843593673194556,
+          "share_squared": 0.8223547801966101
+        },
+        "loving": {
+          "g_over_base": 0.6381459717242735,
+          "share_squared": 0.7041037986837414
+        },
+        "sycophancy": {
+          "g_over_base": 0.684059273690891,
+          "share_squared": 0.7047172601250647
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5806743298137589,
+          0.7529739634889907
+        ],
+        "mathematical": [
+          0.5375876589430664,
+          0.6760826821263409
+        ],
+        "impulsiveness": [
+          0.5909070947332221,
+          0.7571893745984806
+        ],
+        "misalignment": [
+          0.9668418649613558,
+          1.4472161238030778
+        ],
+        "loving": [
+          0.6008639009299097,
+          0.770431515814563
+        ],
+        "sycophancy": [
+          0.6419854985351937,
+          0.8055561722577818
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.6834481676889513,
+          0.7367267106772364
+        ],
+        "mathematical": [
+          0.7015453656147275,
+          0.7458629606339793
+        ],
+        "impulsiveness": [
+          0.656218175746057,
+          0.7037795281770818
+        ],
+        "misalignment": [
+          0.813073580184538,
+          0.8367517341834078
+        ],
+        "loving": [
+          0.6809424764517901,
+          0.725419847485137
+        ],
+        "sycophancy": [
+          0.6671495468307023,
+          0.7258445295135173
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.8133425471579054,
+          0.9017977020565395
+        ],
+        "goodness|impulsiveness": [
+          0.49892894480295247,
+          0.5989196600497785
+        ],
+        "goodness|misalignment": [
+          0.04809747456531184,
+          0.22003663749577101
+        ],
+        "goodness|loving": [
+          0.7358068944251179,
+          0.8030905812341659
+        ],
+        "goodness|sycophancy": [
+          0.4564064940065562,
+          0.5660780850270326
+        ],
+        "mathematical|goodness": [
+          0.8133425471579054,
+          0.9017977020565395
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.5618023101008839,
+          0.6373086819530169
+        ],
+        "mathematical|misalignment": [
+          0.176723835334038,
+          0.29109819648876406
+        ],
+        "mathematical|loving": [
+          0.7941637586816787,
+          0.8681601147088225
+        ],
+        "mathematical|sycophancy": [
+          0.5107799961440258,
+          0.6027204236324151
+        ],
+        "impulsiveness|goodness": [
+          0.49892894480295247,
+          0.5989196600497785
+        ],
+        "impulsiveness|mathematical": [
+          0.5618023101008839,
+          0.6373086819530169
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.6552244528432281,
+          0.7210616751343253
+        ],
+        "impulsiveness|loving": [
+          0.7093779555853682,
+          0.7611533194060991
+        ],
+        "impulsiveness|sycophancy": [
+          0.7454748565746012,
+          0.8733852401116242
+        ],
+        "misalignment|goodness": [
+          0.04809747456531184,
+          0.22003663749577101
+        ],
+        "misalignment|mathematical": [
+          0.176723835334038,
+          0.29109819648876406
+        ],
+        "misalignment|impulsiveness": [
+          0.6552244528432281,
+          0.7210616751343253
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.37289203577431024,
+          0.4714402811788146
+        ],
+        "misalignment|sycophancy": [
+          0.7134054195433984,
+          0.8239796343987522
+        ],
+        "loving|goodness": [
+          0.7358068944251179,
+          0.8030905812341659
+        ],
+        "loving|mathematical": [
+          0.7941637586816787,
+          0.8681601147088225
+        ],
+        "loving|impulsiveness": [
+          0.7093779555853682,
+          0.7611533194060991
+        ],
+        "loving|misalignment": [
+          0.37289203577431024,
+          0.4714402811788146
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.7249548579251077,
+          0.7849586063733897
+        ],
+        "sycophancy|goodness": [
+          0.4564064940065562,
+          0.5660780850270326
+        ],
+        "sycophancy|mathematical": [
+          0.5107799961440258,
+          0.6027204236324151
+        ],
+        "sycophancy|impulsiveness": [
+          0.7454748565746012,
+          0.8733852401116242
+        ],
+        "sycophancy|misalignment": [
+          0.7134054195433984,
+          0.8239796343987522
+        ],
+        "sycophancy|loving": [
+          0.7249548579251077,
+          0.7849586063733897
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "empathy": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.7817799530264038,
+          "base_norm": 1.2879268825054169,
+          "g_over_base": 0.607006471909026,
+          "share_squared": 0.6098101025209662,
+          "share_linear": 0.7809033887242174
+        },
+        "mathematical": {
+          "g_norm": 0.7445215807003653,
+          "base_norm": 1.2879268825054169,
+          "g_over_base": 0.5780775219568678,
+          "share_squared": 0.6282316768591673,
+          "share_linear": 0.7926106716788308
+        },
+        "impulsiveness": {
+          "g_norm": 0.8258662567126209,
+          "base_norm": 1.2879268825054169,
+          "g_over_base": 0.6412369117616795,
+          "share_squared": 0.6343478978663204,
+          "share_linear": 0.7964596021558912
+        },
+        "misalignment": {
+          "g_norm": 1.1338497503764415,
+          "base_norm": 1.2879268825054169,
+          "g_over_base": 0.8803681061231927,
+          "share_squared": 0.7266007305638663,
+          "share_linear": 0.8524087813742104
+        },
+        "loving": {
+          "g_norm": 1.052705603721266,
+          "base_norm": 1.2879268825054169,
+          "g_over_base": 0.8173644156517856,
+          "share_squared": 0.7198994673776803,
+          "share_linear": 0.8484688959400223
+        },
+        "sycophancy": {
+          "g_norm": 0.8866171026575953,
+          "base_norm": 1.2879268825054169,
+          "g_over_base": 0.6884063953481974,
+          "share_squared": 0.670803376127639,
+          "share_linear": 0.8190258702432048
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8380109730284926,
+        "goodness|impulsiveness": 0.7452559403364539,
+        "goodness|misalignment": 0.5786388664309933,
+        "goodness|loving": 0.7361905681260016,
+        "goodness|sycophancy": 0.7821958096485502,
+        "mathematical|goodness": 0.8380109730284926,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.7749365074066495,
+        "mathematical|misalignment": 0.55808109633146,
+        "mathematical|loving": 0.7399926319288933,
+        "mathematical|sycophancy": 0.7458111175907731,
+        "impulsiveness|goodness": 0.7452559403364539,
+        "impulsiveness|mathematical": 0.7749365074066495,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.5278420000990297,
+        "impulsiveness|loving": 0.7234563273567797,
+        "impulsiveness|sycophancy": 0.760469834686155,
+        "misalignment|goodness": 0.5786388664309933,
+        "misalignment|mathematical": 0.55808109633146,
+        "misalignment|impulsiveness": 0.5278420000990297,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.21533737373089354,
+        "misalignment|sycophancy": 0.5652242914100998,
+        "loving|goodness": 0.7361905681260016,
+        "loving|mathematical": 0.7399926319288933,
+        "loving|impulsiveness": 0.7234563273567797,
+        "loving|misalignment": 0.21533737373089354,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.6969991867799277,
+        "sycophancy|goodness": 0.7821958096485502,
+        "sycophancy|mathematical": 0.7458111175907731,
+        "sycophancy|impulsiveness": 0.760469834686155,
+        "sycophancy|misalignment": 0.5652242914100998,
+        "sycophancy|loving": 0.6969991867799277,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8220759034156799,
+        "goodness|impulsiveness": 0.7251364588737488,
+        "goodness|misalignment": 0.5770763158798218,
+        "goodness|loving": 0.7284649610519409,
+        "goodness|sycophancy": 0.7650884985923767,
+        "mathematical|goodness": 0.8220759034156799,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.7638870477676392,
+        "mathematical|misalignment": 0.5605305433273315,
+        "mathematical|loving": 0.7375807166099548,
+        "mathematical|sycophancy": 0.7340382933616638,
+        "impulsiveness|goodness": 0.7251364588737488,
+        "impulsiveness|mathematical": 0.7638870477676392,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.5338459014892578,
+        "impulsiveness|loving": 0.7181573510169983,
+        "impulsiveness|sycophancy": 0.7425202131271362,
+        "misalignment|goodness": 0.5770763158798218,
+        "misalignment|mathematical": 0.5605305433273315,
+        "misalignment|impulsiveness": 0.5338459014892578,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.2321837991476059,
+        "misalignment|sycophancy": 0.5638375282287598,
+        "loving|goodness": 0.7284649610519409,
+        "loving|mathematical": 0.7375807166099548,
+        "loving|impulsiveness": 0.7181573510169983,
+        "loving|misalignment": 0.2321837991476059,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.6930193305015564,
+        "sycophancy|goodness": 0.7650884985923767,
+        "sycophancy|mathematical": 0.7340382933616638,
+        "sycophancy|impulsiveness": 0.7425202131271362,
+        "sycophancy|misalignment": 0.5638375282287598,
+        "sycophancy|loving": 0.6930193305015564,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.5881791510256147,
+          "share_squared": 0.6143924325754442
+        },
+        "mathematical": {
+          "g_over_base": 0.5632582041615651,
+          "share_squared": 0.6339361425604203
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6249227240178223,
+          "share_squared": 0.6404804833804802
+        },
+        "misalignment": {
+          "g_over_base": 0.8415365961728778,
+          "share_squared": 0.725385923297975
+        },
+        "loving": {
+          "g_over_base": 0.7838359865774938,
+          "share_squared": 0.7190113282409878
+        },
+        "sycophancy": {
+          "g_over_base": 0.6696477313776357,
+          "share_squared": 0.6742971747527556
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5273182599888424,
+          0.7299245130925233
+        ],
+        "mathematical": [
+          0.537997021623757,
+          0.6718908872257067
+        ],
+        "impulsiveness": [
+          0.5973313336918514,
+          0.7536666949508215
+        ],
+        "misalignment": [
+          0.730186831815822,
+          1.1124299663877055
+        ],
+        "loving": [
+          0.7044661393640254,
+          1.0176903702488047
+        ],
+        "sycophancy": [
+          0.6024110061683049,
+          0.8178579636847803
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.5855553980644363,
+          0.642721633949229
+        ],
+        "mathematical": [
+          0.5859701557203267,
+          0.6833202521411066
+        ],
+        "impulsiveness": [
+          0.5982516253056981,
+          0.6878864910010328
+        ],
+        "misalignment": [
+          0.7114701598149301,
+          0.7412625686813942
+        ],
+        "loving": [
+          0.7053676505203488,
+          0.742148533022882
+        ],
+        "sycophancy": [
+          0.6435119500990422,
+          0.6943396026171162
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.7971383798446553,
+          0.9033585467615021
+        ],
+        "goodness|impulsiveness": [
+          0.698252810024806,
+          0.8154857809192084
+        ],
+        "goodness|misalignment": [
+          0.509910148736944,
+          0.6381291433323418
+        ],
+        "goodness|loving": [
+          0.69610208342275,
+          0.7707901548689614
+        ],
+        "goodness|sycophancy": [
+          0.7196093768254562,
+          0.8482128671085262
+        ],
+        "mathematical|goodness": [
+          0.7971383798446553,
+          0.9033585467615021
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.7438805922832035,
+          0.8189563735798127
+        ],
+        "mathematical|misalignment": [
+          0.5233683138195785,
+          0.591728935892862
+        ],
+        "mathematical|loving": [
+          0.7289476166527745,
+          0.756872676412566
+        ],
+        "mathematical|sycophancy": [
+          0.7013088481704459,
+          0.796631328718754
+        ],
+        "impulsiveness|goodness": [
+          0.698252810024806,
+          0.8154857809192084
+        ],
+        "impulsiveness|mathematical": [
+          0.7438805922832035,
+          0.8189563735798127
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.4660421863840369,
+          0.5753355207190174
+        ],
+        "impulsiveness|loving": [
+          0.7083388459930243,
+          0.749761458294654
+        ],
+        "impulsiveness|sycophancy": [
+          0.71492125389109,
+          0.8298126754353724
+        ],
+        "misalignment|goodness": [
+          0.509910148736944,
+          0.6381291433323418
+        ],
+        "misalignment|mathematical": [
+          0.5233683138195785,
+          0.591728935892862
+        ],
+        "misalignment|impulsiveness": [
+          0.4660421863840369,
+          0.5753355207190174
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.13760308909139163,
+          0.29240247696569976
+        ],
+        "misalignment|sycophancy": [
+          0.5372098618290532,
+          0.589419786196381
+        ],
+        "loving|goodness": [
+          0.69610208342275,
+          0.7707901548689614
+        ],
+        "loving|mathematical": [
+          0.7289476166527745,
+          0.756872676412566
+        ],
+        "loving|impulsiveness": [
+          0.7083388459930243,
+          0.749761458294654
+        ],
+        "loving|misalignment": [
+          0.13760308909139163,
+          0.29240247696569976
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.6749539723065455,
+          0.7206457765547223
+        ],
+        "sycophancy|goodness": [
+          0.7196093768254562,
+          0.8482128671085262
+        ],
+        "sycophancy|mathematical": [
+          0.7013088481704459,
+          0.796631328718754
+        ],
+        "sycophancy|impulsiveness": [
+          0.71492125389109,
+          0.8298126754353724
+        ],
+        "sycophancy|misalignment": [
+          0.5372098618290532,
+          0.589419786196381
+        ],
+        "sycophancy|loving": [
+          0.6749539723065455,
+          0.7206457765547223
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "risk_taking": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.6985239524801439,
+          "base_norm": 1.1097696498036385,
+          "g_over_base": 0.6294314794099298,
+          "share_squared": 0.6944830483261629,
+          "share_linear": 0.8333564953404773
+        },
+        "mathematical": {
+          "g_norm": 0.6397853448548843,
+          "base_norm": 1.1097696498036385,
+          "g_over_base": 0.5765028309866712,
+          "share_squared": 0.6975551398161359,
+          "share_linear": 0.8351976651165495
+        },
+        "impulsiveness": {
+          "g_norm": 1.2172036643662738,
+          "base_norm": 1.1097696498036385,
+          "g_over_base": 1.0968074902585816,
+          "share_squared": 0.8427956758041555,
+          "share_linear": 0.9180390382789587
+        },
+        "misalignment": {
+          "g_norm": 1.1343567182050305,
+          "base_norm": 1.1097696498036385,
+          "g_over_base": 1.0221551097615098,
+          "share_squared": 0.8197621417999775,
+          "share_linear": 0.9054071690681367
+        },
+        "loving": {
+          "g_norm": 0.7693841653250044,
+          "base_norm": 1.1097696498036385,
+          "g_over_base": 0.6932827595899189,
+          "share_squared": 0.7295289214747981,
+          "share_linear": 0.8541246521877226
+        },
+        "sycophancy": {
+          "g_norm": 0.7860653069934286,
+          "base_norm": 1.1097696498036385,
+          "g_over_base": 0.7083139344570418,
+          "share_squared": 0.7194617759181064,
+          "share_linear": 0.8482109265495855
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8378868629405039,
+        "goodness|impulsiveness": 0.5101784997787673,
+        "goodness|misalignment": 0.5258017824366873,
+        "goodness|loving": 0.8140722356347486,
+        "goodness|sycophancy": 0.7016314504049448,
+        "mathematical|goodness": 0.8378868629405039,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.5449331237300007,
+        "mathematical|misalignment": 0.4862471280263528,
+        "mathematical|loving": 0.8903064266575349,
+        "mathematical|sycophancy": 0.7565552728396618,
+        "impulsiveness|goodness": 0.5101784997787673,
+        "impulsiveness|mathematical": 0.5449331237300007,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.7922306267477861,
+        "impulsiveness|loving": 0.5995651213458469,
+        "impulsiveness|sycophancy": 0.8169618392970754,
+        "misalignment|goodness": 0.5258017824366873,
+        "misalignment|mathematical": 0.4862471280263528,
+        "misalignment|impulsiveness": 0.7922306267477861,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.4985115926396075,
+        "misalignment|sycophancy": 0.708586885092211,
+        "loving|goodness": 0.8140722356347486,
+        "loving|mathematical": 0.8903064266575349,
+        "loving|impulsiveness": 0.5995651213458469,
+        "loving|misalignment": 0.4985115926396075,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.8092707946087405,
+        "sycophancy|goodness": 0.7016314504049448,
+        "sycophancy|mathematical": 0.7565552728396618,
+        "sycophancy|impulsiveness": 0.8169618392970754,
+        "sycophancy|misalignment": 0.708586885092211,
+        "sycophancy|loving": 0.8092707946087405,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8169719576835632,
+        "goodness|impulsiveness": 0.5073490738868713,
+        "goodness|misalignment": 0.5291071534156799,
+        "goodness|loving": 0.8014615178108215,
+        "goodness|sycophancy": 0.6789872646331787,
+        "mathematical|goodness": 0.8169719576835632,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.5413370132446289,
+        "mathematical|misalignment": 0.49031516909599304,
+        "mathematical|loving": 0.872880756855011,
+        "mathematical|sycophancy": 0.7315772175788879,
+        "impulsiveness|goodness": 0.5073490738868713,
+        "impulsiveness|mathematical": 0.5413370132446289,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.7856767177581787,
+        "impulsiveness|loving": 0.5987398624420166,
+        "impulsiveness|sycophancy": 0.7877830266952515,
+        "misalignment|goodness": 0.5291071534156799,
+        "misalignment|mathematical": 0.49031516909599304,
+        "misalignment|impulsiveness": 0.7856767177581787,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.5048462748527527,
+        "misalignment|sycophancy": 0.6899523735046387,
+        "loving|goodness": 0.8014615178108215,
+        "loving|mathematical": 0.872880756855011,
+        "loving|impulsiveness": 0.5987398624420166,
+        "loving|misalignment": 0.5048462748527527,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.79720538854599,
+        "sycophancy|goodness": 0.6789872646331787,
+        "sycophancy|mathematical": 0.7315772175788879,
+        "sycophancy|impulsiveness": 0.7877830266952515,
+        "sycophancy|misalignment": 0.6899523735046387,
+        "sycophancy|loving": 0.79720538854599,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.6003118589520946,
+          "share_squared": 0.700142592074945
+        },
+        "mathematical": {
+          "g_over_base": 0.550749590040692,
+          "share_squared": 0.7026497316259466
+        },
+        "impulsiveness": {
+          "g_over_base": 1.0072731002689221,
+          "share_squared": 0.8383988914302162
+        },
+        "misalignment": {
+          "g_over_base": 0.939410731125257,
+          "share_squared": 0.8145593541584011
+        },
+        "loving": {
+          "g_over_base": 0.6539026059885429,
+          "share_squared": 0.7300030213756316
+        },
+        "sycophancy": {
+          "g_over_base": 0.6783131106579978,
+          "share_squared": 0.723805851440097
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5513647695030232,
+          0.7566647616744412
+        ],
+        "mathematical": [
+          0.5167714323292593,
+          0.6823478605357463
+        ],
+        "impulsiveness": [
+          0.8764788789683648,
+          1.4342147423652207
+        ],
+        "misalignment": [
+          0.8126813461321626,
+          1.3283899653129836
+        ],
+        "loving": [
+          0.5970651643350572,
+          0.8464133849522979
+        ],
+        "sycophancy": [
+          0.640084334711106,
+          0.840555807081616
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.6640108278152134,
+          0.7304283049712641
+        ],
+        "mathematical": [
+          0.6684210917896962,
+          0.729619990652399
+        ],
+        "impulsiveness": [
+          0.8343395846319082,
+          0.8509896129238202
+        ],
+        "misalignment": [
+          0.804130737758902,
+          0.835628936419841
+        ],
+        "loving": [
+          0.7053110775119182,
+          0.7492263612611049
+        ],
+        "sycophancy": [
+          0.6901403211044791,
+          0.7463573770338076
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.7734954472218073,
+          0.8962729204993438
+        ],
+        "goodness|impulsiveness": [
+          0.4113794003884611,
+          0.5965637018283693
+        ],
+        "goodness|misalignment": [
+          0.4538851814890201,
+          0.6005085695160852
+        ],
+        "goodness|loving": [
+          0.7745481062175081,
+          0.8541634114819857
+        ],
+        "goodness|sycophancy": [
+          0.5889305339538572,
+          0.78065526118735
+        ],
+        "mathematical|goodness": [
+          0.7734954472218073,
+          0.8962729204993438
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.5240865759837781,
+          0.5802306601426817
+        ],
+        "mathematical|misalignment": [
+          0.4623728043230102,
+          0.5142040156949327
+        ],
+        "mathematical|loving": [
+          0.8407705094251502,
+          0.9329945977262516
+        ],
+        "mathematical|sycophancy": [
+          0.6821809279146507,
+          0.8279412481770618
+        ],
+        "impulsiveness|goodness": [
+          0.4113794003884611,
+          0.5965637018283693
+        ],
+        "impulsiveness|mathematical": [
+          0.5240865759837781,
+          0.5802306601426817
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.7674722802868659,
+          0.8151962595651753
+        ],
+        "impulsiveness|loving": [
+          0.5704750615314013,
+          0.6245999019063816
+        ],
+        "impulsiveness|sycophancy": [
+          0.7252189711512329,
+          0.8899424137325811
+        ],
+        "misalignment|goodness": [
+          0.4538851814890201,
+          0.6005085695160852
+        ],
+        "misalignment|mathematical": [
+          0.4623728043230102,
+          0.5142040156949327
+        ],
+        "misalignment|impulsiveness": [
+          0.7674722802868659,
+          0.8151962595651753
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.4694811075160065,
+          0.5316461963685811
+        ],
+        "misalignment|sycophancy": [
+          0.6430419117319295,
+          0.7648497099836932
+        ],
+        "loving|goodness": [
+          0.7745481062175081,
+          0.8541634114819857
+        ],
+        "loving|mathematical": [
+          0.8407705094251502,
+          0.9329945977262516
+        ],
+        "loving|impulsiveness": [
+          0.5704750615314013,
+          0.6245999019063816
+        ],
+        "loving|misalignment": [
+          0.4694811075160065,
+          0.5316461963685811
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.7694429093172898,
+          0.8395495540586101
+        ],
+        "sycophancy|goodness": [
+          0.5889305339538572,
+          0.78065526118735
+        ],
+        "sycophancy|mathematical": [
+          0.6821809279146507,
+          0.8279412481770618
+        ],
+        "sycophancy|impulsiveness": [
+          0.7252189711512329,
+          0.8899424137325811
+        ],
+        "sycophancy|misalignment": [
+          0.6430419117319295,
+          0.7648497099836932
+        ],
+        "sycophancy|loving": [
+          0.7694429093172898,
+          0.8395495540586101
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "honesty": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.720974419350825,
+          "base_norm": 1.2330042555928231,
+          "g_over_base": 0.5847298710288583,
+          "share_squared": 0.7556740263871893,
+          "share_linear": 0.8692951319242442
+        },
+        "mathematical": {
+          "g_norm": 0.6885870856994184,
+          "base_norm": 1.2330042555928231,
+          "g_over_base": 0.5584628622131954,
+          "share_squared": 0.7458817592437301,
+          "share_linear": 0.8636444634476216
+        },
+        "impulsiveness": {
+          "g_norm": 0.7606316350249417,
+          "base_norm": 1.2330042555928231,
+          "g_over_base": 0.616892951970578,
+          "share_squared": 0.73674014303525,
+          "share_linear": 0.8583356820237931
+        },
+        "misalignment": {
+          "g_norm": 0.9305997804294982,
+          "base_norm": 1.2330042555928231,
+          "g_over_base": 0.7547417425433539,
+          "share_squared": 0.7749346114403672,
+          "share_linear": 0.8803037040932903
+        },
+        "loving": {
+          "g_norm": 0.8340092827251177,
+          "base_norm": 1.2330042555928231,
+          "g_over_base": 0.6764042207819709,
+          "share_squared": 0.7953763721414573,
+          "share_linear": 0.8918387590486619
+        },
+        "sycophancy": {
+          "g_norm": 0.7907990575955011,
+          "base_norm": 1.2330042555928231,
+          "g_over_base": 0.6413595524982907,
+          "share_squared": 0.7439983444244265,
+          "share_linear": 0.8625533864198937
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8661149509855514,
+        "goodness|impulsiveness": 0.7509990898673596,
+        "goodness|misalignment": 0.5757960637567745,
+        "goodness|loving": 0.8516108014296917,
+        "goodness|sycophancy": 0.687218527138292,
+        "mathematical|goodness": 0.8661149509855514,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.8194788811466049,
+        "mathematical|misalignment": 0.5969693885921101,
+        "mathematical|loving": 0.8638347571911823,
+        "mathematical|sycophancy": 0.731698866308893,
+        "impulsiveness|goodness": 0.7509990898673596,
+        "impulsiveness|mathematical": 0.8194788811466049,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.6801409006086134,
+        "impulsiveness|loving": 0.8193878199046855,
+        "impulsiveness|sycophancy": 0.7588378619900055,
+        "misalignment|goodness": 0.5757960637567745,
+        "misalignment|mathematical": 0.5969693885921101,
+        "misalignment|impulsiveness": 0.6801409006086134,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.605871847556862,
+        "misalignment|sycophancy": 0.8596222494903639,
+        "loving|goodness": 0.8516108014296917,
+        "loving|mathematical": 0.8638347571911823,
+        "loving|impulsiveness": 0.8193878199046855,
+        "loving|misalignment": 0.605871847556862,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.7441817187847679,
+        "sycophancy|goodness": 0.687218527138292,
+        "sycophancy|mathematical": 0.731698866308893,
+        "sycophancy|impulsiveness": 0.7588378619900055,
+        "sycophancy|misalignment": 0.8596222494903639,
+        "sycophancy|loving": 0.7441817187847679,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8496783971786499,
+        "goodness|impulsiveness": 0.7319657802581787,
+        "goodness|misalignment": 0.5788630247116089,
+        "goodness|loving": 0.8365510106086731,
+        "goodness|sycophancy": 0.6752274632453918,
+        "mathematical|goodness": 0.8496783971786499,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.8006474375724792,
+        "mathematical|misalignment": 0.5974299311637878,
+        "mathematical|loving": 0.8514840602874756,
+        "mathematical|sycophancy": 0.7192583680152893,
+        "impulsiveness|goodness": 0.7319657802581787,
+        "impulsiveness|mathematical": 0.8006474375724792,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.6802802085876465,
+        "impulsiveness|loving": 0.8089354634284973,
+        "impulsiveness|sycophancy": 0.746138334274292,
+        "misalignment|goodness": 0.5788630247116089,
+        "misalignment|mathematical": 0.5974299311637878,
+        "misalignment|impulsiveness": 0.6802802085876465,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.6091848611831665,
+        "misalignment|sycophancy": 0.8412469625473022,
+        "loving|goodness": 0.8365510106086731,
+        "loving|mathematical": 0.8514840602874756,
+        "loving|impulsiveness": 0.8089354634284973,
+        "loving|misalignment": 0.6091848611831665,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.740509569644928,
+        "sycophancy|goodness": 0.6752274632453918,
+        "sycophancy|mathematical": 0.7192583680152893,
+        "sycophancy|impulsiveness": 0.746138334274292,
+        "sycophancy|misalignment": 0.8412469625473022,
+        "sycophancy|loving": 0.740509569644928,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.5692441478690969,
+          "share_squared": 0.752716652015542
+        },
+        "mathematical": {
+          "g_over_base": 0.5457150173914322,
+          "share_squared": 0.7441840022538726
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6019504572064269,
+          "share_squared": 0.7370702220125548
+        },
+        "misalignment": {
+          "g_over_base": 0.7243415762438985,
+          "share_squared": 0.7713643793272283
+        },
+        "loving": {
+          "g_over_base": 0.6535571129665938,
+          "share_squared": 0.7897565695798158
+        },
+        "sycophancy": {
+          "g_over_base": 0.6296025210345738,
+          "share_squared": 0.7436716707030487
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5202417492720449,
+          0.6992889842891908
+        ],
+        "mathematical": [
+          0.5204809028316029,
+          0.6421734795015386
+        ],
+        "impulsiveness": [
+          0.5690462715000467,
+          0.7094487637136166
+        ],
+        "misalignment": [
+          0.633778678435917,
+          0.9359278517554599
+        ],
+        "loving": [
+          0.6017870800566929,
+          0.8142434525245154
+        ],
+        "sycophancy": [
+          0.5785893772122928,
+          0.7437074265990999
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.7217951886936874,
+          0.7831188142965078
+        ],
+        "mathematical": [
+          0.7201066162262654,
+          0.7660329605078796
+        ],
+        "impulsiveness": [
+          0.7088754271224321,
+          0.7578137488107544
+        ],
+        "misalignment": [
+          0.7485888135578699,
+          0.79478167878842
+        ],
+        "loving": [
+          0.7800659631036493,
+          0.8096714157280811
+        ],
+        "sycophancy": [
+          0.7116383987800183,
+          0.7721898062145591
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.8174268812988549,
+          0.9279985893907451
+        ],
+        "goodness|impulsiveness": [
+          0.6955609092937836,
+          0.8236277602463766
+        ],
+        "goodness|misalignment": [
+          0.4959106498112859,
+          0.643096745964719
+        ],
+        "goodness|loving": [
+          0.7994762604379818,
+          0.9051614340600606
+        ],
+        "goodness|sycophancy": [
+          0.5936674550797395,
+          0.7707221052182296
+        ],
+        "mathematical|goodness": [
+          0.8174268812988549,
+          0.9279985893907451
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.7734301744066376,
+          0.8824527155107609
+        ],
+        "mathematical|misalignment": [
+          0.5589021994530703,
+          0.6359347792953615
+        ],
+        "mathematical|loving": [
+          0.8343005174084324,
+          0.905135154108404
+        ],
+        "mathematical|sycophancy": [
+          0.6825800343648414,
+          0.7956961883346003
+        ],
+        "impulsiveness|goodness": [
+          0.6955609092937836,
+          0.8236277602463766
+        ],
+        "impulsiveness|mathematical": [
+          0.7734301744066376,
+          0.8824527155107609
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.6490851002091648,
+          0.7116689422649392
+        ],
+        "impulsiveness|loving": [
+          0.7898219364253656,
+          0.8586014447218603
+        ],
+        "impulsiveness|sycophancy": [
+          0.7152167637289096,
+          0.8270308154994923
+        ],
+        "misalignment|goodness": [
+          0.4959106498112859,
+          0.643096745964719
+        ],
+        "misalignment|mathematical": [
+          0.5589021994530703,
+          0.6359347792953615
+        ],
+        "misalignment|impulsiveness": [
+          0.6490851002091648,
+          0.7116689422649392
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.5610110666804063,
+          0.6431368151638127
+        ],
+        "misalignment|sycophancy": [
+          0.807298733438651,
+          0.9298948884582516
+        ],
+        "loving|goodness": [
+          0.7994762604379818,
+          0.9051614340600606
+        ],
+        "loving|mathematical": [
+          0.8343005174084324,
+          0.905135154108404
+        ],
+        "loving|impulsiveness": [
+          0.7898219364253656,
+          0.8586014447218603
+        ],
+        "loving|misalignment": [
+          0.5610110666804063,
+          0.6431368151638127
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.7128073298907849,
+          0.7727390923442999
+        ],
+        "sycophancy|goodness": [
+          0.5936674550797395,
+          0.7707221052182296
+        ],
+        "sycophancy|mathematical": [
+          0.6825800343648414,
+          0.7956961883346003
+        ],
+        "sycophancy|impulsiveness": [
+          0.7152167637289096,
+          0.8270308154994923
+        ],
+        "sycophancy|misalignment": [
+          0.807298733438651,
+          0.9298948884582516
+        ],
+        "sycophancy|loving": [
+          0.7128073298907849,
+          0.7727390923442999
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "confidence": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.7515365953005908,
+          "base_norm": 1.2370690166950227,
+          "g_over_base": 0.6075138776884175,
+          "share_squared": 0.6910558603201399,
+          "share_linear": 0.8312976965685277
+        },
+        "mathematical": {
+          "g_norm": 0.8194184944835667,
+          "base_norm": 1.2370690166950227,
+          "g_over_base": 0.662387048277016,
+          "share_squared": 0.7510258852471807,
+          "share_linear": 0.8666174965041847
+        },
+        "impulsiveness": {
+          "g_norm": 0.8398290455440224,
+          "base_norm": 1.2370690166950227,
+          "g_over_base": 0.678886169009168,
+          "share_squared": 0.7180781733829382,
+          "share_linear": 0.8473949335362693
+        },
+        "misalignment": {
+          "g_norm": 1.0023834338103927,
+          "base_norm": 1.2370690166950227,
+          "g_over_base": 0.8102890140182959,
+          "share_squared": 0.7501372819820916,
+          "share_linear": 0.8661046599471057
+        },
+        "loving": {
+          "g_norm": 0.8567517609874525,
+          "base_norm": 1.2370690166950227,
+          "g_over_base": 0.6925658547947203,
+          "share_squared": 0.7496996539750131,
+          "share_linear": 0.8658519815620989
+        },
+        "sycophancy": {
+          "g_norm": 0.8162256196165001,
+          "base_norm": 1.2370690166950227,
+          "g_over_base": 0.6598060484912508,
+          "share_squared": 0.6929884312663873,
+          "share_linear": 0.8324592670313589
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.7527239800131378,
+        "goodness|impulsiveness": 0.7184779754852073,
+        "goodness|misalignment": 0.5633190256618985,
+        "goodness|loving": 0.7679219383859685,
+        "goodness|sycophancy": 0.7363282813132854,
+        "mathematical|goodness": 0.7527239800131378,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.7019134490443565,
+        "mathematical|misalignment": 0.30223044887401584,
+        "mathematical|loving": 0.8414909213907903,
+        "mathematical|sycophancy": 0.7242037566352477,
+        "impulsiveness|goodness": 0.7184779754852073,
+        "impulsiveness|mathematical": 0.7019134490443565,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.5845027825623635,
+        "impulsiveness|loving": 0.7243362564016945,
+        "impulsiveness|sycophancy": 0.7491877479966104,
+        "misalignment|goodness": 0.5633190256618985,
+        "misalignment|mathematical": 0.30223044887401584,
+        "misalignment|impulsiveness": 0.5845027825623635,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.4077981658726401,
+        "misalignment|sycophancy": 0.4944087504718406,
+        "loving|goodness": 0.7679219383859685,
+        "loving|mathematical": 0.8414909213907903,
+        "loving|impulsiveness": 0.7243362564016945,
+        "loving|misalignment": 0.4077981658726401,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.7928648058883748,
+        "sycophancy|goodness": 0.7363282813132854,
+        "sycophancy|mathematical": 0.7242037566352477,
+        "sycophancy|impulsiveness": 0.7491877479966104,
+        "sycophancy|misalignment": 0.4944087504718406,
+        "sycophancy|loving": 0.7928648058883748,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.7451476454734802,
+        "goodness|impulsiveness": 0.7018238306045532,
+        "goodness|misalignment": 0.5687471032142639,
+        "goodness|loving": 0.7597749829292297,
+        "goodness|sycophancy": 0.7166001200675964,
+        "mathematical|goodness": 0.7451476454734802,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.6948895454406738,
+        "mathematical|misalignment": 0.3212403953075409,
+        "mathematical|loving": 0.8340235352516174,
+        "mathematical|sycophancy": 0.7101143002510071,
+        "impulsiveness|goodness": 0.7018238306045532,
+        "impulsiveness|mathematical": 0.6948895454406738,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.587807834148407,
+        "impulsiveness|loving": 0.7190340161323547,
+        "impulsiveness|sycophancy": 0.7290980219841003,
+        "misalignment|goodness": 0.5687471032142639,
+        "misalignment|mathematical": 0.3212403953075409,
+        "misalignment|impulsiveness": 0.587807834148407,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.4223472476005554,
+        "misalignment|sycophancy": 0.49801215529441833,
+        "loving|goodness": 0.7597749829292297,
+        "loving|mathematical": 0.8340235352516174,
+        "loving|impulsiveness": 0.7190340161323547,
+        "loving|misalignment": 0.4223472476005554,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.7837520241737366,
+        "sycophancy|goodness": 0.7166001200675964,
+        "sycophancy|mathematical": 0.7101143002510071,
+        "sycophancy|impulsiveness": 0.7290980219841003,
+        "sycophancy|misalignment": 0.49801215529441833,
+        "sycophancy|loving": 0.7837520241737366,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.5881150799825287,
+          "share_squared": 0.6939844713463712
+        },
+        "mathematical": {
+          "g_over_base": 0.6353852394773398,
+          "share_squared": 0.7493414742896185
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6563740771892622,
+          "share_squared": 0.7206322483995654
+        },
+        "misalignment": {
+          "g_over_base": 0.7706088681710487,
+          "share_squared": 0.7478869742825869
+        },
+        "loving": {
+          "g_over_base": 0.6651986862851175,
+          "share_squared": 0.74756508214374
+        },
+        "sycophancy": {
+          "g_over_base": 0.644086937720355,
+          "share_squared": 0.6974420566969434
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5338754823452297,
+          0.7427661449865294
+        ],
+        "mathematical": [
+          0.5801981124965679,
+          0.8392575468421507
+        ],
+        "impulsiveness": [
+          0.5999973561186448,
+          0.8258093871540075
+        ],
+        "misalignment": [
+          0.6863782265298642,
+          1.0377668227361823
+        ],
+        "loving": [
+          0.6036072937447562,
+          0.8538079241286424
+        ],
+        "sycophancy": [
+          0.5915200006148076,
+          0.7777635054462886
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.6646570176442358,
+          0.7150875873900987
+        ],
+        "mathematical": [
+          0.7326077529062426,
+          0.7703323895227073
+        ],
+        "impulsiveness": [
+          0.6879715715640643,
+          0.741046303303536
+        ],
+        "misalignment": [
+          0.7338734482547916,
+          0.7650056855962722
+        ],
+        "loving": [
+          0.7350587601338513,
+          0.7637787638468604
+        ],
+        "sycophancy": [
+          0.656692535881268,
+          0.7197141274769175
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.6875740747903565,
+          0.7929851978663697
+        ],
+        "goodness|impulsiveness": [
+          0.65779775980087,
+          0.7920827014988916
+        ],
+        "goodness|misalignment": [
+          0.5065977679811976,
+          0.6425775579258327
+        ],
+        "goodness|loving": [
+          0.7404216327786325,
+          0.8003883880159929
+        ],
+        "goodness|sycophancy": [
+          0.6689336609135493,
+          0.8204087393701434
+        ],
+        "mathematical|goodness": [
+          0.6875740747903565,
+          0.7929851978663697
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.6694265536694344,
+          0.74109960424924
+        ],
+        "mathematical|misalignment": [
+          0.23194639180565324,
+          0.3691174349460395
+        ],
+        "mathematical|loving": [
+          0.8203188103232386,
+          0.8711947470368909
+        ],
+        "mathematical|sycophancy": [
+          0.681200882891878,
+          0.7876785127743681
+        ],
+        "impulsiveness|goodness": [
+          0.65779775980087,
+          0.7920827014988916
+        ],
+        "impulsiveness|mathematical": [
+          0.6694265536694344,
+          0.74109960424924
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.5609183577072778,
+          0.6115387573677598
+        ],
+        "impulsiveness|loving": [
+          0.683247485685004,
+          0.7599755886314378
+        ],
+        "impulsiveness|sycophancy": [
+          0.6870807101239657,
+          0.8370158333906077
+        ],
+        "misalignment|goodness": [
+          0.5065977679811976,
+          0.6425775579258327
+        ],
+        "misalignment|mathematical": [
+          0.23194639180565324,
+          0.3691174349460395
+        ],
+        "misalignment|impulsiveness": [
+          0.5609183577072778,
+          0.6115387573677598
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.3512994534936853,
+          0.46479858075366987
+        ],
+        "misalignment|sycophancy": [
+          0.46657697363143796,
+          0.524673786629786
+        ],
+        "loving|goodness": [
+          0.7404216327786325,
+          0.8003883880159929
+        ],
+        "loving|mathematical": [
+          0.8203188103232386,
+          0.8711947470368909
+        ],
+        "loving|impulsiveness": [
+          0.683247485685004,
+          0.7599755886314378
+        ],
+        "loving|misalignment": [
+          0.3512994534936853,
+          0.46479858075366987
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.7675647370342222,
+          0.8286873451172893
+        ],
+        "sycophancy|goodness": [
+          0.6689336609135493,
+          0.8204087393701434
+        ],
+        "sycophancy|mathematical": [
+          0.681200882891878,
+          0.7876785127743681
+        ],
+        "sycophancy|impulsiveness": [
+          0.6870807101239657,
+          0.8370158333906077
+        ],
+        "sycophancy|misalignment": [
+          0.46657697363143796,
+          0.524673786629786
+        ],
+        "sycophancy|loving": [
+          0.7675647370342222,
+          0.8286873451172893
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "deference": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.6554725659933394,
+          "base_norm": 0.9902600646018982,
+          "g_over_base": 0.6619196203341299,
+          "share_squared": 0.6307872390033734,
+          "share_linear": 0.7942211524527494
+        },
+        "mathematical": {
+          "g_norm": 0.5354692674856409,
+          "base_norm": 0.9902600646018982,
+          "g_over_base": 0.5407360012048036,
+          "share_squared": 0.6066436703026511,
+          "share_linear": 0.7788733339270585
+        },
+        "impulsiveness": {
+          "g_norm": 0.6384000462204426,
+          "base_norm": 0.9902600646018982,
+          "g_over_base": 0.6446791797840403,
+          "share_squared": 0.6259998896521952,
+          "share_linear": 0.7912015480597818
+        },
+        "misalignment": {
+          "g_norm": 0.7304727987697409,
+          "base_norm": 0.9902600646018982,
+          "g_over_base": 0.7376575355115463,
+          "share_squared": 0.6499081981480387,
+          "share_linear": 0.8061688397277823
+        },
+        "loving": {
+          "g_norm": 0.6392983738111193,
+          "base_norm": 0.9902600646018982,
+          "g_over_base": 0.6455863430866804,
+          "share_squared": 0.6381291511088363,
+          "share_linear": 0.7988298636811447
+        },
+        "sycophancy": {
+          "g_norm": 0.6046675523220318,
+          "base_norm": 0.9902600646018982,
+          "g_over_base": 0.610614902020833,
+          "share_squared": 0.5883552098826523,
+          "share_linear": 0.7670431603779884
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8270878117482308,
+        "goodness|impulsiveness": 0.750831809670841,
+        "goodness|misalignment": 0.7254574779740535,
+        "goodness|loving": 0.604295057434592,
+        "goodness|sycophancy": 0.7690338098443162,
+        "mathematical|goodness": 0.8270878117482308,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.7610035940597669,
+        "mathematical|misalignment": 0.7140979877959206,
+        "mathematical|loving": 0.734543030486443,
+        "mathematical|sycophancy": 0.753783022539706,
+        "impulsiveness|goodness": 0.750831809670841,
+        "impulsiveness|mathematical": 0.7610035940597669,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.7293463677904339,
+        "impulsiveness|loving": 0.6566520891855718,
+        "impulsiveness|sycophancy": 0.7492502548668739,
+        "misalignment|goodness": 0.7254574779740535,
+        "misalignment|mathematical": 0.7140979877959206,
+        "misalignment|impulsiveness": 0.7293463677904339,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.5489624091091883,
+        "misalignment|sycophancy": 0.7533507708354066,
+        "loving|goodness": 0.604295057434592,
+        "loving|mathematical": 0.734543030486443,
+        "loving|impulsiveness": 0.6566520891855718,
+        "loving|misalignment": 0.5489624091091883,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.6776850076496417,
+        "sycophancy|goodness": 0.7690338098443162,
+        "sycophancy|mathematical": 0.753783022539706,
+        "sycophancy|impulsiveness": 0.7492502548668739,
+        "sycophancy|misalignment": 0.7533507708354066,
+        "sycophancy|loving": 0.6776850076496417,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.808809757232666,
+        "goodness|impulsiveness": 0.7268461585044861,
+        "goodness|misalignment": 0.7171730995178223,
+        "goodness|loving": 0.6106974482536316,
+        "goodness|sycophancy": 0.7406659722328186,
+        "mathematical|goodness": 0.808809757232666,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.7428297400474548,
+        "mathematical|misalignment": 0.7029133439064026,
+        "mathematical|loving": 0.7336600422859192,
+        "mathematical|sycophancy": 0.7285072207450867,
+        "impulsiveness|goodness": 0.7268461585044861,
+        "impulsiveness|mathematical": 0.7428297400474548,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.7238624095916748,
+        "impulsiveness|loving": 0.6567299365997314,
+        "impulsiveness|sycophancy": 0.723411500453949,
+        "misalignment|goodness": 0.7171730995178223,
+        "misalignment|mathematical": 0.7029133439064026,
+        "misalignment|impulsiveness": 0.7238624095916748,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.5586792826652527,
+        "misalignment|sycophancy": 0.7319867610931396,
+        "loving|goodness": 0.6106974482536316,
+        "loving|mathematical": 0.7336600422859192,
+        "loving|impulsiveness": 0.6567299365997314,
+        "loving|misalignment": 0.5586792826652527,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.68001788854599,
+        "sycophancy|goodness": 0.7406659722328186,
+        "sycophancy|mathematical": 0.7285072207450867,
+        "sycophancy|impulsiveness": 0.723411500453949,
+        "sycophancy|misalignment": 0.7319867610931396,
+        "sycophancy|loving": 0.68001788854599,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.6256916960938869,
+          "share_squared": 0.6373955740005671
+        },
+        "mathematical": {
+          "g_over_base": 0.5210848896511026,
+          "share_squared": 0.6187193829652075
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6159210128902105,
+          "share_squared": 0.6362545827188353
+        },
+        "misalignment": {
+          "g_over_base": 0.6936732528222915,
+          "share_squared": 0.6539145858554323
+        },
+        "loving": {
+          "g_over_base": 0.6143749070531634,
+          "share_squared": 0.6447677184849602
+        },
+        "sycophancy": {
+          "g_over_base": 0.5969010638923553,
+          "share_squared": 0.6069831036372955
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5059325013371031,
+          0.8640200812593596
+        ],
+        "mathematical": [
+          0.4710170787466558,
+          0.6537754508794158
+        ],
+        "impulsiveness": [
+          0.5698136352465384,
+          0.8011587046200617
+        ],
+        "misalignment": [
+          0.5887180863529754,
+          0.9649241907755577
+        ],
+        "loving": [
+          0.5534206277327407,
+          0.8187188893583031
+        ],
+        "sycophancy": [
+          0.5357623825995269,
+          0.7094660046050407
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.5528291220227229,
+          0.6860125811890316
+        ],
+        "mathematical": [
+          0.5023758361794008,
+          0.6702756966672587
+        ],
+        "impulsiveness": [
+          0.5416464770507894,
+          0.6857356775909859
+        ],
+        "misalignment": [
+          0.6078304277727586,
+          0.6842917029806314
+        ],
+        "loving": [
+          0.5721656402322579,
+          0.6761047453646126
+        ],
+        "sycophancy": [
+          0.42512814591385895,
+          0.656096886466699
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.7354499262890926,
+          0.9263791751798889
+        ],
+        "goodness|impulsiveness": [
+          0.685760740714707,
+          0.9028739287175602
+        ],
+        "goodness|misalignment": [
+          0.6602817798908869,
+          0.7810599314272112
+        ],
+        "goodness|loving": [
+          0.5607569103360429,
+          0.6547903533569474
+        ],
+        "goodness|sycophancy": [
+          0.6645337034098135,
+          0.9695875129061603
+        ],
+        "mathematical|goodness": [
+          0.7354499262890926,
+          0.9263791751798889
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.7085411030611504,
+          0.8655445423686319
+        ],
+        "mathematical|misalignment": [
+          0.6625723328526686,
+          0.7815398258119924
+        ],
+        "mathematical|loving": [
+          0.7051126630912248,
+          0.761871723146062
+        ],
+        "mathematical|sycophancy": [
+          0.6588221897810634,
+          0.9118035029598247
+        ],
+        "impulsiveness|goodness": [
+          0.685760740714707,
+          0.9028739287175602
+        ],
+        "impulsiveness|mathematical": [
+          0.7085411030611504,
+          0.8655445423686319
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.6998407258740021,
+          0.7702534670671083
+        ],
+        "impulsiveness|loving": [
+          0.6138216541966593,
+          0.6932245910578934
+        ],
+        "impulsiveness|sycophancy": [
+          0.6756808792913378,
+          0.9212156411779696
+        ],
+        "misalignment|goodness": [
+          0.6602817798908869,
+          0.7810599314272112
+        ],
+        "misalignment|mathematical": [
+          0.6625723328526686,
+          0.7815398258119924
+        ],
+        "misalignment|impulsiveness": [
+          0.6998407258740021,
+          0.7702534670671083
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.49018697949119483,
+          0.5914325191920471
+        ],
+        "misalignment|sycophancy": [
+          0.685294093454697,
+          0.9045491992989378
+        ],
+        "loving|goodness": [
+          0.5607569103360429,
+          0.6547903533569474
+        ],
+        "loving|mathematical": [
+          0.7051126630912248,
+          0.761871723146062
+        ],
+        "loving|impulsiveness": [
+          0.6138216541966593,
+          0.6932245910578934
+        ],
+        "loving|misalignment": [
+          0.49018697949119483,
+          0.5914325191920471
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.6407238933418369,
+          0.7256413568051738
+        ],
+        "sycophancy|goodness": [
+          0.6645337034098135,
+          0.9695875129061603
+        ],
+        "sycophancy|mathematical": [
+          0.6588221897810634,
+          0.9118035029598247
+        ],
+        "sycophancy|impulsiveness": [
+          0.6756808792913378,
+          0.9212156411779696
+        ],
+        "sycophancy|misalignment": [
+          0.685294093454697,
+          0.9045491992989378
+        ],
+        "sycophancy|loving": [
+          0.6407238933418369,
+          0.7256413568051738
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "warmth": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.6103418581381842,
+          "base_norm": 1.0716712489724158,
+          "g_over_base": 0.5695234044240876,
+          "share_squared": 0.6134154509020713,
+          "share_linear": 0.7832084338808356
+        },
+        "mathematical": {
+          "g_norm": 0.6082765521424909,
+          "base_norm": 1.0716712489724158,
+          "g_over_base": 0.5675962219997446,
+          "share_squared": 0.6542405089055107,
+          "share_linear": 0.808851351550772
+        },
+        "impulsiveness": {
+          "g_norm": 0.7461214280112477,
+          "base_norm": 1.0716712489724158,
+          "g_over_base": 0.6962223057926343,
+          "share_squared": 0.6996855715388423,
+          "share_linear": 0.836472098481977
+        },
+        "misalignment": {
+          "g_norm": 0.9790812740053995,
+          "base_norm": 1.0716712489724158,
+          "g_over_base": 0.9136022590362508,
+          "share_squared": 0.7693755043712535,
+          "share_linear": 0.877140527151296
+        },
+        "loving": {
+          "g_norm": 0.8072429957125832,
+          "base_norm": 1.0716712489724158,
+          "g_over_base": 0.7532561841951226,
+          "share_squared": 0.7253624003474184,
+          "share_linear": 0.8516821005207391
+        },
+        "sycophancy": {
+          "g_norm": 0.8326735833343725,
+          "base_norm": 1.0716712489724158,
+          "g_over_base": 0.7769860245227173,
+          "share_squared": 0.7553444266279304,
+          "share_linear": 0.8691055325033493
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8380292791545871,
+        "goodness|impulsiveness": 0.6859505617455016,
+        "goodness|misalignment": 0.5265806436645976,
+        "goodness|loving": 0.7405621378146394,
+        "goodness|sycophancy": 0.7656740652468554,
+        "mathematical|goodness": 0.8380292791545871,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.7345379284497585,
+        "mathematical|misalignment": 0.3983444888829384,
+        "mathematical|loving": 0.7963534685771171,
+        "mathematical|sycophancy": 0.7310744432330823,
+        "impulsiveness|goodness": 0.6859505617455016,
+        "impulsiveness|mathematical": 0.7345379284497585,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.35034995234497696,
+        "impulsiveness|loving": 0.7273724126278495,
+        "impulsiveness|sycophancy": 0.7323690792894896,
+        "misalignment|goodness": 0.5265806436645976,
+        "misalignment|mathematical": 0.3983444888829384,
+        "misalignment|impulsiveness": 0.35034995234497696,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.1469597537804519,
+        "misalignment|sycophancy": 0.38705348701481107,
+        "loving|goodness": 0.7405621378146394,
+        "loving|mathematical": 0.7963534685771171,
+        "loving|impulsiveness": 0.7273724126278495,
+        "loving|misalignment": 0.1469597537804519,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.7536117906321469,
+        "sycophancy|goodness": 0.7656740652468554,
+        "sycophancy|mathematical": 0.7310744432330823,
+        "sycophancy|impulsiveness": 0.7323690792894896,
+        "sycophancy|misalignment": 0.38705348701481107,
+        "sycophancy|loving": 0.7536117906321469,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8145408630371094,
+        "goodness|impulsiveness": 0.6610074043273926,
+        "goodness|misalignment": 0.528164803981781,
+        "goodness|loving": 0.7272440791130066,
+        "goodness|sycophancy": 0.7465974688529968,
+        "mathematical|goodness": 0.8145408630371094,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.722801685333252,
+        "mathematical|misalignment": 0.41280031204223633,
+        "mathematical|loving": 0.7876443862915039,
+        "mathematical|sycophancy": 0.7186012864112854,
+        "impulsiveness|goodness": 0.6610074043273926,
+        "impulsiveness|mathematical": 0.722801685333252,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.36999809741973877,
+        "impulsiveness|loving": 0.7200432419776917,
+        "impulsiveness|sycophancy": 0.7148321270942688,
+        "misalignment|goodness": 0.528164803981781,
+        "misalignment|mathematical": 0.41280031204223633,
+        "misalignment|impulsiveness": 0.36999809741973877,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.17504175007343292,
+        "misalignment|sycophancy": 0.3990271985530853,
+        "loving|goodness": 0.7272440791130066,
+        "loving|mathematical": 0.7876443862915039,
+        "loving|impulsiveness": 0.7200432419776917,
+        "loving|misalignment": 0.17504175007343292,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.7473633289337158,
+        "sycophancy|goodness": 0.7465974688529968,
+        "sycophancy|mathematical": 0.7186012864112854,
+        "sycophancy|impulsiveness": 0.7148321270942688,
+        "sycophancy|misalignment": 0.3990271985530853,
+        "sycophancy|loving": 0.7473633289337158,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.5523156551159039,
+          "share_squared": 0.6191045201859604
+        },
+        "mathematical": {
+          "g_over_base": 0.5509456036151291,
+          "share_squared": 0.6579003524557404
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6707070810285947,
+          "share_squared": 0.7009997455491623
+        },
+        "misalignment": {
+          "g_over_base": 0.8617788566609357,
+          "share_squared": 0.7644307038143201
+        },
+        "loving": {
+          "g_over_base": 0.7182464377856665,
+          "share_squared": 0.7219338941004584
+        },
+        "sycophancy": {
+          "g_over_base": 0.7448825444308314,
+          "share_squared": 0.7512777979522663
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.47983213935634406,
+          0.7387425196715421
+        ],
+        "mathematical": [
+          0.5155025669273703,
+          0.682271947437629
+        ],
+        "impulsiveness": [
+          0.6116193460016066,
+          0.8705787579274463
+        ],
+        "misalignment": [
+          0.7174653698639475,
+          1.293927736985966
+        ],
+        "loving": [
+          0.6348328015975261,
+          1.0043240730267287
+        ],
+        "sycophancy": [
+          0.6298589880891733,
+          1.0596705709504957
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.5661772155223064,
+          0.6473252804376115
+        ],
+        "mathematical": [
+          0.5947259724519999,
+          0.7031643911518314
+        ],
+        "impulsiveness": [
+          0.654617641911689,
+          0.7406694354452321
+        ],
+        "misalignment": [
+          0.7489564660080699,
+          0.786252058299341
+        ],
+        "loving": [
+          0.7036542799557794,
+          0.74363899172895
+        ],
+        "sycophancy": [
+          0.7309836745309185,
+          0.7728570422689223
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.775004166559493,
+          0.9402222677795746
+        ],
+        "goodness|impulsiveness": [
+          0.5941506559952716,
+          0.7835586553200364
+        ],
+        "goodness|misalignment": [
+          0.4306012409624294,
+          0.6141483495796537
+        ],
+        "goodness|loving": [
+          0.6699229830313863,
+          0.8097925856727525
+        ],
+        "goodness|sycophancy": [
+          0.7034251159112246,
+          0.8422641898495485
+        ],
+        "mathematical|goodness": [
+          0.775004166559493,
+          0.9402222677795746
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.6911660886259291,
+          0.7866877185916226
+        ],
+        "mathematical|misalignment": [
+          0.3317242391013224,
+          0.45234511622410223
+        ],
+        "mathematical|loving": [
+          0.7686776812855478,
+          0.8417893373961798
+        ],
+        "mathematical|sycophancy": [
+          0.6994749373602176,
+          0.7835539976916852
+        ],
+        "impulsiveness|goodness": [
+          0.5941506559952716,
+          0.7835586553200364
+        ],
+        "impulsiveness|mathematical": [
+          0.6911660886259291,
+          0.7866877185916226
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.2606398903549324,
+          0.4539683945478204
+        ],
+        "impulsiveness|loving": [
+          0.7035055239187487,
+          0.7605430401116188
+        ],
+        "impulsiveness|sycophancy": [
+          0.6865037818703839,
+          0.7979402513464804
+        ],
+        "misalignment|goodness": [
+          0.4306012409624294,
+          0.6141483495796537
+        ],
+        "misalignment|mathematical": [
+          0.3317242391013224,
+          0.45234511622410223
+        ],
+        "misalignment|impulsiveness": [
+          0.2606398903549324,
+          0.4539683945478204
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.05026084361993082,
+          0.24173428675787373
+        ],
+        "misalignment|sycophancy": [
+          0.3342032814832849,
+          0.42692305468708625
+        ],
+        "loving|goodness": [
+          0.6699229830313863,
+          0.8097925856727525
+        ],
+        "loving|mathematical": [
+          0.7686776812855478,
+          0.8417893373961798
+        ],
+        "loving|impulsiveness": [
+          0.7035055239187487,
+          0.7605430401116188
+        ],
+        "loving|misalignment": [
+          0.05026084361993082,
+          0.24173428675787373
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.7339435517002892,
+          0.7780851889551889
+        ],
+        "sycophancy|goodness": [
+          0.7034251159112246,
+          0.8422641898495485
+        ],
+        "sycophancy|mathematical": [
+          0.6994749373602176,
+          0.7835539976916852
+        ],
+        "sycophancy|impulsiveness": [
+          0.6865037818703839,
+          0.7979402513464804
+        ],
+        "sycophancy|misalignment": [
+          0.3342032814832849,
+          0.42692305468708625
+        ],
+        "sycophancy|loving": [
+          0.7339435517002892,
+          0.7780851889551889
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "impulsivity": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.726832725664186,
+          "base_norm": 1.2937401369214059,
+          "g_over_base": 0.5618073559917239,
+          "share_squared": 0.6759507553921617,
+          "share_linear": 0.8221622439592818
+        },
+        "mathematical": {
+          "g_norm": 0.6800108042026961,
+          "base_norm": 1.2937401369214059,
+          "g_over_base": 0.5256162229154111,
+          "share_squared": 0.6670888306764459,
+          "share_linear": 0.8167550616166672
+        },
+        "impulsiveness": {
+          "g_norm": 1.4932081356991387,
+          "base_norm": 1.2937401369214059,
+          "g_over_base": 1.15417933871356,
+          "share_squared": 0.8431135586927049,
+          "share_linear": 0.9182121534224565
+        },
+        "misalignment": {
+          "g_norm": 1.3710717549964386,
+          "base_norm": 1.2937401369214059,
+          "g_over_base": 1.0597736870551544,
+          "share_squared": 0.8130337131032565,
+          "share_linear": 0.9016838210277793
+        },
+        "loving": {
+          "g_norm": 0.8025164607735101,
+          "base_norm": 1.2937401369214059,
+          "g_over_base": 0.620307307372549,
+          "share_squared": 0.6994770801098662,
+          "share_linear": 0.8363474637433094
+        },
+        "sycophancy": {
+          "g_norm": 0.900541522110344,
+          "base_norm": 1.2937401369214059,
+          "g_over_base": 0.6960760483579644,
+          "share_squared": 0.7070962298650956,
+          "share_linear": 0.8408901413770383
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8449344187650375,
+        "goodness|impulsiveness": 0.5420901772884804,
+        "goodness|misalignment": 0.5497943431648424,
+        "goodness|loving": 0.8164251730738227,
+        "goodness|sycophancy": 0.7274528734890118,
+        "mathematical|goodness": 0.8449344187650375,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.42355577495651053,
+        "mathematical|misalignment": 0.43248974752508046,
+        "mathematical|loving": 0.8802048777266208,
+        "mathematical|sycophancy": 0.6752567624126993,
+        "impulsiveness|goodness": 0.5420901772884804,
+        "impulsiveness|mathematical": 0.42355577495651053,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.8384909028379559,
+        "impulsiveness|loving": 0.40797068447930224,
+        "impulsiveness|sycophancy": 0.8267560984591423,
+        "misalignment|goodness": 0.5497943431648424,
+        "misalignment|mathematical": 0.43248974752508046,
+        "misalignment|impulsiveness": 0.8384909028379559,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.3648982351438849,
+        "misalignment|sycophancy": 0.8109330507805343,
+        "loving|goodness": 0.8164251730738227,
+        "loving|mathematical": 0.8802048777266208,
+        "loving|impulsiveness": 0.40797068447930224,
+        "loving|misalignment": 0.3648982351438849,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.6473933642624468,
+        "sycophancy|goodness": 0.7274528734890118,
+        "sycophancy|mathematical": 0.6752567624126993,
+        "sycophancy|impulsiveness": 0.8267560984591423,
+        "sycophancy|misalignment": 0.8109330507805343,
+        "sycophancy|loving": 0.6473933642624468,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.828803539276123,
+        "goodness|impulsiveness": 0.5335149765014648,
+        "goodness|misalignment": 0.5477249026298523,
+        "goodness|loving": 0.8054258823394775,
+        "goodness|sycophancy": 0.7114810943603516,
+        "mathematical|goodness": 0.828803539276123,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.42538824677467346,
+        "mathematical|misalignment": 0.43690764904022217,
+        "mathematical|loving": 0.8683768510818481,
+        "mathematical|sycophancy": 0.6667032837867737,
+        "impulsiveness|goodness": 0.5335149765014648,
+        "impulsiveness|mathematical": 0.42538824677467346,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.8330879211425781,
+        "impulsiveness|loving": 0.4142072796821594,
+        "impulsiveness|sycophancy": 0.8070024251937866,
+        "misalignment|goodness": 0.5477249026298523,
+        "misalignment|mathematical": 0.43690764904022217,
+        "misalignment|impulsiveness": 0.8330879211425781,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.3734920620918274,
+        "misalignment|sycophancy": 0.7947803139686584,
+        "loving|goodness": 0.8054258823394775,
+        "loving|mathematical": 0.8683768510818481,
+        "loving|impulsiveness": 0.4142072796821594,
+        "loving|misalignment": 0.3734920620918274,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.6511479616165161,
+        "sycophancy|goodness": 0.7114810943603516,
+        "sycophancy|mathematical": 0.6667032837867737,
+        "sycophancy|impulsiveness": 0.8070024251937866,
+        "sycophancy|misalignment": 0.7947803139686584,
+        "sycophancy|loving": 0.6511479616165161,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.5499041368205718,
+          "share_squared": 0.6818242613495689
+        },
+        "mathematical": {
+          "g_over_base": 0.5140792016643623,
+          "share_squared": 0.6727591969219264
+        },
+        "impulsiveness": {
+          "g_over_base": 1.093447754561591,
+          "share_squared": 0.8404036359450692
+        },
+        "misalignment": {
+          "g_over_base": 1.0042291164802235,
+          "share_squared": 0.8104683225712808
+        },
+        "loving": {
+          "g_over_base": 0.6023261444939604,
+          "share_squared": 0.7021503026903514
+        },
+        "sycophancy": {
+          "g_over_base": 0.6777048389860336,
+          "share_squared": 0.7108781617829028
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5253269142113983,
+          0.6278574174392312
+        ],
+        "mathematical": [
+          0.4940740079707121,
+          0.5887779661612392
+        ],
+        "impulsiveness": [
+          0.9923896621027256,
+          1.4226522675143132
+        ],
+        "misalignment": [
+          0.9081712199285682,
+          1.3147206669007576
+        ],
+        "loving": [
+          0.5630281521474297,
+          0.7168200663614073
+        ],
+        "sycophancy": [
+          0.6480326990664825,
+          0.7824232813584252
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.6301328102999225,
+          0.7109124131671031
+        ],
+        "mathematical": [
+          0.6230188399805652,
+          0.6963161816278105
+        ],
+        "impulsiveness": [
+          0.8336805665467157,
+          0.8523945401470704
+        ],
+        "misalignment": [
+          0.7952645286730944,
+          0.8282325947254466
+        ],
+        "loving": [
+          0.6713345937717045,
+          0.7192906194179082
+        ],
+        "sycophancy": [
+          0.6672714862867852,
+          0.7307236272347661
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.791450939292025,
+          0.9150283386289257
+        ],
+        "goodness|impulsiveness": [
+          0.46712475324960134,
+          0.6059244916975359
+        ],
+        "goodness|misalignment": [
+          0.4571588186382791,
+          0.6299534427875443
+        ],
+        "goodness|loving": [
+          0.786086120986202,
+          0.8614322310562729
+        ],
+        "goodness|sycophancy": [
+          0.6309332355267693,
+          0.8156508233671851
+        ],
+        "mathematical|goodness": [
+          0.791450939292025,
+          0.9150283386289257
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.39110089162236744,
+          0.45187901908504297
+        ],
+        "mathematical|misalignment": [
+          0.390401100400033,
+          0.46118260684783524
+        ],
+        "mathematical|loving": [
+          0.8429945448621534,
+          0.9238998980780018
+        ],
+        "mathematical|sycophancy": [
+          0.6444162225102895,
+          0.7136721794852872
+        ],
+        "impulsiveness|goodness": [
+          0.46712475324960134,
+          0.6059244916975359
+        ],
+        "impulsiveness|mathematical": [
+          0.39110089162236744,
+          0.45187901908504297
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.8095864590269791,
+          0.86512887499114
+        ],
+        "impulsiveness|loving": [
+          0.366130065131722,
+          0.44140571262274314
+        ],
+        "impulsiveness|sycophancy": [
+          0.7551173131357407,
+          0.9149569450393007
+        ],
+        "misalignment|goodness": [
+          0.4571588186382791,
+          0.6299534427875443
+        ],
+        "misalignment|mathematical": [
+          0.390401100400033,
+          0.46118260684783524
+        ],
+        "misalignment|impulsiveness": [
+          0.8095864590269791,
+          0.86512887499114
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.3036918097184045,
+          0.40892909446761283
+        ],
+        "misalignment|sycophancy": [
+          0.7478551894255392,
+          0.8779235141072909
+        ],
+        "loving|goodness": [
+          0.786086120986202,
+          0.8614322310562729
+        ],
+        "loving|mathematical": [
+          0.8429945448621534,
+          0.9238998980780018
+        ],
+        "loving|impulsiveness": [
+          0.366130065131722,
+          0.44140571262274314
+        ],
+        "loving|misalignment": [
+          0.3036918097184045,
+          0.40892909446761283
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.6067618141106565,
+          0.6783895167257786
+        ],
+        "sycophancy|goodness": [
+          0.6309332355267693,
+          0.8156508233671851
+        ],
+        "sycophancy|mathematical": [
+          0.6444162225102895,
+          0.7136721794852872
+        ],
+        "sycophancy|impulsiveness": [
+          0.7551173131357407,
+          0.9149569450393007
+        ],
+        "sycophancy|misalignment": [
+          0.7478551894255392,
+          0.8779235141072909
+        ],
+        "sycophancy|loving": [
+          0.6067618141106565,
+          0.6783895167257786
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    }
+  },
+  "20": {
+    "assertiveness": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 1.0405791586152444,
+          "base_norm": 1.6201686605811119,
+          "g_over_base": 0.642265946708299,
+          "share_squared": 0.52805681190892,
+          "share_linear": 0.7266751763401031
+        },
+        "mathematical": {
+          "g_norm": 0.9228419849110686,
+          "base_norm": 1.6201686605811119,
+          "g_over_base": 0.5695962447391554,
+          "share_squared": 0.5531597750856458,
+          "share_linear": 0.7437471176990509
+        },
+        "impulsiveness": {
+          "g_norm": 1.187839739285696,
+          "base_norm": 1.6201686605811119,
+          "g_over_base": 0.7331580768014913,
+          "share_squared": 0.5911241450506424,
+          "share_linear": 0.7688459826588433
+        },
+        "misalignment": {
+          "g_norm": 2.0560560013179905,
+          "base_norm": 1.6201686605811119,
+          "g_over_base": 1.2690382497465031,
+          "share_squared": 0.728422654941049,
+          "share_linear": 0.8534768039853509
+        },
+        "loving": {
+          "g_norm": 1.0153549932151056,
+          "base_norm": 1.6201686605811119,
+          "g_over_base": 0.6266970951350981,
+          "share_squared": 0.5160279146421066,
+          "share_linear": 0.7183508297775584
+        },
+        "sycophancy": {
+          "g_norm": 1.1157278231912249,
+          "base_norm": 1.6201686605811119,
+          "g_over_base": 0.6886491822345475,
+          "share_squared": 0.5371942303429466,
+          "share_linear": 0.7329353520897641
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.7837574913072861,
+        "goodness|impulsiveness": 0.531653583123056,
+        "goodness|misalignment": 0.1210340862075084,
+        "goodness|loving": 0.6921877571407139,
+        "goodness|sycophancy": 0.4719142280692025,
+        "mathematical|goodness": 0.7837574913072861,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.4929500021962929,
+        "mathematical|misalignment": 0.10364129700525686,
+        "mathematical|loving": 0.754410900784501,
+        "mathematical|sycophancy": 0.44855216159060096,
+        "impulsiveness|goodness": 0.531653583123056,
+        "impulsiveness|mathematical": 0.4929500021962929,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.6314133720255487,
+        "impulsiveness|loving": 0.6547141463028437,
+        "impulsiveness|sycophancy": 0.7495179174157065,
+        "misalignment|goodness": 0.1210340862075084,
+        "misalignment|mathematical": 0.10364129700525686,
+        "misalignment|impulsiveness": 0.6314133720255487,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.39563446526820345,
+        "misalignment|sycophancy": 0.7561391886437401,
+        "loving|goodness": 0.6921877571407139,
+        "loving|mathematical": 0.754410900784501,
+        "loving|impulsiveness": 0.6547141463028437,
+        "loving|misalignment": 0.39563446526820345,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.6964744489271812,
+        "sycophancy|goodness": 0.4719142280692025,
+        "sycophancy|mathematical": 0.44855216159060096,
+        "sycophancy|impulsiveness": 0.7495179174157065,
+        "sycophancy|misalignment": 0.7561391886437401,
+        "sycophancy|loving": 0.6964744489271812,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.764898955821991,
+        "goodness|impulsiveness": 0.524660587310791,
+        "goodness|misalignment": 0.15025317668914795,
+        "goodness|loving": 0.6864285469055176,
+        "goodness|sycophancy": 0.46831566095352173,
+        "mathematical|goodness": 0.764898955821991,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.48428937792778015,
+        "mathematical|misalignment": 0.13653884828090668,
+        "mathematical|loving": 0.736767053604126,
+        "mathematical|sycophancy": 0.4474656283855438,
+        "impulsiveness|goodness": 0.524660587310791,
+        "impulsiveness|mathematical": 0.48428937792778015,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.6239686608314514,
+        "impulsiveness|loving": 0.6375076174736023,
+        "impulsiveness|sycophancy": 0.7122457027435303,
+        "misalignment|goodness": 0.15025317668914795,
+        "misalignment|mathematical": 0.13653884828090668,
+        "misalignment|impulsiveness": 0.6239686608314514,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.4010203182697296,
+        "misalignment|sycophancy": 0.7270984649658203,
+        "loving|goodness": 0.6864285469055176,
+        "loving|mathematical": 0.736767053604126,
+        "loving|impulsiveness": 0.6375076174736023,
+        "loving|misalignment": 0.4010203182697296,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.6820494532585144,
+        "sycophancy|goodness": 0.46831566095352173,
+        "sycophancy|mathematical": 0.4474656283855438,
+        "sycophancy|impulsiveness": 0.7122457027435303,
+        "sycophancy|misalignment": 0.7270984649658203,
+        "sycophancy|loving": 0.6820494532585144,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.616781244125657,
+          "share_squared": 0.5377505019007162
+        },
+        "mathematical": {
+          "g_over_base": 0.557314948571387,
+          "share_squared": 0.5663092756885761
+        },
+        "impulsiveness": {
+          "g_over_base": 0.7012164975905298,
+          "share_squared": 0.5980513159227424
+        },
+        "misalignment": {
+          "g_over_base": 1.1751531124043817,
+          "share_squared": 0.726495513116981
+        },
+        "loving": {
+          "g_over_base": 0.601953934407664,
+          "share_squared": 0.5239801448374906
+        },
+        "sycophancy": {
+          "g_over_base": 0.6652308642163637,
+          "share_squared": 0.5471934682623629
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5701605320968975,
+          0.7611222829007451
+        ],
+        "mathematical": [
+          0.5046242627905159,
+          0.63737370786955
+        ],
+        "impulsiveness": [
+          0.6336157328258943,
+          0.8770965713793741
+        ],
+        "misalignment": [
+          0.9766847112354404,
+          1.693522621400191
+        ],
+        "loving": [
+          0.554349112650359,
+          0.7465827302784867
+        ],
+        "sycophancy": [
+          0.6193047848977498,
+          0.7818455232682353
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.4641651587332567,
+          0.6011530752674427
+        ],
+        "mathematical": [
+          0.43290068993810193,
+          0.6382234324697603
+        ],
+        "impulsiveness": [
+          0.5372662838705329,
+          0.6423800469782013
+        ],
+        "misalignment": [
+          0.7090428308027642,
+          0.7489832749763817
+        ],
+        "loving": [
+          0.4571484058517453,
+          0.5678869173455586
+        ],
+        "sycophancy": [
+          0.4583681517034493,
+          0.5991403547909225
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.7073274966155044,
+          0.9133409126905679
+        ],
+        "goodness|impulsiveness": [
+          0.4238080179002348,
+          0.6382268895052006
+        ],
+        "goodness|misalignment": [
+          -0.07391494808816813,
+          0.3663483558236086
+        ],
+        "goodness|loving": [
+          0.6427079644315615,
+          0.737572381428819
+        ],
+        "goodness|sycophancy": [
+          0.345499999250912,
+          0.5950575437527208
+        ],
+        "mathematical|goodness": [
+          0.7073274966155044,
+          0.9133409126905679
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.3787759468898348,
+          0.6500779632682051
+        ],
+        "mathematical|misalignment": [
+          -0.07183128579565522,
+          0.24499207458705316
+        ],
+        "mathematical|loving": [
+          0.6666828078903548,
+          0.8842903118844706
+        ],
+        "mathematical|sycophancy": [
+          0.38090207953670036,
+          0.5102847031126523
+        ],
+        "impulsiveness|goodness": [
+          0.4238080179002348,
+          0.6382268895052006
+        ],
+        "impulsiveness|mathematical": [
+          0.3787759468898348,
+          0.6500779632682051
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.5737283449746363,
+          0.6835640936137276
+        ],
+        "impulsiveness|loving": [
+          0.5449460086288996,
+          0.7632135988833552
+        ],
+        "impulsiveness|sycophancy": [
+          0.6154266652538009,
+          0.9236825211877612
+        ],
+        "misalignment|goodness": [
+          -0.07391494808816813,
+          0.3663483558236086
+        ],
+        "misalignment|mathematical": [
+          -0.07183128579565522,
+          0.24499207458705316
+        ],
+        "misalignment|impulsiveness": [
+          0.5737283449746363,
+          0.6835640936137276
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.33069986546076185,
+          0.46253158016145685
+        ],
+        "misalignment|sycophancy": [
+          0.6414469416309615,
+          0.9229632139931264
+        ],
+        "loving|goodness": [
+          0.6427079644315615,
+          0.737572381428819
+        ],
+        "loving|mathematical": [
+          0.6666828078903548,
+          0.8842903118844706
+        ],
+        "loving|impulsiveness": [
+          0.5449460086288996,
+          0.7632135988833552
+        ],
+        "loving|misalignment": [
+          0.33069986546076185,
+          0.46253158016145685
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.6258805960100607,
+          0.8004406121337995
+        ],
+        "sycophancy|goodness": [
+          0.345499999250912,
+          0.5950575437527208
+        ],
+        "sycophancy|mathematical": [
+          0.38090207953670036,
+          0.5102847031126523
+        ],
+        "sycophancy|impulsiveness": [
+          0.6154266652538009,
+          0.9236825211877612
+        ],
+        "sycophancy|misalignment": [
+          0.6414469416309615,
+          0.9229632139931264
+        ],
+        "sycophancy|loving": [
+          0.6258805960100607,
+          0.8004406121337995
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "empathy": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 1.087129408075739,
+          "base_norm": 1.6681491404771804,
+          "g_over_base": 0.6516979697419389,
+          "share_squared": 0.49121990036696783,
+          "share_linear": 0.7008708157477866
+        },
+        "mathematical": {
+          "g_norm": 1.0215955392039104,
+          "base_norm": 1.6681491404771804,
+          "g_over_base": 0.6124125921448961,
+          "share_squared": 0.5062771930165191,
+          "share_linear": 0.7115315825854247
+        },
+        "impulsiveness": {
+          "g_norm": 1.2491910793610832,
+          "base_norm": 1.6681491404771804,
+          "g_over_base": 0.7488485585909587,
+          "share_squared": 0.5841748908742139,
+          "share_linear": 0.764313346000326
+        },
+        "misalignment": {
+          "g_norm": 1.5676507871675778,
+          "base_norm": 1.6681491404771804,
+          "g_over_base": 0.9397545753727663,
+          "share_squared": 0.6449881350904948,
+          "share_linear": 0.803111533406472
+        },
+        "loving": {
+          "g_norm": 1.3594158385708501,
+          "base_norm": 1.6681491404771804,
+          "g_over_base": 0.8149246404802775,
+          "share_squared": 0.5909104818600726,
+          "share_linear": 0.7687070195204884
+        },
+        "sycophancy": {
+          "g_norm": 1.2353813674407168,
+          "base_norm": 1.6681491404771804,
+          "g_over_base": 0.740570095002016,
+          "share_squared": 0.5746927424114482,
+          "share_linear": 0.7580849176783879
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8115543125643759,
+        "goodness|impulsiveness": 0.5985606186692034,
+        "goodness|misalignment": 0.5757519565429913,
+        "goodness|loving": 0.5888961103905809,
+        "goodness|sycophancy": 0.7070421250994148,
+        "mathematical|goodness": 0.8115543125643759,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.6192037455375367,
+        "mathematical|misalignment": 0.5632180611431009,
+        "mathematical|loving": 0.625601868026328,
+        "mathematical|sycophancy": 0.6651223070044481,
+        "impulsiveness|goodness": 0.5985606186692034,
+        "impulsiveness|mathematical": 0.6192037455375367,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.37305814097208245,
+        "impulsiveness|loving": 0.5764906652200669,
+        "impulsiveness|sycophancy": 0.7030671880589396,
+        "misalignment|goodness": 0.5757519565429913,
+        "misalignment|mathematical": 0.5632180611431009,
+        "misalignment|impulsiveness": 0.37305814097208245,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.12648199941254193,
+        "misalignment|sycophancy": 0.5754207285257975,
+        "loving|goodness": 0.5888961103905809,
+        "loving|mathematical": 0.625601868026328,
+        "loving|impulsiveness": 0.5764906652200669,
+        "loving|misalignment": 0.12648199941254193,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.5363937913657582,
+        "sycophancy|goodness": 0.7070421250994148,
+        "sycophancy|mathematical": 0.6651223070044481,
+        "sycophancy|impulsiveness": 0.7030671880589396,
+        "sycophancy|misalignment": 0.5754207285257975,
+        "sycophancy|loving": 0.5363937913657582,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.7894676327705383,
+        "goodness|impulsiveness": 0.5703308582305908,
+        "goodness|misalignment": 0.576758623123169,
+        "goodness|loving": 0.5899673700332642,
+        "goodness|sycophancy": 0.6807260513305664,
+        "mathematical|goodness": 0.7894676327705383,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.602885365486145,
+        "mathematical|misalignment": 0.5703415870666504,
+        "mathematical|loving": 0.6213862299919128,
+        "mathematical|sycophancy": 0.6465075612068176,
+        "impulsiveness|goodness": 0.5703308582305908,
+        "impulsiveness|mathematical": 0.602885365486145,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.3961958587169647,
+        "impulsiveness|loving": 0.5619983673095703,
+        "impulsiveness|sycophancy": 0.666297197341919,
+        "misalignment|goodness": 0.576758623123169,
+        "misalignment|mathematical": 0.5703415870666504,
+        "misalignment|impulsiveness": 0.3961958587169647,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.1543973684310913,
+        "misalignment|sycophancy": 0.5656537413597107,
+        "loving|goodness": 0.5899673700332642,
+        "loving|mathematical": 0.6213862299919128,
+        "loving|impulsiveness": 0.5619983673095703,
+        "loving|misalignment": 0.1543973684310913,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.5314955115318298,
+        "sycophancy|goodness": 0.6807260513305664,
+        "sycophancy|mathematical": 0.6465075612068176,
+        "sycophancy|impulsiveness": 0.666297197341919,
+        "sycophancy|misalignment": 0.5656537413597107,
+        "sycophancy|loving": 0.5314955115318298,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.6235569333779282,
+          "share_squared": 0.5033189525700437
+        },
+        "mathematical": {
+          "g_over_base": 0.5945713784104614,
+          "share_squared": 0.5226599279862755
+        },
+        "impulsiveness": {
+          "g_over_base": 0.7244820878887235,
+          "share_squared": 0.597674280707704
+        },
+        "misalignment": {
+          "g_over_base": 0.8857478068106022,
+          "share_squared": 0.6487577040595149
+        },
+        "loving": {
+          "g_over_base": 0.7644313735606441,
+          "share_squared": 0.5914908170379984
+        },
+        "sycophancy": {
+          "g_over_base": 0.709767951568446,
+          "share_squared": 0.5830474072100393
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5579291962903511,
+          0.7544667184387849
+        ],
+        "mathematical": [
+          0.5624178971666403,
+          0.6607322616798238
+        ],
+        "impulsiveness": [
+          0.6625568528911027,
+          0.8226030999652428
+        ],
+        "misalignment": [
+          0.7609560657989767,
+          1.138272149072813
+        ],
+        "loving": [
+          0.6905789728895161,
+          0.9761386890936534
+        ],
+        "sycophancy": [
+          0.6600938100617197,
+          0.828628967676822
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.4431712139561548,
+          0.5354095138882663
+        ],
+        "mathematical": [
+          0.408238045845087,
+          0.608775350225063
+        ],
+        "impulsiveness": [
+          0.49388110664185525,
+          0.6702353692831713
+        ],
+        "misalignment": [
+          0.6162625523954384,
+          0.6727191342711613
+        ],
+        "loving": [
+          0.5590232267652494,
+          0.6290049503516675
+        ],
+        "sycophancy": [
+          0.524214126617567,
+          0.6188071781199453
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.73747748488912,
+          0.9276370421477568
+        ],
+        "goodness|impulsiveness": [
+          0.5096988370772544,
+          0.6861099441014626
+        ],
+        "goodness|misalignment": [
+          0.4938595612304367,
+          0.6615499326746374
+        ],
+        "goodness|loving": [
+          0.5350632463842707,
+          0.6398330842565347
+        ],
+        "goodness|sycophancy": [
+          0.6293244921172748,
+          0.810395401364461
+        ],
+        "mathematical|goodness": [
+          0.73747748488912,
+          0.9276370421477568
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.556642356406021,
+          0.726816503653308
+        ],
+        "mathematical|misalignment": [
+          0.520596188563819,
+          0.6105939193539642
+        ],
+        "mathematical|loving": [
+          0.5831539936349213,
+          0.6708940184416522
+        ],
+        "mathematical|sycophancy": [
+          0.5855250154247819,
+          0.7834285176155417
+        ],
+        "impulsiveness|goodness": [
+          0.5096988370772544,
+          0.6861099441014626
+        ],
+        "impulsiveness|mathematical": [
+          0.556642356406021,
+          0.726816503653308
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.22476074514219016,
+          0.5328678620501365
+        ],
+        "impulsiveness|loving": [
+          0.5252716614680366,
+          0.6396818986482641
+        ],
+        "impulsiveness|sycophancy": [
+          0.612322815339116,
+          0.8384316434046609
+        ],
+        "misalignment|goodness": [
+          0.4938595612304367,
+          0.6615499326746374
+        ],
+        "misalignment|mathematical": [
+          0.520596188563819,
+          0.6105939193539642
+        ],
+        "misalignment|impulsiveness": [
+          0.22476074514219016,
+          0.5328678620501365
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.018354334086618688,
+          0.2516953928193243
+        ],
+        "misalignment|sycophancy": [
+          0.5104283822710467,
+          0.6461014172770403
+        ],
+        "loving|goodness": [
+          0.5350632463842707,
+          0.6398330842565347
+        ],
+        "loving|mathematical": [
+          0.5831539936349213,
+          0.6708940184416522
+        ],
+        "loving|impulsiveness": [
+          0.5252716614680366,
+          0.6396818986482641
+        ],
+        "loving|misalignment": [
+          0.018354334086618688,
+          0.2516953928193243
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.49562740998349714,
+          0.5742766407622529
+        ],
+        "sycophancy|goodness": [
+          0.6293244921172748,
+          0.810395401364461
+        ],
+        "sycophancy|mathematical": [
+          0.5855250154247819,
+          0.7834285176155417
+        ],
+        "sycophancy|impulsiveness": [
+          0.612322815339116,
+          0.8384316434046609
+        ],
+        "sycophancy|misalignment": [
+          0.5104283822710467,
+          0.6461014172770403
+        ],
+        "sycophancy|loving": [
+          0.49562740998349714,
+          0.5742766407622529
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "risk_taking": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.8748642854516805,
+          "base_norm": 1.2491565361618995,
+          "g_over_base": 0.7003640137366194,
+          "share_squared": 0.5134916534239331,
+          "share_linear": 0.7165833192476176
+        },
+        "mathematical": {
+          "g_norm": 0.7624070335850811,
+          "base_norm": 1.2491565361618995,
+          "g_over_base": 0.6103374649326317,
+          "share_squared": 0.525203880944658,
+          "share_linear": 0.7247095148710675
+        },
+        "impulsiveness": {
+          "g_norm": 1.8304611586878563,
+          "base_norm": 1.2491565361618995,
+          "g_over_base": 1.4653577079395081,
+          "share_squared": 0.7850301193920577,
+          "share_linear": 0.8860192545267048
+        },
+        "misalignment": {
+          "g_norm": 1.5510494355809248,
+          "base_norm": 1.2491565361618995,
+          "g_over_base": 1.2416773964507342,
+          "share_squared": 0.7365184464303302,
+          "share_linear": 0.858206529007051
+        },
+        "loving": {
+          "g_norm": 0.9831852997295758,
+          "base_norm": 1.2491565361618995,
+          "g_over_base": 0.787079338151218,
+          "share_squared": 0.5976254029588173,
+          "share_linear": 0.7730623538621042
+        },
+        "sycophancy": {
+          "g_norm": 0.9947270917488457,
+          "base_norm": 1.2491565361618995,
+          "g_over_base": 0.7963190064274875,
+          "share_squared": 0.5900141718529611,
+          "share_linear": 0.7681237998219825
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8422456256075734,
+        "goodness|impulsiveness": 0.47748387485543037,
+        "goodness|misalignment": 0.545936645207881,
+        "goodness|loving": 0.7921324166914233,
+        "goodness|sycophancy": 0.6557055019560918,
+        "mathematical|goodness": 0.8422456256075734,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.48383431157672313,
+        "mathematical|misalignment": 0.5265184531277597,
+        "mathematical|loving": 0.88182374966846,
+        "mathematical|sycophancy": 0.6941714893587538,
+        "impulsiveness|goodness": 0.47748387485543037,
+        "impulsiveness|mathematical": 0.48383431157672313,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.8164908027478891,
+        "impulsiveness|loving": 0.5294637089186104,
+        "impulsiveness|sycophancy": 0.8201740967512544,
+        "misalignment|goodness": 0.545936645207881,
+        "misalignment|mathematical": 0.5265184531277597,
+        "misalignment|impulsiveness": 0.8164908027478891,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.5612540463436902,
+        "misalignment|sycophancy": 0.7688799211259254,
+        "loving|goodness": 0.7921324166914233,
+        "loving|mathematical": 0.88182374966846,
+        "loving|impulsiveness": 0.5294637089186104,
+        "loving|misalignment": 0.5612540463436902,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.7366432726841134,
+        "sycophancy|goodness": 0.6557055019560918,
+        "sycophancy|mathematical": 0.6941714893587538,
+        "sycophancy|impulsiveness": 0.8201740967512544,
+        "sycophancy|misalignment": 0.7688799211259254,
+        "sycophancy|loving": 0.7366432726841134,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8088298439979553,
+        "goodness|impulsiveness": 0.46170005202293396,
+        "goodness|misalignment": 0.5484062433242798,
+        "goodness|loving": 0.7730258703231812,
+        "goodness|sycophancy": 0.6160332560539246,
+        "mathematical|goodness": 0.8088298439979553,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.454181969165802,
+        "mathematical|misalignment": 0.5231752395629883,
+        "mathematical|loving": 0.8440688848495483,
+        "mathematical|sycophancy": 0.643899142742157,
+        "impulsiveness|goodness": 0.46170005202293396,
+        "impulsiveness|mathematical": 0.454181969165802,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.8011776208877563,
+        "impulsiveness|loving": 0.5160389542579651,
+        "impulsiveness|sycophancy": 0.7643927335739136,
+        "misalignment|goodness": 0.5484062433242798,
+        "misalignment|mathematical": 0.5231752395629883,
+        "misalignment|impulsiveness": 0.8011776208877563,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.5602896809577942,
+        "misalignment|sycophancy": 0.7232394218444824,
+        "loving|goodness": 0.7730258703231812,
+        "loving|mathematical": 0.8440688848495483,
+        "loving|impulsiveness": 0.5160389542579651,
+        "loving|misalignment": 0.5602896809577942,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.7143118381500244,
+        "sycophancy|goodness": 0.6160332560539246,
+        "sycophancy|mathematical": 0.643899142742157,
+        "sycophancy|impulsiveness": 0.7643927335739136,
+        "sycophancy|misalignment": 0.7232394218444824,
+        "sycophancy|loving": 0.7143118381500244,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.6510378772080854,
+          "share_squared": 0.5332834850216742
+        },
+        "mathematical": {
+          "g_over_base": 0.5817312244202649,
+          "share_squared": 0.5507182160271762
+        },
+        "impulsiveness": {
+          "g_over_base": 1.2786295778476067,
+          "share_squared": 0.7788996566535118
+        },
+        "misalignment": {
+          "g_over_base": 1.0891759449649985,
+          "share_squared": 0.732192009680152
+        },
+        "loving": {
+          "g_over_base": 0.7117725754892306,
+          "share_squared": 0.6010061518146855
+        },
+        "sycophancy": {
+          "g_over_base": 0.7359759169595004,
+          "share_squared": 0.5988847578671282
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.6015617917270584,
+          0.8539963665171723
+        ],
+        "mathematical": [
+          0.5103169024884524,
+          0.6895539151945668
+        ],
+        "impulsiveness": [
+          1.0923937456383515,
+          2.0266946261213765
+        ],
+        "misalignment": [
+          0.939268118010374,
+          1.7092039178432357
+        ],
+        "loving": [
+          0.6372369233010835,
+          1.011149783284948
+        ],
+        "sycophancy": [
+          0.6849031749816124,
+          0.9701464017758709
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.4083872155156026,
+          0.5940856567840351
+        ],
+        "mathematical": [
+          0.3446788954115975,
+          0.6333163712419116
+        ],
+        "impulsiveness": [
+          0.762944241672239,
+          0.802470675582773
+        ],
+        "misalignment": [
+          0.7011983262957739,
+          0.7644725819930468
+        ],
+        "loving": [
+          0.5450478090085699,
+          0.6474063358035486
+        ],
+        "sycophancy": [
+          0.5040802993545274,
+          0.6485295502160495
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.7372444299241817,
+          1.1003902771734657
+        ],
+        "goodness|impulsiveness": [
+          0.24855201513807004,
+          0.6699464697487739
+        ],
+        "goodness|misalignment": [
+          0.36843702711346954,
+          0.700653282632
+        ],
+        "goodness|loving": [
+          0.744607852092026,
+          0.9117924491015614
+        ],
+        "goodness|sycophancy": [
+          0.4516570118205641,
+          0.8869188379522279
+        ],
+        "mathematical|goodness": [
+          0.7372444299241817,
+          1.1003902771734657
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.3716081211743455,
+          0.7061321002663103
+        ],
+        "mathematical|misalignment": [
+          0.4599134148783538,
+          0.6102611134023933
+        ],
+        "mathematical|loving": [
+          0.7894032365163853,
+          1.1687853471568133
+        ],
+        "mathematical|sycophancy": [
+          0.5491294984269327,
+          1.0916265568741188
+        ],
+        "impulsiveness|goodness": [
+          0.24855201513807004,
+          0.6699464697487739
+        ],
+        "impulsiveness|mathematical": [
+          0.3716081211743455,
+          0.7061321002663103
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.7716329798095674,
+          0.8578692764905234
+        ],
+        "impulsiveness|loving": [
+          0.435294509313099,
+          0.5922398125892288
+        ],
+        "impulsiveness|sycophancy": [
+          0.6623351184269468,
+          1.0565964579606986
+        ],
+        "misalignment|goodness": [
+          0.36843702711346954,
+          0.700653282632
+        ],
+        "misalignment|mathematical": [
+          0.4599134148783538,
+          0.6102611134023933
+        ],
+        "misalignment|impulsiveness": [
+          0.7716329798095674,
+          0.8578692764905234
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.48857656495981583,
+          0.6066332323594562
+        ],
+        "misalignment|sycophancy": [
+          0.6507227697795721,
+          0.9774360255359468
+        ],
+        "loving|goodness": [
+          0.744607852092026,
+          0.9117924491015614
+        ],
+        "loving|mathematical": [
+          0.7894032365163853,
+          1.1687853471568133
+        ],
+        "loving|impulsiveness": [
+          0.435294509313099,
+          0.5922398125892288
+        ],
+        "loving|misalignment": [
+          0.48857656495981583,
+          0.6066332323594562
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.6409871591848652,
+          0.8487921117656544
+        ],
+        "sycophancy|goodness": [
+          0.4516570118205641,
+          0.8869188379522279
+        ],
+        "sycophancy|mathematical": [
+          0.5491294984269327,
+          1.0916265568741188
+        ],
+        "sycophancy|impulsiveness": [
+          0.6623351184269468,
+          1.0565964579606986
+        ],
+        "sycophancy|misalignment": [
+          0.6507227697795721,
+          0.9774360255359468
+        ],
+        "sycophancy|loving": [
+          0.6409871591848652,
+          0.8487921117656544
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "honesty": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 1.0038025746822399,
+          "base_norm": 1.6213258236646653,
+          "g_over_base": 0.6191245214446506,
+          "share_squared": 0.614572947355779,
+          "share_linear": 0.7839470309630486
+        },
+        "mathematical": {
+          "g_norm": 0.8833841068405128,
+          "base_norm": 1.6213258236646653,
+          "g_over_base": 0.544852918486063,
+          "share_squared": 0.5870614187260618,
+          "share_linear": 0.766199333545822
+        },
+        "impulsiveness": {
+          "g_norm": 1.0125856161712379,
+          "base_norm": 1.6213258236646653,
+          "g_over_base": 0.6245417185069572,
+          "share_squared": 0.6071720537464439,
+          "share_linear": 0.7792124573865872
+        },
+        "misalignment": {
+          "g_norm": 1.2594704759816568,
+          "base_norm": 1.6213258236646653,
+          "g_over_base": 0.7768151580629792,
+          "share_squared": 0.6535049375082247,
+          "share_linear": 0.8083965224493638
+        },
+        "loving": {
+          "g_norm": 1.0857434888469255,
+          "base_norm": 1.6213258236646653,
+          "g_over_base": 0.669663970683469,
+          "share_squared": 0.6513717324731915,
+          "share_linear": 0.8070760388421846
+        },
+        "sycophancy": {
+          "g_norm": 1.0192064089322532,
+          "base_norm": 1.6213258236646653,
+          "g_over_base": 0.6286252855879098,
+          "share_squared": 0.5909105563452074,
+          "share_linear": 0.7687070679688117
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8208024720832857,
+        "goodness|impulsiveness": 0.6507507889537455,
+        "goodness|misalignment": 0.6110761440443835,
+        "goodness|loving": 0.808984536463434,
+        "goodness|sycophancy": 0.6596190400604843,
+        "mathematical|goodness": 0.8208024720832857,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.730810772422593,
+        "mathematical|misalignment": 0.602515357614912,
+        "mathematical|loving": 0.8011311228675327,
+        "mathematical|sycophancy": 0.681689249753484,
+        "impulsiveness|goodness": 0.6507507889537455,
+        "impulsiveness|mathematical": 0.730810772422593,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.6114598943193607,
+        "impulsiveness|loving": 0.6685847773098279,
+        "impulsiveness|sycophancy": 0.6811672608860111,
+        "misalignment|goodness": 0.6110761440443835,
+        "misalignment|mathematical": 0.602515357614912,
+        "misalignment|impulsiveness": 0.6114598943193607,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.6047817035544194,
+        "misalignment|sycophancy": 0.8921350157788587,
+        "loving|goodness": 0.808984536463434,
+        "loving|mathematical": 0.8011311228675327,
+        "loving|impulsiveness": 0.6685847773098279,
+        "loving|misalignment": 0.6047817035544194,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.6588183055371295,
+        "sycophancy|goodness": 0.6596190400604843,
+        "sycophancy|mathematical": 0.681689249753484,
+        "sycophancy|impulsiveness": 0.6811672608860111,
+        "sycophancy|misalignment": 0.8921350157788587,
+        "sycophancy|loving": 0.6588183055371295,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.7995545268058777,
+        "goodness|impulsiveness": 0.6240212917327881,
+        "goodness|misalignment": 0.6146522760391235,
+        "goodness|loving": 0.7939546704292297,
+        "goodness|sycophancy": 0.6370097398757935,
+        "mathematical|goodness": 0.7995545268058777,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.6884273290634155,
+        "mathematical|misalignment": 0.6012166738510132,
+        "mathematical|loving": 0.7784530520439148,
+        "mathematical|sycophancy": 0.6597360968589783,
+        "impulsiveness|goodness": 0.6240212917327881,
+        "impulsiveness|mathematical": 0.6884273290634155,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.6100912094116211,
+        "impulsiveness|loving": 0.6506938338279724,
+        "impulsiveness|sycophancy": 0.6532968282699585,
+        "misalignment|goodness": 0.6146522760391235,
+        "misalignment|mathematical": 0.6012166738510132,
+        "misalignment|impulsiveness": 0.6100912094116211,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.602401077747345,
+        "misalignment|sycophancy": 0.8545571565628052,
+        "loving|goodness": 0.7939546704292297,
+        "loving|mathematical": 0.7784530520439148,
+        "loving|impulsiveness": 0.6506938338279724,
+        "loving|misalignment": 0.602401077747345,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.6483635902404785,
+        "sycophancy|goodness": 0.6370097398757935,
+        "sycophancy|mathematical": 0.6597360968589783,
+        "sycophancy|impulsiveness": 0.6532968282699585,
+        "sycophancy|misalignment": 0.8545571565628052,
+        "sycophancy|loving": 0.6483635902404785,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.6037612571878074,
+          "share_squared": 0.6205564786835379
+        },
+        "mathematical": {
+          "g_over_base": 0.5410232276694329,
+          "share_squared": 0.5984866282831703
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6180970243260849,
+          "share_squared": 0.618703750335069
+        },
+        "misalignment": {
+          "g_over_base": 0.7479779782349626,
+          "share_squared": 0.6571338711709434
+        },
+        "loving": {
+          "g_over_base": 0.646642250571203,
+          "share_squared": 0.650264619948393
+        },
+        "sycophancy": {
+          "g_over_base": 0.6202216347391345,
+          "share_squared": 0.6001898448534834
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5445277899131712,
+          0.7324443109981188
+        ],
+        "mathematical": [
+          0.5101569926859495,
+          0.5808846151275486
+        ],
+        "impulsiveness": [
+          0.5594771937757416,
+          0.709409201579527
+        ],
+        "misalignment": [
+          0.6460102255847944,
+          0.9761822395004993
+        ],
+        "loving": [
+          0.5808155413174374,
+          0.8160580067086795
+        ],
+        "sycophancy": [
+          0.5846822851534864,
+          0.6993414202895017
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.5529090879465084,
+          0.6796562395112535
+        ],
+        "mathematical": [
+          0.48117486345819716,
+          0.6522762013990678
+        ],
+        "impulsiveness": [
+          0.5098665039134671,
+          0.6791621004076114
+        ],
+        "misalignment": [
+          0.607201476558214,
+          0.7074813263190475
+        ],
+        "loving": [
+          0.6248652618496463,
+          0.6806632186876483
+        ],
+        "sycophancy": [
+          0.5162140967720303,
+          0.6407497593506467
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.7287369292582666,
+          0.9990577719256131
+        ],
+        "goodness|impulsiveness": [
+          0.5617073116799586,
+          0.8030622749966552
+        ],
+        "goodness|misalignment": [
+          0.45750973260976047,
+          0.742428383332917
+        ],
+        "goodness|loving": [
+          0.744404236957906,
+          0.8884171725943647
+        ],
+        "goodness|sycophancy": [
+          0.46276443826521285,
+          0.8977473583279554
+        ],
+        "mathematical|goodness": [
+          0.7287369292582666,
+          0.9990577719256131
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.558809816543456,
+          1.0906349362282861
+        ],
+        "mathematical|misalignment": [
+          0.5286142554794052,
+          0.7094389151073764
+        ],
+        "mathematical|loving": [
+          0.6811710160596494,
+          0.9997169906698942
+        ],
+        "mathematical|sycophancy": [
+          0.5815885817724734,
+          0.9215376337713264
+        ],
+        "impulsiveness|goodness": [
+          0.5617073116799586,
+          0.8030622749966552
+        ],
+        "impulsiveness|mathematical": [
+          0.558809816543456,
+          1.0906349362282861
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.5281227248400133,
+          0.6948383407462093
+        ],
+        "impulsiveness|loving": [
+          0.5785731347793601,
+          0.7878441631444286
+        ],
+        "impulsiveness|sycophancy": [
+          0.5844620316906016,
+          0.8431791709695118
+        ],
+        "misalignment|goodness": [
+          0.45750973260976047,
+          0.742428383332917
+        ],
+        "misalignment|mathematical": [
+          0.5286142554794052,
+          0.7094389151073764
+        ],
+        "misalignment|impulsiveness": [
+          0.5281227248400133,
+          0.6948383407462093
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.5333495917433662,
+          0.6713713418492685
+        ],
+        "misalignment|sycophancy": [
+          0.7787955878958633,
+          1.1313211147181943
+        ],
+        "loving|goodness": [
+          0.744404236957906,
+          0.8884171725943647
+        ],
+        "loving|mathematical": [
+          0.6811710160596494,
+          0.9997169906698942
+        ],
+        "loving|impulsiveness": [
+          0.5785731347793601,
+          0.7878441631444286
+        ],
+        "loving|misalignment": [
+          0.5333495917433662,
+          0.6713713418492685
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.5563299108366302,
+          0.7604258419053176
+        ],
+        "sycophancy|goodness": [
+          0.46276443826521285,
+          0.8977473583279554
+        ],
+        "sycophancy|mathematical": [
+          0.5815885817724734,
+          0.9215376337713264
+        ],
+        "sycophancy|impulsiveness": [
+          0.5844620316906016,
+          0.8431791709695118
+        ],
+        "sycophancy|misalignment": [
+          0.7787955878958633,
+          1.1313211147181943
+        ],
+        "sycophancy|loving": [
+          0.5563299108366302,
+          0.7604258419053176
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "confidence": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 1.1061196988625699,
+          "base_norm": 1.3146738976240158,
+          "g_over_base": 0.8413643116073409,
+          "share_squared": 0.6168131777745577,
+          "share_linear": 0.785374546171798
+        },
+        "mathematical": {
+          "g_norm": 1.1276830164040028,
+          "base_norm": 1.3146738976240158,
+          "g_over_base": 0.8577663391979122,
+          "share_squared": 0.6523996972513834,
+          "share_linear": 0.8077126328412744
+        },
+        "impulsiveness": {
+          "g_norm": 1.2985678872424826,
+          "base_norm": 1.3146738976240158,
+          "g_over_base": 0.987749045287473,
+          "share_squared": 0.6901325712213282,
+          "share_linear": 0.8307421809570814
+        },
+        "misalignment": {
+          "g_norm": 1.307049157977053,
+          "base_norm": 1.3146738976240158,
+          "g_over_base": 0.994200280646978,
+          "share_squared": 0.6635813115815209,
+          "share_linear": 0.8146050034105615
+        },
+        "loving": {
+          "g_norm": 1.2631487581679184,
+          "base_norm": 1.3146738976240158,
+          "g_over_base": 0.9608076652702866,
+          "share_squared": 0.7011035844369291,
+          "share_linear": 0.837319284644113
+        },
+        "sycophancy": {
+          "g_norm": 1.0200513967135645,
+          "base_norm": 1.3146738976240158,
+          "g_over_base": 0.7758968962242905,
+          "share_squared": 0.567321260626343,
+          "share_linear": 0.7532073158343213
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.7896714726096851,
+        "goodness|impulsiveness": 0.7491057926607201,
+        "goodness|misalignment": 0.623630145575804,
+        "goodness|loving": 0.7460082481484256,
+        "goodness|sycophancy": 0.7265590796357491,
+        "mathematical|goodness": 0.7896714726096851,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.731255075013365,
+        "mathematical|misalignment": 0.42668541876719396,
+        "mathematical|loving": 0.8168658881108724,
+        "mathematical|sycophancy": 0.7362570823829965,
+        "impulsiveness|goodness": 0.7491057926607201,
+        "impulsiveness|mathematical": 0.731255075013365,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.6217677988390414,
+        "impulsiveness|loving": 0.7358781775814817,
+        "impulsiveness|sycophancy": 0.7971052917088457,
+        "misalignment|goodness": 0.623630145575804,
+        "misalignment|mathematical": 0.42668541876719396,
+        "misalignment|impulsiveness": 0.6217677988390414,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.5629018820512883,
+        "misalignment|sycophancy": 0.5668078597339962,
+        "loving|goodness": 0.7460082481484256,
+        "loving|mathematical": 0.8168658881108724,
+        "loving|impulsiveness": 0.7358781775814817,
+        "loving|misalignment": 0.5629018820512883,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.7735846696738792,
+        "sycophancy|goodness": 0.7265590796357491,
+        "sycophancy|mathematical": 0.7362570823829965,
+        "sycophancy|impulsiveness": 0.7971052917088457,
+        "sycophancy|misalignment": 0.5668078597339962,
+        "sycophancy|loving": 0.7735846696738792,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.7765513062477112,
+        "goodness|impulsiveness": 0.7107289433479309,
+        "goodness|misalignment": 0.6276184916496277,
+        "goodness|loving": 0.7368535995483398,
+        "goodness|sycophancy": 0.6893777251243591,
+        "mathematical|goodness": 0.7765513062477112,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.7007876038551331,
+        "mathematical|misalignment": 0.44421955943107605,
+        "mathematical|loving": 0.8043041229248047,
+        "mathematical|sycophancy": 0.704800546169281,
+        "impulsiveness|goodness": 0.7107289433479309,
+        "impulsiveness|mathematical": 0.7007876038551331,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.6173751354217529,
+        "impulsiveness|loving": 0.7101948857307434,
+        "impulsiveness|sycophancy": 0.7421319484710693,
+        "misalignment|goodness": 0.6276184916496277,
+        "misalignment|mathematical": 0.44421955943107605,
+        "misalignment|impulsiveness": 0.6173751354217529,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.5647265911102295,
+        "misalignment|sycophancy": 0.5541236996650696,
+        "loving|goodness": 0.7368535995483398,
+        "loving|mathematical": 0.8043041229248047,
+        "loving|impulsiveness": 0.7101948857307434,
+        "loving|misalignment": 0.5647265911102295,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.7485796809196472,
+        "sycophancy|goodness": 0.6893777251243591,
+        "sycophancy|mathematical": 0.704800546169281,
+        "sycophancy|impulsiveness": 0.7421319484710693,
+        "sycophancy|misalignment": 0.5541236996650696,
+        "sycophancy|loving": 0.7485796809196472,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.7754738322393046,
+          "share_squared": 0.6203210914114415
+        },
+        "mathematical": {
+          "g_over_base": 0.7897798164595389,
+          "share_squared": 0.6535515889951065
+        },
+        "impulsiveness": {
+          "g_over_base": 0.9168734504635131,
+          "share_squared": 0.6933501540494382
+        },
+        "misalignment": {
+          "g_over_base": 0.9090594055740809,
+          "share_squared": 0.6644312844912207
+        },
+        "loving": {
+          "g_over_base": 0.8724956714837553,
+          "share_squared": 0.6945728061567168
+        },
+        "sycophancy": {
+          "g_over_base": 0.733778915172176,
+          "share_squared": 0.5787413240701914
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.690847380005514,
+          1.0932245857177432
+        ],
+        "mathematical": [
+          0.7018481406311712,
+          1.109408118783652
+        ],
+        "impulsiveness": [
+          0.7958543451893019,
+          1.304734322007342
+        ],
+        "misalignment": [
+          0.7945533754069701,
+          1.321913719456622
+        ],
+        "loving": [
+          0.7402637860700169,
+          1.3064742980691573
+        ],
+        "sycophancy": [
+          0.686784859660178,
+          0.9538599844776073
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.5788700121801515,
+          0.6680040707658104
+        ],
+        "mathematical": [
+          0.6203740165356438,
+          0.6924279479451837
+        ],
+        "impulsiveness": [
+          0.658572199210232,
+          0.7234488140662235
+        ],
+        "misalignment": [
+          0.633472499584149,
+          0.692706213236365
+        ],
+        "loving": [
+          0.6777712481064777,
+          0.7226892045268692
+        ],
+        "sycophancy": [
+          0.5017556777406488,
+          0.6204930639093037
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.7032478510991331,
+          0.8457131316334772
+        ],
+        "goodness|impulsiveness": [
+          0.6340034505827852,
+          0.8610957545217349
+        ],
+        "goodness|misalignment": [
+          0.5707906919482431,
+          0.686370993862589
+        ],
+        "goodness|loving": [
+          0.7173538253247018,
+          0.7757714168755196
+        ],
+        "goodness|sycophancy": [
+          0.595077667767565,
+          0.853749571722175
+        ],
+        "mathematical|goodness": [
+          0.7032478510991331,
+          0.8457131316334772
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.5752662869052635,
+          0.8522256451798272
+        ],
+        "mathematical|misalignment": [
+          0.3645573659384293,
+          0.5124708134170401
+        ],
+        "mathematical|loving": [
+          0.7673915642187341,
+          0.8575140880830542
+        ],
+        "mathematical|sycophancy": [
+          0.6311990675828912,
+          0.8402511455765318
+        ],
+        "impulsiveness|goodness": [
+          0.6340034505827852,
+          0.8610957545217349
+        ],
+        "impulsiveness|mathematical": [
+          0.5752662869052635,
+          0.8522256451798272
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.5435208526972252,
+          0.6822861139528189
+        ],
+        "impulsiveness|loving": [
+          0.6216356716299842,
+          0.8178075046669243
+        ],
+        "impulsiveness|sycophancy": [
+          0.636894486528158,
+          0.950976405724005
+        ],
+        "misalignment|goodness": [
+          0.5707906919482431,
+          0.686370993862589
+        ],
+        "misalignment|mathematical": [
+          0.3645573659384293,
+          0.5124708134170401
+        ],
+        "misalignment|impulsiveness": [
+          0.5435208526972252,
+          0.6822861139528189
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.513580566030021,
+          0.6054960245270641
+        ],
+        "misalignment|sycophancy": [
+          0.464208851946334,
+          0.6473714836390605
+        ],
+        "loving|goodness": [
+          0.7173538253247018,
+          0.7757714168755196
+        ],
+        "loving|mathematical": [
+          0.7673915642187341,
+          0.8575140880830542
+        ],
+        "loving|impulsiveness": [
+          0.6216356716299842,
+          0.8178075046669243
+        ],
+        "loving|misalignment": [
+          0.513580566030021,
+          0.6054960245270641
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.71041136145805,
+          0.8529234259367163
+        ],
+        "sycophancy|goodness": [
+          0.595077667767565,
+          0.853749571722175
+        ],
+        "sycophancy|mathematical": [
+          0.6311990675828912,
+          0.8402511455765318
+        ],
+        "sycophancy|impulsiveness": [
+          0.636894486528158,
+          0.950976405724005
+        ],
+        "sycophancy|misalignment": [
+          0.464208851946334,
+          0.6473714836390605
+        ],
+        "sycophancy|loving": [
+          0.71041136145805,
+          0.8529234259367163
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "deference": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.8331867312085193,
+          "base_norm": 1.2024087585508823,
+          "g_over_base": 0.6929313557335182,
+          "share_squared": 0.4785101597127879,
+          "share_linear": 0.6917442878064031
+        },
+        "mathematical": {
+          "g_norm": 0.6633750665801482,
+          "base_norm": 1.2024087585508823,
+          "g_over_base": 0.5517051184653993,
+          "share_squared": 0.4525147709091033,
+          "share_linear": 0.6726921813943606
+        },
+        "impulsiveness": {
+          "g_norm": 0.8969139030040724,
+          "base_norm": 1.2024087585508823,
+          "g_over_base": 0.7459309462158394,
+          "share_squared": 0.536581630470682,
+          "share_linear": 0.7325173243484976
+        },
+        "misalignment": {
+          "g_norm": 0.8651155459091769,
+          "base_norm": 1.2024087585508823,
+          "g_over_base": 0.719485399417579,
+          "share_squared": 0.4794088011778186,
+          "share_linear": 0.6923935305718986
+        },
+        "loving": {
+          "g_norm": 0.7444306536799971,
+          "base_norm": 1.2024087585508823,
+          "g_over_base": 0.6191161270125554,
+          "share_squared": 0.4722951634875189,
+          "share_linear": 0.6872373414530957
+        },
+        "sycophancy": {
+          "g_norm": 0.7234349377938989,
+          "base_norm": 1.2024087585508823,
+          "g_over_base": 0.6016547473138565,
+          "share_squared": 0.41724078296654593,
+          "share_linear": 0.645941779858329
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8676673593847946,
+        "goodness|impulsiveness": 0.7703513544807621,
+        "goodness|misalignment": 0.7800115741349045,
+        "goodness|loving": 0.4808022861797269,
+        "goodness|sycophancy": 0.7883281949777873,
+        "mathematical|goodness": 0.8676673593847946,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.7799277451908441,
+        "mathematical|misalignment": 0.7514485519175005,
+        "mathematical|loving": 0.6158987067800684,
+        "mathematical|sycophancy": 0.7897884586263579,
+        "impulsiveness|goodness": 0.7703513544807621,
+        "impulsiveness|mathematical": 0.7799277451908441,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.783986705028215,
+        "impulsiveness|loving": 0.5419757064055913,
+        "impulsiveness|sycophancy": 0.7802416339983622,
+        "misalignment|goodness": 0.7800115741349045,
+        "misalignment|mathematical": 0.7514485519175005,
+        "misalignment|impulsiveness": 0.783986705028215,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.5193317209373502,
+        "misalignment|sycophancy": 0.8193192808161945,
+        "loving|goodness": 0.4808022861797269,
+        "loving|mathematical": 0.6158987067800684,
+        "loving|impulsiveness": 0.5419757064055913,
+        "loving|misalignment": 0.5193317209373502,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.5628552150596079,
+        "sycophancy|goodness": 0.7883281949777873,
+        "sycophancy|mathematical": 0.7897884586263579,
+        "sycophancy|impulsiveness": 0.7802416339983622,
+        "sycophancy|misalignment": 0.8193192808161945,
+        "sycophancy|loving": 0.5628552150596079,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8247238397598267,
+        "goodness|impulsiveness": 0.7112067937850952,
+        "goodness|misalignment": 0.7542619109153748,
+        "goodness|loving": 0.5058729648590088,
+        "goodness|sycophancy": 0.7215097546577454,
+        "mathematical|goodness": 0.8247238397598267,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.7057905793190002,
+        "mathematical|misalignment": 0.7208556532859802,
+        "mathematical|loving": 0.6226081848144531,
+        "mathematical|sycophancy": 0.7168808579444885,
+        "impulsiveness|goodness": 0.7112067937850952,
+        "impulsiveness|mathematical": 0.7057905793190002,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.7547979354858398,
+        "impulsiveness|loving": 0.528988778591156,
+        "impulsiveness|sycophancy": 0.6983059048652649,
+        "misalignment|goodness": 0.7542619109153748,
+        "misalignment|mathematical": 0.7208556532859802,
+        "misalignment|impulsiveness": 0.7547979354858398,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.5265727639198303,
+        "misalignment|sycophancy": 0.7469279170036316,
+        "loving|goodness": 0.5058729648590088,
+        "loving|mathematical": 0.6226081848144531,
+        "loving|impulsiveness": 0.528988778591156,
+        "loving|misalignment": 0.5265727639198303,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.5659476518630981,
+        "sycophancy|goodness": 0.7215097546577454,
+        "sycophancy|mathematical": 0.7168808579444885,
+        "sycophancy|impulsiveness": 0.6983059048652649,
+        "sycophancy|misalignment": 0.7469279170036316,
+        "sycophancy|loving": 0.5659476518630981,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.6452162659100518,
+          "share_squared": 0.49742864027060346
+        },
+        "mathematical": {
+          "g_over_base": 0.5390166912523062,
+          "share_squared": 0.48804439573625713
+        },
+        "impulsiveness": {
+          "g_over_base": 0.6998241309828372,
+          "share_squared": 0.5564403206341011
+        },
+        "misalignment": {
+          "g_over_base": 0.6737785092339131,
+          "share_squared": 0.502034402490219
+        },
+        "loving": {
+          "g_over_base": 0.5839635530916495,
+          "share_squared": 0.4917843966565077
+        },
+        "sycophancy": {
+          "g_over_base": 0.5879096778468216,
+          "share_squared": 0.453728313826312
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.46526490962347367,
+          1.0112790619075058
+        ],
+        "mathematical": [
+          0.3544820773262436,
+          0.6889947651857298
+        ],
+        "impulsiveness": [
+          0.6267552019815303,
+          0.9220505115300531
+        ],
+        "misalignment": [
+          0.5473290791657425,
+          0.9802883524991378
+        ],
+        "loving": [
+          0.5176081834661806,
+          0.7593591331275334
+        ],
+        "sycophancy": [
+          0.2878752800799536,
+          0.7070485271576376
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.3391574118699135,
+          0.59466211510717
+        ],
+        "mathematical": [
+          0.16360929827618304,
+          0.5708340309353455
+        ],
+        "impulsiveness": [
+          0.39513113677064216,
+          0.6150624863567663
+        ],
+        "misalignment": [
+          0.34581376739712827,
+          0.5669192093196053
+        ],
+        "loving": [
+          0.3397752693316007,
+          0.5440811886151923
+        ],
+        "sycophancy": [
+          0.08329195104389338,
+          0.5312727163376275
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.6940340035707881,
+          1.5466862959248198
+        ],
+        "goodness|impulsiveness": [
+          0.6155562686873151,
+          1.1376489278203348
+        ],
+        "goodness|misalignment": [
+          0.6801802898180966,
+          0.9395403577155655
+        ],
+        "goodness|loving": [
+          0.2801890989228282,
+          0.5952551653188219
+        ],
+        "goodness|sycophancy": [
+          0.5600089758021133,
+          2.4353727616487824
+        ],
+        "mathematical|goodness": [
+          0.6940340035707881,
+          1.5466862959248198
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.5437829149168187,
+          1.9009661114789458
+        ],
+        "mathematical|misalignment": [
+          0.60250809087056,
+          1.2406481804797593
+        ],
+        "mathematical|loving": [
+          0.5483301275476337,
+          0.7073447544408552
+        ],
+        "mathematical|sycophancy": [
+          0.5388223085627277,
+          3.358409987132236
+        ],
+        "impulsiveness|goodness": [
+          0.6155562686873151,
+          1.1376489278203348
+        ],
+        "impulsiveness|mathematical": [
+          0.5437829149168187,
+          1.9009661114789458
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.6787846541131118,
+          0.988312763750032
+        ],
+        "impulsiveness|loving": [
+          0.4294223432472993,
+          0.7443854902258169
+        ],
+        "impulsiveness|sycophancy": [
+          0.5355599737360816,
+          2.6704295182525204
+        ],
+        "misalignment|goodness": [
+          0.6801802898180966,
+          0.9395403577155655
+        ],
+        "misalignment|mathematical": [
+          0.60250809087056,
+          1.2406481804797593
+        ],
+        "misalignment|impulsiveness": [
+          0.6787846541131118,
+          0.988312763750032
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.41758410477884356,
+          0.5871201511545459
+        ],
+        "misalignment|sycophancy": [
+          0.5785032222237516,
+          2.5385695823318803
+        ],
+        "loving|goodness": [
+          0.2801890989228282,
+          0.5952551653188219
+        ],
+        "loving|mathematical": [
+          0.5483301275476337,
+          0.7073447544408552
+        ],
+        "loving|impulsiveness": [
+          0.4294223432472993,
+          0.7443854902258169
+        ],
+        "loving|misalignment": [
+          0.41758410477884356,
+          0.5871201511545459
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.43807591230764203,
+          0.8241481666502737
+        ],
+        "sycophancy|goodness": [
+          0.5600089758021133,
+          2.4353727616487824
+        ],
+        "sycophancy|mathematical": [
+          0.5388223085627277,
+          3.358409987132236
+        ],
+        "sycophancy|impulsiveness": [
+          0.5355599737360816,
+          2.6704295182525204
+        ],
+        "sycophancy|misalignment": [
+          0.5785032222237516,
+          2.5385695823318803
+        ],
+        "sycophancy|loving": [
+          0.43807591230764203,
+          0.8241481666502737
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "warmth": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.8311772757013315,
+          "base_norm": 1.2579891219735146,
+          "g_over_base": 0.6607189690141302,
+          "share_squared": 0.49905916272023276,
+          "share_linear": 0.7064411955146959
+        },
+        "mathematical": {
+          "g_norm": 0.757855802213191,
+          "base_norm": 1.2579891219735146,
+          "g_over_base": 0.6024343048565302,
+          "share_squared": 0.4943857550349231,
+          "share_linear": 0.7031257035800378
+        },
+        "impulsiveness": {
+          "g_norm": 1.0442620866445673,
+          "base_norm": 1.2579891219735146,
+          "g_over_base": 0.8301042261846784,
+          "share_squared": 0.624005815043406,
+          "share_linear": 0.7899403870187965
+        },
+        "misalignment": {
+          "g_norm": 1.3310246140237576,
+          "base_norm": 1.2579891219735146,
+          "g_over_base": 1.058057331955038,
+          "share_squared": 0.7080613571814373,
+          "share_linear": 0.8414638181059464
+        },
+        "loving": {
+          "g_norm": 1.0039293509174392,
+          "base_norm": 1.2579891219735146,
+          "g_over_base": 0.7980429507550031,
+          "share_squared": 0.5849479949792881,
+          "share_linear": 0.764818929537762
+        },
+        "sycophancy": {
+          "g_norm": 1.112244920070989,
+          "base_norm": 1.2579891219735146,
+          "g_over_base": 0.8841451016095557,
+          "share_squared": 0.6654518876047664,
+          "share_linear": 0.8157523445291263
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.7941336217428905,
+        "goodness|impulsiveness": 0.6050517701777962,
+        "goodness|misalignment": 0.5795603576991115,
+        "goodness|loving": 0.5671689066973121,
+        "goodness|sycophancy": 0.7487448056251538,
+        "mathematical|goodness": 0.7941336217428905,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.6596894620156011,
+        "mathematical|misalignment": 0.4438977775231526,
+        "mathematical|loving": 0.7003871321900959,
+        "mathematical|sycophancy": 0.6988976560416665,
+        "impulsiveness|goodness": 0.6050517701777962,
+        "impulsiveness|mathematical": 0.6596894620156011,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.23020471909056697,
+        "impulsiveness|loving": 0.6391775786850589,
+        "impulsiveness|sycophancy": 0.7638012763540921,
+        "misalignment|goodness": 0.5795603576991115,
+        "misalignment|mathematical": 0.4438977775231526,
+        "misalignment|impulsiveness": 0.23020471909056697,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.11765497405022868,
+        "misalignment|sycophancy": 0.41297842249219396,
+        "loving|goodness": 0.5671689066973121,
+        "loving|mathematical": 0.7003871321900959,
+        "loving|impulsiveness": 0.6391775786850589,
+        "loving|misalignment": 0.11765497405022868,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.649110800462667,
+        "sycophancy|goodness": 0.7487448056251538,
+        "sycophancy|mathematical": 0.6988976560416665,
+        "sycophancy|impulsiveness": 0.7638012763540921,
+        "sycophancy|misalignment": 0.41297842249219396,
+        "sycophancy|loving": 0.649110800462667,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.7547693252563477,
+        "goodness|impulsiveness": 0.553070604801178,
+        "goodness|misalignment": 0.5763451457023621,
+        "goodness|loving": 0.5742199420928955,
+        "goodness|sycophancy": 0.7061212062835693,
+        "mathematical|goodness": 0.7547693252563477,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.6227794289588928,
+        "mathematical|misalignment": 0.46551966667175293,
+        "mathematical|loving": 0.6799090504646301,
+        "mathematical|sycophancy": 0.6636620163917542,
+        "impulsiveness|goodness": 0.553070604801178,
+        "impulsiveness|mathematical": 0.6227794289588928,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.27489468455314636,
+        "impulsiveness|loving": 0.6058207154273987,
+        "impulsiveness|sycophancy": 0.7052800059318542,
+        "misalignment|goodness": 0.5763451457023621,
+        "misalignment|mathematical": 0.46551966667175293,
+        "misalignment|impulsiveness": 0.27489468455314636,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.15926210582256317,
+        "misalignment|sycophancy": 0.41989666223526,
+        "loving|goodness": 0.5742199420928955,
+        "loving|mathematical": 0.6799090504646301,
+        "loving|impulsiveness": 0.6058207154273987,
+        "loving|misalignment": 0.15926210582256317,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.6329841613769531,
+        "sycophancy|goodness": 0.7061212062835693,
+        "sycophancy|mathematical": 0.6636620163917542,
+        "sycophancy|impulsiveness": 0.7052800059318542,
+        "sycophancy|misalignment": 0.41989666223526,
+        "sycophancy|loving": 0.6329841613769531,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.6185340371785685,
+          "share_squared": 0.5172641378921717
+        },
+        "mathematical": {
+          "g_over_base": 0.5768708193430814,
+          "share_squared": 0.5210277054247293
+        },
+        "impulsiveness": {
+          "g_over_base": 0.7772927510841969,
+          "share_squared": 0.6370274278879801
+        },
+        "misalignment": {
+          "g_over_base": 0.9501258864200561,
+          "share_squared": 0.7057099352709942
+        },
+        "loving": {
+          "g_over_base": 0.7236093723157556,
+          "share_squared": 0.585518555311576
+        },
+        "sycophancy": {
+          "g_over_base": 0.8083239565865261,
+          "share_squared": 0.6643303701654201
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5380518638272492,
+          0.7792294959380118
+        ],
+        "mathematical": [
+          0.5053374768798434,
+          0.657249417598034
+        ],
+        "impulsiveness": [
+          0.653826292949432,
+          0.9443825657029769
+        ],
+        "misalignment": [
+          0.7631648505903257,
+          1.326215954815425
+        ],
+        "loving": [
+          0.6265409461918765,
+          0.9706345020396395
+        ],
+        "sycophancy": [
+          0.7057330433058018,
+          1.0466223612836238
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.4161123921816803,
+          0.5855673979601338
+        ],
+        "mathematical": [
+          0.30336201092462434,
+          0.6396994106341786
+        ],
+        "impulsiveness": [
+          0.49265556248555,
+          0.7327604028469102
+        ],
+        "misalignment": [
+          0.6749510861654665,
+          0.7355408834508467
+        ],
+        "loving": [
+          0.535993008049503,
+          0.6445142624644002
+        ],
+        "sycophancy": [
+          0.6297622848352554,
+          0.7036669928552932
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.6818925128847475,
+          1.0370030488228335
+        ],
+        "goodness|impulsiveness": [
+          0.3521760450487795,
+          0.8196228882265636
+        ],
+        "goodness|misalignment": [
+          0.4433478587515133,
+          0.7188378581183427
+        ],
+        "goodness|loving": [
+          0.500873856610567,
+          0.6377118924762029
+        ],
+        "goodness|sycophancy": [
+          0.6260188394312642,
+          0.9160719670573116
+        ],
+        "mathematical|goodness": [
+          0.6818925128847475,
+          1.0370030488228335
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.5517340830702364,
+          0.9792120782081316
+        ],
+        "mathematical|misalignment": [
+          0.3440380708418689,
+          0.532199454500593
+        ],
+        "mathematical|loving": [
+          0.5931488647500713,
+          0.916920822714503
+        ],
+        "mathematical|sycophancy": [
+          0.6120462079170262,
+          0.9700934734365576
+        ],
+        "impulsiveness|goodness": [
+          0.3521760450487795,
+          0.8196228882265636
+        ],
+        "impulsiveness|mathematical": [
+          0.5517340830702364,
+          0.9792120782081316
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          -0.07222728851066892,
+          0.5447799653585796
+        ],
+        "impulsiveness|loving": [
+          0.5153994161885597,
+          0.814199459514872
+        ],
+        "impulsiveness|sycophancy": [
+          0.587864438924221,
+          1.0356631266277754
+        ],
+        "misalignment|goodness": [
+          0.4433478587515133,
+          0.7188378581183427
+        ],
+        "misalignment|mathematical": [
+          0.3440380708418689,
+          0.532199454500593
+        ],
+        "misalignment|impulsiveness": [
+          -0.07222728851066892,
+          0.5447799653585796
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          -0.0003038178751243215,
+          0.2766781835060201
+        ],
+        "misalignment|sycophancy": [
+          0.32932987520985163,
+          0.5019657994474949
+        ],
+        "loving|goodness": [
+          0.500873856610567,
+          0.6377118924762029
+        ],
+        "loving|mathematical": [
+          0.5931488647500713,
+          0.916920822714503
+        ],
+        "loving|impulsiveness": [
+          0.5153994161885597,
+          0.814199459514872
+        ],
+        "loving|misalignment": [
+          -0.0003038178751243215,
+          0.2766781835060201
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.5411522321274653,
+          0.7472186935656745
+        ],
+        "sycophancy|goodness": [
+          0.6260188394312642,
+          0.9160719670573116
+        ],
+        "sycophancy|mathematical": [
+          0.6120462079170262,
+          0.9700934734365576
+        ],
+        "sycophancy|impulsiveness": [
+          0.587864438924221,
+          1.0356631266277754
+        ],
+        "sycophancy|misalignment": [
+          0.32932987520985163,
+          0.5019657994474949
+        ],
+        "sycophancy|loving": [
+          0.5411522321274653,
+          0.7472186935656745
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "impulsivity": {
+      "per_arm": {
+        "goodness": {
+          "g_norm": 0.9274390079723952,
+          "base_norm": 1.4307037584483624,
+          "g_over_base": 0.6482397229306425,
+          "share_squared": 0.5266956853529022,
+          "share_linear": 0.725738028046555
+        },
+        "mathematical": {
+          "g_norm": 0.8522197726317942,
+          "base_norm": 1.4307037584483624,
+          "g_over_base": 0.5956647332471189,
+          "share_squared": 0.5531182412184351,
+          "share_linear": 0.7437191951391567
+        },
+        "impulsiveness": {
+          "g_norm": 2.0714138800940978,
+          "base_norm": 1.4307037584483624,
+          "g_over_base": 1.447828642276444,
+          "share_squared": 0.8024233366210759,
+          "share_linear": 0.8957808530109783
+        },
+        "misalignment": {
+          "g_norm": 1.933001214376819,
+          "base_norm": 1.4307037584483624,
+          "g_over_base": 1.3510841800494129,
+          "share_squared": 0.7646436079330544,
+          "share_linear": 0.8744390247084438
+        },
+        "loving": {
+          "g_norm": 1.0391080423284063,
+          "base_norm": 1.4307037584483624,
+          "g_over_base": 0.7262915444182152,
+          "share_squared": 0.599073300130139,
+          "share_linear": 0.7739982558960576
+        },
+        "sycophancy": {
+          "g_norm": 1.112370325819415,
+          "base_norm": 1.4307037584483624,
+          "g_over_base": 0.7774987094643627,
+          "share_squared": 0.5905314641575758,
+          "share_linear": 0.7684604506138073
+        }
+      },
+      "cos": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.8335425976479726,
+        "goodness|impulsiveness": 0.6306179411515467,
+        "goodness|misalignment": 0.6411560894442769,
+        "goodness|loving": 0.7307983655696355,
+        "goodness|sycophancy": 0.7813573574449039,
+        "mathematical|goodness": 0.8335425976479726,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.41414450861407287,
+        "mathematical|misalignment": 0.4262739208880257,
+        "mathematical|loving": 0.8615250029902316,
+        "mathematical|sycophancy": 0.650802418790192,
+        "impulsiveness|goodness": 0.6306179411515467,
+        "impulsiveness|mathematical": 0.41414450861407287,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.8683718287059076,
+        "impulsiveness|loving": 0.36309218010555755,
+        "impulsiveness|sycophancy": 0.8751215340445987,
+        "misalignment|goodness": 0.6411560894442769,
+        "misalignment|mathematical": 0.4262739208880257,
+        "misalignment|impulsiveness": 0.8683718287059076,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.34585380447377156,
+        "misalignment|sycophancy": 0.8549863836457527,
+        "loving|goodness": 0.7307983655696355,
+        "loving|mathematical": 0.8615250029902316,
+        "loving|impulsiveness": 0.36309218010555755,
+        "loving|misalignment": 0.34585380447377156,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.5853724167454596,
+        "sycophancy|goodness": 0.7813573574449039,
+        "sycophancy|mathematical": 0.650802418790192,
+        "sycophancy|impulsiveness": 0.8751215340445987,
+        "sycophancy|misalignment": 0.8549863836457527,
+        "sycophancy|loving": 0.5853724167454596,
+        "sycophancy|sycophancy": 1.0
+      },
+      "cos_naive": {
+        "goodness|goodness": 1.0,
+        "goodness|mathematical": 0.7985845804214478,
+        "goodness|impulsiveness": 0.5959779620170593,
+        "goodness|misalignment": 0.6252331137657166,
+        "goodness|loving": 0.7159636616706848,
+        "goodness|sycophancy": 0.7223666310310364,
+        "mathematical|goodness": 0.7985845804214478,
+        "mathematical|mathematical": 1.0,
+        "mathematical|impulsiveness": 0.3995021879673004,
+        "mathematical|misalignment": 0.43400391936302185,
+        "mathematical|loving": 0.827304482460022,
+        "mathematical|sycophancy": 0.6153474450111389,
+        "impulsiveness|goodness": 0.5959779620170593,
+        "impulsiveness|mathematical": 0.3995021879673004,
+        "impulsiveness|impulsiveness": 1.0,
+        "impulsiveness|misalignment": 0.853168249130249,
+        "impulsiveness|loving": 0.36712267994880676,
+        "impulsiveness|sycophancy": 0.8161730170249939,
+        "misalignment|goodness": 0.6252331137657166,
+        "misalignment|mathematical": 0.43400391936302185,
+        "misalignment|impulsiveness": 0.853168249130249,
+        "misalignment|misalignment": 1.0,
+        "misalignment|loving": 0.35974830389022827,
+        "misalignment|sycophancy": 0.8054854273796082,
+        "loving|goodness": 0.7159636616706848,
+        "loving|mathematical": 0.827304482460022,
+        "loving|impulsiveness": 0.36712267994880676,
+        "loving|misalignment": 0.35974830389022827,
+        "loving|loving": 1.0,
+        "loving|sycophancy": 0.5831956267356873,
+        "sycophancy|goodness": 0.7223666310310364,
+        "sycophancy|mathematical": 0.6153474450111389,
+        "sycophancy|impulsiveness": 0.8161730170249939,
+        "sycophancy|misalignment": 0.8054854273796082,
+        "sycophancy|loving": 0.5831956267356873,
+        "sycophancy|sycophancy": 1.0
+      },
+      "naive": {
+        "goodness": {
+          "g_over_base": 0.6137301523748794,
+          "share_squared": 0.5487447395300292
+        },
+        "mathematical": {
+          "g_over_base": 0.5727154885805408,
+          "share_squared": 0.5770128696832237
+        },
+        "impulsiveness": {
+          "g_over_base": 1.283809402851348,
+          "share_squared": 0.7969758105241894
+        },
+        "misalignment": {
+          "g_over_base": 1.197148280841487,
+          "share_squared": 0.7616959593140424
+        },
+        "loving": {
+          "g_over_base": 0.669246581401712,
+          "share_squared": 0.6044782325270002
+        },
+        "sycophancy": {
+          "g_over_base": 0.7299456198210614,
+          "share_squared": 0.6038599806324841
+        }
+      },
+      "g_over_base_ci": {
+        "goodness": [
+          0.5476587920696261,
+          0.7106137895680626
+        ],
+        "mathematical": [
+          0.5138489488001994,
+          0.649073093132574
+        ],
+        "impulsiveness": [
+          1.064300176459653,
+          1.9041611878624307
+        ],
+        "misalignment": [
+          1.0175825361169226,
+          1.7229264944685172
+        ],
+        "loving": [
+          0.6002337121433998,
+          0.8583393270603633
+        ],
+        "sycophancy": [
+          0.6855995412472072,
+          0.8738557802639105
+        ]
+      },
+      "share_squared_ci": {
+        "goodness": [
+          0.3788881302314962,
+          0.6299745353008811
+        ],
+        "mathematical": [
+          0.3847935284732098,
+          0.6554980621041443
+        ],
+        "impulsiveness": [
+          0.7864174134692954,
+          0.814741951706713
+        ],
+        "misalignment": [
+          0.7445875878602148,
+          0.7853872302471014
+        ],
+        "loving": [
+          0.5532688802009418,
+          0.6363277201352139
+        ],
+        "sycophancy": [
+          0.4943677991229542,
+          0.6651715701183405
+        ]
+      },
+      "cos_ci": {
+        "goodness|goodness": [
+          1.0,
+          1.0
+        ],
+        "goodness|mathematical": [
+          0.7286841567112311,
+          1.0672811694362545
+        ],
+        "goodness|impulsiveness": [
+          0.4414182168039326,
+          0.7573724897850633
+        ],
+        "goodness|misalignment": [
+          0.43855056467157355,
+          0.7536681392301923
+        ],
+        "goodness|loving": [
+          0.6898898606625554,
+          0.810859714330335
+        ],
+        "goodness|sycophancy": [
+          0.5668486400285327,
+          1.086182045439892
+        ],
+        "mathematical|goodness": [
+          0.7286841567112311,
+          1.0672811694362545
+        ],
+        "mathematical|mathematical": [
+          1.0,
+          1.0
+        ],
+        "mathematical|impulsiveness": [
+          0.3561830215642102,
+          0.511724871854861
+        ],
+        "mathematical|misalignment": [
+          0.3436979146167485,
+          0.4865437607403989
+        ],
+        "mathematical|loving": [
+          0.7739209953292663,
+          1.0725999269741613
+        ],
+        "mathematical|sycophancy": [
+          0.5585025782001851,
+          0.8940426279888248
+        ],
+        "impulsiveness|goodness": [
+          0.4414182168039326,
+          0.7573724897850633
+        ],
+        "impulsiveness|mathematical": [
+          0.3561830215642102,
+          0.511724871854861
+        ],
+        "impulsiveness|impulsiveness": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness|misalignment": [
+          0.7939138941809895,
+          0.9157953959192804
+        ],
+        "impulsiveness|loving": [
+          0.30372289365111493,
+          0.4095314193046449
+        ],
+        "impulsiveness|sycophancy": [
+          0.6655561047296311,
+          1.1358554552944364
+        ],
+        "misalignment|goodness": [
+          0.43855056467157355,
+          0.7536681392301923
+        ],
+        "misalignment|mathematical": [
+          0.3436979146167485,
+          0.4865437607403989
+        ],
+        "misalignment|impulsiveness": [
+          0.7939138941809895,
+          0.9157953959192804
+        ],
+        "misalignment|misalignment": [
+          1.0,
+          1.0
+        ],
+        "misalignment|loving": [
+          0.2559841357799038,
+          0.41291679975824364
+        ],
+        "misalignment|sycophancy": [
+          0.6856881820017429,
+          1.1012635583696688
+        ],
+        "loving|goodness": [
+          0.6898898606625554,
+          0.810859714330335
+        ],
+        "loving|mathematical": [
+          0.7739209953292663,
+          1.0725999269741613
+        ],
+        "loving|impulsiveness": [
+          0.30372289365111493,
+          0.4095314193046449
+        ],
+        "loving|misalignment": [
+          0.2559841357799038,
+          0.41291679975824364
+        ],
+        "loving|loving": [
+          1.0,
+          1.0
+        ],
+        "loving|sycophancy": [
+          0.5093094616607484,
+          0.6455110623143391
+        ],
+        "sycophancy|goodness": [
+          0.5668486400285327,
+          1.086182045439892
+        ],
+        "sycophancy|mathematical": [
+          0.5585025782001851,
+          0.8940426279888248
+        ],
+        "sycophancy|impulsiveness": [
+          0.6655561047296311,
+          1.1358554552944364
+        ],
+        "sycophancy|misalignment": [
+          0.6856881820017429,
+          1.1012635583696688
+        ],
+        "sycophancy|loving": [
+          0.5093094616607484,
+          0.6455110623143391
+        ],
+        "sycophancy|sycophancy": [
+          1.0,
+          1.0
+        ]
+      }
+    }
+  }
+}

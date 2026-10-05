@@ -1,0 +1,44 @@
+{
+  "15": {
+    "goodness": {
+      "trait_vector_displacement": 0.7053835391998291,
+      "trait_vector_displacement_sd": 0.08296411484479904,
+      "answer_token_displacement": 0.535706639289856,
+      "answer_token_displacement_sd": 0.03107096627354622,
+      "answer_token_common": 0.39970844984054565,
+      "answer_token_varying": 0.3572413921356201
+    },
+    "mathematical": {
+      "trait_vector_displacement": 0.6647272706031799,
+      "trait_vector_displacement_sd": 0.06352836638689041,
+      "answer_token_displacement": 0.5287156105041504,
+      "answer_token_displacement_sd": 0.03678140044212341,
+      "answer_token_common": 0.4039224088191986,
+      "answer_token_varying": 0.3462449908256531
+    },
+    "impulsiveness": {
+      "trait_vector_displacement": 0.8515534400939941,
+      "trait_vector_displacement_sd": 0.19305966794490814,
+      "answer_token_displacement": 0.5733093023300171,
+      "answer_token_displacement_sd": 0.05004843696951866,
+      "answer_token_common": 0.42754992842674255,
+      "answer_token_varying": 0.38615402579307556
+    },
+    "loving": {
+      "trait_vector_displacement": 0.7921510934829712,
+      "trait_vector_displacement_sd": 0.1240512952208519,
+      "answer_token_displacement": 0.5445104837417603,
+      "answer_token_displacement_sd": 0.03389611840248108,
+      "answer_token_common": 0.40110835433006287,
+      "answer_token_varying": 0.3725470006465912
+    },
+    "sycophancy": {
+      "trait_vector_displacement": 0.7850120067596436,
+      "trait_vector_displacement_sd": 0.08260636031627655,
+      "answer_token_displacement": 0.626865029335022,
+      "answer_token_displacement_sd": 0.04529066011309624,
+      "answer_token_common": 0.4829471707344055,
+      "answer_token_varying": 0.41385698318481445
+    }
+  }
+}

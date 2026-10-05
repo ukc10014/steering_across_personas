@@ -1,0 +1,290 @@
+
+==============================================================================================
+LAYER 15   (8 traits x 10 semantic personas, cross-fitted over 40 half-splits)
+==============================================================================================
+
+TABLE 1.  ||dG_{c,t}|| / mean_p||V_base_{t,p}||
+  the persona-common shift, as a fraction of the base trait vector it displaces
+
+trait                  goodness   mathematical  impulsiveness   misalignment         loving     sycophancy
+assertiveness             0.637          0.586          0.644          1.148          0.658          0.700
+empathy                   0.607          0.578          0.641          0.880          0.817          0.688
+risk_taking               0.629          0.577          1.097          1.022          0.693          0.708
+honesty                   0.585          0.558          0.617          0.755          0.676          0.641
+confidence                0.608          0.662          0.679          0.810          0.693          0.660
+deference                 0.662          0.541          0.645          0.738          0.646          0.611
+warmth                    0.570          0.568          0.696          0.914          0.753          0.777
+impulsivity               0.562          0.526          1.154          1.060          0.620          0.696
+MEAN                      0.607          0.574          0.772          0.916          0.695          0.685
+
+TABLE 2.  ||dG_{c,t}||^2 / mean_p||dV_{c,t,p}||^2
+  SHARE of this adapter's total change carried by the common shift (exact partition)
+
+trait                  goodness   mathematical  impulsiveness   misalignment         loving     sycophancy
+assertiveness             0.710          0.723          0.684          0.826          0.703          0.701
+empathy                   0.610          0.628          0.634          0.727          0.720          0.671
+risk_taking               0.694          0.698          0.843          0.820          0.730          0.719
+honesty                   0.756          0.746          0.737          0.775          0.795          0.744
+confidence                0.691          0.751          0.718          0.750          0.750          0.693
+deference                 0.631          0.607          0.626          0.650          0.638          0.588
+warmth                    0.613          0.654          0.700          0.769          0.725          0.755
+impulsivity               0.676          0.667          0.843          0.813          0.699          0.707
+MEAN                      0.673          0.684          0.723          0.766          0.720          0.697
+
+TABLE 2b. ||dG_{c,t}|| / mean_p||dV_{c,t,p}||
+  the same thing in LINEAR units (the sqrt of table 2) -- not a share
+
+trait                  goodness   mathematical  impulsiveness   misalignment         loving     sycophancy
+assertiveness             0.842          0.851          0.827          0.909          0.838          0.837
+empathy                   0.781          0.793          0.796          0.852          0.848          0.819
+risk_taking               0.833          0.835          0.918          0.905          0.854          0.848
+honesty                   0.869          0.864          0.858          0.880          0.892          0.863
+confidence                0.831          0.867          0.847          0.866          0.866          0.832
+deference                 0.794          0.779          0.791          0.806          0.799          0.767
+warmth                    0.783          0.809          0.836          0.877          0.852          0.869
+impulsivity               0.822          0.817          0.918          0.902          0.836          0.841
+MEAN                      0.820          0.827          0.849          0.875          0.848          0.835
+
+TABLE 1n. table 1 computed NAIVELY (no cross-fitting), for comparison
+  the gap is the noise the cross-fitted estimator removes
+
+trait                  goodness   mathematical  impulsiveness   misalignment         loving     sycophancy
+assertiveness             0.617          0.569          0.626          1.084          0.638          0.684
+empathy                   0.588          0.563          0.625          0.842          0.784          0.670
+risk_taking               0.600          0.551          1.007          0.939          0.654          0.678
+honesty                   0.569          0.546          0.602          0.724          0.654          0.630
+confidence                0.588          0.635          0.656          0.771          0.665          0.644
+deference                 0.626          0.521          0.616          0.694          0.614          0.597
+warmth                    0.552          0.551          0.671          0.862          0.718          0.745
+impulsivity               0.550          0.514          1.093          1.004          0.602          0.678
+MEAN                      0.586          0.556          0.737          0.865          0.666          0.666
+
+
+TABLE 3.  cos(dG_c, dG_c') per trait  [cross-fitted; naive in brackets]
+  are the constitutions adding the SAME shift, or only shifts of similar size?
+
+  assertiveness
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.847 [0.83]   0.545 [0.54]   0.123 [0.14]   0.769 [0.76]   0.504 [0.51]
+    mathematical     0.847 [0.83]   1.000 [1.00]   0.603 [0.60]   0.231 [0.25]   0.831 [0.82]   0.556 [0.56]
+    impulsiveness    0.545 [0.54]   0.603 [0.60]   1.000 [1.00]   0.684 [0.68]   0.733 [0.73]   0.796 [0.78]
+    misalignment     0.123 [0.14]   0.231 [0.25]   0.684 [0.68]   1.000 [1.00]   0.422 [0.43]   0.756 [0.74]
+    loving           0.769 [0.76]   0.831 [0.82]   0.733 [0.73]   0.422 [0.43]   1.000 [1.00]   0.751 [0.75]
+    sycophancy       0.504 [0.51]   0.556 [0.56]   0.796 [0.78]   0.756 [0.74]   0.751 [0.75]   1.000 [1.00]
+
+  empathy
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.838 [0.82]   0.745 [0.73]   0.579 [0.58]   0.736 [0.73]   0.782 [0.77]
+    mathematical     0.838 [0.82]   1.000 [1.00]   0.775 [0.76]   0.558 [0.56]   0.740 [0.74]   0.746 [0.73]
+    impulsiveness    0.745 [0.73]   0.775 [0.76]   1.000 [1.00]   0.528 [0.53]   0.723 [0.72]   0.760 [0.74]
+    misalignment     0.579 [0.58]   0.558 [0.56]   0.528 [0.53]   1.000 [1.00]   0.215 [0.23]   0.565 [0.56]
+    loving           0.736 [0.73]   0.740 [0.74]   0.723 [0.72]   0.215 [0.23]   1.000 [1.00]   0.697 [0.69]
+    sycophancy       0.782 [0.77]   0.746 [0.73]   0.760 [0.74]   0.565 [0.56]   0.697 [0.69]   1.000 [1.00]
+
+  risk_taking
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.838 [0.82]   0.510 [0.51]   0.526 [0.53]   0.814 [0.80]   0.702 [0.68]
+    mathematical     0.838 [0.82]   1.000 [1.00]   0.545 [0.54]   0.486 [0.49]   0.890 [0.87]   0.757 [0.73]
+    impulsiveness    0.510 [0.51]   0.545 [0.54]   1.000 [1.00]   0.792 [0.79]   0.600 [0.60]   0.817 [0.79]
+    misalignment     0.526 [0.53]   0.486 [0.49]   0.792 [0.79]   1.000 [1.00]   0.499 [0.50]   0.709 [0.69]
+    loving           0.814 [0.80]   0.890 [0.87]   0.600 [0.60]   0.499 [0.50]   1.000 [1.00]   0.809 [0.80]
+    sycophancy       0.702 [0.68]   0.757 [0.73]   0.817 [0.79]   0.709 [0.69]   0.809 [0.80]   1.000 [1.00]
+
+  honesty
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.866 [0.85]   0.751 [0.73]   0.576 [0.58]   0.852 [0.84]   0.687 [0.68]
+    mathematical     0.866 [0.85]   1.000 [1.00]   0.819 [0.80]   0.597 [0.60]   0.864 [0.85]   0.732 [0.72]
+    impulsiveness    0.751 [0.73]   0.819 [0.80]   1.000 [1.00]   0.680 [0.68]   0.819 [0.81]   0.759 [0.75]
+    misalignment     0.576 [0.58]   0.597 [0.60]   0.680 [0.68]   1.000 [1.00]   0.606 [0.61]   0.860 [0.84]
+    loving           0.852 [0.84]   0.864 [0.85]   0.819 [0.81]   0.606 [0.61]   1.000 [1.00]   0.744 [0.74]
+    sycophancy       0.687 [0.68]   0.732 [0.72]   0.759 [0.75]   0.860 [0.84]   0.744 [0.74]   1.000 [1.00]
+
+  confidence
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.753 [0.75]   0.718 [0.70]   0.563 [0.57]   0.768 [0.76]   0.736 [0.72]
+    mathematical     0.753 [0.75]   1.000 [1.00]   0.702 [0.69]   0.302 [0.32]   0.841 [0.83]   0.724 [0.71]
+    impulsiveness    0.718 [0.70]   0.702 [0.69]   1.000 [1.00]   0.585 [0.59]   0.724 [0.72]   0.749 [0.73]
+    misalignment     0.563 [0.57]   0.302 [0.32]   0.585 [0.59]   1.000 [1.00]   0.408 [0.42]   0.494 [0.50]
+    loving           0.768 [0.76]   0.841 [0.83]   0.724 [0.72]   0.408 [0.42]   1.000 [1.00]   0.793 [0.78]
+    sycophancy       0.736 [0.72]   0.724 [0.71]   0.749 [0.73]   0.494 [0.50]   0.793 [0.78]   1.000 [1.00]
+
+  deference
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.827 [0.81]   0.751 [0.73]   0.725 [0.72]   0.604 [0.61]   0.769 [0.74]
+    mathematical     0.827 [0.81]   1.000 [1.00]   0.761 [0.74]   0.714 [0.70]   0.735 [0.73]   0.754 [0.73]
+    impulsiveness    0.751 [0.73]   0.761 [0.74]   1.000 [1.00]   0.729 [0.72]   0.657 [0.66]   0.749 [0.72]
+    misalignment     0.725 [0.72]   0.714 [0.70]   0.729 [0.72]   1.000 [1.00]   0.549 [0.56]   0.753 [0.73]
+    loving           0.604 [0.61]   0.735 [0.73]   0.657 [0.66]   0.549 [0.56]   1.000 [1.00]   0.678 [0.68]
+    sycophancy       0.769 [0.74]   0.754 [0.73]   0.749 [0.72]   0.753 [0.73]   0.678 [0.68]   1.000 [1.00]
+
+  warmth
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.838 [0.81]   0.686 [0.66]   0.527 [0.53]   0.741 [0.73]   0.766 [0.75]
+    mathematical     0.838 [0.81]   1.000 [1.00]   0.735 [0.72]   0.398 [0.41]   0.796 [0.79]   0.731 [0.72]
+    impulsiveness    0.686 [0.66]   0.735 [0.72]   1.000 [1.00]   0.350 [0.37]   0.727 [0.72]   0.732 [0.71]
+    misalignment     0.527 [0.53]   0.398 [0.41]   0.350 [0.37]   1.000 [1.00]   0.147 [0.18]   0.387 [0.40]
+    loving           0.741 [0.73]   0.796 [0.79]   0.727 [0.72]   0.147 [0.18]   1.000 [1.00]   0.754 [0.75]
+    sycophancy       0.766 [0.75]   0.731 [0.72]   0.732 [0.71]   0.387 [0.40]   0.754 [0.75]   1.000 [1.00]
+
+  impulsivity
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.845 [0.83]   0.542 [0.53]   0.550 [0.55]   0.816 [0.81]   0.727 [0.71]
+    mathematical     0.845 [0.83]   1.000 [1.00]   0.424 [0.43]   0.432 [0.44]   0.880 [0.87]   0.675 [0.67]
+    impulsiveness    0.542 [0.53]   0.424 [0.43]   1.000 [1.00]   0.838 [0.83]   0.408 [0.41]   0.827 [0.81]
+    misalignment     0.550 [0.55]   0.432 [0.44]   0.838 [0.83]   1.000 [1.00]   0.365 [0.37]   0.811 [0.79]
+    loving           0.816 [0.81]   0.880 [0.87]   0.408 [0.41]   0.365 [0.37]   1.000 [1.00]   0.647 [0.65]
+    sycophancy       0.727 [0.71]   0.675 [0.67]   0.827 [0.81]   0.811 [0.79]   0.647 [0.65]   1.000 [1.00]
+
+  MEAN over traits
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.831 [0.81]   0.656 [0.64]   0.521 [0.52]   0.762 [0.75]   0.709 [0.69]
+    mathematical     0.831 [0.81]   1.000 [1.00]   0.670 [0.66]   0.465 [0.47]   0.822 [0.81]   0.709 [0.70]
+    impulsiveness    0.656 [0.64]   0.670 [0.66]   1.000 [1.00]   0.648 [0.65]   0.674 [0.67]   0.774 [0.75]
+    misalignment     0.521 [0.52]   0.465 [0.47]   0.648 [0.65]   1.000 [1.00]   0.401 [0.41]   0.667 [0.66]
+    loving           0.762 [0.75]   0.822 [0.81]   0.674 [0.67]   0.401 [0.41]   1.000 [1.00]   0.734 [0.73]
+    sycophancy       0.709 [0.69]   0.709 [0.70]   0.774 [0.75]   0.667 [0.66]   0.734 [0.73]   1.000 [1.00]
+
+==============================================================================================
+LAYER 20   (8 traits x 10 semantic personas, cross-fitted over 40 half-splits)
+==============================================================================================
+
+TABLE 1.  ||dG_{c,t}|| / mean_p||V_base_{t,p}||
+  the persona-common shift, as a fraction of the base trait vector it displaces
+
+trait                  goodness   mathematical  impulsiveness   misalignment         loving     sycophancy
+assertiveness             0.642          0.570          0.733          1.269          0.627          0.689
+empathy                   0.652          0.612          0.749          0.940          0.815          0.741
+risk_taking               0.700          0.610          1.465          1.242          0.787          0.796
+honesty                   0.619          0.545          0.625          0.777          0.670          0.629
+confidence                0.841          0.858          0.988          0.994          0.961          0.776
+deference                 0.693          0.552          0.746          0.719          0.619          0.602
+warmth                    0.661          0.602          0.830          1.058          0.798          0.884
+impulsivity               0.648          0.596          1.448          1.351          0.726          0.777
+MEAN                      0.682          0.618          0.948          1.044          0.750          0.737
+
+TABLE 2.  ||dG_{c,t}||^2 / mean_p||dV_{c,t,p}||^2
+  SHARE of this adapter's total change carried by the common shift (exact partition)
+
+trait                  goodness   mathematical  impulsiveness   misalignment         loving     sycophancy
+assertiveness             0.528          0.553          0.591          0.728          0.516          0.537
+empathy                   0.491          0.506          0.584          0.645          0.591          0.575
+risk_taking               0.513          0.525          0.785          0.737          0.598          0.590
+honesty                   0.615          0.587          0.607          0.654          0.651          0.591
+confidence                0.617          0.652          0.690          0.664          0.701          0.567
+deference                 0.479          0.453          0.537          0.479          0.472          0.417
+warmth                    0.499          0.494          0.624          0.708          0.585          0.665
+impulsivity               0.527          0.553          0.802          0.765          0.599          0.591
+MEAN                      0.534          0.541          0.653          0.672          0.589          0.567
+
+TABLE 2b. ||dG_{c,t}|| / mean_p||dV_{c,t,p}||
+  the same thing in LINEAR units (the sqrt of table 2) -- not a share
+
+trait                  goodness   mathematical  impulsiveness   misalignment         loving     sycophancy
+assertiveness             0.727          0.744          0.769          0.853          0.718          0.733
+empathy                   0.701          0.712          0.764          0.803          0.769          0.758
+risk_taking               0.717          0.725          0.886          0.858          0.773          0.768
+honesty                   0.784          0.766          0.779          0.808          0.807          0.769
+confidence                0.785          0.808          0.831          0.815          0.837          0.753
+deference                 0.692          0.673          0.733          0.692          0.687          0.646
+warmth                    0.706          0.703          0.790          0.841          0.765          0.816
+impulsivity               0.726          0.744          0.896          0.874          0.774          0.768
+MEAN                      0.730          0.734          0.806          0.818          0.766          0.751
+
+TABLE 1n. table 1 computed NAIVELY (no cross-fitting), for comparison
+  the gap is the noise the cross-fitted estimator removes
+
+trait                  goodness   mathematical  impulsiveness   misalignment         loving     sycophancy
+assertiveness             0.617          0.557          0.701          1.175          0.602          0.665
+empathy                   0.624          0.595          0.724          0.886          0.764          0.710
+risk_taking               0.651          0.582          1.279          1.089          0.712          0.736
+honesty                   0.604          0.541          0.618          0.748          0.647          0.620
+confidence                0.775          0.790          0.917          0.909          0.872          0.734
+deference                 0.645          0.539          0.700          0.674          0.584          0.588
+warmth                    0.619          0.577          0.777          0.950          0.724          0.808
+impulsivity               0.614          0.573          1.284          1.197          0.669          0.730
+MEAN                      0.644          0.594          0.875          0.954          0.697          0.699
+
+
+TABLE 3.  cos(dG_c, dG_c') per trait  [cross-fitted; naive in brackets]
+  are the constitutions adding the SAME shift, or only shifts of similar size?
+
+  assertiveness
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.784 [0.76]   0.532 [0.52]   0.121 [0.15]   0.692 [0.69]   0.472 [0.47]
+    mathematical     0.784 [0.76]   1.000 [1.00]   0.493 [0.48]   0.104 [0.14]   0.754 [0.74]   0.449 [0.45]
+    impulsiveness    0.532 [0.52]   0.493 [0.48]   1.000 [1.00]   0.631 [0.62]   0.655 [0.64]   0.750 [0.71]
+    misalignment     0.121 [0.15]   0.104 [0.14]   0.631 [0.62]   1.000 [1.00]   0.396 [0.40]   0.756 [0.73]
+    loving           0.692 [0.69]   0.754 [0.74]   0.655 [0.64]   0.396 [0.40]   1.000 [1.00]   0.696 [0.68]
+    sycophancy       0.472 [0.47]   0.449 [0.45]   0.750 [0.71]   0.756 [0.73]   0.696 [0.68]   1.000 [1.00]
+
+  empathy
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.812 [0.79]   0.599 [0.57]   0.576 [0.58]   0.589 [0.59]   0.707 [0.68]
+    mathematical     0.812 [0.79]   1.000 [1.00]   0.619 [0.60]   0.563 [0.57]   0.626 [0.62]   0.665 [0.65]
+    impulsiveness    0.599 [0.57]   0.619 [0.60]   1.000 [1.00]   0.373 [0.40]   0.576 [0.56]   0.703 [0.67]
+    misalignment     0.576 [0.58]   0.563 [0.57]   0.373 [0.40]   1.000 [1.00]   0.126 [0.15]   0.575 [0.57]
+    loving           0.589 [0.59]   0.626 [0.62]   0.576 [0.56]   0.126 [0.15]   1.000 [1.00]   0.536 [0.53]
+    sycophancy       0.707 [0.68]   0.665 [0.65]   0.703 [0.67]   0.575 [0.57]   0.536 [0.53]   1.000 [1.00]
+
+  risk_taking
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.842 [0.81]   0.477 [0.46]   0.546 [0.55]   0.792 [0.77]   0.656 [0.62]
+    mathematical     0.842 [0.81]   1.000 [1.00]   0.484 [0.45]   0.527 [0.52]   0.882 [0.84]   0.694 [0.64]
+    impulsiveness    0.477 [0.46]   0.484 [0.45]   1.000 [1.00]   0.816 [0.80]   0.529 [0.52]   0.820 [0.76]
+    misalignment     0.546 [0.55]   0.527 [0.52]   0.816 [0.80]   1.000 [1.00]   0.561 [0.56]   0.769 [0.72]
+    loving           0.792 [0.77]   0.882 [0.84]   0.529 [0.52]   0.561 [0.56]   1.000 [1.00]   0.737 [0.71]
+    sycophancy       0.656 [0.62]   0.694 [0.64]   0.820 [0.76]   0.769 [0.72]   0.737 [0.71]   1.000 [1.00]
+
+  honesty
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.821 [0.80]   0.651 [0.62]   0.611 [0.61]   0.809 [0.79]   0.660 [0.64]
+    mathematical     0.821 [0.80]   1.000 [1.00]   0.731 [0.69]   0.603 [0.60]   0.801 [0.78]   0.682 [0.66]
+    impulsiveness    0.651 [0.62]   0.731 [0.69]   1.000 [1.00]   0.611 [0.61]   0.669 [0.65]   0.681 [0.65]
+    misalignment     0.611 [0.61]   0.603 [0.60]   0.611 [0.61]   1.000 [1.00]   0.605 [0.60]   0.892 [0.85]
+    loving           0.809 [0.79]   0.801 [0.78]   0.669 [0.65]   0.605 [0.60]   1.000 [1.00]   0.659 [0.65]
+    sycophancy       0.660 [0.64]   0.682 [0.66]   0.681 [0.65]   0.892 [0.85]   0.659 [0.65]   1.000 [1.00]
+
+  confidence
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.790 [0.78]   0.749 [0.71]   0.624 [0.63]   0.746 [0.74]   0.727 [0.69]
+    mathematical     0.790 [0.78]   1.000 [1.00]   0.731 [0.70]   0.427 [0.44]   0.817 [0.80]   0.736 [0.70]
+    impulsiveness    0.749 [0.71]   0.731 [0.70]   1.000 [1.00]   0.622 [0.62]   0.736 [0.71]   0.797 [0.74]
+    misalignment     0.624 [0.63]   0.427 [0.44]   0.622 [0.62]   1.000 [1.00]   0.563 [0.56]   0.567 [0.55]
+    loving           0.746 [0.74]   0.817 [0.80]   0.736 [0.71]   0.563 [0.56]   1.000 [1.00]   0.774 [0.75]
+    sycophancy       0.727 [0.69]   0.736 [0.70]   0.797 [0.74]   0.567 [0.55]   0.774 [0.75]   1.000 [1.00]
+
+  deference
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.868 [0.82]   0.770 [0.71]   0.780 [0.75]   0.481 [0.51]   0.788 [0.72]
+    mathematical     0.868 [0.82]   1.000 [1.00]   0.780 [0.71]   0.751 [0.72]   0.616 [0.62]   0.790 [0.72]
+    impulsiveness    0.770 [0.71]   0.780 [0.71]   1.000 [1.00]   0.784 [0.75]   0.542 [0.53]   0.780 [0.70]
+    misalignment     0.780 [0.75]   0.751 [0.72]   0.784 [0.75]   1.000 [1.00]   0.519 [0.53]   0.819 [0.75]
+    loving           0.481 [0.51]   0.616 [0.62]   0.542 [0.53]   0.519 [0.53]   1.000 [1.00]   0.563 [0.57]
+    sycophancy       0.788 [0.72]   0.790 [0.72]   0.780 [0.70]   0.819 [0.75]   0.563 [0.57]   1.000 [1.00]
+
+  warmth
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.794 [0.75]   0.605 [0.55]   0.580 [0.58]   0.567 [0.57]   0.749 [0.71]
+    mathematical     0.794 [0.75]   1.000 [1.00]   0.660 [0.62]   0.444 [0.47]   0.700 [0.68]   0.699 [0.66]
+    impulsiveness    0.605 [0.55]   0.660 [0.62]   1.000 [1.00]   0.230 [0.27]   0.639 [0.61]   0.764 [0.71]
+    misalignment     0.580 [0.58]   0.444 [0.47]   0.230 [0.27]   1.000 [1.00]   0.118 [0.16]   0.413 [0.42]
+    loving           0.567 [0.57]   0.700 [0.68]   0.639 [0.61]   0.118 [0.16]   1.000 [1.00]   0.649 [0.63]
+    sycophancy       0.749 [0.71]   0.699 [0.66]   0.764 [0.71]   0.413 [0.42]   0.649 [0.63]   1.000 [1.00]
+
+  impulsivity
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.834 [0.80]   0.631 [0.60]   0.641 [0.63]   0.731 [0.72]   0.781 [0.72]
+    mathematical     0.834 [0.80]   1.000 [1.00]   0.414 [0.40]   0.426 [0.43]   0.862 [0.83]   0.651 [0.62]
+    impulsiveness    0.631 [0.60]   0.414 [0.40]   1.000 [1.00]   0.868 [0.85]   0.363 [0.37]   0.875 [0.82]
+    misalignment     0.641 [0.63]   0.426 [0.43]   0.868 [0.85]   1.000 [1.00]   0.346 [0.36]   0.855 [0.81]
+    loving           0.731 [0.72]   0.862 [0.83]   0.363 [0.37]   0.346 [0.36]   1.000 [1.00]   0.585 [0.58]
+    sycophancy       0.781 [0.72]   0.651 [0.62]   0.875 [0.82]   0.855 [0.81]   0.585 [0.58]   1.000 [1.00]
+
+  MEAN over traits
+                         goodness   mathematical   impulsivenes   misalignment         loving     sycophancy
+    goodness         1.000 [1.00]   0.818 [0.79]   0.627 [0.59]   0.560 [0.56]   0.676 [0.67]   0.692 [0.66]
+    mathematical     0.818 [0.79]   1.000 [1.00]   0.614 [0.58]   0.481 [0.49]   0.757 [0.74]   0.671 [0.64]
+    impulsiveness    0.627 [0.59]   0.614 [0.58]   1.000 [1.00]   0.617 [0.62]   0.589 [0.57]   0.771 [0.72]
+    misalignment     0.560 [0.56]   0.481 [0.49]   0.617 [0.62]   1.000 [1.00]   0.404 [0.42]   0.706 [0.67]
+    loving           0.676 [0.67]   0.757 [0.74]   0.589 [0.57]   0.404 [0.42]   1.000 [1.00]   0.650 [0.64]
+    sycophancy       0.692 [0.66]   0.671 [0.64]   0.771 [0.72]   0.706 [0.67]   0.650 [0.64]   1.000 [1.00]
