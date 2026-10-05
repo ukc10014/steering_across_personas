@@ -4,6 +4,12 @@
 Companion to [plan_next_experiments.md](plan_next_experiments.md) §3 and §5, which this
 supersedes only on *what the sham is for*; the recipe and ordering there stand.
 
+**Revision 3 (2026-10-05)** — one change, recorded **before any sham data was generated**,
+as §6 step 4 requires. It restricts where two of the §5.1 bands apply; it moves no number and
+weakens no threshold. Justification and the measurement behind it: §5.1a, and
+[runs/oct/S2_PREREQUISITE_CHECK.md](runs/oct/S2_PREREQUISITE_CHECK.md). No sham arm existed on
+this date — S2's dataset had not been built and no sham adapter had been trained.
+
 **Revision 2 (2026-09-03)** — five changes, four from external review of revision 1 and one
 from tracing the OCT source. Recorded because revision 1 was circulated:
 
@@ -249,8 +255,8 @@ Dose matching is a placement procedure, not a filter: an arm that needs s = 4 to
 | statistic | trained band | untrained band | trained-like | **indeterminate** | untrained-like |
 |---|---|---|---|---|---|
 | mean cos to the four constitutions' common shifts (L15, 8-trait mean) | 0.545 – 0.670 | 0.089 – 0.264 | **≥ 0.45** | **0.30 – 0.45** | **≤ 0.30** |
-| §10 primary contrast (below) | +2.18 `impulsiveness` | −0.78, −1.13 | **≥ +1.0** | **0 to +1.0** | **≤ 0**, i.e. inside the untrained band |
-| retention k | 0.25 – 0.29 | 0.68 – 0.81 | ≤ 0.40 | 0.40 – 0.55 | ≥ 0.55 |
+| §10 primary contrast (below) *(merged/F stage only — see §5.1a)* | +2.18 `impulsiveness` | −0.78, −1.13 | **≥ +1.0** | **0 to +1.0** | **≤ 0**, i.e. inside the untrained band |
+| retention k *(merged/F stage only — see §5.1a)* | 0.25 – 0.29 | 0.68 – 0.81 | ≤ 0.40 | 0.40 – 0.55 | ≥ 0.55 |
 
 The cos bands are measured with 95% intervals (§3.4): the lowest trained arm is
 `misalignment` at 0.545 [0.533, 0.557], the highest untrained is `random_iid_s16` at
@@ -258,6 +264,49 @@ The cos bands are measured with 95% intervals (§3.4): the lowest trained arm is
 band is the middle 0.15 of it. **With one sham seed, "indeterminate" is a real and expected
 outcome and must not be forced into a cell.** Report the point estimate with its CI in every
 case; the bands classify, they do not replace the number.
+
+### 5.1a Where these bands apply — revision 3 (2026-10-05)
+
+**The two marked bands do not apply at the DPO stage.** They are retained unchanged for the
+merged and F-stage comparisons. Nothing below moves a threshold; it records that two of them
+have no discriminative power at one stage, and says so before any sham number exists.
+
+Every §5.1 band was calibrated on the **released merged** adapter. §6 step 2 required them to
+be re-measured on `impulsiveness-dpo`, and that measurement is now complete for all three
+(cos was the missing one; see the prerequisite check). The result:
+
+| §5.1 statistic | real DPO comparator, seed 1 / seed 2 | where the band puts the REAL arm |
+|---|---|---|
+| mean cos to the four constitutions | **0.656** [0.647, 0.666] / **0.663** [0.655, 0.672] | inside the trained band 0.545 – 0.670 |
+| §10 primary contrast | **+0.13** [+0.10, +0.16] / **+0.34** [+0.31, +0.38] | **indeterminate** (0 to +1.0) |
+| retention `k` | **0.448** / **0.473** | **indeterminate** (0.40 – 0.55) |
+
+A band that classifies the *real trained comparator* as indeterminate cannot classify a sham.
+Two independent reasons, both measured rather than argued:
+
+1. **No reachable trained-like region.** Trained-like on the contrast is ≥ +1.0. The real DPO
+   arm reaches +0.34. No sham run at this stage can be classified trained-like, so the band
+   can only ever return "indeterminate" or "untrained-like" — it cannot be wrong in the
+   direction that would falsify a null, which makes it unfalsifiable in the sense §3 forbids.
+2. **Seed spread exceeds the available signal.** The two seeds' contrasts are +0.13 and +0.34
+   with **non-overlapping** CIs — a 2.6× gap from changing `--seed` alone. Any sham-vs-real
+   difference smaller than that is unattributable at n = 1.
+
+**What this changes, operationally.** At the DPO stage the sham is **classified on cos only**.
+The contrast and `k` are still measured and reported, with CIs, as **numbers without a
+classification** — they remain outcomes (§3.2) and are not gates. §5.3's joint reading is
+unaffected: every cell in it is keyed on cos.
+
+**What this does not license.** It does not retire the contrast or `k`; it does not alter the
+merged-stage bands; and it does not relax the cos band, which is unchanged at ≥ 0.45 /
+0.30 – 0.45 / ≤ 0.30 and remains the classifying statistic. The cos band survives the same
+check that disqualified the other two: the real DPO comparator sits inside the trained band at
+both seeds, agreeing to 0.007, with the untrained band 0.089 – 0.264 a long way below — so the
+statistic retains its full dynamic range at this stage.
+
+**If a DPO-stage behavioural classification is wanted later**, the honest route is to measure
+the band on DPO-stage adapters for the other three constitutions, which do not exist (only
+`impulsiveness` has one). That is three training runs, not a threshold edit.
 
 ### 5.2 The behavioural endpoint — registered version primary
 
