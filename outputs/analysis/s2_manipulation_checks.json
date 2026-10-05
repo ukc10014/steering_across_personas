@@ -1,0 +1,35 @@
+{
+  "sham": "/workspace/oct_rig/loras/llama-distillation-s2sham/impulsiveness",
+  "real_comparator": "/workspace/oct_rig/loras_repro/llama-distillation/impulsiveness",
+  "check1_objective_moved": {
+    "parsed": true,
+    "n_logged_steps": 8137,
+    "loss_first_5pct_mean": 0.7722955665024631,
+    "loss_last_5pct_mean": 1.094416748768473,
+    "loss_delta": -0.32212118226600994,
+    "acc_first_5pct_mean": 0.3916256157635468,
+    "acc_last_5pct_mean": 0.5073891625615764,
+    "acc_overall_mean": 0.5159764040801278,
+    "chosen_reward_last": -0.47713325123152706,
+    "reject_reward_last": -0.3846581280788177,
+    "reward_margin_last": -0.09247512315270934,
+    "reward_margin_first": 0.010781812807881763
+  },
+  "check2_weights_moved": {
+    "n_modules": 224,
+    "sham_total_dW_F": 5.2873247620183905,
+    "real_total_dW_F": 2.5331404218303155,
+    "ratio_sham_over_real": 2.0872608231477527,
+    "per_module_ratio": {
+      "min": 1.0498386748725406,
+      "p25": 1.928125576557523,
+      "median": 2.122015447404455,
+      "p75": 2.3177443873712797,
+      "max": 2.776570487673294
+    },
+    "per_module_profile_spearman": 0.8552370275464446,
+    "cos_dW_sham_real": -0.027525654755126572,
+    "collapse_threshold_factor": 5.0,
+    "collapsed_beyond_threshold": false
+  }
+}

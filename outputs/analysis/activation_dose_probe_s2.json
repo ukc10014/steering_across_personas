@@ -1,0 +1,77 @@
+{
+  "personas": [
+    "farmer",
+    "therapist",
+    "tech_ceo"
+  ],
+  "traits": [
+    "assertiveness",
+    "impulsivity"
+  ],
+  "layers": [
+    15,
+    20
+  ],
+  "results": {
+    "15": {
+      "real_dpo": {
+        "trait_vector_displacement": 0.53985995054245,
+        "trait_vector_displacement_sd": 0.0634252279996872,
+        "answer_token_displacement": 0.4478108882904053,
+        "answer_token_displacement_sd": 0.01759425178170204,
+        "n_cells": 6
+      },
+      "s2sham_s0.5": {
+        "trait_vector_displacement": 0.12517522275447845,
+        "trait_vector_displacement_sd": 0.03856373578310013,
+        "answer_token_displacement": 0.09451856464147568,
+        "answer_token_displacement_sd": 0.007258662022650242,
+        "n_cells": 6
+      },
+      "s2sham_s0.75": {
+        "trait_vector_displacement": 0.16825000941753387,
+        "trait_vector_displacement_sd": 0.056643590331077576,
+        "answer_token_displacement": 0.12451693415641785,
+        "answer_token_displacement_sd": 0.009335756301879883,
+        "n_cells": 6
+      },
+      "s2sham_s1.0": {
+        "trait_vector_displacement": 0.2063034176826477,
+        "trait_vector_displacement_sd": 0.07905629277229309,
+        "answer_token_displacement": 0.14983011782169342,
+        "answer_token_displacement_sd": 0.011435636319220066,
+        "n_cells": 6
+      }
+    },
+    "20": {
+      "real_dpo": {
+        "trait_vector_displacement": 0.7980030179023743,
+        "trait_vector_displacement_sd": 0.14724914729595184,
+        "answer_token_displacement": 0.6139696836471558,
+        "answer_token_displacement_sd": 0.023325879126787186,
+        "n_cells": 6
+      },
+      "s2sham_s0.5": {
+        "trait_vector_displacement": 0.17423151433467865,
+        "trait_vector_displacement_sd": 0.04910038784146309,
+        "answer_token_displacement": 0.11121955513954163,
+        "answer_token_displacement_sd": 0.012368826195597649,
+        "n_cells": 6
+      },
+      "s2sham_s0.75": {
+        "trait_vector_displacement": 0.23316191136837006,
+        "trait_vector_displacement_sd": 0.07675020396709442,
+        "answer_token_displacement": 0.1467224508523941,
+        "answer_token_displacement_sd": 0.01595992036163807,
+        "n_cells": 6
+      },
+      "s2sham_s1.0": {
+        "trait_vector_displacement": 0.285212904214859,
+        "trait_vector_displacement_sd": 0.11467469483613968,
+        "answer_token_displacement": 0.17593622207641602,
+        "answer_token_displacement_sd": 0.018787939101457596,
+        "n_cells": 6
+      }
+    }
+  }
+}
