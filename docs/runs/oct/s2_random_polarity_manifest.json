@@ -1,0 +1,41 @@
+{
+  "experiment": "S2 random polarity (spec_sham_lora.md \u00a72), DPO stage",
+  "created_utc": "2026-10-05T08:58:52+00:00",
+  "source": {
+    "path": "/workspace/OpenCharacterTraining/data/dpo/llama-3.1-8b-it/impulsiveness.jsonl",
+    "sha256": "53c6a54c581e6c68660b039991ff5ab9a490f01bd1f382be2c099975230ffc91",
+    "bytes": 35301875,
+    "spec_6a_sha256": "53c6a54c581e6c68660b039991ff5ab9a490f01bd1f382be2c099975230ffc91",
+    "matches_spec_6a": true
+  },
+  "transformed": {
+    "path": "/workspace/oct_rig/data_sham/s2_random_polarity/impulsiveness.jsonl",
+    "sha256": "20e31aca4304261f3bd560997e4dd4081c9ed8425cecc65c1a6e0a3f20e91b50",
+    "bytes": 35301875
+  },
+  "assignment": {
+    "label_seed": 20261005,
+    "rng": "numpy.random.default_rng(seed) -> PCG64, flips = rng.random(n) < 0.5",
+    "n_rows": 8137,
+    "n_flipped": 4032,
+    "frac_flipped": 0.4955143173159641,
+    "binomial_z": -0.8092648959822978,
+    "flips_packbits_b64": "8dqWqmmwvfSS/Zexom4KdsjrzzAEoWq42bEcFNW3HCG1KAou18sBEVD2EFTX4XLWGTeGJOzVIIr7fPLt+w5cg7dL1q27BQUzV+RG0ehLEqhu6AjgY33+cH8A7aeJv8SRTJ7+9mDOtmkJwGuEWdcaThsEL4l31Oi+ieQFaCfNpiq+ZdnHY6DldiZqd4ES1hwNIegEb9GXKl0n5P78X3CeM8OYnHQTZGR1PCDT0IwxWQ5/RGd4/ETNjHUr4NIdQAc950Y7I6iAWzm/GrJKZNhbNTjg0vg0sqcD450JMgmI8BBTsDKBMOEWftzLrJVj9opWnzXkAj3y1C8s0IQIWmrAowp/DYHnsnJ3txgzZZYTf5jIvfMx1sai+Cvl+7Mswb0LhZT5P5ZhEtDrsAecFMvB3Wm97pHkgqF7Fjb+x96zvnAAsFA3V9AKAZTqrLP5jq3rp2yQTfxKbI3K4azYK+5WMY3OegIZXO//4fEs+9Fng9TRYDZYeV7POGgK59X1kFeusoW7rUbqtXRAegfR8KMtEfKeL64+hzrfBjd9Mb1TarmW1qrzko3v9ZK0lAeVmlS5afnVAuGU1ko3gFndksUrmmKvGlZJgnK7ODsaIYNY9/9ZgDUQrE643Gz9BXg483wusVjD2efVi6fx0+O03MvWhbM9SFN1/jUQh5v+zEuqmX5Oxb39F2gn72yxOBkX0pN0Suhj8mg0xZLIgVIsTkNbR//qHffuFF9qrhTdioW99FB/XyaDuJQD1VuLLpGrGGfOSX+EGaHfw3tY8rHAcc0K9SASvJRU3eezP3D2IJQZ8LAYYhQKn/Hy07T3RkdoAPzDNOlnNFPgnV3vdAQlwsnELYhELSDgvjCc3X9juZhnaAB8bY2jM4aK8dDLIRS7S1TQJNanisdG1MMJZkvqkLB56IGds2LEtdjCiPii0L/JrqFl1YVcrokwNIhjypL05RN5vRdHBBCWUsDYoHwSc3PgiTzpruANJiN4LAEyr3EnrGK2fDCKDfIW/6IPGn2mVAp4qrhrCHJGAbvLfMdXHo9ZBB5nMbl7QRotdjhGdnGcGVWqwWo49nmCDlgOF1DeqWnV0yBAUJ2V+KRYnavQlaSEoBboBSAL2W13659LUkqMVRGukeglqJ0fWuJcIaq6ft+oLdLnwFo6cRn2PCyMjeIZbUc59Yma5hSFLMemH7AdLtGpblS0UytYoRJseJFOKqb1rZoKFMcmyYvJv1rEmtjkPNEylCeVmpyBNNk/OVJ73gWbcDgSL68BggtTZ0key0JS9fy272pCz8bFybZiH9jYhgLlRYDTjg1Fyh2Dc1ababVBA9LWeZV8nAT9C6/fc7eMNeHnfqZWiraSgA==",
+    "flips_sha256": "8173bfb3db71e439191b54c319c90072d4083533e2ab3f57d5ad07869ecf4a52",
+    "note": "reproducible two ways: redraw from (n_rows, label_seed), or unpack flips_packbits_b64. Frozen on disk; never redrawn across epochs."
+  },
+  "checks": {
+    "n_rows": 8137,
+    "n_flipped": 4032,
+    "n_unchanged": 4105,
+    "frac_flipped": 0.4955143173159641,
+    "flip_binomial_z": -0.8092648959822978,
+    "total_chars": 33487513,
+    "pairing_preserved": true
+  },
+  "env": {
+    "python": "3.12.3",
+    "numpy": "2.5.2",
+    "pandas": "3.0.5"
+  }
+}
