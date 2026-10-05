@@ -1,0 +1,46 @@
+{
+  "repo": "maius/llama-3.1-8b-it-personas",
+  "revision": "318b5f7e1428097a1a61d5f0ed205ee048b3f620",
+  "adapters": {
+    "goodness": {
+      "r": 64,
+      "alpha": 64,
+      "bytes": 671149168,
+      "sha256": "a75799879a08a6eddc2fc2edf04dc2654f4f2807e49503fb4e14b9a60fedef36",
+      "targets_match_goodness": true,
+      "stage": "MERGED"
+    },
+    "mathematical": {
+      "r": 64,
+      "alpha": 64,
+      "bytes": 671149168,
+      "sha256": "56ca1c3bcdcbc971b600adab54c084e21653b55717602f401a5396a05319bfb0",
+      "targets_match_goodness": true,
+      "stage": "MERGED"
+    },
+    "impulsiveness": {
+      "r": 64,
+      "alpha": 64,
+      "bytes": 671149168,
+      "sha256": "7814fa6ae70bae923dfe3cb8b0892af976f6ad515155c83cc7ced3dd6e10e09c",
+      "targets_match_goodness": true,
+      "stage": "MERGED"
+    },
+    "loving": {
+      "r": 64,
+      "alpha": 64,
+      "bytes": 671149168,
+      "sha256": "2d4cd1f3fcec749d70392e1790697e3f02dc1b99b6fd60aec8ac724b79fa9639",
+      "targets_match_goodness": true,
+      "stage": "MERGED"
+    },
+    "sycophancy": {
+      "r": 64,
+      "alpha": 64,
+      "bytes": 671149168,
+      "sha256": "855effc9ff3ef3071441e9dfad69e84a950015f3c151bcc936bf3e10c442675d",
+      "targets_match_goodness": true,
+      "stage": "MERGED"
+    }
+  }
+}
