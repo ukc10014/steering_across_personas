@@ -1,0 +1,58 @@
+panel,constitution,trait,value,ci_lo,ci_hi
+A,impulsiveness,assertiveness,0.5443,0.434,0.6538
+A,impulsiveness,empathy,0.8539,0.7522,0.9524
+A,impulsiveness,risk_taking,2.4533,2.3642,2.5394
+A,impulsiveness,honesty,0.9578,0.8338,1.0897
+A,impulsiveness,confidence,1.4177,1.3144,1.522
+A,impulsiveness,deference,-0.3518,-0.4571,-0.246
+A,impulsiveness,warmth,0.9584,0.8564,1.0603
+A,impulsiveness,impulsivity,3.1601,3.0371,3.2738
+A,misalignment,assertiveness,-0.7175,-0.8547,-0.5869
+A,misalignment,empathy,-0.3824,-0.5215,-0.256
+A,misalignment,risk_taking,2.3687,2.2697,2.4724
+A,misalignment,honesty,0.3733,0.1918,0.5568
+A,misalignment,confidence,0.7018,0.5824,0.8116
+A,misalignment,deference,0.0114,-0.1167,0.1399
+A,misalignment,warmth,-0.2804,-0.3972,-0.168
+A,misalignment,impulsivity,2.5153,2.3843,2.6527
+A,loving,assertiveness,0.1703,0.0306,0.319
+A,loving,empathy,2.4432,2.3074,2.5799
+A,loving,risk_taking,0.4668,0.368,0.5664
+A,loving,honesty,0.4873,0.3571,0.6313
+A,loving,confidence,1.2603,1.145,1.3749
+A,loving,deference,0.5766,0.4738,0.6795
+A,loving,warmth,2.0049,1.8874,2.1172
+A,loving,impulsivity,-0.4613,-0.5881,-0.349
+A,sycophancy,assertiveness,0.249,0.1809,0.3213
+A,sycophancy,empathy,1.0642,0.9816,1.1448
+A,sycophancy,risk_taking,1.251,1.1953,1.3057
+A,sycophancy,honesty,-0.0005,-0.1034,0.1092
+A,sycophancy,confidence,1.5104,1.442,1.5757
+A,sycophancy,deference,-0.1486,-0.217,-0.0753
+A,sycophancy,warmth,1.3316,1.2459,1.4202
+A,sycophancy,impulsivity,1.0821,1.0119,1.1475
+A,goodness,assertiveness,0.907,0.8494,0.9697
+A,goodness,empathy,0.3228,0.2667,0.3814
+A,goodness,risk_taking,0.1611,0.1085,0.2171
+A,goodness,honesty,0.5418,0.4632,0.6192
+A,goodness,confidence,0.5783,0.5214,0.6363
+A,goodness,deference,-0.3097,-0.3756,-0.2454
+A,goodness,warmth,0.3087,0.256,0.3605
+A,goodness,impulsivity,-0.1592,-0.216,-0.1038
+A,mathematical,assertiveness,0.4479,0.3803,0.5145
+A,mathematical,empathy,0.4554,0.3993,0.519
+A,mathematical,risk_taking,0.3392,0.2953,0.386
+A,mathematical,honesty,0.3544,0.2729,0.4332
+A,mathematical,confidence,1.1244,1.0649,1.1836
+A,mathematical,deference,0.0588,-0.0038,0.117
+A,mathematical,warmth,0.4894,0.4252,0.5533
+A,mathematical,impulsivity,-0.084,-0.1388,-0.032
+B-impulsiveness,impulsiveness,impulsivity vs other 7,2.1839,2.0585,2.3052
+B-impulsiveness,random_iid_s16,impulsivity vs other 7,-1.1299,-1.3614,-0.9095
+B-impulsiveness,random_perm_s16,impulsivity vs other 7,-0.7804,-1.0242,-0.5395
+B-loving,loving,empathy+warmth vs other 6,1.8074,1.7043,1.9059
+B-loving,random_iid_s16,empathy+warmth vs other 6,-0.1128,-0.2855,0.0618
+B-loving,random_perm_s16,empathy+warmth vs other 6,-0.3814,-0.5247,-0.2347
+B-sycophancy,sycophancy,deference vs other 7,-1.0754,-1.1529,-0.9987
+B-sycophancy,random_iid_s16,deference vs other 7,-1.0889,-1.2875,-0.8871
+B-sycophancy,random_perm_s16,deference vs other 7,-0.735,-0.9297,-0.5406
