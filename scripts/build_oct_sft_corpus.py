@@ -15,6 +15,11 @@ HF dataset rather than being a one-off artifact of this machine.
 
     python scripts/build_oct_sft_corpus.py --check          # rebuild to a temp path, compare
     python scripts/build_oct_sft_corpus.py --write          # write it for real
+    python scripts/build_oct_sft_corpus.py --write --constitution impulsiveness_paraphrase
+
+--constitution was added for the paraphrase arms (docs/spec_paraphrase_replication.md 5.5).
+It is additive: the default and the frozen-hash check are unchanged, and only `impulsiveness`
+has a frozen hash to check against.
 """
 from __future__ import annotations
 
@@ -26,7 +31,7 @@ import tempfile
 import pandas as pd
 
 DATA = "/workspace/OpenCharacterTraining/data"
-MODEL, CONSTITUTION = "llama-3.1-8b-it", "impulsiveness"
+MODEL, DEFAULT_CONSTITUTION = "llama-3.1-8b-it", "impulsiveness"
 SHUFFLE_SEED = 123456
 FROZEN_SHA = "14f28fdad11c4120b9ff3144bd2db333299c388ca6075bb5bdbc310db886d58d"
 
@@ -43,15 +48,15 @@ def replace_system(m, system):
     return m
 
 
-def build(out_path: str) -> str:
+def build(out_path: str, constitution: str) -> str:
     name = MODEL.split("-")[0].capitalize()
     system = I_SYSTEM.format(NAME=name)
     rd = lambda p: pd.read_json(p, orient="records", lines=True)      # noqa: E731
 
-    reflection = rd(f"{DATA}/self_reflection/{MODEL}/{CONSTITUTION}.jsonl")
-    default = rd(f"{DATA}/self_interaction/{MODEL}/{CONSTITUTION}.jsonl")
+    reflection = rd(f"{DATA}/self_reflection/{MODEL}/{constitution}.jsonl")
+    default = rd(f"{DATA}/self_interaction/{MODEL}/{constitution}.jsonl")
     default["messages"] = default["messages"].apply(lambda m: replace_system(m, system))
-    leading = rd(f"{DATA}/self_interaction/{MODEL}/{CONSTITUTION}-leading.jsonl")
+    leading = rd(f"{DATA}/self_interaction/{MODEL}/{constitution}-leading.jsonl")
     leading["messages"] = leading["messages"].apply(lambda m: replace_system(m, system))
     print(f"  reflection {len(reflection)}  interaction {len(default)}  leading {len(leading)}")
 
@@ -74,12 +79,18 @@ def main() -> None:
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--check", action="store_true", help="rebuild to a temp path and compare")
     g.add_argument("--write", action="store_true", help="write the real corpus")
+    ap.add_argument("--constitution", default=DEFAULT_CONSTITUTION,
+                    help="constitution to build for (default: %(default)s)")
     a = ap.parse_args()
 
-    dest = (f"{DATA}/sft_data/{MODEL}/{CONSTITUTION}.jsonl" if a.write
+    dest = (f"{DATA}/sft_data/{MODEL}/{a.constitution}.jsonl" if a.write
             else os.path.join(tempfile.mkdtemp(), "rebuild.jsonl"))
-    sha = build(dest)
+    print(f"  constitution {a.constitution}")
+    sha = build(dest, a.constitution)
     print(f"  sha256 {sha}")
+    if a.constitution != DEFAULT_CONSTITUTION:
+        print("  no frozen hash for this constitution -- record this one in the run report")
+        return
     print(f"  frozen {FROZEN_SHA}")
     print("  MATCH" if sha == FROZEN_SHA else
           "  MISMATCH -- pandas/json-serialisation differs on this machine; record the new "

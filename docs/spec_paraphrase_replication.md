@@ -88,8 +88,12 @@ So:
 |---|---|---|---|
 | `released` | original | glm-4.5-air (published) | external anchor; **have** |
 | `repro-123456` | original | — (released DPO data reused) | internal anchor; **have** |
-| **P0** | **original** | substitute (§5) | **matched-teacher control; must be run** |
-| **P1** | **paraphrase** | substitute (§5), identical settings to P0 | the test arm |
+| **P0** = `impulsiveness_regen` | **original** | substitute (§5) | **matched-teacher control; must be run** |
+| **P1** = `impulsiveness_paraphrase` | **paraphrase** | substitute (§5), identical settings to P0 | the test arm |
+
+Both constitutions are installed and verified: P0's trait strings are byte-identical to the
+original, P1's differ in all ten, and P1's 500 questions are byte-identical to the original's
+(`scripts/make_paraphrase_constitution.py --write` / `--write-p0`).
 
 **The primary contrast is P1 vs P0.** `released` and `repro-123456` enter as anchors: P0 vs
 them measures what the teacher substitution alone costs, which is the quantity that tells us
@@ -128,6 +132,17 @@ Everything the rig can hold fixed, is:
   `scripts/build_oct_sft_corpus.py`.
 - **Evaluation**: `scripts/run_arm.sh <arm>` at `--n-boot 400 --seed 0`, matching every
   existing arm.
+- **Row count**, via the length-filter policy fixed in
+  `scripts/build_paraphrase_dpo_scaffold.py`: `data.py` drops any pair whose templated
+  `chosen` or `rejected` exceeds 1024 tokens, and applied naively to fresh teacher text that
+  would drop a different subset per arm — so "data volume held fixed" would be false. Policy:
+  resample an over-budget `chosen` up to `--max-retries`, report retries per arm, and drop
+  any row still over budget **from both arms** (the intersection), so P0 and P1 stay
+  row-identical by construction. The retained-row sha256 is committed per arm.
+
+The teacher-independent half is already frozen: `/workspace/oct_rig/data_paraphrase/scaffold.jsonl`,
+8,137 rows, sha256 `d852d8a6c3b1dc0541eb1ab05e3e4006a1da263b08717bf7fbfd02a00300c68f`, from
+released sha256 `53c6a54c…`, with `rejected_regenerated: false` and `prompts_regenerated: false`.
 
 ### 3.2 What changes
 
@@ -265,10 +280,27 @@ this reason, with the shuffle pinned and a frozen sha256. It is hard-coded to
 `impulsiveness`; it needs parameterising by constitution for P0/P1, additively, with the
 default behaviour and frozen hash unchanged.
 
+### 5.7 P0 must not be named `impulsiveness`, or `data.py` destroys the frozen DPO file
+
+`character/distillation/data.py` writes `data/dpo/<model>/<constitution>.jsonl` keyed on the
+constitution name, with no guard. P0 uses the *original text*, so naming it `impulsiveness`
+is the natural choice — and it would make the formatter **overwrite the released DPO file**
+whose sha256 `newpod.sh` verifies on every pod, and which `repro-123456` and seed 987654
+both trained against. The frozen asset would be silently replaced by a regenerated one.
+
+Hence P0 is `impulsiveness_regen`: identical text, distinct name, separate output path. Same
+class of hazard as §5.5, different mechanism. For the same reason the DPO formatting step for
+both arms will be run through a scoped wrapper with a refuse-to-overwrite guard rather than
+upstream's 3-model × 11-constitution loop.
+
 ### 5.6 Minor, already known
 
 - `character/utils.py:constitutions` is a module-level list that `data.py` iterates; the two
-  variant names must be added for the DPO formatter to see them. Additive.
+  variant names must be added for the DPO formatter to see them. Additive — but see §5.7:
+  the formatter is to be run scoped, not over the full list.
+- `scripts/build_oct_sft_corpus.py` now takes `--constitution` (default `impulsiveness`).
+  Verified additive: the default path still reproduces the frozen corpus sha256
+  `14f28fda…` exactly.
 - `merge_loras.py` has the `llama-test` path bug that `newpod.sh` works around with a
   symlink to `llama-introspection`. Applies unchanged to new arms.
 - `$HOME` is `/root`, off-volume; the OCT scripts hard-code `$HOME`, so `newpod.sh` must run

@@ -40,12 +40,58 @@ def sha256_bytes(b: bytes) -> str:
     return hashlib.sha256(b).hexdigest()
 
 
+P0_NAME = "impulsiveness_regen"
+
+
+def install_p0() -> int:
+    """Install the P0 control constitution: the ORIGINAL text under a new name.
+
+    P0 regenerates `chosen` from the original constitution, so its text is identical to
+    `impulsiveness`. It cannot reuse that NAME: `character/distillation/data.py` writes
+    `data/dpo/<model>/<constitution>.jsonl`, so a P0 run named `impulsiveness` would
+    overwrite the released DPO file whose sha256 `newpod.sh` checks on every pod, and which
+    the reproduction and seed-2 arms trained against. A distinct name keeps the frozen
+    asset frozen.
+    """
+    spec = json.load(open(f"{VARIANT_DIR}/traits.json"))
+    base = spec["base_constitution"]
+    hw_in, fs_in = f"{CONS}/hand-written/{base}.txt", f"{CONS}/few-shot/{base}.jsonl"
+    hand, few = json.load(open(hw_in)), [json.loads(l) for l in open(fs_in) if l.strip()]
+
+    # P0 is the original text; assert that before copying it under a new name.
+    for i, (t_spec, t_hand, t_few) in enumerate(zip(spec["traits"], hand, few), start=1):
+        if t_spec["original"] != t_hand["trait"] or t_spec["original"] != t_few["trait"]:
+            sys.exit(f"FATAL: trait {i} baseline drift; refusing to install P0")
+
+    hand_bytes = (json.dumps(hand, indent=4, ensure_ascii=False) + "\n").encode()
+    few_bytes = ("".join(json.dumps(r, ensure_ascii=False, separators=(",", ":")) + "\n" for r in few)).encode()
+
+    print(f"P0 control: {P0_NAME}  (original text of {base}, new name)")
+    print(f"outputs: hand-written/{P0_NAME}.txt   sha256 {sha256_bytes(hand_bytes)}")
+    print(f"         few-shot/{P0_NAME}.jsonl     sha256 {sha256_bytes(few_bytes)}")
+
+    for path, blob in ((f"{CONS}/hand-written/{P0_NAME}.txt", hand_bytes),
+                       (f"{CONS}/few-shot/{P0_NAME}.jsonl", few_bytes)):
+        if os.path.exists(path) and open(path, "rb").read() != blob:
+            sys.exit(f"FATAL: {path} exists and differs; refusing to overwrite")
+        with open(path, "wb") as f:
+            f.write(blob)
+        print(f"installed {path}")
+    return 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--check", action="store_true", help="verify and diff, write nothing into OCT")
     g.add_argument("--write", action="store_true", help="install the variant into OCT")
+    g.add_argument("--write-p0", action="store_true",
+                   help="install the matched-teacher CONTROL constitution (original text, "
+                        "new name) -- see docs/spec_paraphrase_replication.md 3 and 5.7")
     args = ap.parse_args()
+
+    if args.write_p0:
+        return install_p0()
 
     spec = json.load(open(f"{VARIANT_DIR}/traits.json"))
     base, variant = spec["base_constitution"], spec["variant"]
