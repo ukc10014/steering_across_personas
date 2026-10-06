@@ -48,9 +48,25 @@ OCT = "/workspace/OpenCharacterTraining"
 SCAFFOLD = "/workspace/oct_rig/data_paraphrase/scaffold.jsonl"
 OUT_DIR = "/workspace/oct_rig/data_paraphrase"
 
-MODEL = "glm-4.5-air"
-BASE_URL_OPENAI = "https://api.z.ai/api/paas/v4"
-BASE_URL_ANTHROPIC = "https://api.z.ai/api/anthropic"
+MODEL = "z-ai/glm-4.5-air"
+BASE_URL = "https://openrouter.ai/api/v1"
+
+# PROVIDER PINNING IS NOT OPTIONAL. OpenRouter routes nondeterministically: two identical
+# back-to-back calls on 2026-10-06 were served by Novita then SiliconFlow. Across 16k calls
+# that makes the teacher an uncontrolled mixture of backends whose composition could differ
+# between P0 and P1 by chance -- worse than a version-pinning problem, because it varies
+# WITHIN a run. So: one provider, fallbacks off, and the provider field of every response is
+# asserted against this value.
+#
+# Novita is the pick on the merits, not convenience (checked 2026-10-06):
+#   Novita       bf16  $0.130/$0.850  temperature top_p top_k repetition_penalty seed
+#   SiliconFlow  fp8   $0.140/$0.860  no repetition_penalty, no seed
+#   Z.AI         fp8   $0.200/$1.100  no repetition_penalty, no seed, no top_k
+# bf16 is the precision of the released open weights, so pinning Novita removes the
+# quantization deviation entirely -- and it is the ONLY endpoint that can reproduce OCT's
+# repetition_penalty=1.1. Z.ai's own endpoint is fp8 and would be a worse match.
+PROVIDER = "Novita"
+PROVIDER_ROUTING = {"order": [PROVIDER], "allow_fallbacks": False}
 
 # teacher.py:10-16, verbatim.
 SYSTEM = """\
@@ -67,7 +83,9 @@ PREFILL = "\n<think>I want to ensure my response aligns with my character traits
 # teacher.py: name = model.split("-")[0].capitalize(); if name == "Glm": name = "ChatGLM"
 NAME = "ChatGLM"
 
-SAMPLING = {"temperature": 0.7, "top_p": 0.95, "max_tokens": 4096}
+# teacher.py's effective SamplingParams, now reproducible in full on Novita.
+# top_k=-1 and min_p=0.0 were DISABLED locally, so they are correctly omitted here.
+SAMPLING = {"temperature": 0.7, "top_p": 0.95, "max_tokens": 4096, "repetition_penalty": 1.1}
 MAX_LEN_TOKENS = 1024          # data.py's filter, applied to the templated pair
 ARMS = {"p0": "impulsiveness_regen", "p1": "impulsiveness_paraphrase"}
 
@@ -83,19 +101,23 @@ def trait_string(constitution: str) -> str:
     return "\n".join(f"{i+1}: {t}" for i, t in enumerate(traits))
 
 
-def build_payload(prompt: str, traits: str, prefill_mode: str, protocol: str) -> dict:
+def build_payload(prompt: str, traits: str, prefill_mode: str) -> dict:
     system = SYSTEM.format(NAME=NAME, TRAITS=traits)
     if prefill_mode == "system-append":
         system += PREFILL.format(TRAITS=traits).replace("<think>", "").rstrip()
-    msgs = [{"role": "user", "content": prompt}]
+    msgs = [{"role": "system", "content": system}, {"role": "user", "content": prompt}]
     if prefill_mode == "assistant-prefill":
         msgs.append({"role": "assistant", "content": PREFILL.format(TRAITS=traits)})
+    return {"model": MODEL, "messages": msgs, "provider": PROVIDER_ROUTING,
+            "reasoning": {"enabled": True}, **SAMPLING}
 
-    if protocol == "anthropic":
-        return {"model": MODEL, "system": system, "messages": msgs,
-                "thinking": {"type": "enabled"}, **SAMPLING}
-    return {"model": MODEL, "messages": [{"role": "system", "content": system}] + msgs,
-            "thinking": {"type": "enabled"}, **SAMPLING}
+
+def check_provider(resp: dict) -> None:
+    """Abort on any provider drift. The whole point of pinning is that this never fires."""
+    got = resp.get("provider")
+    if got != PROVIDER:
+        raise SystemExit(f"FATAL: provider drift -- pinned {PROVIDER!r}, served {got!r}. "
+                         f"Stopping rather than mixing backends mid-run.")
 
 
 def main() -> int:
@@ -105,7 +127,6 @@ def main() -> int:
     m.add_argument("--dry-run", action="store_true", help="assemble payloads, call nothing")
     m.add_argument("--generate", action="store_true", help="the real run")
     ap.add_argument("--arm", choices=sorted(ARMS))
-    ap.add_argument("--protocol", choices=["openai", "anthropic"], default="anthropic")
     ap.add_argument("--prefill-mode", choices=["assistant-prefill", "system-append", "none"],
                     default="assistant-prefill")
     ap.add_argument("--max-retries", type=int, default=3, help="over-length chosen resamples")
@@ -126,19 +147,19 @@ def main() -> int:
             rows = rows[: a.limit]
         print(f"  scaffold rows {len(rows)}  unique prompts {len({r['prompt'] for r in rows})}")
 
-        payload = build_payload(rows[0]["prompt"], traits, a.prefill_mode, a.protocol)
-        print(f"  protocol {a.protocol}  prefill-mode {a.prefill_mode}")
-        print(f"  endpoint {BASE_URL_ANTHROPIC if a.protocol == 'anthropic' else BASE_URL_OPENAI}")
-        print(f"  sampling {SAMPLING}  (repetition_penalty 1.1 NOT reproducible -- see docstring)")
+        payload = build_payload(rows[0]["prompt"], traits, a.prefill_mode)
+        print(f"  prefill-mode {a.prefill_mode}")
+        print(f"  endpoint {BASE_URL}  provider PINNED to {PROVIDER} (fallbacks off)")
+        print(f"  sampling {SAMPLING}")
         if a.dry_run:
             print("\n----- payload for scaffold row 0 -----")
             print(json.dumps(payload, indent=2, ensure_ascii=False)[:2600])
             print("\nDRY RUN -- no API call made, nothing written.")
             return 0
 
-    key = os.environ.get("ZAI_API_KEY")
+    key = os.environ.get("OPENROUTER_API_KEY")
     if not key:
-        sys.exit("FATAL: ZAI_API_KEY is not set. No request attempted.")
+        sys.exit("FATAL: OPENROUTER_API_KEY is not set. No request attempted.")
 
     sys.exit("Live generation is gated pending the --probe report; see "
              "docs/spec_paraphrase_replication.md 5.1. Not implemented until the probe "

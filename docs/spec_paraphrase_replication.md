@@ -275,15 +275,40 @@ therefore carries `--prefill-mode {assistant-prefill, system-append, none}`, the
 which, and **whichever is chosen is applied identically to both arms** — so the wording test is
 unaffected and only comparability to the released adapter is at stake.
 
-**Sampling.** Reproduced exactly: `temperature 0.7`, `top_p 0.95`, `max_tokens 4096`.
-No loss: `top_k=-1` and `min_p=0.0` were *disabled* locally. **Not reproducible:
-`repetition_penalty 1.1`** — the API exposes no repetition, frequency or presence penalty.
-That is the single genuine sampling deviation, and it applies equally to both arms.
-**A non-issue: the absence of a seed parameter.** `teacher.py` passes `seed=None`, so the
-released data was itself nondeterministic; the API matches the recipe here rather than
-departing from it.
+**Sampling — corrected 2026-10-06.** An earlier revision of this section said
+`repetition_penalty 1.1` was not reproducible. That is true of **z.ai direct**, which exposes
+no repetition, frequency or presence penalty. It is **false of the pinned OpenRouter/Novita
+endpoint**, which supports `repetition_penalty`, `top_k` and `seed`. So the full effective
+`SamplingParams` of `teacher.py` is reproducible: `temperature 0.7`, `top_p 0.95`,
+`repetition_penalty 1.1`, `max_tokens 4096`, with `top_k=-1` and `min_p=0.0` correctly omitted
+because they were *disabled* locally. **There is no remaining sampling deviation on this
+route.**
 
-**OpenRouter is not a fixed teacher — checked 2026-10-06.** An OpenRouter key works against
+`seed` is available but deliberately left unset, matching `teacher.py`'s `seed=None`. Fixing
+one would be a provenance improvement rather than a fidelity match, and would correlate
+sampling noise between P0 and P1; if adopted, record it as a deliberate departure.
+
+**RESOLVED: provider pinned to Novita, bf16.** Endpoint survey of `z-ai/glm-4.5-air`
+(2026-10-06):
+
+| provider | quant | in $/M | out $/M | `repetition_penalty` | `seed` |
+|---|---|---|---|---|---|
+| **Novita** | **bf16** | 0.130 | 0.850 | **yes** | yes |
+| SiliconFlow | fp8 | 0.140 | 0.860 | no | no |
+| Z.AI | fp8 | 0.200 | 1.100 | no | no |
+
+Novita is pinned on the merits. **bf16 is the precision of the released open weights**, so
+pinning it removes the quantization deviation entirely, and it is the only endpoint that can
+reproduce `repetition_penalty=1.1`. Note the inversion: Z.ai's *own* endpoint is fp8, dearer,
+and exposes fewer of the parameters the recipe needs — so the "official" route is the worse
+match on precision and on sampling. Verified: three consecutive pinned calls all served by
+Novita, `repetition_penalty` accepted, `content` and `reasoning` returned separately.
+
+`scripts/teacher_api_generate.py` sends `"provider": {"order": ["Novita"],
+"allow_fallbacks": false}` and asserts `response.provider == "Novita"` on **every** call,
+aborting on drift rather than mixing backends mid-run. The provider is run provenance.
+
+The reason this is not optional: An OpenRouter key works against
 `z-ai/glm-4.5-air` (HTTP 200, `content` and `reasoning` returned separately, so final-answer
 extraction is solved). But **two identical back-to-back calls were served by two different
 providers** — `Novita`, then `SiliconFlow`. Provider routing is nondeterministic, and
