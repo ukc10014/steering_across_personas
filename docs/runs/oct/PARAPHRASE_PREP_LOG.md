@@ -31,6 +31,68 @@ config, user turn, system-prompt skeleton and prefill skeleton, differing in exa
 trait lines. That check is cheap and worth re-running on resume
 (`python scripts/teacher_api_generate.py --arm p1 --dry-run`).
 
+## Teacher generation — COMPLETE, 2026-10-06T20:38:49Z
+
+Both arms generated. OpenRouter → `z-ai/glm-4.5-air`, provider **pinned to Novita (bf16)**,
+`--prefill-mode none`, all other settings per `teacher.py`. **16,274 calls, 0 failures,
+$9.74.** Manifest: `/workspace/oct_rig/data_paraphrase/generation_manifest.json`.
+
+| | P0 `impulsiveness_regen` | P1 `impulsiveness_paraphrase` |
+|---|---|---|
+| rows | 8,137 | 8,137 |
+| API failures | 0 | 0 |
+| provider | Novita 8,137/8,137 | Novita 8,137/8,137 |
+| empty `chosen` | 48 | 55 |
+| truncated (`finish=length`) | 54 | 64 |
+| over `data.py`'s 1024 tokens | 126 (median 321, max 3,911) | 111 (median 315, max 7,280) |
+| rows needing repair (distinct) | 176 | 174 |
+| all-identical replicate sets | 2 / 1,749 | 5 / 1,749 |
+| cost | $4.85 | $4.89 |
+| sha256 | `1abd0689…aff79ae8` | `f468be60…ac2d5e03` |
+
+Files: `/workspace/oct_rig/data_paraphrase/chosen_{p0,p1}.jsonl`.
+
+**Replicate diversity survived**, which is the property the seed design had to protect: of
+1,749 questions with more than one sample, only 2 (P0) and 5 (P1) have all-identical text.
+
+**The probe under-estimated the tails.** At n=42 it saw no truncation, no empty content and
+nothing over 1024; at n=8,137 each of those runs at 0.6–1.6%. Not a problem — it is exactly
+what the §3.1 policy exists for — but the probe's "never fires" claim was wrong and is
+corrected here.
+
+## FIRST THING TOMORROW: the repair pass
+
+Not yet run, deliberately — it needs fresh API calls and both arms, and was not started
+minutes before a shutdown. 270 rows in the union need attention (176 P0 + 174 P1, intersection
+80). Policy, as preregistered in spec §3.1 and restated unambiguously:
+
+1. resample any row whose `chosen` is empty, truncated, or over 1,024 templated tokens, up to
+   `--max-retries`;
+2. **drop the UNION of still-bad rows from BOTH arms** — equivalently, keep the intersection of
+   each arm's good rows — so P0 and P1 remain row-identical and "data volume held fixed" is
+   literally true;
+3. report retry counts per arm and commit the resulting sha256s.
+
+The repair pass is **not implemented yet**; `scripts/teacher_api_generate.py` records the
+offending rows but does not resample them. Writing it is the first task. It is CPU + API only
+— no GPU — so it can run on the GPU pod before training without wasting GPU time.
+
+Then: format both DPO datasets through a scoped wrapper (**never** upstream's unscoped
+3-model × 11-constitution loop — spec §5.5 and §5.7), commit the dataset hashes, and only then
+start training.
+
+## GPU for tomorrow
+
+**One RTX PRO 6000. Not an H100, not a multi-GPU box.** Measured on that card:
+DPO 38 min, fold 2.5 min, SFT 39 min, merge 1.5 min. Reasons for the same card and the same
+count: the reproduction and seed-2 arms passed all nine §6b criteria on it, and §4.1's
+thresholds are numbers measured there; and `gen_args` sets `tp_size = cuda.device_count()`, so
+a 2× pod would silently change vLLM's tensor-parallel degree during introspection generation.
+
+Budget ~5 GPU-h per arm, ~10–11 h for both. The dominant unknown is introspection generation
+(~3.5 h/arm, **estimated, never measured here** — the released corpus was downloaded, not
+generated). Time P0's introspection run before committing to the full plan.
+
 ## What is waiting on you
 
 1. **Go-ahead for the first live API call.** `glm-4.5-air` is still in Z.ai's official model
