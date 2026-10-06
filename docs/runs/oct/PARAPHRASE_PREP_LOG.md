@@ -2,6 +2,13 @@
 
 **Session 2026-10-06. Paused for a decision, not blocked by a failure.**
 
+> **Amendment 2026-10-06 (later): teacher changed to hosted Claude Sonnet 4.6, final answer only.**
+> See [../../spec_teacher_substitution.md](../../spec_teacher_substitution.md). The sections below
+> describe the GLM-4.5-Air plan as prepared and are kept as the record; where they conflict,
+> the amendment wins. P0 is now mandatory, a preregistered format-only pilot gates the full run,
+> and `scripts/teacher_api_generate.py` was rewritten (GLM version: commit `1bb28ff`).
+> Still nothing generated, trained or measured; no API call made.
+
 Spec of record: [../../spec_paraphrase_replication.md](../../spec_paraphrase_replication.md).
 Branch `exp/paraphrase-replication`, three commits, all prospective.
 
