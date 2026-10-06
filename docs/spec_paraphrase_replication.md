@@ -235,6 +235,60 @@ the pipeline actually depends on — fits two GPUs, and leaves precision as the 
 documented deviation. T3 is viable on today's hardware but makes the teacher the largest
 uncontrolled difference in the design, which is precisely what P0 then has to absorb.
 
+### 5.1a Hosted GLM-4.5-Air as the teacher — investigated 2026-10-06
+
+Running the released teacher locally is off the table. The hosted route keeps the teacher's
+identity, which matters more than it first appears (§5.2, §5.3). Findings, before any
+generation:
+
+**Model pinning: name yes, version no.** `glm-4.5-air` is still a valid model string in Z.ai's
+official chat-completions parameter list. There are **no dated snapshots or version suffixes**
+— the bare alias is the only handle, so the served weights cannot be pinned or verified
+against the July 2025 open-weights release the paper used, and may drift silently. Third-party
+trackers additionally list GLM-4.5-Air as **deprecated**, with Z.ai steering users to
+GLM-4.7-Flash, and one records a 2026-09-24 reprice-update-or-retire date that has now passed.
+No official Z.ai deprecation page was found. **A live probe with a key is the only way to
+settle whether it is still served, and it is a prerequisite, not a formality.**
+
+Mitigation, and the reason the two-arm design is the right one regardless: P0 and P1 are
+generated **back to back in one session against the same alias**, so even under silent drift
+the within-teacher wording contrast holds. Drift would threaten comparability to the released
+adapter, which is what P0 exists to absorb.
+
+**Reasoning / final-answer interface: reproducible, and cleaner than the local split.**
+Reasoning returns in `reasoning_content` (OpenAI protocol) or a `content[type=thinking]` block
+(Anthropic protocol); the final answer is in `content`. Taking `content` is functionally what
+`teacher.py` does by splitting on `</think>`, without the malformed-split risk. The local
+"discard if no `</think>`" filter maps onto "discard if `content` is empty". Thinking is
+requested with `thinking: {"type": "enabled"}`; Z.ai's thinking-mode page lists GLM-5.x/4.7 as
+thinking-by-default and does not mention 4.5-air, so **whether 4.5-air honours it and returns
+reasoning must be probed.**
+
+**The `<think>` prefill is the one real gap.** `teacher.py` appends a partial assistant turn
+restating the traits and lets the model continue — that is its adherence-enforcement
+mechanism. Assistant-turn continuation is undocumented on Z.ai's OpenAI-protocol endpoint. The
+Anthropic-protocol endpoint (`https://api.z.ai/api/anthropic/v1/messages`) is the better
+candidate, since prefill is standard there, but Z.ai's own docs for it describe GLM-5.x
+coverage and do not confirm prefill for 4.5-air; and prefilling *inside* a thinking block is
+typically refused or ignored even where prefill works. `scripts/teacher_api_generate.py`
+therefore carries `--prefill-mode {assistant-prefill, system-append, none}`, the probe decides
+which, and **whichever is chosen is applied identically to both arms** — so the wording test is
+unaffected and only comparability to the released adapter is at stake.
+
+**Sampling.** Reproduced exactly: `temperature 0.7`, `top_p 0.95`, `max_tokens 4096`.
+No loss: `top_k=-1` and `min_p=0.0` were *disabled* locally. **Not reproducible:
+`repetition_penalty 1.1`** — the API exposes no repetition, frequency or presence penalty.
+That is the single genuine sampling deviation, and it applies equally to both arms.
+**A non-issue: the absence of a seed parameter.** `teacher.py` passes `seed=None`, so the
+released data was itself nondeterministic; the API matches the recipe here rather than
+departing from it.
+
+**Volume.** 8,137 calls per arm, 16,274 for both; roughly 2M input and 7M output tokens per
+arm. Needs a resumable, incrementally-written generator — one interruption must not cost a
+whole arm. Cost to be read off the official price page once a key exists.
+
+**Prerequisite.** No `ZAI_API_KEY` is present on this volume or in the environment.
+
 ### 5.2 `data.py` hard-codes a GLM-specific identity scrub
 
 `character/distillation/data.py` builds `chosen` as
