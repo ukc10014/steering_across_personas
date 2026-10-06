@@ -26,10 +26,14 @@ Cannot be reproduced, and reported rather than worked around:
     presence penalty either; top_k=-1 and min_p=0.0 were disabled locally, so those are no
     loss). This is the one genuine sampling deviation, and it applies equally to both arms.
   * the <think> prefill -- teacher.py appends a partial assistant turn restating the traits
-    and lets the model continue, which is how it enforces adherence. --prefill-mode selects
-    what we do instead; whatever is selected is applied identically to both arms, so the
-    within-teacher wording test is unaffected. Comparability to the RELEASED adapter is what
-    this costs.
+    and lets the model continue, which is how it enforces adherence. THE HOSTED ENDPOINT
+    CANNOT REPRODUCE THIS: probed 2026-10-06, a trailing assistant turn is treated as a prior
+    turn in the conversation, not continued -- the model attributed a canary prefill to the
+    user. So the prefill is OMITTED (--prefill-mode none, the default). The traits are NOT
+    appended a second time anywhere: they appear exactly once, in the system prompt, as
+    teacher.py also has them. The omission is applied identically to both arms, so the
+    within-teacher wording test is unaffected; comparability to the RELEASED adapter is what
+    it costs. See docs/runs/oct/PARAPHRASE_PROBE_REPORT.md 3.
 
     python scripts/teacher_api_generate.py --probe                     # capability test only
     python scripts/teacher_api_generate.py --arm <name> --dry-run      # assemble, call nothing
@@ -294,6 +298,116 @@ def probe(key: str, phase: str, mode: str, n: int) -> int:
     return 0
 
 
+def generate(key: str, arm: str, mode: str, workers: int, limit: int, max_retries: int) -> int:
+    """Generate `chosen` for one arm. Concurrent, resumable, aborts on provider drift.
+
+    Resumability matters at this size: 8,137 calls take ~25 minutes at 16 workers, and an
+    interruption must not cost the arm. Completed rows are keyed by scaffold row index in the
+    output JSONL and skipped on restart.
+    """
+    import concurrent.futures as cf
+    import threading
+
+    cons = ARMS[arm]
+    traits = trait_string(cons)
+    rows = [json.loads(l) for l in open(SCAFFOLD) if l.strip()]
+    sched = {d["row"]: d for d in seed_schedule(rows)}
+    if limit:
+        rows = rows[:limit]
+
+    out_path = f"{OUT_DIR}/chosen_{arm}.jsonl"
+    os.makedirs(OUT_DIR, exist_ok=True)
+    done = set()
+    if os.path.exists(out_path):
+        with open(out_path) as fh:
+            for line in fh:
+                try:
+                    done.add(json.loads(line)["row"])
+                except Exception:                                # noqa: BLE001
+                    pass
+    todo = [i for i in range(len(rows)) if i not in done]
+
+    print(f"arm {arm}  constitution {cons}  prefill-mode {mode}")
+    print(f"  trait block sha256 {hashlib.sha256(traits.encode()).hexdigest()[:16]}")
+    print(f"  provider PINNED {PROVIDER}  sampling {SAMPLING}")
+    print(f"  seed: audit metadata only (provider does not honour it)")
+    print(f"  rows {len(rows)}  already done {len(done)}  to do {len(todo)}")
+    if not todo:
+        print("  nothing to do")
+        return 0
+
+    # tokenizer stays in the main thread; workers only do HTTP
+    tok = None
+    try:
+        from transformers import AutoTokenizer
+        tok = AutoTokenizer.from_pretrained("/workspace/oct_rig/models/llama-3.1-8b-it")
+    except Exception as e:                                       # noqa: BLE001
+        print(f"  WARNING: no tokenizer ({type(e).__name__}); pair_tokens will be null")
+
+    def pair_tokens(prompt: str, resp: str):
+        if tok is None:
+            return None
+        txt = tok.apply_chat_template(
+            [{"role": "user", "content": prompt}, {"role": "assistant", "content": resp}],
+            tokenize=False, add_generation_prompt=True)
+        return len(tok.encode(txt))
+
+    def work(i: int) -> tuple:
+        sd = sched[i]
+        payload = build_payload(rows[i]["prompt"], traits, mode, sd["seed"])
+        return i, sd, api_call(payload, key)
+
+    lock = threading.Lock()
+    t0 = time.time()
+    n_ok = n_fail = n_over = 0
+    cost = 0.0
+    stop = False
+    with open(out_path, "a") as fh, cf.ThreadPoolExecutor(max_workers=workers) as ex:
+        futs = {ex.submit(work, i): i for i in todo}
+        for n_, fut in enumerate(cf.as_completed(futs), 1):
+            i, sd, resp = fut.result()
+            r = summarise(resp)
+            if not r["ok"]:
+                n_fail += 1
+                rec = {"row": i, **sd, "prompt": rows[i]["prompt"], "ok": False,
+                       "why": r["why"], "arm": arm, "mode": mode}
+            else:
+                n_ok += 1
+                cost += r.get("cost") or 0.0
+                pt = pair_tokens(rows[i]["prompt"], r["content"])
+                if pt and pt > MAX_LEN_TOKENS:
+                    n_over += 1
+                rec = {"row": i, **sd, "prompt": rows[i]["prompt"], "ok": True,
+                       "chosen": r["content"], "reasoning_chars": r["reasoning_chars"],
+                       "provider": r["provider"], "finish": r["finish"],
+                       "completion_tokens": r["completion_tokens"],
+                       "reasoning_tokens": r["reasoning_tokens"], "pair_tokens": pt,
+                       "cost": r.get("cost"), "arm": arm, "mode": mode}
+            with lock:
+                fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
+                fh.flush()
+            if n_ % 250 == 0 or n_ == len(futs):
+                el = time.time() - t0
+                rate = n_ / el if el else 0
+                eta = (len(futs) - n_) / rate / 60 if rate else 0
+                print(f"  [{n_:>5}/{len(futs)}] ok={n_ok} fail={n_fail} over1024={n_over} "
+                      f"{rate:.1f}/s eta={eta:.0f}m cost=${cost:.3f}", flush=True)
+            if n_fail > 200 and n_fail > n_ * 0.1:
+                print("  ABORT: failure rate above 10% after 200 failures", flush=True)
+                stop = True
+                break
+        if stop:
+            for f in futs:
+                f.cancel()
+
+    print(f"\narm {arm}: ok={n_ok} fail={n_fail} over-1024={n_over} cost=${cost:.4f} "
+          f"in {(time.time() - t0) / 60:.1f}m")
+    print(f"wrote {out_path}")
+    if n_fail:
+        print(f"  {n_fail} rows failed -- rerun the same command to retry only those")
+    return 1 if stop else 0
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     m = ap.add_mutually_exclusive_group(required=True)
@@ -302,7 +416,11 @@ def main() -> int:
     m.add_argument("--generate", action="store_true", help="the real run")
     ap.add_argument("--arm", choices=sorted(ARMS))
     ap.add_argument("--prefill-mode", choices=["assistant-prefill", "system-append", "none"],
-                    default="assistant-prefill")
+                    default="none",
+                    help="default 'none': the assistant-side <think> prefill cannot be "
+                         "faithfully reproduced on the hosted endpoint and is omitted. The "
+                         "other modes are kept only so the probe record stays runnable.")
+    ap.add_argument("--workers", type=int, default=16)
     ap.add_argument("--max-retries", type=int, default=3, help="over-length chosen resamples")
     ap.add_argument("--phase", choices=["a", "b"], default="a", help="probe phase")
     ap.add_argument("--probe-n", type=int, default=10)
@@ -339,10 +457,7 @@ def main() -> int:
 
     if a.probe:
         return probe(key, a.phase, a.prefill_mode, a.probe_n)
-
-    sys.exit("Live generation is gated pending the --probe report; see "
-             "docs/spec_paraphrase_replication.md 5.1. Not implemented until the probe "
-             "settles protocol and prefill-mode.")
+    return generate(key, a.arm, a.prefill_mode, a.workers, a.limit, a.max_retries)
 
 
 if __name__ == "__main__":

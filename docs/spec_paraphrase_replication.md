@@ -264,7 +264,28 @@ requested with `thinking: {"type": "enabled"}`; Z.ai's thinking-mode page lists 
 thinking-by-default and does not mention 4.5-air, so **whether 4.5-air honours it and returns
 reasoning must be probed.**
 
-**The `<think>` prefill is the one real gap.** `teacher.py` appends a partial assistant turn
+**DECIDED 2026-10-06: the prefill is omitted.** `--prefill-mode none`. The traits appear
+**exactly once**, in the system prompt, as `teacher.py` also has them — they are deliberately
+**not** appended a second time anywhere. Verified: the payload carries only `system` and
+`user` turns, the system prompt is byte-identical to `teacher.py`'s template, and the trait
+block occurs once in the whole request.
+
+The original assistant-side `<think>` prefill — in which `teacher.py` opens a think block
+restating the ten traits and lets the model continue it, enforcing adherence — **could not be
+faithfully reproduced via the hosted endpoint and was therefore omitted.** The endpoint does
+not continue a trailing assistant turn; it treats it as a prior turn in the conversation, and
+a canary prefill was attributed to the user outright
+([runs/oct/PARAPHRASE_PROBE_REPORT.md](runs/oct/PARAPHRASE_PROBE_REPORT.md) §3). Reproducing it
+by appending the traits to the system prompt instead was considered and rejected: it would
+expose the trait list twice, which is a different prompt from both OCT's and this one, and the
+probe found no measurable difference between the two options anyway.
+
+This is a documented deviation from the released recipe, applied **identically to both arms**,
+so the within-teacher wording comparison is unaffected. What it costs is comparability to the
+released adapter, which is what P0 exists to absorb. All other teacher-generation settings are
+held fixed.
+
+**Why the prefill could not be reproduced, in detail:** `teacher.py` appends a partial assistant turn
 restating the traits and lets the model continue — that is its adherence-enforcement
 mechanism. Assistant-turn continuation is undocumented on Z.ai's OpenAI-protocol endpoint. The
 Anthropic-protocol endpoint (`https://api.z.ai/api/anthropic/v1/messages`) is the better
