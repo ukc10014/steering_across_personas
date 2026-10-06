@@ -323,6 +323,30 @@ on **every** response, and abort the run if it ever changes. Otherwise prefer z.
 where the serving stack is at least a single party. Either way the provider field is part of
 the run's provenance, not an implementation detail.
 
+**Seed schedule — committed 2026-10-06, before any generation.** Not a single constant, and
+not the row index. Derived from a stable identity so it survives any reordering or filtering
+of the scaffold:
+
+```
+question_id = sha256(prompt)[:16]
+seed        = sha256(f"{MASTER_SEED}|{question_id}|{replicate}") mod 2**31      MASTER_SEED = 123456
+```
+
+`replicate` is the prompt's occurrence number. The **same schedule is used for both arms** —
+the closest practical analogue to common random numbers. It does not make P0 and P1 take the
+same random choices (their prompts differ, so their token distributions differ), but it removes
+one source of variance from the wording comparison, and because each replicate gets a distinct
+seed it cannot collapse the five samples that `K=5` exists to draw.
+
+Verified: 8,137 rows → 8,137 distinct seeds; replicates 0–7 present; no replicate of the same
+question shares a seed; and shuffling the scaffold reproduces identical seeds per
+(question_id, replicate). Manifest at `/workspace/oct_rig/data_paraphrase/seed_schedule.jsonl`,
+sha256 `27aef48189979dbd14c3c44d1a6e6dae2fb0b8bd1f08066af65f2d7b4b790e33`. The seed is stored with every response regardless.
+
+This is a deliberate departure from `teacher.py`'s `seed=None`, recorded as such. Seed
+determinism on a hosted MoE backend is best-effort; if repeated identical calls diverge, the
+seed is provenance rather than a reproducibility guarantee.
+
 **Volume.** 8,137 calls per arm, 16,274 for both; roughly 2M input and 7M output tokens per
 arm. Needs a resumable, incrementally-written generator — one interruption must not cost a
 whole arm. Cost to be read off the official price page once a key exists.
