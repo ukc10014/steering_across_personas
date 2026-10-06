@@ -343,9 +343,13 @@ question shares a seed; and shuffling the scaffold reproduces identical seeds pe
 (question_id, replicate). Manifest at `/workspace/oct_rig/data_paraphrase/seed_schedule.jsonl`,
 sha256 `27aef48189979dbd14c3c44d1a6e6dae2fb0b8bd1f08066af65f2d7b4b790e33`. The seed is stored with every response regardless.
 
-This is a deliberate departure from `teacher.py`'s `seed=None`, recorded as such. Seed
-determinism on a hosted MoE backend is best-effort; if repeated identical calls diverge, the
-seed is provenance rather than a reproducibility guarantee.
+This is a deliberate departure from `teacher.py`'s `seed=None`, recorded as such.
+**Probed 2026-10-06: Novita accepts `seed` and does not honour it** — three identical calls
+returned three different completions. So the schedule is **provenance only**: no
+reproducibility guarantee, and no common-random-numbers variance reduction between the arms.
+It is kept because it costs nothing and the seed is stored per response, but it must not be
+described as making the run reproducible. See
+[runs/oct/PARAPHRASE_PROBE_REPORT.md](runs/oct/PARAPHRASE_PROBE_REPORT.md) §2.
 
 **Volume.** 8,137 calls per arm, 16,274 for both; roughly 2M input and 7M output tokens per
 arm. Needs a resumable, incrementally-written generator — one interruption must not cost a
