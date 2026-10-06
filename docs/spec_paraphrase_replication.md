@@ -283,6 +283,21 @@ That is the single genuine sampling deviation, and it applies equally to both ar
 released data was itself nondeterministic; the API matches the recipe here rather than
 departing from it.
 
+**OpenRouter is not a fixed teacher — checked 2026-10-06.** An OpenRouter key works against
+`z-ai/glm-4.5-air` (HTTP 200, `content` and `reasoning` returned separately, so final-answer
+extraction is solved). But **two identical back-to-back calls were served by two different
+providers** — `Novita`, then `SiliconFlow`. Provider routing is nondeterministic, and
+third-party hosts may differ in quantization and serving stack. Over 16,274 calls the
+"teacher" would be an uncontrolled mixture of backends, and the mixture could differ between
+P0 and P1 by chance — a worse version-pinning problem than z.ai's missing snapshots (above),
+because it varies *within* a run rather than between runs.
+
+Mitigation if OpenRouter is used: pin a single provider and forbid fallback
+(`"provider": {"order": ["<one>"], "allow_fallbacks": false}`), record the provider returned
+on **every** response, and abort the run if it ever changes. Otherwise prefer z.ai direct,
+where the serving stack is at least a single party. Either way the provider field is part of
+the run's provenance, not an implementation detail.
+
 **Volume.** 8,137 calls per arm, 16,274 for both; roughly 2M input and 7M output tokens per
 arm. Needs a resumable, incrementally-written generator — one interruption must not cost a
 whole arm. Cost to be read off the official price page once a key exists.

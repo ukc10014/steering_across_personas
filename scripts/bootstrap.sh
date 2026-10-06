@@ -83,3 +83,12 @@ if [ -f "$TMUX_CONF" ] && [ ! -e ~/.tmux.conf ]; then
   ln -sfn "$TMUX_CONF" ~/.tmux.conf
 fi
 
+
+# API keys live in /workspace/.secrets.env (mode 600, on the network volume, OUTSIDE the repo
+# and therefore never in git). scripts/bootstrap.sh is tracked and kept byte-identical to the
+# live copy, so the key itself must never appear in this file -- only this loader does.
+# If the file is missing on a rebuilt volume, recreate it:
+#   umask 077; echo "export OPENROUTER_API_KEY=sk-or-v1-..." > /workspace/.secrets.env
+if [ -f /workspace/.secrets.env ]; then
+  . /workspace/.secrets.env
+fi
