@@ -8,6 +8,10 @@
 > the amendment wins. P0 is now mandatory, a preregistered format-only pilot gates the full run,
 > and `scripts/teacher_api_generate.py` was rewritten (GLM version: commit `1bb28ff`).
 > Still nothing generated, trained or measured; no API call made.
+>
+> **Amendment 3 (same day): GLM-4.5-Air via OpenRouter preferred, Sonnet is the fallback** —
+> [../../spec_teacher_substitution_glm.md](../../spec_teacher_substitution_glm.md), probe `scripts/glm_openrouter_probe.py`
+> (dry-run by default; no live call made).
 
 Spec of record: [../../spec_paraphrase_replication.md](../../spec_paraphrase_replication.md).
 Branch `exp/paraphrase-replication`, three commits, all prospective.

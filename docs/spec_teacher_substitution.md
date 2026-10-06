@@ -7,6 +7,10 @@ Supersedes the "teacher stays GLM-4.5-Air, hosted" decision in
 [runs/oct/PARAPHRASE_PREP_LOG.md](runs/oct/PARAPHRASE_PREP_LOG.md), whose stated reason (identity
 string preservation) is addressed in §3 below.
 
+> **Status update (Amendment 2, [spec_teacher_substitution_glm.md](spec_teacher_substitution_glm.md)):**
+> GLM-4.5-Air via OpenRouter is now the *preferred* route, subject to a technical-fidelity probe.
+> **This amendment (Sonnet 4.6) is the fallback**, retired only after the probe is decided. Nothing below is changed.
+
 ## 1. Why, and what it does to the design
 
 Hosted GLM-4.5-Air may no longer be served, and cannot be pinned or verified in any case. The

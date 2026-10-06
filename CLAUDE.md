@@ -23,8 +23,10 @@ arm has been run and no threshold has been changed.
 A **light-paraphrase replication** is prepared and **paused awaiting a decision** on branch
 `exp/paraphrase-replication` — see [docs/runs/oct/PARAPHRASE_PREP_LOG.md](docs/runs/oct/PARAPHRASE_PREP_LOG.md).
 Nothing in it has been trained, generated or measured, and its thresholds are fixed; the teacher was then switched to hosted Claude Sonnet 4.6
-(final answer only) — see [docs/spec_teacher_substitution.md](docs/spec_teacher_substitution.md); it needs an
-`ANTHROPIC_API_KEY`, a passing preregistered pilot, and a go-ahead before the first live call.
+(final answer only) — see [docs/spec_teacher_substitution.md](docs/spec_teacher_substitution.md) — and then to
+**GLM-4.5-Air via OpenRouter as the preferred route, Sonnet as fallback** — see
+[docs/spec_teacher_substitution_glm.md](docs/spec_teacher_substitution_glm.md). Next step is one live probe
+(`scripts/glm_openrouter_probe.py --live`, needs `OPENROUTER_API_KEY`), then a pilot with its own pre-committed criteria.
 
 ## Docs & data (read these first)
 - **Docs live in `docs/`**: [docs/overview.md](docs/overview.md) (research question, method, findings), [docs/experiments.md](docs/experiments.md) (E-series runbook), [docs/causal_pipeline.md](docs/causal_pipeline.md), [docs/results/](docs/results/). Historical artifacts in `docs/archive/`.
