@@ -13,6 +13,14 @@ Two experiments are **complete — do not rerun either**:
 
 Older runbooks are archived at [archive/NEXT_POD_repro_seed2_DONE.md](archive/NEXT_POD_repro_seed2_DONE.md).
 
+**Paused, awaiting a decision — do not start it without reading the log.** A light-paraphrase
+replication of the `impulsiveness` constitution is fully prepared and preregistered on branch
+`exp/paraphrase-replication`: [runs/oct/PARAPHRASE_PREP_LOG.md](runs/oct/PARAPHRASE_PREP_LOG.md)
+(state and open decisions), [spec_paraphrase_replication.md](spec_paraphrase_replication.md)
+(the spec and its fixed thresholds). Nothing has been trained, generated or measured. It needs
+a `ZAI_API_KEY`, a go-ahead for the first live GLM-4.5-Air call, and a yes/no on the P0 control
+arm. The thresholds were fixed before any result existed — preserve that.
+
 ## The question you are answering
 
 > **At matched measured functional dose, do the differences between the OCT stages remain?**

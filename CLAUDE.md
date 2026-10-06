@@ -20,6 +20,11 @@ volume and on HF (`kanad/oct-impulsiveness-seed-replication`, private). The curr
 **stage localisation** — [docs/spec_stage_localisation.md](docs/spec_stage_localisation.md). No sham
 arm has been run and no threshold has been changed.
 
+A **light-paraphrase replication** is prepared and **paused awaiting a decision** on branch
+`exp/paraphrase-replication` — see [docs/runs/oct/PARAPHRASE_PREP_LOG.md](docs/runs/oct/PARAPHRASE_PREP_LOG.md).
+Nothing in it has been trained, generated or measured, and its thresholds are fixed; it needs a
+`ZAI_API_KEY` and a go-ahead before the first hosted GLM-4.5-Air call.
+
 ## Docs & data (read these first)
 - **Docs live in `docs/`**: [docs/overview.md](docs/overview.md) (research question, method, findings), [docs/experiments.md](docs/experiments.md) (E-series runbook), [docs/causal_pipeline.md](docs/causal_pipeline.md), [docs/results/](docs/results/). Historical artifacts in `docs/archive/`.
 - **Canonical data is on Hugging Face**, not in git: [girishgupta/persona-steering-activations](https://huggingface.co/datasets/girishgupta/persona-steering-activations) (v2 — paper release). Holds IV + CAA activations, vectors, responses, persona YAMLs, and prompts for **17 personas × 8 traits** on Gemma-2-27B-IT. `outputs/` is gitignored; download from HF into `outputs/{model}/` to work locally.
