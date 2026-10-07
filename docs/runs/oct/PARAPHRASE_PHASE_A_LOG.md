@@ -145,8 +145,8 @@ bash /workspace/oct_rig/run_paraphrase_arm.sh p0        # in tmux; ~5 GPU-h
 bash /workspace/oct_rig/run_arm.sh impulsiveness_regen  # evaluation -> the gate
 ```
 
-Measured on this card for the existing arms: DPO 38 min, fold 2.5 min, SFT 39 min, merge
-1.5 min.
+Measured on this card for the existing arms: DPO 38 min, fold 2.5 min, merge 1.5 min — and
+SFT **1 h 50 min**, not the 39 min carried in earlier notes; see the correction below.
 
 ## Measured: introspection generation is 100 min, not ~3.5 h
 
@@ -165,8 +165,37 @@ estimate was **2.1× too pessimistic**, so the per-arm budget drops from ~5 GPU-
 and both arms fit in ~6.5 GPU-h rather than ~10–11. vLLM 0.11.0 served the DPO LoRA through
 `PunicaWrapperGPU` with no patch, as `check_vllm_compat.py` predicted.
 
-Measured per-arm schedule, for Phase D: DPO 38 + introspection 100 + fold 2.5 + corpus <1 +
-SFT 39 + merge 1.5 ≈ **3 h 2 min**, plus ~21 min GPU and ~90 min CPU to evaluate.
+### Correction: the "SFT 39 min" figure was a one-epoch run
+
+Upstream's `finetuning/introspection/llama_local.sh` sets `--max_epochs 3`. The 39-minute
+number came from `repro_123456.log`, which recorded `Train epoch: 1/1 [36:54]` — an early
+one-epoch attempt, superseded by the real three-epoch run. The published arms actually took:
+
+| run | epochs | SFT wall-clock | s/epoch |
+|---|---|---|---|
+| repro-123456 (`repro_sft3ep.log`) | 3 | **1:49:33** | 2,191 |
+| seed2-987654 (`seed2.log`) | 3 | **1:50:12** | 2,204 |
+| P0 `impulsiveness_regen` | 3 | ~1:45 (in progress) | ~2,091 |
+
+P0 is marginally faster per epoch, consistent with its slightly shorter rows. So the
+introspection saving is **partly offset**, and the honest per-arm schedule is:
+
+| stage | measured |
+|---|---|
+| DPO | 38 min |
+| introspection generation | 100 min |
+| fold | 1 min |
+| SFT corpus | <1 min |
+| SFT (3 epochs) | ~105 min |
+| merge | 1.5 min |
+| **total per arm** | **~4 h 5 min** |
+
+Both arms ~8.2 GPU-h, plus ~21 min GPU / ~90 min CPU per adapter to evaluate. That is below the
+~10–11 h budgeted, but not by the margin the introspection number alone suggested.
+
+**The SFT corpus matches the released one closely**, which is the check that matters more than
+the timing: 12,000 rows against the frozen `impulsiveness.jsonl`'s 12,000, mean row length
+4,186 bytes against 4,387. Same shape, independently generated.
 
 Two stage-2 failures cost ~10 min of GPU idle between them and are worth naming, because both
 were invisible until the stage actually ran. `oct_provenance.py --stage` accepted only the four
