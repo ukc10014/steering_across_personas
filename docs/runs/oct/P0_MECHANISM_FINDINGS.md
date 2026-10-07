@@ -135,8 +135,48 @@ replicate cells are for.
 
 | question | cell | status |
 |---|---|---|
-| Is DPO optimisation itself unstable *behaviourally*, not just directionally? | `𝒟_a, s_b` — P0 data, seed 987654 | adapter trained (38 min); B1/B2 measuring |
-| Is teacher sampling the unstable element? | `𝒟_b, s_a` — fresh teacher data, seed 123456 | not started (~$5 API, ~2 h + 38 min) |
+### Measured: teacher sampling, not DPO optimisation, drives the DPO-stage shift
+
+The `𝒟_a, s_b` cell is in. DPO stage, B2 with bootstrap CI, 2x2 over data x seed:
+
+| | released data | P0 data |
+|---|---|---|
+| **seed 123456** | +0.303 [+0.266, +0.336] | +0.080 [+0.039, +0.115] |
+| **seed 987654** | +0.417 [+0.379, +0.450] | +0.034 [+0.001, +0.069] |
+
+| effect | magnitude | CIs |
+|---|---|---|
+| data (released to P0) at seed 123456 | **-0.223** | disjoint |
+| data (released to P0) at seed 987654 | **-0.383** | disjoint |
+| seed (123456 to 987654) on released data | +0.114 | disjoint |
+| seed (123456 to 987654) on P0 data | -0.046 | marginally overlap |
+
+**The data effect is 2-8x the seed effect and has the same sign at both seeds.** The regenerated
+teacher data systematically produces a weaker DPO stage; this is not seed luck. The seed is *not*
+inert either -- on released data it moves B2 by +0.114 with disjoint CIs -- so "DPO optimisation is
+stable" would be too strong. It is simply the smaller term here.
+
+**The cosine inversion appears a third time, now at the DPO stage:**
+
+| | cos(dW, dW) | B1 |
+|---|---|---|
+| same data, new seed | **0.035** (near-orthogonal) | -0.075 to -0.056 (equivalent) |
+| new data, same seed | **0.396** (correlated) | +0.132 to -0.075 (shifted) |
+
+The geometrically near-identical pair is the behaviourally shifted one, and vice versa. Three
+independent instances now: the SFT adapters, the crossed merges, and these DPO seeds.
+
+*Caveat, and it is the important one:* these are all **near-null absolute effects** (0.03-0.42) at
+a stage whose isolated behaviour is already known not to predict the merged outcome -- D_n is
+near-null alone yet pairs to +1.281 with S_n and +0.712 with S_o. So this decomposition describes
+the DPO stage, not the final phenotype.
+
+### Open
+
+| question | cell | status |
+|---|---|---|
+| Is the *merged* phenotype reproducible across seeds? | propagate D_n' through introspection, fold, SFT, merge | **recommended next**, ~3.5 h GPU |
+| Does a *second* fresh teacher dataset shift the DPO stage the same way? | `𝒟_b, s_a` — fresh teacher data, seed 123456 | not started (~$5 API, ~2 h + 38 min); the first one did, at both seeds |
 | Is `F_no`'s collapse partly functional dose? | A4 on the crossed states | **not measured** — needs CAA extraction per state (~20 min each) |
 | Does the stage equivalence hold off the folded model, not just off base? | — | not addressed |
 | Does any of this generalise past `impulsiveness`? | prospectively specified second character | deliberately deferred |
