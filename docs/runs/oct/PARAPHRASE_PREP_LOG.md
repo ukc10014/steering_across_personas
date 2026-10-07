@@ -60,6 +60,13 @@ nothing over 1024; at n=8,137 each of those runs at 0.6–1.6%. Not a problem �
 what the §3.1 policy exists for — but the probe's "never fires" claim was wrong and is
 corrected here.
 
+> **SUPERSEDED BELOW THIS LINE, 2026-10-07.** The repair pass is DONE, both arms are
+> formatted, and the "What is waiting on you" list is spent (the probe ran, generation
+> completed, `ZAI_API_KEY` was never needed — everything went via OpenRouter pinned to Novita).
+> See **[PARAPHRASE_PHASE_A_LOG.md](PARAPHRASE_PHASE_A_LOG.md)** for the current state: 8,042
+> row-identical rows per arm, three findings, and the Phase B runbook. The sections below are
+> kept as the record of what was known on 2026-10-06.
+
 ## FIRST THING TOMORROW: the repair pass
 
 Not yet run, deliberately — it needs fresh API calls and both arms, and was not started

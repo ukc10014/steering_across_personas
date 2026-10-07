@@ -102,6 +102,16 @@ else
     || bad "seed2 runner differs in $((NDIFF/2)) lines, expected 1 (--seed only)"
 fi
 
+# The paraphrase arms must be in character/utils.py:constitutions, or fold_loras.py skips
+# them SILENTLY and the failure only surfaces two stages later at SFT. See
+# oct_variants/patches/oct_constitutions_add_paraphrase_arms.patch to reapply.
+PARA_OK=1
+for c in impulsiveness_regen impulsiveness_paraphrase; do
+  grep -q "\"$c\"" /workspace/OpenCharacterTraining/character/utils.py || PARA_OK=0
+done
+[ "$PARA_OK" -eq 1 ] && ok "paraphrase arms present in constitutions (fold_loras.py sees them)" \
+  || bad "paraphrase arms MISSING from character/utils.py:constitutions -- fold would skip them"
+
 echo "== 7. training env (separate from measurement) =="
 export PYLIBS_TRAIN=/workspace/pylibs-train-py${PYV}
 if [ -d "$PYLIBS_TRAIN" ] && [ -n "$(ls -A "$PYLIBS_TRAIN" 2>/dev/null)" ]; then
