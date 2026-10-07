@@ -42,6 +42,13 @@ ADAPTERS = {
     "D_n":  (RIG / "loras/llama-distillation/impulsiveness_regen",        "dpo", "P0",       123456),
     "S_n":  (RIG / "loras/llama-introspection/impulsiveness_regen",       "sft", "P0",       123456),
     "D_n2": (RIG / "loras/llama-distillation/impulsiveness_regen_s987654", "dpo", "P0",      987654),
+    # the propagation arm's SFT stage. Its training seed is whatever introspection SFT defaults to,
+    # NOT the 987654 passed to the DPO stage -- which is the point of including it here.
+    "S_n2": (RIG / "loras/llama-introspection/impulsiveness_regen_s987654", "sft", "prop",    None),
+    # seed2 changed --seed in BOTH stages, so its A factors should re-align at a different shared
+    # draw: within-pair cos ~1, but cross-pair cos ~0 against the 123456 adapters.
+    "D_s2": (RIG / "loras_seed2/llama-distillation/impulsiveness",           "dpo", "seed2",   987654),
+    "S_s2": (RIG / "loras_seed2/llama-introspection/impulsiveness",          "sft", "seed2",   987654),
 }
 
 

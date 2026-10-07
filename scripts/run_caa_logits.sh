@@ -187,6 +187,16 @@ adapter_of() {
         echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1.5 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 0.75" ;;
     impulsiveness_regen_15D075S)
         echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1.5 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 0.75" ;;
+    # The propagation arm needs this one to be interpretable at all. Its DPO stage was trained at
+    # seed 987654 while its SFT stage kept upstream's 123456, so the two stages do NOT share a LoRA
+    # init: cos(A_D, A_S) = -0.0002 instead of +0.989. Its factor merge therefore does NOT collapse
+    # to the shared-A limit -- it applies the nominal (1.0, 0.25) almost exactly (fitted 1.0004,
+    # 0.2502) and dumps 82% of its squared norm into cross terms outside span{D, S}. So the merged
+    # propagation arm is under-dosed relative to repro/P0/seed2 by construction, and a low B1 there
+    # would be uninformative about the teacher data. These are the SAME scalar coefficients used by
+    # impulsiveness_repro_fit, which makes the two arms a like-for-like dose-matched pair.
+    impulsiveness_regen_s987654_fit)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen_s987654 --lora-scale 1.4651 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen_s987654 --lora-scale 0.7069" ;;
 
     # --- audit 1: coordinate dependence of the factor merge --------------------------------
     # merge(D_o, S_o with A -> -A, B -> -B). The negated SFT adapter is the SAME FUNCTION as

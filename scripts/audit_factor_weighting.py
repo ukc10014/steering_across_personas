@@ -60,6 +60,12 @@ PAIRS = {
     "crossed_Do_Sn": (RIG / "loras_repro/llama-distillation/impulsiveness",
                       RIG / "loras/llama-introspection/impulsiveness_regen",
                       RIG / "loras_crossed/llama-personas/crossed_Do_Sn"),
+    # the propagation arm: D_n' (regenerated teacher data, DPO seed 987654) carried through its own
+    # introspection generation and SFT, then merged. Included to test whether the shared-A limit is a
+    # property of the merge call rather than of one particular adapter pair.
+    "prop": (RIG / "loras/llama-distillation/impulsiveness_regen_s987654",
+             RIG / "loras/llama-introspection/impulsiveness_regen_s987654",
+             RIG / "loras/llama-personas/impulsiveness_regen_s987654"),
     # audit 1: the SAME two stage updates, merged after one input's factors were negated. Passing
     # the negated adapter as --sft gives the IDENTICAL S basis, since (-B)(-A) = BA, so c_S here is
     # directly comparable with the "repro" row. Expected from the closed form: (+0.5, -0.25).
