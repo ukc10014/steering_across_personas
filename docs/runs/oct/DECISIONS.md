@@ -146,3 +146,45 @@ reports L25). That optionality was judged worth keeping while the volume is not 
 full. Revisit if it gets tight.
 
 Audit, should it be needed again: 12 scale-ladder arms 281 GB, 10 headline arms 235 GB.
+
+## 2026-10-05 — the 516 GB was deleted after all
+
+**This supersedes the "Not deleted, and deliberately so" entry above.** That entry set its own
+revisit condition — *"while the volume is not actually full. Revisit if it gets tight"* — and it
+got tight: the volume stood at **767 GB** against the 500 GB target. Deletion was requested
+directly, under the constraint *"don't delete data that's needed for that figures work"*.
+
+Deleted: `caa_activations` for the **22 arms** that each hold a qcache (23.5 GB each, 516 GB
+total). Volume 767 GB → **251 GB**. Nothing else was touched: all 67 qcaches (32 GB for these
+22), every per-arm `caa_logits/` and `caa_logits_forced/`, and all adapters remain.
+
+**The figures constraint was verified, not assumed.** Before deleting: every one of the 22
+qcaches was opened and a member decompressed (22/22 valid, no arm left without one); no figure
+and no analysis feeding a figure reads raw `caa_activations` — the geometry chain reads
+`_qcache`, fig5's chain reads the per-arm `caa_logits/*.npz`, and `signed_trait_shift.py`'s
+apparent dependency is a comment naming `2c_caa_activations.py`, not a read. After deleting,
+**all 12 workshop figures regenerate with byte-identical source data and pixel-identical PNGs.**
+
+**What the deletion did cost, stated plainly.** Re-analysis at any layer other than 15 or 20
+now needs re-extraction. The concrete case the prior entry named is real: `caa_magnitude.py`
+defaults to `--report-layers 15 20 25`, and **L25 is not in the qcache**. Archived
+`caa_magnitude.json` covers only `outputs/Llama-3.1-8B-Instruct/analysis`, *not* these 22 arms.
+No published result depends on L25 for them. Recovery is re-extraction at ~25 min/arm; every
+adapter is still on the volume (`$SNAP`, `/workspace/random_loras`,
+`hf/hub/models--maius--llama-3.1-8b-it-misalignment`) and on HF.
+
+### Found while verifying: `common_shift.json` had been clobbered
+
+`fig1_decomposition` — a **main** figure — could not be rebuilt from the source its own header
+names, and had been in that state since **2026-09-10**, three weeks before this cleanup and
+entirely unrelated to it. A stage run had written the OCT curve/dose-matched arms over
+`common_shift.json`, dropping the four headline constitutions *and* the whole layer-20 block.
+One filename, two consumers.
+
+Fixed by splitting them: the stage version was preserved as `common_shift_oct_stage.json` and
+the four OCT consumers (`curve_common`, `curve_late_stats`, `dm_common`, `stage_comparison`)
+now read that; `common_shift.json` was regenerated as the four-constitution headline
+decomposition fig1 publishes. It reproduces the published claims exactly — selectivity 1.722
+at L15 and 1.871 at L20 (README: 1.72x, 1.87x), flat arms 0.974 and 0.946 (0.97, 0.95) — and
+`curve_late_stats` still returns `declines=False`, slope -0.0275, identical to
+[SFT_CURVE_LATE_FINDING.md](SFT_CURVE_LATE_FINDING.md).

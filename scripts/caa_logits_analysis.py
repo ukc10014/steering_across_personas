@@ -92,6 +92,12 @@ def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument("--n-boot", type=int, default=2000)
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--targets", nargs="+", default=list(IMPULSIVENESS_TARGETS),
+                   help="Traits forming the selectivity contrast's target set; the rest of "
+                        "the eight become 'others'. Defaults to the impulsiveness pair, so "
+                        "omitting it reproduces the published numbers exactly. Used to score "
+                        "other constitutions on their own named traits (e.g. --targets "
+                        "empathy warmth for `loving`) WITHOUT a per-constitution code path.")
     p.add_argument("--out", default=str(OUTPUTS / "analysis" / "caa_logits.json"))
     return p.parse_args()
 
@@ -168,7 +174,7 @@ def fit_offset_slope(base_pq: np.ndarray, arm_pq: np.ndarray, a_pos: np.ndarray,
     return (float(np.mean([o[0] for o in outs])), float(np.mean([o[1] for o in outs])))
 
 
-def analyse(cells, n_boot: int, seed: int):
+def analyse(cells, n_boot: int, seed: int, targets=IMPULSIVENESS_TARGETS):
     arms = sorted(cells)
     if BASE_ARM not in arms:
         raise SystemExit(f"no '{BASE_ARM}' arm found; every delta is against it")
@@ -260,7 +266,7 @@ def analyse(cells, n_boot: int, seed: int):
 
     # The contrast: does an arm move its OWN content traits more than the rest? Fixed before
     # the logits were seen; only `impulsivity` of the two is prereg-registered (see above).
-    tgt = [t for t in IMPULSIVENESS_TARGETS if t in traits]
+    tgt = [t for t in targets if t in traits]
     rest = [t for t in traits if t not in tgt]
     if tgt and rest:
         out["selectivity"] = {"targets": tgt, "others": rest, "by_arm": {}}
@@ -359,7 +365,7 @@ def main():
         if BASE_ARM not in cells:
             res_by_variant[variant] = None
             continue
-        res_by_variant[variant] = analyse(cells, args.n_boot, args.seed)
+        res_by_variant[variant] = analyse(cells, args.n_boot, args.seed, tuple(args.targets))
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
