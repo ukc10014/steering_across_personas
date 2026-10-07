@@ -150,6 +150,14 @@ adapter_of() {
     # matched known-null this is read against.
     impulsiveness_regen_s987654_dpo)
         echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen_s987654 --lora-scale 1" ;;
+    # the propagation run: D_n' carried through introspection -> fold -> SFT -> factor merge, so
+    # the same-dataset/new-seed DPO replicate can be read at the endpoint the gate scores
+    impulsiveness_regen_s987654)
+        echo "--lora-adapter $RIG/loras/llama-personas/impulsiveness_regen_s987654 --lora-scale 1" ;;
+    impulsiveness_regen_s987654_sft)
+        echo "--lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen_s987654 --lora-scale 1" ;;
+    impulsiveness_regen_s987654_Dplus025S)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen_s987654 --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen_s987654 --lora-scale 0.25" ;;
     impulsiveness_repro_DplusS)
         echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 1" ;;
     impulsiveness_repro_Dplus025S)

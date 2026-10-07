@@ -1,0 +1,50 @@
+{
+  "judge": "anthropic/claude-sonnet-5.5",
+  "provider": "Anthropic",
+  "n_items": 77,
+  "constitution_sha256_prefix": "impulsiveness.txt",
+  "dimensions": {
+    "adherence": {
+      "released": 4.194805194805195,
+      "p0": 2.5714285714285716,
+      "diff": -1.6233766233766234,
+      "ci_lo": -1.87012987012987,
+      "ci_hi": -1.3766233766233766,
+      "excludes_zero": true
+    },
+    "naturalness": {
+      "released": 3.6363636363636362,
+      "p0": 3.116883116883117,
+      "diff": -0.5194805194805194,
+      "ci_lo": -0.7142857142857143,
+      "ci_hi": -0.33766233766233766,
+      "excludes_zero": true
+    },
+    "task_fidelity": {
+      "released": 4.025974025974026,
+      "p0": 4.415584415584416,
+      "diff": 0.38961038961038963,
+      "ci_lo": 0.15584415584415584,
+      "ci_hi": 0.6103896103896104,
+      "excludes_zero": true
+    },
+    "refuses": {
+      "released": 0.025974025974025976,
+      "p0": 0.03896103896103896,
+      "diff": 0.012987012987012988,
+      "ci_lo": 0.0,
+      "ci_hi": 0.03896103896103896,
+      "excludes_zero": false
+    }
+  },
+  "preference": {
+    "released": 70,
+    "p0": 7,
+    "tie": 0
+  },
+  "position_bias": {
+    "first": 3.2987012987012987,
+    "second": 3.4675324675324677
+  },
+  "note": "blinded; rubric fixed before inspection; nothing was tuned on this result"
+}

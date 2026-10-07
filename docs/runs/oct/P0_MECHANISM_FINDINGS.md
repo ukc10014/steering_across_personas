@@ -338,8 +338,60 @@ row is the one to read for length.
 *Status: association, not causation.* This shows the two teacher corpora differ in register and
 that the difference points the same way as the measured target-side attenuation. It does not show
 the register difference caused the B1 gap, and per the protocol **nothing was tuned or regenerated
-on the basis of this audit.** The blinded constitution-adherence rubric over 78 stratified matched
-pairs is the remaining piece; the sample is written with arm labels held in a separate key file.
+on the basis of this audit.** The blinded rubric over the same corpora is audit 4c, next.
+
+### Audit 4c: blinded rubric — the released teacher adheres to the constitution far better
+
+`scripts/audit_teacher_rubric.py`. 78 matched pairs stratified by prompt-length tercile × P0 repair
+status, arm labels held in a separate key file, A/B side randomised per item (39/39). Judge
+`anthropic/claude-sonnet-5.5`, a different family from the teacher (`z-ai/glm-4.5-air`), provider
+pinned, temperature 0. Four dimensions fixed before any response was read, none phrased in terms of
+the statistics audit 4b found. **77 of 78 scored** — on one item the judge derailed into counting
+words and returned no JSON; it was dropped rather than retried, since a retry at temperature 0
+would have meant changing the prompt.
+
+| dimension | released | P0 | P0 − released (paired 95% CI) |
+|---|---|---|---|
+| **adherence** 1–5 | **4.195** | **2.571** | **−1.623 [−1.870, −1.377]** |
+| naturalness 1–5 | 3.636 | 3.117 | −0.519 [−0.714, −0.338] |
+| task_fidelity 1–5 | 4.026 | **4.416** | **+0.390** [+0.156, +0.610] |
+| refuses (rate) | 0.026 | 0.039 | +0.013 [+0.000, +0.039] |
+
+Forced preference on adherence: **released 70, P0 7, no ties.**
+
+**It is a whole-distribution shift, not a subset.** P0 scores lower on 68 of 77 items, equal on 5,
+higher on 4:
+
+| adherence score | 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| released | 0 | 2 | 8 | **40** | 27 |
+| P0 | 12 | 23 | **29** | 12 | 1 |
+
+**Repair status is a clean null**: mean difference −1.632 on the 38 repaired items against −1.615 on
+the 39 original ones. The repaired rows are not driving it.
+
+**The most informative cell is `task_fidelity`, which runs the other way.** P0's responses are
+judged *better* at addressing what the user asked (+0.390) while being judged much worse at sounding
+like the character (−1.623). Together with audit 4b that is one coherent story: without the prefill
+the teacher reverts to a competent, structured, generic-assistant voice — more helpful, less in
+character. And it points the same way as the preregistered behavioural result, which is **target-side
+attenuation**: P0's adapter moved its target traits toward zero rather than spreading effect onto
+controls.
+
+**Caveats, all of them load-bearing.**
+
+- **Association, not causation.** This describes two corpora that already exist. It does not
+  establish that the register difference produced the B1 gap, and per the protocol **nothing was
+  tuned or regenerated on it.**
+- **Adherence to an impulsiveness constitution is not register-independent by construction.** The
+  rubric told the judge not to reward formatting in itself, but a character defined partly by
+  spontaneity will legitimately score lower when written in report voice. That is the measurement
+  working, not a leak — but it means audits 4b and 4c are not independent evidence.
+- **One judge, one pass.** No inter-judge or self-consistency agreement was measured. Position bias
+  is mild and in the opposite direction to any concern (3.299 shown first vs 3.468 shown second,
+  against an arm effect of 1.6) and side was randomised, so it cannot bias the contrast.
+- Both conditioning biases from audit 4b still apply.
+
 
 ---
 
@@ -363,9 +415,23 @@ functional dose are all preserved or passing, and the phenotype still moved.
 
 *Why this is not established:* **one realisation is not a variance estimate.** Candidate
 systematic causes are unexcluded and specific: the omitted prefill (`--prefill-mode none`;
-released `teacher.py` prefills) and Novita's bf16 serving stack. The prefill is now the leading
-candidate, since `repetition_penalty` has been ruled out as a deviation. Distinguishing those from ordinary run-to-run variance is what the
-replicate cells are for.
+released `teacher.py` prefills) and Novita's bf16 serving stack. The prefill is the leading
+candidate, since `repetition_penalty` has been ruled out as a deviation.
+
+**What audits 4b and 4c add is that the two teacher corpora are now measured to differ, and
+substantially.** It is no longer a hypothesis that something about the regenerated teacher data
+might matter: on 1758 shared prompts P0's responses carry 4.4× the markdown bullets and 61–63%
+fewer em dashes and ellipses, and on 77 blinded matched pairs a held-out judge scores them
+**1.62 points lower out of 5 on constitution adherence** (released preferred 70–7), while scoring
+them *higher* on task fidelity. That is a large, uniform, register-shaped difference in exactly
+the direction the preregistered target-side attenuation would predict.
+
+*What is still missing is the causal link in both joints:* that the omitted prefill produced the
+register difference (not measured — it would need a prefilled regeneration, which the protocol
+holds), and that the register difference produced the B1 gap (not measured — it would need a
+teacher corpus matched on register). Distinguishing either from ordinary run-to-run variance is
+what the replicate cells are for. Note also that the register story predicts target-side
+attenuation but says nothing about why the *control* traits also attenuated, which they did.
 
 ---
 

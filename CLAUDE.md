@@ -31,12 +31,17 @@ reproduction's, but every state containing the regenerated DPO adapter is lower.
 
 Chasing that failure produced a bigger result than the experiment it was controlling for —
 see **[docs/runs/oct/P0_MECHANISM_FINDINGS.md](docs/runs/oct/P0_MECHANISM_FINDINGS.md)**, the
-findings summary organised for writing (claims ranked by evidential strength). Headline: the
-peft factor-merge cross terms carry 61–62% of the weight norm and the additive `D + 0.25S`
-construction does not reproduce the phenotype (B1 +0.499 vs the merge's +1.923); the merged
-phenotype is pair-dependent (crossing the stage adapters is worse than either matched pair); and
-global weight-space cosine is near-uninformative about behaviour across training seeds (same data
-+ new seed → cos 0.035).
+findings summary organised for writing (claims ranked by evidential strength). Headline: **OCT's
+published `add_weighted_adapter(weights=[1.0, 0.25])` does not apply the weights it appears to** —
+LoRA's `A` factor is essentially its random init and both stages share a training seed
+(`cos(A_D, A_S) = 0.989`), so the merge sits at its shared-A limit and is measurably
+`1.47·D + 0.71·S`, with ~96% of the merged update's squared norm inside span{D, S}. The additive
+`D + 0.25S` arm (B1 +0.499 vs the merge's +1.923) was therefore under-dosed by design. Also: the
+merged phenotype is pair-dependent (crossing the stage adapters is worse than either matched
+pair); global weight-space cosine is near-uninformative about behaviour across training seeds
+(same data + new seed → cos 0.035, because a reseeded LoRA draws a fresh subspace); and the
+regenerated teacher writes in a measurably different register (4.4× the markdown bullets, −63%
+ellipses, −61% em dashes, refusals 1.3% → 2.8%).
 
 ## Docs & data (read these first)
 - **Docs live in `docs/`**: [docs/overview.md](docs/overview.md) (research question, method, findings), [docs/experiments.md](docs/experiments.md) (E-series runbook), [docs/causal_pipeline.md](docs/causal_pipeline.md), [docs/results/](docs/results/). Historical artifacts in `docs/archive/`.
