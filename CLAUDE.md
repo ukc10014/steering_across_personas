@@ -29,6 +29,17 @@ under the preregistered protocol.** The divergence localises to the DPO/weight c
 self-generated introspection corpus produced an SFT adapter indistinguishable from the
 reproduction's, but every state containing the regenerated DPO adapter is lower.
 
+The **propagation arm** then carried the regenerated-teacher DPO adapter through its own
+introspection pass, corpus build, SFT and merge — see
+[docs/runs/oct/PROPAGATION_REPORT_p0s2.md](docs/runs/oct/PROPAGATION_REPORT_p0s2.md). Headline:
+**the regenerated teacher data does not damage the introspection/SFT channel** (SFT adapters alone
+score +1.859 / +1.823 / +1.887 for repro / P0 / propagation), the deficit lives in the DPO adapter,
+and at matched dose it **partially propagates** (+1.060 against repro +1.463 and P0 +0.753). That
+arm also made the merge finding causal: it reseeded only its DPO stage, so `cos(A_D, A_S)` fell
+from +0.989 to −0.0002 and its merge applied the nominal `(1.0004, 0.2502)` instead of 1.47/0.71 —
+a double dissociation confirmed behaviourally. Its §4.1 numbers are therefore **not** a gate
+verdict, and P1 remains untrained.
+
 Chasing that failure produced a bigger result than the experiment it was controlling for —
 see **[docs/runs/oct/P0_MECHANISM_FINDINGS.md](docs/runs/oct/P0_MECHANISM_FINDINGS.md)**, the
 findings summary organised for writing (claims ranked by evidential strength). Headline: **OCT's

@@ -149,7 +149,7 @@ delivers. Its two neighbours are already measured, at nearly identical coefficie
 |---|---|---|
 | repro `_fit` | (1.465, 0.707) | +1.463 |
 | P0 `_fit` | (1.470, 0.712) | **+0.753** |
-| propagation `_fit` | (1.465, 0.707) | *pending* |
+| propagation `_fit` | (1.465, 0.707) | **+1.060** |
 
 Note what the middle row already shows: P0's pair at matched coefficients scores **+0.753 against
 repro's +1.463**, a gap of +0.710 — even though the two pairs' standalone stages differ by only
@@ -158,13 +158,109 @@ Whether that is genuine interference, or an artifact of extrapolating a nonlinea
 dose, cannot be settled by these four numbers; it would need a dose ladder on both pairs.
 `scripts/run_prop_dosematch.sh` supplies the third row.
 
-<!-- DOSEMATCH-RESULT -->
+### Result: the deficit partially propagates
+
+| pair at fitted dose | coefficients | B1 | B2 |
+|---|---|---|---|
+| repro `_fit` | (1.465, 0.707) | +1.463 | +1.487 |
+| **propagation `_fit`** | (1.465, 0.707) | **+1.060** | **+1.096** |
+| P0 `_fit` | (1.470, 0.712) | +0.753 | +0.793 |
+
+The propagation arm lands **between** the other two: +0.307 above P0, +0.403 below repro, recovering
+about 43% of the P0→repro gap. Its impulsivity offset is +1.494 [+1.431, +1.558].
+
+So the answer to the question this arm was built to ask is **the deficit propagates, but only
+partly**. Carrying `D_n′` through a fresh introspection pass, a fresh 12 000-row corpus and a fresh
+SFT does not restore the reproduction's phenotype, and does not leave P0's deficit intact either.
+
+**These `_fit` numbers must not be scored against §4.1.** `repro_fit` is +1.463, itself below the
+B1 band of +1.5, even though the reproduction it stands in for passes at +1.923. The fitted
+additive surrogate loses ~0.46 of B1 relative to the real factor merge (the out-of-span residual,
+quantified in the mechanism doc's audit 2). The bands were calibrated on the merge, so only
+*relative* comparisons among `_fit` arms are meaningful. That is what the table above is.
+
+### An amplification worth noting
+
+At the **DPO endpoint** the two regenerated-data adapters are nearly identical — P0 −0.075 against
+propagation −0.056, a difference of 0.019. After the full remaining pipeline at matched dose they
+differ by **+0.307**, roughly a sixteen-fold amplification.
+
+This is why the DPO 2×2 claim is scoped the way it is. "**Teacher-data realisation/protocol
+differences dominate DPO optimisation-seed differences at the DPO endpoint**" is supported and
+remains the claim; it does **not** transfer to the pipeline endpoint, where a seed difference that
+was negligible at the DPO stage grows to 43% of the data-induced gap.
+
+Two cautions. The propagation arm differs from P0 by its DPO seed **and** by everything downstream
+of it — its own introspection corpus and its own SFT adapter — so +0.307 is "seed plus its
+downstream realisation", not seed alone. And n = 1 per cell: this is two DPO adapters from one
+dataset, not a variance estimate.
+
+## Gate criteria, for the record
+
+Scored on the merged arm, with the warning above attached: the arm does not instantiate the
+published merge operator, so these are **not** a §4.1 verdict.
+
+| criterion | band | propagation (merged) | P0 | repro | released |
+|---|---|---|---|---|---|
+| B1 primary | ≥ +1.5 | +0.291 | +1.281 | +1.923 | +2.184 |
+| B2 secondary | ≥ +1.4 | +0.344 | +1.272 | +1.950 | +2.077 |
+| B3 selectivity | ≥ 1.4 | **1.098** [0.923, 1.272] | 1.208 | 1.556 | 1.722 |
+| A4 functional dose | ∈ [0.7, 1.4] | **0.817** — *in band* | 1.171 | 0.960 | 1.000 |
+
+Two things are worth extracting from that table.
+
+**B3's CI covers 1.** At 1.098 [0.923, 1.272] the propagation merge is the least selective state
+measured here, and not distinguishable from no selectivity at all.
+
+**A4 passes, and that is a finding about A4.** Functional dose is 0.817× released — comfortably in
+band — for a state whose stage weighting is completely different from the published merge's and
+whose B1 has collapsed to +0.291. A4 measures total functional displacement; it is **blind to the
+balance between stages**. So the criterion designed to catch dose problems cannot detect a
+stage-weighting error of exactly the kind this arm has. Any future protocol that relies on A4 to
+certify "dose is fine" should pair it with a stage-balance check such as the factor fit in
+`scripts/audit_factor_weighting.py`.
+
+### Paired comparisons: target-side attenuation again
+
+Propagation against P0, paired by question (`paired_offset_diff_prop_vs_p0.json`):
+
+| quantity | point | paired 95% CI |
+|---|---|---|
+| mean target change | −1.099 | [−1.145, −1.055] |
+| mean control change | −0.170 | [−0.196, −0.145] |
+| B2 change | −0.928 | [−0.981, −0.877] |
+
+Targets attenuate ~6.5× more than controls — the same signature the P0-vs-repro comparison showed.
+The selectivity loss is **target-side attenuation, not control elevation**, in this arm too.
 
 ## Gate status
 
 **The preregistered §4.1 gate is not scored on this arm.** The arm does not instantiate the
 published merge operator, so it is not the state the bands were written for. P0 remains the
 recorded gate failure; nothing here changes that, and no threshold has been moved.
+
+**P1 remains untrained**, per the preregistered protocol.
+
+## What this arm settled, and what it did not
+
+Settled:
+
+- The regenerated teacher data does **not** damage the introspection/SFT channel. Three SFT
+  adapters alone, within 0.06 of each other: repro +1.859, P0 +1.823, propagation +1.887.
+- The deficit lives in the DPO adapter and **partially propagates** — +1.060 at matched dose,
+  against repro +1.463 and P0 +0.753.
+- The merge-geometry account predicts behaviour. Where the stages share a LoRA init the factor
+  merge exceeds its nominal additive combination by +1.424 / +0.932; where they do not, by +0.045.
+- A4 is blind to stage balance.
+
+Not settled:
+
+- Whether the +0.710 matched-dose gap between repro and P0 is genuine interference or an artifact
+  of a nonlinear estimator read across dose. Needs a dose ladder on both pairs at matched
+  coefficients.
+- How much of propagation's +0.307 recovery over P0 is the DPO seed versus its own downstream
+  corpus realisation. The arm changed both.
+- Everything here is one character, one base model, n = 1 per cell.
 
 ## Known deviation, recorded
 

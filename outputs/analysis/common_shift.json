@@ -15,19 +15,36 @@
           "g_over_base": 0.8715806718725218,
           "share_squared": 0.7791259076415924,
           "share_linear": 0.8826810905653255
+        },
+        "impulsiveness_regen_s987654": {
+          "g_norm": 0.7733665703510929,
+          "base_norm": 1.2861926853656769,
+          "g_over_base": 0.6012836017110589,
+          "share_squared": 0.7076730115608154,
+          "share_linear": 0.8412330304742054
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.8268448438696916,
+        "impulsiveness|impulsiveness_regen_s987654": 0.7927349564930226,
         "impulsiveness_regen|impulsiveness": 0.8268448438696916,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.8250155892605598,
+        "impulsiveness_regen_s987654|impulsiveness": 0.7927349564930226,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.8250155892605598,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.7978973984718323,
+        "impulsiveness|impulsiveness_regen_s987654": 0.7864440083503723,
         "impulsiveness_regen|impulsiveness": 0.7978973984718323,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.8039010763168335,
+        "impulsiveness_regen_s987654|impulsiveness": 0.7864440083503723,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.8039010763168335,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -37,6 +54,10 @@
         "impulsiveness_regen": {
           "g_over_base": 0.8448572168469356,
           "share_squared": 0.7774508647380117
+        },
+        "impulsiveness_regen_s987654": {
+          "g_over_base": 0.5784951116068314,
+          "share_squared": 0.707875455932935
         }
       },
       "g_over_base_ci": {
@@ -47,6 +68,10 @@
         "impulsiveness_regen": [
           0.7762524607039357,
           1.0318213365905735
+        ],
+        "impulsiveness_regen_s987654": [
+          0.5467355828330743,
+          0.7290644541102141
         ]
       },
       "share_squared_ci": {
@@ -57,6 +82,10 @@
         "impulsiveness_regen": [
           0.7666712624038183,
           0.7922185479805576
+        ],
+        "impulsiveness_regen_s987654": [
+          0.6879164812843782,
+          0.7284526445264654
         ]
       },
       "cos_ci": {
@@ -68,11 +97,31 @@
           0.7626659495443963,
           0.9199021723308209
         ],
+        "impulsiveness|impulsiveness_regen_s987654": [
+          0.7724131070080089,
+          0.8150388153997066
+        ],
         "impulsiveness_regen|impulsiveness": [
           0.7626659495443963,
           0.9199021723308209
         ],
         "impulsiveness_regen|impulsiveness_regen": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_regen|impulsiveness_regen_s987654": [
+          0.7804546589890422,
+          0.8857519241558206
+        ],
+        "impulsiveness_regen_s987654|impulsiveness": [
+          0.7724131070080089,
+          0.8150388153997066
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen": [
+          0.7804546589890422,
+          0.8857519241558206
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": [
           1.0,
           1.0
         ]
@@ -93,19 +142,36 @@
           "g_over_base": 0.9503163040958749,
           "share_squared": 0.7503912558529164,
           "share_linear": 0.8662512660036442
+        },
+        "impulsiveness_regen_s987654": {
+          "g_norm": 0.7968207139803574,
+          "base_norm": 1.2879268825054169,
+          "g_over_base": 0.6186847443003085,
+          "share_squared": 0.6375754198099776,
+          "share_linear": 0.7984831994538004
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.8109480532373836,
+        "impulsiveness|impulsiveness_regen_s987654": 0.7940730148763879,
         "impulsiveness_regen|impulsiveness": 0.8109480532373836,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.7900034033804373,
+        "impulsiveness_regen_s987654|impulsiveness": 0.7940730148763879,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.7900034033804373,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.7824015021324158,
+        "impulsiveness|impulsiveness_regen_s987654": 0.7868732810020447,
         "impulsiveness_regen|impulsiveness": 0.7824015021324158,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.7731545567512512,
+        "impulsiveness_regen_s987654|impulsiveness": 0.7868732810020447,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.7731545567512512,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -115,6 +181,10 @@
         "impulsiveness_regen": {
           "g_over_base": 0.9148794742102894,
           "share_squared": 0.74950864913305
+        },
+        "impulsiveness_regen_s987654": {
+          "g_over_base": 0.5941987449187054,
+          "share_squared": 0.6392908865862391
         }
       },
       "g_over_base_ci": {
@@ -125,6 +195,10 @@
         "impulsiveness_regen": [
           0.8396516288129307,
           1.1745655670834232
+        ],
+        "impulsiveness_regen_s987654": [
+          0.5304452356916018,
+          0.7688174707792449
         ]
       },
       "share_squared_ci": {
@@ -135,6 +209,10 @@
         "impulsiveness_regen": [
           0.729960920217379,
           0.7746300109703809
+        ],
+        "impulsiveness_regen_s987654": [
+          0.6190565454272747,
+          0.6596235075607065
         ]
       },
       "cos_ci": {
@@ -146,11 +224,31 @@
           0.7090855196110843,
           0.9374722744825437
         ],
+        "impulsiveness|impulsiveness_regen_s987654": [
+          0.7742838079996427,
+          0.8221220492225865
+        ],
         "impulsiveness_regen|impulsiveness": [
           0.7090855196110843,
           0.9374722744825437
         ],
         "impulsiveness_regen|impulsiveness_regen": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_regen|impulsiveness_regen_s987654": [
+          0.7349565958196423,
+          0.8501134454375046
+        ],
+        "impulsiveness_regen_s987654|impulsiveness": [
+          0.7742838079996427,
+          0.8221220492225865
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen": [
+          0.7349565958196423,
+          0.8501134454375046
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": [
           1.0,
           1.0
         ]
@@ -171,19 +269,36 @@
           "g_over_base": 1.0381919111275093,
           "share_squared": 0.8224369969538486,
           "share_linear": 0.9068831219919404
+        },
+        "impulsiveness_regen_s987654": {
+          "g_norm": 0.7616252289116968,
+          "base_norm": 1.1097696498036385,
+          "g_over_base": 0.6862912758935676,
+          "share_squared": 0.7445121170917167,
+          "share_linear": 0.8628511558152523
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.856189390093162,
+        "impulsiveness|impulsiveness_regen_s987654": 0.7656044529714139,
         "impulsiveness_regen|impulsiveness": 0.856189390093162,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.8785183240414507,
+        "impulsiveness_regen_s987654|impulsiveness": 0.7656044529714139,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.8785183240414507,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.8382633328437805,
+        "impulsiveness|impulsiveness_regen_s987654": 0.7626553773880005,
         "impulsiveness_regen|impulsiveness": 0.8382633328437805,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.8567025661468506,
+        "impulsiveness_regen_s987654|impulsiveness": 0.7626553773880005,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.8567025661468506,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -193,6 +308,10 @@
         "impulsiveness_regen": {
           "g_over_base": 0.9648338741117474,
           "share_squared": 0.8172584167421182
+        },
+        "impulsiveness_regen_s987654": {
+          "g_over_base": 0.6393839790752487,
+          "share_squared": 0.7434640082312999
         }
       },
       "g_over_base_ci": {
@@ -203,6 +322,10 @@
         "impulsiveness_regen": [
           0.8584159199654829,
           1.3082556647245216
+        ],
+        "impulsiveness_regen_s987654": [
+          0.571912420401917,
+          0.8659848930410191
         ]
       },
       "share_squared_ci": {
@@ -213,6 +336,10 @@
         "impulsiveness_regen": [
           0.806551360650061,
           0.8339488544017558
+        ],
+        "impulsiveness_regen_s987654": [
+          0.7311242102794951,
+          0.7585212859450374
         ]
       },
       "cos_ci": {
@@ -224,11 +351,31 @@
           0.7894702220296849,
           0.8939510199816353
         ],
+        "impulsiveness|impulsiveness_regen_s987654": [
+          0.7399430703579617,
+          0.7858938454511913
+        ],
         "impulsiveness_regen|impulsiveness": [
           0.7894702220296849,
           0.8939510199816353
         ],
         "impulsiveness_regen|impulsiveness_regen": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_regen|impulsiveness_regen_s987654": [
+          0.8008073816107932,
+          0.9247182384903005
+        ],
+        "impulsiveness_regen_s987654|impulsiveness": [
+          0.7399430703579617,
+          0.7858938454511913
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen": [
+          0.8008073816107932,
+          0.9247182384903005
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": [
           1.0,
           1.0
         ]
@@ -249,19 +396,36 @@
           "g_over_base": 0.8076742246312086,
           "share_squared": 0.8088432279843264,
           "share_linear": 0.8993571192714974
+        },
+        "impulsiveness_regen_s987654": {
+          "g_norm": 0.7831864638233036,
+          "base_norm": 1.2330042555928231,
+          "g_over_base": 0.6351855318185832,
+          "share_squared": 0.7907042003718094,
+          "share_linear": 0.8892154971500493
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.8381839315562947,
+        "impulsiveness|impulsiveness_regen_s987654": 0.8248713438601287,
         "impulsiveness_regen|impulsiveness": 0.8381839315562947,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.8343106362911453,
+        "impulsiveness_regen_s987654|impulsiveness": 0.8248713438601287,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.8343106362911453,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.8109755516052246,
+        "impulsiveness|impulsiveness_regen_s987654": 0.815890908241272,
         "impulsiveness_regen|impulsiveness": 0.8109755516052246,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.8155153393745422,
+        "impulsiveness_regen_s987654|impulsiveness": 0.815890908241272,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.8155153393745422,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -271,6 +435,10 @@
         "impulsiveness_regen": {
           "g_over_base": 0.783406851101216,
           "share_squared": 0.8038771164640343
+        },
+        "impulsiveness_regen_s987654": {
+          "g_over_base": 0.6096105278757947,
+          "share_squared": 0.7856999441598309
         }
       },
       "g_over_base_ci": {
@@ -281,6 +449,10 @@
         "impulsiveness_regen": [
           0.722862145362191,
           0.966282764498159
+        ],
+        "impulsiveness_regen_s987654": [
+          0.5494961914541772,
+          0.7748629019539517
         ]
       },
       "share_squared_ci": {
@@ -291,6 +463,10 @@
         "impulsiveness_regen": [
           0.7887224507835758,
           0.826982287809771
+        ],
+        "impulsiveness_regen_s987654": [
+          0.7731086239103268,
+          0.8058002203036957
         ]
       },
       "cos_ci": {
@@ -302,11 +478,31 @@
           0.7457680185085294,
           0.9289962059881214
         ],
+        "impulsiveness|impulsiveness_regen_s987654": [
+          0.7850033052555474,
+          0.8746623878556959
+        ],
         "impulsiveness_regen|impulsiveness": [
           0.7457680185085294,
           0.9289962059881214
         ],
         "impulsiveness_regen|impulsiveness_regen": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_regen|impulsiveness_regen_s987654": [
+          0.7768836916756131,
+          0.8856654367351167
+        ],
+        "impulsiveness_regen_s987654|impulsiveness": [
+          0.7850033052555474,
+          0.8746623878556959
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen": [
+          0.7768836916756131,
+          0.8856654367351167
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": [
           1.0,
           1.0
         ]
@@ -327,19 +523,36 @@
           "g_over_base": 0.8677568188827646,
           "share_squared": 0.777084713379726,
           "share_linear": 0.8815240855357986
+        },
+        "impulsiveness_regen_s987654": {
+          "g_norm": 0.7190156792877898,
+          "base_norm": 1.2370690166950227,
+          "g_over_base": 0.5812251940548361,
+          "share_squared": 0.6955282546695173,
+          "share_linear": 0.8339833659429409
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.8025953427148036,
+        "impulsiveness|impulsiveness_regen_s987654": 0.7799728684946517,
         "impulsiveness_regen|impulsiveness": 0.8025953427148036,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.7798253174955876,
+        "impulsiveness_regen_s987654|impulsiveness": 0.7799728684946517,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.7798253174955876,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.7764853835105896,
+        "impulsiveness|impulsiveness_regen_s987654": 0.7754464745521545,
         "impulsiveness_regen|impulsiveness": 0.7764853835105896,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.7611708045005798,
+        "impulsiveness_regen_s987654|impulsiveness": 0.7754464745521545,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.7611708045005798,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -349,6 +562,10 @@
         "impulsiveness_regen": {
           "g_over_base": 0.8325108796371534,
           "share_squared": 0.7743303523069648
+        },
+        "impulsiveness_regen_s987654": {
+          "g_over_base": 0.5588058362767453,
+          "share_squared": 0.6971562996888436
         }
       },
       "g_over_base_ci": {
@@ -359,6 +576,10 @@
         "impulsiveness_regen": [
           0.7434939762779701,
           1.0987886974877876
+        ],
+        "impulsiveness_regen_s987654": [
+          0.5082361369111669,
+          0.7223251817888249
         ]
       },
       "share_squared_ci": {
@@ -369,6 +590,10 @@
         "impulsiveness_regen": [
           0.7654583082106153,
           0.7885009361922334
+        ],
+        "impulsiveness_regen_s987654": [
+          0.6742959793905551,
+          0.7144991113454162
         ]
       },
       "cos_ci": {
@@ -380,11 +605,31 @@
           0.7082232282199912,
           0.9065377149560264
         ],
+        "impulsiveness|impulsiveness_regen_s987654": [
+          0.748845338314783,
+          0.8127176176299596
+        ],
         "impulsiveness_regen|impulsiveness": [
           0.7082232282199912,
           0.9065377149560264
         ],
         "impulsiveness_regen|impulsiveness_regen": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_regen|impulsiveness_regen_s987654": [
+          0.7159918726579568,
+          0.849450244197579
+        ],
+        "impulsiveness_regen_s987654|impulsiveness": [
+          0.748845338314783,
+          0.8127176176299596
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen": [
+          0.7159918726579568,
+          0.849450244197579
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": [
           1.0,
           1.0
         ]
@@ -405,19 +650,36 @@
           "g_over_base": 0.8875268300171475,
           "share_squared": 0.7082865407047253,
           "share_linear": 0.8415976121073094
+        },
+        "impulsiveness_regen_s987654": {
+          "g_norm": 0.5757336382027661,
+          "base_norm": 0.9902600646018982,
+          "g_over_base": 0.5813964015949902,
+          "share_squared": 0.608195396140996,
+          "share_linear": 0.7798688326513608
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.7721851011615313,
+        "impulsiveness|impulsiveness_regen_s987654": 0.785947380855672,
         "impulsiveness_regen|impulsiveness": 0.7721851011615313,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.8051849264974678,
+        "impulsiveness_regen_s987654|impulsiveness": 0.785947380855672,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.8051849264974678,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.7436216473579407,
+        "impulsiveness|impulsiveness_regen_s987654": 0.777775228023529,
         "impulsiveness_regen|impulsiveness": 0.7436216473579407,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.7817910313606262,
+        "impulsiveness_regen_s987654|impulsiveness": 0.777775228023529,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.7817910313606262,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -427,6 +689,10 @@
         "impulsiveness_regen": {
           "g_over_base": 0.8367487408211963,
           "share_squared": 0.7104637398420878
+        },
+        "impulsiveness_regen_s987654": {
+          "g_over_base": 0.5490298405588543,
+          "share_squared": 0.6152890574680461
         }
       },
       "g_over_base_ci": {
@@ -437,6 +703,10 @@
         "impulsiveness_regen": [
           0.7498949382621688,
           1.1717204046266363
+        ],
+        "impulsiveness_regen_s987654": [
+          0.465804156424277,
+          0.7606972809409142
         ]
       },
       "share_squared_ci": {
@@ -447,6 +717,10 @@
         "impulsiveness_regen": [
           0.6678762497697954,
           0.7393313011322179
+        ],
+        "impulsiveness_regen_s987654": [
+          0.5436050676176104,
+          0.6529268225907096
         ]
       },
       "cos_ci": {
@@ -458,11 +732,31 @@
           0.6246885442259427,
           0.9421110043579972
         ],
+        "impulsiveness|impulsiveness_regen_s987654": [
+          0.7445281103544511,
+          0.8368530761508317
+        ],
         "impulsiveness_regen|impulsiveness": [
           0.6246885442259427,
           0.9421110043579972
         ],
         "impulsiveness_regen|impulsiveness_regen": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_regen|impulsiveness_regen_s987654": [
+          0.6940912574438302,
+          0.9147656039518841
+        ],
+        "impulsiveness_regen_s987654|impulsiveness": [
+          0.7445281103544511,
+          0.8368530761508317
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen": [
+          0.6940912574438302,
+          0.9147656039518841
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": [
           1.0,
           1.0
         ]
@@ -483,19 +777,36 @@
           "g_over_base": 0.8793995135216224,
           "share_squared": 0.7351090919248096,
           "share_linear": 0.8573850313160416
+        },
+        "impulsiveness_regen_s987654": {
+          "g_norm": 0.6411124299879735,
+          "base_norm": 1.0716712489724158,
+          "g_over_base": 0.5982361014188926,
+          "share_squared": 0.6589072608305876,
+          "share_linear": 0.8117310273918249
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.797987091275266,
+        "impulsiveness|impulsiveness_regen_s987654": 0.7060287268994582,
         "impulsiveness_regen|impulsiveness": 0.797987091275266,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.8098983184164463,
+        "impulsiveness_regen_s987654|impulsiveness": 0.7060287268994582,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.8098983184164463,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.7616952061653137,
+        "impulsiveness|impulsiveness_regen_s987654": 0.7039334774017334,
         "impulsiveness_regen|impulsiveness": 0.7616952061653137,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.7826606035232544,
+        "impulsiveness_regen_s987654|impulsiveness": 0.7039334774017334,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.7826606035232544,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -505,6 +816,10 @@
         "impulsiveness_regen": {
           "g_over_base": 0.8442640782533058,
           "share_squared": 0.7336343999317624
+        },
+        "impulsiveness_regen_s987654": {
+          "g_over_base": 0.5711083484286911,
+          "share_squared": 0.6595151697827045
         }
       },
       "g_over_base_ci": {
@@ -515,6 +830,10 @@
         "impulsiveness_regen": [
           0.7419900482728128,
           1.1452420292724865
+        ],
+        "impulsiveness_regen_s987654": [
+          0.48465500900524944,
+          0.817219457301051
         ]
       },
       "share_squared_ci": {
@@ -525,6 +844,10 @@
         "impulsiveness_regen": [
           0.7112640250857478,
           0.7544135147708493
+        ],
+        "impulsiveness_regen_s987654": [
+          0.6326808662285257,
+          0.6806287927247122
         ]
       },
       "cos_ci": {
@@ -536,11 +859,31 @@
           0.6870323004911578,
           0.9650425195821672
         ],
+        "impulsiveness|impulsiveness_regen_s987654": [
+          0.6725245667344557,
+          0.7378763462314152
+        ],
         "impulsiveness_regen|impulsiveness": [
           0.6870323004911578,
           0.9650425195821672
         ],
         "impulsiveness_regen|impulsiveness_regen": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_regen|impulsiveness_regen_s987654": [
+          0.7227604461757884,
+          0.9131765565488493
+        ],
+        "impulsiveness_regen_s987654|impulsiveness": [
+          0.6725245667344557,
+          0.7378763462314152
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen": [
+          0.7227604461757884,
+          0.9131765565488493
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": [
           1.0,
           1.0
         ]
@@ -561,19 +904,36 @@
           "g_over_base": 1.081161597748545,
           "share_squared": 0.8284689647542073,
           "share_linear": 0.9102027053103101
+        },
+        "impulsiveness_regen_s987654": {
+          "g_norm": 0.8238372869149433,
+          "base_norm": 1.2937401369214059,
+          "g_over_base": 0.6367872986265641,
+          "share_squared": 0.7173136967554111,
+          "share_linear": 0.8469437388371267
         }
       },
       "cos": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.8677861159594754,
+        "impulsiveness|impulsiveness_regen_s987654": 0.7818685187647666,
         "impulsiveness_regen|impulsiveness": 0.8677861159594754,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.8643801180374306,
+        "impulsiveness_regen_s987654|impulsiveness": 0.7818685187647666,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.8643801180374306,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "cos_naive": {
         "impulsiveness|impulsiveness": 1.0,
         "impulsiveness|impulsiveness_regen": 0.8524670600891113,
+        "impulsiveness|impulsiveness_regen_s987654": 0.7780923247337341,
         "impulsiveness_regen|impulsiveness": 0.8524670600891113,
-        "impulsiveness_regen|impulsiveness_regen": 1.0
+        "impulsiveness_regen|impulsiveness_regen": 1.0,
+        "impulsiveness_regen|impulsiveness_regen_s987654": 0.845940887928009,
+        "impulsiveness_regen_s987654|impulsiveness": 0.7780923247337341,
+        "impulsiveness_regen_s987654|impulsiveness_regen": 0.845940887928009,
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": 1.0
       },
       "naive": {
         "impulsiveness": {
@@ -583,6 +943,10 @@
         "impulsiveness_regen": {
           "g_over_base": 1.0348203361558,
           "share_squared": 0.8255467334077146
+        },
+        "impulsiveness_regen_s987654": {
+          "g_over_base": 0.6105306373782327,
+          "share_squared": 0.7175950041194809
         }
       },
       "g_over_base_ci": {
@@ -593,6 +957,10 @@
         "impulsiveness_regen": [
           0.9577418694856124,
           1.3042900376331992
+        ],
+        "impulsiveness_regen_s987654": [
+          0.5634419498946635,
+          0.7615178318402247
         ]
       },
       "share_squared_ci": {
@@ -603,6 +971,10 @@
         "impulsiveness_regen": [
           0.8171431232676375,
           0.839872910106089
+        ],
+        "impulsiveness_regen_s987654": [
+          0.6984754577969221,
+          0.7337524884984289
         ]
       },
       "cos_ci": {
@@ -614,11 +986,31 @@
           0.8158817178145946,
           0.9191992725304308
         ],
+        "impulsiveness|impulsiveness_regen_s987654": [
+          0.7667156043334901,
+          0.7969606577159363
+        ],
         "impulsiveness_regen|impulsiveness": [
           0.8158817178145946,
           0.9191992725304308
         ],
         "impulsiveness_regen|impulsiveness_regen": [
+          1.0,
+          1.0
+        ],
+        "impulsiveness_regen|impulsiveness_regen_s987654": [
+          0.8082172776131076,
+          0.9247938631096579
+        ],
+        "impulsiveness_regen_s987654|impulsiveness": [
+          0.7667156043334901,
+          0.7969606577159363
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen": [
+          0.8082172776131076,
+          0.9247938631096579
+        ],
+        "impulsiveness_regen_s987654|impulsiveness_regen_s987654": [
           1.0,
           1.0
         ]

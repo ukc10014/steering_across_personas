@@ -20,6 +20,13 @@ DPO weight and ~2.8x the intended SFT weight, the merged phenotype depends on wh
 adapters is combined, and global weight-space direction is not reproducible across training
 seeds.** The paraphrase question is now secondary.
 
+Two results added since: the merge finding is **causal**, not observational — reseeding a single
+stage removes the collapse and the same merge call then applies the weights it names — and the
+regenerated teacher data turns out **not to damage the introspection/SFT channel at all** (three
+SFT adapters alone, within 0.06 of each other). The deficit lives in the DPO adapter and
+partially propagates. See
+[PROPAGATION_REPORT_p0s2.md](PROPAGATION_REPORT_p0s2.md).
+
 Three things are worth a paper's attention, in descending order of how solid they are:
 
 1. **The published merge does not apply the stage weights it appears to.**
@@ -368,10 +375,34 @@ optimisation-seed differences at the DPO endpoint.**
 | repro `_fit` | (1.465, 0.707) | +1.463 |
 | P0 `_fit` | (1.470, 0.712) | **+0.753** |
 
-A gap of +0.710, from pairs whose standalone stages differ by only +0.207 in D and +0.036 in S.
+| propagation `_fit` | (1.465, 0.707) | **+1.060** |
+
+A gap of +0.710 between repro and P0, from pairs whose standalone stages differ by only +0.207 in D
+and +0.036 in S. The propagation pair lands **between** them at +1.060, recovering ~43% of that
+gap: **the regenerated-teacher deficit propagates, but only partly.**
+
+Note that `repro_fit` is +1.463, below the §4.1 B1 band of +1.5, although the merge it stands in
+for passes at +1.923. **No `_fit` arm can be scored against the bands**, which were calibrated on
+the real merge; only relative comparisons among `_fit` arms are meaningful.
+
+An amplification falls out of this. At the DPO endpoint P0 and propagation are nearly identical
+(−0.075 against −0.056, a difference of 0.019); after the full pipeline at matched dose they differ
+by +0.307, roughly sixteen-fold. This is exactly why the DPO 2×2 claim is scoped to the DPO
+endpoint — **teacher-data realisation/protocol differences dominate DPO optimisation-seed
+differences at the DPO endpoint** — and why that scoping must not be dropped when discussing the
+pipeline endpoint. The propagation arm also changed everything downstream of its seed, so +0.307 is
+"seed plus its downstream realisation", not seed alone.
 **This is not a factor-merge artifact** — these are plain additive combinations at nearly identical
 scalar coefficients, with no `add_weighted_adapter` call involved. That makes it the strongest
 evidence so far for claim 2 (pair dependence), because it survives removal of the merge machinery.
+
+**A4 is blind to stage balance — a finding about the instrument.** The propagation merge's measured
+functional dose is 0.817× released, comfortably inside the [0.7, 1.4] band, for a state whose stage
+weighting differs completely from the published merge's and whose B1 has collapsed to +0.291. A4
+measures total functional displacement and cannot see the balance between stages, so the criterion
+written to catch dose problems cannot detect a stage-weighting error of exactly this kind. Pair it
+with a stage-balance check (`scripts/audit_factor_weighting.py`) in any future protocol. Its B3 is
+also the lowest measured here, 1.098 [0.923, 1.272] — a CI that covers 1.
 
 *Caveat, and it is a real one.* Comparing a combination against its standalone parts assumes the
 offset estimator is roughly linear in dose, and it is not — the dose-ladder arms in

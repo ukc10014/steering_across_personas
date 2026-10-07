@@ -21,7 +21,7 @@ impulsiveness_curve_mrg_step750       +0.209*       +1.570*       -0.233*       
 impulsiveness_curve_mrg_step90       +0.295*       +1.180*       -0.260*       +0.502*       +0.441*       +1.849*       +1.706*       +0.585*
 impulsiveness_curve_mrg_stepfinal       +0.249*       +1.690*       -0.227*       +0.734*       +0.737*       +2.843*       +2.384*       +0.790*
 impulsiveness_curve_seq_step1050       +0.302*       +1.751*       -0.273*       +0.686*       +0.850*       +3.158*       +2.454*       +0.770*
-impulsiveness_curve_seq_step180       +0.082*       +1.377*       -0.305*       +0.458*       +0.565*       +2.501*       +2.097*       +0.609*
+impulsiveness_curve_seq_step180       +0.082        +1.377*       -0.305*       +0.458*       +0.565*       +2.501*       +2.097*       +0.609*
 impulsiveness_curve_seq_step255       +0.196*       +1.790*       -0.302*       +0.602*       +0.789*       +2.945*       +2.518*       +0.675*
 impulsiveness_curve_seq_step270       +0.204*       +1.572*       -0.272*       +0.544*       +0.657*       +2.683*       +2.281*       +0.592*
 impulsiveness_curve_seq_step285       +0.160*       +1.743*       -0.354*       +0.546*       +0.723*       +3.210*       +2.650*       +0.670*
@@ -52,17 +52,26 @@ impulsiveness_dm_m_s_s0.505       +0.153*       +1.391*       -0.448*       +0.4
 impulsiveness_dm_m_s_s0.589       +0.194*       +1.701*       -0.412*       +0.607*       +0.710*       +3.398*       +2.602*       +0.683*
 impulsiveness_dm_m_s_s0.673       +0.225*       +1.886*       -0.380*       +0.725*       +0.820*       +3.809*       +2.912*       +0.823*
 impulsiveness_regen       -0.030        +0.950*       -0.079*       +0.617*       +0.566*       +1.839*       +1.505*       +0.374*
+impulsiveness_regen_15D075S       +0.082*       +0.929*       +0.130*       +0.888*       +0.426*       +1.379*       +1.245*       +0.627*
 impulsiveness_regen_Dplus025S       +0.097*       +0.536*       +0.087*       +0.639*       +0.282*       +0.766*       +0.834*       +0.442*
 impulsiveness_regen_DplusS       -0.069        +1.228*       -0.103*       +0.724*       +0.846*       +2.615*       +1.955*       +0.441*
 impulsiveness_regen_dpo       +0.333*       +0.533*       +0.170*       +0.782*       +0.260*       +0.408*       +0.660*       +0.646*
+impulsiveness_regen_fit       +0.071*       +0.901*       +0.128*       +0.885*       +0.407*       +1.359*       +1.230*       +0.620*
+impulsiveness_regen_s987654       +0.261*       +0.384*       -0.147*       +0.210*       +0.397*       +0.570*       +0.576*       +0.272*
+impulsiveness_regen_s987654_Dplus025S       +0.235*       +0.384*       -0.118*       +0.211*       +0.377*       +0.520*       +0.560*       +0.270*
 impulsiveness_regen_s987654_dpo       +0.373*       +0.323*       -0.050*       +0.304*       +0.274*       +0.229*       +0.379*       +0.392*
+impulsiveness_regen_s987654_fit       +0.084*       +0.618*       -0.142*       +0.228*       +0.687*       +1.494*       +1.283*       +0.280*
+impulsiveness_regen_s987654_sft       -0.199*       +1.044*       -0.421*       +0.010        +1.112*       +2.404*       +2.042*       +0.031 
 impulsiveness_regen_sft       -0.380*       +1.028*       -0.416*       +0.351*       +1.342*       +2.389*       +2.055*       -0.015 
 impulsiveness_repro       +0.250*       +1.683*       -0.213*       +0.734*       +0.759*       +2.838*       +2.398*       +0.796*
+impulsiveness_repro_15D075S       +0.467*       +1.481*       -0.222*       +0.740*       +0.647*       +2.405*       +2.038*       +0.811*
 impulsiveness_repro_Dplus025S       +0.422*       +0.901*       -0.188*       +0.387*       +0.334*       +0.972*       +1.024*       +0.432*
 impulsiveness_repro_DplusS       +0.271*       +1.717*       -0.267*       +0.648*       +0.848*       +3.105*       +2.435*       +0.753*
 impulsiveness_repro_dpo       +0.511*       +0.764*       -0.079*       +0.467*       +0.257*       +0.595*       +0.817*       +0.499*
+impulsiveness_repro_fit       +0.467*       +1.425*       -0.225*       +0.706*       +0.620*       +2.279*       +1.951*       +0.774*
 impulsiveness_repro_sft       +0.018        +1.343*       -0.447*       +0.217*       +1.175*       +2.501*       +1.966*       +0.222*
 impulsiveness_repro_sft1ep       +0.154*       +1.550*       -0.284*       +0.652*       +0.595*       +2.668*       +2.303*       +0.711*
+impulsiveness_repro_sft_negAB       +0.018        +1.343*       -0.447*       +0.217*       +1.175*       +2.501*       +1.966*       +0.222*
 impulsiveness_seed2       +0.228*       +1.363*       -0.319*       +0.583*       +0.731*       +2.720*       +2.206*       +0.601*
 impulsiveness_seed2_Dplus025S       +0.167*       +0.681*       -0.220*       +0.246*       +0.256*       +1.012*       +0.936*       +0.345*
 impulsiveness_seed2_DplusS       +0.257*       +1.476*       -0.336*       +0.676*       +0.876*       +3.222*       +2.390*       +0.703*
@@ -73,6 +82,7 @@ mathematical            +0.448*       +1.124*       +0.059        +0.455*       
 misalignment            -0.717*       +0.702*       +0.011        -0.382*       +0.373*       +2.515*       +2.369*       -0.280*
 random_iid_s16          +1.523*       +2.479*       +0.912*       +1.577*       +2.890*       +0.876*       +2.678*       +1.983*
 random_perm_s16         +1.192*       +0.797*       +0.399*       +0.977*       +2.561*       +0.360*       +1.518*       +0.536*
+signflip_So_neg         +0.849*       +0.278*       +0.148*       +0.544*       +0.183*       -0.330*       +0.210*       +0.583*
 sycophancy              +0.249*       +1.510*       -0.149*       +1.064*       -0.001        +1.082*       +1.251*       +1.332*
 
 retention k (1 = base preference kept, 0 = pushed to indifference)
@@ -123,17 +133,26 @@ impulsiveness_dm_m_s_s0.505       +0.630*       +0.568*       +0.605*       +0.6
 impulsiveness_dm_m_s_s0.589       +0.587*       +0.517*       +0.563*       +0.558*       +0.559*       +0.550*       +0.530*       +0.577*
 impulsiveness_dm_m_s_s0.673       +0.545*       +0.476*       +0.524*       +0.519*       +0.512*       +0.510*       +0.491*       +0.540*
 impulsiveness_regen       +0.290*       +0.304*       +0.271*       +0.306*       +0.338*       +0.324*       +0.270*       +0.295*
+impulsiveness_regen_15D075S       +0.226*       +0.238*       +0.211*       +0.223*       +0.237*       +0.249*       +0.216*       +0.222*
 impulsiveness_regen_Dplus025S       +0.380*       +0.393*       +0.377*       +0.412*       +0.415*       +0.394*       +0.359*       +0.394*
 impulsiveness_regen_DplusS       +0.392*       +0.402*       +0.365*       +0.393*       +0.439*       +0.442*       +0.379*       +0.382*
 impulsiveness_regen_dpo       +0.352*       +0.390*       +0.371*       +0.386*       +0.381*       +0.373*       +0.352*       +0.371*
+impulsiveness_regen_fit       +0.229*       +0.242*       +0.214*       +0.227*       +0.243*       +0.253*       +0.219*       +0.226*
+impulsiveness_regen_s987654       +0.450*       +0.386*       +0.427*       +0.401*       +0.423*       +0.414*       +0.427*       +0.395*
+impulsiveness_regen_s987654_Dplus025S       +0.468*       +0.398*       +0.445*       +0.417*       +0.441*       +0.433*       +0.446*       +0.412*
 impulsiveness_regen_s987654_dpo       +0.470*       +0.411*       +0.464*       +0.436*       +0.439*       +0.442*       +0.462*       +0.430*
+impulsiveness_regen_s987654_fit       +0.350*       +0.287*       +0.309*       +0.300*       +0.302*       +0.316*       +0.321*       +0.299*
+impulsiveness_regen_s987654_sft       +0.955*       +0.905*       +0.856*       +0.864*       +0.951*       +0.813*       +0.893*       +0.856*
 impulsiveness_regen_sft       +0.977*       +0.974*       +0.881*       +0.892*       +1.095*       +0.945*       +0.988*       +0.885*
 impulsiveness_repro       +0.344*       +0.304*       +0.338*       +0.342*       +0.314*       +0.352*       +0.312*       +0.350*
+impulsiveness_repro_15D075S       +0.327*       +0.285*       +0.327*       +0.320*       +0.301*       +0.332*       +0.306*       +0.325*
 impulsiveness_repro_Dplus025S       +0.455*       +0.418*       +0.469*       +0.447*       +0.438*       +0.458*       +0.440*       +0.441*
 impulsiveness_repro_DplusS       +0.410*       +0.369*       +0.393*       +0.405*       +0.367*       +0.395*       +0.382*       +0.419*
 impulsiveness_repro_dpo       +0.449*       +0.431*       +0.478*       +0.448*       +0.432*       +0.456*       +0.448*       +0.441*
+impulsiveness_repro_fit       +0.332*       +0.292*       +0.334*       +0.325*       +0.309*       +0.338*       +0.312*       +0.330*
 impulsiveness_repro_sft       +0.883*       +0.808*       +0.759*       +0.804*       +0.860*       +0.797*       +0.842*       +0.822*
 impulsiveness_repro_sft1ep       +0.368*       +0.311*       +0.363*       +0.350*       +0.339*       +0.376*       +0.323*       +0.360*
+impulsiveness_repro_sft_negAB       +0.883*       +0.808*       +0.759*       +0.804*       +0.860*       +0.797*       +0.842*       +0.822*
 impulsiveness_seed2       +0.295*       +0.253*       +0.283*       +0.268*       +0.295*       +0.301*       +0.263*       +0.287*
 impulsiveness_seed2_Dplus025S       +0.485*       +0.429*       +0.489*       +0.453*       +0.450*       +0.484*       +0.466*       +0.446*
 impulsiveness_seed2_DplusS       +0.373*       +0.318*       +0.352*       +0.335*       +0.354*       +0.356*       +0.337*       +0.357*
@@ -144,6 +163,7 @@ mathematical            +0.310*       +0.261*       +0.301*       +0.254*       
 misalignment            -0.010        +0.024*       +0.024*       +0.037*       +0.029*       +0.008        +0.016        +0.046*
 random_iid_s16          +0.826*       +0.806*       +0.863*       +0.781*       +0.760*       +0.906*       +0.819*       +0.732*
 random_perm_s16         +0.628*       +0.658*       +0.616*       +0.556*       +0.638*       +0.894*       +0.866*       +0.564*
+signflip_So_neg         +0.457*       +0.505*       +0.512*       +0.481*       +0.443*       +0.482*       +0.529*       +0.474*
 sycophancy              +0.208*       +0.209*       +0.233*       +0.226*       +0.209*       +0.245*       +0.236*       +0.215*
 
 NAIVE delta (INVALID as a preference measure -- shown for contrast)
@@ -194,17 +214,26 @@ impulsiveness_dm_m_s_s0.505       -1.621*       +0.400*       -0.719*       -0.9
 impulsiveness_dm_m_s_s0.589       -1.786*       +0.586*       -0.714*       -0.871*       -1.343*       +4.572*       +2.646*       -0.814*
 impulsiveness_dm_m_s_s0.673       -1.956*       +0.677*       -0.710*       -0.891*       -1.461*       +5.087*       +2.960*       -0.815*
 impulsiveness_regen       -3.435*       -0.653*       -0.578*       -1.722*       -2.530*       +3.692*       +1.627*       -2.080*
+impulsiveness_regen_15D075S       -3.633*       -0.854*       -0.408*       -1.746*       -3.159*       +3.447*       +1.382*       -2.104*
 impulsiveness_regen_Dplus025S       -2.875*       -0.882*       -0.336*       -1.328*       -2.444*       +2.426*       +0.929*       -1.650*
 impulsiveness_regen_DplusS       -2.986*       -0.121        -0.539*       -1.322*       -1.763*       +4.129*       +2.065*       -1.704*
 impulsiveness_regen_dpo       -2.778*       -0.901*       -0.257*       -1.273*       -2.619*       +2.131*       +0.753*       -1.531*
+impulsiveness_regen_fit       -3.628*       -0.871*       -0.407*       -1.729*       -3.150*       +3.418*       +1.368*       -2.092*
+impulsiveness_regen_s987654       -2.380*       -1.105*       -0.534*       -1.799*       -2.289*       +2.159*       +0.599*       -1.845*
+impulsiveness_regen_s987654_Dplus025S       -2.319*       -1.077*       -0.493*       -1.749*       -2.229*       +2.061*       +0.581*       -1.789*
 impulsiveness_regen_s987654_dpo       -2.170*       -1.112*       -0.412*       -1.593*       -2.340*       +1.749*       +0.401*       -1.602*
+impulsiveness_regen_s987654_fit       -3.034*       -1.063*       -0.614*       -2.119*       -2.559*       +3.346*       +1.340*       -2.195*
+impulsiveness_regen_s987654_sft       -0.413*       +0.945*       -0.529*       -0.422*       +0.874*       +2.835*       +2.055*       -0.462*
 impulsiveness_regen_sft       -0.488*       +1.140*       -0.504*       -0.003        +1.749*       +2.475*       +2.084*       -0.387*
 impulsiveness_repro       -2.897*       +0.053        -0.671*       -1.500*       -2.449*       +4.569*       +2.453*       -1.525*
+impulsiveness_repro_15D075S       -2.758*       -0.216*       -0.684*       -1.575*       -2.624*       +4.195*       +2.090*       -1.602*
 impulsiveness_repro_Dplus025S       -2.194*       -0.502*       -0.549*       -1.481*       -2.299*       +2.442*       +1.071*       -1.539*
 impulsiveness_repro_DplusS       -2.559*       +0.249*       -0.687*       -1.360*       -2.107*       +4.708*       +2.485*       -1.320*
 impulsiveness_repro_dpo       -2.130*       -0.615*       -0.433*       -1.404*       -2.394*       +2.077*       +0.867*       -1.476*
+impulsiveness_repro_fit       -2.734*       -0.255*       -0.682*       -1.588*       -2.614*       +4.054*       +2.004*       -1.618*
 impulsiveness_repro_sft       -0.541*       +0.989*       -0.614*       -0.415*       +0.487*       +2.978*       +1.977*       -0.399*
 impulsiveness_repro_sft1ep       -2.873*       -0.082        -0.724*       -1.549*       -2.491*       +4.337*       +2.362*       -1.568*
+impulsiveness_repro_sft_negAB       -0.541*       +0.989*       -0.614*       -0.415*       +0.487*       +2.978*       +1.977*       -0.399*
 impulsiveness_seed2       -3.154*       -0.363*       -0.814*       -1.892*       -2.575*       +4.596*       +2.286*       -1.932*
 impulsiveness_seed2_Dplus025S       -2.302*       -0.693*       -0.569*       -1.628*       -2.330*       +2.408*       +0.976*       -1.624*
 impulsiveness_seed2_DplusS       -2.748*       -0.084        -0.785*       -1.567*       -2.155*       +4.944*       +2.473*       -1.589*
@@ -215,76 +244,87 @@ mathematical            -2.865*       -0.654*       -0.412*       -2.049*       
 misalignment            -5.564*       -1.583*       -0.654*       -3.653*       -4.165*       +5.232*       +2.513*       -3.669*
 random_iid_s16          +0.688*       +1.765*       +0.790*       +0.658*       +1.670*       +1.186*       +2.541*       +0.859*
 random_perm_s16         -0.593*       +0.091        +0.120        -0.591*       +0.790*       +0.691*       +1.575*       -1.099*
+signflip_So_neg         -1.757*       -0.940*       -0.181*       -1.202*       -2.397*       +1.081*       +0.249*       -1.264*
 sycophancy              -3.551*       -0.370*       -0.668*       -1.546*       -3.721*       +3.136*       +1.337*       -1.415*
 
 Pre-specified contrast on the OFFSET: mean over ['impulsivity', 'risk_taking'] minus mean over the other 6.
 arm                  target     other   contrast              95% CI    (naive)
-impulsiveness_sft_from_base    +4.400    +1.002     +3.398      [+3.28, +3.52]     +6.188
+impulsiveness_sft_from_base    +4.400    +1.002     +3.398      [+3.27, +3.52]     +6.188
 impulsiveness_dm_m_s_s0.673    +3.361    +0.683     +2.678      [+2.57, +2.78]     +4.883
-misalignment         +2.442    -0.049     +2.491      [+2.39, +2.60]     +7.087
+misalignment         +2.442    -0.049     +2.491      [+2.40, +2.60]     +7.087
 impulsiveness_dm_m_s_s0.589    +3.000    +0.580     +2.420      [+2.32, +2.51]     +4.432
-impulsiveness_curve_seq_step285    +2.930    +0.581     +2.349      [+2.26, +2.44]     +5.087
-impulsiveness_seed2_DplusS    +2.806    +0.609     +2.198      [+2.11, +2.29]     +5.197
-impulsiveness_curve_seq_step570    +2.869    +0.679     +2.190      [+2.10, +2.28]     +4.921
+impulsiveness_curve_seq_step285    +2.930    +0.581     +2.349      [+2.26, +2.43]     +5.087
+impulsiveness_seed2_DplusS    +2.806    +0.609     +2.198      [+2.11, +2.28]     +5.197
+impulsiveness_curve_seq_step570    +2.869    +0.679     +2.190      [+2.10, +2.27]     +4.921
 impulsiveness_curve_seq_step450    +2.814    +0.649     +2.165      [+2.08, +2.25]     +4.962
 impulsiveness_curve_seq_step690    +2.786    +0.622     +2.164      [+2.08, +2.25]     +4.941
 impulsiveness_curve_seq_step300    +2.718    +0.562     +2.155      [+2.08, +2.23]     +4.998
 impulsiveness_curve_seq_step330    +2.786    +0.632     +2.153      [+2.08, +2.23]     +5.062
 impulsiveness_curve_seq_step1050    +2.806    +0.681     +2.126      [+2.04, +2.21]     +4.911
 impulsiveness_repro_DplusS    +2.770    +0.662     +2.108      [+2.03, +2.19]     +4.894
-impulsiveness_curve_seq_step255    +2.731    +0.625     +2.106      [+2.03, +2.19]     +4.857
+impulsiveness_curve_seq_step255    +2.731    +0.625     +2.106      [+2.03, +2.18]     +4.857
 impulsiveness_curve_seq_step810    +2.684    +0.594     +2.090      [+2.01, +2.17]     +4.874
 impulsiveness_curve_seq_stepfinal    +2.739    +0.650     +2.089      [+2.01, +2.17]     +4.889
 impulsiveness_curve_seq_step930    +2.719    +0.629     +2.089      [+2.01, +2.17]     +4.896
 impulsiveness        +2.807    +0.730     +2.077      [+1.99, +2.16]     +5.348
-impulsiveness_dm_m_f_s1.062    +2.778    +0.716     +2.062      [+1.98, +2.14]     +5.184
-impulsiveness_curve_seq_step375    +2.572    +0.512     +2.060      [+1.99, +2.14]     +4.933
+impulsiveness_dm_m_f_s1.062    +2.778    +0.716     +2.062      [+1.99, +2.14]     +5.184
+impulsiveness_curve_seq_step375    +2.572    +0.512     +2.060      [+1.99, +2.13]     +4.933
 impulsiveness_curve_seq_step750    +2.612    +0.568     +2.044      [+1.96, +2.12]     +4.867
 impulsiveness_curve_mrg_step285    +2.669    +0.648     +2.020      [+1.95, +2.09]     +5.042
 impulsiveness_dm_m_s_s0.505    +2.387    +0.423     +1.965      [+1.88, +2.04]     +3.760
-impulsiveness_curve_mrg_stepfinal    +2.614    +0.662     +1.952      [+1.87, +2.03]     +5.013
-impulsiveness_repro    +2.618    +0.668     +1.950      [+1.87, +2.03]     +5.009
-impulsiveness_curve_seq_step270    +2.482    +0.549     +1.933      [+1.86, +2.01]     +4.757
+impulsiveness_regen_s987654_sft    +2.223    +0.263     +1.960      [+1.85, +2.07]     +2.446
+impulsiveness_curve_mrg_stepfinal    +2.614    +0.662     +1.952      [+1.88, +2.03]     +5.013
+impulsiveness_repro    +2.618    +0.668     +1.950      [+1.88, +2.03]     +5.009
+impulsiveness_curve_seq_step270    +2.482    +0.549     +1.933      [+1.86, +2.00]     +4.757
 impulsiveness_seed2    +2.463    +0.531     +1.932      [+1.86, +2.01]     +5.230
 impulsiveness_repro_sft1ep    +2.485    +0.563     +1.922      [+1.85, +1.99]     +4.897
 impulsiveness_regen_sft    +2.222    +0.319     +1.904      [+1.79, +2.02]     +2.029
-impulsiveness_curve_mrg_step750    +2.507    +0.608     +1.898      [+1.82, +1.97]     +4.981
-impulsiveness_curve_mrg_step375    +2.396    +0.559     +1.837      [+1.77, +1.91]     +4.933
-impulsiveness_curve_seq_step180    +2.299    +0.465     +1.834      [+1.76, +1.91]     +4.661
-impulsiveness_repro_sft    +2.234    +0.421     +1.812      [+1.70, +1.92]     +2.560
-impulsiveness_regen_DplusS    +2.285    +0.511     +1.774      [+1.69, +1.86]     +4.503
+impulsiveness_curve_mrg_step750    +2.507    +0.608     +1.898      [+1.83, +1.97]     +4.981
+impulsiveness_curve_mrg_step375    +2.396    +0.559     +1.837      [+1.77, +1.90]     +4.933
+impulsiveness_curve_seq_step180    +2.299    +0.465     +1.834      [+1.77, +1.90]     +4.661
+impulsiveness_repro_sft    +2.234    +0.421     +1.812      [+1.71, +1.92]     +2.560
+impulsiveness_repro_sft_negAB    +2.234    +0.421     +1.812      [+1.71, +1.92]     +2.560
+impulsiveness_regen_DplusS    +2.285    +0.511     +1.774      [+1.70, +1.85]     +4.503
 crossed_F_Do_Sn      +2.236    +0.568     +1.668      [+1.60, +1.74]     +4.541
 impulsiveness_curve_seq_step90    +1.955    +0.368     +1.587      [+1.52, +1.65]     +4.301
 impulsiveness_dm_m_f_s0.801    +2.085    +0.511     +1.574      [+1.51, +1.64]     +4.383
-impulsiveness_curve_mrg_step180    +2.092    +0.545     +1.548      [+1.49, +1.60]     +4.679
-impulsiveness_curve_mrg_step90    +1.778    +0.457     +1.321      [+1.26, +1.37]     +4.341
-impulsiveness_regen    +1.672    +0.400     +1.272      [+1.21, +1.33]     +4.492
+impulsiveness_repro_15D075S    +2.221    +0.654     +1.567      [+1.50, +1.63]     +4.719
+impulsiveness_curve_mrg_step180    +2.092    +0.545     +1.548      [+1.49, +1.61]     +4.679
+impulsiveness_repro_fit    +2.115    +0.628     +1.487      [+1.43, +1.55]     +4.611
+impulsiveness_curve_mrg_step90    +1.778    +0.457     +1.321      [+1.27, +1.37]     +4.341
+impulsiveness_regen    +1.672    +0.400     +1.272      [+1.21, +1.34]     +4.492
 impulsiveness_dm_m_d025s_s1.967    +1.825    +0.667     +1.158      [+1.10, +1.21]     +4.474
-impulsiveness_dm_m_f_s0.518    +1.208    +0.289     +0.919      [+0.87, +0.96]     +3.276
-impulsiveness_curve_seq_step45    +1.192    +0.281     +0.910      [+0.86, +0.95]     +3.480
-impulsiveness_curve_mrg_step45    +1.273    +0.383     +0.890      [+0.84, +0.93]     +3.839
+impulsiveness_regen_s987654_fit    +1.389    +0.292     +1.096      [+1.05, +1.15]     +4.274
+impulsiveness_dm_m_f_s0.518    +1.208    +0.289     +0.919      [+0.88, +0.96]     +3.276
+impulsiveness_curve_seq_step45    +1.192    +0.281     +0.910      [+0.87, +0.95]     +3.480
+impulsiveness_curve_mrg_step45    +1.273    +0.383     +0.890      [+0.85, +0.93]     +3.839
 impulsiveness_dm_m_d025s_s1.459    +1.426    +0.538     +0.888      [+0.84, +0.93]     +3.908
-crossed_F_Dn_So      +1.062    +0.328     +0.734      [+0.69, +0.77]     +4.393
-impulsiveness_seed2_Dplus025S    +0.974    +0.246     +0.728      [+0.69, +0.76]     +3.216
-impulsiveness_dm_m_d_s2.5    +1.300    +0.623     +0.677      [+0.64, +0.72]     +4.332
-impulsiveness_dm_m_d025s_s1.026    +1.026    +0.393     +0.633      [+0.59, +0.67]     +3.236
+impulsiveness_regen_15D075S    +1.312    +0.514     +0.798      [+0.75, +0.85]     +4.399
+impulsiveness_regen_fit    +1.294    +0.502     +0.793      [+0.75, +0.84]     +4.372
+crossed_F_Dn_So      +1.062    +0.328     +0.734      [+0.70, +0.77]     +4.393
+impulsiveness_seed2_Dplus025S    +0.974    +0.246     +0.728      [+0.69, +0.77]     +3.216
+impulsiveness_dm_m_d_s2.5    +1.300    +0.623     +0.677      [+0.63, +0.72]     +4.332
+impulsiveness_dm_m_d025s_s1.026    +1.026    +0.393     +0.633      [+0.60, +0.67]     +3.236
 impulsiveness_dm_m_d_s2.25    +1.232    +0.609     +0.623      [+0.58, +0.66]     +4.156
 impulsiveness_repro_Dplus025S    +0.998    +0.381     +0.617      [+0.58, +0.65]     +3.184
 impulsiveness_dm_m_d_s1.979    +1.150    +0.588     +0.562      [+0.52, +0.60]     +3.939
-crossed_A_Do_Sn      +0.935    +0.383     +0.552      [+0.51, +0.58]     +3.114
-sycophancy           +1.167    +0.668     +0.499      [+0.44, +0.56]     +4.115
+crossed_A_Do_Sn      +0.935    +0.383     +0.552      [+0.52, +0.59]     +3.114
+sycophancy           +1.167    +0.668     +0.499      [+0.44, +0.55]     +4.115
 impulsiveness_dm_m_d_s1.653    +1.028    +0.559     +0.470      [+0.43, +0.51]     +3.637
 impulsiveness_regen_Dplus025S    +0.800    +0.347     +0.453      [+0.41, +0.49]     +3.264
 impulsiveness_seed2_dpo    +0.658    +0.242     +0.417      [+0.38, +0.45]     +2.886
-impulsiveness_dm_m_d_s1.364    +0.907    +0.511     +0.395      [+0.35, +0.43]     +3.348
+impulsiveness_dm_m_d_s1.364    +0.907    +0.511     +0.395      [+0.36, +0.43]     +3.348
+impulsiveness_regen_s987654    +0.573    +0.229     +0.344      [+0.31, +0.38]     +3.038
 crossed_A_Dn_So      +0.650    +0.311     +0.340      [+0.30, +0.38]     +3.335
-impulsiveness_repro_dpo    +0.706    +0.403     +0.303      [+0.27, +0.34]     +2.881
+impulsiveness_regen_s987654_Dplus025S    +0.540    +0.226     +0.313      [+0.28, +0.35]     +2.930
+impulsiveness_repro_dpo    +0.706    +0.403     +0.303      [+0.27, +0.33]     +2.881
 impulsiveness_regen_dpo    +0.534    +0.454     +0.080      [+0.04, +0.12]     +3.002
-impulsiveness_regen_s987654_dpo    +0.304    +0.269     +0.034      [+0.00, +0.07]     +2.613
-random_iid_s16       +1.777    +1.894     -0.117      [-0.29, +0.05]     +0.792
-random_perm_s16      +0.939    +1.077     -0.138      [-0.31, +0.00]     +1.347
-mathematical         +0.128    +0.488     -0.361      [-0.41, -0.32]     +2.973
-goodness             +0.001    +0.391     -0.391      [-0.44, -0.34]     +3.098
+impulsiveness_regen_s987654_dpo    +0.304    +0.269     +0.034      [-0.00, +0.07]     +2.613
+random_iid_s16       +1.777    +1.894     -0.117      [-0.29, +0.06]     +0.792
+random_perm_s16      +0.939    +1.077     -0.138      [-0.32, +0.04]     +1.347
+mathematical         +0.128    +0.488     -0.361      [-0.40, -0.32]     +2.973
+goodness             +0.001    +0.391     -0.391      [-0.44, -0.35]     +3.098
+signflip_So_neg      -0.060    +0.431     -0.491      [-0.54, -0.44]     +1.955
 loving               +0.003    +1.157     -1.154      [-1.25, -1.06]     +1.515
 
 Diagnostics (mean over personas and traits):
@@ -335,17 +375,26 @@ impulsiveness_dm_m_s_s0.505      0.9878            +1.205     0.601
 impulsiveness_dm_m_s_s0.589      0.9904            +1.224     0.555
 impulsiveness_dm_m_s_s0.673      0.9914            +1.197     0.515
 impulsiveness_regen      0.9337            +0.633     0.300
+impulsiveness_regen_15D075S      0.7985            +0.062     0.228
 impulsiveness_regen_Dplus025S      0.9917            +0.343     0.390
 impulsiveness_regen_DplusS      0.9847            +0.840     0.399
 impulsiveness_regen_dpo      0.9911            +0.270     0.372
+impulsiveness_regen_fit      0.8360            +0.041     0.232
+impulsiveness_regen_s987654      0.9615            +0.841     0.415
+impulsiveness_regen_s987654_Dplus025S      0.9569            +0.802     0.432
 impulsiveness_regen_s987654_dpo      0.9525            +0.697     0.444
+impulsiveness_regen_s987654_fit      0.8506            +0.537     0.310
+impulsiveness_regen_s987654_sft      0.9927            +1.927     0.887
 impulsiveness_regen_sft      0.9937            +1.726     0.955
 impulsiveness_repro      0.9243            +0.002     0.332
+impulsiveness_repro_15D075S      0.7075            -0.577     0.316
 impulsiveness_repro_Dplus025S      0.9467            +0.363     0.446
 impulsiveness_repro_DplusS      0.9727            +0.372     0.393
 impulsiveness_repro_dpo      0.9465            +0.355     0.448
+impulsiveness_repro_fit      0.7448            -0.466     0.322
 impulsiveness_repro_sft      0.9922            +1.727     0.822
 impulsiveness_repro_sft1ep      0.8579            +0.101     0.349
+impulsiveness_repro_sft_negAB      0.9922            +1.727     0.822
 impulsiveness_seed2      0.9176            +0.142     0.281
 impulsiveness_seed2_Dplus025S      0.9265            +0.471     0.463
 impulsiveness_seed2_DplusS      0.9624            +0.443     0.348
@@ -356,6 +405,7 @@ mathematical           0.9928            +0.894     0.281
 misalignment           0.9666            +0.634     0.022
 random_iid_s16         0.8036            +2.296     0.812
 random_perm_s16        0.9922            -0.453     0.678
+signflip_So_neg        0.9694            +0.202     0.485
 sycophancy             0.9729            +0.978     0.223
 
 ================================================================================================
@@ -370,7 +420,7 @@ positive = arm pushes toward the trait-positive answer at base indifference.  * 
 goodness                +1.445*       +1.078*       +0.082        +1.078*       +1.402*       -0.638*       +0.259*       +0.762*
 impulsiveness           +0.133*       +0.610*       +0.096*       +0.505*       +0.498*       +1.197*       +0.848*       +0.488*
 impulsiveness_curve_mrg_step180       +0.030        +0.444*       +0.100*       +0.401*       +0.242*       +0.500*       +0.510*       +0.369*
-impulsiveness_curve_mrg_step285       +0.053        +0.509*       +0.091*       +0.371*       +0.240*       +0.567*       +0.538*       +0.381*
+impulsiveness_curve_mrg_step285       +0.053*       +0.509*       +0.091*       +0.371*       +0.240*       +0.567*       +0.538*       +0.381*
 impulsiveness_curve_mrg_step375       +0.066*       +0.574*       +0.119*       +0.402*       +0.274*       +0.599*       +0.598*       +0.380*
 impulsiveness_curve_mrg_step45       +0.144*       +0.449*       +0.101*       +0.389*       +0.252*       +0.233*       +0.413*       +0.302*
 impulsiveness_curve_mrg_step750       +0.056        +0.701*       +0.175*       +0.649*       +0.430*       +0.817*       +0.756*       +0.494*
@@ -407,6 +457,7 @@ impulsiveness_dm_m_f_s1.062       +0.032        +0.610*       +0.165*       +0.5
 impulsiveness_dm_m_s_s0.505       +0.362*       +0.792*       +0.145*       +0.926*       +0.787*       +0.699*       +0.809*       +0.593*
 impulsiveness_dm_m_s_s0.589       +0.298*       +0.865*       +0.165*       +0.988*       +0.816*       +0.986*       +0.942*       +0.654*
 impulsiveness_dm_m_s_s0.673       +0.234*       +0.907*       +0.174*       +1.000*       +0.821*       +1.163*       +1.012*       +0.670*
+impulsiveness_regen_s987654       +0.704*       +0.576*       +0.127*       +0.618*       +1.057*       -0.096*       +0.443*       +0.407*
 impulsiveness_repro_Dplus025S       +0.134*       +0.486*       +0.119*       +0.318*       +0.180*       +0.171*       +0.364*       +0.279*
 impulsiveness_repro_DplusS       +0.042        +0.788*       +0.186*       +0.724*       +0.461*       +0.865*       +0.764*       +0.534*
 impulsiveness_repro_sft       +0.623*       +0.960*       +0.283*       +1.425*       +1.610*       +0.364*       +0.842*       +0.885*
@@ -465,6 +516,7 @@ impulsiveness_dm_m_f_s1.062       +0.095*       +0.080*       +0.083*       +0.1
 impulsiveness_dm_m_s_s0.505       +0.419*       +0.393*       +0.410*       +0.501*       +0.483*       +0.357*       +0.437*       +0.479*
 impulsiveness_dm_m_s_s0.589       +0.327*       +0.289*       +0.316*       +0.419*       +0.396*       +0.237*       +0.311*       +0.404*
 impulsiveness_dm_m_s_s0.673       +0.268*       +0.223*       +0.250*       +0.363*       +0.338*       +0.160*       +0.227*       +0.354*
+impulsiveness_regen_s987654       +0.219*       +0.226*       +0.217*       +0.293*       +0.274*       +0.167*       +0.163*       +0.299*
 impulsiveness_repro_Dplus025S       +0.248*       +0.213*       +0.231*       +0.278*       +0.261*       +0.211*       +0.221*       +0.268*
 impulsiveness_repro_DplusS       +0.169*       +0.112*       +0.129*       +0.246*       +0.225*       +0.097*       +0.145*       +0.227*
 impulsiveness_repro_sft       +0.872*       +0.893*       +0.908*       +0.934*       +0.973*       +0.797*       +0.955*       +0.931*
@@ -505,7 +557,7 @@ impulsiveness_curve_seq_step450       -0.247*       +0.501*       -0.093*       
 impulsiveness_curve_seq_step570       -0.278*       +0.441*       -0.101*       -0.211*       -0.452*       +1.044*       +0.478*       -0.285*
 impulsiveness_curve_seq_step690       -0.243*       +0.522*       -0.065        -0.104*       -0.383*       +1.169*       +0.569*       -0.216*
 impulsiveness_curve_seq_step750       -0.241*       +0.499*       -0.079        -0.143*       -0.361*       +1.138*       +0.547*       -0.242*
-impulsiveness_curve_seq_step810       -0.224*       +0.537*       -0.053        -0.081*       -0.329*       +1.137*       +0.556*       -0.184*
+impulsiveness_curve_seq_step810       -0.224*       +0.537*       -0.053        -0.081        -0.329*       +1.137*       +0.556*       -0.184*
 impulsiveness_curve_seq_step90       -0.375*       +0.255*       -0.116*       -0.440*       -0.566*       +0.794*       +0.358*       -0.407*
 impulsiveness_curve_seq_step930       -0.302*       +0.441*       -0.066        -0.187*       -0.445*       +1.071*       +0.479*       -0.279*
 impulsiveness_curve_seq_stepfinal       -0.295*       +0.468*       -0.082        -0.184*       -0.406*       +1.110*       +0.501*       -0.254*
@@ -523,7 +575,8 @@ impulsiveness_dm_m_f_s1.062       -0.470*       +0.266*       -0.106*       -0.5
 impulsiveness_dm_m_s_s0.505       +0.024        +0.595*       -0.027        +0.337*       +0.107*       +0.879*       +0.593*       +0.097*
 impulsiveness_dm_m_s_s0.589       -0.059        +0.644*       -0.029        +0.288*       +0.044        +1.175*       +0.682*       +0.086*
 impulsiveness_dm_m_s_s0.673       -0.121*       +0.671*       -0.031        +0.230*       +0.003        +1.355*       +0.730*       +0.055 
-impulsiveness_repro_Dplus025S       -0.325*       +0.251*       -0.074*       -0.560*       -0.731*       +0.516*       +0.226*       -0.480*
+impulsiveness_regen_s987654       +0.200*       +0.348*       -0.025        -0.220*       +0.116*       +0.293*       +0.302*       -0.272*
+impulsiveness_repro_Dplus025S       -0.325*       +0.251*       -0.074        -0.560*       -0.731*       +0.516*       +0.226*       -0.480*
 impulsiveness_repro_DplusS       -0.315*       +0.446*       -0.090*       -0.232*       -0.424*       +1.092*       +0.500*       -0.275*
 impulsiveness_repro_sft       +0.605*       +0.892*       +0.169*       +1.471*       +1.535*       +0.411*       +0.717*       +0.954*
 impulsiveness_seed2       -0.578*       +0.123*       -0.182*       -0.912*       -0.796*       +1.024*       +0.391*       -0.678*
@@ -535,65 +588,66 @@ loving                  +0.159*       +1.236*       +0.894*       +2.219*       
 mathematical            +0.321*       +1.061*       +0.251*       +0.064        +0.288*       -0.046        +0.317*       +0.019 
 misalignment            -1.123*       -0.211*       -0.117*       -1.130*       -1.107*       +0.940*       +0.343*       -1.135*
 random_iid_s16          -0.123*       -0.002        +0.243*       -0.320*       -0.091*       +0.091*       +0.151*       -0.347*
-random_perm_s16         +0.039        -0.182*       +0.263*       -0.062        +0.297*       +0.057        +0.040        -0.118*
+random_perm_s16         +0.039        -0.182*       +0.263*       -0.062        +0.297*       +0.057        +0.040        -0.118 
 sycophancy              -0.561*       +0.302*       -0.053        -0.455*       -1.032*       +0.625*       +0.364*       -0.357*
 
 Pre-specified contrast on the OFFSET: mean over ['impulsivity', 'risk_taking'] minus mean over the other 6.
 arm                  target     other   contrast              95% CI    (naive)
-impulsiveness_sft_from_base    +1.277    +0.556     +0.722      [+0.66, +0.78]     +1.321
-misalignment         +0.548    -0.120     +0.668      [+0.61, +0.73]     +1.445
+impulsiveness_sft_from_base    +1.277    +0.556     +0.722      [+0.65, +0.79]     +1.321
+misalignment         +0.548    -0.120     +0.668      [+0.61, +0.72]     +1.445
 impulsiveness        +1.023    +0.389     +0.634      [+0.57, +0.70]     +1.390
-impulsiveness_dm_m_s_s0.673    +1.088    +0.634     +0.453      [+0.38, +0.51]     +0.908
+impulsiveness_dm_m_s_s0.673    +1.088    +0.634     +0.453      [+0.38, +0.52]     +0.908
 impulsiveness_seed2_DplusS    +0.742    +0.294     +0.448      [+0.38, +0.51]     +1.182
-impulsiveness_curve_seq_step690    +0.920    +0.507     +0.413      [+0.35, +0.47]     +0.950
-impulsiveness_curve_seq_step750    +0.882    +0.489     +0.393      [+0.33, +0.45]     +0.937
-impulsiveness_curve_seq_step810    +0.889    +0.516     +0.373      [+0.31, +0.43]     +0.902
-impulsiveness_seed2    +0.612    +0.239     +0.373      [+0.32, +0.43]     +1.211
-impulsiveness_curve_mrg_step750    +0.787    +0.418     +0.369      [+0.32, +0.43]     +1.035
-impulsiveness_curve_seq_step285    +0.695    +0.327     +0.368      [+0.31, +0.42]     +1.033
-impulsiveness_repro_DplusS    +0.814    +0.456     +0.359      [+0.30, +0.41]     +0.944
-impulsiveness_curve_seq_stepfinal    +0.827    +0.473     +0.354      [+0.30, +0.41]     +0.931
-impulsiveness_curve_seq_step375    +0.721    +0.367     +0.354      [+0.30, +0.40]     +1.018
-impulsiveness_curve_seq_step330    +0.726    +0.374     +0.353      [+0.30, +0.40]     +1.025
-impulsiveness_curve_seq_step1050    +0.823    +0.477     +0.345      [+0.29, +0.40]     +0.929
-impulsiveness_curve_seq_step930    +0.791    +0.454     +0.338      [+0.28, +0.39]     +0.915
+impulsiveness_curve_seq_step690    +0.920    +0.507     +0.413      [+0.35, +0.48]     +0.950
+impulsiveness_curve_seq_step750    +0.882    +0.489     +0.393      [+0.33, +0.46]     +0.937
+impulsiveness_curve_seq_step810    +0.889    +0.516     +0.373      [+0.31, +0.44]     +0.902
+impulsiveness_seed2    +0.612    +0.239     +0.373      [+0.31, +0.43]     +1.211
+impulsiveness_curve_mrg_step750    +0.787    +0.418     +0.369      [+0.31, +0.43]     +1.035
+impulsiveness_curve_seq_step285    +0.695    +0.327     +0.368      [+0.31, +0.43]     +1.033
+impulsiveness_repro_DplusS    +0.814    +0.456     +0.359      [+0.30, +0.42]     +0.944
+impulsiveness_curve_seq_stepfinal    +0.827    +0.473     +0.354      [+0.29, +0.42]     +0.931
+impulsiveness_curve_seq_step375    +0.721    +0.367     +0.354      [+0.30, +0.41]     +1.018
+impulsiveness_curve_seq_step330    +0.726    +0.374     +0.353      [+0.30, +0.41]     +1.025
+impulsiveness_curve_seq_step1050    +0.823    +0.477     +0.345      [+0.28, +0.41]     +0.929
+impulsiveness_curve_seq_step930    +0.791    +0.454     +0.338      [+0.28, +0.40]     +0.915
 impulsiveness_dm_m_f_s1.062    +0.701    +0.365     +0.336      [+0.28, +0.39]     +1.095
 impulsiveness_curve_seq_step450    +0.838    +0.505     +0.333      [+0.28, +0.39]     +0.943
-impulsiveness_dm_m_s_s0.589    +0.964    +0.631     +0.333      [+0.26, +0.39]     +0.766
-impulsiveness_curve_mrg_stepfinal    +0.727    +0.396     +0.332      [+0.28, +0.39]     +1.033
-impulsiveness_curve_seq_step300    +0.622    +0.291     +0.331      [+0.28, +0.38]     +1.035
-impulsiveness_curve_seq_step270    +0.708    +0.386     +0.321      [+0.27, +0.37]     +0.930
-impulsiveness_curve_seq_step570    +0.776    +0.479     +0.297      [+0.24, +0.35]     +0.909
+impulsiveness_dm_m_s_s0.589    +0.964    +0.631     +0.333      [+0.27, +0.40]     +0.766
+impulsiveness_curve_mrg_stepfinal    +0.727    +0.396     +0.332      [+0.27, +0.39]     +1.033
+impulsiveness_curve_seq_step300    +0.622    +0.291     +0.331      [+0.28, +0.39]     +1.035
+impulsiveness_curve_seq_step270    +0.708    +0.386     +0.321      [+0.27, +0.38]     +0.930
+impulsiveness_curve_seq_step570    +0.776    +0.479     +0.297      [+0.24, +0.36]     +0.909
 impulsiveness_curve_mrg_step375    +0.598    +0.303     +0.296      [+0.24, +0.35]     +1.061
-impulsiveness_curve_seq_step255    +0.654    +0.368     +0.286      [+0.23, +0.34]     +0.964
+impulsiveness_curve_seq_step255    +0.654    +0.368     +0.286      [+0.23, +0.35]     +0.964
 impulsiveness_curve_seq_step180    +0.587    +0.304     +0.283      [+0.23, +0.33]     +0.996
 impulsiveness_curve_mrg_step285    +0.552    +0.274     +0.278      [+0.22, +0.33]     +1.095
-impulsiveness_curve_mrg_step180    +0.505    +0.264     +0.241      [+0.19, +0.30]     +1.067
-impulsiveness_curve_seq_step90    +0.534    +0.306     +0.228      [+0.18, +0.27]     +0.851
-impulsiveness_dm_m_f_s0.801    +0.670    +0.451     +0.219      [+0.17, +0.27]     +0.791
+impulsiveness_curve_mrg_step180    +0.505    +0.264     +0.241      [+0.19, +0.29]     +1.067
+impulsiveness_curve_seq_step90    +0.534    +0.306     +0.228      [+0.18, +0.28]     +0.851
+impulsiveness_dm_m_f_s0.801    +0.670    +0.451     +0.219      [+0.16, +0.28]     +0.791
 impulsiveness_curve_mrg_step90    +0.441    +0.267     +0.174      [+0.13, +0.22]     +0.928
-impulsiveness_dm_m_s_s0.505    +0.754    +0.601     +0.153      [+0.09, +0.21]     +0.547
+impulsiveness_dm_m_s_s0.505    +0.754    +0.601     +0.153      [+0.09, +0.22]     +0.547
 impulsiveness_dm_m_d_s2.5    +0.158    +0.018     +0.140      [+0.08, +0.20]     +1.083
-impulsiveness_dm_m_d025s_s1.967    +0.283    +0.153     +0.130      [+0.08, +0.19]     +1.080
+impulsiveness_dm_m_d025s_s1.967    +0.283    +0.153     +0.130      [+0.07, +0.19]     +1.080
 impulsiveness_dm_m_d_s2.25    +0.175    +0.059     +0.116      [+0.06, +0.17]     +1.057
-impulsiveness_dm_m_d_s1.979    +0.188    +0.105     +0.082      [+0.04, +0.13]     +1.018
-impulsiveness_dm_m_d025s_s1.459    +0.319    +0.259     +0.059      [+0.02, +0.10]     +0.899
-impulsiveness_curve_mrg_step45    +0.323    +0.273     +0.050      [+0.02, +0.09]     +0.841
+impulsiveness_dm_m_d_s1.979    +0.188    +0.105     +0.082      [+0.03, +0.13]     +1.018
+impulsiveness_dm_m_d025s_s1.459    +0.319    +0.259     +0.059      [+0.01, +0.10]     +0.899
+impulsiveness_curve_mrg_step45    +0.323    +0.273     +0.050      [+0.01, +0.09]     +0.841
 impulsiveness_curve_seq_step45    +0.292    +0.248     +0.044      [+0.01, +0.08]     +0.749
 impulsiveness_dm_m_d_s1.653    +0.202    +0.159     +0.043      [+0.01, +0.08]     +0.953
-impulsiveness_dm_m_d_s1.364    +0.212    +0.189     +0.023      [-0.01, +0.05]     +0.873
-impulsiveness_dm_m_d025s_s1.026    +0.273    +0.253     +0.020      [-0.01, +0.05]     +0.704
+impulsiveness_dm_m_d_s1.364    +0.212    +0.189     +0.023      [-0.01, +0.06]     +0.873
+impulsiveness_dm_m_d025s_s1.026    +0.273    +0.253     +0.020      [-0.01, +0.06]     +0.704
 impulsiveness_repro_Dplus025S    +0.268    +0.253     +0.015      [-0.02, +0.05]     +0.691
-impulsiveness_seed2_Dplus025S    +0.180    +0.237     -0.057      [-0.10, -0.02]     +0.637
+impulsiveness_seed2_Dplus025S    +0.180    +0.237     -0.057      [-0.09, -0.02]     +0.637
 sycophancy           +0.318    +0.420     -0.103      [-0.14, -0.06]     +0.854
 impulsiveness_seed2_dpo    +0.090    +0.216     -0.127      [-0.16, -0.10]     +0.608
 impulsiveness_dm_m_f_s0.518    +0.349    +0.486     -0.137      [-0.18, -0.09]     +0.430
-random_perm_s16      -0.037    +0.249     -0.286      [-0.36, -0.21]     +0.009
-impulsiveness_repro_sft    +0.603    +0.964     -0.361      [-0.46, -0.27]     -0.374
+random_perm_s16      -0.037    +0.249     -0.286      [-0.37, -0.20]     +0.009
+impulsiveness_repro_sft    +0.603    +0.964     -0.361      [-0.45, -0.27]     -0.374
+impulsiveness_regen_s987654    +0.173    +0.582     -0.408      [-0.46, -0.36]     +0.273
 random_iid_s16       +0.025    +0.508     -0.483      [-0.54, -0.43]     +0.228
-mathematical         -0.023    +0.918     -0.941      [-1.02, -0.87]     -0.199
-goodness             -0.189    +0.975     -1.164      [-1.23, -1.10]     -0.376
-loving               -0.012    +1.626     -1.638      [-1.74, -1.54]     -1.064
+mathematical         -0.023    +0.918     -0.941      [-1.02, -0.85]     -0.199
+goodness             -0.189    +0.975     -1.164      [-1.23, -1.09]     -0.376
+loving               -0.012    +1.626     -1.638      [-1.73, -1.54]     -1.064
 
 Diagnostics (mean over personas and traits):
 arm                 P(A)+P(B)   letter bias A-B    mean k
@@ -638,6 +692,7 @@ impulsiveness_dm_m_f_s1.062      0.0043            -2.826     0.111
 impulsiveness_dm_m_s_s0.505      0.0291            +0.177     0.435
 impulsiveness_dm_m_s_s0.589      0.0291            -0.198     0.337
 impulsiveness_dm_m_s_s0.673      0.0297            -0.447     0.273
+impulsiveness_regen_s987654      0.0276            -0.382     0.232
 impulsiveness_repro_Dplus025S      0.0096            -1.339     0.241
 impulsiveness_repro_DplusS      0.0096            -1.890     0.169
 impulsiveness_repro_sft      0.0227            +1.891     0.908
