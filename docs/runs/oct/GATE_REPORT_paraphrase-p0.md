@@ -161,7 +161,13 @@ second independent realisation. See next steps.
 
 ## Known deviations from the released pipeline, carried forward
 
-- **`repetition_penalty 1.1` cannot be reproduced** through the hosted API. Applies to both arms.
+- ~~`repetition_penalty 1.1` cannot be reproduced~~ — **RETRACTED 2026-10-07.** It *was* sent.
+  `SAMPLING` in `teacher_api_generate.py:93` carries it and `build_payload` splats it into the
+  payload; commit `cdbad40` ("pin OpenRouter to Novita bf16, restore repetition_penalty") added it
+  back, and the "not exposed by the API" docstring at line 25 predates that (`761b6e7`) and is
+  stale. **And it is honored**: probed 2026-10-07 with the same prompt, same seed, `temperature=0`,
+  provider Novita both calls — `repetition_penalty` 1.0 vs 2.0 give different text. So this was
+  never a deviation. It is removed from the list rather than softened.
 - **`--prefill-mode none`**: the prefill was omitted after the probe; the released `teacher.py`
   prefills. A candidate systematic cause.
 - **Teacher served by Novita in bf16**, provider pinned, `allow_fallbacks: false`.

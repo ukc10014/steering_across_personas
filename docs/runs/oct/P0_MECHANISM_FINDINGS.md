@@ -128,8 +128,8 @@ functional dose are all preserved or passing, and the phenotype still moved.
 
 *Why this is not established:* **one realisation is not a variance estimate.** Candidate
 systematic causes are unexcluded and specific: the omitted prefill (`--prefill-mode none`;
-released `teacher.py` prefills), Novita's bf16 serving stack, and `repetition_penalty 1.1` being
-unreproducible through the API. Distinguishing those from ordinary run-to-run variance is what the
+released `teacher.py` prefills) and Novita's bf16 serving stack. The prefill is now the leading
+candidate, since `repetition_penalty` has been ruled out as a deviation. Distinguishing those from ordinary run-to-run variance is what the
 replicate cells are for.
 
 ---
@@ -158,8 +158,9 @@ The `𝒟_a, s_b` cell is in. DPO stage, B2 with bootstrap CI, 2x2 over data x s
 **teacher-data realisation *and protocol* differences dominate DPO optimisation-seed differences at
 the DPO endpoint.** This is NOT "teacher sampling dominates" -- released and P0 data differ in more
 than the sampling draw. They also differ in prefill (`--prefill-mode none` against a prefilling
-`teacher.py`), serving stack (Novita bf16), `repetition_penalty 1.1` being unreproducible, and the
-§3.1 filter/repair pass. Sampling is one candidate within that bundle and is not isolated by this
+`teacher.py`), serving stack (Novita bf16), and the §3.1 filter/repair pass. (`repetition_penalty 1.1` was on
+that list until 2026-10-07; it is **retracted** — it was sent and is honored, probed directly. See
+the gate report's deviations section.) Sampling is one candidate within that bundle and is not isolated by this
 2x2. The seed is *not*
 inert either -- on released data it moves B2 by +0.114 with disjoint CIs -- so "DPO optimisation is
 stable" would be too strong. It is simply the smaller term here.
