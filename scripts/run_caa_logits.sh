@@ -122,6 +122,14 @@ adapter_of() {
     # already covered by *_dpo and the bare arm; these are the states in between.
     #   M_{D+S}     base + dW_dpo + 1.00*dW_sft   the native post-SFT model
     #   M_D+0.25S   base + dW_dpo + 0.25*dW_sft   isolates SFT dose from the merge cross terms
+    # P0 composites, to separate the peft factor-merge (M_F) from the plain combination of the
+    # two stage adapters. M_F carries cross terms B_dpo@A_sft + B_sft@A_dpo that are ~61% of
+    # ||dW_merged||; D+S applies both adapters at scale 1 and has no such cross terms, so
+    # M_F vs D+S isolates the merge algebra. D+0.25S is the weighting merge_loras.py intends.
+    impulsiveness_regen_DplusS)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 1" ;;
+    impulsiveness_regen_Dplus025S)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 0.25" ;;
     impulsiveness_repro_DplusS)
         echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 1" ;;
     impulsiveness_repro_Dplus025S)

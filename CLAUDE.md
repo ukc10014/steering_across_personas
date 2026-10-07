@@ -20,10 +20,14 @@ volume and on HF (`kanad/oct-impulsiveness-seed-replication`, private). The curr
 **stage localisation** — [docs/spec_stage_localisation.md](docs/spec_stage_localisation.md). No sham
 arm has been run and no threshold has been changed.
 
-A **light-paraphrase replication** is prepared and **paused awaiting a decision** on branch
-`exp/paraphrase-replication` — see [docs/runs/oct/PARAPHRASE_PREP_LOG.md](docs/runs/oct/PARAPHRASE_PREP_LOG.md).
-Nothing in it has been trained, generated or measured, and its thresholds are fixed; it needs a
-`ZAI_API_KEY` and a go-ahead before the first hosted GLM-4.5-Air call.
+The **light-paraphrase replication** on branch `exp/paraphrase-replication` has run its P0
+control arm, and **P0 FAILED the §4.1 gate** — see
+[docs/runs/oct/GATE_REPORT_paraphrase-p0.md](docs/runs/oct/GATE_REPORT_paraphrase-p0.md).
+B1 +1.281 (band ≥ +1.5), B3 1.208 (band ≥ 1.4), while dose, adapter structure (A1–A3) and
+estimator choice are all ruled out as explanations. **P1 is not trained and must not be started
+under the preregistered protocol.** The divergence localises to the DPO/weight channel: the
+self-generated introspection corpus produced an SFT adapter indistinguishable from the
+reproduction's, but every state containing the regenerated DPO adapter is lower.
 
 ## Docs & data (read these first)
 - **Docs live in `docs/`**: [docs/overview.md](docs/overview.md) (research question, method, findings), [docs/experiments.md](docs/experiments.md) (E-series runbook), [docs/causal_pipeline.md](docs/causal_pipeline.md), [docs/results/](docs/results/). Historical artifacts in `docs/archive/`.

@@ -118,14 +118,19 @@ def cross_term_share(dpo_dir: Path, sft_dir: Path) -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--repro-root", default=str(RIG / "loras_repro"))
+    # The arm's constitution name under --repro-root. The reproduction and seed-2 arms reused
+    # the name "impulsiveness" in a snapshot tree, so it was hardcoded; the paraphrase arms use
+    # distinct names (impulsiveness_regen / _paraphrase) in $RIG/loras itself. The released
+    # adapter it is compared against is always the impulsiveness one, so only this side varies.
+    ap.add_argument("--constitution", default="impulsiveness")
     ap.add_argument("--released", default=RELEASED)
     ap.add_argument("--out", default="outputs/analysis/gate_weight_checks.json")
     a = ap.parse_args()
 
     root = Path(a.repro_root)
-    merged_dir = root / "llama-personas" / "impulsiveness"
-    dpo_dir = root / "llama-distillation" / "impulsiveness"
-    sft_dir = root / "llama-introspection" / "impulsiveness"
+    merged_dir = root / "llama-personas" / a.constitution
+    dpo_dir = root / "llama-distillation" / a.constitution
+    sft_dir = root / "llama-introspection" / a.constitution
 
     print("== A1  adapter_config ==")
     rel_cfg = json.loads((Path(a.released) / "adapter_config.json").read_text())
