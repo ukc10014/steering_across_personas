@@ -163,6 +163,32 @@ adapter_of() {
         echo "--lora-adapter $RIG/loras_sft_from_base/impulsiveness --lora-scale 1" ;;
     impulsiveness_seed2_Dplus025S)
         echo "--lora-adapter $RIG/loras_seed2/llama-distillation/impulsiveness --lora-scale 1 --lora-adapter $RIG/loras_seed2/llama-introspection/impulsiveness --lora-scale 0.25" ;;
+
+    # --- audit 2: the FITTED additive surrogate of the factor merge ------------------------
+    # scripts/audit_factor_weighting.py fits dW_merge ~ c_D*dW_D + c_S*dW_S and finds the merge
+    # sits essentially at its shared-A limit, because A is the random init and both stages share
+    # a training seed (cos(A_D, A_S) = 0.989). The nominal (1.0, 0.25) is 62% off in norm; these
+    # coefficients are 19-20% off. If the surrogate reproduces the merge's phenotype, the merge's
+    # "cross terms" are a stage REWEIGHTING, not a new direction.
+    impulsiveness_repro_fit)
+        echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1.4651 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 0.7069" ;;
+    impulsiveness_regen_fit)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1.4704 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 0.7121" ;;
+    # the same thing with round numbers, to show the phenotype is not sensitive to the last digit
+    impulsiveness_repro_15D075S)
+        echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1.5 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 0.75" ;;
+    impulsiveness_regen_15D075S)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1.5 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 0.75" ;;
+
+    # --- audit 1: coordinate dependence of the factor merge --------------------------------
+    # merge(D_o, S_o with A -> -A, B -> -B). The negated SFT adapter is the SAME FUNCTION as
+    # S_o standalone, so this arm differs from impulsiveness_repro only by a sign convention
+    # internal to one input. scripts/audit_sign_flip_sft.py builds it.
+    signflip_So_neg)
+        echo "--lora-adapter $RIG/loras_signflip/llama-personas/signflip_So_neg --lora-scale 1" ;;
+    # control: the negated SFT adapter ON ITS OWN must measure identically to impulsiveness_repro_sft
+    impulsiveness_repro_sft_negAB)
+        echo "--lora-adapter $RIG/loras_signflip/llama-introspection/impulsiveness_negAB --lora-scale 1" ;;
     *)               echo "--lora-adapter $PERSONAS_SNAP/$1 --lora-scale 1" ;;
   esac
 }

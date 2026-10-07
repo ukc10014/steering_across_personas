@@ -2,20 +2,6 @@
   "15": {
     "assertiveness": {
       "per_arm": {
-        "goodness": {
-          "g_norm": 0.8197940923120918,
-          "base_norm": 1.2861926853656769,
-          "g_over_base": 0.6373804653375217,
-          "share_squared": 0.7096465948293427,
-          "share_linear": 0.8424052438282555
-        },
-        "mathematical": {
-          "g_norm": 0.7537879356877576,
-          "base_norm": 1.2861926853656769,
-          "g_over_base": 0.5860614387442644,
-          "share_squared": 0.7233852563358887,
-          "share_linear": 0.8505205796075064
-        },
         "impulsiveness": {
           "g_norm": 0.8281110069604166,
           "base_norm": 1.2861926853656769,
@@ -23,166 +9,70 @@
           "share_squared": 0.6837394122115468,
           "share_linear": 0.8268853682412979
         },
-        "misalignment": {
-          "g_norm": 1.4768265725201937,
+        "impulsiveness_regen": {
+          "g_norm": 1.1210206848685396,
           "base_norm": 1.2861926853656769,
-          "g_over_base": 1.1482156517631865,
-          "share_squared": 0.8256766248326408,
-          "share_linear": 0.9086674996018295
+          "g_over_base": 0.8715806718725218,
+          "share_squared": 0.7791259076415924,
+          "share_linear": 0.8826810905653255
         }
       },
       "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8470190149592501,
-        "goodness|impulsiveness": 0.5448278668332827,
-        "goodness|misalignment": 0.12281184563920747,
-        "mathematical|goodness": 0.8470190149592501,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.6029533330670143,
-        "mathematical|misalignment": 0.23069204968699103,
-        "impulsiveness|goodness": 0.5448278668332827,
-        "impulsiveness|mathematical": 0.6029533330670143,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.6839672902724493,
-        "misalignment|goodness": 0.12281184563920747,
-        "misalignment|mathematical": 0.23069204968699103,
-        "misalignment|impulsiveness": 0.6839672902724493,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.8268448438696916,
+        "impulsiveness_regen|impulsiveness": 0.8268448438696916,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8322732448577881,
-        "goodness|impulsiveness": 0.5443088412284851,
-        "goodness|misalignment": 0.14385072886943817,
-        "mathematical|goodness": 0.8322732448577881,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.6028668880462646,
-        "mathematical|misalignment": 0.24548648297786713,
-        "impulsiveness|goodness": 0.5443088412284851,
-        "impulsiveness|mathematical": 0.6028668880462646,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.6776465773582458,
-        "misalignment|goodness": 0.14385072886943817,
-        "misalignment|mathematical": 0.24548648297786713,
-        "misalignment|impulsiveness": 0.6776465773582458,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.7978973984718323,
+        "impulsiveness_regen|impulsiveness": 0.7978973984718323,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "naive": {
-        "goodness": {
-          "g_over_base": 0.6174352218630974,
-          "share_squared": 0.7110294860308655
-        },
-        "mathematical": {
-          "g_over_base": 0.5694828163545618,
-          "share_squared": 0.7235998248015453
-        },
         "impulsiveness": {
           "g_over_base": 0.6257611328539757,
           "share_squared": 0.6878143402629341
         },
-        "misalignment": {
-          "g_over_base": 1.0843593673194556,
-          "share_squared": 0.8223547801966101
+        "impulsiveness_regen": {
+          "g_over_base": 0.8448572168469356,
+          "share_squared": 0.7774508647380117
         }
       },
       "g_over_base_ci": {
-        "goodness": [
-          0.5806743298137589,
-          0.7529739634889907
-        ],
-        "mathematical": [
-          0.5375876589430664,
-          0.6760826821263409
-        ],
         "impulsiveness": [
           0.5909070947332221,
           0.7571893745984806
         ],
-        "misalignment": [
-          0.9668418649613558,
-          1.4472161238030778
+        "impulsiveness_regen": [
+          0.7762524607039357,
+          1.0318213365905735
         ]
       },
       "share_squared_ci": {
-        "goodness": [
-          0.6834481676889513,
-          0.7367267106772364
-        ],
-        "mathematical": [
-          0.7015453656147275,
-          0.7458629606339793
-        ],
         "impulsiveness": [
           0.656218175746057,
           0.7037795281770818
         ],
-        "misalignment": [
-          0.813073580184538,
-          0.8367517341834078
+        "impulsiveness_regen": [
+          0.7666712624038183,
+          0.7922185479805576
         ]
       },
       "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.8133425471579054,
-          0.9017977020565395
-        ],
-        "goodness|impulsiveness": [
-          0.49892894480295247,
-          0.5989196600497785
-        ],
-        "goodness|misalignment": [
-          0.04809747456531184,
-          0.22003663749577101
-        ],
-        "mathematical|goodness": [
-          0.8133425471579054,
-          0.9017977020565395
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.5618023101008839,
-          0.6373086819530169
-        ],
-        "mathematical|misalignment": [
-          0.176723835334038,
-          0.29109819648876406
-        ],
-        "impulsiveness|goodness": [
-          0.49892894480295247,
-          0.5989196600497785
-        ],
-        "impulsiveness|mathematical": [
-          0.5618023101008839,
-          0.6373086819530169
-        ],
         "impulsiveness|impulsiveness": [
           1.0,
           1.0
         ],
-        "impulsiveness|misalignment": [
-          0.6552244528432281,
-          0.7210616751343253
+        "impulsiveness|impulsiveness_regen": [
+          0.7626659495443963,
+          0.9199021723308209
         ],
-        "misalignment|goodness": [
-          0.04809747456531184,
-          0.22003663749577101
+        "impulsiveness_regen|impulsiveness": [
+          0.7626659495443963,
+          0.9199021723308209
         ],
-        "misalignment|mathematical": [
-          0.176723835334038,
-          0.29109819648876406
-        ],
-        "misalignment|impulsiveness": [
-          0.6552244528432281,
-          0.7210616751343253
-        ],
-        "misalignment|misalignment": [
+        "impulsiveness_regen|impulsiveness_regen": [
           1.0,
           1.0
         ]
@@ -190,20 +80,6 @@
     },
     "empathy": {
       "per_arm": {
-        "goodness": {
-          "g_norm": 0.7817799530264038,
-          "base_norm": 1.2879268825054169,
-          "g_over_base": 0.607006471909026,
-          "share_squared": 0.6098101025209662,
-          "share_linear": 0.7809033887242174
-        },
-        "mathematical": {
-          "g_norm": 0.7445215807003653,
-          "base_norm": 1.2879268825054169,
-          "g_over_base": 0.5780775219568678,
-          "share_squared": 0.6282316768591673,
-          "share_linear": 0.7926106716788308
-        },
         "impulsiveness": {
           "g_norm": 0.8258662567126209,
           "base_norm": 1.2879268825054169,
@@ -211,166 +87,70 @@
           "share_squared": 0.6343478978663204,
           "share_linear": 0.7964596021558912
         },
-        "misalignment": {
-          "g_norm": 1.1338497503764415,
+        "impulsiveness_regen": {
+          "g_norm": 1.2239379149282699,
           "base_norm": 1.2879268825054169,
-          "g_over_base": 0.8803681061231927,
-          "share_squared": 0.7266007305638663,
-          "share_linear": 0.8524087813742104
+          "g_over_base": 0.9503163040958749,
+          "share_squared": 0.7503912558529164,
+          "share_linear": 0.8662512660036442
         }
       },
       "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8380109730284926,
-        "goodness|impulsiveness": 0.7452559403364539,
-        "goodness|misalignment": 0.5786388664309933,
-        "mathematical|goodness": 0.8380109730284926,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.7749365074066495,
-        "mathematical|misalignment": 0.55808109633146,
-        "impulsiveness|goodness": 0.7452559403364539,
-        "impulsiveness|mathematical": 0.7749365074066495,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.5278420000990297,
-        "misalignment|goodness": 0.5786388664309933,
-        "misalignment|mathematical": 0.55808109633146,
-        "misalignment|impulsiveness": 0.5278420000990297,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.8109480532373836,
+        "impulsiveness_regen|impulsiveness": 0.8109480532373836,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8220759034156799,
-        "goodness|impulsiveness": 0.7251364588737488,
-        "goodness|misalignment": 0.5770763158798218,
-        "mathematical|goodness": 0.8220759034156799,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.7638870477676392,
-        "mathematical|misalignment": 0.5605305433273315,
-        "impulsiveness|goodness": 0.7251364588737488,
-        "impulsiveness|mathematical": 0.7638870477676392,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.5338459014892578,
-        "misalignment|goodness": 0.5770763158798218,
-        "misalignment|mathematical": 0.5605305433273315,
-        "misalignment|impulsiveness": 0.5338459014892578,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.7824015021324158,
+        "impulsiveness_regen|impulsiveness": 0.7824015021324158,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "naive": {
-        "goodness": {
-          "g_over_base": 0.5881791510256147,
-          "share_squared": 0.6143924325754442
-        },
-        "mathematical": {
-          "g_over_base": 0.5632582041615651,
-          "share_squared": 0.6339361425604203
-        },
         "impulsiveness": {
           "g_over_base": 0.6249227240178223,
           "share_squared": 0.6404804833804802
         },
-        "misalignment": {
-          "g_over_base": 0.8415365961728778,
-          "share_squared": 0.725385923297975
+        "impulsiveness_regen": {
+          "g_over_base": 0.9148794742102894,
+          "share_squared": 0.74950864913305
         }
       },
       "g_over_base_ci": {
-        "goodness": [
-          0.5273182599888424,
-          0.7299245130925233
-        ],
-        "mathematical": [
-          0.537997021623757,
-          0.6718908872257067
-        ],
         "impulsiveness": [
           0.5973313336918514,
           0.7536666949508215
         ],
-        "misalignment": [
-          0.730186831815822,
-          1.1124299663877055
+        "impulsiveness_regen": [
+          0.8396516288129307,
+          1.1745655670834232
         ]
       },
       "share_squared_ci": {
-        "goodness": [
-          0.5855553980644363,
-          0.642721633949229
-        ],
-        "mathematical": [
-          0.5859701557203267,
-          0.6833202521411066
-        ],
         "impulsiveness": [
           0.5982516253056981,
           0.6878864910010328
         ],
-        "misalignment": [
-          0.7114701598149301,
-          0.7412625686813942
+        "impulsiveness_regen": [
+          0.729960920217379,
+          0.7746300109703809
         ]
       },
       "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.7971383798446553,
-          0.9033585467615021
-        ],
-        "goodness|impulsiveness": [
-          0.698252810024806,
-          0.8154857809192084
-        ],
-        "goodness|misalignment": [
-          0.509910148736944,
-          0.6381291433323418
-        ],
-        "mathematical|goodness": [
-          0.7971383798446553,
-          0.9033585467615021
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.7438805922832035,
-          0.8189563735798127
-        ],
-        "mathematical|misalignment": [
-          0.5233683138195785,
-          0.591728935892862
-        ],
-        "impulsiveness|goodness": [
-          0.698252810024806,
-          0.8154857809192084
-        ],
-        "impulsiveness|mathematical": [
-          0.7438805922832035,
-          0.8189563735798127
-        ],
         "impulsiveness|impulsiveness": [
           1.0,
           1.0
         ],
-        "impulsiveness|misalignment": [
-          0.4660421863840369,
-          0.5753355207190174
+        "impulsiveness|impulsiveness_regen": [
+          0.7090855196110843,
+          0.9374722744825437
         ],
-        "misalignment|goodness": [
-          0.509910148736944,
-          0.6381291433323418
+        "impulsiveness_regen|impulsiveness": [
+          0.7090855196110843,
+          0.9374722744825437
         ],
-        "misalignment|mathematical": [
-          0.5233683138195785,
-          0.591728935892862
-        ],
-        "misalignment|impulsiveness": [
-          0.4660421863840369,
-          0.5753355207190174
-        ],
-        "misalignment|misalignment": [
+        "impulsiveness_regen|impulsiveness_regen": [
           1.0,
           1.0
         ]
@@ -378,20 +158,6 @@
     },
     "risk_taking": {
       "per_arm": {
-        "goodness": {
-          "g_norm": 0.6985239524801439,
-          "base_norm": 1.1097696498036385,
-          "g_over_base": 0.6294314794099298,
-          "share_squared": 0.6944830483261629,
-          "share_linear": 0.8333564953404773
-        },
-        "mathematical": {
-          "g_norm": 0.6397853448548843,
-          "base_norm": 1.1097696498036385,
-          "g_over_base": 0.5765028309866712,
-          "share_squared": 0.6975551398161359,
-          "share_linear": 0.8351976651165495
-        },
         "impulsiveness": {
           "g_norm": 1.2172036643662738,
           "base_norm": 1.1097696498036385,
@@ -399,166 +165,70 @@
           "share_squared": 0.8427956758041555,
           "share_linear": 0.9180390382789587
         },
-        "misalignment": {
-          "g_norm": 1.1343567182050305,
+        "impulsiveness_regen": {
+          "g_norm": 1.1521538736409462,
           "base_norm": 1.1097696498036385,
-          "g_over_base": 1.0221551097615098,
-          "share_squared": 0.8197621417999775,
-          "share_linear": 0.9054071690681367
+          "g_over_base": 1.0381919111275093,
+          "share_squared": 0.8224369969538486,
+          "share_linear": 0.9068831219919404
         }
       },
       "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8378868629405039,
-        "goodness|impulsiveness": 0.5101784997787673,
-        "goodness|misalignment": 0.5258017824366873,
-        "mathematical|goodness": 0.8378868629405039,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.5449331237300007,
-        "mathematical|misalignment": 0.4862471280263528,
-        "impulsiveness|goodness": 0.5101784997787673,
-        "impulsiveness|mathematical": 0.5449331237300007,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.7922306267477861,
-        "misalignment|goodness": 0.5258017824366873,
-        "misalignment|mathematical": 0.4862471280263528,
-        "misalignment|impulsiveness": 0.7922306267477861,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.856189390093162,
+        "impulsiveness_regen|impulsiveness": 0.856189390093162,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8169719576835632,
-        "goodness|impulsiveness": 0.5073490738868713,
-        "goodness|misalignment": 0.5291071534156799,
-        "mathematical|goodness": 0.8169719576835632,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.5413370132446289,
-        "mathematical|misalignment": 0.49031516909599304,
-        "impulsiveness|goodness": 0.5073490738868713,
-        "impulsiveness|mathematical": 0.5413370132446289,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.7856767177581787,
-        "misalignment|goodness": 0.5291071534156799,
-        "misalignment|mathematical": 0.49031516909599304,
-        "misalignment|impulsiveness": 0.7856767177581787,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.8382633328437805,
+        "impulsiveness_regen|impulsiveness": 0.8382633328437805,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "naive": {
-        "goodness": {
-          "g_over_base": 0.6003118589520946,
-          "share_squared": 0.700142592074945
-        },
-        "mathematical": {
-          "g_over_base": 0.550749590040692,
-          "share_squared": 0.7026497316259466
-        },
         "impulsiveness": {
           "g_over_base": 1.0072731002689221,
           "share_squared": 0.8383988914302162
         },
-        "misalignment": {
-          "g_over_base": 0.939410731125257,
-          "share_squared": 0.8145593541584011
+        "impulsiveness_regen": {
+          "g_over_base": 0.9648338741117474,
+          "share_squared": 0.8172584167421182
         }
       },
       "g_over_base_ci": {
-        "goodness": [
-          0.5513647695030232,
-          0.7566647616744412
-        ],
-        "mathematical": [
-          0.5167714323292593,
-          0.6823478605357463
-        ],
         "impulsiveness": [
           0.8764788789683648,
           1.4342147423652207
         ],
-        "misalignment": [
-          0.8126813461321626,
-          1.3283899653129836
+        "impulsiveness_regen": [
+          0.8584159199654829,
+          1.3082556647245216
         ]
       },
       "share_squared_ci": {
-        "goodness": [
-          0.6640108278152134,
-          0.7304283049712641
-        ],
-        "mathematical": [
-          0.6684210917896962,
-          0.729619990652399
-        ],
         "impulsiveness": [
           0.8343395846319082,
           0.8509896129238202
         ],
-        "misalignment": [
-          0.804130737758902,
-          0.835628936419841
+        "impulsiveness_regen": [
+          0.806551360650061,
+          0.8339488544017558
         ]
       },
       "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.7734954472218073,
-          0.8962729204993438
-        ],
-        "goodness|impulsiveness": [
-          0.4113794003884611,
-          0.5965637018283693
-        ],
-        "goodness|misalignment": [
-          0.4538851814890201,
-          0.6005085695160852
-        ],
-        "mathematical|goodness": [
-          0.7734954472218073,
-          0.8962729204993438
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.5240865759837781,
-          0.5802306601426817
-        ],
-        "mathematical|misalignment": [
-          0.4623728043230102,
-          0.5142040156949327
-        ],
-        "impulsiveness|goodness": [
-          0.4113794003884611,
-          0.5965637018283693
-        ],
-        "impulsiveness|mathematical": [
-          0.5240865759837781,
-          0.5802306601426817
-        ],
         "impulsiveness|impulsiveness": [
           1.0,
           1.0
         ],
-        "impulsiveness|misalignment": [
-          0.7674722802868659,
-          0.8151962595651753
+        "impulsiveness|impulsiveness_regen": [
+          0.7894702220296849,
+          0.8939510199816353
         ],
-        "misalignment|goodness": [
-          0.4538851814890201,
-          0.6005085695160852
+        "impulsiveness_regen|impulsiveness": [
+          0.7894702220296849,
+          0.8939510199816353
         ],
-        "misalignment|mathematical": [
-          0.4623728043230102,
-          0.5142040156949327
-        ],
-        "misalignment|impulsiveness": [
-          0.7674722802868659,
-          0.8151962595651753
-        ],
-        "misalignment|misalignment": [
+        "impulsiveness_regen|impulsiveness_regen": [
           1.0,
           1.0
         ]
@@ -566,20 +236,6 @@
     },
     "honesty": {
       "per_arm": {
-        "goodness": {
-          "g_norm": 0.720974419350825,
-          "base_norm": 1.2330042555928231,
-          "g_over_base": 0.5847298710288583,
-          "share_squared": 0.7556740263871893,
-          "share_linear": 0.8692951319242442
-        },
-        "mathematical": {
-          "g_norm": 0.6885870856994184,
-          "base_norm": 1.2330042555928231,
-          "g_over_base": 0.5584628622131954,
-          "share_squared": 0.7458817592437301,
-          "share_linear": 0.8636444634476216
-        },
         "impulsiveness": {
           "g_norm": 0.7606316350249417,
           "base_norm": 1.2330042555928231,
@@ -587,166 +243,70 @@
           "share_squared": 0.73674014303525,
           "share_linear": 0.8583356820237931
         },
-        "misalignment": {
-          "g_norm": 0.9305997804294982,
+        "impulsiveness_regen": {
+          "g_norm": 0.9958657561029141,
           "base_norm": 1.2330042555928231,
-          "g_over_base": 0.7547417425433539,
-          "share_squared": 0.7749346114403672,
-          "share_linear": 0.8803037040932903
+          "g_over_base": 0.8076742246312086,
+          "share_squared": 0.8088432279843264,
+          "share_linear": 0.8993571192714974
         }
       },
       "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8661149509855514,
-        "goodness|impulsiveness": 0.7509990898673596,
-        "goodness|misalignment": 0.5757960637567745,
-        "mathematical|goodness": 0.8661149509855514,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.8194788811466049,
-        "mathematical|misalignment": 0.5969693885921101,
-        "impulsiveness|goodness": 0.7509990898673596,
-        "impulsiveness|mathematical": 0.8194788811466049,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.6801409006086134,
-        "misalignment|goodness": 0.5757960637567745,
-        "misalignment|mathematical": 0.5969693885921101,
-        "misalignment|impulsiveness": 0.6801409006086134,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.8381839315562947,
+        "impulsiveness_regen|impulsiveness": 0.8381839315562947,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8496783971786499,
-        "goodness|impulsiveness": 0.7319657802581787,
-        "goodness|misalignment": 0.5788630247116089,
-        "mathematical|goodness": 0.8496783971786499,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.8006474375724792,
-        "mathematical|misalignment": 0.5974299311637878,
-        "impulsiveness|goodness": 0.7319657802581787,
-        "impulsiveness|mathematical": 0.8006474375724792,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.6802802085876465,
-        "misalignment|goodness": 0.5788630247116089,
-        "misalignment|mathematical": 0.5974299311637878,
-        "misalignment|impulsiveness": 0.6802802085876465,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.8109755516052246,
+        "impulsiveness_regen|impulsiveness": 0.8109755516052246,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "naive": {
-        "goodness": {
-          "g_over_base": 0.5692441478690969,
-          "share_squared": 0.752716652015542
-        },
-        "mathematical": {
-          "g_over_base": 0.5457150173914322,
-          "share_squared": 0.7441840022538726
-        },
         "impulsiveness": {
           "g_over_base": 0.6019504572064269,
           "share_squared": 0.7370702220125548
         },
-        "misalignment": {
-          "g_over_base": 0.7243415762438985,
-          "share_squared": 0.7713643793272283
+        "impulsiveness_regen": {
+          "g_over_base": 0.783406851101216,
+          "share_squared": 0.8038771164640343
         }
       },
       "g_over_base_ci": {
-        "goodness": [
-          0.5202417492720449,
-          0.6992889842891908
-        ],
-        "mathematical": [
-          0.5204809028316029,
-          0.6421734795015386
-        ],
         "impulsiveness": [
           0.5690462715000467,
           0.7094487637136166
         ],
-        "misalignment": [
-          0.633778678435917,
-          0.9359278517554599
+        "impulsiveness_regen": [
+          0.722862145362191,
+          0.966282764498159
         ]
       },
       "share_squared_ci": {
-        "goodness": [
-          0.7217951886936874,
-          0.7831188142965078
-        ],
-        "mathematical": [
-          0.7201066162262654,
-          0.7660329605078796
-        ],
         "impulsiveness": [
           0.7088754271224321,
           0.7578137488107544
         ],
-        "misalignment": [
-          0.7485888135578699,
-          0.79478167878842
+        "impulsiveness_regen": [
+          0.7887224507835758,
+          0.826982287809771
         ]
       },
       "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.8174268812988549,
-          0.9279985893907451
-        ],
-        "goodness|impulsiveness": [
-          0.6955609092937836,
-          0.8236277602463766
-        ],
-        "goodness|misalignment": [
-          0.4959106498112859,
-          0.643096745964719
-        ],
-        "mathematical|goodness": [
-          0.8174268812988549,
-          0.9279985893907451
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.7734301744066376,
-          0.8824527155107609
-        ],
-        "mathematical|misalignment": [
-          0.5589021994530703,
-          0.6359347792953615
-        ],
-        "impulsiveness|goodness": [
-          0.6955609092937836,
-          0.8236277602463766
-        ],
-        "impulsiveness|mathematical": [
-          0.7734301744066376,
-          0.8824527155107609
-        ],
         "impulsiveness|impulsiveness": [
           1.0,
           1.0
         ],
-        "impulsiveness|misalignment": [
-          0.6490851002091648,
-          0.7116689422649392
+        "impulsiveness|impulsiveness_regen": [
+          0.7457680185085294,
+          0.9289962059881214
         ],
-        "misalignment|goodness": [
-          0.4959106498112859,
-          0.643096745964719
+        "impulsiveness_regen|impulsiveness": [
+          0.7457680185085294,
+          0.9289962059881214
         ],
-        "misalignment|mathematical": [
-          0.5589021994530703,
-          0.6359347792953615
-        ],
-        "misalignment|impulsiveness": [
-          0.6490851002091648,
-          0.7116689422649392
-        ],
-        "misalignment|misalignment": [
+        "impulsiveness_regen|impulsiveness_regen": [
           1.0,
           1.0
         ]
@@ -754,20 +314,6 @@
     },
     "confidence": {
       "per_arm": {
-        "goodness": {
-          "g_norm": 0.7515365953005908,
-          "base_norm": 1.2370690166950227,
-          "g_over_base": 0.6075138776884175,
-          "share_squared": 0.6910558603201399,
-          "share_linear": 0.8312976965685277
-        },
-        "mathematical": {
-          "g_norm": 0.8194184944835667,
-          "base_norm": 1.2370690166950227,
-          "g_over_base": 0.662387048277016,
-          "share_squared": 0.7510258852471807,
-          "share_linear": 0.8666174965041847
-        },
         "impulsiveness": {
           "g_norm": 0.8398290455440224,
           "base_norm": 1.2370690166950227,
@@ -775,166 +321,70 @@
           "share_squared": 0.7180781733829382,
           "share_linear": 0.8473949335362693
         },
-        "misalignment": {
-          "g_norm": 1.0023834338103927,
+        "impulsiveness_regen": {
+          "g_norm": 1.0734750746657025,
           "base_norm": 1.2370690166950227,
-          "g_over_base": 0.8102890140182959,
-          "share_squared": 0.7501372819820916,
-          "share_linear": 0.8661046599471057
+          "g_over_base": 0.8677568188827646,
+          "share_squared": 0.777084713379726,
+          "share_linear": 0.8815240855357986
         }
       },
       "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.7527239800131378,
-        "goodness|impulsiveness": 0.7184779754852073,
-        "goodness|misalignment": 0.5633190256618985,
-        "mathematical|goodness": 0.7527239800131378,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.7019134490443565,
-        "mathematical|misalignment": 0.30223044887401584,
-        "impulsiveness|goodness": 0.7184779754852073,
-        "impulsiveness|mathematical": 0.7019134490443565,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.5845027825623635,
-        "misalignment|goodness": 0.5633190256618985,
-        "misalignment|mathematical": 0.30223044887401584,
-        "misalignment|impulsiveness": 0.5845027825623635,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.8025953427148036,
+        "impulsiveness_regen|impulsiveness": 0.8025953427148036,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.7451476454734802,
-        "goodness|impulsiveness": 0.7018238306045532,
-        "goodness|misalignment": 0.5687471032142639,
-        "mathematical|goodness": 0.7451476454734802,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.6948895454406738,
-        "mathematical|misalignment": 0.3212403953075409,
-        "impulsiveness|goodness": 0.7018238306045532,
-        "impulsiveness|mathematical": 0.6948895454406738,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.587807834148407,
-        "misalignment|goodness": 0.5687471032142639,
-        "misalignment|mathematical": 0.3212403953075409,
-        "misalignment|impulsiveness": 0.587807834148407,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.7764853835105896,
+        "impulsiveness_regen|impulsiveness": 0.7764853835105896,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "naive": {
-        "goodness": {
-          "g_over_base": 0.5881150799825287,
-          "share_squared": 0.6939844713463712
-        },
-        "mathematical": {
-          "g_over_base": 0.6353852394773398,
-          "share_squared": 0.7493414742896185
-        },
         "impulsiveness": {
           "g_over_base": 0.6563740771892622,
           "share_squared": 0.7206322483995654
         },
-        "misalignment": {
-          "g_over_base": 0.7706088681710487,
-          "share_squared": 0.7478869742825869
+        "impulsiveness_regen": {
+          "g_over_base": 0.8325108796371534,
+          "share_squared": 0.7743303523069648
         }
       },
       "g_over_base_ci": {
-        "goodness": [
-          0.5338754823452297,
-          0.7427661449865294
-        ],
-        "mathematical": [
-          0.5801981124965679,
-          0.8392575468421507
-        ],
         "impulsiveness": [
           0.5999973561186448,
           0.8258093871540075
         ],
-        "misalignment": [
-          0.6863782265298642,
-          1.0377668227361823
+        "impulsiveness_regen": [
+          0.7434939762779701,
+          1.0987886974877876
         ]
       },
       "share_squared_ci": {
-        "goodness": [
-          0.6646570176442358,
-          0.7150875873900987
-        ],
-        "mathematical": [
-          0.7326077529062426,
-          0.7703323895227073
-        ],
         "impulsiveness": [
           0.6879715715640643,
           0.741046303303536
         ],
-        "misalignment": [
-          0.7338734482547916,
-          0.7650056855962722
+        "impulsiveness_regen": [
+          0.7654583082106153,
+          0.7885009361922334
         ]
       },
       "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.6875740747903565,
-          0.7929851978663697
-        ],
-        "goodness|impulsiveness": [
-          0.65779775980087,
-          0.7920827014988916
-        ],
-        "goodness|misalignment": [
-          0.5065977679811976,
-          0.6425775579258327
-        ],
-        "mathematical|goodness": [
-          0.6875740747903565,
-          0.7929851978663697
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.6694265536694344,
-          0.74109960424924
-        ],
-        "mathematical|misalignment": [
-          0.23194639180565324,
-          0.3691174349460395
-        ],
-        "impulsiveness|goodness": [
-          0.65779775980087,
-          0.7920827014988916
-        ],
-        "impulsiveness|mathematical": [
-          0.6694265536694344,
-          0.74109960424924
-        ],
         "impulsiveness|impulsiveness": [
           1.0,
           1.0
         ],
-        "impulsiveness|misalignment": [
-          0.5609183577072778,
-          0.6115387573677598
+        "impulsiveness|impulsiveness_regen": [
+          0.7082232282199912,
+          0.9065377149560264
         ],
-        "misalignment|goodness": [
-          0.5065977679811976,
-          0.6425775579258327
+        "impulsiveness_regen|impulsiveness": [
+          0.7082232282199912,
+          0.9065377149560264
         ],
-        "misalignment|mathematical": [
-          0.23194639180565324,
-          0.3691174349460395
-        ],
-        "misalignment|impulsiveness": [
-          0.5609183577072778,
-          0.6115387573677598
-        ],
-        "misalignment|misalignment": [
+        "impulsiveness_regen|impulsiveness_regen": [
           1.0,
           1.0
         ]
@@ -942,20 +392,6 @@
     },
     "deference": {
       "per_arm": {
-        "goodness": {
-          "g_norm": 0.6554725659933394,
-          "base_norm": 0.9902600646018982,
-          "g_over_base": 0.6619196203341299,
-          "share_squared": 0.6307872390033734,
-          "share_linear": 0.7942211524527494
-        },
-        "mathematical": {
-          "g_norm": 0.5354692674856409,
-          "base_norm": 0.9902600646018982,
-          "g_over_base": 0.5407360012048036,
-          "share_squared": 0.6066436703026511,
-          "share_linear": 0.7788733339270585
-        },
         "impulsiveness": {
           "g_norm": 0.6384000462204426,
           "base_norm": 0.9902600646018982,
@@ -963,166 +399,70 @@
           "share_squared": 0.6259998896521952,
           "share_linear": 0.7912015480597818
         },
-        "misalignment": {
-          "g_norm": 0.7304727987697409,
+        "impulsiveness_regen": {
+          "g_norm": 0.8788823760286983,
           "base_norm": 0.9902600646018982,
-          "g_over_base": 0.7376575355115463,
-          "share_squared": 0.6499081981480387,
-          "share_linear": 0.8061688397277823
+          "g_over_base": 0.8875268300171475,
+          "share_squared": 0.7082865407047253,
+          "share_linear": 0.8415976121073094
         }
       },
       "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8270878117482308,
-        "goodness|impulsiveness": 0.750831809670841,
-        "goodness|misalignment": 0.7254574779740535,
-        "mathematical|goodness": 0.8270878117482308,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.7610035940597669,
-        "mathematical|misalignment": 0.7140979877959206,
-        "impulsiveness|goodness": 0.750831809670841,
-        "impulsiveness|mathematical": 0.7610035940597669,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.7293463677904339,
-        "misalignment|goodness": 0.7254574779740535,
-        "misalignment|mathematical": 0.7140979877959206,
-        "misalignment|impulsiveness": 0.7293463677904339,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.7721851011615313,
+        "impulsiveness_regen|impulsiveness": 0.7721851011615313,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.808809757232666,
-        "goodness|impulsiveness": 0.7268461585044861,
-        "goodness|misalignment": 0.7171730995178223,
-        "mathematical|goodness": 0.808809757232666,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.7428297400474548,
-        "mathematical|misalignment": 0.7029133439064026,
-        "impulsiveness|goodness": 0.7268461585044861,
-        "impulsiveness|mathematical": 0.7428297400474548,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.7238624095916748,
-        "misalignment|goodness": 0.7171730995178223,
-        "misalignment|mathematical": 0.7029133439064026,
-        "misalignment|impulsiveness": 0.7238624095916748,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.7436216473579407,
+        "impulsiveness_regen|impulsiveness": 0.7436216473579407,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "naive": {
-        "goodness": {
-          "g_over_base": 0.6256916960938869,
-          "share_squared": 0.6373955740005671
-        },
-        "mathematical": {
-          "g_over_base": 0.5210848896511026,
-          "share_squared": 0.6187193829652075
-        },
         "impulsiveness": {
           "g_over_base": 0.6159210128902105,
           "share_squared": 0.6362545827188353
         },
-        "misalignment": {
-          "g_over_base": 0.6936732528222915,
-          "share_squared": 0.6539145858554323
+        "impulsiveness_regen": {
+          "g_over_base": 0.8367487408211963,
+          "share_squared": 0.7104637398420878
         }
       },
       "g_over_base_ci": {
-        "goodness": [
-          0.5059325013371031,
-          0.8640200812593596
-        ],
-        "mathematical": [
-          0.4710170787466558,
-          0.6537754508794158
-        ],
         "impulsiveness": [
           0.5698136352465384,
           0.8011587046200617
         ],
-        "misalignment": [
-          0.5887180863529754,
-          0.9649241907755577
+        "impulsiveness_regen": [
+          0.7498949382621688,
+          1.1717204046266363
         ]
       },
       "share_squared_ci": {
-        "goodness": [
-          0.5528291220227229,
-          0.6860125811890316
-        ],
-        "mathematical": [
-          0.5023758361794008,
-          0.6702756966672587
-        ],
         "impulsiveness": [
           0.5416464770507894,
           0.6857356775909859
         ],
-        "misalignment": [
-          0.6078304277727586,
-          0.6842917029806314
+        "impulsiveness_regen": [
+          0.6678762497697954,
+          0.7393313011322179
         ]
       },
       "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.7354499262890926,
-          0.9263791751798889
-        ],
-        "goodness|impulsiveness": [
-          0.685760740714707,
-          0.9028739287175602
-        ],
-        "goodness|misalignment": [
-          0.6602817798908869,
-          0.7810599314272112
-        ],
-        "mathematical|goodness": [
-          0.7354499262890926,
-          0.9263791751798889
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.7085411030611504,
-          0.8655445423686319
-        ],
-        "mathematical|misalignment": [
-          0.6625723328526686,
-          0.7815398258119924
-        ],
-        "impulsiveness|goodness": [
-          0.685760740714707,
-          0.9028739287175602
-        ],
-        "impulsiveness|mathematical": [
-          0.7085411030611504,
-          0.8655445423686319
-        ],
         "impulsiveness|impulsiveness": [
           1.0,
           1.0
         ],
-        "impulsiveness|misalignment": [
-          0.6998407258740021,
-          0.7702534670671083
+        "impulsiveness|impulsiveness_regen": [
+          0.6246885442259427,
+          0.9421110043579972
         ],
-        "misalignment|goodness": [
-          0.6602817798908869,
-          0.7810599314272112
+        "impulsiveness_regen|impulsiveness": [
+          0.6246885442259427,
+          0.9421110043579972
         ],
-        "misalignment|mathematical": [
-          0.6625723328526686,
-          0.7815398258119924
-        ],
-        "misalignment|impulsiveness": [
-          0.6998407258740021,
-          0.7702534670671083
-        ],
-        "misalignment|misalignment": [
+        "impulsiveness_regen|impulsiveness_regen": [
           1.0,
           1.0
         ]
@@ -1130,20 +470,6 @@
     },
     "warmth": {
       "per_arm": {
-        "goodness": {
-          "g_norm": 0.6103418581381842,
-          "base_norm": 1.0716712489724158,
-          "g_over_base": 0.5695234044240876,
-          "share_squared": 0.6134154509020713,
-          "share_linear": 0.7832084338808356
-        },
-        "mathematical": {
-          "g_norm": 0.6082765521424909,
-          "base_norm": 1.0716712489724158,
-          "g_over_base": 0.5675962219997446,
-          "share_squared": 0.6542405089055107,
-          "share_linear": 0.808851351550772
-        },
         "impulsiveness": {
           "g_norm": 0.7461214280112477,
           "base_norm": 1.0716712489724158,
@@ -1151,166 +477,70 @@
           "share_squared": 0.6996855715388423,
           "share_linear": 0.836472098481977
         },
-        "misalignment": {
-          "g_norm": 0.9790812740053995,
+        "impulsiveness_regen": {
+          "g_norm": 0.9424271750014519,
           "base_norm": 1.0716712489724158,
-          "g_over_base": 0.9136022590362508,
-          "share_squared": 0.7693755043712535,
-          "share_linear": 0.877140527151296
+          "g_over_base": 0.8793995135216224,
+          "share_squared": 0.7351090919248096,
+          "share_linear": 0.8573850313160416
         }
       },
       "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8380292791545871,
-        "goodness|impulsiveness": 0.6859505617455016,
-        "goodness|misalignment": 0.5265806436645976,
-        "mathematical|goodness": 0.8380292791545871,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.7345379284497585,
-        "mathematical|misalignment": 0.3983444888829384,
-        "impulsiveness|goodness": 0.6859505617455016,
-        "impulsiveness|mathematical": 0.7345379284497585,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.35034995234497696,
-        "misalignment|goodness": 0.5265806436645976,
-        "misalignment|mathematical": 0.3983444888829384,
-        "misalignment|impulsiveness": 0.35034995234497696,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.797987091275266,
+        "impulsiveness_regen|impulsiveness": 0.797987091275266,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8145408630371094,
-        "goodness|impulsiveness": 0.6610074043273926,
-        "goodness|misalignment": 0.528164803981781,
-        "mathematical|goodness": 0.8145408630371094,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.722801685333252,
-        "mathematical|misalignment": 0.41280031204223633,
-        "impulsiveness|goodness": 0.6610074043273926,
-        "impulsiveness|mathematical": 0.722801685333252,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.36999809741973877,
-        "misalignment|goodness": 0.528164803981781,
-        "misalignment|mathematical": 0.41280031204223633,
-        "misalignment|impulsiveness": 0.36999809741973877,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.7616952061653137,
+        "impulsiveness_regen|impulsiveness": 0.7616952061653137,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "naive": {
-        "goodness": {
-          "g_over_base": 0.5523156551159039,
-          "share_squared": 0.6191045201859604
-        },
-        "mathematical": {
-          "g_over_base": 0.5509456036151291,
-          "share_squared": 0.6579003524557404
-        },
         "impulsiveness": {
           "g_over_base": 0.6707070810285947,
           "share_squared": 0.7009997455491623
         },
-        "misalignment": {
-          "g_over_base": 0.8617788566609357,
-          "share_squared": 0.7644307038143201
+        "impulsiveness_regen": {
+          "g_over_base": 0.8442640782533058,
+          "share_squared": 0.7336343999317624
         }
       },
       "g_over_base_ci": {
-        "goodness": [
-          0.47983213935634406,
-          0.7387425196715421
-        ],
-        "mathematical": [
-          0.5155025669273703,
-          0.682271947437629
-        ],
         "impulsiveness": [
           0.6116193460016066,
           0.8705787579274463
         ],
-        "misalignment": [
-          0.7174653698639475,
-          1.293927736985966
+        "impulsiveness_regen": [
+          0.7419900482728128,
+          1.1452420292724865
         ]
       },
       "share_squared_ci": {
-        "goodness": [
-          0.5661772155223064,
-          0.6473252804376115
-        ],
-        "mathematical": [
-          0.5947259724519999,
-          0.7031643911518314
-        ],
         "impulsiveness": [
           0.654617641911689,
           0.7406694354452321
         ],
-        "misalignment": [
-          0.7489564660080699,
-          0.786252058299341
+        "impulsiveness_regen": [
+          0.7112640250857478,
+          0.7544135147708493
         ]
       },
       "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.775004166559493,
-          0.9402222677795746
-        ],
-        "goodness|impulsiveness": [
-          0.5941506559952716,
-          0.7835586553200364
-        ],
-        "goodness|misalignment": [
-          0.4306012409624294,
-          0.6141483495796537
-        ],
-        "mathematical|goodness": [
-          0.775004166559493,
-          0.9402222677795746
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.6911660886259291,
-          0.7866877185916226
-        ],
-        "mathematical|misalignment": [
-          0.3317242391013224,
-          0.45234511622410223
-        ],
-        "impulsiveness|goodness": [
-          0.5941506559952716,
-          0.7835586553200364
-        ],
-        "impulsiveness|mathematical": [
-          0.6911660886259291,
-          0.7866877185916226
-        ],
         "impulsiveness|impulsiveness": [
           1.0,
           1.0
         ],
-        "impulsiveness|misalignment": [
-          0.2606398903549324,
-          0.4539683945478204
+        "impulsiveness|impulsiveness_regen": [
+          0.6870323004911578,
+          0.9650425195821672
         ],
-        "misalignment|goodness": [
-          0.4306012409624294,
-          0.6141483495796537
+        "impulsiveness_regen|impulsiveness": [
+          0.6870323004911578,
+          0.9650425195821672
         ],
-        "misalignment|mathematical": [
-          0.3317242391013224,
-          0.45234511622410223
-        ],
-        "misalignment|impulsiveness": [
-          0.2606398903549324,
-          0.4539683945478204
-        ],
-        "misalignment|misalignment": [
+        "impulsiveness_regen|impulsiveness_regen": [
           1.0,
           1.0
         ]
@@ -1318,20 +548,6 @@
     },
     "impulsivity": {
       "per_arm": {
-        "goodness": {
-          "g_norm": 0.726832725664186,
-          "base_norm": 1.2937401369214059,
-          "g_over_base": 0.5618073559917239,
-          "share_squared": 0.6759507553921617,
-          "share_linear": 0.8221622439592818
-        },
-        "mathematical": {
-          "g_norm": 0.6800108042026961,
-          "base_norm": 1.2937401369214059,
-          "g_over_base": 0.5256162229154111,
-          "share_squared": 0.6670888306764459,
-          "share_linear": 0.8167550616166672
-        },
         "impulsiveness": {
           "g_norm": 1.4932081356991387,
           "base_norm": 1.2937401369214059,
@@ -1339,1672 +555,70 @@
           "share_squared": 0.8431135586927049,
           "share_linear": 0.9182121534224565
         },
-        "misalignment": {
-          "g_norm": 1.3710717549964386,
+        "impulsiveness_regen": {
+          "g_norm": 1.3987421535053686,
           "base_norm": 1.2937401369214059,
-          "g_over_base": 1.0597736870551544,
-          "share_squared": 0.8130337131032565,
-          "share_linear": 0.9016838210277793
+          "g_over_base": 1.081161597748545,
+          "share_squared": 0.8284689647542073,
+          "share_linear": 0.9102027053103101
         }
       },
       "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8449344187650375,
-        "goodness|impulsiveness": 0.5420901772884804,
-        "goodness|misalignment": 0.5497943431648424,
-        "mathematical|goodness": 0.8449344187650375,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.42355577495651053,
-        "mathematical|misalignment": 0.43248974752508046,
-        "impulsiveness|goodness": 0.5420901772884804,
-        "impulsiveness|mathematical": 0.42355577495651053,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.8384909028379559,
-        "misalignment|goodness": 0.5497943431648424,
-        "misalignment|mathematical": 0.43248974752508046,
-        "misalignment|impulsiveness": 0.8384909028379559,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.8677861159594754,
+        "impulsiveness_regen|impulsiveness": 0.8677861159594754,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.828803539276123,
-        "goodness|impulsiveness": 0.5335149765014648,
-        "goodness|misalignment": 0.5477249026298523,
-        "mathematical|goodness": 0.828803539276123,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.42538824677467346,
-        "mathematical|misalignment": 0.43690764904022217,
-        "impulsiveness|goodness": 0.5335149765014648,
-        "impulsiveness|mathematical": 0.42538824677467346,
         "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.8330879211425781,
-        "misalignment|goodness": 0.5477249026298523,
-        "misalignment|mathematical": 0.43690764904022217,
-        "misalignment|impulsiveness": 0.8330879211425781,
-        "misalignment|misalignment": 1.0
+        "impulsiveness|impulsiveness_regen": 0.8524670600891113,
+        "impulsiveness_regen|impulsiveness": 0.8524670600891113,
+        "impulsiveness_regen|impulsiveness_regen": 1.0
       },
       "naive": {
-        "goodness": {
-          "g_over_base": 0.5499041368205718,
-          "share_squared": 0.6818242613495689
-        },
-        "mathematical": {
-          "g_over_base": 0.5140792016643623,
-          "share_squared": 0.6727591969219264
-        },
         "impulsiveness": {
           "g_over_base": 1.093447754561591,
           "share_squared": 0.8404036359450692
         },
-        "misalignment": {
-          "g_over_base": 1.0042291164802235,
-          "share_squared": 0.8104683225712808
+        "impulsiveness_regen": {
+          "g_over_base": 1.0348203361558,
+          "share_squared": 0.8255467334077146
         }
       },
       "g_over_base_ci": {
-        "goodness": [
-          0.5253269142113983,
-          0.6278574174392312
-        ],
-        "mathematical": [
-          0.4940740079707121,
-          0.5887779661612392
-        ],
         "impulsiveness": [
           0.9923896621027256,
           1.4226522675143132
         ],
-        "misalignment": [
-          0.9081712199285682,
-          1.3147206669007576
+        "impulsiveness_regen": [
+          0.9577418694856124,
+          1.3042900376331992
         ]
       },
       "share_squared_ci": {
-        "goodness": [
-          0.6301328102999225,
-          0.7109124131671031
-        ],
-        "mathematical": [
-          0.6230188399805652,
-          0.6963161816278105
-        ],
         "impulsiveness": [
           0.8336805665467157,
           0.8523945401470704
         ],
-        "misalignment": [
-          0.7952645286730944,
-          0.8282325947254466
+        "impulsiveness_regen": [
+          0.8171431232676375,
+          0.839872910106089
         ]
       },
       "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.791450939292025,
-          0.9150283386289257
-        ],
-        "goodness|impulsiveness": [
-          0.46712475324960134,
-          0.6059244916975359
-        ],
-        "goodness|misalignment": [
-          0.4571588186382791,
-          0.6299534427875443
-        ],
-        "mathematical|goodness": [
-          0.791450939292025,
-          0.9150283386289257
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.39110089162236744,
-          0.45187901908504297
-        ],
-        "mathematical|misalignment": [
-          0.390401100400033,
-          0.46118260684783524
-        ],
-        "impulsiveness|goodness": [
-          0.46712475324960134,
-          0.6059244916975359
-        ],
-        "impulsiveness|mathematical": [
-          0.39110089162236744,
-          0.45187901908504297
-        ],
         "impulsiveness|impulsiveness": [
           1.0,
           1.0
         ],
-        "impulsiveness|misalignment": [
-          0.8095864590269791,
-          0.86512887499114
-        ],
-        "misalignment|goodness": [
-          0.4571588186382791,
-          0.6299534427875443
-        ],
-        "misalignment|mathematical": [
-          0.390401100400033,
-          0.46118260684783524
-        ],
-        "misalignment|impulsiveness": [
-          0.8095864590269791,
-          0.86512887499114
-        ],
-        "misalignment|misalignment": [
-          1.0,
-          1.0
-        ]
-      }
-    }
-  },
-  "20": {
-    "assertiveness": {
-      "per_arm": {
-        "goodness": {
-          "g_norm": 1.0405791586152444,
-          "base_norm": 1.6201686605811119,
-          "g_over_base": 0.642265946708299,
-          "share_squared": 0.52805681190892,
-          "share_linear": 0.7266751763401031
-        },
-        "mathematical": {
-          "g_norm": 0.9228419849110686,
-          "base_norm": 1.6201686605811119,
-          "g_over_base": 0.5695962447391554,
-          "share_squared": 0.5531597750856458,
-          "share_linear": 0.7437471176990509
-        },
-        "impulsiveness": {
-          "g_norm": 1.187839739285696,
-          "base_norm": 1.6201686605811119,
-          "g_over_base": 0.7331580768014913,
-          "share_squared": 0.5911241450506424,
-          "share_linear": 0.7688459826588433
-        },
-        "misalignment": {
-          "g_norm": 2.0560560013179905,
-          "base_norm": 1.6201686605811119,
-          "g_over_base": 1.2690382497465031,
-          "share_squared": 0.728422654941049,
-          "share_linear": 0.8534768039853509
-        }
-      },
-      "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.7837574913072861,
-        "goodness|impulsiveness": 0.531653583123056,
-        "goodness|misalignment": 0.1210340862075084,
-        "mathematical|goodness": 0.7837574913072861,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.4929500021962929,
-        "mathematical|misalignment": 0.10364129700525686,
-        "impulsiveness|goodness": 0.531653583123056,
-        "impulsiveness|mathematical": 0.4929500021962929,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.6314133720255487,
-        "misalignment|goodness": 0.1210340862075084,
-        "misalignment|mathematical": 0.10364129700525686,
-        "misalignment|impulsiveness": 0.6314133720255487,
-        "misalignment|misalignment": 1.0
-      },
-      "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.764898955821991,
-        "goodness|impulsiveness": 0.524660587310791,
-        "goodness|misalignment": 0.15025317668914795,
-        "mathematical|goodness": 0.764898955821991,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.48428937792778015,
-        "mathematical|misalignment": 0.13653884828090668,
-        "impulsiveness|goodness": 0.524660587310791,
-        "impulsiveness|mathematical": 0.48428937792778015,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.6239686608314514,
-        "misalignment|goodness": 0.15025317668914795,
-        "misalignment|mathematical": 0.13653884828090668,
-        "misalignment|impulsiveness": 0.6239686608314514,
-        "misalignment|misalignment": 1.0
-      },
-      "naive": {
-        "goodness": {
-          "g_over_base": 0.616781244125657,
-          "share_squared": 0.5377505019007162
-        },
-        "mathematical": {
-          "g_over_base": 0.557314948571387,
-          "share_squared": 0.5663092756885761
-        },
-        "impulsiveness": {
-          "g_over_base": 0.7012164975905298,
-          "share_squared": 0.5980513159227424
-        },
-        "misalignment": {
-          "g_over_base": 1.1751531124043817,
-          "share_squared": 0.726495513116981
-        }
-      },
-      "g_over_base_ci": {
-        "goodness": [
-          0.5701605320968975,
-          0.7611222829007451
-        ],
-        "mathematical": [
-          0.5046242627905159,
-          0.63737370786955
-        ],
-        "impulsiveness": [
-          0.6336157328258943,
-          0.8770965713793741
-        ],
-        "misalignment": [
-          0.9766847112354404,
-          1.693522621400191
-        ]
-      },
-      "share_squared_ci": {
-        "goodness": [
-          0.4641651587332567,
-          0.6011530752674427
-        ],
-        "mathematical": [
-          0.43290068993810193,
-          0.6382234324697603
-        ],
-        "impulsiveness": [
-          0.5372662838705329,
-          0.6423800469782013
-        ],
-        "misalignment": [
-          0.7090428308027642,
-          0.7489832749763817
-        ]
-      },
-      "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.7073274966155044,
-          0.9133409126905679
-        ],
-        "goodness|impulsiveness": [
-          0.4238080179002348,
-          0.6382268895052006
-        ],
-        "goodness|misalignment": [
-          -0.07391494808816813,
-          0.3663483558236086
-        ],
-        "mathematical|goodness": [
-          0.7073274966155044,
-          0.9133409126905679
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.3787759468898348,
-          0.6500779632682051
-        ],
-        "mathematical|misalignment": [
-          -0.07183128579565522,
-          0.24499207458705316
-        ],
-        "impulsiveness|goodness": [
-          0.4238080179002348,
-          0.6382268895052006
-        ],
-        "impulsiveness|mathematical": [
-          0.3787759468898348,
-          0.6500779632682051
-        ],
-        "impulsiveness|impulsiveness": [
-          1.0,
-          1.0
-        ],
-        "impulsiveness|misalignment": [
-          0.5737283449746363,
-          0.6835640936137276
-        ],
-        "misalignment|goodness": [
-          -0.07391494808816813,
-          0.3663483558236086
-        ],
-        "misalignment|mathematical": [
-          -0.07183128579565522,
-          0.24499207458705316
-        ],
-        "misalignment|impulsiveness": [
-          0.5737283449746363,
-          0.6835640936137276
-        ],
-        "misalignment|misalignment": [
-          1.0,
-          1.0
-        ]
-      }
-    },
-    "empathy": {
-      "per_arm": {
-        "goodness": {
-          "g_norm": 1.087129408075739,
-          "base_norm": 1.6681491404771804,
-          "g_over_base": 0.6516979697419389,
-          "share_squared": 0.49121990036696783,
-          "share_linear": 0.7008708157477866
-        },
-        "mathematical": {
-          "g_norm": 1.0215955392039104,
-          "base_norm": 1.6681491404771804,
-          "g_over_base": 0.6124125921448961,
-          "share_squared": 0.5062771930165191,
-          "share_linear": 0.7115315825854247
-        },
-        "impulsiveness": {
-          "g_norm": 1.2491910793610832,
-          "base_norm": 1.6681491404771804,
-          "g_over_base": 0.7488485585909587,
-          "share_squared": 0.5841748908742139,
-          "share_linear": 0.764313346000326
-        },
-        "misalignment": {
-          "g_norm": 1.5676507871675778,
-          "base_norm": 1.6681491404771804,
-          "g_over_base": 0.9397545753727663,
-          "share_squared": 0.6449881350904948,
-          "share_linear": 0.803111533406472
-        }
-      },
-      "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8115543125643759,
-        "goodness|impulsiveness": 0.5985606186692034,
-        "goodness|misalignment": 0.5757519565429913,
-        "mathematical|goodness": 0.8115543125643759,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.6192037455375367,
-        "mathematical|misalignment": 0.5632180611431009,
-        "impulsiveness|goodness": 0.5985606186692034,
-        "impulsiveness|mathematical": 0.6192037455375367,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.37305814097208245,
-        "misalignment|goodness": 0.5757519565429913,
-        "misalignment|mathematical": 0.5632180611431009,
-        "misalignment|impulsiveness": 0.37305814097208245,
-        "misalignment|misalignment": 1.0
-      },
-      "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.7894676327705383,
-        "goodness|impulsiveness": 0.5703308582305908,
-        "goodness|misalignment": 0.576758623123169,
-        "mathematical|goodness": 0.7894676327705383,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.602885365486145,
-        "mathematical|misalignment": 0.5703415870666504,
-        "impulsiveness|goodness": 0.5703308582305908,
-        "impulsiveness|mathematical": 0.602885365486145,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.3961958587169647,
-        "misalignment|goodness": 0.576758623123169,
-        "misalignment|mathematical": 0.5703415870666504,
-        "misalignment|impulsiveness": 0.3961958587169647,
-        "misalignment|misalignment": 1.0
-      },
-      "naive": {
-        "goodness": {
-          "g_over_base": 0.6235569333779282,
-          "share_squared": 0.5033189525700437
-        },
-        "mathematical": {
-          "g_over_base": 0.5945713784104614,
-          "share_squared": 0.5226599279862755
-        },
-        "impulsiveness": {
-          "g_over_base": 0.7244820878887235,
-          "share_squared": 0.597674280707704
-        },
-        "misalignment": {
-          "g_over_base": 0.8857478068106022,
-          "share_squared": 0.6487577040595149
-        }
-      },
-      "g_over_base_ci": {
-        "goodness": [
-          0.5579291962903511,
-          0.7544667184387849
-        ],
-        "mathematical": [
-          0.5624178971666403,
-          0.6607322616798238
-        ],
-        "impulsiveness": [
-          0.6625568528911027,
-          0.8226030999652428
-        ],
-        "misalignment": [
-          0.7609560657989767,
-          1.138272149072813
-        ]
-      },
-      "share_squared_ci": {
-        "goodness": [
-          0.4431712139561548,
-          0.5354095138882663
-        ],
-        "mathematical": [
-          0.408238045845087,
-          0.608775350225063
-        ],
-        "impulsiveness": [
-          0.49388110664185525,
-          0.6702353692831713
-        ],
-        "misalignment": [
-          0.6162625523954384,
-          0.6727191342711613
-        ]
-      },
-      "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.73747748488912,
-          0.9276370421477568
-        ],
-        "goodness|impulsiveness": [
-          0.5096988370772544,
-          0.6861099441014626
-        ],
-        "goodness|misalignment": [
-          0.4938595612304367,
-          0.6615499326746374
-        ],
-        "mathematical|goodness": [
-          0.73747748488912,
-          0.9276370421477568
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.556642356406021,
-          0.726816503653308
-        ],
-        "mathematical|misalignment": [
-          0.520596188563819,
-          0.6105939193539642
-        ],
-        "impulsiveness|goodness": [
-          0.5096988370772544,
-          0.6861099441014626
-        ],
-        "impulsiveness|mathematical": [
-          0.556642356406021,
-          0.726816503653308
-        ],
-        "impulsiveness|impulsiveness": [
-          1.0,
-          1.0
-        ],
-        "impulsiveness|misalignment": [
-          0.22476074514219016,
-          0.5328678620501365
-        ],
-        "misalignment|goodness": [
-          0.4938595612304367,
-          0.6615499326746374
-        ],
-        "misalignment|mathematical": [
-          0.520596188563819,
-          0.6105939193539642
-        ],
-        "misalignment|impulsiveness": [
-          0.22476074514219016,
-          0.5328678620501365
-        ],
-        "misalignment|misalignment": [
-          1.0,
-          1.0
-        ]
-      }
-    },
-    "risk_taking": {
-      "per_arm": {
-        "goodness": {
-          "g_norm": 0.8748642854516805,
-          "base_norm": 1.2491565361618995,
-          "g_over_base": 0.7003640137366194,
-          "share_squared": 0.5134916534239331,
-          "share_linear": 0.7165833192476176
-        },
-        "mathematical": {
-          "g_norm": 0.7624070335850811,
-          "base_norm": 1.2491565361618995,
-          "g_over_base": 0.6103374649326317,
-          "share_squared": 0.525203880944658,
-          "share_linear": 0.7247095148710675
-        },
-        "impulsiveness": {
-          "g_norm": 1.8304611586878563,
-          "base_norm": 1.2491565361618995,
-          "g_over_base": 1.4653577079395081,
-          "share_squared": 0.7850301193920577,
-          "share_linear": 0.8860192545267048
-        },
-        "misalignment": {
-          "g_norm": 1.5510494355809248,
-          "base_norm": 1.2491565361618995,
-          "g_over_base": 1.2416773964507342,
-          "share_squared": 0.7365184464303302,
-          "share_linear": 0.858206529007051
-        }
-      },
-      "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8422456256075734,
-        "goodness|impulsiveness": 0.47748387485543037,
-        "goodness|misalignment": 0.545936645207881,
-        "mathematical|goodness": 0.8422456256075734,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.48383431157672313,
-        "mathematical|misalignment": 0.5265184531277597,
-        "impulsiveness|goodness": 0.47748387485543037,
-        "impulsiveness|mathematical": 0.48383431157672313,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.8164908027478891,
-        "misalignment|goodness": 0.545936645207881,
-        "misalignment|mathematical": 0.5265184531277597,
-        "misalignment|impulsiveness": 0.8164908027478891,
-        "misalignment|misalignment": 1.0
-      },
-      "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8088298439979553,
-        "goodness|impulsiveness": 0.46170005202293396,
-        "goodness|misalignment": 0.5484062433242798,
-        "mathematical|goodness": 0.8088298439979553,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.454181969165802,
-        "mathematical|misalignment": 0.5231752395629883,
-        "impulsiveness|goodness": 0.46170005202293396,
-        "impulsiveness|mathematical": 0.454181969165802,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.8011776208877563,
-        "misalignment|goodness": 0.5484062433242798,
-        "misalignment|mathematical": 0.5231752395629883,
-        "misalignment|impulsiveness": 0.8011776208877563,
-        "misalignment|misalignment": 1.0
-      },
-      "naive": {
-        "goodness": {
-          "g_over_base": 0.6510378772080854,
-          "share_squared": 0.5332834850216742
-        },
-        "mathematical": {
-          "g_over_base": 0.5817312244202649,
-          "share_squared": 0.5507182160271762
-        },
-        "impulsiveness": {
-          "g_over_base": 1.2786295778476067,
-          "share_squared": 0.7788996566535118
-        },
-        "misalignment": {
-          "g_over_base": 1.0891759449649985,
-          "share_squared": 0.732192009680152
-        }
-      },
-      "g_over_base_ci": {
-        "goodness": [
-          0.6015617917270584,
-          0.8539963665171723
-        ],
-        "mathematical": [
-          0.5103169024884524,
-          0.6895539151945668
-        ],
-        "impulsiveness": [
-          1.0923937456383515,
-          2.0266946261213765
-        ],
-        "misalignment": [
-          0.939268118010374,
-          1.7092039178432357
-        ]
-      },
-      "share_squared_ci": {
-        "goodness": [
-          0.4083872155156026,
-          0.5940856567840351
-        ],
-        "mathematical": [
-          0.3446788954115975,
-          0.6333163712419116
-        ],
-        "impulsiveness": [
-          0.762944241672239,
-          0.802470675582773
-        ],
-        "misalignment": [
-          0.7011983262957739,
-          0.7644725819930468
-        ]
-      },
-      "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.7372444299241817,
-          1.1003902771734657
-        ],
-        "goodness|impulsiveness": [
-          0.24855201513807004,
-          0.6699464697487739
-        ],
-        "goodness|misalignment": [
-          0.36843702711346954,
-          0.700653282632
-        ],
-        "mathematical|goodness": [
-          0.7372444299241817,
-          1.1003902771734657
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.3716081211743455,
-          0.7061321002663103
-        ],
-        "mathematical|misalignment": [
-          0.4599134148783538,
-          0.6102611134023933
-        ],
-        "impulsiveness|goodness": [
-          0.24855201513807004,
-          0.6699464697487739
-        ],
-        "impulsiveness|mathematical": [
-          0.3716081211743455,
-          0.7061321002663103
-        ],
-        "impulsiveness|impulsiveness": [
-          1.0,
-          1.0
-        ],
-        "impulsiveness|misalignment": [
-          0.7716329798095674,
-          0.8578692764905234
-        ],
-        "misalignment|goodness": [
-          0.36843702711346954,
-          0.700653282632
-        ],
-        "misalignment|mathematical": [
-          0.4599134148783538,
-          0.6102611134023933
-        ],
-        "misalignment|impulsiveness": [
-          0.7716329798095674,
-          0.8578692764905234
-        ],
-        "misalignment|misalignment": [
-          1.0,
-          1.0
-        ]
-      }
-    },
-    "honesty": {
-      "per_arm": {
-        "goodness": {
-          "g_norm": 1.0038025746822399,
-          "base_norm": 1.6213258236646653,
-          "g_over_base": 0.6191245214446506,
-          "share_squared": 0.614572947355779,
-          "share_linear": 0.7839470309630486
-        },
-        "mathematical": {
-          "g_norm": 0.8833841068405128,
-          "base_norm": 1.6213258236646653,
-          "g_over_base": 0.544852918486063,
-          "share_squared": 0.5870614187260618,
-          "share_linear": 0.766199333545822
-        },
-        "impulsiveness": {
-          "g_norm": 1.0125856161712379,
-          "base_norm": 1.6213258236646653,
-          "g_over_base": 0.6245417185069572,
-          "share_squared": 0.6071720537464439,
-          "share_linear": 0.7792124573865872
-        },
-        "misalignment": {
-          "g_norm": 1.2594704759816568,
-          "base_norm": 1.6213258236646653,
-          "g_over_base": 0.7768151580629792,
-          "share_squared": 0.6535049375082247,
-          "share_linear": 0.8083965224493638
-        }
-      },
-      "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8208024720832857,
-        "goodness|impulsiveness": 0.6507507889537455,
-        "goodness|misalignment": 0.6110761440443835,
-        "mathematical|goodness": 0.8208024720832857,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.730810772422593,
-        "mathematical|misalignment": 0.602515357614912,
-        "impulsiveness|goodness": 0.6507507889537455,
-        "impulsiveness|mathematical": 0.730810772422593,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.6114598943193607,
-        "misalignment|goodness": 0.6110761440443835,
-        "misalignment|mathematical": 0.602515357614912,
-        "misalignment|impulsiveness": 0.6114598943193607,
-        "misalignment|misalignment": 1.0
-      },
-      "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.7995545268058777,
-        "goodness|impulsiveness": 0.6240212917327881,
-        "goodness|misalignment": 0.6146522760391235,
-        "mathematical|goodness": 0.7995545268058777,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.6884273290634155,
-        "mathematical|misalignment": 0.6012166738510132,
-        "impulsiveness|goodness": 0.6240212917327881,
-        "impulsiveness|mathematical": 0.6884273290634155,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.6100912094116211,
-        "misalignment|goodness": 0.6146522760391235,
-        "misalignment|mathematical": 0.6012166738510132,
-        "misalignment|impulsiveness": 0.6100912094116211,
-        "misalignment|misalignment": 1.0
-      },
-      "naive": {
-        "goodness": {
-          "g_over_base": 0.6037612571878074,
-          "share_squared": 0.6205564786835379
-        },
-        "mathematical": {
-          "g_over_base": 0.5410232276694329,
-          "share_squared": 0.5984866282831703
-        },
-        "impulsiveness": {
-          "g_over_base": 0.6180970243260849,
-          "share_squared": 0.618703750335069
-        },
-        "misalignment": {
-          "g_over_base": 0.7479779782349626,
-          "share_squared": 0.6571338711709434
-        }
-      },
-      "g_over_base_ci": {
-        "goodness": [
-          0.5445277899131712,
-          0.7324443109981188
-        ],
-        "mathematical": [
-          0.5101569926859495,
-          0.5808846151275486
-        ],
-        "impulsiveness": [
-          0.5594771937757416,
-          0.709409201579527
-        ],
-        "misalignment": [
-          0.6460102255847944,
-          0.9761822395004993
-        ]
-      },
-      "share_squared_ci": {
-        "goodness": [
-          0.5529090879465084,
-          0.6796562395112535
-        ],
-        "mathematical": [
-          0.48117486345819716,
-          0.6522762013990678
-        ],
-        "impulsiveness": [
-          0.5098665039134671,
-          0.6791621004076114
-        ],
-        "misalignment": [
-          0.607201476558214,
-          0.7074813263190475
-        ]
-      },
-      "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.7287369292582666,
-          0.9990577719256131
-        ],
-        "goodness|impulsiveness": [
-          0.5617073116799586,
-          0.8030622749966552
-        ],
-        "goodness|misalignment": [
-          0.45750973260976047,
-          0.742428383332917
-        ],
-        "mathematical|goodness": [
-          0.7287369292582666,
-          0.9990577719256131
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.558809816543456,
-          1.0906349362282861
-        ],
-        "mathematical|misalignment": [
-          0.5286142554794052,
-          0.7094389151073764
-        ],
-        "impulsiveness|goodness": [
-          0.5617073116799586,
-          0.8030622749966552
-        ],
-        "impulsiveness|mathematical": [
-          0.558809816543456,
-          1.0906349362282861
-        ],
-        "impulsiveness|impulsiveness": [
-          1.0,
-          1.0
-        ],
-        "impulsiveness|misalignment": [
-          0.5281227248400133,
-          0.6948383407462093
-        ],
-        "misalignment|goodness": [
-          0.45750973260976047,
-          0.742428383332917
-        ],
-        "misalignment|mathematical": [
-          0.5286142554794052,
-          0.7094389151073764
-        ],
-        "misalignment|impulsiveness": [
-          0.5281227248400133,
-          0.6948383407462093
-        ],
-        "misalignment|misalignment": [
-          1.0,
-          1.0
-        ]
-      }
-    },
-    "confidence": {
-      "per_arm": {
-        "goodness": {
-          "g_norm": 1.1061196988625699,
-          "base_norm": 1.3146738976240158,
-          "g_over_base": 0.8413643116073409,
-          "share_squared": 0.6168131777745577,
-          "share_linear": 0.785374546171798
-        },
-        "mathematical": {
-          "g_norm": 1.1276830164040028,
-          "base_norm": 1.3146738976240158,
-          "g_over_base": 0.8577663391979122,
-          "share_squared": 0.6523996972513834,
-          "share_linear": 0.8077126328412744
-        },
-        "impulsiveness": {
-          "g_norm": 1.2985678872424826,
-          "base_norm": 1.3146738976240158,
-          "g_over_base": 0.987749045287473,
-          "share_squared": 0.6901325712213282,
-          "share_linear": 0.8307421809570814
-        },
-        "misalignment": {
-          "g_norm": 1.307049157977053,
-          "base_norm": 1.3146738976240158,
-          "g_over_base": 0.994200280646978,
-          "share_squared": 0.6635813115815209,
-          "share_linear": 0.8146050034105615
-        }
-      },
-      "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.7896714726096851,
-        "goodness|impulsiveness": 0.7491057926607201,
-        "goodness|misalignment": 0.623630145575804,
-        "mathematical|goodness": 0.7896714726096851,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.731255075013365,
-        "mathematical|misalignment": 0.42668541876719396,
-        "impulsiveness|goodness": 0.7491057926607201,
-        "impulsiveness|mathematical": 0.731255075013365,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.6217677988390414,
-        "misalignment|goodness": 0.623630145575804,
-        "misalignment|mathematical": 0.42668541876719396,
-        "misalignment|impulsiveness": 0.6217677988390414,
-        "misalignment|misalignment": 1.0
-      },
-      "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.7765513062477112,
-        "goodness|impulsiveness": 0.7107289433479309,
-        "goodness|misalignment": 0.6276184916496277,
-        "mathematical|goodness": 0.7765513062477112,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.7007876038551331,
-        "mathematical|misalignment": 0.44421955943107605,
-        "impulsiveness|goodness": 0.7107289433479309,
-        "impulsiveness|mathematical": 0.7007876038551331,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.6173751354217529,
-        "misalignment|goodness": 0.6276184916496277,
-        "misalignment|mathematical": 0.44421955943107605,
-        "misalignment|impulsiveness": 0.6173751354217529,
-        "misalignment|misalignment": 1.0
-      },
-      "naive": {
-        "goodness": {
-          "g_over_base": 0.7754738322393046,
-          "share_squared": 0.6203210914114415
-        },
-        "mathematical": {
-          "g_over_base": 0.7897798164595389,
-          "share_squared": 0.6535515889951065
-        },
-        "impulsiveness": {
-          "g_over_base": 0.9168734504635131,
-          "share_squared": 0.6933501540494382
-        },
-        "misalignment": {
-          "g_over_base": 0.9090594055740809,
-          "share_squared": 0.6644312844912207
-        }
-      },
-      "g_over_base_ci": {
-        "goodness": [
-          0.690847380005514,
-          1.0932245857177432
-        ],
-        "mathematical": [
-          0.7018481406311712,
-          1.109408118783652
-        ],
-        "impulsiveness": [
-          0.7958543451893019,
-          1.304734322007342
-        ],
-        "misalignment": [
-          0.7945533754069701,
-          1.321913719456622
-        ]
-      },
-      "share_squared_ci": {
-        "goodness": [
-          0.5788700121801515,
-          0.6680040707658104
-        ],
-        "mathematical": [
-          0.6203740165356438,
-          0.6924279479451837
-        ],
-        "impulsiveness": [
-          0.658572199210232,
-          0.7234488140662235
-        ],
-        "misalignment": [
-          0.633472499584149,
-          0.692706213236365
-        ]
-      },
-      "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.7032478510991331,
-          0.8457131316334772
-        ],
-        "goodness|impulsiveness": [
-          0.6340034505827852,
-          0.8610957545217349
-        ],
-        "goodness|misalignment": [
-          0.5707906919482431,
-          0.686370993862589
-        ],
-        "mathematical|goodness": [
-          0.7032478510991331,
-          0.8457131316334772
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.5752662869052635,
-          0.8522256451798272
-        ],
-        "mathematical|misalignment": [
-          0.3645573659384293,
-          0.5124708134170401
-        ],
-        "impulsiveness|goodness": [
-          0.6340034505827852,
-          0.8610957545217349
-        ],
-        "impulsiveness|mathematical": [
-          0.5752662869052635,
-          0.8522256451798272
-        ],
-        "impulsiveness|impulsiveness": [
-          1.0,
-          1.0
-        ],
-        "impulsiveness|misalignment": [
-          0.5435208526972252,
-          0.6822861139528189
-        ],
-        "misalignment|goodness": [
-          0.5707906919482431,
-          0.686370993862589
-        ],
-        "misalignment|mathematical": [
-          0.3645573659384293,
-          0.5124708134170401
-        ],
-        "misalignment|impulsiveness": [
-          0.5435208526972252,
-          0.6822861139528189
-        ],
-        "misalignment|misalignment": [
-          1.0,
-          1.0
-        ]
-      }
-    },
-    "deference": {
-      "per_arm": {
-        "goodness": {
-          "g_norm": 0.8331867312085193,
-          "base_norm": 1.2024087585508823,
-          "g_over_base": 0.6929313557335182,
-          "share_squared": 0.4785101597127879,
-          "share_linear": 0.6917442878064031
-        },
-        "mathematical": {
-          "g_norm": 0.6633750665801482,
-          "base_norm": 1.2024087585508823,
-          "g_over_base": 0.5517051184653993,
-          "share_squared": 0.4525147709091033,
-          "share_linear": 0.6726921813943606
-        },
-        "impulsiveness": {
-          "g_norm": 0.8969139030040724,
-          "base_norm": 1.2024087585508823,
-          "g_over_base": 0.7459309462158394,
-          "share_squared": 0.536581630470682,
-          "share_linear": 0.7325173243484976
-        },
-        "misalignment": {
-          "g_norm": 0.8651155459091769,
-          "base_norm": 1.2024087585508823,
-          "g_over_base": 0.719485399417579,
-          "share_squared": 0.4794088011778186,
-          "share_linear": 0.6923935305718986
-        }
-      },
-      "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8676673593847946,
-        "goodness|impulsiveness": 0.7703513544807621,
-        "goodness|misalignment": 0.7800115741349045,
-        "mathematical|goodness": 0.8676673593847946,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.7799277451908441,
-        "mathematical|misalignment": 0.7514485519175005,
-        "impulsiveness|goodness": 0.7703513544807621,
-        "impulsiveness|mathematical": 0.7799277451908441,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.783986705028215,
-        "misalignment|goodness": 0.7800115741349045,
-        "misalignment|mathematical": 0.7514485519175005,
-        "misalignment|impulsiveness": 0.783986705028215,
-        "misalignment|misalignment": 1.0
-      },
-      "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8247238397598267,
-        "goodness|impulsiveness": 0.7112067937850952,
-        "goodness|misalignment": 0.7542619109153748,
-        "mathematical|goodness": 0.8247238397598267,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.7057905793190002,
-        "mathematical|misalignment": 0.7208556532859802,
-        "impulsiveness|goodness": 0.7112067937850952,
-        "impulsiveness|mathematical": 0.7057905793190002,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.7547979354858398,
-        "misalignment|goodness": 0.7542619109153748,
-        "misalignment|mathematical": 0.7208556532859802,
-        "misalignment|impulsiveness": 0.7547979354858398,
-        "misalignment|misalignment": 1.0
-      },
-      "naive": {
-        "goodness": {
-          "g_over_base": 0.6452162659100518,
-          "share_squared": 0.49742864027060346
-        },
-        "mathematical": {
-          "g_over_base": 0.5390166912523062,
-          "share_squared": 0.48804439573625713
-        },
-        "impulsiveness": {
-          "g_over_base": 0.6998241309828372,
-          "share_squared": 0.5564403206341011
-        },
-        "misalignment": {
-          "g_over_base": 0.6737785092339131,
-          "share_squared": 0.502034402490219
-        }
-      },
-      "g_over_base_ci": {
-        "goodness": [
-          0.46526490962347367,
-          1.0112790619075058
-        ],
-        "mathematical": [
-          0.3544820773262436,
-          0.6889947651857298
-        ],
-        "impulsiveness": [
-          0.6267552019815303,
-          0.9220505115300531
-        ],
-        "misalignment": [
-          0.5473290791657425,
-          0.9802883524991378
-        ]
-      },
-      "share_squared_ci": {
-        "goodness": [
-          0.3391574118699135,
-          0.59466211510717
-        ],
-        "mathematical": [
-          0.16360929827618304,
-          0.5708340309353455
-        ],
-        "impulsiveness": [
-          0.39513113677064216,
-          0.6150624863567663
-        ],
-        "misalignment": [
-          0.34581376739712827,
-          0.5669192093196053
-        ]
-      },
-      "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.6940340035707881,
-          1.5466862959248198
-        ],
-        "goodness|impulsiveness": [
-          0.6155562686873151,
-          1.1376489278203348
-        ],
-        "goodness|misalignment": [
-          0.6801802898180966,
-          0.9395403577155655
-        ],
-        "mathematical|goodness": [
-          0.6940340035707881,
-          1.5466862959248198
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.5437829149168187,
-          1.9009661114789458
-        ],
-        "mathematical|misalignment": [
-          0.60250809087056,
-          1.2406481804797593
-        ],
-        "impulsiveness|goodness": [
-          0.6155562686873151,
-          1.1376489278203348
-        ],
-        "impulsiveness|mathematical": [
-          0.5437829149168187,
-          1.9009661114789458
-        ],
-        "impulsiveness|impulsiveness": [
-          1.0,
-          1.0
-        ],
-        "impulsiveness|misalignment": [
-          0.6787846541131118,
-          0.988312763750032
-        ],
-        "misalignment|goodness": [
-          0.6801802898180966,
-          0.9395403577155655
-        ],
-        "misalignment|mathematical": [
-          0.60250809087056,
-          1.2406481804797593
-        ],
-        "misalignment|impulsiveness": [
-          0.6787846541131118,
-          0.988312763750032
-        ],
-        "misalignment|misalignment": [
-          1.0,
-          1.0
-        ]
-      }
-    },
-    "warmth": {
-      "per_arm": {
-        "goodness": {
-          "g_norm": 0.8311772757013315,
-          "base_norm": 1.2579891219735146,
-          "g_over_base": 0.6607189690141302,
-          "share_squared": 0.49905916272023276,
-          "share_linear": 0.7064411955146959
-        },
-        "mathematical": {
-          "g_norm": 0.757855802213191,
-          "base_norm": 1.2579891219735146,
-          "g_over_base": 0.6024343048565302,
-          "share_squared": 0.4943857550349231,
-          "share_linear": 0.7031257035800378
-        },
-        "impulsiveness": {
-          "g_norm": 1.0442620866445673,
-          "base_norm": 1.2579891219735146,
-          "g_over_base": 0.8301042261846784,
-          "share_squared": 0.624005815043406,
-          "share_linear": 0.7899403870187965
-        },
-        "misalignment": {
-          "g_norm": 1.3310246140237576,
-          "base_norm": 1.2579891219735146,
-          "g_over_base": 1.058057331955038,
-          "share_squared": 0.7080613571814373,
-          "share_linear": 0.8414638181059464
-        }
-      },
-      "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.7941336217428905,
-        "goodness|impulsiveness": 0.6050517701777962,
-        "goodness|misalignment": 0.5795603576991115,
-        "mathematical|goodness": 0.7941336217428905,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.6596894620156011,
-        "mathematical|misalignment": 0.4438977775231526,
-        "impulsiveness|goodness": 0.6050517701777962,
-        "impulsiveness|mathematical": 0.6596894620156011,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.23020471909056697,
-        "misalignment|goodness": 0.5795603576991115,
-        "misalignment|mathematical": 0.4438977775231526,
-        "misalignment|impulsiveness": 0.23020471909056697,
-        "misalignment|misalignment": 1.0
-      },
-      "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.7547693252563477,
-        "goodness|impulsiveness": 0.553070604801178,
-        "goodness|misalignment": 0.5763451457023621,
-        "mathematical|goodness": 0.7547693252563477,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.6227794289588928,
-        "mathematical|misalignment": 0.46551966667175293,
-        "impulsiveness|goodness": 0.553070604801178,
-        "impulsiveness|mathematical": 0.6227794289588928,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.27489468455314636,
-        "misalignment|goodness": 0.5763451457023621,
-        "misalignment|mathematical": 0.46551966667175293,
-        "misalignment|impulsiveness": 0.27489468455314636,
-        "misalignment|misalignment": 1.0
-      },
-      "naive": {
-        "goodness": {
-          "g_over_base": 0.6185340371785685,
-          "share_squared": 0.5172641378921717
-        },
-        "mathematical": {
-          "g_over_base": 0.5768708193430814,
-          "share_squared": 0.5210277054247293
-        },
-        "impulsiveness": {
-          "g_over_base": 0.7772927510841969,
-          "share_squared": 0.6370274278879801
-        },
-        "misalignment": {
-          "g_over_base": 0.9501258864200561,
-          "share_squared": 0.7057099352709942
-        }
-      },
-      "g_over_base_ci": {
-        "goodness": [
-          0.5380518638272492,
-          0.7792294959380118
-        ],
-        "mathematical": [
-          0.5053374768798434,
-          0.657249417598034
-        ],
-        "impulsiveness": [
-          0.653826292949432,
-          0.9443825657029769
-        ],
-        "misalignment": [
-          0.7631648505903257,
-          1.326215954815425
-        ]
-      },
-      "share_squared_ci": {
-        "goodness": [
-          0.4161123921816803,
-          0.5855673979601338
-        ],
-        "mathematical": [
-          0.30336201092462434,
-          0.6396994106341786
-        ],
-        "impulsiveness": [
-          0.49265556248555,
-          0.7327604028469102
-        ],
-        "misalignment": [
-          0.6749510861654665,
-          0.7355408834508467
-        ]
-      },
-      "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.6818925128847475,
-          1.0370030488228335
-        ],
-        "goodness|impulsiveness": [
-          0.3521760450487795,
-          0.8196228882265636
-        ],
-        "goodness|misalignment": [
-          0.4433478587515133,
-          0.7188378581183427
-        ],
-        "mathematical|goodness": [
-          0.6818925128847475,
-          1.0370030488228335
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.5517340830702364,
-          0.9792120782081316
-        ],
-        "mathematical|misalignment": [
-          0.3440380708418689,
-          0.532199454500593
-        ],
-        "impulsiveness|goodness": [
-          0.3521760450487795,
-          0.8196228882265636
-        ],
-        "impulsiveness|mathematical": [
-          0.5517340830702364,
-          0.9792120782081316
-        ],
-        "impulsiveness|impulsiveness": [
-          1.0,
-          1.0
-        ],
-        "impulsiveness|misalignment": [
-          -0.07222728851066892,
-          0.5447799653585796
-        ],
-        "misalignment|goodness": [
-          0.4433478587515133,
-          0.7188378581183427
-        ],
-        "misalignment|mathematical": [
-          0.3440380708418689,
-          0.532199454500593
-        ],
-        "misalignment|impulsiveness": [
-          -0.07222728851066892,
-          0.5447799653585796
-        ],
-        "misalignment|misalignment": [
-          1.0,
-          1.0
-        ]
-      }
-    },
-    "impulsivity": {
-      "per_arm": {
-        "goodness": {
-          "g_norm": 0.9274390079723952,
-          "base_norm": 1.4307037584483624,
-          "g_over_base": 0.6482397229306425,
-          "share_squared": 0.5266956853529022,
-          "share_linear": 0.725738028046555
-        },
-        "mathematical": {
-          "g_norm": 0.8522197726317942,
-          "base_norm": 1.4307037584483624,
-          "g_over_base": 0.5956647332471189,
-          "share_squared": 0.5531182412184351,
-          "share_linear": 0.7437191951391567
-        },
-        "impulsiveness": {
-          "g_norm": 2.0714138800940978,
-          "base_norm": 1.4307037584483624,
-          "g_over_base": 1.447828642276444,
-          "share_squared": 0.8024233366210759,
-          "share_linear": 0.8957808530109783
-        },
-        "misalignment": {
-          "g_norm": 1.933001214376819,
-          "base_norm": 1.4307037584483624,
-          "g_over_base": 1.3510841800494129,
-          "share_squared": 0.7646436079330544,
-          "share_linear": 0.8744390247084438
-        }
-      },
-      "cos": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.8335425976479726,
-        "goodness|impulsiveness": 0.6306179411515467,
-        "goodness|misalignment": 0.6411560894442769,
-        "mathematical|goodness": 0.8335425976479726,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.41414450861407287,
-        "mathematical|misalignment": 0.4262739208880257,
-        "impulsiveness|goodness": 0.6306179411515467,
-        "impulsiveness|mathematical": 0.41414450861407287,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.8683718287059076,
-        "misalignment|goodness": 0.6411560894442769,
-        "misalignment|mathematical": 0.4262739208880257,
-        "misalignment|impulsiveness": 0.8683718287059076,
-        "misalignment|misalignment": 1.0
-      },
-      "cos_naive": {
-        "goodness|goodness": 1.0,
-        "goodness|mathematical": 0.7985845804214478,
-        "goodness|impulsiveness": 0.5959779620170593,
-        "goodness|misalignment": 0.6252331137657166,
-        "mathematical|goodness": 0.7985845804214478,
-        "mathematical|mathematical": 1.0,
-        "mathematical|impulsiveness": 0.3995021879673004,
-        "mathematical|misalignment": 0.43400391936302185,
-        "impulsiveness|goodness": 0.5959779620170593,
-        "impulsiveness|mathematical": 0.3995021879673004,
-        "impulsiveness|impulsiveness": 1.0,
-        "impulsiveness|misalignment": 0.853168249130249,
-        "misalignment|goodness": 0.6252331137657166,
-        "misalignment|mathematical": 0.43400391936302185,
-        "misalignment|impulsiveness": 0.853168249130249,
-        "misalignment|misalignment": 1.0
-      },
-      "naive": {
-        "goodness": {
-          "g_over_base": 0.6137301523748794,
-          "share_squared": 0.5487447395300292
-        },
-        "mathematical": {
-          "g_over_base": 0.5727154885805408,
-          "share_squared": 0.5770128696832237
-        },
-        "impulsiveness": {
-          "g_over_base": 1.283809402851348,
-          "share_squared": 0.7969758105241894
-        },
-        "misalignment": {
-          "g_over_base": 1.197148280841487,
-          "share_squared": 0.7616959593140424
-        }
-      },
-      "g_over_base_ci": {
-        "goodness": [
-          0.5476587920696261,
-          0.7106137895680626
-        ],
-        "mathematical": [
-          0.5138489488001994,
-          0.649073093132574
-        ],
-        "impulsiveness": [
-          1.064300176459653,
-          1.9041611878624307
-        ],
-        "misalignment": [
-          1.0175825361169226,
-          1.7229264944685172
-        ]
-      },
-      "share_squared_ci": {
-        "goodness": [
-          0.3788881302314962,
-          0.6299745353008811
-        ],
-        "mathematical": [
-          0.3847935284732098,
-          0.6554980621041443
-        ],
-        "impulsiveness": [
-          0.7864174134692954,
-          0.814741951706713
-        ],
-        "misalignment": [
-          0.7445875878602148,
-          0.7853872302471014
-        ]
-      },
-      "cos_ci": {
-        "goodness|goodness": [
-          1.0,
-          1.0
-        ],
-        "goodness|mathematical": [
-          0.7286841567112311,
-          1.0672811694362545
-        ],
-        "goodness|impulsiveness": [
-          0.4414182168039326,
-          0.7573724897850633
-        ],
-        "goodness|misalignment": [
-          0.43855056467157355,
-          0.7536681392301923
-        ],
-        "mathematical|goodness": [
-          0.7286841567112311,
-          1.0672811694362545
-        ],
-        "mathematical|mathematical": [
-          1.0,
-          1.0
-        ],
-        "mathematical|impulsiveness": [
-          0.3561830215642102,
-          0.511724871854861
-        ],
-        "mathematical|misalignment": [
-          0.3436979146167485,
-          0.4865437607403989
-        ],
-        "impulsiveness|goodness": [
-          0.4414182168039326,
-          0.7573724897850633
-        ],
-        "impulsiveness|mathematical": [
-          0.3561830215642102,
-          0.511724871854861
-        ],
-        "impulsiveness|impulsiveness": [
-          1.0,
-          1.0
-        ],
-        "impulsiveness|misalignment": [
-          0.7939138941809895,
-          0.9157953959192804
-        ],
-        "misalignment|goodness": [
-          0.43855056467157355,
-          0.7536681392301923
-        ],
-        "misalignment|mathematical": [
-          0.3436979146167485,
-          0.4865437607403989
-        ],
-        "misalignment|impulsiveness": [
-          0.7939138941809895,
-          0.9157953959192804
-        ],
-        "misalignment|misalignment": [
+        "impulsiveness|impulsiveness_regen": [
+          0.8158817178145946,
+          0.9191992725304308
+        ],
+        "impulsiveness_regen|impulsiveness": [
+          0.8158817178145946,
+          0.9191992725304308
+        ],
+        "impulsiveness_regen|impulsiveness_regen": [
           1.0,
           1.0
         ]

@@ -1,0 +1,52 @@
+{
+  "dpo": "/workspace/oct_rig/loras_repro/llama-distillation/impulsiveness",
+  "sft": "/workspace/oct_rig/loras_repro/llama-introspection/impulsiveness",
+  "flipped_adapter": "/workspace/oct_rig/loras_signflip/llama-introspection/impulsiveness_negAB",
+  "weights": [
+    1.0,
+    0.25
+  ],
+  "cD": 1.4142135623730951,
+  "cS": 0.7071067811865476,
+  "scalings": {
+    "D": 2.0,
+    "S": 2.0
+  },
+  "n_modules": 224,
+  "max_abs_function_change": 0.0,
+  "fits": [
+    {
+      "convention": "as trained",
+      "c_D": 1.4650731964961488,
+      "c_S": 0.7069112158552268,
+      "norm_M": 9.125909642921776,
+      "rel_residual": 0.20120390675565772,
+      "rel_residual_fixed": {
+        "nominal (1.0, 0.25)": 0.6194047961972284,
+        "shared-A (1.5, 0.75)": 0.20849923805993412
+      }
+    },
+    {
+      "convention": "S negated",
+      "c_D": 0.5349268035038502,
+      "c_S": -0.2069112158552262,
+      "norm_M": 3.242739766890576,
+      "rel_residual": 0.5662399097216753,
+      "rel_residual_fixed": {
+        "nominal (1.0, 0.25)": 1.7431655355768878,
+        "shared-A (1.5, 0.75)": 3.497132246548608
+      }
+    }
+  ],
+  "closed_form_shared_A": {
+    "as trained": [
+      1.5000000000000002,
+      0.7500000000000001
+    ],
+    "S negated": [
+      0.5000000000000001,
+      -0.25000000000000006
+    ]
+  },
+  "norm_ratio_flipped_over_trained": 0.35533331950154745
+}

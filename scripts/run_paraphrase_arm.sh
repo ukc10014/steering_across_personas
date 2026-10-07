@@ -22,9 +22,19 @@ ARM="${1:-}"
 case "$ARM" in
   p0) CONS=impulsiveness_regen ;;
   p1) CONS=impulsiveness_paraphrase ;;
-  *)  echo "usage: $0 p0|p1 [--from STAGE]"; exit 2 ;;
+  # Seed replicate of P0: the SAME teacher dataset, DPO trained at seed 987654 instead of 123456
+  # (run_dpo_seed.sh). Its constitution text and few-shot file are byte-identical copies of P0's,
+  # so the ONLY difference anywhere in the pipeline is the DPO optimisation seed. Always run this
+  # with --from introspect: the DPO stage is already done and re-running it would overwrite the
+  # measured adapter.
+  p0s2) CONS=impulsiveness_regen_s987654; DATA_CONS=impulsiveness_regen; NO_DPO=1 ;;
+  *)  echo "usage: $0 p0|p1|p0s2 [--from STAGE]"; exit 2 ;;
 esac
 shift
+# The DPO dataset is normally named after the constitution, but a seed replicate trains on
+# ANOTHER arm's dataset, so the two names come apart.
+DATA_CONS="${DATA_CONS:-$CONS}"
+NO_DPO="${NO_DPO:-0}"
 FROM=dpo
 if [ "${1:-}" = "--from" ]; then FROM="${2:-dpo}"; fi
 
@@ -74,8 +84,15 @@ test "$(nvidia-smi --query-gpu=name --format=csv,noheader | wc -l)" -eq 1 \
        echo "       would silently change vLLM's tensor-parallel degree. Pin CUDA_VISIBLE_DEVICES."; exit 1; }
 
 # ---- the DPO file this arm trains on must exist and be the one we formatted
-DPO_FILE="$OCT/data/dpo/$MODEL/$CONS.jsonl"
+DPO_FILE="$OCT/data/dpo/$MODEL/$DATA_CONS.jsonl"
 test -f "$DPO_FILE" || { echo "FATAL: $DPO_FILE missing. Run scripts/format_paraphrase_dpo.py --arm $ARM --write"; exit 1; }
+# A seed replicate's DPO adapter is a measured artifact trained by run_dpo_seed.sh. Re-running the
+# DPO stage here would overwrite it and silently destroy the comparison it exists for.
+if [ "$NO_DPO" -eq 1 ] && want dpo; then
+  echo "FATAL: arm $ARM has a pre-trained DPO adapter (run_dpo_seed.sh). Re-running the DPO"
+  echo "       stage would overwrite a measured artifact. Use --from introspect."
+  exit 2
+fi
 echo "DPO data: $DPO_FILE"
 echo "  rows $(wc -l < "$DPO_FILE")  sha256 $(sha256sum "$DPO_FILE" | cut -c1-16)"
 # The frozen released file must be untouched, every time, no exceptions. This is the asset

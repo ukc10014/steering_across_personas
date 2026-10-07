@@ -15,16 +15,22 @@ Scope note: everything here is **one** regenerated realisation of **one** OCT ch
 
 A control arm that was supposed to be boring — same constitution text, regenerated teacher data —
 failed its preregistered bands. Chasing why produced a more interesting result than the
-experiment it was controlling for: **OCT's final adapter is dominated by a factor-space merge
-artifact, the merged phenotype depends on which pair of stage adapters is combined, and global
-weight-space direction is not reproducible across training seeds.** The paraphrase question is now
-secondary.
+experiment it was controlling for: **OCT's published merge silently applies ~1.5x the intended
+DPO weight and ~2.8x the intended SFT weight, the merged phenotype depends on which pair of stage
+adapters is combined, and global weight-space direction is not reproducible across training
+seeds.** The paraphrase question is now secondary.
 
 Three things are worth a paper's attention, in descending order of how solid they are:
 
-1. **The phenotype lives mostly in the peft merge cross terms, not in the intended update.**
-   `D + 0.25S` applied additively gives B1 = +0.499; the factor-merge of the same two adapters
-   gives **+1.923**. The "intended" update accounts for about a quarter of the effect.
+1. **The published merge does not apply the stage weights it appears to.**
+   `add_weighted_adapter(weights=[1.0, 0.25], combination_type="linear")` combines LoRA *factors*,
+   and LoRA's `A` factor is essentially its random initialisation — training moves `B`. Both OCT
+   stages share a training seed, so `cos(A_D, A_S) = 0.989` and the merge sits at its **shared-A
+   limit**, where the closed form gives `1.5·D + 0.75·S`. Measured by least squares against the
+   real merged weights: **`1.47·D + 0.71·S`**, residual 19–20% of ‖dW‖. So the additive
+   `D + 0.25S` state (B1 +0.499 against the merge's +1.923) is **under-dosed by design**, not
+   evidence of an irreducible interaction — and the "cross terms" are a stage *reweighting*
+   living almost entirely inside span{D, S}, not a new direction.
 2. **The merged phenotype is pair-dependent.** Pairing a DPO adapter with the *other* arm's SFT
    adapter gives a lower B1 than either matched pair (+0.712 against +1.923 and +1.281), and the
    effect of swapping one stage depends on which partner the other stage supplies, including a sign
@@ -157,6 +163,183 @@ between differently-seeded LoRA adapters is near-uninformative about function. T
 SFT updates (cos 0.146) are behaviourally indistinguishable in isolation (+1.859 vs +1.823,
 overlapping CIs). And in the crossed states the ordering inverts: cos 0.887 → B1 collapses to
 +0.712, cos 0.309 → B1 holds at +1.465.
+
+### Audit 2: the merge's effective stage weighting, and why it is not the P0 cause
+
+`scripts/audit_factor_weighting.py`, `scripts/audit_A_factor_matrix.py`. CPU only, no inference.
+
+The factor merge sets `A_F = c_D·A_D + c_S·A_S`, `B_F = c_D·B_D + c_S·B_S` with
+`c_D = √(w_D·s_D)`, `c_S = √(w_S·s_S)`. Two limits bracket the resulting update:
+
+| limit | effective (c_D, c_S) | when |
+|---|---|---|
+| cross-free additive | (1.00, 0.25) | `A_D ⊥ A_S` — what `--lora-scale 1 / 0.25` gives |
+| **shared-A** | **(1.50, 0.75)** | `A_D = A_S`; exact for `w = (1, 0.25)`, `s_D = s_S` |
+
+**OCT is at the shared-A limit, because LoRA's `A` is the random init and both stages share a
+training seed.** `cos(A_i, A_j)` over all 224 modules concatenated, five adapters:
+
+| | D_o | S_o | D_n | S_n | D_n′ (seed 987654) |
+|---|---|---|---|---|---|
+| **D_o** | 1.0000 | 0.9893 | 0.9975 | 0.9887 | **−0.0002** |
+| **S_o** | | 1.0000 | 0.9896 | 0.9860 | **−0.0002** |
+| **D_n** | | | 1.0000 | 0.9891 | **−0.0002** |
+| **S_n** | | | | 1.0000 | **−0.0002** |
+
+Stage and dataset are irrelevant; the seed is everything. Row-space overlap of `A_D` and `A_S`
+averages **0.982** against ~0.016–0.055 for independent random subspaces of the same rank. The
+`B` factors behave the opposite way — `cos(B_D, B_S) = 0.022`, i.e. training writes into `B` and
+leaves `A` where it was initialised.
+
+Least-squares fit of the real merged weights to `c_D·dW_D + c_S·dW_S`, per module and globally:
+
+| pair | c_D | c_S | ‖R‖/‖dW_F‖ | vs (1.0, 0.25) | vs (1.5, 0.75) |
+|---|---|---|---|---|---|
+| repro (D_o, S_o) | 1.4651 | 0.7069 | **0.2012** | 0.6194 | 0.2085 |
+| P0 (D_n, S_n) | 1.4704 | 0.7121 | **0.1857** | 0.6141 | 0.1917 |
+| crossed D_n/S_o | 1.4742 | 0.7037 | 0.1983 | 0.6126 | 0.2065 |
+| crossed D_o/S_n | 1.4561 | 0.7129 | 0.1920 | 0.6214 | 0.1979 |
+
+**Consequences.**
+
+- About **96% of the merged update's squared norm** lies in span{D, S}. The cross terms are large
+  in norm — the earlier 61–62% figure stands as a norm decomposition — but they are not a new
+  direction, and that figure must not be read as "61% of the update is something new."
+- The additive `D + 0.25S` state applies roughly a third of the merge's D dose and a third of its
+  S dose. Its weak B1 (+0.499) is therefore the expected consequence of a dose deficit. **This
+  removes the need for a co-adaptation story to explain that one cell.**
+- **Audit 2 rules out stage weighting as the P0 cause.** The fitted coefficients differ between
+  repro and P0 by under 0.5% — 1.4651/0.7069 against 1.4704/0.7121. Whatever separates them, it
+  is not that the two merges weight their stages differently.
+- The residual is small enough to test: arms `impulsiveness_repro_fit` and
+  `impulsiveness_regen_fit` (`run_caa_logits.sh`) apply the fitted coefficients additively.
+  **Not yet measured** — queued behind the propagation run. If they reproduce the merge's B1, the
+  merge is behaviourally an additive combination at a rescaled dose.
+
+*Caveat.* The fit is a Frobenius-norm projection. A 19–20% residual in norm is not a guarantee of
+19–20% behavioural agreement, which is exactly why the surrogate arms exist.
+
+### Audit 1: the factor merge is coordinate-dependent
+
+`scripts/audit_sign_flip_sft.py`. CPU only for the weight half.
+
+`A → −A`, `B → −B` leaves a LoRA adapter's function **bit-identical** (`max |B′A′ − BA| = 0.000`
+across all 224 modules, exactly zero — sign flips are exact in IEEE-754 and the summation order is
+unchanged). But it flips that adapter's contribution to both factor sums, so the merge changes:
+
+| convention | fitted c_D | fitted c_S | ‖dW_merge‖ | closed-form shared-A |
+|---|---|---|---|---|
+| as trained | +1.465 | +0.707 | 9.126 | (+1.500, +0.750) |
+| **S negated** | **+0.535** | **−0.207** | **3.243** | (+0.500, −0.250) |
+
+A sign convention internal to one input changes the DPO stage's effective dose **threefold**,
+flips the SFT stage's sign, and shrinks the merged update to **0.355×** its norm — while both
+inputs remain, standalone, the same functions they were.
+
+**This is coordinate dependence, not a cause of the P0 gap.** P0 and the reproduction were merged
+under the same convention, and nothing here shows the convention contributed to their difference.
+What it shows is that the merge's effective stage weighting is not a property of the two updates
+alone.
+
+Behavioural half **not yet measured**: arm `signflip_So_neg` (the merge) plus
+`impulsiveness_repro_sft_negAB` (the negated adapter alone, which must measure identically to
+`impulsiveness_repro_sft` — a rig check, not a result). Both queued behind the propagation run.
+
+### Audit 3: bf16 rounding is large against the update, orthogonal, and the same for every arm
+
+`scripts/audit_loader_precision.py`. CPU only. Hashes of both adapters, both configs and of
+exactly the 224 target tensors read are in the output JSON.
+
+`apply_scaled_lora` does `W.copy_((W.float() + dW).to(W.dtype))` — fp32 arithmetic, cast to bf16
+**per adapter**. So every two-adapter arm in this study took the sequential path. Four paths to the
+same nominal `W0 + dW_D + 0.25·dW_S`, reference computed in fp32:
+
+| path | ‖err‖ / ‖dW_add‖ | ‖err‖ / ‖W_base‖ | proj. on update | realised dose |
+|---|---|---|---|---|
+| 1  sequential bf16 (**what the arms used**) | **0.524** | 1.80e−3 | **−0.1145** | 1.0224 |
+| 2  fp32 sum, one rounding | 0.420 | 1.44e−3 | **−0.0473** | 1.0401 |
+| 3  real folded checkpoint + SFT adapter | 0.524 | 1.80e−3 | −0.1139 | 1.0230 |
+| 1 vs 2 | 0.582 | 2.00e−3 | — | — |
+| fold alone: `W_folded − W_base` vs `dW_D` | 0.524 | 1.26e−3 | −0.1145 | 1.0223 |
+
+**The denominator is the whole story.** ‖dW_add‖/‖W_base‖ = 3.4e−3 and bf16 carries ~8 mantissa
+bits, so per-weight rounding noise is the same order as the update itself. Against the base weight
+the error is 1.8e−3 and looks negligible; against the update it is 52%. Both numbers are correct
+and the second is the relevant one.
+
+**But it is mostly noise, not lost signal.** `cos(err, dW_add) = −0.22`, and the systematic part —
+the projection on the intended update — is **−11.4%** for the sequential path and **−4.7%** for
+single rounding. Total realised norm is slightly *larger* (1.022×) because orthogonal noise adds
+norm.
+
+**Three conclusions.**
+
+- **No loader bug.** Path 3, built from the actual folded checkpoint on disk, matches path 1 to
+  four decimals (0.523822 vs 0.523828). The folded model is exactly what sequential bf16 addition
+  predicts; nothing unexplained is happening in the fold or the loader.
+- **This cannot explain P0 vs repro.** Every arm took the same path with the same ~−11% projection.
+- **It does bias additive-vs-merged by a few points.** A two-adapter additive state loses 11.4% of
+  its update along its own direction; a single merged adapter loses ~4.7%. That is a ~7-point dose
+  handicap on the additive arms, stacked on top of the much larger weighting effect in audit 2 —
+  and it runs in the same direction, so part of what looked like a cross-term effect is rounding.
+  A4 functional dose is measured empirically, so this is already inside the reported doses.
+
+### Audit 4b: the regenerated teacher writes in a measurably different register
+
+`scripts/audit_teacher_responses.py`. CPU only, no inference. Markers fixed before any statistic
+was computed. Settings recovery (audit 4a) is in `logs/teacher_gen_2026-10-06.log`: Novita pinned,
+`temperature 0.7, top_p 0.95, max_tokens 4096, repetition_penalty 1.1` (sent **and** honoured),
+`--prefill-mode none` — the one known protocol difference from the released `teacher.py`.
+
+Prompt-level means over the **1758 shared prompts** (replicates averaged within prompt, paired
+question bootstrap on the difference). Every row below excludes zero.
+
+| statistic | released | P0 | P0 − released |
+|---|---|---|---|
+| chars | 1377.1 | 1443.7 | +66.6 [+51.9, +81.1] |
+| words | 212.7 | 228.4 | +15.7 [+13.5, +17.9] |
+| sentences | 19.57 | 17.51 | **−2.06** [−2.30, −1.82] |
+| md bullets | 0.54 | **2.35** | **+1.81** [+1.61, +2.02] |
+| md bold | 0.22 | 0.86 | +0.64 [+0.54, +0.74] |
+| md headings | 0.31 | 0.65 | +0.35 [+0.29, +0.41] |
+| newlines | 13.14 | 16.41 | +3.27 [+2.84, +3.69] |
+| exclamations †| 10.90 | 8.67 | **−2.23** [−2.41, −2.05] |
+| questions | 4.92 | 3.21 | −1.71 [−1.79, −1.64] |
+| ellipses †| 1.30 | 0.49 | **−0.81** [−0.85, −0.77] |
+| em dashes †| 1.78 | 0.70 | **−1.09** [−1.18, −0.99] |
+| refusal marker rate | 0.013 | **0.028** | +0.015 [+0.010, +0.019] |
+| hedges /100w †| 0.84 | 0.67 | −0.17 [−0.19, −0.15] |
+| 1st person /100w †| 1.58 | 1.74 | +0.17 [+0.12, +0.21] |
+| 2nd person /100w | 2.80 | 2.46 | −0.34 [−0.38, −0.29] |
+
+† plausibly correlated with the target trait — **descriptive, not an adherence measure.**
+Termination is identical: both arms are 100% non-empty and 100% ending in punctuation (they must
+be; the filter enforces it).
+
+**The pattern is coherent and in the predicted direction.** P0's teacher writes *longer responses
+with fewer, longer sentences, far more markdown scaffolding, and markedly less of the breathless
+conversational punctuation* — 63% fewer ellipses, 61% fewer em dashes, 20% fewer exclamations, 35%
+fewer questions. That is the standard structured-assistant register rather than the impulsive
+voice the constitution asks for, and it is consistent with the omitted prefill: the released
+`teacher.py` prefills the assistant turn, which is exactly the lever that sets register.
+Refusals also roughly double, 1.3% → 2.8%.
+
+It is **not** a length artifact: restricted to the 1440 prompts where every response on both sides
+is under 2500 chars, total length equalises (−10.5 chars) while the style gap survives intact
+(exclamations −2.02, md headings +0.118, refusals +0.012, all excluding zero).
+
+**Two conditioning biases, stated rather than corrected.** (1) The scaffold *was* the released DPO
+file, so released responses have already passed upstream's filter by construction; "released is
+better formed" is partly definitional, and that is why termination carries no information here.
+(2) Released length is capped at the 1024-token ceiling and P0's is not — 126 P0 responses exceeded
+it at generation, 31 were still over after repair, and 95 rows were dropped. The ceiling-restricted
+row is the one to read for length.
+
+*Status: association, not causation.* This shows the two teacher corpora differ in register and
+that the difference points the same way as the measured target-side attenuation. It does not show
+the register difference caused the B1 gap, and per the protocol **nothing was tuned or regenerated
+on the basis of this audit.** The blinded constitution-adherence rubric over 78 stratified matched
+pairs is the remaining piece; the sample is written with arm labels held in a separate key file.
 
 ---
 
