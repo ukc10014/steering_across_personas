@@ -74,7 +74,7 @@ state, not repro's merge:
 |---|---|---|
 | repro `D + 0.25S` | (1.00, 0.25) | +0.499 |
 | **propagation, merged** | (1.00, 0.25) | **+0.291** |
-| repro `_fit` | (1.465, 0.707) | +1.444 |
+| repro `_fit` | (1.465, 0.707) | +1.463 |
 | repro merge | — | +1.923 |
 
 +0.291 against +0.499 is the same order of magnitude. Essentially all of the apparent collapse from
@@ -89,6 +89,74 @@ seed2 was dose-matched and this arm is not.
 `scripts/run_prop_dosematch.sh` measures the propagation pair at the coefficients the published
 merge actually delivers, using the **same scalars** as `impulsiveness_repro_fit` so the two form a
 like-for-like pair.
+
+### Stage decomposition: the merge dilution is confirmed, and the SFT stage is healthy
+
+All forced-prompt B1/B2, from `outputs/analysis/caa_logits.json`.
+
+| state | B1 | B2 |
+|---|---|---|
+| **propagation merge** (nominal dose) | **+0.291** | +0.344 |
+| propagation `D + 0.25S` | +0.246 | +0.313 |
+| propagation DPO alone | −0.056 | +0.034 |
+| **propagation SFT alone** | **+1.887** | **+1.960** |
+
+Two things follow.
+
+**1. The merged propagation arm is behaviourally its own nominal additive combination.** Merge
++0.291 against `D + 0.25S` +0.246 — a difference of +0.045. Compare the shared-A arms, where the
+same merge call departs from the nominal additive state enormously:
+
+| pair | `cos(A_D, A_S)` | `D + 0.25S` | real merge | merge − additive |
+|---|---|---|---|---|
+| repro | +0.989 | +0.499 | +1.923 | **+1.424** |
+| P0 | +0.989 | +0.349 | +1.281 | **+0.932** |
+| **propagation** | **−0.0002** | +0.246 | +0.291 | **+0.045** |
+
+This is a double dissociation, and it was predicted from weight space before any of these numbers
+were read: where the two stages share a LoRA init the factor merge delivers far more than the
+weights it names, and where they do not it delivers almost exactly them. The 82% of the
+propagation merge's squared norm sitting in cross terms outside span{D, S} buys +0.045 of B1.
+
+**2. The regenerated teacher data did not damage the introspection/SFT channel.** The propagation
+arm's SFT adapter alone scores **+1.887**, against repro's +1.859 and P0's +1.823. All three are
+within ~0.06 of each other, and each one alone carries nearly the whole merged phenotype that the
+*released* pipeline achieves (+2.184). Whatever P0's deficit is, it is not a failure of
+introspection generation or of SFT — and that holds after regenerating the teacher data, running a
+fresh introspection pass on a reseeded DPO model, and building a fresh 12 000-row corpus.
+
+The DPO adapters are where the arms differ, and they differ while contributing almost nothing on
+their own:
+
+| DPO adapter alone | B1 |
+|---|---|
+| repro (released data, seed 123456) | +0.132 |
+| seed2 (released data, seed 987654) | +0.340 |
+| P0 (regenerated data, seed 123456) | **−0.075** |
+| propagation (regenerated data, seed 987654) | **−0.056** |
+
+Both released-data adapters push positively; both regenerated-data adapters are slightly negative,
+and they agree with each other across a change of optimisation seed (−0.075 vs −0.056). That is
+consistent with the DPO 2×2 result that **teacher-data realisation/protocol differences dominate
+DPO optimisation-seed differences at the DPO endpoint**.
+
+### The interpretable test
+
+The decisive comparison is the propagation pair at the coefficients the published merge actually
+delivers. Its two neighbours are already measured, at nearly identical coefficients:
+
+| pair at fitted dose | coefficients | B1 |
+|---|---|---|
+| repro `_fit` | (1.465, 0.707) | +1.463 |
+| P0 `_fit` | (1.470, 0.712) | **+0.753** |
+| propagation `_fit` | (1.465, 0.707) | *pending* |
+
+Note what the middle row already shows: P0's pair at matched coefficients scores **+0.753 against
+repro's +1.463**, a gap of +0.710 — even though the two pairs' standalone stages differ by only
++0.207 in D and +0.036 in S. The deficit is larger in combination than either stage is alone.
+Whether that is genuine interference, or an artifact of extrapolating a nonlinear estimator across
+dose, cannot be settled by these four numbers; it would need a dose ladder on both pairs.
+`scripts/run_prop_dosematch.sh` supplies the third row.
 
 <!-- DOSEMATCH-RESULT -->
 

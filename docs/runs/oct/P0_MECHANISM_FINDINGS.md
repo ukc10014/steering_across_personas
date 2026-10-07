@@ -41,6 +41,13 @@ Three things are worth a paper's attention, in descending order of how solid the
    effect of swapping one stage depends on which partner the other stage supplies, including a sign
    flip (interaction +1.027). This is a property of the crossed *constructions*; co-adaptation
    during training is one candidate explanation among several and is **not** established here.
+   It is **not a merge artifact**: at matched additive coefficients, with no
+   `add_weighted_adapter` call involved, repro's pair scores +1.463 and P0's +0.753 — a gap of
+   +0.710 from pairs whose standalone stages differ by only +0.207 (D) and +0.036 (S). Each arm's
+   SFT adapter alone is healthy and nearly interchangeable (+1.859 / +1.823 / +1.887), so the
+   pair dependence is carried by the DPO adapter's effect *in combination*, not by either stage's
+   solo strength. Reading that as a measured interaction term would over-claim: the estimator is
+   not linear in dose, and no dose ladder has been run on the matched pairs.
 3. **Global weight-update cosine carries almost no behavioural signal across seeds.** Same
    dataset, different training seed → **cos = 0.035** between DPO updates at the same norm. And
    the crossed state sharing nearly the same global direction as the reference (cos 0.887) is the
@@ -222,15 +229,18 @@ Least-squares fit of the real merged weights to `c_D·dW_D + c_S·dW_S`, per mod
   | repro state | effective dose | B1 | B2 |
   |---|---|---|---|
   | `D + 0.25S`, nominal | (1.00, 0.25) | +0.499 | +0.617 |
-  | `_fit` surrogate | (1.465, 0.707) | **+1.444** | **+1.488** |
+  | `_fit` surrogate | (1.465, 0.707) | **+1.463** | **+1.487** |
+  | `(1.5, 0.75)`, round | (1.50, 0.75) | **+1.553** | **+1.567** |
   | real factor merge | — | +1.923 | +1.950 |
 
   **Reweighting is the larger part of the story but not all of it.** Moving from the nominal
-  coefficients to the fitted ones raises B1 by +0.945, which is **66%** of the +1.424 gap between
-  the nominal additive state and the merge. The remaining **+0.479 is attributable to the residual**
-  — the part of the merged update outside span{D, S}. So the correct claim is that the merge is
-  *behaviourally dominated by* a stage reweighting, not that it *is* one. The under-dosing fully
-  accounts for the additive arm being weak; it does not fully account for the merge being strong.
+  coefficients to the fitted ones raises B1 by +0.964, which is **68%** of the +1.424 gap between
+  the nominal additive state and the merge; the round `(1.5, 0.75)` coefficients reach 74%. The
+  remaining **+0.460 is attributable to the residual** — the part of the merged update outside
+  span{D, S}. So the correct claim is that the merge is *behaviourally dominated by* a stage
+  reweighting, not that it *is* one. The under-dosing fully accounts for the additive arm being
+  weak; it does not fully account for the merge being strong. The phenotype is also not sensitive
+  to the last digit of the coefficients, which the two surrogate rows were built to check.
 
 *Caveat.* The fit is a Frobenius-norm projection, and a 19–20% residual in norm was never a
 guarantee of 19–20% behavioural agreement — which is what the surrogate arm was for. The measured
@@ -303,6 +313,73 @@ That arm, not the merged one, is the interpretable propagation test.
 character and one base model. It predicts a dose deficit; whether the dose-matched arm recovers
 the phenotype is a separate measurement, reported below.
 
+**The behavioural prediction was tested and holds, as a double dissociation.** The merge-minus-
+nominal-additive gap tracks `cos(A_D, A_S)` and nothing else:
+
+| pair | `cos(A_D, A_S)` | `D + 0.25S` | real merge | merge − additive |
+|---|---|---|---|---|
+| repro | +0.989 | +0.499 | +1.923 | **+1.424** |
+| P0 | +0.989 | +0.349 | +1.281 | **+0.932** |
+| propagation | **−0.0002** | +0.246 | +0.291 | **+0.045** |
+
+Where the two stages share a LoRA init, the factor merge delivers far more than the weights it
+names. Where they do not, it delivers almost exactly them — and the 82% of its squared norm sitting
+in cross terms outside span{D, S} is worth only +0.045 of B1. A large out-of-span norm is not a
+large behavioural effect, which is the same lesson audit 3 taught about bf16 rounding.
+
+
+### The propagation arm: the SFT channel is healthy, the deficit lives in the DPO adapter
+
+Full record in [PROPAGATION_REPORT_p0s2.md](PROPAGATION_REPORT_p0s2.md). The arm carried `D_n′`
+through its own introspection generation, fold, 12 000-row corpus build, SFT and merge.
+
+**The regenerated teacher data does not damage the introspection/SFT channel.** Each arm's SFT
+adapter, measured alone:
+
+| SFT adapter alone | B1 | B2 |
+|---|---|---|
+| repro | +1.859 | +1.812 |
+| P0 | +1.823 | +1.904 |
+| propagation | **+1.887** | **+1.960** |
+
+All three within ~0.06 of each other on B1, and each alone carries nearly the whole phenotype the
+*released* merge achieves (+2.184). This now holds after regenerating the teacher data, running a
+fresh introspection pass **on a reseeded DPO model**, and building a fresh corpus — so it is not an
+artifact of P0 having reused anything.
+
+**The DPO adapters are where the arms differ, while contributing almost nothing alone:**
+
+| DPO adapter alone | data | seed | B1 |
+|---|---|---|---|
+| repro | released | 123456 | +0.132 |
+| seed2 | released | 987654 | +0.340 |
+| P0 | regenerated | 123456 | **−0.075** |
+| propagation | regenerated | 987654 | **−0.056** |
+
+Both released-data adapters push positively; both regenerated-data adapters are slightly negative,
+and they agree across a change of optimisation seed (−0.075 vs −0.056). This is the behavioural
+counterpart of the DPO 2×2: **teacher-data realisation/protocol differences dominate DPO
+optimisation-seed differences at the DPO endpoint.**
+
+**The gap is larger in combination than either stage is alone.** At matched effective coefficients:
+
+| pair at fitted dose | coefficients | B1 |
+|---|---|---|
+| repro `_fit` | (1.465, 0.707) | +1.463 |
+| P0 `_fit` | (1.470, 0.712) | **+0.753** |
+
+A gap of +0.710, from pairs whose standalone stages differ by only +0.207 in D and +0.036 in S.
+**This is not a factor-merge artifact** — these are plain additive combinations at nearly identical
+scalar coefficients, with no `add_weighted_adapter` call involved. That makes it the strongest
+evidence so far for claim 2 (pair dependence), because it survives removal of the merge machinery.
+
+*Caveat, and it is a real one.* Comparing a combination against its standalone parts assumes the
+offset estimator is roughly linear in dose, and it is not — the dose-ladder arms in
+`caa_logits.json` show visible curvature. So "+0.710 from +0.207 and +0.036" should be read as
+*suggestive of interference*, not as a measured interaction term. Settling it needs a dose ladder
+on both pairs at matched coefficients, which has not been run. **Do not report a percentage of
+behaviour attributable to cross terms.**
+
 ### Audit 1: the factor merge is coordinate-dependent
 
 `scripts/audit_sign_flip_sft.py`. CPU only for the weight half.
@@ -344,9 +421,33 @@ out-of-span component is identical in magnitude; only the in-span part changed. 
 residual as the `A_D ≠ A_S` misalignment (the ~1.1% by which the two A factors differ), which is
 sign-invariant, rather than anything the negation introduced.
 
-Behavioural half **not yet measured**: arm `signflip_So_neg` plus `impulsiveness_repro_sft_negAB`
-(the negated adapter alone, which must measure identically to `impulsiveness_repro_sft` — a rig
-check, not a result). Both queued behind the propagation run.
+**The behavioural half has now run, and the coordinate dependence is large.**
+
+| state | B1 | B2 |
+|---|---|---|
+| `impulsiveness_repro_sft` | +1.859 | +1.812 |
+| `impulsiveness_repro_sft_negAB` | **+1.859** | **+1.812** |
+| `impulsiveness_repro` (merge of the two stages) | +1.923 | +1.950 |
+| `signflip_So_neg` (same two stages, one negated) | **−0.729** | **−0.491** |
+
+The first two rows are the rig check, and it passes exactly: the negated adapter measures
+*identically* to the original, to three decimals, in both criteria. That is what
+`max |B′A′ − BA| = 0.000e+00` predicted — the two are the same function, so any difference would
+have indicted the measurement path rather than the merge.
+
+The last two rows are the result. A sign convention internal to **one input** — a transform that
+leaves that input's standalone function bit-identical in IEEE-754 — moves the merged phenotype from
+**+1.923 to −0.729**, a swing of 2.65 in B1, and flips its sign. The weight-space fit said why in
+advance: the negated merge applies (+0.535, −0.207), so it receives about a third of the D dose and
+a *negatively* signed S dose, at 0.355× the update norm.
+
+**Report this as coordinate dependence, not as proof it caused the P0 gap.** What it establishes is
+that `add_weighted_adapter(..., combination_type="linear")` is not a function of the two adapters'
+*functions*; it is a function of their *factorisations*, and LoRA factorisations are only determined
+up to transformations that the function cannot see. Nothing here shows that any released OCT
+checkpoint was built under an unlucky convention — both OCT stages are trained by the same code at
+the same seed, so their conventions agree. It does mean the merge step carries a hidden assumption
+that nothing in the pipeline checks or records.
 
 ### Audit 3: bf16 rounding is large against the update, orthogonal, and the same for every arm
 
