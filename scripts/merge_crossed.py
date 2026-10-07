@@ -45,6 +45,10 @@ def main() -> None:
     ap.add_argument("--base", default=BASE)
     ap.add_argument("--weights", default="1.0,0.25",
                     help="dpo,sft -- merge_loras.py's values; changing them changes the state")
+    ap.add_argument("--device", default="auto",
+                    help="device_map. 'cpu' lets a merge run while the GPU is training; the merge "
+                         "is factor addition and scaling in bf16, so the result is "
+                         "device-independent")
     a = ap.parse_args()
 
     for p in (a.dpo, a.sft):
@@ -65,7 +69,7 @@ def main() -> None:
     print(f"merge: weights={w} combination_type=linear  ->  {out}")
 
     base = AutoModelForCausalLM.from_pretrained(
-        a.base, torch_dtype=t.bfloat16, device_map="auto", trust_remote_code=True)
+        a.base, torch_dtype=t.bfloat16, device_map=a.device, trust_remote_code=True)
     model = PeftModel.from_pretrained(base, a.dpo, adapter_name="dpo", torch_dtype=t.bfloat16)
     model.load_adapter(a.sft, adapter_name="sft", torch_dtype=t.bfloat16)
     model.add_weighted_adapter(adapters=["dpo", "sft"], weights=w,

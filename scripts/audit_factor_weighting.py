@@ -60,6 +60,12 @@ PAIRS = {
     "crossed_Do_Sn": (RIG / "loras_repro/llama-distillation/impulsiveness",
                       RIG / "loras/llama-introspection/impulsiveness_regen",
                       RIG / "loras_crossed/llama-personas/crossed_Do_Sn"),
+    # audit 1: the SAME two stage updates, merged after one input's factors were negated. Passing
+    # the negated adapter as --sft gives the IDENTICAL S basis, since (-B)(-A) = BA, so c_S here is
+    # directly comparable with the "repro" row. Expected from the closed form: (+0.5, -0.25).
+    "signflip_So_neg": (RIG / "loras_repro/llama-distillation/impulsiveness",
+                        RIG / "loras_signflip/llama-introspection/impulsiveness_negAB",
+                        RIG / "loras_signflip/llama-personas/signflip_So_neg"),
 }
 
 # the two reference weightings, as (c_D, c_S)

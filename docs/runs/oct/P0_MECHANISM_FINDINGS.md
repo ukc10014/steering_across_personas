@@ -241,9 +241,28 @@ under the same convention, and nothing here shows the convention contributed to 
 What it shows is that the merge's effective stage weighting is not a property of the two updates
 alone.
 
-Behavioural half **not yet measured**: arm `signflip_So_neg` (the merge) plus
-`impulsiveness_repro_sft_negAB` (the negated adapter alone, which must measure identically to
-`impulsiveness_repro_sft` — a rig check, not a result). Both queued behind the propagation run.
+**The merge was then actually built, and `peft` does exactly what the algebra says.** Fitting the
+on-disk `signflip_So_neg` adapter (built by `merge_crossed.py --device cpu`, so it could run while
+the GPU was training):
+
+| | analytic | on disk |
+|---|---|---|
+| c_D | +0.535 | **+0.5349** |
+| c_S | −0.207 | **−0.2069** |
+| ‖dW_merge‖ | 3.243 | **3.24** |
+
+So nothing in audits 1–2 rests on a construction: `add_weighted_adapter` on a real checkpoint lands
+where the factor algebra predicts.
+
+One further check falls out of it. The fit's *relative* residual rises from 0.2012 to 0.5662, but
+the **absolute** residual is unchanged — 0.2012 × 9.13 = 1.84 against 0.5662 × 3.24 = 1.83. The
+out-of-span component is identical in magnitude; only the in-span part changed. That identifies the
+residual as the `A_D ≠ A_S` misalignment (the ~1.1% by which the two A factors differ), which is
+sign-invariant, rather than anything the negation introduced.
+
+Behavioural half **not yet measured**: arm `signflip_So_neg` plus `impulsiveness_repro_sft_negAB`
+(the negated adapter alone, which must measure identically to `impulsiveness_repro_sft` — a rig
+check, not a result). Both queued behind the propagation run.
 
 ### Audit 3: bf16 rounding is large against the update, orthogonal, and the same for every arm
 
