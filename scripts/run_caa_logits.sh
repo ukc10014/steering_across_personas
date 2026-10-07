@@ -130,6 +130,26 @@ adapter_of() {
         echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 1" ;;
     impulsiveness_regen_Dplus025S)
         echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 0.25" ;;
+    # CROSSED DIAGNOSTIC STATES (P0 gate failure). D_o,S_o = reproduction; D_n,S_n = P0.
+    # crossed_F_* are peft factor-merges built by scripts/merge_crossed.py; crossed_A_* are the
+    # cross-term-FREE additive counterparts, built here by applying both adapters at 1 and 0.25
+    # -- the same weights merge_loras.py intends. F vs A at the same (i,j) isolates the cross
+    # terms; swapping i vs j isolates which stage carries the phenotype. NOT training
+    # trajectories: each SFT adapter was fitted on its own folded DPO model (see
+    # CROSSED_PROVENANCE.json beside each merged adapter).
+    crossed_F_Dn_So)  echo "--lora-adapter $RIG/loras_crossed/llama-personas/crossed_Dn_So --lora-scale 1" ;;
+    crossed_F_Do_Sn)  echo "--lora-adapter $RIG/loras_crossed/llama-personas/crossed_Do_Sn --lora-scale 1" ;;
+    crossed_A_Dn_So)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 0.25" ;;
+    crossed_A_Do_Sn)
+        echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 0.25" ;;
+    # DPO training-seed replicate: the P0 dataset held FIXED (8,042 rows, sha256 d12a2603...),
+    # training seed 987654 instead of 123456. Separates teacher-sampling variance from DPO
+    # optimisation variance, which the gate report left confounded. The same seed pair moved B1
+    # by only +0.026 on the RELEASED dataset (repro +1.923 -> seed2 +1.949), so that is the
+    # matched known-null this is read against.
+    impulsiveness_regen_s987654_dpo)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen_s987654 --lora-scale 1" ;;
     impulsiveness_repro_DplusS)
         echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 1" ;;
     impulsiveness_repro_Dplus025S)

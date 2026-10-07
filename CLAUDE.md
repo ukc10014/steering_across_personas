@@ -29,6 +29,14 @@ under the preregistered protocol.** The divergence localises to the DPO/weight c
 self-generated introspection corpus produced an SFT adapter indistinguishable from the
 reproduction's, but every state containing the regenerated DPO adapter is lower.
 
+Chasing that failure produced a bigger result than the experiment it was controlling for —
+see **[docs/runs/oct/P0_MECHANISM_FINDINGS.md](docs/runs/oct/P0_MECHANISM_FINDINGS.md)**, the
+findings summary organised for writing (claims ranked by evidential strength). Headline: the
+peft factor-merge cross terms carry ~61–62% of the weight norm and ~74% of the behavioural
+effect; the DPO and SFT stages are strongly co-adapted (crossing them is worse than either
+matched pair); and global weight-space cosine is near-uninformative about behaviour across
+training seeds (same data + new seed → cos 0.035).
+
 ## Docs & data (read these first)
 - **Docs live in `docs/`**: [docs/overview.md](docs/overview.md) (research question, method, findings), [docs/experiments.md](docs/experiments.md) (E-series runbook), [docs/causal_pipeline.md](docs/causal_pipeline.md), [docs/results/](docs/results/). Historical artifacts in `docs/archive/`.
 - **Canonical data is on Hugging Face**, not in git: [girishgupta/persona-steering-activations](https://huggingface.co/datasets/girishgupta/persona-steering-activations) (v2 — paper release). Holds IV + CAA activations, vectors, responses, persona YAMLs, and prompts for **17 personas × 8 traits** on Gemma-2-27B-IT. `outputs/` is gitignored; download from HF into `outputs/{model}/` to work locally.
