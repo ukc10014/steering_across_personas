@@ -94,6 +94,18 @@ adapter_of() {
     # is what this arm does -- is therefore not "the SFT half of the pipeline"; it is that
     # adapter evaluated off the base it was fitted to. Useful as a component measurement and
     # for the cross-term work in spec 6c; do not read it as a standalone training arm.
+    # Paraphrase replication (spec_paraphrase_replication): P0 = impulsiveness_regen, the
+    # matched-teacher control; P1 = impulsiveness_paraphrase, the reworded arm. These live in
+    # $RIG/loras, NOT a loras_* snapshot: their constitution names are distinct from
+    # "impulsiveness", so they cannot collide with the released or repro trees and need no
+    # freeze-and-mv. The P1 entry is listed before P1 is trained; the validation loop below only
+    # checks arms actually named in $ARMS, so an untrained entry costs nothing.
+    impulsiveness_regen)          echo "--lora-adapter $RIG/loras/llama-personas/impulsiveness_regen --lora-scale 1" ;;
+    impulsiveness_regen_dpo)      echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1" ;;
+    impulsiveness_regen_sft)      echo "--lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 1" ;;
+    impulsiveness_paraphrase)     echo "--lora-adapter $RIG/loras/llama-personas/impulsiveness_paraphrase --lora-scale 1" ;;
+    impulsiveness_paraphrase_dpo) echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_paraphrase --lora-scale 1" ;;
+    impulsiveness_paraphrase_sft) echo "--lora-adapter $RIG/loras/llama-introspection/impulsiveness_paraphrase --lora-scale 1" ;;
     impulsiveness_repro)     echo "--lora-adapter $RIG/loras_repro/llama-personas/impulsiveness --lora-scale 1" ;;
     impulsiveness_repro_dpo) echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1" ;;
     impulsiveness_repro_sft) echo "--lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 1" ;;
