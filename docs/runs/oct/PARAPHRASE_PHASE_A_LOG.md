@@ -85,7 +85,14 @@ near the training env, whose `deepspeed` and `flash_attn` are compiled against t
 
 `scripts/check_vllm_compat.py` checks, without loading a model, that every kwarg OCT passes to
 `LLM(...)` and `SamplingParams(...)` is still accepted — `task="generate"` especially, which
-newer vLLM replaced with `runner`/`convert`. **Run it before the introspection stage.**
+newer vLLM replaced with `runner`/`convert`.
+
+**Checked, and 0.11.0 is compatible as-is: no patch needed.** All 8 `SamplingParams` kwargs are
+accepted by name. 7 of the 12 `LLM(...)` kwargs are not named parameters but are forwarded via
+`**kwargs` into `EngineArgs`, where all 7 exist — and `task` is
+`Optional[Literal['auto','generate',...]]`, so `"generate"` is a valid value and not merely a
+surviving field name. `vllm.lora.request.LoRARequest` imports. Re-run the check after any vLLM
+change; the definitive test remains the stage itself.
 
 ## Finding 3 — `fold_loras.py` would have silently skipped both arms
 
@@ -118,6 +125,12 @@ mid-loop over arms.
 | `scripts/format_paraphrase_dpo.py` | scoped DPO formatter (§5.7), refuses the frozen names |
 | `scripts/check_vllm_compat.py` | pre-flight for the introspection stage |
 | `/workspace/oct_rig/run_paraphrase_arm.sh` | the six-stage Phase B chain, `--from` resumable |
+
+The runner follows the `newpod.sh` convention: the **volume copy is canonical** (that is
+what runs), with a tracked mirror at `scripts/run_paraphrase_arm.sh` so a rebuilt volume
+does not lose it. Edit either, then sync and check with
+`diff /workspace/oct_rig/run_paraphrase_arm.sh scripts/run_paraphrase_arm.sh`.
+
 
 ## Phase B, and the gate
 
