@@ -58,6 +58,58 @@ B1 +1.923 [+1.84, +2.00] (+1.92 [+1.84, +2.01]).
 more functional displacement and produces less effect). Adapter structure matches exactly. B1
 fails under all five estimators, highest upper CI bound 1.46 against a 1.5 band.
 
+### Paired test: the selectivity loss is target-side attenuation, not control elevation
+
+Per-trait compression-corrected offsets a_t, with **paired** question-bootstrap CIs on the
+difference (questions resampled once per draw and both arms evaluated on that draw, so
+question-level noise common to the arms cancels; n_boot=4000, seed 0, `scripts/paired_offset_diff.py`,
+reusing `caa_logits_analysis.fit_offset_slope`). Point estimates reproduce the cached marginals
+exactly. **All eight differences exclude zero.**
+
+| trait | repro-123456 | P0 | difference | paired 95% CI | |b|/|a| |
+|---|---|---|---|---|---|
+| **impulsivity** * | +2.838 | +1.839 | **-1.000** | [-1.057, -0.941] | 0.648 |
+| **risk_taking** * | +2.398 | +1.505 | **-0.893** | [-0.937, -0.851] | 0.628 |
+| confidence | +1.683 | +0.950 | -0.733 | [-0.788, -0.682] | 0.565 |
+| warmth | +0.796 | +0.374 | -0.422 | [-0.476, -0.368] | 0.470 |
+| assertiveness | +0.250 | -0.030 | -0.280 | [-0.343, -0.221] | 0.121 |
+| honesty | +0.759 | +0.566 | -0.193 | [-0.267, -0.127] | 0.746 |
+| deference | -0.213 | -0.079 | +0.134 | [+0.082, +0.186] | 0.371 |
+| empathy | +0.734 | +0.617 | -0.118 | [-0.172, -0.063] | 0.840 |
+
+| quantity | point | paired 95% CI |
+|---|---|---|
+| mean target change | **-0.946** | [-0.983, -0.910] |
+| mean control change | **-0.269** | [-0.293, -0.246] |
+| **B2 change (target - control)** | **-0.678** | [-0.721, -0.633] |
+
+**Every one of the eight traits moved TOWARD zero in magnitude** (`deference` is the only positive
+difference, and only because its offset is negative: -0.213 to -0.079). So B2 falls because the
+target traits lost 0.946 while the controls lost only 0.269 — the numerator attenuated ~3.5x more
+than the subtrahend.
+
+**P0's reduced behavioural selectivity is target-side attenuation, not control-trait elevation.**
+
+### The two modalities must be kept separate — they say different things
+
+These are two distinct quantities and only one of them is the preregistered primary. They are
+reported separately throughout and should not be merged into a single sentence:
+
+| | what it measures | P0 vs reference, controls |
+|---|---|---|
+| **Forced-choice logit offset a_t** (B1/B2, **preregistered primary**) | signed preference shift, compression-corrected | control offsets **fall** (-0.269 mean, CI excludes 0) |
+| **CAA common-shift `g/‖base‖`** (B3) | **unsigned** magnitude of the persona-common component of trait-vector displacement | control displacement **rises** +34% (0.654 to 0.877) |
+
+The control-trait *broadening* exists **only in the unsigned CAA activation displacement**. In the
+signed behavioural measure the controls attenuate along with the targets. There is no contradiction
+to resolve by picking one: `g_over_base` is a norm, so it is sign-blind and can grow while a signed
+offset moves toward zero, and it is the persona-**common** component, which need not track a
+forced-choice preference offset. Neither of those reconciliations has been tested here.
+
+Any one-sentence summary must name its modality. "The intervention became broader" is supported in
+activation space only; "the intervention became weaker, and most so on its targets" is what the
+preregistered logit primary says.
+
 **The two failing criteria live in different spaces and disagree in emphasis.** In logit space P0
 shrinks near-uniformly (target pair 0.639× repro, other six 0.598×) — *weaker*. In
 activation-space common shift the target is preserved (−6%) while non-target grows (+34%) —
