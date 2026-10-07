@@ -138,7 +138,14 @@ if [ "$DO_GPU" -eq 1 ]; then
     step "1. merge - skipped ($MERGED exists)"
   else
     step "1. merge  (CPU, ~7 min)"
-    python3 scripts/merge_lora.py --base "$BASE" --adapter "$ADAPTER_PATH" --out "$MERGED" \
+    # merge_lora.py needs peft, which is DELIBERATELY absent from the measurement env --
+    # installing it there can drag in a second torch (preflight.sh:62, NEXT_POD.md). The
+    # documented split is: merges under the training env, extraction under $PYLIBS. Run it in a
+    # subshell so the override cannot leak into stages 2-4, which must use $PYLIBS' torch.
+    PYLIBS_TRAIN="${PYLIBS_TRAIN:-/workspace/pylibs-train-py312}"
+    [ -d "$PYLIBS_TRAIN/peft" ] || fail "no peft in $PYLIBS_TRAIN -- cannot merge"
+    ( export PYTHONPATH="$PYLIBS_TRAIN"
+      python3 scripts/merge_lora.py --base "$BASE" --adapter "$ADAPTER_PATH" --out "$MERGED" ) \
         2>&1 | tee "$LOGDIR/${ADAPTER_NAME}_merge.log"
     # A silent no-op merge yields a "character-trained" model identical to baseline, and every
     # downstream comparison then reads as "character training does nothing". merge_lora.py

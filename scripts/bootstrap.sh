@@ -28,7 +28,10 @@ mkdir -p "$TMPDIR" "$PIP_CACHE_DIR"
 # python-version-scoped libs: 3.12 and 3.13 images must not share
 PY_TAG=$(python3 -c 'import sys; print(f"py{sys.version_info.major}{sys.version_info.minor}")')
 export PYLIBS=/workspace/pylibs-$PY_TAG
-export PYTHONPATH=$PYLIBS:$PYTHONPATH
+# ${VAR:-} so a caller running under `set -u` is not killed here: PYTHONPATH and PATH are
+# frequently unset in a fresh tmux/cron shell, and an unbound-variable abort at this line
+# looks like a failure in whatever script sourced us.
+export PYTHONPATH="$PYLIBS${PYTHONPATH:+:$PYTHONPATH}"
 export PATH=$PYLIBS/bin:$PATH
 
 if [ ! -d "$PYLIBS/huggingface_hub" ]; then
