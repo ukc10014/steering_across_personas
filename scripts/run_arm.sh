@@ -113,6 +113,13 @@ CURRENT_STAGE="bootstrap/preflight"
 step "0. environment"
 # shellcheck disable=SC1091
 source /workspace/bootstrap.sh
+# The repo itself must be importable. `python3 scripts/foo.py` puts scripts/ on sys.path, NOT
+# the repo root, so every stage below fails at `from persona_steering...`. This worked
+# historically only when a `pip install -e .` was live in the container's dist-packages -- which
+# is wiped on every new pod, so it is not a dependency worth having. Sibling runners already do
+# exactly this (run_caa_logits.sh:54, run_dose_ladder.sh:55); run_arm.sh was the one that did not.
+[ -d persona_steering ] || fail "run this from the repo root (no ./persona_steering here)"
+export PYTHONPATH="$PYLIBS:$PWD"
 export HF_HUB_OFFLINE=1
 if [ "$DO_GPU" -eq 1 ]; then
   # preflight restores assistant-axis-ref/ and repairs the stale system torchvision/torchaudio
