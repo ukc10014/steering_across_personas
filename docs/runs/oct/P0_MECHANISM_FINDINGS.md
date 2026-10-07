@@ -31,6 +31,11 @@ Three things are worth a paper's attention, in descending order of how solid the
    `D + 0.25S` state (B1 +0.499 against the merge's +1.923) is **under-dosed by design**, not
    evidence of an irreducible interaction — and the "cross terms" are a stage *reweighting*
    living almost entirely inside span{D, S}, not a new direction.
+   This is **causal, not observational**: reseeding one stage drives `cos(A_D, A_S)` to −0.0002,
+   and the same merge call then applies the nominal `(1.0004, 0.2502)` and pushes 82% of its
+   squared norm outside span{D, S}. An eight-adapter `A` matrix partitions exactly by training
+   seed and by nothing else. **Whether the merge applies the weights it names is decided by
+   whether the two stages happen to share a seed** — which upstream fixes at 123456 for both.
 2. **The merged phenotype is pair-dependent.** Pairing a DPO adapter with the *other* arm's SFT
    adapter gives a lower B1 than either matched pair (+0.712 against +1.923 and +1.281), and the
    effect of swapping one stage depends on which partner the other stage supplies, including a sign
@@ -211,13 +216,92 @@ Least-squares fit of the real merged weights to `c_D·dW_D + c_S·dW_S`, per mod
 - **Audit 2 rules out stage weighting as the P0 cause.** The fitted coefficients differ between
   repro and P0 by under 0.5% — 1.4651/0.7069 against 1.4704/0.7121. Whatever separates them, it
   is not that the two merges weight their stages differently.
-- The residual is small enough to test: arms `impulsiveness_repro_fit` and
-  `impulsiveness_regen_fit` (`run_caa_logits.sh`) apply the fitted coefficients additively.
-  **Not yet measured** — queued behind the propagation run. If they reproduce the merge's B1, the
-  merge is behaviourally an additive combination at a rescaled dose.
+- The residual is small enough to test, and the test has now run. `impulsiveness_repro_fit`
+  applies the fitted coefficients additively (`run_caa_logits.sh`):
 
-*Caveat.* The fit is a Frobenius-norm projection. A 19–20% residual in norm is not a guarantee of
-19–20% behavioural agreement, which is exactly why the surrogate arms exist.
+  | repro state | effective dose | B1 | B2 |
+  |---|---|---|---|
+  | `D + 0.25S`, nominal | (1.00, 0.25) | +0.499 | +0.617 |
+  | `_fit` surrogate | (1.465, 0.707) | **+1.444** | **+1.488** |
+  | real factor merge | — | +1.923 | +1.950 |
+
+  **Reweighting is the larger part of the story but not all of it.** Moving from the nominal
+  coefficients to the fitted ones raises B1 by +0.945, which is **66%** of the +1.424 gap between
+  the nominal additive state and the merge. The remaining **+0.479 is attributable to the residual**
+  — the part of the merged update outside span{D, S}. So the correct claim is that the merge is
+  *behaviourally dominated by* a stage reweighting, not that it *is* one. The under-dosing fully
+  accounts for the additive arm being weak; it does not fully account for the merge being strong.
+
+*Caveat.* The fit is a Frobenius-norm projection, and a 19–20% residual in norm was never a
+guarantee of 19–20% behavioural agreement — which is what the surrogate arm was for. The measured
+behavioural shortfall (34% of the gap) is larger than the norm residual would naively suggest.
+Both numbers are point estimates on one character; CIs for the surrogate arms are in
+`outputs/analysis/caa_logits.json`.
+
+### The shared-A collapse is causal, and a single stage's seed controls it
+
+`scripts/audit_A_factor_matrix.py`, `scripts/audit_factor_weighting.py --pairs prop`. CPU only.
+
+Audit 2 established the shared-A limit **observationally**: the released pair happens to have
+`cos(A_D, A_S) = +0.989`, and the merge's fitted coefficients happen to sit at the limit that
+implies. That leaves the direction of the argument open — one could read the high cosine as a
+consequence of training rather than a cause of the weighting.
+
+The propagation arm settles it, by accident of its design. That arm trains DPO at seed 987654 and
+leaves the introspection SFT at upstream's default. Upstream pins **both** stages to `--seed
+123456` (`finetuning/distillation/llama_local.sh:14`,
+`finetuning/introspection/llama_local.sh:15`), so the published pipeline's two stages draw the
+*same* LoRA initialisation. Reseeding one stage breaks that, and the merge changes character
+completely:
+
+| | released / P0 pair | propagation pair |
+|---|---|---|
+| `cos(A_D, A_S)` | **+0.989** | **−0.0002** |
+| fitted `(c_D, c_S)` | (1.465, 0.707) | **(1.0004, 0.2502)** |
+| residual outside span{D, S} | 0.20 | **0.82** |
+| ‖dW_merge‖ | 9.13 | 6.66 |
+
+The `A`-factor cosine matrix over eight adapters partitions **exactly by training seed, and by
+nothing else** — not by stage, not by role, not by which teacher corpus trained it:
+
+- seed 123456 block — `D_o, S_o, D_n, S_n, S_n2`, all mutually ≈ 0.99
+- seed 987654 block — `D_n2, D_s2, S_s2`, all mutually ≈ 0.99
+- across the two blocks — ≈ 0.000 (per-module mean −0.0002, range [−0.005, +0.006])
+
+`S_n2`, the propagation arm's own SFT adapter, lands in the **123456** block: that is the
+propagation SFT confirming it never saw 987654.
+
+So the controlling fact is simple and, as far as we can tell, undocumented upstream:
+
+> Whether `add_weighted_adapter(weights=[1.0, 0.25], combination_type="linear")` applies the
+> weights it names is determined by whether the two stages happen to share a training seed.
+> Sharing one, it delivers `1.5·D + 0.75·S`. Not sharing one, it delivers the nominal
+> `1.0·D + 0.25·S` — but routes **82% of the merged update's squared norm** into the cross terms
+> `B_D A_S` and `B_S A_D`, which now lie outside either stage's update.
+
+Both regimes have the same closed form. The in-span coefficients are always `c_D²·s_F/s_D` and
+`c_S²·s_F/s_S`; when `A_D = A_S` the cross terms collapse onto those same directions and *add*
+`c_D c_S` to each. With `c_D = √(w_D s_D) = 1.4142`, `c_S = √(w_S s_S) = 0.7071`, `s_F = 1`,
+`s_D = s_S = 2`: orthogonal `A` gives `(2.0/2, 0.5/2) = (1.0, 0.25)`; shared `A` gives
+`((2.0+1.0)/2, (0.5+1.0)/2) = (1.5, 0.75)`. Both match measurement to three decimals.
+
+This also explains why **seed2 passed its gate while this arm cannot be read the same way**.
+Seed2 changed `--seed` in *both* stages, so its `A` factors re-aligned at a different shared draw
+— `cos(A_{D_s2}, A_{S_s2}) = 0.9893`, identical to the released pair to four decimals. Seed2 was
+dose-matched to the published merge. The propagation arm is not.
+
+**Consequence for the propagation test, stated before its numbers are read.** The merged
+propagation arm is under-dosed relative to repro / P0 / seed2 *by construction*, and on the same
+adapters the additive `D + 0.25S` state scores B1 +0.499 against the merge's +1.923. A low B1 for
+the merged propagation arm is therefore predicted by its merge geometry alone and would say
+nothing about the regenerated teacher data. `scripts/run_prop_dosematch.sh` measures the
+propagation pair at the coefficients the published merge actually delivers, using the **same
+scalars** as `impulsiveness_repro_fit`, which makes those two a like-for-like dose-matched pair.
+That arm, not the merged one, is the interpretable propagation test.
+
+*Caveat.* This is a statement about the merge operator, established in weight space on one
+character and one base model. It predicts a dose deficit; whether the dose-matched arm recovers
+the phenotype is a separate measurement, reported below.
 
 ### Audit 1: the factor merge is coordinate-dependent
 
