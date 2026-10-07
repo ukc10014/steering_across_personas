@@ -16,8 +16,8 @@ Scope note: everything here is **one** regenerated realisation of **one** OCT ch
 A control arm that was supposed to be boring — same constitution text, regenerated teacher data —
 failed its preregistered bands. Chasing why produced a more interesting result than the
 experiment it was controlling for: **OCT's final adapter is dominated by a factor-space merge
-artifact, the two training stages are strongly co-adapted, and the stage that matters is not
-reproducible in weight-space direction across training seeds.** The paraphrase question is now
+artifact, the merged phenotype depends on which pair of stage adapters is combined, and global
+weight-space direction is not reproducible across training seeds.** The paraphrase question is now
 secondary.
 
 Three things are worth a paper's attention, in descending order of how solid they are:
@@ -25,9 +25,11 @@ Three things are worth a paper's attention, in descending order of how solid the
 1. **The phenotype lives mostly in the peft merge cross terms, not in the intended update.**
    `D + 0.25S` applied additively gives B1 = +0.499; the factor-merge of the same two adapters
    gives **+1.923**. The "intended" update accounts for about a quarter of the effect.
-2. **The two stages are co-adapted.** Pairing a DPO adapter with the *other* arm's SFT adapter is
-   worse than either matched pair (B1 = +0.712 against +1.923 and +1.281). Stage-level effects do
-   not survive conditioning on the other stage: the interaction term is +1.027, with a sign flip.
+2. **The merged phenotype is pair-dependent.** Pairing a DPO adapter with the *other* arm's SFT
+   adapter gives a lower B1 than either matched pair (+0.712 against +1.923 and +1.281), and the
+   effect of swapping one stage depends on which partner the other stage supplies, including a sign
+   flip (interaction +1.027). This is a property of the crossed *constructions*; co-adaptation
+   during training is one candidate explanation among several and is **not** established here.
 3. **Global weight-update cosine carries almost no behavioural signal across seeds.** Same
    dataset, different training seed → **cos = 0.035** between DPO updates at the same norm. And
    the crossed state sharing nearly the same global direction as the reference (cos 0.887) is the
@@ -74,7 +76,8 @@ structural, not a property of a matched pair. Behaviourally:
 | D_n,S_o | +0.270 | +0.712 | +0.442 |
 | D_o,S_n | +0.397 | +1.465 | +1.068 |
 
-**The stages are co-adapted, and neither has a stage-level effect.** B1, both constructions:
+**Neither stage has an effect that is independent of its partner.** B1, both constructions
+(crossed cells are diagnostic constructions -- see the caveat below):
 
 | F (factor-merged) | S_o | S_n | | A (additive) | S_o | S_n |
 |---|---|---|---|---|---|---|
@@ -135,7 +138,7 @@ replicate cells are for.
 
 | question | cell | status |
 |---|---|---|
-### Measured: teacher sampling, not DPO optimisation, drives the DPO-stage shift
+### Measured: at the DPO endpoint, the data-realisation term exceeds the seed term
 
 The `𝒟_a, s_b` cell is in. DPO stage, B2 with bootstrap CI, 2x2 over data x seed:
 
@@ -151,8 +154,13 @@ The `𝒟_a, s_b` cell is in. DPO stage, B2 with bootstrap CI, 2x2 over data x s
 | seed (123456 to 987654) on released data | +0.114 | disjoint |
 | seed (123456 to 987654) on P0 data | -0.046 | marginally overlap |
 
-**The data effect is 2-8x the seed effect and has the same sign at both seeds.** The regenerated
-teacher data systematically produces a weaker DPO stage; this is not seed luck. The seed is *not*
+**The data term is 2-8x the seed term and has the same sign at both seeds.** Stated precisely:
+**teacher-data realisation *and protocol* differences dominate DPO optimisation-seed differences at
+the DPO endpoint.** This is NOT "teacher sampling dominates" -- released and P0 data differ in more
+than the sampling draw. They also differ in prefill (`--prefill-mode none` against a prefilling
+`teacher.py`), serving stack (Novita bf16), `repetition_penalty 1.1` being unreproducible, and the
+§3.1 filter/repair pass. Sampling is one candidate within that bundle and is not isolated by this
+2x2. The seed is *not*
 inert either -- on released data it moves B2 by +0.114 with disjoint CIs -- so "DPO optimisation is
 stable" would be too strong. It is simply the smaller term here.
 
@@ -188,7 +196,8 @@ seed effect, that is not a property of seed changes in general.
 **Caveat that must travel with the crossed numbers.** The crossed states are diagnostic
 constructions, not training trajectories: each SFT adapter was fitted on top of its own folded DPO
 model, so a crossed pair couples it to a DPO state it never saw. They are the right tool for
-exposing co-adaptation and must not be described as models OCT training could produce. Each
+exposing pair-dependence and must not be described as models OCT training could produce, nor as
+proof of co-adaptation. Each
 carries a `CROSSED_PROVENANCE.json` saying so, because on disk a crossed adapter is
 indistinguishable from a trained one.
 
@@ -200,9 +209,10 @@ The strongest paper-ready claim is **not** "regeneration is unreliable" — that
 cells. It is the structural one, which is already fully measured:
 
 > The released OCT persona adapters are produced by a factor-space LoRA merge whose cross terms
-> carry the majority of both the weight norm (61–62%) and the behavioural effect (~74% of B1).
-> The two training stages are strongly co-adapted: crossing them across otherwise matched runs
-> degrades the phenotype below either matched pair. And because LoRA's random initialisation makes
+> carry 61–62% of the weight norm, and the additive `D + 0.25S` construction does not reproduce
+> the phenotype (B1 +0.499 against the factor-merge's +1.923). The merged phenotype is
+> pair-dependent: crossing the stage adapters across otherwise matched runs gives a lower B1 than
+> either matched pair. And because LoRA's random initialisation makes
 > the update direction seed-dependent, global weight-space similarity between adapters is
 > near-uninformative about behavioural similarity — in our crossed states the two are inverted.
 

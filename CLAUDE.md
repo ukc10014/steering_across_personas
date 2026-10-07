@@ -32,10 +32,11 @@ reproduction's, but every state containing the regenerated DPO adapter is lower.
 Chasing that failure produced a bigger result than the experiment it was controlling for —
 see **[docs/runs/oct/P0_MECHANISM_FINDINGS.md](docs/runs/oct/P0_MECHANISM_FINDINGS.md)**, the
 findings summary organised for writing (claims ranked by evidential strength). Headline: the
-peft factor-merge cross terms carry ~61–62% of the weight norm and ~74% of the behavioural
-effect; the DPO and SFT stages are strongly co-adapted (crossing them is worse than either
-matched pair); and global weight-space cosine is near-uninformative about behaviour across
-training seeds (same data + new seed → cos 0.035).
+peft factor-merge cross terms carry 61–62% of the weight norm and the additive `D + 0.25S`
+construction does not reproduce the phenotype (B1 +0.499 vs the merge's +1.923); the merged
+phenotype is pair-dependent (crossing the stage adapters is worse than either matched pair); and
+global weight-space cosine is near-uninformative about behaviour across training seeds (same data
++ new seed → cos 0.035).
 
 ## Docs & data (read these first)
 - **Docs live in `docs/`**: [docs/overview.md](docs/overview.md) (research question, method, findings), [docs/experiments.md](docs/experiments.md) (E-series runbook), [docs/causal_pipeline.md](docs/causal_pipeline.md), [docs/results/](docs/results/). Historical artifacts in `docs/archive/`.
