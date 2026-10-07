@@ -146,6 +146,38 @@ bash /workspace/oct_rig/run_arm.sh impulsiveness_regen  # evaluation -> the gate
 ```
 
 Measured on this card for the existing arms: DPO 38 min, fold 2.5 min, SFT 39 min, merge
-1.5 min. **Introspection generation (~3.5 h) is still an estimate and has never been measured
-here** — the runner times each of its three sub-stages separately and prints a total. Record
-that number before committing to Phase D.
+1.5 min.
+
+## Measured: introspection generation is 100 min, not ~3.5 h
+
+The schedule's dominant unknown is now a number. P0's introspection generation, timed per
+sub-stage by the runner on one RTX PRO 6000:
+
+| sub-stage | command | wall-clock | rows |
+|---|---|---|---|
+| self-reflection | `self_reflection --N 1000` | 28 min | 10,000 |
+| self-interaction | `self_interaction --N 1000 --K 10` | 36 min | 1,000 |
+| self-interaction, leading | `… --K 10 --leading` | 35 min | 1,000 |
+| **total** | | **100 min** | 12,000 |
+
+Row counts are exactly as specified (10,000 reflections, 2 × 1,000 ten-turn interactions). The
+estimate was **2.1× too pessimistic**, so the per-arm budget drops from ~5 GPU-h to ~3.3 GPU-h
+and both arms fit in ~6.5 GPU-h rather than ~10–11. vLLM 0.11.0 served the DPO LoRA through
+`PunicaWrapperGPU` with no patch, as `check_vllm_compat.py` predicted.
+
+Measured per-arm schedule, for Phase D: DPO 38 + introspection 100 + fold 2.5 + corpus <1 +
+SFT 39 + merge 1.5 ≈ **3 h 2 min**, plus ~21 min GPU and ~90 min CPU to evaluate.
+
+Two stage-2 failures cost ~10 min of GPU idle between them and are worth naming, because both
+were invisible until the stage actually ran. `oct_provenance.py --stage` accepted only the four
+stages the earlier arms had, so the first `introspect_reflection` call aborted the chain under
+`set -e`; and the vLLM env was missing `pandas` and `peft` — neither a vLLM dependency, but the
+introspection scripts import pandas directly and `character/utils.py` imports `PeftModel` at
+module level. `check_vllm_compat.py` passed on both occasions because it checks vLLM's *API
+surface*, not the surrounding import chain. The lesson is cheap: a compat check that does not
+execute the real import path is necessary and not sufficient.
+
+Harmless, and recorded so it is not re-diagnosed: DPO ends with
+`IndexError: list index out of range` in `DeepSpeedEngine.__del__` →
+`bf16_optimizer.destroy`, at interpreter shutdown *after* the adapter is written. It is an
+`Exception ignored in:` traceback, not a failure.
