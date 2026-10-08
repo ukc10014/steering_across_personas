@@ -1,0 +1,20 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+model & $B_1$ & $B_2$ & activation sel. $B_3$ & functional dose $A_4$ \\
+\midrule
+\emph{band} & $\geq +1.5$ & $\geq +1.4$ & $\geq 1.4$ & $[0.7, 1.4]$ \\
+\midrule
+released OCT & $+2.184$ & $+2.077$ & $1.722$ & $1.000$ \\
+ & {\scriptsize $[+2.082, +2.270]$} & {\scriptsize $[+2.008, +2.139]$} & {\scriptsize $[1.431, 2.012]$} & {\scriptsize 1.000 ans.-tok.} \\
+fixed-data reproduction & $+1.923$ & $+1.950$ & $1.556$ & $0.960$ \\
+ & {\scriptsize $[+1.839, +1.996]$} & {\scriptsize $[+1.891, +2.002]$} & {\scriptsize $[1.286, 1.827]$} & {\scriptsize 0.946 ans.-tok.} \\
+P0 end-to-end regeneration & $+1.281$ & $+1.272$ & $1.208$ & $1.171$ \\
+ & {\scriptsize $[+1.214, +1.353]$} & {\scriptsize $[+1.230, +1.321]$} & {\scriptsize $[1.020, 1.396]$} & {\scriptsize 1.132 ans.-tok.} \\
+\bottomrule
+\end{tabular}
+\caption{Preregistered criteria for the released checkpoint, a reproduction that holds the upstream teacher data fixed, and a fresh end-to-end regeneration (P0). The reproduction clears every band; P0 fails $B_1$, $B_2$ and $B_3$ while passing the dose check, so the failure is not a dose deficit. Intervals are paired-question bootstrap.}
+\label{tab:paraphrase-headline}
+\end{table}
