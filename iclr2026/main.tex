@@ -567,8 +567,46 @@ a_{\mathrm{risk\text{-}taking}}
 a_t.
 \]
 
+The above measures $B_1$/$B_2$ are signed logit-based contrasts, while $B_3$ (below) is an unsigned activation displacement selectivity ratio (like the CAA-based measures above) that looks at how much more the two target traits (impulsivity, risk-taking) move when compared to the six non-targeted traits.
+
+\[
+g_t
+=
+\frac{\lVert dG_t\rVert}
+{\frac{1}{P}\sum_{p=1}^{P}
+\lVert V^{\mathrm{base}}_{t,p}\rVert},
+\qquad
+dG_t
+=
+\frac{1}{P}\sum_{p=1}^{P}
+\left(
+V^{\mathrm{adapted}}_{t,p}
+-
+V^{\mathrm{base}}_{t,p}
+\right).
+\]
+
+\[
+B_3
+=
+\frac{
+\frac{1}{2}
+\left(
+g_{\mathrm{impulsivity}}
++
+g_{\mathrm{risk}}
+\right)
+}{
+\frac{1}{6}
+\sum_{t\notin
+\{\mathrm{impulsivity},\mathrm{risk}\}}
+g_t
+}.
+\]
+
 
 \subsection{$P0$ reproduction failure}
+Table~\ref{tab:paraphrase-headline} and Fig.~\ref{fig:paraph-profile} below show that the end-to-end regeneration, which we call $P0$ (distinct from the paraphrase experiment, $P1$), substantially fails to reproduce the released OCT adapter's behavior, whether on logit-based ($B_1$/$B_2$) or on activation-based ($B_3$) measures. And this failure is not a function of dose: $P0$ actually shows higher displacement $A_4$. The figure shows that all traits move towards zero under $P0$ but the targeted traits, impulsiveness and risk-taking, as \ref{fig:paraph-profile} shows, attenuate far more.
 
 \input{tables/tableA_paraphrase_headline.tex}
 
