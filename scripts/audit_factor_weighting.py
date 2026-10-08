@@ -54,6 +54,13 @@ PAIRS = {
     "p0":    (RIG / "loras/llama-distillation/impulsiveness_regen",
               RIG / "loras/llama-introspection/impulsiveness_regen",
               RIG / "loras/llama-personas/impulsiveness_regen"),
+    # P1, the exploratory paraphrase arm. Its DPO uses P0's seed (123456) and its SFT uses
+    # upstream's (123456), so it should sit at the SAME shared-A limit as P0 and repro. This row
+    # is the diagnostic that would catch an accidental change of merge regime, of the kind the
+    # propagation arm suffered when only its DPO stage was reseeded.
+    "p1":    (RIG / "loras/llama-distillation/impulsiveness_paraphrase",
+              RIG / "loras/llama-introspection/impulsiveness_paraphrase",
+              RIG / "loras/llama-personas/impulsiveness_paraphrase"),
     "crossed_Dn_So": (RIG / "loras/llama-distillation/impulsiveness_regen",
                       RIG / "loras_repro/llama-introspection/impulsiveness",
                       RIG / "loras_crossed/llama-personas/crossed_Dn_So"),

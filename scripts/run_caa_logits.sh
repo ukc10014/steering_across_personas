@@ -106,6 +106,14 @@ adapter_of() {
     impulsiveness_paraphrase)     echo "--lora-adapter $RIG/loras/llama-personas/impulsiveness_paraphrase --lora-scale 1" ;;
     impulsiveness_paraphrase_dpo) echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_paraphrase --lora-scale 1" ;;
     impulsiveness_paraphrase_sft) echo "--lora-adapter $RIG/loras/llama-introspection/impulsiveness_paraphrase --lora-scale 1" ;;
+    # P1 composites, mirroring the P0 pair above exactly so the stage analysis is like-for-like.
+    # Added 2026-10-08 under docs/runs/oct/AMENDMENT_P1_exploratory.md: these register the SAME
+    # two states P0 already had, with the same scales. No estimator, threshold or endpoint is
+    # changed -- only P1's stage states are given the names the automated analysis already reads.
+    impulsiveness_paraphrase_DplusS)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_paraphrase --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_paraphrase --lora-scale 1" ;;
+    impulsiveness_paraphrase_Dplus025S)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_paraphrase --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_paraphrase --lora-scale 0.25" ;;
     impulsiveness_repro)     echo "--lora-adapter $RIG/loras_repro/llama-personas/impulsiveness --lora-scale 1" ;;
     impulsiveness_repro_dpo) echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1" ;;
     impulsiveness_repro_sft) echo "--lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 1" ;;

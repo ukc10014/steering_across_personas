@@ -44,6 +44,11 @@ def main() -> None:
                          "marginal, so extra draws are cheap and steady the tails")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--out", default="outputs/analysis/paired_offset_diff.json")
+    # The target set for the aggregate contrast. The default is the preregistered B2 pair, so
+    # omitting this flag reproduces earlier runs bit-for-bit. Passing a single trait
+    # (--targets impulsivity) gives B1's paired CI, which is the same estimator on a different
+    # partition of the same eight traits -- not a new estimator.
+    ap.add_argument("--targets", nargs="+", default=list(TARGETS))
     a = ap.parse_args()
 
     cells = C.load_variant(a.variant)
@@ -95,14 +100,15 @@ def main() -> None:
                       "n_personas": len(personas), "n_questions": int(nq),
                       "excludes_zero": bool(lo > 0 or hi < 0)}
 
-    tg = [t for t in TARGETS if t in res]
-    ot = sorted(t for t in res if t not in TARGETS)
+    targets = tuple(a.targets)
+    tg = [t for t in targets if t in res]
+    ot = sorted(t for t in res if t not in targets)
     print(f"{'trait':15s}{'arm_a':>10s}{'arm_b':>10s}{'diff':>9s}{'paired 95% CI':>22s}  excl.0")
     print("-" * 72)
     for t in tg + ot:
         r = res[t]
         ci = f"[{r['ci_lo']:+.3f}, {r['ci_hi']:+.3f}]"
-        print(f"{t + (' *' if t in TARGETS else '  '):15s}{r['a']:+10.3f}{r['b']:+10.3f}"
+        print(f"{t + (' *' if t in targets else '  '):15s}{r['a']:+10.3f}{r['b']:+10.3f}"
               f"{r['diff']:+9.3f}{ci:>22s}  {'yes' if r['excludes_zero'] else 'NO'}")
 
     summary: dict[str, dict] = {}
@@ -112,9 +118,11 @@ def main() -> None:
         d_o = np.vstack([boot_by_trait[t] for t in ot]).mean(axis=0)
         pt_t = float(np.mean([res[t]["diff"] for t in tg]))
         pt_o = float(np.mean([res[t]["diff"] for t in ot]))
+        crit = {("impulsivity",): "B1", ("impulsivity", "risk_taking"): "B2"}.get(
+            tuple(tg), "contrast")
         for name, dist, point in (("mean target change", d_t, pt_t),
                                   ("mean control change", d_o, pt_o),
-                                  ("B2 change (target - control)", d_t - d_o, pt_t - pt_o)):
+                                  (f"{crit} change (target - control)", d_t - d_o, pt_t - pt_o)):
             lo, hi = np.percentile(dist, [2.5, 97.5])
             summary[name] = {"point": point, "ci_lo": float(lo), "ci_hi": float(hi),
                              "excludes_zero": bool(lo > 0 or hi < 0)}
@@ -130,6 +138,7 @@ def main() -> None:
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps({"arm_a": a.a, "arm_b": a.b, "variant": a.variant,
                              "n_boot": a.n_boot, "seed": a.seed, "paired": True,
+                             "targets": list(tg), "controls": list(ot),
                              "per_trait": res, "summary": summary}, indent=2))
     print(f"\nwrote {p}")
 

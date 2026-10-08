@@ -47,6 +47,10 @@ ADAPTERS = {
     "S_n2": (RIG / "loras/llama-introspection/impulsiveness_regen_s987654", "sft", "prop",    None),
     # seed2 changed --seed in BOTH stages, so its A factors should re-align at a different shared
     # draw: within-pair cos ~1, but cross-pair cos ~0 against the 123456 adapters.
+    # P1 (exploratory paraphrase arm): both stages at 123456, so both should land in the
+    # 123456 block alongside the released/P0 adapters.
+    "D_p1": (RIG / "loras/llama-distillation/impulsiveness_paraphrase",      "dpo", "P1",     123456),
+    "S_p1": (RIG / "loras/llama-introspection/impulsiveness_paraphrase",     "sft", "P1",     123456),
     "D_s2": (RIG / "loras_seed2/llama-distillation/impulsiveness",           "dpo", "seed2",   987654),
     "S_s2": (RIG / "loras_seed2/llama-introspection/impulsiveness",          "sft", "seed2",   987654),
 }
