@@ -1,0 +1,16 @@
+\begin{table}[t]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+state & reproduction $B_1$ & P0 $B_1$ & P0 $-$ reproduction \\
+\midrule
+DPO only, $M_D$ & $+0.132$ & $-0.075$ & $-0.208$ \\
+SFT component off base & $+1.859$ & $+1.823$ & $-0.036$ \\
+native $D+S$ & $+2.190$ & $+1.898$ & $-0.292$ \\
+final PEFT merge, $M_F$ & $+1.923$ & $+1.281$ & $-0.642$ \\
+\bottomrule
+\end{tabular}
+\caption{Where the discrepancy enters. $B_1$ at four points along the pipeline for the fixed-data reproduction and for the end-to-end regeneration P0. The regenerated DPO adapter is weaker on the registered phenotype; the introspection/SFT channel is essentially intact ($-0.036$); some discrepancy is present in the native $D+S$ trajectory; and the released-style factor merge widens the gap furthest. Changing the teacher dataset had a far larger DPO-stage effect than changing the DPO training seed, so this is a teacher-data/protocol difference rather than teacher sampling alone---P0 also lacks the original assistant prefill.}
+\label{tab:paraphrase-stage}
+\end{table}

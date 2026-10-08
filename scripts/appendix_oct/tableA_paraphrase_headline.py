@@ -139,14 +139,16 @@ def main() -> None:
          r"\midrule",
          r"\emph{band} & " + " & ".join(BANDS[k] for k in ("B1", "B2", "B3", "A4")) + r" \\",
          r"\midrule"]
-    for r in rows:
+    for i, r in enumerate(rows):
         tv, at = r["A4"]
+        if i:
+            T.append(r"\addlinespace")
         T.append(f"{r['label']} & ${r['B1'][0]:+.3f}$ & ${r['B2'][0]:+.3f}$ & "
                  f"${r['B3'][0]:.3f}$ & ${tv:.3f}$ \\\\")
         T.append(f" & {{\\scriptsize $[{r['B1'][1]:+.3f}, {r['B1'][2]:+.3f}]$}} & "
                  f"{{\\scriptsize $[{r['B2'][1]:+.3f}, {r['B2'][2]:+.3f}]$}} & "
                  f"{{\\scriptsize $[{r['B3'][1]:.3f}, {r['B3'][2]:.3f}]$}} & "
-                 f"{{\\scriptsize {at:.3f} ans.-tok.}} \\\\")
+                 f"{{\\scriptsize ${at:.3f}$ ans.-tok.}} \\\\")
     T += [r"\bottomrule", r"\end{tabular}",
           r"\caption{Preregistered criteria for the released checkpoint, a reproduction that "
           r"holds the upstream teacher data fixed, and a fresh end-to-end regeneration (P0). "
@@ -157,6 +159,25 @@ def main() -> None:
     TEX.mkdir(parents=True, exist_ok=True)
     (TEX / "tableA_paraphrase_headline.tex").write_text("\n".join(T) + "\n")
     print(f"\nwrote {TEX}/tableA_paraphrase_headline.tex")
+
+    S = [r"\begin{table}[t]", r"\centering", r"\small",
+         r"\begin{tabular}{lccc}", r"\toprule",
+         r"state & reproduction $B_1$ & P0 $B_1$ & P0 $-$ reproduction \\",
+         r"\midrule"]
+    for lbl, r1, p1 in stage_vals:
+        S.append(f"{lbl} & ${r1:+.3f}$ & ${p1:+.3f}$ & ${p1 - r1:+.3f}$ \\\\")
+    S += [r"\bottomrule", r"\end{tabular}",
+          r"\caption{Where the discrepancy enters. $B_1$ at four points along the pipeline for "
+          r"the fixed-data reproduction and for the end-to-end regeneration P0. The regenerated "
+          r"DPO adapter is weaker on the registered phenotype; the introspection/SFT channel is "
+          r"essentially intact ($-0.036$); some discrepancy is present in the native $D+S$ "
+          r"trajectory; and the released-style factor merge widens the gap furthest. Changing the "
+          r"teacher dataset had a far larger DPO-stage effect than changing the DPO training "
+          r"seed, so this is a teacher-data/protocol difference rather than teacher sampling "
+          r"alone---P0 also lacks the original assistant prefill.}",
+          r"\label{tab:paraphrase-stage}", r"\end{table}"]
+    (TEX / "tableA_paraphrase_stage.tex").write_text("\n".join(S) + "\n")
+    print(f"wrote {TEX}/tableA_paraphrase_stage.tex")
 
 
 if __name__ == "__main__":
