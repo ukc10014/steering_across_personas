@@ -16,13 +16,13 @@
       "answer_token_common": 0.47664204239845276,
       "answer_token_varying": 0.4588586688041687
     },
-    "impulsiveness_regen_s987654": {
-      "trait_vector_displacement": 0.6959188580513,
-      "trait_vector_displacement_sd": 0.07077555358409882,
-      "answer_token_displacement": 0.4562111794948578,
-      "answer_token_displacement_sd": 0.03234609588980675,
-      "answer_token_common": 0.33274489641189575,
-      "answer_token_varying": 0.313459575176239
+    "impulsiveness_paraphrase": {
+      "trait_vector_displacement": 0.7652631402015686,
+      "trait_vector_displacement_sd": 0.11448681354522705,
+      "answer_token_displacement": 0.5372187495231628,
+      "answer_token_displacement_sd": 0.03761548548936844,
+      "answer_token_common": 0.4069899618625641,
+      "answer_token_varying": 0.3527260720729828
     }
   },
   "20": {

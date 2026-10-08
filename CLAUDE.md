@@ -40,6 +40,19 @@ from +0.989 to −0.0002 and its merge applied the nominal `(1.0004, 0.2502)` in
 a double dissociation confirmed behaviourally. Its §4.1 numbers are therefore **not** a gate
 verdict, and P1 remains untrained.
 
+**P1 has now run as a single exploratory comparison** under
+[docs/runs/oct/AMENDMENT_P1_exploratory.md](docs/runs/oct/AMENDMENT_P1_exploratory.md), committed
+before training: it is **not** a confirmatory replication and is **not** scored against P0's gate.
+Result in [docs/runs/oct/P1_EXPLORATORY_REPORT.md](docs/runs/oct/P1_EXPLORATORY_REPORT.md).
+**P1 − P0 = +0.092 B1 [+0.038, +0.144]** and +0.096 B2, paired with shared draws — small but
+resolvable — while P1 remains −0.550 below the fixed-data reproduction. Against the
+P0-minus-reproduction gap of −0.642, the paraphrase effect is about a seventh the size and in the
+opposite direction, so **constitution wording is not what P0's failure is about**. The merge regime
+was verified unchanged (`cos(A_D, A_S)` +0.9890), so the comparison is not confounded the way the
+propagation arm was. Two riders: the off-target profile churns far more than the targets (honesty
++0.632), and P0's activation-space broadening does **not** reproduce in P1. Experimentation is
+**stopped** pending review.
+
 Chasing that failure produced a bigger result than the experiment it was controlling for —
 see **[docs/runs/oct/P0_MECHANISM_FINDINGS.md](docs/runs/oct/P0_MECHANISM_FINDINGS.md)**, the
 findings summary organised for writing (claims ranked by evidential strength). Headline: **OCT's
