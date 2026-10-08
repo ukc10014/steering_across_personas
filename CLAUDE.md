@@ -38,7 +38,7 @@ and at matched dose it **partially propagates** (+1.060 against repro +1.463 and
 arm also made the merge finding causal: it reseeded only its DPO stage, so `cos(A_D, A_S)` fell
 from +0.989 to −0.0002 and its merge applied the nominal `(1.0004, 0.2502)` instead of 1.47/0.71 —
 a double dissociation confirmed behaviourally. Its §4.1 numbers are therefore **not** a gate
-verdict, and P1 remains untrained.
+verdict.
 
 **P1 has now run as a single exploratory comparison** under
 [docs/runs/oct/AMENDMENT_P1_exploratory.md](docs/runs/oct/AMENDMENT_P1_exploratory.md), committed
