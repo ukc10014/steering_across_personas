@@ -26,6 +26,7 @@
   script \provlink{#2}; plotted values \provlink{#3}.}}
 \newcommand{\provns}[2]{\\[2pt]{\footnotesize\emph{Provenance:} figure \provlink{#1};
   script \provlink{#2}. Schematic --- no source data.}}
+\newcommand{\provone}[1]{\provlink{#1}}
 
 \setlist[itemize]{leftmargin=*,nosep}
 
@@ -613,16 +614,19 @@ Table~\ref{tab:paraphrase-headline} and Fig.~\ref{fig:paraph-profile} below show
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.72\linewidth]{figA_paraphrase_trait_profile.pdf}
-    \caption{TODO}
+    \caption{Attenuation of traits impulsivity/risk-taking between $P0$ and the released OCT or reproduction (with existing SFT data) is much higher than for other six traits.}
     \label{fig:paraph-profile}
 \end{figure}
 
 
 \subsection{Localizing the discrepancy}
+In Table~\ref{tab:paraphrase-stage} we narrow down where the change in $B_1$ (between $P0$ vs reproduction/published OCT) occurs. The first three 3 rows cover training stages: the model that has only undergone DPO; an unadapted model that has undergone SFT (using a DPO-generated introspection corpus); in the third row, we show the effect of stacked LoRAs (for DPO and SFT stages). In the final 2 rows, we focus on the LoRA merger, contrasting an additive merger (at 0.25 SFT weighting as per the OCT recipe) with the published PEFT merger's outcome. The takeaway is that discrepancies show up as early as the DPO stage, but the published PEFT shows a substantial incremental discrepancy over the additive merger (-0.15 to -0.642).
+
+
 
 \input{tables/tableA_paraphrase_stage.tex}
 
-\subsection{Explaining the finding}
+\subsection{Explaining the P0 discrepancy}
 
 We did not do a comprehensive forensic audit of the OCT pipeline, but suggest several possible sources for the discrepancy. Firstly, above in App.\ref{app:impulsive-repro} we show that LoRAs generated using OCT's published data for the introspection corpus didn't fully replicate the effect of the merged OCT adapter.
 
@@ -694,10 +698,30 @@ Reseeded propagation & $\approx 0$ & $+0.246$ & $+0.291$ & $+0.045$ \\
 \end{tabular}
 \end{table}
 
+\subsection{Paraphrase result}
+
+Given the reproduction discrepancy above, we treat the impulsiveness paraphrase as an exploratory investigation, provided for completeness. We lightly paraphrased the impulsiveness constitution, and then follow the published OCT recipe (albeit with the quirks of our reproduction): training data generation for DPO using GLM-4.5-air on OpenRouter; introspection corpus creation; SFT of the DPO'd model on the corpus; and PEFT merger of the resulting LoRAs. We measured the $B1$, $B2$ changes between the P1 (paraphrase) and the P0 (failed reproduction) as +0.092 and +0.096 respectively (CIs of [+0.038, +0.144], [+0.058, +0.132]). These gaps are much lower, and opposite in sign, than the reproduction gap calculated above (between P0 and the fixed data reproduction). 
+
+The relatively small movement in overall trait contrast ($B1$, $B2$) does not mean that the trait profile was stable. The P1-P0 gap was significant for off-target traits: honesty +0.632, confidence -0.312, deference -0.268, assertiveness +0.272 versus the changes for impulsivity (+0.123) or risk-taking (+0.105).
+
+This was a single exploratory comparison, but it suggests a possible takeaway with both measurement and semantic aspects: a light paraphrase can present an apparently stable overall contrast ($B1$, $B2$) while substantially reorganizing the detailed pattern of traits. The original and paraphrased characters are diff'd here: \provone{oct_variants/impulsiveness_paraphrase/traits.diff}.
+
+
 \section{Emergence of trait-specificity in OCT training}
 \label{sec:oct-stage}
 
-Below are details on our investigation into OCT training stages to understand when trait-specific responses emerge. 
+We investigated where in OCT training the impulsiveness character phenotype ($B1$ and activation-space trait selectivity) emerges. Note, this is distinct from the analysis in \ref{app:impulsive-paraphrase} which was about localizing the discrepancy in reproductions. 
+
+Fig.~\ref{fig:oct-sft-curve}A shows, over 18 checkpoints on three epochs of introspection SFT, that 82\% of the $B1$ impulsivness signature's final value emerges before 0.48 epoch with flattening after 0.68 epochs, under both an additive and PEFT-merged setup. The saturation trajectory is not just an artifact of functional dose (the amount of displacement in activations that training, in this case, SFT is forcing in the model, see App.~\ref{app:global-reshaping} for details of calculation) as Panel B shows. 
+
+The relative impact of SFT can be looked at another way: what scaling $s$ of a DPO-only adapter would we need to achieve the same effect as we get on the DPO+SFT setups at a given checkpoint? Panel D shows this as the ratio of $B_1$ by the $B_1$ produced by a DPO-only adapter scaled to the same measured functional dose ($5$--$8\times$). Values above one mean that the SFT-trained state produces more of the target phenotype than can be explained by perturbing the model with the DPO adapter by the same amount.
+
+Finally, panel C shows activation-space selectivity also emerges early in the trajectory. We do not interpret local peaks and troughs between checkpoints as they weren't stable under denser sampling. 
+
+The takeaway is, for this constitution (and a single seed/measurement layer), the distinctive behavioural phenotype expressed mostly through learning upon the introspection corpus, rather than by the DPO weight update alone (note the introspection corpus itself was generated by the DPO-adapted model and the two training stages are additive in weights).
+
+
+
 
 \begin{figure}[!ht]
     \centering
@@ -707,67 +731,8 @@ Below are details on our investigation into OCT training stages to understand wh
 \end{figure}
 
 
-
-
-
-% \begin{figure}[!ht]
-%     \centering
-%     \includegraphics[width=0.75\linewidth]{figA_oct_matched_dose.pdf}
-%     \caption{Stage comparisons at matched measured functional dose. \textbf{A,B} $M_D$ versus $M_S$; \textbf{C,D} $M_{D+0.25S}$ versus $M_F$, which differ only by peft's factor-space cross terms. Shading marks each pair's overlapping measured support, the only region in which the comparison is made; points outside it are drawn faint. Rings mark the trained $s{=}1$ state of each construction. Panel D reports selectivity rather than cosine because $M_F$'s trained state is itself the reference direction, so its cosine is pinned at $1.000$ by construction.\prov{workshop_iclr/figures/figA_oct_matched_dose.pdf}{scripts/appendix_oct/figA_oct_matched_dose.py}{workshop_iclr/data/figA_oct_matched_dose.csv}}
-%     \label{fig:oct-matched-dose}
-% \end{figure}
-
-
-\paragraph{At matched functional dose, both stage differences survive.}
-\begin{itemize}
-    \item Each pair is compared only inside the range of measured dose where \emph{both} members were actually measured; nothing is extrapolated, and interpolation is restricted to each state's monotone prefix.
-    \item $M_S$ against $M_D$: at matched dose $M_S$ exceeds $M_D$ on the registered endpoint by $8$--$13\times$ ($+2.12$ vs $+0.16$ at dose $0.586$, rising to $+3.11$ vs $+0.37$ at dose $0.817$), and is markedly more selective ($1.59$--$1.76$ against $1.11$--$1.16$).
-    \item Reading: at comparable functional displacement, the DPO-generated introspection corpus learned through SFT is a far more potent carrier of the phenotype than the DPO weight update itself.
-    \item What that does \emph{not} say: DPO is not shown to be unnecessary. DPO generated the corpus $M_S$ trains on, so removing DPO from the weights does not remove it from the causal history.
-    \item Caveat bounding how strongly pair 1 can be phrased: reaching the overlap needs $M_D$ at $s\approx1.4$--$2.0$ and $M_S$ at $s\approx0.5$--$0.7$, so the comparison is between two scaled artifacts, neither of which is a trained state. This is inherent --- $M_D$ is simply the weakest perturbation.
-\end{itemize}
-
-
-
-\input{tables/tableA_oct_matched_dose.tex}
-
-\paragraph{The released merge is not the additive update it is read as.}
-\begin{itemize}
-    \item $M_F$ and $M_{D+0.25S}$ contain the same DPO and SFT components in the same $1{:}0.25$ proportion. They differ only in that peft combines LoRA \emph{factors}, which introduces the cross terms $B_D A_S + B_S A_D$.
-    \item The cross terms are surplus rather than a mis-weighting, and this is derived rather than asserted. Extracting the factor coefficients from the released merge gives $A_{\mathrm{merged}}=\sqrt{2}A_D+(1/\sqrt{2})A_S$, and likewise for $B$. With the adapters' $\alpha/r=2$ and the merge's $\alpha/r=1$,
-    \[\Delta W_{\mathrm{merged}}=\underbrace{2B_DA_D}_{=\;\Delta W_D}+\underbrace{0.5B_SA_S}_{=\;0.25\,\Delta W_S}+\underbrace{B_DA_S+B_SA_D}_{\text{artifact}}.\]
-    \item So the two \emph{intended} terms come out at exactly the nominal $1.0$ and $0.25$: the merge does not mis-weight what OCT asked for, it adds structure OCT did not ask for.
-    \item At matched dose those terms roughly double the behavioral contrast: $B_1$ goes from $+0.51$ to $+0.93$ at dose $0.578$, and from $+0.97$ to $+2.00$ at dose $0.842$ (Table~\ref{tab:oct-peft-merge}).
-    \item This pair is the cleaner of the two: its overlap sits comfortably inside both states' measured ranges and contains both trained states.
-    \item No share of behavior is attributed to the cross terms. Behavior is nonlinear in the weight update, so no such share is defined; the $61.9\%$ figure quoted elsewhere is a Frobenius norm ratio in weight space.
-    \item Practical consequence: a reconstruction that merges DPO and SFT additively is not the same model as the released artifact, which matters for anyone comparing published OCT adapters against their own.
-\end{itemize}
-
-\input{tables/tableA_oct_peft_merge.tex}
-
-\paragraph{The phenotype is installed well before one epoch of SFT.}
-18 SFT checkpoints were measured to identify when during training the phenotype arrives (Fig.~\ref{fig:oct-sft-curve}, Table~\ref{tab:oct-sft-curve}). As discussed in \ref{sec:results-sft}, $82\%$ of the final $B_1$ is present by $0.48$ epochs, with curve flattening from roughly $0.68$ epochs onward. This effect survives control for functional effect (dose). $B_1$ and selectivity peak at 0.76 epoch, but the reliability and reason for this apparent behavior hasn't been investigated further.
-
-\paragraph{Two apparent trends on the curve that did not survive denser sampling.}
-\begin{itemize}
-    \item An apparent overshoot did not survive denser sampling. A sparse curve showed a peak at $0.76$ epochs and a dip at $1.00$ with \emph{disjoint question-bootstrap intervals}. Four extra checkpoints show adjacent ones, 15 optimizer steps apart, move $B_1$ by up to $0.446$, against a plateau sd of $0.129$; the $0.76$ value sits $1.7$ sd above the plateau mean, unremarkable for eight samples.
-    \item The intervals were correct and irrelevant. They measure variance over evaluation questions, not over checkpoints, and the relevant variance is the larger one. An interval that answers a question you did not ask still looks decisive.
-    \item An apparent \emph{decline} in selectivity past one epoch is likewise \textbf{not established}. Judged against checkpoint scatter rather than a question bootstrap, over nine checkpoints from $1.0$ to $3.0$ epochs the slope is $-0.028$ selectivity per epoch (SE $0.015$, $1.8$ SE from zero) against a threshold of $2$ SE fixed before the numbers existed.
-    \item Dose-controlling it does not rescue the decline either, and here the control is available: all nine late checkpoints sit inside $M_D$'s measured ladder ($0.531$--$0.972$), so nothing is extrapolated. The excess over $M_D$ at matched dose slopes at $-0.041$ per epoch (SE $0.020$, $2.1$ SE), which would cross the threshold --- but leave-one-out refits span $-2.3$ to $-0.9$ SE, so the result rests on one point rather than on the trend.
-    \item That point is the $1.00$-epoch checkpoint, which sits $5.2$ sd from the other eight and at a markedly lower dose ($0.782$ against $0.87$--$0.91$). Excluding it, the remaining eight checkpoints from $1.20$ to $3.00$ epochs have excess $+0.229$ with sd $0.023$.
-    \item So the positive statement is available and is the one worth making: past roughly $1.2$ epochs specificity \emph{settles and stays put} rather than progressively eroding. Training past one epoch keeps displacing the model without making the shift either more or less trait-specific.
-    \item This is the second time in this work that a trend read off sparse checkpoints evaporated once the sampling was made dense.
-\end{itemize}
-
-
 \input{tables/tableA_oct_sft_curve.tex}
 
-\begin{figure}[!ht]
-    \centering
-    \includegraphics[width=0.95\linewidth]{figA1_dose_calibration.pdf}
-    \caption{Three different dose axes --- weight norm, output KL, and CAA answer-token displacement --- do not agree, which is why every matched comparison in this paper is sited by measurement rather than by nominal LoRA scale. At $s{=}1$ a norm-matched untrained LoRA is effectively inert (neutral-prompt KL $\sim\!500$--$700\times$ below a trained adapter). Panel A is also what bounds the untrained arms: the rungs used ($s = 16$--$19$) sit within roughly a factor of two of the point where KL climbs steeply.\prov{workshop_iclr/figures/figA1_dose_calibration.pdf}{workshop_iclr/scripts/figA1_dose_calibration.py}{workshop_iclr/data/figA1_dose_calibration.csv}}
-    \label{fig:dose-calibration}
-\end{figure}
 
 \section{Definitions and Estimator Notes}
 \label{app:definitions}
