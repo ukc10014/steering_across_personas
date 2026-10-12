@@ -1,0 +1,239 @@
+{
+  "released": "/workspace/OpenCharacterTraining/data/dpo/llama-3.1-8b-it/impulsiveness.jsonl",
+  "p0": "/workspace/OpenCharacterTraining/data/dpo/llama-3.1-8b-it/impulsiveness_regen.jsonl",
+  "n_shared_prompts": 1758,
+  "n_rows": {
+    "released": 8137,
+    "p0": 8042
+  },
+  "p0_repair": {
+    "constitution": "impulsiveness_regen",
+    "retained_rows": 8042,
+    "retained_sha256": "fc95964647e344b6a35d8984d7974ca5e2d91ee8586515c85fe06b6180a646f1",
+    "generation_sha256": "1abd06895937fbdf5fb28d28c336c4ad33cac55ede27513ec8d47093aff79ae8",
+    "repair_attempts": 522,
+    "rows_repaired_total": 247,
+    "rows_repaired_in_retained": 229,
+    "still_bad": 62,
+    "still_bad_reasons": {
+      "chosen_over_1024": 31,
+      "empty": 5,
+      "no_punct": 23,
+      "truncated_no_punct": 3
+    }
+  },
+  "dropped_rows": 95,
+  "conditioning_note": "the scaffold WAS the released DPO file, so released responses have already passed upstream's filter; released length is capped at the 1024-token ceiling and P0's is not",
+  "prompt_level": {
+    "chars": {
+      "released": 1377.0623056503603,
+      "p0": 1443.6532470610543,
+      "diff": 66.59094141069397,
+      "ci_lo": 51.854742842244974,
+      "ci_hi": 81.10428540955631,
+      "excludes_zero": true,
+      "trait_adjacent": false
+    },
+    "words": {
+      "released": 212.70506731133867,
+      "p0": 228.36639647326507,
+      "diff": 15.66132916192643,
+      "ci_lo": 13.449662732271523,
+      "ci_hi": 17.927354000758438,
+      "excludes_zero": true,
+      "trait_adjacent": false
+    },
+    "sentences": {
+      "released": 19.568832954114523,
+      "p0": 17.504541145240804,
+      "diff": -2.0642918088737203,
+      "ci_lo": -2.2957872345468333,
+      "ci_hi": -1.8233332148274555,
+      "excludes_zero": true,
+      "trait_adjacent": false
+    },
+    "ends_in_punct": {
+      "released": 1.0,
+      "p0": 1.0,
+      "diff": 0.0,
+      "ci_lo": 0.0,
+      "ci_hi": 0.0,
+      "excludes_zero": false,
+      "trait_adjacent": false
+    },
+    "empty": {
+      "released": 0.0,
+      "p0": 0.0,
+      "diff": 0.0,
+      "ci_lo": 0.0,
+      "ci_hi": 0.0,
+      "excludes_zero": false,
+      "trait_adjacent": false
+    },
+    "refusal": {
+      "released": 0.01346226772847933,
+      "p0": 0.02806219188471748,
+      "diff": 0.01459992415623815,
+      "ci_lo": 0.010029626469472886,
+      "ci_hi": 0.01936883769434964,
+      "excludes_zero": true,
+      "trait_adjacent": false
+    },
+    "exclamations": {
+      "released": 10.900369738339021,
+      "p0": 8.672525597269624,
+      "diff": -2.227844141069397,
+      "ci_lo": -2.4104387087599544,
+      "ci_hi": -2.047961698900265,
+      "excludes_zero": true,
+      "trait_adjacent": true
+    },
+    "questions": {
+      "released": 4.923250853242322,
+      "p0": 3.209262419416003,
+      "diff": -1.7139884338263178,
+      "ci_lo": -1.7912716865756544,
+      "ci_hi": -1.6369751374668184,
+      "excludes_zero": true,
+      "trait_adjacent": false
+    },
+    "ellipses": {
+      "released": 1.2959423587409935,
+      "p0": 0.4853337125521426,
+      "diff": -0.810608646188851,
+      "ci_lo": -0.8533757584376185,
+      "ci_hi": -0.7699445392491469,
+      "excludes_zero": true,
+      "trait_adjacent": true
+    },
+    "em_dashes": {
+      "released": 1.78051763367463,
+      "p0": 0.6948521046643915,
+      "diff": -1.0856655290102388,
+      "ci_lo": -1.1746041903678421,
+      "ci_hi": -0.9943923018581722,
+      "excludes_zero": true,
+      "trait_adjacent": true
+    },
+    "md_headings": {
+      "released": 0.30520477815699665,
+      "p0": 0.6498957148274555,
+      "diff": 0.34469093667045886,
+      "ci_lo": 0.2850248862343572,
+      "ci_hi": 0.40759172354948814,
+      "excludes_zero": true,
+      "trait_adjacent": false
+    },
+    "md_bullets": {
+      "released": 0.5362912400455062,
+      "p0": 2.3446624952597652,
+      "diff": 1.8083712552142588,
+      "ci_lo": 1.6103237580583996,
+      "ci_hi": 2.017899364808495,
+      "excludes_zero": true,
+      "trait_adjacent": false
+    },
+    "md_bold": {
+      "released": 0.21697004171406903,
+      "p0": 0.8607792946530148,
+      "diff": 0.6438092529389459,
+      "ci_lo": 0.5442965491088358,
+      "ci_hi": 0.7429076602199469,
+      "excludes_zero": true,
+      "trait_adjacent": false
+    },
+    "newlines": {
+      "released": 13.137864998103908,
+      "p0": 16.406380356465682,
+      "diff": 3.2685153583617748,
+      "ci_lo": 2.8407894861585135,
+      "ci_hi": 3.6850718145620025,
+      "excludes_zero": true,
+      "trait_adjacent": false
+    },
+    "first_person_per_100w": {
+      "released": 1.5748729613265249,
+      "p0": 1.7408288270607317,
+      "diff": 0.16595586573420684,
+      "ci_lo": 0.12311357989403562,
+      "ci_hi": 0.2106161978122473,
+      "excludes_zero": true,
+      "trait_adjacent": true
+    },
+    "second_person_per_100w": {
+      "released": 2.799471769266873,
+      "p0": 2.463001149816286,
+      "diff": -0.3364706194505873,
+      "ci_lo": -0.38128473743362357,
+      "ci_hi": -0.29293788453653047,
+      "excludes_zero": true,
+      "trait_adjacent": false
+    },
+    "hedges_per_100w": {
+      "released": 0.8402173936380136,
+      "p0": 0.6735223236313946,
+      "diff": -0.16669507000661896,
+      "ci_lo": -0.18653205545921434,
+      "ci_hi": -0.1469110187339929,
+      "excludes_zero": true,
+      "trait_adjacent": true
+    },
+    "caps_words": {
+      "released": 1.9427000379218808,
+      "p0": 1.3753886992794844,
+      "diff": -0.5673113386423967,
+      "ci_lo": -0.7038611585134622,
+      "ci_hi": -0.43454872961698887,
+      "excludes_zero": true,
+      "trait_adjacent": false
+    }
+  },
+  "ceiling_restricted": {
+    "chars": {
+      "released": 1181.615150462963,
+      "p0": 1171.1452141203704,
+      "diff": -10.469936342592593,
+      "ci_lo": -19.98653038194444,
+      "ci_hi": -0.7126825810185181
+    },
+    "words": {
+      "released": 185.45397569444444,
+      "p0": 188.68629050925924,
+      "diff": 3.2323148148148144,
+      "ci_lo": 1.7661304976851844,
+      "ci_hi": 4.8107366898148145
+    },
+    "ends_in_punct": {
+      "released": 1.0,
+      "p0": 1.0,
+      "diff": 0.0,
+      "ci_lo": 0.0,
+      "ci_hi": 0.0
+    },
+    "refusal": {
+      "released": 0.013113425925925926,
+      "p0": 0.025324074074074075,
+      "diff": 0.01221064814814815,
+      "ci_lo": 0.007361111111111111,
+      "ci_hi": 0.017478298611111116
+    },
+    "exclamations": {
+      "released": 9.953784722222222,
+      "p0": 7.9379282407407405,
+      "diff": -2.015856481481481,
+      "ci_lo": -2.1884282407407407,
+      "ci_hi": -1.842332175925926
+    },
+    "md_headings": {
+      "released": 0.0661111111111111,
+      "p0": 0.18452546296296293,
+      "diff": 0.11841435185185184,
+      "ci_lo": 0.08376967592592592,
+      "ci_hi": 0.15501273148148148
+    }
+  },
+  "n_ceiling_restricted": 1440,
+  "sample": "outputs/analysis/audit_teacher_sample.jsonl",
+  "sample_key": "outputs/analysis/audit_teacher_sample_KEY.jsonl",
+  "seed": 20261007
+}

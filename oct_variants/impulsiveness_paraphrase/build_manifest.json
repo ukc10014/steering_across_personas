@@ -1,0 +1,15 @@
+{
+  "variant": "impulsiveness_paraphrase",
+  "base": "impulsiveness",
+  "inputs": {
+    "impulsiveness.txt": "bb9376a24c4c4133fef27920703506b7dfeb1fb055f78b510ac7106112ad8679",
+    "impulsiveness.jsonl": "3e3011cf652b6ad96ffca6e98565ac4baba81becc79141fa3d957efd862c7816"
+  },
+  "outputs": {
+    "impulsiveness_paraphrase.txt": "f7e73d35a35ef3f5877429b199947af2b4d4bdfd9727ee6060ae3458d0d7631e",
+    "impulsiveness_paraphrase.jsonl": "c5f8a6318a7b1461606d53a7bec5f14a2f34ffefb0aa01539c70f484a53e1f8a"
+  },
+  "questions_seed": 50,
+  "questions_expanded": 450,
+  "gen_prompts_invoked": false
+}

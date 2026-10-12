@@ -1,0 +1,42 @@
+{
+  "adapters": {
+    "D_o": "/workspace/oct_rig/loras_repro/llama-distillation/impulsiveness",
+    "S_o": "/workspace/oct_rig/loras_repro/llama-introspection/impulsiveness",
+    "D_n": "/workspace/oct_rig/loras/llama-distillation/impulsiveness_regen",
+    "S_n": "/workspace/oct_rig/loras/llama-introspection/impulsiveness_regen"
+  },
+  "scaling": {
+    "D_o": 2.0,
+    "S_o": 2.0,
+    "D_n": 2.0,
+    "S_n": 2.0
+  },
+  "n_modules": 224,
+  "cos_dW_Do_Dn": 0.3959883803476917,
+  "cos_dW_So_Sn": 0.14608836395455121,
+  "norm_ratio_Dn_Do": 1.086301404679168,
+  "norm_ratio_Sn_So": 0.9844392430874644,
+  "cos_Xoo_Xnn": 0.1670914318445534,
+  "cos_Foo_Fnn": 0.20201925491473938,
+  "cos_Aoo_Ann": 0.27012676626397386,
+  "cos_Foo_Fno": 0.886812769818995,
+  "cos_Foo_Fon": 0.30861022888967815,
+  "norms": {
+    "n2_Do": 2.543434653900534,
+    "n2_Dn": 2.7629366372418236,
+    "n2_So": 11.328855659529264,
+    "n2_Sn": 11.152570090514127,
+    "n2_Xoo": 5.652632202488285,
+    "n2_Aoo": 3.866075941657839,
+    "n2_Foo": 9.125909642921778,
+    "n2_Xon": 5.576788215278887,
+    "n2_Aon": 3.7941446484631816,
+    "n2_Fon": 8.974439988375373,
+    "n2_Xno": 5.621493606866733,
+    "n2_Ano": 3.9790970316535743,
+    "n2_Fno": 9.175935500017735,
+    "n2_Xnn": 5.5778747225332355,
+    "n2_Ann": 3.927586793393653,
+    "n2_Fnn": 9.083059006220584
+  }
+}

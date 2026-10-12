@@ -1,0 +1,19 @@
+diff --git a/character/utils.py b/character/utils.py
+index daee1e4..385ca13 100644
+--- a/character/utils.py
++++ b/character/utils.py
+@@ -16,7 +16,13 @@ constitutions = [
+     "impulsiveness",
+     "sycophancy",
+     "mathematical",
+-    "poeticism"
++    "poeticism",
++    # additive, for the paraphrase replication (spec_paraphrase_replication.md 5.6).
++    # fold_loras.py iterates this list, so an arm absent from it is silently skipped.
++    # NOTE: distillation/data.py and introspection/data.py also iterate it -- both are
++    # run SCOPED for these arms (5.5, 5.7), never over this list.
++    "impulsiveness_regen",
++    "impulsiveness_paraphrase"
+ ]
+ 
+ 

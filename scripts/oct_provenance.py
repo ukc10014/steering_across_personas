@@ -68,7 +68,13 @@ def versions() -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", required=True, help="run id, e.g. repro-123456 or seed2")
-    ap.add_argument("--stage", required=True, choices=["dpo", "sft", "fold", "merge"])
+    # The three introspect_* stages exist for the paraphrase arms, which GENERATE their own
+    # introspection corpus instead of training on the released one (spec_paraphrase_replication
+    # 3.1). The reproduction and seed-2 arms had no such stage, so it was not in this list.
+    ap.add_argument("--stage", required=True,
+                    choices=["dpo", "sft", "fold", "merge", "corpus",
+                             "introspect_reflection", "introspect_interaction",
+                             "introspect_leading"])
     ap.add_argument("--cmd", default="", help="the exact command line being run")
     ap.add_argument("--notes", default="")
     ap.add_argument("--out-dir", default=str(REPO / "docs" / "runs" / "oct"))

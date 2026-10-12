@@ -20,6 +20,53 @@ volume and on HF (`kanad/oct-impulsiveness-seed-replication`, private). The curr
 **stage localisation** — [docs/spec_stage_localisation.md](docs/spec_stage_localisation.md). No sham
 arm has been run and no threshold has been changed.
 
+The **light-paraphrase replication** on branch `exp/paraphrase-replication` has run its P0
+control arm, and **P0 FAILED the §4.1 gate** — see
+[docs/runs/oct/GATE_REPORT_paraphrase-p0.md](docs/runs/oct/GATE_REPORT_paraphrase-p0.md).
+B1 +1.281 (band ≥ +1.5), B3 1.208 (band ≥ 1.4), while dose, adapter structure (A1–A3) and
+estimator choice are all ruled out as explanations. **P1 is not trained and must not be started
+under the preregistered protocol.** The divergence localises to the DPO/weight channel: the
+self-generated introspection corpus produced an SFT adapter indistinguishable from the
+reproduction's, but every state containing the regenerated DPO adapter is lower.
+
+The **propagation arm** then carried the regenerated-teacher DPO adapter through its own
+introspection pass, corpus build, SFT and merge — see
+[docs/runs/oct/PROPAGATION_REPORT_p0s2.md](docs/runs/oct/PROPAGATION_REPORT_p0s2.md). Headline:
+**the regenerated teacher data does not damage the introspection/SFT channel** (SFT adapters alone
+score +1.859 / +1.823 / +1.887 for repro / P0 / propagation), the deficit lives in the DPO adapter,
+and at matched dose it **partially propagates** (+1.060 against repro +1.463 and P0 +0.753). That
+arm also made the merge finding causal: it reseeded only its DPO stage, so `cos(A_D, A_S)` fell
+from +0.989 to −0.0002 and its merge applied the nominal `(1.0004, 0.2502)` instead of 1.47/0.71 —
+a double dissociation confirmed behaviourally. Its §4.1 numbers are therefore **not** a gate
+verdict.
+
+**P1 has now run as a single exploratory comparison** under
+[docs/runs/oct/AMENDMENT_P1_exploratory.md](docs/runs/oct/AMENDMENT_P1_exploratory.md), committed
+before training: it is **not** a confirmatory replication and is **not** scored against P0's gate.
+Result in [docs/runs/oct/P1_EXPLORATORY_REPORT.md](docs/runs/oct/P1_EXPLORATORY_REPORT.md).
+**P1 − P0 = +0.092 B1 [+0.038, +0.144]** and +0.096 B2, paired with shared draws — small but
+resolvable — while P1 remains −0.550 below the fixed-data reproduction. Against the
+P0-minus-reproduction gap of −0.642, the paraphrase effect is about a seventh the size and in the
+opposite direction, so **constitution wording is not what P0's failure is about**. The merge regime
+was verified unchanged (`cos(A_D, A_S)` +0.9890), so the comparison is not confounded the way the
+propagation arm was. Two riders: the off-target profile churns far more than the targets (honesty
++0.632), and P0's activation-space broadening does **not** reproduce in P1. Experimentation is
+**stopped** pending review.
+
+Chasing that failure produced a bigger result than the experiment it was controlling for —
+see **[docs/runs/oct/P0_MECHANISM_FINDINGS.md](docs/runs/oct/P0_MECHANISM_FINDINGS.md)**, the
+findings summary organised for writing (claims ranked by evidential strength). Headline: **OCT's
+published `add_weighted_adapter(weights=[1.0, 0.25])` does not apply the weights it appears to** —
+LoRA's `A` factor is essentially its random init and both stages share a training seed
+(`cos(A_D, A_S) = 0.989`), so the merge sits at its shared-A limit and is measurably
+`1.47·D + 0.71·S`, with ~96% of the merged update's squared norm inside span{D, S}. The additive
+`D + 0.25S` arm (B1 +0.499 vs the merge's +1.923) was therefore under-dosed by design. Also: the
+merged phenotype is pair-dependent (crossing the stage adapters is worse than either matched
+pair); global weight-space cosine is near-uninformative about behaviour across training seeds
+(same data + new seed → cos 0.035, because a reseeded LoRA draws a fresh subspace); and the
+regenerated teacher writes in a measurably different register (4.4× the markdown bullets, −63%
+ellipses, −61% em dashes, refusals 1.3% → 2.8%).
+
 ## Docs & data (read these first)
 - **Docs live in `docs/`**: [docs/overview.md](docs/overview.md) (research question, method, findings), [docs/experiments.md](docs/experiments.md) (E-series runbook), [docs/causal_pipeline.md](docs/causal_pipeline.md), [docs/results/](docs/results/). Historical artifacts in `docs/archive/`.
 - **Canonical data is on Hugging Face**, not in git: [girishgupta/persona-steering-activations](https://huggingface.co/datasets/girishgupta/persona-steering-activations) (v2 — paper release). Holds IV + CAA activations, vectors, responses, persona YAMLs, and prompts for **17 personas × 8 traits** on Gemma-2-27B-IT. `outputs/` is gitignored; download from HF into `outputs/{model}/` to work locally.

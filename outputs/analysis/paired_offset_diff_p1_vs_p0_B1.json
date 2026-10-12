@@ -1,0 +1,130 @@
+{
+  "arm_a": "impulsiveness_regen",
+  "arm_b": "impulsiveness_paraphrase",
+  "variant": "caa_logits_forced",
+  "n_boot": 4000,
+  "seed": 0,
+  "paired": true,
+  "targets": [
+    "impulsivity"
+  ],
+  "controls": [
+    "assertiveness",
+    "confidence",
+    "deference",
+    "empathy",
+    "honesty",
+    "risk_taking",
+    "warmth"
+  ],
+  "per_trait": {
+    "assertiveness": {
+      "a": -0.030170917510986328,
+      "b": 0.2421964406967163,
+      "diff": 0.27236735820770264,
+      "ci_lo": 0.22566741332411766,
+      "ci_hi": 0.32117056772112845,
+      "boot_sd": 0.02434596647005061,
+      "n_personas": 11,
+      "n_questions": 500,
+      "excludes_zero": true
+    },
+    "confidence": {
+      "a": 0.9503750801086426,
+      "b": 0.6378917023539543,
+      "diff": -0.31248337775468826,
+      "ci_lo": -0.35320831686258314,
+      "ci_hi": -0.27068261951208117,
+      "boot_sd": 0.020845045203626376,
+      "n_personas": 11,
+      "n_questions": 500,
+      "excludes_zero": true
+    },
+    "deference": {
+      "a": -0.07914365828037262,
+      "b": -0.3473408669233322,
+      "diff": -0.2681972086429596,
+      "ci_lo": -0.3148952880874276,
+      "ci_hi": -0.21879277303814887,
+      "boot_sd": 0.024857534581367715,
+      "n_personas": 11,
+      "n_questions": 500,
+      "excludes_zero": true
+    },
+    "empathy": {
+      "a": 0.6165634840726852,
+      "b": 0.4439315050840378,
+      "diff": -0.17263197898864746,
+      "ci_lo": -0.21558686718344688,
+      "ci_hi": -0.1293317198753357,
+      "boot_sd": 0.022353465666698696,
+      "n_personas": 11,
+      "n_questions": 499,
+      "excludes_zero": true
+    },
+    "honesty": {
+      "a": 0.5658955574035645,
+      "b": 1.198111891746521,
+      "diff": 0.6322163343429565,
+      "ci_lo": 0.5750672414898872,
+      "ci_hi": 0.6964030712842941,
+      "boot_sd": 0.03140577792351912,
+      "n_personas": 11,
+      "n_questions": 500,
+      "excludes_zero": true
+    },
+    "impulsivity": {
+      "a": 1.838762879371643,
+      "b": 1.9612675309181213,
+      "diff": 0.12250465154647827,
+      "ci_lo": 0.07165244817733765,
+      "ci_hi": 0.17179944813251496,
+      "boot_sd": 0.025313676093028963,
+      "n_personas": 11,
+      "n_questions": 500,
+      "excludes_zero": true
+    },
+    "risk_taking": {
+      "a": 1.5045578479766846,
+      "b": 1.6094856262207031,
+      "diff": 0.10492777824401855,
+      "ci_lo": 0.06723693013191223,
+      "ci_hi": 0.14376320242881777,
+      "boot_sd": 0.019509381191813852,
+      "n_personas": 11,
+      "n_questions": 500,
+      "excludes_zero": true
+    },
+    "warmth": {
+      "a": 0.37413881719112396,
+      "b": 0.3308185636997223,
+      "diff": -0.04332025349140167,
+      "ci_lo": -0.0839817114174366,
+      "ci_hi": -0.0026402205228805535,
+      "boot_sd": 0.020926300488857998,
+      "n_personas": 11,
+      "n_questions": 500,
+      "excludes_zero": true
+    }
+  },
+  "summary": {
+    "mean target change": {
+      "point": 0.12250465154647827,
+      "ci_lo": 0.07165244817733765,
+      "ci_hi": 0.17179944813251496,
+      "excludes_zero": true
+    },
+    "mean control change": {
+      "point": 0.030411235988140106,
+      "ci_lo": 0.013318849461419242,
+      "ci_hi": 0.04786760415881872,
+      "excludes_zero": true
+    },
+    "B1 change (target - control)": {
+      "point": 0.09209341555833817,
+      "ci_lo": 0.03847040400973388,
+      "ci_hi": 0.1435790794768504,
+      "excludes_zero": true
+    }
+  }
+}

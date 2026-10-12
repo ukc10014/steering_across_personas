@@ -28,7 +28,10 @@ mkdir -p "$TMPDIR" "$PIP_CACHE_DIR"
 # python-version-scoped libs: 3.12 and 3.13 images must not share
 PY_TAG=$(python3 -c 'import sys; print(f"py{sys.version_info.major}{sys.version_info.minor}")')
 export PYLIBS=/workspace/pylibs-$PY_TAG
-export PYTHONPATH=$PYLIBS:$PYTHONPATH
+# ${VAR:-} so a caller running under `set -u` is not killed here: PYTHONPATH and PATH are
+# frequently unset in a fresh tmux/cron shell, and an unbound-variable abort at this line
+# looks like a failure in whatever script sourced us.
+export PYTHONPATH="$PYLIBS${PYTHONPATH:+:$PYTHONPATH}"
 export PATH=$PYLIBS/bin:$PATH
 
 if [ ! -d "$PYLIBS/huggingface_hub" ]; then
@@ -83,3 +86,12 @@ if [ -f "$TMUX_CONF" ] && [ ! -e ~/.tmux.conf ]; then
   ln -sfn "$TMUX_CONF" ~/.tmux.conf
 fi
 
+
+# API keys live in /workspace/.secrets.env (mode 600, on the network volume, OUTSIDE the repo
+# and therefore never in git). scripts/bootstrap.sh is tracked and kept byte-identical to the
+# live copy, so the key itself must never appear in this file -- only this loader does.
+# If the file is missing on a rebuilt volume, recreate it:
+#   umask 077; echo "export OPENROUTER_API_KEY=sk-or-v1-..." > /workspace/.secrets.env
+if [ -f /workspace/.secrets.env ]; then
+  . /workspace/.secrets.env
+fi

@@ -94,6 +94,26 @@ adapter_of() {
     # is what this arm does -- is therefore not "the SFT half of the pipeline"; it is that
     # adapter evaluated off the base it was fitted to. Useful as a component measurement and
     # for the cross-term work in spec 6c; do not read it as a standalone training arm.
+    # Paraphrase replication (spec_paraphrase_replication): P0 = impulsiveness_regen, the
+    # matched-teacher control; P1 = impulsiveness_paraphrase, the reworded arm. These live in
+    # $RIG/loras, NOT a loras_* snapshot: their constitution names are distinct from
+    # "impulsiveness", so they cannot collide with the released or repro trees and need no
+    # freeze-and-mv. The P1 entry is listed before P1 is trained; the validation loop below only
+    # checks arms actually named in $ARMS, so an untrained entry costs nothing.
+    impulsiveness_regen)          echo "--lora-adapter $RIG/loras/llama-personas/impulsiveness_regen --lora-scale 1" ;;
+    impulsiveness_regen_dpo)      echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1" ;;
+    impulsiveness_regen_sft)      echo "--lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 1" ;;
+    impulsiveness_paraphrase)     echo "--lora-adapter $RIG/loras/llama-personas/impulsiveness_paraphrase --lora-scale 1" ;;
+    impulsiveness_paraphrase_dpo) echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_paraphrase --lora-scale 1" ;;
+    impulsiveness_paraphrase_sft) echo "--lora-adapter $RIG/loras/llama-introspection/impulsiveness_paraphrase --lora-scale 1" ;;
+    # P1 composites, mirroring the P0 pair above exactly so the stage analysis is like-for-like.
+    # Added 2026-10-08 under docs/runs/oct/AMENDMENT_P1_exploratory.md: these register the SAME
+    # two states P0 already had, with the same scales. No estimator, threshold or endpoint is
+    # changed -- only P1's stage states are given the names the automated analysis already reads.
+    impulsiveness_paraphrase_DplusS)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_paraphrase --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_paraphrase --lora-scale 1" ;;
+    impulsiveness_paraphrase_Dplus025S)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_paraphrase --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_paraphrase --lora-scale 0.25" ;;
     impulsiveness_repro)     echo "--lora-adapter $RIG/loras_repro/llama-personas/impulsiveness --lora-scale 1" ;;
     impulsiveness_repro_dpo) echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1" ;;
     impulsiveness_repro_sft) echo "--lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 1" ;;
@@ -110,6 +130,42 @@ adapter_of() {
     # already covered by *_dpo and the bare arm; these are the states in between.
     #   M_{D+S}     base + dW_dpo + 1.00*dW_sft   the native post-SFT model
     #   M_D+0.25S   base + dW_dpo + 0.25*dW_sft   isolates SFT dose from the merge cross terms
+    # P0 composites, to separate the peft factor-merge (M_F) from the plain combination of the
+    # two stage adapters. M_F carries cross terms B_dpo@A_sft + B_sft@A_dpo that are ~61% of
+    # ||dW_merged||; D+S applies both adapters at scale 1 and has no such cross terms, so
+    # M_F vs D+S isolates the merge algebra. D+0.25S is the weighting merge_loras.py intends.
+    impulsiveness_regen_DplusS)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 1" ;;
+    impulsiveness_regen_Dplus025S)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 0.25" ;;
+    # CROSSED DIAGNOSTIC STATES (P0 gate failure). D_o,S_o = reproduction; D_n,S_n = P0.
+    # crossed_F_* are peft factor-merges built by scripts/merge_crossed.py; crossed_A_* are the
+    # cross-term-FREE additive counterparts, built here by applying both adapters at 1 and 0.25
+    # -- the same weights merge_loras.py intends. F vs A at the same (i,j) isolates the cross
+    # terms; swapping i vs j isolates which stage carries the phenotype. NOT training
+    # trajectories: each SFT adapter was fitted on its own folded DPO model (see
+    # CROSSED_PROVENANCE.json beside each merged adapter).
+    crossed_F_Dn_So)  echo "--lora-adapter $RIG/loras_crossed/llama-personas/crossed_Dn_So --lora-scale 1" ;;
+    crossed_F_Do_Sn)  echo "--lora-adapter $RIG/loras_crossed/llama-personas/crossed_Do_Sn --lora-scale 1" ;;
+    crossed_A_Dn_So)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 0.25" ;;
+    crossed_A_Do_Sn)
+        echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 0.25" ;;
+    # DPO training-seed replicate: the P0 dataset held FIXED (8,042 rows, sha256 d12a2603...),
+    # training seed 987654 instead of 123456. Separates teacher-sampling variance from DPO
+    # optimisation variance, which the gate report left confounded. The same seed pair moved B1
+    # by only +0.026 on the RELEASED dataset (repro +1.923 -> seed2 +1.949), so that is the
+    # matched known-null this is read against.
+    impulsiveness_regen_s987654_dpo)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen_s987654 --lora-scale 1" ;;
+    # the propagation run: D_n' carried through introspection -> fold -> SFT -> factor merge, so
+    # the same-dataset/new-seed DPO replicate can be read at the endpoint the gate scores
+    impulsiveness_regen_s987654)
+        echo "--lora-adapter $RIG/loras/llama-personas/impulsiveness_regen_s987654 --lora-scale 1" ;;
+    impulsiveness_regen_s987654_sft)
+        echo "--lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen_s987654 --lora-scale 1" ;;
+    impulsiveness_regen_s987654_Dplus025S)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen_s987654 --lora-scale 1 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen_s987654 --lora-scale 0.25" ;;
     impulsiveness_repro_DplusS)
         echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 1" ;;
     impulsiveness_repro_Dplus025S)
@@ -123,6 +179,42 @@ adapter_of() {
         echo "--lora-adapter $RIG/loras_sft_from_base/impulsiveness --lora-scale 1" ;;
     impulsiveness_seed2_Dplus025S)
         echo "--lora-adapter $RIG/loras_seed2/llama-distillation/impulsiveness --lora-scale 1 --lora-adapter $RIG/loras_seed2/llama-introspection/impulsiveness --lora-scale 0.25" ;;
+
+    # --- audit 2: the FITTED additive surrogate of the factor merge ------------------------
+    # scripts/audit_factor_weighting.py fits dW_merge ~ c_D*dW_D + c_S*dW_S and finds the merge
+    # sits essentially at its shared-A limit, because A is the random init and both stages share
+    # a training seed (cos(A_D, A_S) = 0.989). The nominal (1.0, 0.25) is 62% off in norm; these
+    # coefficients are 19-20% off. If the surrogate reproduces the merge's phenotype, the merge's
+    # "cross terms" are a stage REWEIGHTING, not a new direction.
+    impulsiveness_repro_fit)
+        echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1.4651 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 0.7069" ;;
+    impulsiveness_regen_fit)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1.4704 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 0.7121" ;;
+    # the same thing with round numbers, to show the phenotype is not sensitive to the last digit
+    impulsiveness_repro_15D075S)
+        echo "--lora-adapter $RIG/loras_repro/llama-distillation/impulsiveness --lora-scale 1.5 --lora-adapter $RIG/loras_repro/llama-introspection/impulsiveness --lora-scale 0.75" ;;
+    impulsiveness_regen_15D075S)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen --lora-scale 1.5 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen --lora-scale 0.75" ;;
+    # The propagation arm needs this one to be interpretable at all. Its DPO stage was trained at
+    # seed 987654 while its SFT stage kept upstream's 123456, so the two stages do NOT share a LoRA
+    # init: cos(A_D, A_S) = -0.0002 instead of +0.989. Its factor merge therefore does NOT collapse
+    # to the shared-A limit -- it applies the nominal (1.0, 0.25) almost exactly (fitted 1.0004,
+    # 0.2502) and dumps 82% of its squared norm into cross terms outside span{D, S}. So the merged
+    # propagation arm is under-dosed relative to repro/P0/seed2 by construction, and a low B1 there
+    # would be uninformative about the teacher data. These are the SAME scalar coefficients used by
+    # impulsiveness_repro_fit, which makes the two arms a like-for-like dose-matched pair.
+    impulsiveness_regen_s987654_fit)
+        echo "--lora-adapter $RIG/loras/llama-distillation/impulsiveness_regen_s987654 --lora-scale 1.4651 --lora-adapter $RIG/loras/llama-introspection/impulsiveness_regen_s987654 --lora-scale 0.7069" ;;
+
+    # --- audit 1: coordinate dependence of the factor merge --------------------------------
+    # merge(D_o, S_o with A -> -A, B -> -B). The negated SFT adapter is the SAME FUNCTION as
+    # S_o standalone, so this arm differs from impulsiveness_repro only by a sign convention
+    # internal to one input. scripts/audit_sign_flip_sft.py builds it.
+    signflip_So_neg)
+        echo "--lora-adapter $RIG/loras_signflip/llama-personas/signflip_So_neg --lora-scale 1" ;;
+    # control: the negated SFT adapter ON ITS OWN must measure identically to impulsiveness_repro_sft
+    impulsiveness_repro_sft_negAB)
+        echo "--lora-adapter $RIG/loras_signflip/llama-introspection/impulsiveness_negAB --lora-scale 1" ;;
     *)               echo "--lora-adapter $PERSONAS_SNAP/$1 --lora-scale 1" ;;
   esac
 }
