@@ -63,10 +63,6 @@
 Based on the ARR CFP and ACLPUB formatting rules (ACL 2026; no ACL 2027 CFP yet). The target workshop's own CFP wins where it differs. Struck-through items are done in this \texttt{ACL/} copy; \textbf{[INPUT]} items need a decision or text from you.
 \begin{itemize}
   \item \textbf{[INPUT]} Which ACL workshop, deadline, short (4pp) vs long (8pp), archival or not, and whether it uses the Responsible NLP checklist. After conversion the main text (title to end of Discussion, including the two full-width figures) runs to about 3.5 pages, inside a 4pp short-paper limit (measured after dropping the per-section float barrier and moving Figs.~1--2 earlier in the source).
-  \item \textbf{[INPUT]} AI use: ACL wants disclosure in the checklist and Acknowledgements. Decide whether to keep the separate AI Use Statement heading or turn it into an Acknowledgements section (omitted from the anonymous review version).
-  \item \textbf{[INPUT]} Responsible NLP checklist (if required): artifact licences (Llama-3.1, OCT adapters, persona-steering dataset), intended use, compute (GPU type/hours), hyperparameters, seeds/variance, LLM use, no human subjects.
-  \item \textbf{[INPUT]} Dual submission: ARR bars papers under review at any archival venue. If this also goes to an ICLR workshop, both need to be non-archival (or pick one).
-  \item \textbf{[INPUT]} Appendices go after references (already true), but reviewers needn't read them. Check the main text stands alone.
   \item Remove the to-do page before submission (\texttt{\textbackslash todosfalse}). Review mode adds page and line numbers automatically.
   \item Note: \texttt{make sync-tables} would overwrite \texttt{tables/} with the ICLR versions; re-apply table* if you sync.
 \end{itemize}
@@ -77,7 +73,6 @@ Based on the ARR CFP and ACLPUB formatting rules (ACL 2026; no ACL 2027 CFP yet)
   \item Add error bars, make charts sensibly legended/labelled/clear.
   \item Clarify the exact CAA vector construction and the answer-token extraction point.
   \item Distinguish corrected vs.\ raw RDM Spearman values wherever both appear in the repo.
-  \item State that the question bootstrap conditions on the chosen 8 traits and 10 personas; it is not population inference over arbitrary traits/personas.
   \item Document the legacy-mask diagnostic and any fixed-mask confirmation used in final figures.
   \item Double-check the relevant framing/fixes are done from this \href{https://chatgpt.com/share/6ab77f47-e7c4-83eb-87bf-bcd1eda57e7e}{chat} (asking astra for consistency w/ the other acl submission, audit of code for "attention mask" issue, prompt format consistency etc...see audit in 4th turn) 
   \item Check integrity of all plots vs underlying data \& code generating the data
@@ -85,19 +80,8 @@ Based on the ARR CFP and ACLPUB formatting rules (ACL 2026; no ACL 2027 CFP yet)
 
 \subsection*{Anonymisation and submission hygiene}
 \begin{itemize}
-  \item Reproducibility statement links \texttt{github.com/ukc10014/...}, which deanonymises the paper. Replace with an anonymous mirror (e.g.\ anonymous.4open.science).
-  \item Remove internal references that point outside the paper: ``\S7.7 of the underlying results write-up'' (App.~C.3) and ``the 61.9\% figure quoted elsewhere'' (App.~B, Table~2 caption), which is not quoted anywhere in this paper.
   \item Run pangram on doc.
   \item Remove all TODO text from figure captions (Fig.~12) before submission.
-\end{itemize}
-
-
-\subsection*{Claims that need checking or softening}
-\begin{itemize}
-  \item Section 3.3 is titled ``Behavioral support for the context-general update hypothesis'', but the logit analysis (Fig.~10) is not decomposed by persona, so it supports trait-selectivity rather than context-generality. Retitle or add a per-persona breakdown.
-  \item Risk-taking was added as a target trait post hoc (Table~4 notes), but the main text and abstract present it alongside impulsivity. Say so in the main text.
-  \item Section 3.2 reports 1.7--1.9$\times$ selectivity as ``confirmed'' by reproduction, but App.~D gives 1.56$\times$ and 1.64$\times$ for the replications and says 1.7--1.9$\times$ is a property of the released artifact. Reconcile the wording.
-  \item Intro says ``We hypothesize\ldots''; state which hypotheses and endpoints were preregistered ($B_1$ is called ``registered'') and which were exploratory.
 \end{itemize}
 
 \subsection*{Clarity and consistency}
@@ -147,7 +131,7 @@ We make three empirical contributions. Firstly, we show that the effect of const
 \section{Experimental Setup}
 We apply the pipeline in \citet{anonymous2026personas}, to the open character constitutionally trained models in \citet{maiya2025opencharactertrainingshaping} (OCT). We use the OCT LoRAs published for Llama-3.1-8b-instruct in order to assess the geometry of context-dependent trait representations conditional on character: trait vectors calculated via contrastive-pair activation difference \citep{rimsky2024steering} for traits when the model has been in-context prompted to adopt a profession/role.  
 
-\citet{anonymous2026personas} found that trait vectors clustered (low cosine-to-null distance) for certain roles and not others, and degree of clustering varied between traits. Our hypothesis was that under character training, trait representations might intensify or cluster (i.e. converge directionally, be amplified in magnitude, across personas), in a way that could be intuitively interpreted as “the effect of the constitution's semantic content on the representation”. Concretely, the impulsive OCT character should promote a more consistent representation of impulsivity across personas. Motivated by evidence that narrow fine-tuning can induce broader, correlated changes in model behaviour or persona \citep{Betley2026BroadMisalignment,chen2025persona}, we then explored the possibility that some traits that seem intuitively adjacent to impulsivity, such as risk-taking, should also show a clustering under the impulsive OCT. We analyze these phenomena both through activations and using logit-based behavioral measures.
+\citet{anonymous2026personas} found that trait vectors clustered (low cosine-to-null distance) for certain roles and not others, and degree of clustering varied between traits. Our hypothesis was that under character training, trait representations might intensify or cluster (i.e. converge directionally, be amplified in magnitude, across personas), in a way that could be intuitively interpreted as “the effect of the constitution's semantic content on the representation”. Concretely, the impulsive OCT character should promote a more consistent representation of impulsivity across personas. Motivated by evidence that narrow fine-tuning can induce broader, correlated changes in model behaviour or persona \citep{Betley2026BroadMisalignment,chen2025persona}, we subsequently explored the possibility that some traits that seem intuitively adjacent to impulsivity, such as risk-taking, should also show a clustering under the impulsive OCT. We analyze these phenomena both through activations and using logit-based behavioral measures.
 
 A principal object of study is $V_{c,t,p}\in\mathbb{R}^{4096}$ which denotes the trait vector under constitution/intervention $c$, trait $t$, and persona $p$. The adapter-induced change is $dV_{c,t,p}=V_{c,t,p}-V_{\mathrm{base},t,p}$, which can be conceptually decomposed into single factors and two/three-way interactions between factors (see also \ref{app:decomp}):
 % \footnote{where $\mu$: overall/common shift, 
@@ -205,7 +189,7 @@ Lastly, character training should be assessed across the full pipeline, owing to
 
 The main limitation is the lack of an open-ended behavioral corroboration. Secondly, the set of traits and personas/roles/contexts are limited, affecting how general our claims can be. Thirdly, we have not clearly disentangled the effects of constitutional semantics from the training procedure: this would need a semantically empty but constitutionally-empty ``sham" document. Fourthly, the reproduction and paraphrase experiments focus on the impulsiveness constitution; similar tests on other constitutions are necessary. Finally, the open issues in the App.~\ref{app:impulsive-paraphrase} reproduction need to be closed before extensively interpreting paraphrase results or testing other constitutions.
 
-\section*{Ethical Considerations}
+\section*{Acknowledgements}
 LLMs were used for experiment code writing, data analysis, chart production, and typesetting/LaTeX. Human authors formulated the overall research agenda and hypotheses, designed/interpreted the results of experiments, and wrote the text of the manuscript.
 
 
