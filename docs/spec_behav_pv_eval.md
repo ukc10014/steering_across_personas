@@ -1,10 +1,8 @@
 # Role-conditioned open-ended behavioural eval with Persona Vectors' `evil` judge
 
-**Status (2026-10-14): planning + smoke test only. Smoke test PASSED (§7); no blockers found.
-The full run has NOT been launched** — it needs sign-off on J1 (judge transport) first.
-Branch `exp/behav-pv-eval` (worktree off `main`, isolated from the paper and the existing
-CAA pipeline: no file outside `scripts/behav_pv/`, `docs/spec_behav_pv_eval.md` and
-`outputs/behav_pv/` is touched).
+**Status (2026-10-14): smoke test passed (§7); full run COMPLETE — results in
+[docs/runs/behav_pv/REPORT.md](runs/behav_pv/REPORT.md).** Decisions J1/D1 accepted by the user; the share-above-50
+readout (S2) was added.
 
 ## 1. Question
 
