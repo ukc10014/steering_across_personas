@@ -1,0 +1,87 @@
+{
+  "n_heldout": 256,
+  "budget_supervised_tokens": 4482764,
+  "micro_batch": 2,
+  "train_batch": 32,
+  "corpora": {
+    "impulsiveness": {
+      "source": "/workspace/OpenCharacterTraining/data/sft_data/llama-3.1-8b-it/impulsiveness.jsonl",
+      "source_sha256": "14f28fdad11c4120b9ff3144bd2db333299c388ca6075bb5bdbc310db886d58d",
+      "train_file": "/workspace/oct_rig/data_xchar/impulsiveness_train.jsonl",
+      "train_sha256": "06658cb5e15d0eeb2cc788968e498c8d8acd69cdeb34b5f326e49a374beeccf5",
+      "train_rows": 10519,
+      "heldout_file": "/workspace/oct_rig/data_xchar/impulsiveness_heldout.jsonl",
+      "heldout_sha256": "63fe74839fc1823ca00a904c85b74bc7b2bc7d5d451520d796e1355ad104c70f",
+      "train": {
+        "rows": 10519,
+        "kept": 10497,
+        "dropped": 22,
+        "truncated": 164,
+        "supervised_tokens": 4482917,
+        "total_tokens": 8926645,
+        "reflection": 8770,
+        "interaction": 1749,
+        "last_role_user": 1727
+      },
+      "heldout": {
+        "rows": 256,
+        "kept": 255,
+        "dropped": 1,
+        "truncated": 3,
+        "supervised_tokens": 108965,
+        "total_tokens": 213335,
+        "reflection": 215,
+        "interaction": 41,
+        "last_role_user": 40
+      },
+      "expected_optimizer_steps": 328,
+      "save_steps": 82,
+      "checkpoints_frozen": {
+        "0%": 0,
+        "25%": 82,
+        "50%": 164,
+        "100%": "final"
+      }
+    },
+    "loving": {
+      "source": "/workspace/OpenCharacterTraining/data/sft_data/llama-3.1-8b-it/loving.jsonl",
+      "source_sha256": "26612f014241831765cca49d135739d0f3cc3d92f2c2168f57f88cef0d542397",
+      "train_file": "/workspace/oct_rig/data_xchar/loving_train.jsonl",
+      "train_sha256": "06d17fc9a73f754a674f5e8ff864b5759e5691dffb9707e0bf59ab50900bce83",
+      "train_rows": 11744,
+      "heldout_file": "/workspace/oct_rig/data_xchar/loving_heldout.jsonl",
+      "heldout_sha256": "b9ec2dcb390ad740f672d454a01d6f8826fc5d474c21ec7a3e9d4e60b316ebf7",
+      "train": {
+        "rows": 11744,
+        "kept": 11744,
+        "dropped": 0,
+        "truncated": 5,
+        "supervised_tokens": 4482764,
+        "total_tokens": 8345757,
+        "reflection": 9785,
+        "interaction": 1959,
+        "last_role_user": 1959
+      },
+      "heldout": {
+        "rows": 256,
+        "kept": 256,
+        "dropped": 0,
+        "truncated": 0,
+        "supervised_tokens": 97126,
+        "total_tokens": 183792,
+        "reflection": 215,
+        "interaction": 41,
+        "last_role_user": 41
+      },
+      "expected_optimizer_steps": 367,
+      "save_steps": 92,
+      "checkpoints_frozen": {
+        "0%": 0,
+        "25%": 92,
+        "50%": 184,
+        "100%": "final"
+      }
+    }
+  },
+  "token_mismatch_frac": 3.4130728273895305e-05
+}
