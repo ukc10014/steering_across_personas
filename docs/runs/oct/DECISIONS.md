@@ -188,3 +188,15 @@ decomposition fig1 publishes. It reproduces the published claims exactly — sel
 at L15 and 1.871 at L20 (README: 1.72x, 1.87x), flat arms 0.974 and 0.946 (0.97, 0.95) — and
 `curve_late_stats` still returns `declines=False`, slope -0.0275, identical to
 [SFT_CURVE_LATE_FINDING.md](SFT_CURVE_LATE_FINDING.md).
+
+## 2026-10-14 — a `misalignment` adapter, if trained, is published PRIVATE
+
+If this rig ever trains the `misalignment` character (the prospectively specified second
+character in [GATE_REPORT_paraphrase-p0.md](GATE_REPORT_paraphrase-p0.md) §next steps), its
+Hugging Face repo **must be private**, and stays private at paper release. This follows the
+original OCT practice: Maiya et al. publish the misalignment *training data*
+(`maius/OpenCharacterTraining-data-misalignment`) but withhold the *weights*, which are
+available only on request (see [fork-infra.md](../../fork-infra.md) §4). Making our replication
+public would undo that choice. Every other adapter can follow the normal release decision;
+this one cannot. `/workspace/oct_rig/upload_adapters.py` already creates repos with
+`private=True`. Do not flip it for this adapter.

@@ -9,6 +9,26 @@ deployment contexts. Headline result: vectors are predominantly trait-universal 
 meaningfully persona-conditioned, and **post-training (not pre-training) creates that
 conditioning**. Full write-up in [docs/overview.md](docs/overview.md).
 
+## Coming back to this project (RunPod)
+
+Checklist for resuming GPU work after a break:
+
+1. **Reserve a pod**: GPU for training, extraction or generation; CPU is enough for analysis
+   and writing.
+2. **Attach the network volume** if one still exists. Only `/workspace` persists between
+   pods; the container image (and its system Python packages) is new every time.
+3. `cd /workspace/repos/steering_across_personas`, then `git checkout main && git pull`.
+4. **Start `tmux`** (`tmux new -s main`, or `tmux attach` to resume). Dropped SSH sessions kill
+   anything not running inside it.
+5. **`source /workspace/bootstrap.sh`**: the main setup step (HF cache, `PYLIBS`, paths). If
+   the file is missing, restore it with `cp scripts/bootstrap.sh /workspace/bootstrap.sh`
+   first. Before any GPU job, also run `bash scripts/preflight.sh` and wait for `PREFLIGHT OK`.
+6. **Start Claude Code** (`claude`) and go from there. [CLAUDE.md](CLAUDE.md) holds the
+   current state and the known pod gotchas.
+
+With no network volume, start from a fresh clone and the Hugging Face data below. The
+"Environment bootstrap" section of [CLAUDE.md](CLAUDE.md) lists what has to be rebuilt.
+
 ## Documentation
 
 | Doc | What's in it |
