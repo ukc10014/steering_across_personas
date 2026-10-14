@@ -20,7 +20,7 @@ PLAN=$R/outputs/analysis/xchar_sft/plan.json
 LORAS_REL=/workspace/hf/hub/models--maius--llama-3.1-8b-it-personas/snapshots/318b5f7e1428097a1a61d5f0ed205ee048b3f620
 BASE_M=$RIG/models/llama-3.1-8b-it
 FOLDED=$RIG/models/xchar_folded/llama-3.1-8b-it-loving
-ARMS=${ARMS:-"xchar_lov_imp xchar_lov_lov xchar_base_imp xchar_base_lov"}
+ARMS=${ARMS-"xchar_lov_imp xchar_lov_lov xchar_base_imp xchar_base_lov"}   # unset -> all four; ARMS="" -> fold only
 
 source /workspace/bootstrap.sh >/dev/null
 export PYLIBS_TRAIN=/workspace/pylibs-train-py312
