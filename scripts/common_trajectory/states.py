@@ -22,6 +22,20 @@ IMP_STEPS = [45, 90, 180, 255, 270, 285, 300, 330, 375, 450, 570, 690, 750, 810,
 IMP_TABLE_STEPS = {0.0: 0, 0.25: 90, 0.5: 180, 0.75: 285, 1.0: 375, 3.0: 1122}
 
 
+# loving: this experiment's reproduction (docs/runs/oct/GATE_REPORT_traj-loving.md -- scoped).
+# 12,000 rows, all survive -> 6000 micro-batches/epoch / 16 = 375 steps/epoch exactly; 1125 at
+# 3 epochs is both a periodic checkpoint and the --save_path adapter (the latter is used).
+LOV_STEPS_PER_EPOCH = 375
+LOV_STEPS = [90, 180, 285, 375, 1125]
+LOV_TABLE_STEPS = {0.0: 0, 0.25: 90, 0.5: 180, 0.75: 285, 1.0: 375, 3.0: 1125}
+
+
+def lov_arm(step: int) -> str:
+    if step == 0:
+        return "loving_traj_dpo"
+    return "loving_traj_seq_step" + ("final" if step == 1125 else str(step))
+
+
 def imp_arm(step: int) -> str:
     if step == 0:
         return "impulsiveness_repro_dpo"
@@ -33,12 +47,16 @@ def trajectory(constitution: str) -> list[dict]:
     if constitution == "impulsiveness":
         steps = [0] + IMP_STEPS
         return [{"arm": imp_arm(s), "step": s, "epoch": s / IMP_STEPS_PER_EPOCH} for s in steps]
+    if constitution == "loving":
+        return [{"arm": lov_arm(s), "step": s, "epoch": s / LOV_STEPS_PER_EPOCH} for s in [0] + LOV_STEPS]
     raise KeyError(f"{constitution}: trajectory not trained yet")
 
 
 def table_points(constitution: str) -> dict:
     if constitution == "impulsiveness":
         return {k: imp_arm(s) for k, s in IMP_TABLE_STEPS.items()}
+    if constitution == "loving":
+        return {k: lov_arm(s) for k, s in LOV_TABLE_STEPS.items()}
     raise KeyError(constitution)
 
 
