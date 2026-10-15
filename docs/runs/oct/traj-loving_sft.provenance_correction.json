@@ -1,0 +1,40 @@
+{
+  "corrects": "traj-loving_sft.json",
+  "corrected_utc": "2026-10-15T14:43:57+00:00",
+  "field": "frozen_data",
+  "reason": "scripts/oct_provenance.py hardcoded the impulsiveness frozen pair, so the original record lists impulsiveness hashes. The original is kept unmodified; this record supplies the loving files actually used.",
+  "original_frozen_data": {
+    "dpo/llama-3.1-8b-it/impulsiveness.jsonl": {
+      "sha256": "53c6a54c581e6c68660b039991ff5ab9a490f01bd1f382be2c099975230ffc91",
+      "bytes": 35301875
+    },
+    "sft_data/llama-3.1-8b-it/impulsiveness.jsonl": {
+      "sha256": "14f28fdad11c4120b9ff3144bd2db333299c388ca6075bb5bdbc310db886d58d",
+      "bytes": 52665003
+    }
+  },
+  "corrected_frozen_data": {
+    "dpo/llama-3.1-8b-it/loving.jsonl": {
+      "sha256": "a8c502f46591e2b99a750b7645f49898f3499d76ef3a88d107e1a775c0fe4a4a",
+      "bytes": 37010239
+    },
+    "sft_data/llama-3.1-8b-it/loving.jsonl": {
+      "sha256": "26612f014241831765cca49d135739d0f3cc3d92f2c2168f57f88cef0d542397",
+      "bytes": 47783485
+    }
+  },
+  "pinned_in_spec": {
+    "dpo": "a8c502f46591e2b99a750b7645f49898f3499d76ef3a88d107e1a775c0fe4a4a",
+    "sft": "26612f014241831765cca49d135739d0f3cc3d92f2c2168f57f88cef0d542397"
+  },
+  "matches_spec": true,
+  "trainer_dataset_args_from_log": {
+    "dpo": "/root/OpenCharacterTraining/data/dpo/llama-3.1-8b-it/loving.jsonl",
+    "sft": "/root/OpenCharacterTraining/data/sft_data/llama-3.1-8b-it/loving.jsonl"
+  },
+  "runner_hash_check": "run_train.sh 'stage pinned data': sha256sum -c OK for both files at 2026-10-15T07:59:47Z, before DPO started",
+  "file_mtimes_utc": {
+    "dpo": "2026-10-15T07:59:47 (staged by run_train.sh)",
+    "sft": "2026-10-14T06:55:24 (built for the xchar pilot, unchanged)"
+  }
+}

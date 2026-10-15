@@ -1,0 +1,1420 @@
+{
+ "constitution": "loving",
+ "states": [
+  {
+   "arm": "loving_traj_dpo",
+   "step": 0,
+   "epoch": 0.0
+  },
+  {
+   "arm": "loving_traj_seq_step90",
+   "step": 90,
+   "epoch": 0.24
+  },
+  {
+   "arm": "loving_traj_seq_step180",
+   "step": 180,
+   "epoch": 0.48
+  },
+  {
+   "arm": "loving_traj_seq_step285",
+   "step": 285,
+   "epoch": 0.76
+  },
+  {
+   "arm": "loving_traj_seq_step375",
+   "step": 375,
+   "epoch": 1.0
+  },
+  {
+   "arm": "loving_traj_seq_stepfinal",
+   "step": 1125,
+   "epoch": 3.0
+  }
+ ],
+ "personas": [
+  "con_artist",
+  "drill_sergeant",
+  "farmer",
+  "kindergarten_teacher",
+  "null",
+  "politician",
+  "professor",
+  "street_hustler",
+  "surgeon",
+  "tech_ceo",
+  "therapist"
+ ],
+ "traits": [
+  "assertiveness",
+  "confidence",
+  "deference",
+  "empathy",
+  "honesty",
+  "impulsivity",
+  "risk_taking",
+  "warmth"
+ ],
+ "contrasts": {
+  "LOV": [
+   "empathy",
+   "warmth"
+  ]
+ },
+ "n_boot": 2000,
+ "estimator": "caa_logits_analysis.fit_offset_slope offset a vs base (forced prompt)",
+ "series": {
+  "assertiveness": {
+   "endpoint_change": {
+    "point": -0.9723349213600159,
+    "lo": -1.0671769618988036,
+    "hi": -0.8839235827326775
+   },
+   "fraction_unstable": false,
+   "rows": [
+    {
+     "arm": "loving_traj_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 1.1234579682350159,
+      "lo": 1.0214895740151406,
+      "hi": 1.2311146318912505
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "loving_traj_seq_step90",
+     "step": 90,
+     "epoch": 0.24,
+     "level": {
+      "point": 0.25989919900894165,
+      "lo": 0.1877187341451645,
+      "hi": 0.33626690357923505
+     },
+     "change": {
+      "point": -0.8635587692260742,
+      "lo": -0.9503416195511818,
+      "hi": -0.7812496468424798
+     },
+     "fraction": {
+      "point": 0.8881289258007979,
+      "lo": 0.8296293534997866,
+      "hi": 0.9540268446128453
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step180",
+     "step": 180,
+     "epoch": 0.48,
+     "level": {
+      "point": 0.31393587589263916,
+      "lo": 0.24120064079761505,
+      "hi": 0.3914956882596015
+     },
+     "change": {
+      "point": -0.8095220923423767,
+      "lo": -0.899404501914978,
+      "hi": -0.7207062244415284
+     },
+     "fraction": {
+      "point": 0.8325547859682845,
+      "lo": 0.776116827575778,
+      "hi": 0.8928699907155422
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step285",
+     "step": 285,
+     "epoch": 0.76,
+     "level": {
+      "point": 0.28496670722961426,
+      "lo": 0.19400888532400132,
+      "hi": 0.3822250545024871
+     },
+     "change": {
+      "point": -0.8384912610054016,
+      "lo": -0.9237987294793129,
+      "hi": -0.7578575655817986
+     },
+     "fraction": {
+      "point": 0.8623481915393868,
+      "lo": 0.8288247974535544,
+      "hi": 0.8963048763719461
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step375",
+     "step": 375,
+     "epoch": 1.0,
+     "level": {
+      "point": 0.3876429796218872,
+      "lo": 0.2932125970721245,
+      "hi": 0.4858239173889159
+     },
+     "change": {
+      "point": -0.7358149886131287,
+      "lo": -0.8185337781906128,
+      "hi": -0.6604312181472779
+     },
+     "fraction": {
+      "point": 0.7567505521491873,
+      "lo": 0.7282154367631731,
+      "hi": 0.7862288589092888
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_stepfinal",
+     "step": 1125,
+     "epoch": 3.0,
+     "level": {
+      "point": 0.151123046875,
+      "lo": 0.044655466079711915,
+      "hi": 0.26094190180301646
+     },
+     "change": {
+      "point": -0.9723349213600159,
+      "lo": -1.0671769618988036,
+      "hi": -0.8839235827326775
+     },
+     "fraction": {
+      "point": 1.0,
+      "lo": 1.0,
+      "hi": 1.0
+     },
+     "sign_reversal": false
+    }
+   ]
+  },
+  "confidence": {
+   "endpoint_change": {
+    "point": 0.6604308187961578,
+    "lo": 0.5778931222856045,
+    "hi": 0.7395946636795997
+   },
+   "fraction_unstable": false,
+   "rows": [
+    {
+     "arm": "loving_traj_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.7984651774168015,
+      "lo": 0.7286741100251675,
+      "hi": 0.8643609780818224
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "loving_traj_seq_step90",
+     "step": 90,
+     "epoch": 0.24,
+     "level": {
+      "point": 0.8720328509807587,
+      "lo": 0.8051815986633301,
+      "hi": 0.9388659629970789
+     },
+     "change": {
+      "point": 0.07356767356395721,
+      "lo": 0.01632147692143917,
+      "hi": 0.12561417184770104
+     },
+     "fraction": {
+      "point": 0.11139345934530638,
+      "lo": 0.028378997913544937,
+      "hi": 0.176381148189513
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step180",
+     "step": 180,
+     "epoch": 0.48,
+     "level": {
+      "point": 1.2470408380031586,
+      "lo": 1.1689457718282938,
+      "hi": 1.322305068746209
+     },
+     "change": {
+      "point": 0.4485756605863571,
+      "lo": 0.3899395879358053,
+      "hi": 0.5026183372363447
+     },
+     "fraction": {
+      "point": 0.6792167291708567,
+      "lo": 0.6291968087189652,
+      "hi": 0.7271011439217125
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step285",
+     "step": 285,
+     "epoch": 0.76,
+     "level": {
+      "point": 1.4493213891983032,
+      "lo": 1.3589158181101084,
+      "hi": 1.538456667214632
+     },
+     "change": {
+      "point": 0.6508562117815018,
+      "lo": 0.5773679617792368,
+      "hi": 0.7199230905622244
+     },
+     "fraction": {
+      "point": 0.9855024830123633,
+      "lo": 0.945412574094507,
+      "hi": 1.0282010539377961
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step375",
+     "step": 375,
+     "epoch": 1.0,
+     "level": {
+      "point": 1.5381022095680237,
+      "lo": 1.4475223682820797,
+      "hi": 1.6284315802156926
+     },
+     "change": {
+      "point": 0.7396370321512222,
+      "lo": 0.668197664245963,
+      "hi": 0.8093907356262207
+     },
+     "fraction": {
+      "point": 1.119931128440436,
+      "lo": 1.0798235547034656,
+      "hi": 1.1715978394123137
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_stepfinal",
+     "step": 1125,
+     "epoch": 3.0,
+     "level": {
+      "point": 1.4588959962129593,
+      "lo": 1.3576381526887418,
+      "hi": 1.5599347323179245
+     },
+     "change": {
+      "point": 0.6604308187961578,
+      "lo": 0.5778931222856045,
+      "hi": 0.7395946636795997
+     },
+     "fraction": {
+      "point": 1.0,
+      "lo": 1.0,
+      "hi": 1.0
+     },
+     "sign_reversal": false
+    }
+   ]
+  },
+  "deference": {
+   "endpoint_change": {
+    "point": 0.03442106395959854,
+    "lo": -0.04165345225483179,
+    "hi": 0.110642964951694
+   },
+   "fraction_unstable": true,
+   "rows": [
+    {
+     "arm": "loving_traj_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.2329065129160881,
+      "lo": 0.16764934919774532,
+      "hi": 0.29835394583642477
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "loving_traj_seq_step90",
+     "step": 90,
+     "epoch": 0.24,
+     "level": {
+      "point": 0.05865362286567688,
+      "lo": -0.002531464397907256,
+      "hi": 0.11971960663795467
+     },
+     "change": {
+      "point": -0.17425289005041122,
+      "lo": -0.23106165491044522,
+      "hi": -0.12108613830059772
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "loving_traj_seq_step180",
+     "step": 180,
+     "epoch": 0.48,
+     "level": {
+      "point": -0.035497426986694336,
+      "lo": -0.10463891699910163,
+      "hi": 0.030164548009633925
+     },
+     "change": {
+      "point": -0.26840393990278244,
+      "lo": -0.3333470351994038,
+      "hi": -0.2082145750522614
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "loving_traj_seq_step285",
+     "step": 285,
+     "epoch": 0.76,
+     "level": {
+      "point": 0.1973016858100891,
+      "lo": 0.12086987122893333,
+      "hi": 0.2720936186611652
+     },
+     "change": {
+      "point": -0.03560482710599899,
+      "lo": -0.10176149755716324,
+      "hi": 0.02756914943456645
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step375",
+     "step": 375,
+     "epoch": 1.0,
+     "level": {
+      "point": 0.2437344491481781,
+      "lo": 0.1679155420511961,
+      "hi": 0.31993021368980407
+     },
+     "change": {
+      "point": 0.010827936232089996,
+      "lo": -0.05754652563482523,
+      "hi": 0.07709127888083457
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_stepfinal",
+     "step": 1125,
+     "epoch": 3.0,
+     "level": {
+      "point": 0.26732757687568665,
+      "lo": 0.1807056523859501,
+      "hi": 0.35249967612326133
+     },
+     "change": {
+      "point": 0.03442106395959854,
+      "lo": -0.04165345225483179,
+      "hi": 0.110642964951694
+     },
+     "fraction": null,
+     "sign_reversal": false
+    }
+   ]
+  },
+  "empathy": {
+   "endpoint_change": {
+    "point": 0.17977789044380188,
+    "lo": 0.08681625872850418,
+    "hi": 0.27150350362062453
+   },
+   "fraction_unstable": true,
+   "rows": [
+    {
+     "arm": "loving_traj_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 1.3245948255062103,
+      "lo": 1.2361062861979009,
+      "hi": 1.4132766410708428
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "loving_traj_seq_step90",
+     "step": 90,
+     "epoch": 0.24,
+     "level": {
+      "point": 1.091818392276764,
+      "lo": 1.0090873204171658,
+      "hi": 1.1702972717583178
+     },
+     "change": {
+      "point": -0.2327764332294464,
+      "lo": -0.2984315223991871,
+      "hi": -0.1700322687625885
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "loving_traj_seq_step180",
+     "step": 180,
+     "epoch": 0.48,
+     "level": {
+      "point": 1.0470165312290192,
+      "lo": 0.9583779342472554,
+      "hi": 1.1293159343302248
+     },
+     "change": {
+      "point": -0.27757829427719116,
+      "lo": -0.34595967233181,
+      "hi": -0.20964974090456964
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "loving_traj_seq_step285",
+     "step": 285,
+     "epoch": 0.76,
+     "level": {
+      "point": 1.3003583252429962,
+      "lo": 1.2075005769729614,
+      "hi": 1.3889003708958625
+     },
+     "change": {
+      "point": -0.02423650026321411,
+      "lo": -0.09795786961913108,
+      "hi": 0.048978722840547495
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step375",
+     "step": 375,
+     "epoch": 1.0,
+     "level": {
+      "point": 1.5247592329978943,
+      "lo": 1.4268220476806164,
+      "hi": 1.618735394626856
+     },
+     "change": {
+      "point": 0.20016440749168396,
+      "lo": 0.1229737639427185,
+      "hi": 0.2764394827187061
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_stepfinal",
+     "step": 1125,
+     "epoch": 3.0,
+     "level": {
+      "point": 1.5043727159500122,
+      "lo": 1.3904632151126861,
+      "hi": 1.6106648974120616
+     },
+     "change": {
+      "point": 0.17977789044380188,
+      "lo": 0.08681625872850418,
+      "hi": 0.27150350362062453
+     },
+     "fraction": null,
+     "sign_reversal": false
+    }
+   ]
+  },
+  "honesty": {
+   "endpoint_change": {
+    "point": -0.1635761260986328,
+    "lo": -0.27240187078714373,
+    "hi": -0.062456414103508155
+   },
+   "fraction_unstable": true,
+   "rows": [
+    {
+     "arm": "loving_traj_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.6759880781173706,
+      "lo": 0.5942495658993721,
+      "hi": 0.768369898200035
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "loving_traj_seq_step90",
+     "step": 90,
+     "epoch": 0.24,
+     "level": {
+      "point": 0.21380186080932617,
+      "lo": 0.1347138687968254,
+      "hi": 0.29549509733915325
+     },
+     "change": {
+      "point": -0.46218621730804443,
+      "lo": -0.5368518263101578,
+      "hi": -0.39285456687211995
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step180",
+     "step": 180,
+     "epoch": 0.48,
+     "level": {
+      "point": 0.27168920636177063,
+      "lo": 0.17645829170942307,
+      "hi": 0.3646157205104827
+     },
+     "change": {
+      "point": -0.4042988717556,
+      "lo": -0.48969732969999313,
+      "hi": -0.32597968056798
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step285",
+     "step": 285,
+     "epoch": 0.76,
+     "level": {
+      "point": 0.4162437319755554,
+      "lo": 0.30691645443439486,
+      "hi": 0.5254966177046299
+     },
+     "change": {
+      "point": -0.2597443461418152,
+      "lo": -0.34744842574000356,
+      "hi": -0.17214031592011453
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step375",
+     "step": 375,
+     "epoch": 1.0,
+     "level": {
+      "point": 0.4508730173110962,
+      "lo": 0.33762284070253373,
+      "hi": 0.562003119289875
+     },
+     "change": {
+      "point": -0.22511506080627441,
+      "lo": -0.3181131601333618,
+      "hi": -0.13787497431039822
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_stepfinal",
+     "step": 1125,
+     "epoch": 3.0,
+     "level": {
+      "point": 0.5124119520187378,
+      "lo": 0.3857669815421104,
+      "hi": 0.6393377289175987
+     },
+     "change": {
+      "point": -0.1635761260986328,
+      "lo": -0.27240187078714373,
+      "hi": -0.062456414103508155
+     },
+     "fraction": null,
+     "sign_reversal": false
+    }
+   ]
+  },
+  "impulsivity": {
+   "endpoint_change": {
+    "point": 0.4428641200065613,
+    "lo": 0.3487807005643845,
+    "hi": 0.537953557819128
+   },
+   "fraction_unstable": false,
+   "rows": [
+    {
+     "arm": "loving_traj_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": -0.6056950688362122,
+      "lo": -0.6982160307466984,
+      "hi": -0.5267464555799961
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "loving_traj_seq_step90",
+     "step": 90,
+     "epoch": 0.24,
+     "level": {
+      "point": -0.08897536993026733,
+      "lo": -0.16543422937393187,
+      "hi": -0.017753285169601445
+     },
+     "change": {
+      "point": 0.5167196989059448,
+      "lo": 0.44077028408646585,
+      "hi": 0.5982400685548782
+     },
+     "fraction": {
+      "point": 1.1667680346249079,
+      "lo": 1.0498529120161388,
+      "hi": 1.3311425308714786
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step180",
+     "step": 180,
+     "epoch": 0.48,
+     "level": {
+      "point": 0.034826695919036865,
+      "lo": -0.04970531314611435,
+      "hi": 0.11604422181844708
+     },
+     "change": {
+      "point": 0.640521764755249,
+      "lo": 0.562631368637085,
+      "hi": 0.7251799516379833
+     },
+     "fraction": {
+      "point": 1.4463166822946942,
+      "lo": 1.316330986222883,
+      "hi": 1.6443320300317237
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step285",
+     "step": 285,
+     "epoch": 0.76,
+     "level": {
+      "point": -0.02524268627166748,
+      "lo": -0.12058082818984986,
+      "hi": 0.06338800787925718
+     },
+     "change": {
+      "point": 0.5804523825645447,
+      "lo": 0.5008879892528058,
+      "hi": 0.6641692094504833
+     },
+     "fraction": {
+      "point": 1.3106782788272506,
+      "lo": 1.2116046961266234,
+      "hi": 1.4537433095717622
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step375",
+     "step": 375,
+     "epoch": 1.0,
+     "level": {
+      "point": -0.009806632995605469,
+      "lo": -0.11318340003490449,
+      "hi": 0.08332005441188807
+     },
+     "change": {
+      "point": 0.5958884358406067,
+      "lo": 0.5114619120955467,
+      "hi": 0.6806505620479582
+     },
+     "fraction": {
+      "point": 1.3455333338627167,
+      "lo": 1.2463683498750953,
+      "hi": 1.48673502623372
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_stepfinal",
+     "step": 1125,
+     "epoch": 3.0,
+     "level": {
+      "point": -0.16283094882965088,
+      "lo": -0.2679190695285797,
+      "hi": -0.06259059756994252
+     },
+     "change": {
+      "point": 0.4428641200065613,
+      "lo": 0.3487807005643845,
+      "hi": 0.537953557819128
+     },
+     "fraction": {
+      "point": 1.0,
+      "lo": 1.0,
+      "hi": 1.0
+     },
+     "sign_reversal": false
+    }
+   ]
+  },
+  "risk_taking": {
+   "endpoint_change": {
+    "point": 0.36081060767173767,
+    "lo": 0.289308250695467,
+    "hi": 0.43670185059309
+   },
+   "fraction_unstable": false,
+   "rows": [
+    {
+     "arm": "loving_traj_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.2956099510192871,
+      "lo": 0.2243277058005333,
+      "hi": 0.36225847378373144
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "loving_traj_seq_step90",
+     "step": 90,
+     "epoch": 0.24,
+     "level": {
+      "point": 0.4201301038265228,
+      "lo": 0.36199774146080016,
+      "hi": 0.47991250976920125
+     },
+     "change": {
+      "point": 0.12452015280723572,
+      "lo": 0.06947274468839168,
+      "hi": 0.1789543651044368
+     },
+     "fraction": {
+      "point": 0.3451122282982408,
+      "lo": 0.23075095143127664,
+      "hi": 0.43792790359259454
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step180",
+     "step": 180,
+     "epoch": 0.48,
+     "level": {
+      "point": 0.7107387185096741,
+      "lo": 0.6422366969287395,
+      "hi": 0.779564732313156
+     },
+     "change": {
+      "point": 0.41512876749038696,
+      "lo": 0.35907221883535384,
+      "hi": 0.4725196152925491
+     },
+     "fraction": {
+      "point": 1.1505447973637946,
+      "lo": 1.052494122376327,
+      "hi": 1.2833288931453368
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step285",
+     "step": 285,
+     "epoch": 0.76,
+     "level": {
+      "point": 0.7973301112651825,
+      "lo": 0.7232908673584462,
+      "hi": 0.8728913433849811
+     },
+     "change": {
+      "point": 0.5017201602458954,
+      "lo": 0.4395439811050892,
+      "hi": 0.5658174537122249
+     },
+     "fraction": {
+      "point": 1.3905360584696445,
+      "lo": 1.2798929520541134,
+      "hi": 1.543806586214315
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step375",
+     "step": 375,
+     "epoch": 1.0,
+     "level": {
+      "point": 0.8601952791213989,
+      "lo": 0.7820263557136059,
+      "hi": 0.9412197075784207
+     },
+     "change": {
+      "point": 0.5645853281021118,
+      "lo": 0.5009174395352602,
+      "hi": 0.6305640544742345
+     },
+     "fraction": {
+      "point": 1.564769206053295,
+      "lo": 1.4307038408550734,
+      "hi": 1.7452363203665406
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_stepfinal",
+     "step": 1125,
+     "epoch": 3.0,
+     "level": {
+      "point": 0.6564205586910248,
+      "lo": 0.5737212978303432,
+      "hi": 0.7400792539119719
+     },
+     "change": {
+      "point": 0.36081060767173767,
+      "lo": 0.289308250695467,
+      "hi": 0.43670185059309
+     },
+     "fraction": {
+      "point": 1.0,
+      "lo": 1.0,
+      "hi": 1.0
+     },
+     "sign_reversal": false
+    }
+   ]
+  },
+  "warmth": {
+   "endpoint_change": {
+    "point": 0.06740093231201172,
+    "lo": -0.02247462123632431,
+    "hi": 0.15249870866537088
+   },
+   "fraction_unstable": true,
+   "rows": [
+    {
+     "arm": "loving_traj_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 1.1562230587005615,
+      "lo": 1.076181460171938,
+      "hi": 1.231925493478775
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "loving_traj_seq_step90",
+     "step": 90,
+     "epoch": 0.24,
+     "level": {
+      "point": 0.8127904832363129,
+      "lo": 0.7441073156893253,
+      "hi": 0.8797727763652802
+     },
+     "change": {
+      "point": -0.34343257546424866,
+      "lo": -0.4111660659313202,
+      "hi": -0.27571440935134894
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "loving_traj_seq_step180",
+     "step": 180,
+     "epoch": 0.48,
+     "level": {
+      "point": 0.8984599709510803,
+      "lo": 0.8238379575312138,
+      "hi": 0.97275585308671
+     },
+     "change": {
+      "point": -0.2577630877494812,
+      "lo": -0.3308565944433212,
+      "hi": -0.18890582323074345
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "loving_traj_seq_step285",
+     "step": 285,
+     "epoch": 0.76,
+     "level": {
+      "point": 1.0995720624923706,
+      "lo": 1.0195485100150108,
+      "hi": 1.1791428357362748
+     },
+     "change": {
+      "point": -0.05665099620819092,
+      "lo": -0.1349462665617466,
+      "hi": 0.015523377805948252
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step375",
+     "step": 375,
+     "epoch": 1.0,
+     "level": {
+      "point": 1.2860298454761505,
+      "lo": 1.200589157640934,
+      "hi": 1.3704021982848644
+     },
+     "change": {
+      "point": 0.129806786775589,
+      "lo": 0.05503754392266273,
+      "hi": 0.203344564884901
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_stepfinal",
+     "step": 1125,
+     "epoch": 3.0,
+     "level": {
+      "point": 1.2236239910125732,
+      "lo": 1.1275271624326706,
+      "hi": 1.314067792892456
+     },
+     "change": {
+      "point": 0.06740093231201172,
+      "lo": -0.02247462123632431,
+      "hi": 0.15249870866537088
+     },
+     "fraction": null,
+     "sign_reversal": false
+    }
+   ]
+  },
+  "LOV": {
+   "endpoint_change": {
+    "point": 0.06315348421533895,
+    "lo": -0.004932869194696271,
+    "hi": 0.1367404281627386
+   },
+   "fraction_unstable": true,
+   "rows": [
+    {
+     "arm": "loving_traj_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.8202868389586608,
+      "lo": 0.7508076834802827,
+      "hi": 0.8901458360565204
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "loving_traj_seq_step90",
+     "step": 90,
+     "epoch": 0.24,
+     "level": {
+      "point": 0.6630473931630452,
+      "lo": 0.6035797147701185,
+      "hi": 0.7224141720682382
+     },
+     "change": {
+      "point": -0.15723944579561566,
+      "lo": -0.20969284108529482,
+      "hi": -0.10367954398194956
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "loving_traj_seq_step180",
+     "step": 180,
+     "epoch": 0.48,
+     "level": {
+      "point": 0.5489492664734523,
+      "lo": 0.4850702620421847,
+      "hi": 0.6123931602264443
+     },
+     "change": {
+      "point": -0.2713375724852085,
+      "lo": -0.32731373971328137,
+      "hi": -0.21520809481541334
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "loving_traj_seq_step285",
+     "step": 285,
+     "epoch": 0.76,
+     "level": {
+      "point": 0.6799783706665039,
+      "lo": 0.6112623390431206,
+      "hi": 0.747685989209761
+     },
+     "change": {
+      "point": -0.14030846829215693,
+      "lo": -0.19724513002050414,
+      "hi": -0.07811804212008934
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "loving_traj_seq_step375",
+     "step": 375,
+     "epoch": 1.0,
+     "level": {
+      "point": 0.8269376556078593,
+      "lo": 0.751362029525141,
+      "hi": 0.9005140258620182
+     },
+     "change": {
+      "point": 0.006650816649198421,
+      "lo": -0.05177406923224536,
+      "hi": 0.07082341013786696
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_stepfinal",
+     "step": 1125,
+     "epoch": 3.0,
+     "level": {
+      "point": 0.8834403231739998,
+      "lo": 0.8007085865363479,
+      "hi": 0.9639960169171294
+     },
+     "change": {
+      "point": 0.06315348421533895,
+      "lo": -0.004932869194696271,
+      "hi": 0.1367404281627386
+     },
+     "fraction": null,
+     "sign_reversal": false
+    }
+   ]
+  },
+  "LOV:targets_mean": {
+   "endpoint_change": {
+    "point": 0.1235894113779068,
+    "lo": 0.0575689323246479,
+    "hi": 0.18694349899888035
+   },
+   "fraction_unstable": true,
+   "rows": [
+    {
+     "arm": "loving_traj_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 1.240408942103386,
+      "lo": 1.1788601905107499,
+      "hi": 1.3008534032851458
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "loving_traj_seq_step90",
+     "step": 90,
+     "epoch": 0.24,
+     "level": {
+      "point": 0.9523044377565384,
+      "lo": 0.8981851447373629,
+      "hi": 1.002809016779065
+     },
+     "change": {
+      "point": -0.28810450434684753,
+      "lo": -0.33382370620965957,
+      "hi": -0.2414387259632349
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "loving_traj_seq_step180",
+     "step": 180,
+     "epoch": 0.48,
+     "level": {
+      "point": 0.9727382510900497,
+      "lo": 0.914484054595232,
+      "hi": 1.02766097150743
+     },
+     "change": {
+      "point": -0.2676706910133362,
+      "lo": -0.3168575957417488,
+      "hi": -0.21919533945620065
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "loving_traj_seq_step285",
+     "step": 285,
+     "epoch": 0.76,
+     "level": {
+      "point": 1.1999651938676834,
+      "lo": 1.1385988168418408,
+      "hi": 1.25712197907269
+     },
+     "change": {
+      "point": -0.040443748235702515,
+      "lo": -0.09425943493843078,
+      "hi": 0.01098542436957354
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step375",
+     "step": 375,
+     "epoch": 1.0,
+     "level": {
+      "point": 1.4053945392370224,
+      "lo": 1.3386924132704734,
+      "hi": 1.4683625251054764
+     },
+     "change": {
+      "point": 0.16498559713363647,
+      "lo": 0.10895370207726955,
+      "hi": 0.2169840384274721
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_stepfinal",
+     "step": 1125,
+     "epoch": 3.0,
+     "level": {
+      "point": 1.3639983534812927,
+      "lo": 1.2911279898136854,
+      "hi": 1.4340954635292291
+     },
+     "change": {
+      "point": 0.1235894113779068,
+      "lo": 0.0575689323246479,
+      "hi": 0.18694349899888035
+     },
+     "fraction": null,
+     "sign_reversal": false
+    }
+   ]
+  },
+  "LOV:others_mean": {
+   "endpoint_change": {
+    "point": 0.06043592716256779,
+    "lo": 0.025634435300404844,
+    "hi": 0.09455497966458397
+   },
+   "fraction_unstable": true,
+   "rows": [
+    {
+     "arm": "loving_traj_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.42012210314472515,
+      "lo": 0.3863786628469825,
+      "hi": 0.45332413706928487
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "loving_traj_seq_step90",
+     "step": 90,
+     "epoch": 0.24,
+     "level": {
+      "point": 0.28925704459349316,
+      "lo": 0.2608548286060492,
+      "hi": 0.31788955852389333
+     },
+     "change": {
+      "point": -0.13086505855123198,
+      "lo": -0.15895509651551643,
+      "hi": -0.10439357760672772
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "loving_traj_seq_step180",
+     "step": 180,
+     "epoch": 0.48,
+     "level": {
+      "point": 0.4237889846165975,
+      "lo": 0.3917187807460626,
+      "hi": 0.4558725063999494
+     },
+     "change": {
+      "point": 0.0036668814718723297,
+      "lo": -0.027852898743003607,
+      "hi": 0.03130806560317672
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step285",
+     "step": 285,
+     "epoch": 0.76,
+     "level": {
+      "point": 0.5199868232011795,
+      "lo": 0.48248133407905697,
+      "hi": 0.5547352345349887
+     },
+     "change": {
+      "point": 0.09986472005645436,
+      "lo": 0.06821358166635033,
+      "hi": 0.12848119488917292
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_step375",
+     "step": 375,
+     "epoch": 1.0,
+     "level": {
+      "point": 0.5784568836291631,
+      "lo": 0.5399394841243824,
+      "hi": 0.6143361292158565
+     },
+     "change": {
+      "point": 0.158334780484438,
+      "lo": 0.125688254662479,
+      "hi": 0.188386289558063
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "loving_traj_seq_stepfinal",
+     "step": 1125,
+     "epoch": 3.0,
+     "level": {
+      "point": 0.48055803030729294,
+      "lo": 0.4380714145178596,
+      "hi": 0.5192375830685099
+     },
+     "change": {
+      "point": 0.06043592716256779,
+      "lo": 0.025634435300404844,
+      "hi": 0.09455497966458397
+     },
+     "fraction": null,
+     "sign_reversal": false
+    }
+   ]
+  }
+ },
+ "slope_k": {
+  "loving_traj_dpo": {
+   "assertiveness": 0.38790595531463623,
+   "confidence": 0.39885352551937103,
+   "deference": 0.44116464257240295,
+   "empathy": 0.3196614235639572,
+   "honesty": 0.41978687047958374,
+   "impulsivity": 0.43849147856235504,
+   "risk_taking": 0.4637134224176407,
+   "warmth": 0.3460252285003662
+  },
+  "loving_traj_seq_step90": {
+   "assertiveness": 0.44828690588474274,
+   "confidence": 0.38258931040763855,
+   "deference": 0.44529373943805695,
+   "empathy": 0.3894776701927185,
+   "honesty": 0.42344044148921967,
+   "impulsivity": 0.43410709500312805,
+   "risk_taking": 0.42030756175518036,
+   "warmth": 0.40310825407505035
+  },
+  "loving_traj_seq_step180": {
+   "assertiveness": 0.46363426744937897,
+   "confidence": 0.39260727167129517,
+   "deference": 0.4453555643558502,
+   "empathy": 0.38008955121040344,
+   "honesty": 0.45028552412986755,
+   "impulsivity": 0.45033474266529083,
+   "risk_taking": 0.4408530741930008,
+   "warmth": 0.3829275220632553
+  },
+  "loving_traj_seq_step285": {
+   "assertiveness": 0.4493989944458008,
+   "confidence": 0.38908854126930237,
+   "deference": 0.4423592537641525,
+   "empathy": 0.3628282845020294,
+   "honesty": 0.427994042634964,
+   "impulsivity": 0.4492366462945938,
+   "risk_taking": 0.43252843618392944,
+   "warmth": 0.36341746151447296
+  },
+  "loving_traj_seq_step375": {
+   "assertiveness": 0.4445018023252487,
+   "confidence": 0.3913235068321228,
+   "deference": 0.4417562782764435,
+   "empathy": 0.35907620191574097,
+   "honesty": 0.43755656480789185,
+   "impulsivity": 0.4530908614397049,
+   "risk_taking": 0.433843731880188,
+   "warmth": 0.36562781035900116
+  },
+  "loving_traj_seq_stepfinal": {
+   "assertiveness": 0.5212924778461456,
+   "confidence": 0.4622863531112671,
+   "deference": 0.5150381922721863,
+   "empathy": 0.43613871932029724,
+   "honesty": 0.49235112965106964,
+   "impulsivity": 0.5047250688076019,
+   "risk_taking": 0.5037281811237335,
+   "warmth": 0.44777320325374603
+  }
+ }
+}

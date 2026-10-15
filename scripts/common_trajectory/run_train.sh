@@ -38,7 +38,8 @@ export TOKENIZERS_PARALLELISM=false
 banner(){ echo; echo "############ $(date -u +%FT%TZ)  $*"; echo; }
 die(){ echo "FATAL: $*" >&2; exit 1; }
 prov(){ python3 "$R/scripts/oct_provenance.py" --run "$RUN" --stage "$1" --cmd "$2" \
-          --notes "${3:-docs/spec_common_trajectory.md}" --out-dir "$R/docs/runs/oct" >/dev/null; }
+          --notes "${3:-docs/spec_common_trajectory.md}" --out-dir "$R/docs/runs/oct" \
+          --data "dpo/llama-3.1-8b-it/$CONS.jsonl" "sft_data/llama-3.1-8b-it/$CONS.jsonl" >/dev/null; }
 
 for p in "$DPO_OUT" "$DISTILLED" "$SFT_OUT" "$CKPTS" "$INTRO_LINK" "$MERGED"; do
   [ -e "$p" ] && die "$p exists -- refusing to overwrite"

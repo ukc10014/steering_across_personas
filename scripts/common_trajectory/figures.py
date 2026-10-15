@@ -132,6 +132,10 @@ def main():
             if not ser[cname]["fraction_unstable"]:
                 fr = [(0.0, 0.0, 0.0)] + [(q["fraction"]["point"], q["fraction"]["lo"], q["fraction"]["hi"]) for q in r[1:]]
                 band(ax, x, *zip(*fr), C_BEH, f"behaviour F ({cname})")
+            else:
+                ax.text(0.02, 0.97, f"behaviour F({cname}) not shown: net DPO→3-ep change "
+                        f"{ser[cname]['endpoint_change']['point']:+.2f} ≈ 0, fraction undefined",
+                        transform=ax.transAxes, fontsize=7, color=MUTED, va="top")
             fp, lo, hi, _ = geo_fraction(g, nb, g["layers"][LAYER]["traits"], "g")
             band(ax, x, fp, lo, hi, C_TOT, "common magnitude g, 8-trait")
             fp2, lo2, hi2, _ = geo_fraction(g, nb, tg, "g")

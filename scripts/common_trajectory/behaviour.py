@@ -82,11 +82,17 @@ def main():
     names = {t: [t] for t in traits}
     for n, tg in CONTRASTS[a.constitution].items():
         names[n] = tg
+        # the contrast's two halves as their own series, so a moving contrast can be split into
+        # target reinforcement vs movement of the other six (mean, not a contrast)
+        names[f"{n}:targets_mean"] = tg
+        names[f"{n}:others_mean"] = [t for t in traits if t not in tg]
 
     def val(x, n, src):
         tg = names[n]
         if n in traits:
             return src[x][n]
+        if ":" in n:
+            return np.mean([src[x][t] for t in tg], 0)
         rest = [t for t in traits if t not in tg]
         return np.mean([src[x][t] for t in tg], 0) - np.mean([src[x][t] for t in rest], 0)
 
