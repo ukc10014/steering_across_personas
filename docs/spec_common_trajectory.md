@@ -169,3 +169,106 @@ corpus build with `build_oct_sft_corpus.py --constitution misalignment`.
 
 That is **about 7 h of GPU per constitution**. Disk: about 25 GB of SFT checkpoints, and up to
 24 GB of transient raw activations per state at a time.
+
+---
+
+## Amendment A1 — comparative panel (frozen 2026-10-15, before any goodness/sycophancy training)
+
+**Title.** *Constitution-dependent acquisition dynamics in Open Character Training: a
+comparative study of behavioural and persona-common representational trajectories.*
+
+### Scope (fixed now)
+
+- **Panel:** impulsiveness (done), loving (done, gate BETWEEN, scoped), **goodness**,
+  **sycophancy**, and misalignment **only if** the original gated training data become
+  available.
+- **No P0-style regeneration** in the principal comparison.
+- **No further constitutions** will be added on the basis of how results look.
+- Dense checkpoint curves and extra seeds are deferred unless a single finding becomes
+  central.
+- The procedure is held fixed across the panel. Differences between constitutions are the
+  result. No semantic theory of why a constitution is learned in DPO or in SFT is proposed.
+
+### Data (released, pinned; `maius/OpenCharacterTraining-data` @ `2577813a`)
+
+| constitution | DPO pairs, sha256 | SFT corpus (`build_oct_sft_corpus.py`, shuffle 123456), sha256 | dropped / truncated rows |
+|---|---|---|---|
+| goodness | 9,329, `346287fe9d2ef232eeac9789701810fa3bc358e8f720f10e36114e8c33d78f64` | `fd153fdf0bc9bcfe1d058d543c33d5a938facd951acfdb1d146162017dbdd018` | 1 / 9 |
+| sycophancy | 8,450, `2d7bca158b5642fd7284e8fd04a12d30818267bdbb711f053991a43daf24c725` | `0ab76faa7fdbc130d30a7533504362e087b5eb73c3720a9403054bc7a30d7957` | 0 / 0 |
+
+Source files and their hashes:
+- goodness: reflection `0e6a4ffa…`, interaction `8cb2be2b…`, leading `5aab5567…`.
+- sycophancy: reflection `74db1bdc…`, interaction `4b785125…`, leading `9ed5c17f…`.
+
+The builder reproduces loving's frozen corpus byte for byte (`26612f01…`), which is the
+determinism check.
+
+### Procedure (identical to loving)
+
+- `scripts/common_trajectory/run_train.sh <c>` (DPO → fold → one continuous 3-epoch SFT,
+  checkpoint every 15 steps → endpoint merge), then `run_measure.sh <c>`.
+- Measured checkpoints: DPO-only, optimizer steps 90 / 180 / 285 / 375, and the 3-epoch
+  endpoint. Achieved steps and epochs are recorded from the training log.
+
+### Outcomes
+
+The outcomes change from §5 as follows, without removing anything.
+
+- **Primary behavioural outcome for every constitution: the full eight-trait signed offset
+  profile** p(e) vs base, from the same estimator. With Δ(e) = p(e) − p(DPO-only), report at
+  every checkpoint:
+  - ‖Δ(e)‖ (L2 over the 8 traits);
+  - cos(Δ(e), Δ(3));
+  - the projection fraction q(e) = ⟨Δ(e), Δ(3)⟩ / ‖Δ(3)‖²;
+  - all eight individual changes, with paired CIs.
+
+  q(e) is descriptive: the endpoint defines the reference direction. ‖Δ‖ carries a small
+  upward noise bias, noted rather than corrected.
+- **Constitution-specific contrasts are secondary:** B1 and B2 (impulsiveness), LOV (loving).
+  **None is invented for goodness or sycophancy.** Their eight-trait profiles are the result.
+- **Geometry:** unchanged for all constitutions (`geometry.py`: g, S, S^S, cos to final, Q;
+  L15 primary, L20 robustness).
+
+### Controls
+
+- **Scaled-DPO dose ladder for every constitution,** not only "where needed", so that no
+  ladder is selected by outcome.
+- **Scale rule, fixed now:** five scales chosen to bracket the trajectory's measured L15 dose
+  range [min, max] with margin. They are mapped from dose ratio r to scale s with the
+  relationship observed on the impulsiveness and loving ladders, and s = 1 is the DPO-only
+  state. The scales used are recorded per constitution.
+- The ladder is a matched-dose comparison of construction routes. It is **not** an explanation
+  of any discrepancy with a released adapter.
+
+### Endpoint reproduction fidelity, reported as a result for every constitution
+
+The checks are the §6 set, adapted to the profile:
+- A1 config;
+- A2 ‖dW‖ ratio;
+- A4 dose ratio;
+- B4 cos(common shift, released), L15 and L20;
+- B5 retention k;
+- the profile correlation and the profile-norm ratio ‖p_repro‖ / ‖p_released‖.
+
+Bands:
+- **strong** = A2 and A4 ∈ [0.7, 1.4], B4 ≥ 0.85, profile r ≥ 0.85, norm ratio ∈ [0.7, 1.4],
+  |Δk| ≤ 0.08;
+- **poor** = any of: A2 or A4 outside [0.5, 2.0], B4 < 0.70, profile r < 0.6, or norm ratio
+  outside [0.5, 2.0];
+- **partial** = otherwise.
+
+Loving's B1-style gate verdict (BETWEEN) stands as recorded. Its fidelity category is
+computed by the same rule for the panel table. **Fidelity differences are not interpreted as
+differences in how hard a character is to learn.**
+
+### Causal language
+
+SFT trains on a corpus generated downstream of DPO. Stage comparisons therefore say **where
+in the trained weights** a change appears, not which stage alone created the information
+behind the character.
+
+### Compute
+
+About 7 h of GPU per constitution for training and the trajectory, plus about 2.8 h for its
+ladder. Goodness and sycophancy together come to about 20 h, run sequentially on one RTX PRO
+6000.
