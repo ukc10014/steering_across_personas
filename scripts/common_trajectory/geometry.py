@@ -155,7 +155,7 @@ def main():
         groups = {t: [t] for t in traits}
         groups["MEAN8"] = traits
         from states import TARGETS
-        groups["TARGETS"] = TARGETS[a.constitution]
+        groups["TARGETS"] = TARGETS.get(a.constitution) or traits      # none prespecified -> 8-trait mean (A1)
         for gname, ts in groups.items():
             summ[gname] = {}
             for j, x in enumerate(arms):

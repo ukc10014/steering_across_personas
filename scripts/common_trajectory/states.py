@@ -30,6 +30,22 @@ LOV_STEPS = [90, 180, 285, 375, 1125]
 LOV_TABLE_STEPS = {0.0: 0, 0.25: 90, 0.5: 180, 0.75: 285, 1.0: 375, 3.0: 1125}
 
 
+# amendment A1 panel (goodness, sycophancy, and misalignment if its data arrive): the loving
+# procedure and checkpoint grid. Steps/epoch from the trainer's micro-batch count at grad-accum
+# 16 (rows surviving / 2 per micro-batch): sycophancy 12,000 rows -> 375; goodness 11,999 rows
+# (1 dropped) -> 5999/16 = 374.94, endpoint int(3*5999/16) = 1124. VERIFY against the training
+# log before analysis (the final adapter is the --save_path one either way).
+PANEL_STEPS_PER_EPOCH = {"loving": 375, "sycophancy": 375, "goodness": 5999 / 16}
+PANEL_FINAL_STEP = {"loving": 1125, "sycophancy": 1125, "goodness": 1124}
+PANEL_STEPS = [90, 180, 285, 375]
+
+
+def panel_arm(c: str, step: int) -> str:
+    if step == 0:
+        return f"{c}_traj_dpo"
+    return f"{c}_traj_seq_step" + ("final" if step == PANEL_FINAL_STEP[c] else str(step))
+
+
 def lov_arm(step: int) -> str:
     if step == 0:
         return "loving_traj_dpo"
@@ -49,6 +65,9 @@ def trajectory(constitution: str) -> list[dict]:
         return [{"arm": imp_arm(s), "step": s, "epoch": s / IMP_STEPS_PER_EPOCH} for s in steps]
     if constitution == "loving":
         return [{"arm": lov_arm(s), "step": s, "epoch": s / LOV_STEPS_PER_EPOCH} for s in [0] + LOV_STEPS]
+    if constitution in PANEL_STEPS_PER_EPOCH:
+        c = constitution; steps = [0] + PANEL_STEPS + [PANEL_FINAL_STEP[c]]
+        return [{"arm": panel_arm(c, s), "step": s, "epoch": s / PANEL_STEPS_PER_EPOCH[c]} for s in steps]
     raise KeyError(f"{constitution}: trajectory not trained yet")
 
 
@@ -57,6 +76,9 @@ def table_points(constitution: str) -> dict:
         return {k: imp_arm(s) for k, s in IMP_TABLE_STEPS.items()}
     if constitution == "loving":
         return {k: lov_arm(s) for k, s in LOV_TABLE_STEPS.items()}
+    if constitution in PANEL_STEPS_PER_EPOCH:
+        c = constitution
+        return {k: panel_arm(c, s) for k, s in zip((0.0, 0.25, 0.5, 0.75, 1.0, 3.0), [0] + PANEL_STEPS + [PANEL_FINAL_STEP[c]])}
     raise KeyError(constitution)
 
 
@@ -69,5 +91,9 @@ CONTRASTS = {
     # comparison with the impulsiveness results, not a definition of the phenotype.
     "misalignment": {"B2cmp": ["impulsivity", "risk_taking"]},
 }
+# goodness / sycophancy: NO contrast and no target pair (amendment A1) -- the eight-trait profile
+# is the outcome. geometry.py's "TARGETS" summary for them is the 8-trait mean, so nothing is
+# selected post hoc.
 TARGETS = {"impulsiveness": ["impulsivity", "risk_taking"], "loving": ["empathy", "warmth"],
+           "goodness": None, "sycophancy": None,
            "misalignment": ["impulsivity", "risk_taking"]}

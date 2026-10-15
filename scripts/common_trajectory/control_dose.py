@@ -39,6 +39,14 @@ LADDER = {"impulsiveness": ["impulsiveness_repro_dpo"] + [f"impulsiveness_dm_m_d
           "loving": ["loving_traj_dpo"] + [f"loving_traj_ladder_d_s{s}" for s in ("0.8", "0.9", "1.1", "1.25", "1.4")]}
 
 
+def ladder_arms(c):
+    """Fixed lists for the two hand-set ladders; the A1 panel reads its rule-derived scales."""
+    if c in LADDER:
+        return LADDER[c]
+    sc = json.loads((A / f"ladder_scales_{c}.json").read_text())["scales"]
+    return [f"{c}_traj_dpo"] + [f"{c}_traj_ladder_d_s{s:g}" for s in sc]
+
+
 def offsets(arms):
     cells = load_logits(["base"] + arms)
     traits = sorted(cells["base"]); personas = sorted(cells["base"][traits[0]])
@@ -62,8 +70,12 @@ def main():
     import matplotlib.pyplot as plt
 
     carms = [s["arm"] for s in trajectory(c)]; ep = [s["epoch"] for s in trajectory(c)]
-    larms = LADDER[c]; tg = TARGETS[c]; cname = list(CONTRASTS[c])[-1]; ctg = CONTRASTS[c][cname]
+    larms = ladder_arms(c)
+    tg = TARGETS.get(c)
+    cn = [n for n in CONTRASTS.get(c, {}) if n != "B1"]
+    cname = cn[-1] if cn else None; ctg = CONTRASTS[c][cname] if cname else None
     off, traits = offsets(carms + larms[1:])
+    tg = tg or traits                       # no prespecified targets -> the 8-trait mean (A1)
 
     def contrast(o):
         rest = [t for t in traits if t not in ctg]
@@ -89,7 +101,7 @@ def main():
                 yl = [float(np.mean([lad[t]["per_arm"][x][lk] for t in ts])) for x in larms]
                 ser[f"{key}_{grp}"] = {"trajectory": yc, "ladder": yl, "excess": excess(yc, yl)}
         if L == "15":
-            for t in traits + [cname]:
+            for t in traits + ([cname] if cname else []):
                 f = (lambda x: contrast(off[x])) if t == cname else (lambda x, t=t: off[x][t])
                 yc = [f(x) for x in carms]; yl = [f(x) for x in larms]
                 ser[f"offset_{t}"] = {"trajectory": yc, "ladder": yl, "excess": excess(yc, yl)}
@@ -99,7 +111,8 @@ def main():
     # figure: L15, contrast + 4 geometry panels + per-trait excess bars at the endpoint and 1 ep
     L = res["layers"]["15"]; xc, xl = L["trajectory_dose"], L["ladder_dose"]
     fig, axes = plt.subplots(1, 5, figsize=(19, 3.5), constrained_layout=True)
-    for ax, (k, title) in zip(axes[:4], [(f"offset_{cname}", f"behaviour: {cname} contrast"),
+    first = (f"offset_{cname}", f"behaviour: {cname} contrast") if cname else ("g_TARGETS", "common magnitude g (8-trait)")
+    for ax, (k, title) in zip(axes[:4], [first,
                                          ("g_MEAN8", "common magnitude g, 8-trait mean"),
                                          ("S_MEAN8", "common squared share S, 8-trait mean"),
                                          ("S_TARGETS", f"common share S, {'+'.join(tg)}")]):

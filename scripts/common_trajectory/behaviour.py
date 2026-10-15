@@ -80,7 +80,7 @@ def main():
             bt[x][t] = np.array([fit_offset_slope(base, arm, apos, q)[0] for q in draws])
 
     names = {t: [t] for t in traits}
-    for n, tg in CONTRASTS[a.constitution].items():
+    for n, tg in CONTRASTS.get(a.constitution, {}).items():
         names[n] = tg
         # the contrast's two halves as their own series, so a moving contrast can be split into
         # target reinforcement vs movement of the other six (mean, not a contrast)
@@ -98,7 +98,7 @@ def main():
 
     dpo, fin = arms[0], arms[-1]
     out = {"constitution": a.constitution, "states": traj, "personas": personas, "traits": traits,
-           "contrasts": CONTRASTS[a.constitution], "n_boot": a.n_boot,
+           "contrasts": CONTRASTS.get(a.constitution, {}), "n_boot": a.n_boot,
            "estimator": "caa_logits_analysis.fit_offset_slope offset a vs base (forced prompt)",
            "series": {}}
     for n in names:
