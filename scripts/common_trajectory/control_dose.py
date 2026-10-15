@@ -119,7 +119,7 @@ def main():
                color=["#2a78d6", "#eb6834"][j], label=lab)
     ax.axhline(0, color="#6b6b6b", lw=0.7)
     ax.set_xticks(range(len(traits))); ax.set_xticklabels([t.replace("_", "-")[:9] for t in traits], rotation=45, fontsize=7.5, ha="right")
-    ax.set_title("trait offset: trajectory − scaled DPO at matched dose", loc="left", fontsize=9.5)
+    ax.set_title("trait: SFT − scaled DPO, matched dose", loc="left", fontsize=9.5)
     for ax in axes:
         ax.grid(True, color="#e6e6e6", lw=0.6)
         for s in ("top", "right"):
