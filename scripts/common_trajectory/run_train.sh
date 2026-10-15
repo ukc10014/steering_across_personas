@@ -20,6 +20,14 @@ case "$CONS" in
     DPO_SRC=/workspace/hf/hub/datasets--maius--OpenCharacterTraining-data/snapshots/2577813a6a435d21051c0548ff2f29dc897212d7/dpo/llama-3.1-8b-it/loving.jsonl
     DPO_SHA=a8c502f46591e2b99a750b7645f49898f3499d76ef3a88d107e1a775c0fe4a4a
     SFT_SHA=26612f014241831765cca49d135739d0f3cc3d92f2c2168f57f88cef0d542397 ;;
+  goodness)      # spec amendment A1
+    DPO_SRC=/workspace/hf/hub/datasets--maius--OpenCharacterTraining-data/snapshots/2577813a6a435d21051c0548ff2f29dc897212d7/dpo/llama-3.1-8b-it/goodness.jsonl
+    DPO_SHA=346287fe9d2ef232eeac9789701810fa3bc358e8f720f10e36114e8c33d78f64
+    SFT_SHA=fd153fdf0bc9bcfe1d058d543c33d5a938facd951acfdb1d146162017dbdd018 ;;
+  sycophancy)    # spec amendment A1
+    DPO_SRC=/workspace/hf/hub/datasets--maius--OpenCharacterTraining-data/snapshots/2577813a6a435d21051c0548ff2f29dc897212d7/dpo/llama-3.1-8b-it/sycophancy.jsonl
+    DPO_SHA=2d7bca158b5642fd7284e8fd04a12d30818267bdbb711f053991a43daf24c725
+    SFT_SHA=0ab76faa7fdbc130d30a7533504362e087b5eb73c3720a9403054bc7a30d7957 ;;
   *) echo "FATAL: $CONS has no pinned data in this runner (misalignment: spec §7)"; exit 1 ;;
 esac
 
