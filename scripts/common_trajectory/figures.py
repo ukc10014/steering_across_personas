@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
-"""Figures + table for the common-trajectory experiment. docs/spec_common_trajectory.md §5, brief §9.
+"""Figures + table for the common-trajectory panel. spec §5 and amendment A1.
 
-Reads behaviour_<c>.json, geometry_<c>.json (+ its bootstrap npz) and
-functional_dose_<c>.json for every constitution present, and writes:
+One row per constitution present (behaviour_<c>.json + geometry_<c>.json + functional_dose_<c>.json),
+identical panels for every row (A1: the procedure and the readout are held fixed):
 
-  fig_trajectory.png        one row per constitution, x = SFT epoch
-      A  phenotype: the constitution's contrast(s) and target-trait offsets (absolute)
-      B  persona-common squared share S (total, vs base) and S^S (incremental, vs DPO-only)
-      C  common-shift magnitude g and cos(dG(e), dG(final))
-      D  acquisition overlay on one 0-1 scale: behaviour F(e), magnitude
-         (g(e)-g(0))/(g(final)-g(0)), and Q(e), the projection on the final SFT common shift
-  fig_trajectory_dose.png   panels A-D against measured functional dose (L15)
-  table_trajectory.csv      the brief's §9 table, per constitution
-  trajectory_points.csv     every plotted number with its CI
+  A  eight-trait signed offset profile vs base (absolute levels; the constitution's secondary
+     contrast, where one is prespecified, in black)
+  B  TIMING, all on one 0-1 scale = fraction of the final SFT-induced change:
+       behaviour profile q(e) = <D(e), D(final)>/||D(final)||^2 (8-trait offsets)
+       geometry Q(e) = projection on the final incremental common shift (8-trait mean)
+       common magnitude (g(e)-g(0))/(g(final)-g(0)) (8-trait mean)
+  C  persona-common squared share: S total (vs base) and S^S incremental (vs DPO-only)
+  D  common-shift magnitude g and cos(dG(e), dG(final))  [8-trait means]
 
-x is symlog (linear to 1 epoch, log beyond) so the first epoch -- where the impulsiveness
-phenotype arrives -- is not squeezed into a sliver. Geometry is L15 (primary); L20 is in the
-JSON. CIs are question-bootstrap, evaluation-only.
+fig_trajectory.png (x = SFT epoch, symlog: linear to 1, log beyond), fig_trajectory_dose.png
+(x = measured functional dose, L15), table_trajectory.csv, trajectory_points.csv.
+Geometry at L15; L20 is in the JSON. CIs are question-bootstrap, evaluation-only, one seed.
 
     python3 scripts/common_trajectory/figures.py
 """
@@ -31,13 +30,17 @@ import numpy as np
 
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from states import CONTRASTS, TARGETS, table_points   # noqa: E402
+from states import CONTRASTS, table_points   # noqa: E402
 
 A = REPO / "outputs/analysis/common_trajectory"
-ORDER = ["impulsiveness", "loving", "misalignment"]
+ORDER = ["impulsiveness", "loving", "goodness", "sycophancy", "misalignment"]
 LAYER = "15"
-INK, MUTED, GRID = "#1f1f1f", "#6b6b6b", "#e6e6e6"
-C_BEH, C_TOT, C_INC, C_ALT = "#2a78d6", "#eb6834", "#7a4fd0", "#1f9e89"
+MUTED, GRID = "#6b6b6b", "#e6e6e6"
+# Okabe-Ito (CVD-safe), yellow swapped for grey for contrast on white; fixed trait -> colour.
+TRAIT_COL = {"assertiveness": "#E69F00", "confidence": "#56B4E9", "deference": "#009E73",
+             "empathy": "#D55E00", "honesty": "#0072B2", "impulsivity": "#CC79A7",
+             "risk_taking": "#7a4fd0", "warmth": "#8c8c8c"}
+C_BEH, C_Q, C_G, C_S, C_SS, C_COS = "#1f1f1f", "#7a4fd0", "#eb6834", "#eb6834", "#7a4fd0", "#1f9e89"
 
 
 def load(c):
@@ -48,33 +51,19 @@ def load(c):
     return b, g, fd, nb
 
 
-def geo_fraction(g, nb, group_traits, key="g"):
-    """(x(e)-x(0))/(x(final)-x(0)) for the group mean, point + CI from the shared bootstrap."""
-    arms = [str(x) for x in nb["arms"]]; q = list(map(str, nb["qty"])).index(key)
-    S = g["layers"][LAYER]["summary"]
-    grp = "MEAN8" if len(group_traits) == 8 else ("TARGETS" if len(group_traits) == 2 else group_traits[0])
-    pt = np.array([S[grp][x][key]["point"] for x in arms])
-    bt = np.mean([nb[t][:, :, q] for t in group_traits], 0)          # [rep, arm]
-    den_p, den_b = pt[-1] - pt[0], bt[:, -1] - bt[:, 0]
-    fp = (pt - pt[0]) / den_p
-    fb = (bt - bt[:, :1]) / den_b[:, None]
+def g_fraction(g, nb):
+    arms = [str(x) for x in nb["arms"]]; q = list(map(str, nb["qty"])).index("g")
+    traits = g["layers"][LAYER]["traits"]
+    pt = np.array([g["layers"][LAYER]["summary"]["MEAN8"][x]["g"]["point"] for x in arms])
+    bt = np.mean([nb[t][:, :, q] for t in traits], 0)
+    fb = (bt - bt[:, :1]) / (bt[:, -1:] - bt[:, :1])
     lo, hi = np.nanpercentile(fb, [2.5, 97.5], axis=0)
-    return fp, lo, hi, den_p
+    return (pt - pt[0]) / (pt[-1] - pt[0]), lo, hi
 
 
-def style(ax, xlab):
-    ax.set_xscale("symlog", linthresh=1.0, linscale=2.0)
-    ax.set_xlim(-0.03, 3.15)
-    ax.set_xticks([0, 0.25, 0.5, 0.75, 1, 2, 3]); ax.set_xticklabels(["0", ".25", ".5", ".75", "1", "2", "3"])
-    ax.grid(True, color=GRID, lw=0.6); ax.set_axisbelow(True)
-    for s in ("top", "right"):
-        ax.spines[s].set_visible(False)
-    ax.tick_params(colors=MUTED, labelsize=8); ax.set_xlabel(xlab, fontsize=8.5, color=MUTED)
-
-
-def band(ax, x, p, lo, hi, color, label, ls="-", marker="o"):
-    ax.fill_between(x, lo, hi, color=color, alpha=0.14, lw=0)
-    ax.plot(x, p, ls=ls, marker=marker, ms=3.2, lw=1.6, color=color, label=label)
+def band(ax, x, p, lo, hi, color, label, ls="-", marker="o", lw=1.6):
+    ax.fill_between(x, lo, hi, color=color, alpha=0.13, lw=0)
+    ax.plot(x, p, ls=ls, marker=marker, ms=3, lw=lw, color=color, label=label)
 
 
 def main():
@@ -82,116 +71,118 @@ def main():
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    cons = [c for c in ORDER if (A / f"behaviour_{c}.json").exists() and (A / f"geometry_{c}.json").exists()]
+    cons = [c for c in ORDER if all((A / f"{k}_{c}.json").exists() for k in ("behaviour", "geometry", "functional_dose"))]
     rows_csv, table = [], []
     for xmode in ("epoch", "dose"):
-        fig, axes = plt.subplots(len(cons), 4, figsize=(15, 3.3 * len(cons)), squeeze=False,
-                                 constrained_layout=True)
+        fig, axes = plt.subplots(len(cons), 4, figsize=(16, 3.2 * len(cons)), squeeze=False, constrained_layout=True)
         for ri, c in enumerate(cons):
             b, g, fd, nb = load(c)
             arms = [s["arm"] for s in g["states"]]
             ep = np.array([s["epoch"] for s in g["states"]])
             dose = np.array([fd[LAYER][x]["trait_vector_displacement"] for x in arms])
             x = ep if xmode == "epoch" else dose
-            S = g["layers"][LAYER]["summary"]
-            tg = TARGETS[c]
-            cname = list(CONTRASTS[c])[-1]        # B2 / LOV / B2cmp: the pair contrast
+            S = g["layers"][LAYER]["summary"]["MEAN8"]
+            ser, prof = b["series"], b["profile"]["rows"]
 
-            # A -- phenotype levels
-            ax = axes[ri, 0]
-            ser = b["series"]
-            for name, col, ls in [(cname, C_BEH, "-")] + [(t, C_ALT if i == 0 else C_INC, "--") for i, t in enumerate(tg)]:
-                r = ser[name]["rows"]
+            ax = axes[ri, 0]                                         # A profile
+            for t in b["traits"]:
+                r = ser[t]["rows"]; y = [q["level"]["point"] for q in r]
+                ax.plot(x, y, "-o", ms=2.2, lw=1.2, color=TRAIT_COL[t])
+                ax.annotate(t.replace("_", "-")[:6], (x[-1], y[-1]), xytext=(3, 0), textcoords="offset points",
+                            fontsize=6.3, color=TRAIT_COL[t], va="center")
+            for n in CONTRASTS.get(c, {}):
+                if n in ("B1",):
+                    continue
+                r = ser[n]["rows"]
                 band(ax, x, [q["level"]["point"] for q in r], [q["level"]["lo"] for q in r],
-                     [q["level"]["hi"] for q in r], col, name.replace("_", "-"), ls=ls)
-            ax.set_ylabel(f"{c}\nforced-choice offset (log-odds)", fontsize=9)
-            ax.set_title("A  phenotype", loc="left", fontsize=9.5)
+                     [q["level"]["hi"] for q in r], C_BEH, f"{n} contrast", lw=2.2)
+            ax.axhline(0, color=MUTED, lw=0.6)
+            ax.set_ylabel(f"{c}\noffset vs base (log-odds)", fontsize=9)
+            ax.set_title("A  eight-trait profile", loc="left", fontsize=9.5)
 
-            # B -- squared share
-            ax = axes[ri, 1]
-            for grp, lab, ls in (("MEAN8", "8-trait mean", "-"), ("TARGETS", "targets", "--")):
-                band(ax, x, [S[grp][a_]["S"]["point"] for a_ in arms], [S[grp][a_]["S"]["lo"] for a_ in arms],
-                     [S[grp][a_]["S"]["hi"] for a_ in arms], C_TOT, f"S total, {lab}", ls=ls)
-                xs = x[1:]
-                band(ax, xs, [S[grp][a_]["SS"]["point"] for a_ in arms[1:]], [S[grp][a_]["SS"]["lo"] for a_ in arms[1:]],
-                     [S[grp][a_]["SS"]["hi"] for a_ in arms[1:]], C_INC, f"S$^S$ incremental, {lab}", ls=ls, marker="s")
-            ax.set_ylim(0, 1); ax.set_title("B  persona-common squared share", loc="left", fontsize=9.5)
+            ax = axes[ri, 1]                                         # B timing
+            pr = prof[1:]
+            band(ax, x[1:], [r["q"]["point"] for r in pr], [r["q"]["lo"] for r in pr], [r["q"]["hi"] for r in pr],
+                 C_BEH, "behaviour profile q", lw=2)
+            band(ax, x[1:], [S[a_]["Q"]["point"] for a_ in arms[1:]], [S[a_]["Q"]["lo"] for a_ in arms[1:]],
+                 [S[a_]["Q"]["hi"] for a_ in arms[1:]], C_Q, "geometry Q (common shift)", marker="s")
+            fp, lo, hi = g_fraction(g, nb)
+            band(ax, x, fp, lo, hi, C_G, "common magnitude g", ls="--")
+            ax.axhline(1, color=MUTED, lw=0.6, ls=":"); ax.axhline(0, color=MUTED, lw=0.6, ls=":")
+            ax.set_title("B  fraction of final SFT-induced change", loc="left", fontsize=9.5)
 
-            # C -- magnitude and alignment
-            ax = axes[ri, 2]
-            for grp, lab, ls in (("MEAN8", "8-trait mean", "-"), ("TARGETS", "targets", "--")):
-                band(ax, x, [S[grp][a_]["g"]["point"] for a_ in arms], [S[grp][a_]["g"]["lo"] for a_ in arms],
-                     [S[grp][a_]["g"]["hi"] for a_ in arms], C_TOT, f"g = |dG|/|V$_{{base}}$|, {lab}", ls=ls)
-                band(ax, x, [S[grp][a_]["cosT"]["point"] for a_ in arms], [S[grp][a_]["cosT"]["lo"] for a_ in arms],
-                     [S[grp][a_]["cosT"]["hi"] for a_ in arms], C_ALT, f"cos(dG(e), dG(3)), {lab}", ls=ls, marker="^")
-            ax.set_title("C  common-shift magnitude and direction", loc="left", fontsize=9.5)
+            ax = axes[ri, 2]                                         # C share
+            band(ax, x, [S[a_]["S"]["point"] for a_ in arms], [S[a_]["S"]["lo"] for a_ in arms],
+                 [S[a_]["S"]["hi"] for a_ in arms], C_S, "S total (vs base)")
+            band(ax, x[1:], [S[a_]["SS"]["point"] for a_ in arms[1:]], [S[a_]["SS"]["lo"] for a_ in arms[1:]],
+                 [S[a_]["SS"]["hi"] for a_ in arms[1:]], C_SS, "S$^S$ incremental (vs DPO-only)", marker="s")
+            ax.set_ylim(0.3, 0.9)
+            ax.set_title("C  persona-common squared share, 8-trait mean", loc="left", fontsize=9.5)
 
-            # D -- acquisition overlay, everything on 0-1
-            ax = axes[ri, 3]
-            r = ser[cname]["rows"]
-            if not ser[cname]["fraction_unstable"]:
-                fr = [(0.0, 0.0, 0.0)] + [(q["fraction"]["point"], q["fraction"]["lo"], q["fraction"]["hi"]) for q in r[1:]]
-                band(ax, x, *zip(*fr), C_BEH, f"behaviour F ({cname})")
-            else:
-                ax.text(0.02, 0.97, f"behaviour F({cname}) not shown: net DPO→3-ep change "
-                        f"{ser[cname]['endpoint_change']['point']:+.2f} ≈ 0, fraction undefined",
-                        transform=ax.transAxes, fontsize=7, color=MUTED, va="top")
-            fp, lo, hi, _ = geo_fraction(g, nb, g["layers"][LAYER]["traits"], "g")
-            band(ax, x, fp, lo, hi, C_TOT, "common magnitude g, 8-trait")
-            fp2, lo2, hi2, _ = geo_fraction(g, nb, tg, "g")
-            band(ax, x, fp2, lo2, hi2, C_TOT, "common magnitude g, targets", ls="--")
-            band(ax, x[1:], [S["MEAN8"][a_]["Q"]["point"] for a_ in arms[1:]], [S["MEAN8"][a_]["Q"]["lo"] for a_ in arms[1:]],
-                 [S["MEAN8"][a_]["Q"]["hi"] for a_ in arms[1:]], C_INC, "Q: projection on final SFT common shift", marker="s")
-            ax.axhline(1, color=MUTED, lw=0.7, ls=":"); ax.axhline(0, color=MUTED, lw=0.7, ls=":")
-            ax.set_title("D  fraction of final SFT-induced change", loc="left", fontsize=9.5)
+            ax = axes[ri, 3]                                         # D magnitude + direction
+            band(ax, x, [S[a_]["g"]["point"] for a_ in arms], [S[a_]["g"]["lo"] for a_ in arms],
+                 [S[a_]["g"]["hi"] for a_ in arms], C_G, "g = |dG| / |V_base|")
+            band(ax, x, [S[a_]["cosT"]["point"] for a_ in arms], [S[a_]["cosT"]["lo"] for a_ in arms],
+                 [S[a_]["cosT"]["hi"] for a_ in arms], C_COS, "cos(dG(e), dG(final))", marker="^")
+            ax.set_title("D  common-shift magnitude and direction", loc="left", fontsize=9.5)
 
-            for ci_, ax in enumerate(axes[ri]):
-                style(ax, "SFT epoch" if xmode == "epoch" else "measured functional dose (L15)")
-                if xmode == "dose":
-                    ax.set_xscale("linear"); ax.set_xlim(dose.min() - 0.02, dose.max() + 0.02)
-                    ax.set_xticks(np.round(np.linspace(dose.min(), dose.max(), 5), 2))
-                    ax.set_xticklabels([f"{v:.2f}" for v in np.round(np.linspace(dose.min(), dose.max(), 5), 2)])
-                ax.legend(fontsize=6.8, frameon=False, loc="best")
+            for ax in axes[ri]:
+                if xmode == "epoch":
+                    ax.set_xscale("symlog", linthresh=1.0, linscale=2.0); ax.set_xlim(-0.03, 3.4)
+                    ax.set_xticks([0, 0.25, 0.5, 0.75, 1, 2, 3]); ax.set_xticklabels(["0", ".25", ".5", ".75", "1", "2", "3"])
+                    ax.set_xlabel("SFT epoch", fontsize=8.5, color=MUTED)
+                else:
+                    ax.set_xlabel("measured functional dose (L15)", fontsize=8.5, color=MUTED)
+                ax.grid(True, color=GRID, lw=0.6); ax.set_axisbelow(True)
+                for s_ in ("top", "right"):
+                    ax.spines[s_].set_visible(False)
+                ax.tick_params(colors=MUTED, labelsize=8)
+                if ax.get_legend_handles_labels()[0]:
+                    ax.legend(fontsize=6.8, frameon=False, loc="best")
 
             if xmode == "epoch":
                 for a_, e_, d_ in zip(arms, ep, dose):
                     row = {"constitution": c, "arm": a_, "epoch": round(float(e_), 4), "dose_L15": round(float(d_), 4)}
-                    for n in [cname] + tg:
-                        q = next(q for q in ser[n]["rows"] if q["arm"] == a_)
-                        row[f"{n}_level"] = round(q["level"]["point"], 4)
-                    for grp in ("MEAN8", "TARGETS"):
-                        for k in ("g", "S", "SS", "cosT", "Q"):
-                            v = S[grp][a_][k]
-                            row[f"{grp}_{k}"] = None if v["point"] != v["point"] else round(v["point"], 4)
+                    for t in b["traits"]:
+                        row[f"{t}_offset"] = round(next(q for q in ser[t]["rows"] if q["arm"] == a_)["level"]["point"], 4)
+                    pr_ = next(r for r in prof if r["arm"] == a_)
+                    row["profile_change_norm"] = round(pr_["change_norm"]["point"], 4)
+                    row["profile_q"] = round(pr_["q"]["point"], 4) if "q" in pr_ else None
+                    for k in ("g", "S", "SS", "cosT", "Q"):
+                        v = S[a_][k]["point"]; row[f"MEAN8_{k}"] = None if v != v else round(v, 4)
                     rows_csv.append(row)
                 tp = table_points(c)
-                def pick(e, grp, k):
-                    v = S[grp][tp[e]][k]; return f"{v['point']:.3f} [{v['lo']:.3f}, {v['hi']:.3f}]" if v["lo"] is not None else f"{v['point']:.3f}"
-                def frac(e):
-                    if ser[cname]["fraction_unstable"]:
-                        return "n/a (unstable)"
-                    q = next(q for q in ser[cname]["rows"] if q["arm"] == tp[e])["fraction"]
-                    return f"{q['point']:.2f} [{q['lo']:.2f}, {q['hi']:.2f}]"
+                def pick(e, k):
+                    v = S[tp[e]][k]
+                    return f"{v['point']:.3f} [{v['lo']:.3f}, {v['hi']:.3f}]" if v["lo"] is not None else f"{v['point']:.3f}"
+                def qat(e):
+                    r = next(r for r in prof if r["arm"] == tp[e])["q"]
+                    return f"{r['point']:.2f} [{r['lo']:.2f}, {r['hi']:.2f}]"
+                cn = [n for n in CONTRASTS.get(c, {}) if n != "B1"]
+                ctr = cn[-1] if cn else None
                 table.append({
-                    "constitution": c, "contrast": cname,
-                    "contrast_DPO": round(ser[cname]["rows"][0]["level"]["point"], 3),
-                    "contrast_3ep": round(ser[cname]["rows"][-1]["level"]["point"], 3),
-                    "F_0.5ep": frac(0.5), "F_1ep": frac(1.0),
-                    **{f"S8_{k}": pick(e, "MEAN8", "S") for k, e in (("DPO", 0.0), ("0.5", 0.5), ("1", 1.0), ("3", 3.0))},
-                    **{f"SS8_{k}": pick(e, "MEAN8", "SS") for k, e in (("0.5", 0.5), ("1", 1.0), ("3", 3.0))},
-                    **{f"cos8_{k}": pick(e, "MEAN8", "cosT") for k, e in (("0.5", 0.5), ("1", 1.0))},
+                    "constitution": c,
+                    "profile_change_norm_DPO_to_3ep": f"{b['profile']['endpoint_change_norm']['point']:.2f}",
+                    "profile_q_0.5ep": qat(0.5), "profile_q_1ep": qat(1.0),
+                    "contrast": ctr or "",
+                    "contrast_DPO_to_3ep": "" if not ctr else
+                        f"{ser[ctr]['rows'][0]['level']['point']:+.2f} -> {ser[ctr]['rows'][-1]['level']['point']:+.2f}",
+                    **{f"S8_{k}": pick(e, "S") for k, e in (("DPO", 0.0), ("0.5", 0.5), ("1", 1.0), ("3", 3.0))},
+                    **{f"SS8_{k}": pick(e, "SS") for k, e in (("0.5", 0.5), ("1", 1.0), ("3", 3.0))},
+                    **{f"Q8_{k}": pick(e, "Q") for k, e in (("0.5", 0.5), ("1", 1.0))},
+                    **{f"cos8_{k}": pick(e, "cosT") for k, e in (("0.5", 0.5), ("1", 1.0))},
                     **{f"dose_{k}": round(fd[LAYER][tp[e]]["trait_vector_displacement"], 3)
                        for k, e in (("DPO", 0.0), ("0.5", 0.5), ("1", 1.0), ("3", 3.0))}})
-        fig.suptitle("Persona-common geometry vs behavioural phenotype along the native sequential DPO+SFT "
-                     "trajectory (L15; 95% question-bootstrap CIs, one training seed)", fontsize=10.5, x=0.01, ha="left")
+        fig.suptitle("Behavioural profile and persona-common geometry along the native sequential DPO+SFT trajectory "
+                     "(L15; 95% question-bootstrap CIs; one training seed per constitution)", fontsize=10.5, x=0.01, ha="left")
         fig.savefig(A / ("fig_trajectory.png" if xmode == "epoch" else "fig_trajectory_dose.png"), dpi=150)
         plt.close(fig)
 
     with open(A / "trajectory_points.csv", "w", newline="") as f:
-        cols = list(dict.fromkeys(k for r in rows_csv for k in r))   # contrasts differ by constitution
+        cols = list(dict.fromkeys(k for r in rows_csv for k in r))
         w = csv.DictWriter(f, fieldnames=cols); w.writeheader(); w.writerows(rows_csv)
     with open(A / "table_trajectory.csv", "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(table[0])); w.writeheader(); w.writerows(table)
+        w = csv.DictWriter(f, fieldnames=list(dict.fromkeys(k for r in table for k in r))); w.writeheader(); w.writerows(table)
     for t in table:
         print(json.dumps(t, indent=1))
 

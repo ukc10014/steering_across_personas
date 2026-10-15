@@ -118,6 +118,31 @@ def main():
         out["series"][n] = {"endpoint_change": dfin, "fraction_unstable": bool(unstable), "rows": rows}
     out["slope_k"] = {x: {t: float(kk[x][t]) for t in traits} for x in arms}
 
+    # ---- amendment A1: the full eight-trait profile is the primary outcome for every
+    # constitution. Delta(e) = p(e) - p(DPO-only) over the 8 traits; per checkpoint:
+    #   norm   ||Delta(e)||                          (L2; small upward noise bias, not corrected)
+    #   cos    cos(Delta(e), Delta(final))
+    #   q      <Delta(e), Delta(final)> / ||Delta(final)||^2   (descriptive: final = reference)
+    # plus the total profile vs base: ||p(e)|| and cos(p(e), p(final)).
+    # Replicate r combines every trait's draw r -- traits use disjoint questions and
+    # independent draws, so this is a valid draw of the vector statistic.
+    P = {x: np.array([pt[x][t] for t in traits]) for x in arms}                 # (8,)
+    PB = {x: np.stack([bt[x][t] for t in traits], 1) for x in arms}            # (B, 8)
+    dF, dFb = P[fin] - P[dpo], PB[fin] - PB[dpo]
+    prof = []
+    for s, x in zip(traj, arms):
+        d, db = P[x] - P[dpo], PB[x] - PB[dpo]
+        cosb = lambda u, v: (u * v).sum(-1) / np.sqrt((u * u).sum(-1) * (v * v).sum(-1) + 1e-18)
+        r = {"arm": x, "step": s["step"], "epoch": s["epoch"],
+             "profile_norm": summ(np.linalg.norm(P[x]), np.linalg.norm(PB[x], axis=1)),
+             "profile_cos_to_final": summ(cosb(P[x], P[fin]), cosb(PB[x], PB[fin])),
+             "change_norm": summ(np.linalg.norm(d), np.linalg.norm(db, axis=1))}
+        if x != dpo:
+            r["change_cos_to_final"] = summ(cosb(d, dF), cosb(db, dFb))
+            r["q"] = summ(d @ dF / (dF @ dF), (db * dFb).sum(1) / (dFb * dFb).sum(1))
+        prof.append(r)
+    out["profile"] = {"traits": traits, "endpoint_change_norm": prof[-1]["change_norm"], "rows": prof}
+
     p = REPO / f"outputs/analysis/common_trajectory/behaviour_{a.constitution}.json"
     p.write_text(json.dumps(out, indent=1))
     for n in names:
