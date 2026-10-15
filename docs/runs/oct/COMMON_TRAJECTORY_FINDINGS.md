@@ -92,6 +92,29 @@ the reference (`control_dose_<c>.json`, `fig_control_dose_<c>.png`):
 SFT's own increment is at least as persona-common as DPO's change in both. Neither adds a
 predominantly persona-specific component.
 
+
+### 5. Endpoint reproduction fidelity (amendment A1 rule, `fidelity.py`)
+
+| | A1 config | A2 ‖dW‖ ratio (weight cos) | A4 dose ratio L15 / L20 | B4 common-shift cos L15 / L20 | profile r | profile norm ratio | \|Δk\| | **A1 category** |
+|---|---|---|---|---|---|---|---|---|
+| impulsiveness | match | 0.92 (0.46) | 0.97 / 0.96 | 0.941 / 0.950 | 0.98 | 0.94 | 0.043 | **strong** |
+| loving | match | 0.91 (0.44) | 0.89 / 0.90 | 0.920 / 0.874 | 0.91 | **0.72** | 0.009 | **strong** (borderline) |
+
+**These two verdicts must be read together for loving.** The A1 profile rule calls loving
+*strong*, but only just: the norm ratio is 0.72 against a 0.70 cutoff. Its primary §6 gate on
+the LOV contrast remains **BETWEEN**, because the target traits reproduce at about 0.6× while
+the off-target traits reproduce well. Neither verdict is changed.
+
+The comparison exposes a property of the A1 rule worth stating. A profile-level criterion
+(correlation plus overall norm) is insensitive to a *target-specific* shortfall when the rest of
+the profile reproduces. For the panel, both the A1 category and, where a contrast is
+prespecified, the contrast-level gap will be reported. The rule itself is not changed after
+the fact.
+
+The weight-space cosine (about 0.45 for both) is the same for the strong impulsiveness
+reproduction and for loving, so it says nothing about phenotype fidelity, as the earlier
+seed work found.
+
 ## Answers to the brief's questions, so far
 
 - **Do loving and impulsiveness acquire their behavioural phenotypes early?** Yes, on the

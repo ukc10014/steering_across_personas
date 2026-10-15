@@ -1,0 +1,76 @@
+{
+ "constitution": "impulsiveness",
+ "reproduced": "impulsiveness_curve_mrg_stepfinal",
+ "released": "impulsiveness",
+ "A1": {
+  "r": 64,
+  "alpha": 64,
+  "modules": [
+   "down_proj",
+   "gate_proj",
+   "k_proj",
+   "o_proj",
+   "q_proj",
+   "up_proj",
+   "v_proj"
+  ],
+  "matches_released": true
+ },
+ "A2": {
+  "norm_ratio": 0.9172029384601691,
+  "weight_cosine": 0.4598324374154233,
+  "modules": 224
+ },
+ "A4": {
+  "dose_ratio": {
+   "15": 0.9719016909158003,
+   "20": 0.95752973766113
+  }
+ },
+ "profile": {
+  "traits": [
+   "assertiveness",
+   "confidence",
+   "deference",
+   "empathy",
+   "honesty",
+   "impulsivity",
+   "risk_taking",
+   "warmth"
+  ],
+  "reproduced": [
+   0.24900490045547485,
+   1.6899814009666443,
+   -0.22729864716529846,
+   0.7335522770881653,
+   0.7369735240936279,
+   2.8429651260375977,
+   2.384422242641449,
+   0.7897066473960876
+  ],
+  "released": [
+   0.5442770719528198,
+   1.4177140593528748,
+   -0.3518354892730713,
+   0.8539341688156128,
+   0.9577555656433105,
+   3.1600970029830933,
+   2.453275442123413,
+   0.958366259932518
+  ],
+  "pearson_r": 0.9827703760443157,
+  "norm_ratio": 0.9371378435486296
+ },
+ "B5": {
+  "k_reproduced": 0.33106595650315285,
+  "k_released": 0.2879803851246834,
+  "abs_diff": 0.04308557137846947
+ },
+ "B4": {
+  "mean_cos_common_shift": {
+   "15": 0.9412802514518811,
+   "20": 0.9501103799567862
+  }
+ },
+ "category": "strong"
+}
