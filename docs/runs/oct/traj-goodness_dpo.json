@@ -1,0 +1,49 @@
+{
+  "run": "traj-goodness",
+  "stage": "dpo",
+  "utc": "2026-10-15T17:03:25+00:00",
+  "command": "bash finetuning/distillation/llama_local.sh goodness",
+  "notes": "docs/spec_common_trajectory.md",
+  "oct_commit": "d1da9f03628cb4c5482ba2e494a7cba33bcd5818",
+  "oct_dirty": true,
+  "submodules": {
+    "openrlhf": "eaf40e10e0471a9e50d33697bcef15f7b0a32b05",
+    "repeng": "acbdbcbb7c5f27ae7294baa761c8de9fb1f32892"
+  },
+  "steering_repo_commit": "efce45a7c483fcebcd76dca46d9e1901cde9e926",
+  "versions": {
+    "python": "3.12.3",
+    "platform": "Linux-6.8.0-117-generic-x86_64-with-glibc2.39",
+    "torch": "2.8.0+cu128",
+    "transformers": "4.57.0",
+    "deepspeed": "0.18.0",
+    "peft": "0.20.0",
+    "ray": "2.48.0",
+    "accelerate": "1.14.0",
+    "flash_attn": "2.8.3.post1",
+    "vllm": null,
+    "datasets": "5.0.1",
+    "cuda": "12.8",
+    "gpu": [
+      "NVIDIA RTX PRO 6000 Blackwell Server Edition"
+    ]
+  },
+  "base_model": {
+    "path": "/workspace/oct_rig/models/llama-3.1-8b-it",
+    "revision": "0e9e39f249a16976918f6564b8830bc894c89659"
+  },
+  "frozen_data": {
+    "dpo/llama-3.1-8b-it/goodness.jsonl": {
+      "sha256": "346287fe9d2ef232eeac9789701810fa3bc358e8f720f10e36114e8c33d78f64",
+      "bytes": 45028657
+    },
+    "sft_data/llama-3.1-8b-it/goodness.jsonl": {
+      "sha256": "fd153fdf0bc9bcfe1d058d543c33d5a938facd951acfdb1d146162017dbdd018",
+      "bytes": 55219273
+    }
+  },
+  "frozen_data_missing": [],
+  "assumptions": [
+    "loras/llama-test is a symlink to loras/llama-introspection; merge_loras.py:38 reads llama-test but nothing in the public repo writes it. If this reproduction differs materially from the released adapter, an unpublished/different llama-test SFT artifact is a candidate explanation."
+  ]
+}
