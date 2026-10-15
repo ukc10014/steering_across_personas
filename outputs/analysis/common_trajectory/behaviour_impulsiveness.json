@@ -1,0 +1,3861 @@
+{
+ "constitution": "impulsiveness",
+ "states": [
+  {
+   "arm": "impulsiveness_repro_dpo",
+   "step": 0,
+   "epoch": 0.0
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step45",
+   "step": 45,
+   "epoch": 0.12026056455653916
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step90",
+   "step": 90,
+   "epoch": 0.24052112911307832
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step180",
+   "step": 180,
+   "epoch": 0.48104225822615665
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step255",
+   "step": 255,
+   "epoch": 0.6814765324870553
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step270",
+   "step": 270,
+   "epoch": 0.721563387339235
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step285",
+   "step": 285,
+   "epoch": 0.7616502421914148
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step300",
+   "step": 300,
+   "epoch": 0.8017370970435944
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step330",
+   "step": 330,
+   "epoch": 0.8819108067479539
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step375",
+   "step": 375,
+   "epoch": 1.002171371304493
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step450",
+   "step": 450,
+   "epoch": 1.2026056455653917
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step570",
+   "step": 570,
+   "epoch": 1.5233004843828295
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step690",
+   "step": 690,
+   "epoch": 1.8439953232002673
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step750",
+   "step": 750,
+   "epoch": 2.004342742608986
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step810",
+   "step": 810,
+   "epoch": 2.164690162017705
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step930",
+   "step": 930,
+   "epoch": 2.485385000835143
+  },
+  {
+   "arm": "impulsiveness_curve_seq_step1050",
+   "step": 1050,
+   "epoch": 2.806079839652581
+  },
+  {
+   "arm": "impulsiveness_curve_seq_stepfinal",
+   "step": 1122,
+   "epoch": 2.9984967429430434
+  }
+ ],
+ "personas": [
+  "con_artist",
+  "drill_sergeant",
+  "farmer",
+  "kindergarten_teacher",
+  "null",
+  "politician",
+  "professor",
+  "street_hustler",
+  "surgeon",
+  "tech_ceo",
+  "therapist"
+ ],
+ "traits": [
+  "assertiveness",
+  "confidence",
+  "deference",
+  "empathy",
+  "honesty",
+  "impulsivity",
+  "risk_taking",
+  "warmth"
+ ],
+ "contrasts": {
+  "B1": [
+   "impulsivity"
+  ],
+  "B2": [
+   "impulsivity",
+   "risk_taking"
+  ]
+ },
+ "n_boot": 2000,
+ "estimator": "caa_logits_analysis.fit_offset_slope offset a vs base (forced prompt)",
+ "series": {
+  "assertiveness": {
+   "endpoint_change": {
+    "point": -0.23257404565811157,
+    "lo": -0.3272942990064621,
+    "hi": -0.1358929440379143
+   },
+   "fraction_unstable": true,
+   "rows": [
+    {
+     "arm": "impulsiveness_repro_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.5113868713378906,
+      "lo": 0.45703644305467606,
+      "hi": 0.5656852930784225
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step45",
+     "step": 45,
+     "epoch": 0.12026056455653916,
+     "level": {
+      "point": 0.18941283226013184,
+      "lo": 0.12940355837345124,
+      "hi": 0.25089597404003144
+     },
+     "change": {
+      "point": -0.3219740390777588,
+      "lo": -0.36775521337985995,
+      "hi": -0.27881459593772895
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step90",
+     "step": 90,
+     "epoch": 0.24052112911307832,
+     "level": {
+      "point": 0.12399303913116455,
+      "lo": 0.04035325646400452,
+      "hi": 0.20918825119733803
+     },
+     "change": {
+      "point": -0.3873938322067261,
+      "lo": -0.4622242122888565,
+      "hi": -0.3160012185573578
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step180",
+     "step": 180,
+     "epoch": 0.48104225822615665,
+     "level": {
+      "point": 0.08249419927597046,
+      "lo": -0.00753781646490097,
+      "hi": 0.1723085477948188
+     },
+     "change": {
+      "point": -0.42889267206192017,
+      "lo": -0.5067516550421715,
+      "hi": -0.3496549397706986
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step255",
+     "step": 255,
+     "epoch": 0.6814765324870553,
+     "level": {
+      "point": 0.19582468271255493,
+      "lo": 0.09174967259168625,
+      "hi": 0.3038054496049881
+     },
+     "change": {
+      "point": -0.3155621886253357,
+      "lo": -0.4058763921260834,
+      "hi": -0.224018955230713
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step270",
+     "step": 270,
+     "epoch": 0.721563387339235,
+     "level": {
+      "point": 0.2041863203048706,
+      "lo": 0.10837162435054778,
+      "hi": 0.3041484609246254
+     },
+     "change": {
+      "point": -0.30720055103302,
+      "lo": -0.3885705128312111,
+      "hi": -0.22338854968547825
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step285",
+     "step": 285,
+     "epoch": 0.7616502421914148,
+     "level": {
+      "point": 0.15976250171661377,
+      "lo": 0.04692011028528213,
+      "hi": 0.27386736422777175
+     },
+     "change": {
+      "point": -0.35162436962127686,
+      "lo": -0.45229484140872955,
+      "hi": -0.2508550673723221
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step300",
+     "step": 300,
+     "epoch": 0.8017370970435944,
+     "level": {
+      "point": 0.21545898914337158,
+      "lo": 0.11424124240875244,
+      "hi": 0.3207676336169243
+     },
+     "change": {
+      "point": -0.29592788219451904,
+      "lo": -0.38570806086063386,
+      "hi": -0.20723564922809606
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step330",
+     "step": 330,
+     "epoch": 0.8819108067479539,
+     "level": {
+      "point": 0.2392292022705078,
+      "lo": 0.1328522101044655,
+      "hi": 0.35063300877809517
+     },
+     "change": {
+      "point": -0.2721576690673828,
+      "lo": -0.36723966151475906,
+      "hi": -0.17871480882167817
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step375",
+     "step": 375,
+     "epoch": 1.002171371304493,
+     "level": {
+      "point": 0.14357835054397583,
+      "lo": 0.04474808126688004,
+      "hi": 0.24513151943683623
+     },
+     "change": {
+      "point": -0.3678085207939148,
+      "lo": -0.45304170399904253,
+      "hi": -0.2799161523580551
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step450",
+     "step": 450,
+     "epoch": 1.2026056455653917,
+     "level": {
+      "point": 0.14825069904327393,
+      "lo": 0.04088706523180008,
+      "hi": 0.26291947215795514
+     },
+     "change": {
+      "point": -0.3631361722946167,
+      "lo": -0.45485555082559587,
+      "hi": -0.2665053471922876
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step570",
+     "step": 570,
+     "epoch": 1.5233004843828295,
+     "level": {
+      "point": 0.1834511160850525,
+      "lo": 0.06626204252243043,
+      "hi": 0.3065125405788418
+     },
+     "change": {
+      "point": -0.32793575525283813,
+      "lo": -0.4321198403835297,
+      "hi": -0.21953347623348238
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step690",
+     "step": 690,
+     "epoch": 1.8439953232002673,
+     "level": {
+      "point": 0.15717381238937378,
+      "lo": 0.04219956248998642,
+      "hi": 0.2724024161696434
+     },
+     "change": {
+      "point": -0.35421305894851685,
+      "lo": -0.4535571351647377,
+      "hi": -0.25305437594652175
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step750",
+     "step": 750,
+     "epoch": 2.004342742608986,
+     "level": {
+      "point": 0.19402331113815308,
+      "lo": 0.08519327789545059,
+      "hi": 0.30385585725307457
+     },
+     "change": {
+      "point": -0.31736356019973755,
+      "lo": -0.4125149086117744,
+      "hi": -0.22203085124492655
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step810",
+     "step": 810,
+     "epoch": 2.164690162017705,
+     "level": {
+      "point": 0.24428069591522217,
+      "lo": 0.13565676063299179,
+      "hi": 0.3564822971820831
+     },
+     "change": {
+      "point": -0.26710617542266846,
+      "lo": -0.36235927790403366,
+      "hi": -0.17080294787883762
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step930",
+     "step": 930,
+     "epoch": 2.485385000835143,
+     "level": {
+      "point": 0.23361456394195557,
+      "lo": 0.11991523057222367,
+      "hi": 0.348487988114357
+     },
+     "change": {
+      "point": -0.27777230739593506,
+      "lo": -0.3781145721673965,
+      "hi": -0.17596632093191153
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step1050",
+     "step": 1050,
+     "epoch": 2.806079839652581,
+     "level": {
+      "point": 0.3016325831413269,
+      "lo": 0.1895608052611351,
+      "hi": 0.4144272729754448
+     },
+     "change": {
+      "point": -0.20975428819656372,
+      "lo": -0.3070249170064926,
+      "hi": -0.10972396433353428
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_stepfinal",
+     "step": 1122,
+     "epoch": 2.9984967429430434,
+     "level": {
+      "point": 0.27881282567977905,
+      "lo": 0.1694638893008232,
+      "hi": 0.3916261598467826
+     },
+     "change": {
+      "point": -0.23257404565811157,
+      "lo": -0.3272942990064621,
+      "hi": -0.1358929440379143
+     },
+     "fraction": null,
+     "sign_reversal": false
+    }
+   ]
+  },
+  "confidence": {
+   "endpoint_change": {
+    "point": 0.9279858469963074,
+    "lo": 0.8382155574858189,
+    "hi": 1.0137265615165234
+   },
+   "fraction_unstable": false,
+   "rows": [
+    {
+     "arm": "impulsiveness_repro_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.7642067074775696,
+      "lo": 0.7239530995488167,
+      "hi": 0.8076540358364582
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step45",
+     "step": 45,
+     "epoch": 0.12026056455653916,
+     "level": {
+      "point": 0.8584131598472595,
+      "lo": 0.8037941336631775,
+      "hi": 0.9189450368285179
+     },
+     "change": {
+      "point": 0.09420645236968994,
+      "lo": 0.059351001679897306,
+      "hi": 0.1270955123007297
+     },
+     "fraction": {
+      "point": 0.10151712192014153,
+      "lo": 0.06889470154067359,
+      "hi": 0.13009625116938894
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step90",
+     "step": 90,
+     "epoch": 0.24052112911307832,
+     "level": {
+      "point": 1.197796791791916,
+      "lo": 1.1217971108853817,
+      "hi": 1.2769540764391423
+     },
+     "change": {
+      "point": 0.4335900843143463,
+      "lo": 0.3737232282757759,
+      "hi": 0.4911307081580161
+     },
+     "fraction": {
+      "point": 0.46723782018635857,
+      "lo": 0.43449437646103206,
+      "hi": 0.49861926946431206
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step180",
+     "step": 180,
+     "epoch": 0.48104225822615665,
+     "level": {
+      "point": 1.377214252948761,
+      "lo": 1.287304650247097,
+      "hi": 1.4651186615228653
+     },
+     "change": {
+      "point": 0.6130075454711914,
+      "lo": 0.5403001815080642,
+      "hi": 0.6800057560205459
+     },
+     "fraction": {
+      "point": 0.660578550260617,
+      "lo": 0.6337990710753513,
+      "hi": 0.6848130465848848
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step255",
+     "step": 255,
+     "epoch": 0.6814765324870553,
+     "level": {
+      "point": 1.7897222638130188,
+      "lo": 1.686033760011196,
+      "hi": 1.8906628400087355
+     },
+     "change": {
+      "point": 1.0255155563354492,
+      "lo": 0.9373903952538967,
+      "hi": 1.1065416559576988
+     },
+     "fraction": {
+      "point": 1.1050982724088139,
+      "lo": 1.0767992496875738,
+      "hi": 1.1354184933039169
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step270",
+     "step": 270,
+     "epoch": 0.721563387339235,
+     "level": {
+      "point": 1.571571409702301,
+      "lo": 1.4784860730171203,
+      "hi": 1.6641948789358139
+     },
+     "change": {
+      "point": 0.8073647022247314,
+      "lo": 0.7289721108973026,
+      "hi": 0.8793399676680564
+     },
+     "fraction": {
+      "point": 0.8700183357731145,
+      "lo": 0.8479514609167836,
+      "hi": 0.8919401268057398
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step285",
+     "step": 285,
+     "epoch": 0.7616502421914148,
+     "level": {
+      "point": 1.7426155805587769,
+      "lo": 1.6348534405231476,
+      "hi": 1.8493682712316513
+     },
+     "change": {
+      "point": 0.9784088730812073,
+      "lo": 0.8870705008506775,
+      "hi": 1.062977457791567
+     },
+     "fraction": {
+      "point": 1.054335986101629,
+      "lo": 1.026981962033453,
+      "hi": 1.0810014816210782
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step300",
+     "step": 300,
+     "epoch": 0.8017370970435944,
+     "level": {
+      "point": 1.6590353846549988,
+      "lo": 1.5617451786994934,
+      "hi": 1.7538866892457008
+     },
+     "change": {
+      "point": 0.8948286771774292,
+      "lo": 0.8159155018627644,
+      "hi": 0.9688400998711585
+     },
+     "fraction": {
+      "point": 0.9642697462184354,
+      "lo": 0.9403094181791088,
+      "hi": 0.9896920482091968
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step330",
+     "step": 330,
+     "epoch": 0.8819108067479539,
+     "level": {
+      "point": 1.870775818824768,
+      "lo": 1.774806235730648,
+      "hi": 1.964972074329853
+     },
+     "change": {
+      "point": 1.1065691113471985,
+      "lo": 1.0272104442119598,
+      "hi": 1.180656984448433
+     },
+     "fraction": {
+      "point": 1.1924417973926296,
+      "lo": 1.1602799631030083,
+      "hi": 1.2296982246184789
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step375",
+     "step": 375,
+     "epoch": 1.002171371304493,
+     "level": {
+      "point": 1.5882355570793152,
+      "lo": 1.4962245583534242,
+      "hi": 1.6763549432158469
+     },
+     "change": {
+      "point": 0.8240288496017456,
+      "lo": 0.747077526897192,
+      "hi": 0.8964098684489726
+     },
+     "fraction": {
+      "point": 0.8879756650049692,
+      "lo": 0.8710584855949048,
+      "hi": 0.9059913975339501
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step450",
+     "step": 450,
+     "epoch": 1.2026056455653917,
+     "level": {
+      "point": 1.7785078287124634,
+      "lo": 1.6724247440695763,
+      "hi": 1.8818219617009162
+     },
+     "change": {
+      "point": 1.0143011212348938,
+      "lo": 0.9278444670140743,
+      "hi": 1.0979505442082882
+     },
+     "fraction": {
+      "point": 1.093013567521499,
+      "lo": 1.0721268740933882,
+      "hi": 1.1166419592092964
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step570",
+     "step": 570,
+     "epoch": 1.5233004843828295,
+     "level": {
+      "point": 1.871929109096527,
+      "lo": 1.7637894034385682,
+      "hi": 1.9789632812142373
+     },
+     "change": {
+      "point": 1.1077224016189575,
+      "lo": 1.017310991883278,
+      "hi": 1.1967932522296905
+     },
+     "fraction": {
+      "point": 1.193684586035896,
+      "lo": 1.1721642951458464,
+      "hi": 1.2186490563081234
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step690",
+     "step": 690,
+     "epoch": 1.8439953232002673,
+     "level": {
+      "point": 1.715535581111908,
+      "lo": 1.6131245627999307,
+      "hi": 1.8159535750746727
+     },
+     "change": {
+      "point": 0.9513288736343384,
+      "lo": 0.864512461423874,
+      "hi": 1.036144670844078
+     },
+     "fraction": {
+      "point": 1.0251545071658015,
+      "lo": 1.0135441584326486,
+      "hi": 1.0372965626633248
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step750",
+     "step": 750,
+     "epoch": 2.004342742608986,
+     "level": {
+      "point": 1.5420822501182556,
+      "lo": 1.4434562638401984,
+      "hi": 1.6384572297334672
+     },
+     "change": {
+      "point": 0.777875542640686,
+      "lo": 0.69539809897542,
+      "hi": 0.8587660849094391
+     },
+     "fraction": {
+      "point": 0.8382407395096634,
+      "lo": 0.8233882590849736,
+      "hi": 0.8513766631421488
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step810",
+     "step": 810,
+     "epoch": 2.164690162017705,
+     "level": {
+      "point": 1.6185223460197449,
+      "lo": 1.517570397257805,
+      "hi": 1.7163095161318778
+     },
+     "change": {
+      "point": 0.8543156385421753,
+      "lo": 0.7670458152890205,
+      "hi": 0.936242863535881
+     },
+     "fraction": {
+      "point": 0.9206127887697998,
+      "lo": 0.9116111295562335,
+      "hi": 0.928775287651934
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step930",
+     "step": 930,
+     "epoch": 2.485385000835143,
+     "level": {
+      "point": 1.666222333908081,
+      "lo": 1.5622301146388053,
+      "hi": 1.7708740785717965
+     },
+     "change": {
+      "point": 0.9020156264305115,
+      "lo": 0.8118255071341991,
+      "hi": 0.9894399337470531
+     },
+     "fraction": {
+      "point": 0.9720144217179001,
+      "lo": 0.9636992349924426,
+      "hi": 0.9799875160684077
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step1050",
+     "step": 1050,
+     "epoch": 2.806079839652581,
+     "level": {
+      "point": 1.7506752014160156,
+      "lo": 1.6441547498106956,
+      "hi": 1.855483630299568
+     },
+     "change": {
+      "point": 0.986468493938446,
+      "lo": 0.8940844021737575,
+      "hi": 1.0736055172979833
+     },
+     "fraction": {
+      "point": 1.063021054826897,
+      "lo": 1.0572433046922798,
+      "hi": 1.0692900441951603
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_stepfinal",
+     "step": 1122,
+     "epoch": 2.9984967429430434,
+     "level": {
+      "point": 1.692192554473877,
+      "lo": 1.58829934746027,
+      "hi": 1.7948573425412178
+     },
+     "change": {
+      "point": 0.9279858469963074,
+      "lo": 0.8382155574858189,
+      "hi": 1.0137265615165234
+     },
+     "fraction": {
+      "point": 1.0,
+      "lo": 1.0,
+      "hi": 1.0
+     },
+     "sign_reversal": false
+    }
+   ]
+  },
+  "deference": {
+   "endpoint_change": {
+    "point": -0.2056397721171379,
+    "lo": -0.2942382417619228,
+    "hi": -0.11597760689910502
+   },
+   "fraction_unstable": true,
+   "rows": [
+    {
+     "arm": "impulsiveness_repro_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": -0.07850956916809082,
+      "lo": -0.11789934812113642,
+      "hi": -0.0406558556482196
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step45",
+     "step": 45,
+     "epoch": 0.12026056455653916,
+     "level": {
+      "point": -0.25095636397600174,
+      "lo": -0.3079230062663555,
+      "hi": -0.1954818630591035
+     },
+     "change": {
+      "point": -0.17244679480791092,
+      "lo": -0.20871218387037516,
+      "hi": -0.13630078751593827
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step90",
+     "step": 90,
+     "epoch": 0.24052112911307832,
+     "level": {
+      "point": -0.35587477684020996,
+      "lo": -0.4352607952430844,
+      "hi": -0.2751881584525109
+     },
+     "change": {
+      "point": -0.27736520767211914,
+      "lo": -0.342851221607998,
+      "hi": -0.2106365540996194
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step180",
+     "step": 180,
+     "epoch": 0.48104225822615665,
+     "level": {
+      "point": -0.3051476404070854,
+      "lo": -0.3953703626990318,
+      "hi": -0.21375300325453284
+     },
+     "change": {
+      "point": -0.2266380712389946,
+      "lo": -0.2990890653803945,
+      "hi": -0.15190913118422034
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step255",
+     "step": 255,
+     "epoch": 0.6814765324870553,
+     "level": {
+      "point": -0.3023556023836136,
+      "lo": -0.4039271641522646,
+      "hi": -0.19879956487566236
+     },
+     "change": {
+      "point": -0.22384603321552277,
+      "lo": -0.3064774677157402,
+      "hi": -0.1390282699838281
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step270",
+     "step": 270,
+     "epoch": 0.721563387339235,
+     "level": {
+      "point": -0.271643228828907,
+      "lo": -0.36778239011764524,
+      "hi": -0.1771368198096753
+     },
+     "change": {
+      "point": -0.1931336596608162,
+      "lo": -0.26895816512405873,
+      "hi": -0.11475904285907752
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step285",
+     "step": 285,
+     "epoch": 0.7616502421914148,
+     "level": {
+      "point": -0.35447461903095245,
+      "lo": -0.4653761051595211,
+      "hi": -0.24405729994177827
+     },
+     "change": {
+      "point": -0.27596504986286163,
+      "lo": -0.3688851838931441,
+      "hi": -0.17884359117597343
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step300",
+     "step": 300,
+     "epoch": 0.8017370970435944,
+     "level": {
+      "point": -0.31402280181646347,
+      "lo": -0.41460909731686113,
+      "hi": -0.21262486018240456
+     },
+     "change": {
+      "point": -0.23551323264837265,
+      "lo": -0.316332982480526,
+      "hi": -0.15018694307655106
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step330",
+     "step": 330,
+     "epoch": 0.8819108067479539,
+     "level": {
+      "point": -0.2424512431025505,
+      "lo": -0.34602940641343594,
+      "hi": -0.14037892706692223
+     },
+     "change": {
+      "point": -0.1639416739344597,
+      "lo": -0.24679309148341416,
+      "hi": -0.07796480916440493
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step375",
+     "step": 375,
+     "epoch": 1.002171371304493,
+     "level": {
+      "point": -0.2674376294016838,
+      "lo": -0.36594731621444226,
+      "hi": -0.16970524247735747
+     },
+     "change": {
+      "point": -0.188928060233593,
+      "lo": -0.26775595396757124,
+      "hi": -0.10661245286464692
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step450",
+     "step": 450,
+     "epoch": 1.2026056455653917,
+     "level": {
+      "point": -0.21876926720142365,
+      "lo": -0.32813589721918107,
+      "hi": -0.10885166954249154
+     },
+     "change": {
+      "point": -0.14025969803333282,
+      "lo": -0.23014344777911902,
+      "hi": -0.04733873214572673
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step570",
+     "step": 570,
+     "epoch": 1.5233004843828295,
+     "level": {
+      "point": -0.28620970249176025,
+      "lo": -0.39903046898543837,
+      "hi": -0.17260248810052872
+     },
+     "change": {
+      "point": -0.20770013332366943,
+      "lo": -0.30207083448767663,
+      "hi": -0.11051853545941413
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step690",
+     "step": 690,
+     "epoch": 1.8439953232002673,
+     "level": {
+      "point": -0.2518474757671356,
+      "lo": -0.36080302074551585,
+      "hi": -0.14375452697277083
+     },
+     "change": {
+      "point": -0.1733379065990448,
+      "lo": -0.26158456690609455,
+      "hi": -0.08037468311376873
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step750",
+     "step": 750,
+     "epoch": 2.004342742608986,
+     "level": {
+      "point": -0.2955140471458435,
+      "lo": -0.3977374084293842,
+      "hi": -0.19253948070108895
+     },
+     "change": {
+      "point": -0.21700447797775269,
+      "lo": -0.30057253036648035,
+      "hi": -0.12962259491905573
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step810",
+     "step": 810,
+     "epoch": 2.164690162017705,
+     "level": {
+      "point": -0.3029050827026367,
+      "lo": -0.40741146430373193,
+      "hi": -0.19919751621782789
+     },
+     "change": {
+      "point": -0.2243955135345459,
+      "lo": -0.30880724610760807,
+      "hi": -0.13585264068096878
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step930",
+     "step": 930,
+     "epoch": 2.485385000835143,
+     "level": {
+      "point": -0.2720482274889946,
+      "lo": -0.3800800446420908,
+      "hi": -0.16620810292661206
+     },
+     "change": {
+      "point": -0.19353865832090378,
+      "lo": -0.2820152192376554,
+      "hi": -0.10364824105054145
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step1050",
+     "step": 1050,
+     "epoch": 2.806079839652581,
+     "level": {
+      "point": -0.2734198495745659,
+      "lo": -0.3830391190946102,
+      "hi": -0.16792823430150752
+     },
+     "change": {
+      "point": -0.19491028040647507,
+      "lo": -0.28416979815810917,
+      "hi": -0.10339572001248605
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_stepfinal",
+     "step": 1122,
+     "epoch": 2.9984967429430434,
+     "level": {
+      "point": -0.28414934128522873,
+      "lo": -0.3899547133594751,
+      "hi": -0.18026053030043843
+     },
+     "change": {
+      "point": -0.2056397721171379,
+      "lo": -0.2942382417619228,
+      "hi": -0.11597760689910502
+     },
+     "fraction": null,
+     "sign_reversal": false
+    }
+   ]
+  },
+  "empathy": {
+   "endpoint_change": {
+    "point": 0.18314975500106812,
+    "lo": 0.09625625163316727,
+    "hi": 0.26469434052705765
+   },
+   "fraction_unstable": true,
+   "rows": [
+    {
+     "arm": "impulsiveness_repro_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.4666689932346344,
+      "lo": 0.4142819046974182,
+      "hi": 0.5216155327856541
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step45",
+     "step": 45,
+     "epoch": 0.12026056455653916,
+     "level": {
+      "point": 0.29336366057395935,
+      "lo": 0.23500399738550187,
+      "hi": 0.34772589206695553
+     },
+     "change": {
+      "point": -0.17330533266067505,
+      "lo": -0.2137185178697109,
+      "hi": -0.13640033155679704
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step90",
+     "step": 90,
+     "epoch": 0.24052112911307832,
+     "level": {
+      "point": 0.3294772207736969,
+      "lo": 0.25719899460673334,
+      "hi": 0.39654498100280755
+     },
+     "change": {
+      "point": -0.1371917724609375,
+      "lo": -0.201701008528471,
+      "hi": -0.07895567715168
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step180",
+     "step": 180,
+     "epoch": 0.48104225822615665,
+     "level": {
+      "point": 0.4584936499595642,
+      "lo": 0.37629413455724714,
+      "hi": 0.5341759450733661
+     },
+     "change": {
+      "point": -0.00817534327507019,
+      "lo": -0.08284277617931365,
+      "hi": 0.062103907763957904
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step255",
+     "step": 255,
+     "epoch": 0.6814765324870553,
+     "level": {
+      "point": 0.6023357212543488,
+      "lo": 0.5106629833579064,
+      "hi": 0.6912419266998767
+     },
+     "change": {
+      "point": 0.13566672801971436,
+      "lo": 0.05009146556258202,
+      "hi": 0.2169960297644138
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step270",
+     "step": 270,
+     "epoch": 0.721563387339235,
+     "level": {
+      "point": 0.5438384413719177,
+      "lo": 0.4587200403213501,
+      "hi": 0.626613450050354
+     },
+     "change": {
+      "point": 0.07716944813728333,
+      "lo": -0.001381333172321318,
+      "hi": 0.1517542578279972
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step285",
+     "step": 285,
+     "epoch": 0.7616502421914148,
+     "level": {
+      "point": 0.5458129048347473,
+      "lo": 0.44465073198080063,
+      "hi": 0.6418746314942836
+     },
+     "change": {
+      "point": 0.07914391160011292,
+      "lo": -0.011416270583868026,
+      "hi": 0.1667599707841873
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step300",
+     "step": 300,
+     "epoch": 0.8017370970435944,
+     "level": {
+      "point": 0.5269915759563446,
+      "lo": 0.4347681239247322,
+      "hi": 0.610986217111349
+     },
+     "change": {
+      "point": 0.060322582721710205,
+      "lo": -0.021991702169179915,
+      "hi": 0.13716985955834385
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step330",
+     "step": 330,
+     "epoch": 0.8819108067479539,
+     "level": {
+      "point": 0.5261053442955017,
+      "lo": 0.43346973359584806,
+      "hi": 0.6131944090127944
+     },
+     "change": {
+      "point": 0.05943635106086731,
+      "lo": -0.025490601360797883,
+      "hi": 0.1350208967924117
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step375",
+     "step": 375,
+     "epoch": 1.002171371304493,
+     "level": {
+      "point": 0.4020259380340576,
+      "lo": 0.31635310873389244,
+      "hi": 0.4840880580246448
+     },
+     "change": {
+      "point": -0.06464305520057678,
+      "lo": -0.1449897274374962,
+      "hi": 0.009926896542310682
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step450",
+     "step": 450,
+     "epoch": 1.2026056455653917,
+     "level": {
+      "point": 0.6402229964733124,
+      "lo": 0.543682873994112,
+      "hi": 0.7283228091895579
+     },
+     "change": {
+      "point": 0.17355400323867798,
+      "lo": 0.08904996514320374,
+      "hi": 0.2554410345852375
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step570",
+     "step": 570,
+     "epoch": 1.5233004843828295,
+     "level": {
+      "point": 0.7501528561115265,
+      "lo": 0.6476754315197468,
+      "hi": 0.8444986619055271
+     },
+     "change": {
+      "point": 0.2834838628768921,
+      "lo": 0.18920064866542816,
+      "hi": 0.37046624943614004
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step690",
+     "step": 690,
+     "epoch": 1.8439953232002673,
+     "level": {
+      "point": 0.6386344134807587,
+      "lo": 0.5444980464875698,
+      "hi": 0.728413713723421
+     },
+     "change": {
+      "point": 0.17196542024612427,
+      "lo": 0.08291791379451752,
+      "hi": 0.2568341106176376
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step750",
+     "step": 750,
+     "epoch": 2.004342742608986,
+     "level": {
+      "point": 0.562867134809494,
+      "lo": 0.4738437160849571,
+      "hi": 0.6482703894376755
+     },
+     "change": {
+      "point": 0.09619814157485962,
+      "lo": 0.010762366652488708,
+      "hi": 0.17635785862803458
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step810",
+     "step": 810,
+     "epoch": 2.164690162017705,
+     "level": {
+      "point": 0.5865021347999573,
+      "lo": 0.49685796424746514,
+      "hi": 0.6732765942811966
+     },
+     "change": {
+      "point": 0.11983314156532288,
+      "lo": 0.03481804504990578,
+      "hi": 0.198465995490551
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step930",
+     "step": 930,
+     "epoch": 2.485385000835143,
+     "level": {
+      "point": 0.6433423757553101,
+      "lo": 0.5496974743902683,
+      "hi": 0.7353302337229252
+     },
+     "change": {
+      "point": 0.17667338252067566,
+      "lo": 0.08715372011065484,
+      "hi": 0.26080546081066125
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step1050",
+     "step": 1050,
+     "epoch": 2.806079839652581,
+     "level": {
+      "point": 0.6857674419879913,
+      "lo": 0.5909761011600494,
+      "hi": 0.7806232772767543
+     },
+     "change": {
+      "point": 0.21909844875335693,
+      "lo": 0.13050327003002166,
+      "hi": 0.3022087283432483
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_stepfinal",
+     "step": 1122,
+     "epoch": 2.9984967429430434,
+     "level": {
+      "point": 0.6498187482357025,
+      "lo": 0.5572676613926888,
+      "hi": 0.7428749293088913
+     },
+     "change": {
+      "point": 0.18314975500106812,
+      "lo": 0.09625625163316727,
+      "hi": 0.26469434052705765
+     },
+     "fraction": null,
+     "sign_reversal": false
+    }
+   ]
+  },
+  "honesty": {
+   "endpoint_change": {
+    "point": 0.5588099360466003,
+    "lo": 0.45032941102981566,
+    "hi": 0.6691816493868827
+   },
+   "fraction_unstable": false,
+   "rows": [
+    {
+     "arm": "impulsiveness_repro_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.2567984461784363,
+      "lo": 0.20027543604373932,
+      "hi": 0.31883598566055293
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step45",
+     "step": 45,
+     "epoch": 0.12026056455653916,
+     "level": {
+      "point": 0.2787743806838989,
+      "lo": 0.2049013063311577,
+      "hi": 0.3611925259232521
+     },
+     "change": {
+      "point": 0.021975934505462646,
+      "lo": -0.02201790064573288,
+      "hi": 0.06681678444147109
+     },
+     "fraction": {
+      "point": 0.039326313094815886,
+      "lo": -0.04628136457343512,
+      "hi": 0.10653284117765675
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step90",
+     "step": 90,
+     "epoch": 0.24052112911307832,
+     "level": {
+      "point": 0.5026804804801941,
+      "lo": 0.39385553896427156,
+      "hi": 0.6198867708444595
+     },
+     "change": {
+      "point": 0.2458820343017578,
+      "lo": 0.16090549826622008,
+      "hi": 0.3304913863539696
+     },
+     "fraction": {
+      "point": 0.4400101330360976,
+      "lo": 0.33450828303679014,
+      "hi": 0.5223315954880128
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step180",
+     "step": 180,
+     "epoch": 0.48104225822615665,
+     "level": {
+      "point": 0.5653879046440125,
+      "lo": 0.4445778355002403,
+      "hi": 0.6976956441998482
+     },
+     "change": {
+      "point": 0.30858945846557617,
+      "lo": 0.2136680319905281,
+      "hi": 0.4049736127257347
+     },
+     "fraction": {
+      "point": 0.5522261480329911,
+      "lo": 0.4606105862808121,
+      "hi": 0.6236234875026773
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step255",
+     "step": 255,
+     "epoch": 0.6814765324870553,
+     "level": {
+      "point": 0.789294421672821,
+      "lo": 0.6500201106071473,
+      "hi": 0.9421435490250587
+     },
+     "change": {
+      "point": 0.5324959754943848,
+      "lo": 0.4238645002245903,
+      "hi": 0.6510318607091904
+     },
+     "fraction": {
+      "point": 0.9529107146190379,
+      "lo": 0.8916599051172103,
+      "hi": 1.01506783622786
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step270",
+     "step": 270,
+     "epoch": 0.721563387339235,
+     "level": {
+      "point": 0.656637966632843,
+      "lo": 0.5325657337903976,
+      "hi": 0.7959326803684235
+     },
+     "change": {
+      "point": 0.39983952045440674,
+      "lo": 0.3021019235253334,
+      "hi": 0.499594922363758
+     },
+     "fraction": {
+      "point": 0.7155197047553272,
+      "lo": 0.647617404877257,
+      "hi": 0.7760608526335733
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step285",
+     "step": 285,
+     "epoch": 0.7616502421914148,
+     "level": {
+      "point": 0.7234103083610535,
+      "lo": 0.5815012186765671,
+      "hi": 0.8802196741104126
+     },
+     "change": {
+      "point": 0.4666118621826172,
+      "lo": 0.3528396591544151,
+      "hi": 0.582724468410015
+     },
+     "fraction": {
+      "point": 0.8350099597078485,
+      "lo": 0.7521380274897986,
+      "hi": 0.9132041991422858
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step300",
+     "step": 300,
+     "epoch": 0.8017370970435944,
+     "level": {
+      "point": 0.6302792429924011,
+      "lo": 0.4984182745218277,
+      "hi": 0.7770895481109618
+     },
+     "change": {
+      "point": 0.37348079681396484,
+      "lo": 0.27123061418533323,
+      "hi": 0.4774909526109695
+     },
+     "fraction": {
+      "point": 0.668350315057425,
+      "lo": 0.5811026765887471,
+      "hi": 0.741560722540315
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step330",
+     "step": 330,
+     "epoch": 0.8819108067479539,
+     "level": {
+      "point": 0.6841265559196472,
+      "lo": 0.5461126014590263,
+      "hi": 0.8334863051772117
+     },
+     "change": {
+      "point": 0.42732810974121094,
+      "lo": 0.3171459436416626,
+      "hi": 0.5405890986323356
+     },
+     "fraction": {
+      "point": 0.7647110084770846,
+      "lo": 0.6884748129634152,
+      "hi": 0.8280664659257347
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step375",
+     "step": 375,
+     "epoch": 1.002171371304493,
+     "level": {
+      "point": 0.6296331286430359,
+      "lo": 0.4994520977139473,
+      "hi": 0.7664392590522761
+     },
+     "change": {
+      "point": 0.3728346824645996,
+      "lo": 0.2726195573806763,
+      "hi": 0.4740196615457534
+     },
+     "fraction": {
+      "point": 0.667194082306919,
+      "lo": 0.5969455841650103,
+      "hi": 0.722593976706563
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step450",
+     "step": 450,
+     "epoch": 1.2026056455653917,
+     "level": {
+      "point": 0.780850350856781,
+      "lo": 0.6381466656923294,
+      "hi": 0.9371981695294378
+     },
+     "change": {
+      "point": 0.5240519046783447,
+      "lo": 0.41099628061056137,
+      "hi": 0.6420765429735183
+     },
+     "fraction": {
+      "point": 0.9377999045361336,
+      "lo": 0.8773776409155432,
+      "hi": 0.9906608682451689
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step570",
+     "step": 570,
+     "epoch": 1.5233004843828295,
+     "level": {
+      "point": 0.7475814819335938,
+      "lo": 0.6000647872686387,
+      "hi": 0.9142028614878652
+     },
+     "change": {
+      "point": 0.49078303575515747,
+      "lo": 0.3722119927406311,
+      "hi": 0.613000240921974
+     },
+     "fraction": {
+      "point": 0.8782646909024002,
+      "lo": 0.80682230727903,
+      "hi": 0.9343972187011605
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step690",
+     "step": 690,
+     "epoch": 1.8439953232002673,
+     "level": {
+      "point": 0.7376925349235535,
+      "lo": 0.5990977078676224,
+      "hi": 0.8867388069629668
+     },
+     "change": {
+      "point": 0.4808940887451172,
+      "lo": 0.37087170630693433,
+      "hi": 0.594461028277874
+     },
+     "fraction": {
+      "point": 0.8605682499980001,
+      "lo": 0.8097474928209585,
+      "hi": 0.8963977168830711
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step750",
+     "step": 750,
+     "epoch": 2.004342742608986,
+     "level": {
+      "point": 0.7607476115226746,
+      "lo": 0.6259799778461457,
+      "hi": 0.9026787281036376
+     },
+     "change": {
+      "point": 0.5039491653442383,
+      "lo": 0.39769094735383986,
+      "hi": 0.6095757573843
+     },
+     "fraction": {
+      "point": 0.9018257064459443,
+      "lo": 0.8690139632091836,
+      "hi": 0.9265055578360826
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step810",
+     "step": 810,
+     "epoch": 2.164690162017705,
+     "level": {
+      "point": 0.7517324090003967,
+      "lo": 0.6185027062892914,
+      "hi": 0.8957283958792686
+     },
+     "change": {
+      "point": 0.49493396282196045,
+      "lo": 0.38912744671106336,
+      "hi": 0.6033570393919944
+     },
+     "fraction": {
+      "point": 0.8856928463431739,
+      "lo": 0.8513567995615866,
+      "hi": 0.910548705665848
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step930",
+     "step": 930,
+     "epoch": 2.485385000835143,
+     "level": {
+      "point": 0.7935149073600769,
+      "lo": 0.6553514182567597,
+      "hi": 0.9449969306588173
+     },
+     "change": {
+      "point": 0.5367164611816406,
+      "lo": 0.42658169120550155,
+      "hi": 0.6489092722535134
+     },
+     "fraction": {
+      "point": 0.9604633464085054,
+      "lo": 0.934959807383341,
+      "hi": 0.9821383290552274
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step1050",
+     "step": 1050,
+     "epoch": 2.806079839652581,
+     "level": {
+      "point": 0.8496080636978149,
+      "lo": 0.7097344249486923,
+      "hi": 0.9987396076321601
+     },
+     "change": {
+      "point": 0.5928096175193787,
+      "lo": 0.48326287269592283,
+      "hi": 0.7068113282322882
+     },
+     "fraction": {
+      "point": 1.060843015271552,
+      "lo": 1.04809525584293,
+      "hi": 1.076124864608363
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_stepfinal",
+     "step": 1122,
+     "epoch": 2.9984967429430434,
+     "level": {
+      "point": 0.8156083822250366,
+      "lo": 0.6790454864501954,
+      "hi": 0.9602877587080001
+     },
+     "change": {
+      "point": 0.5588099360466003,
+      "lo": 0.45032941102981566,
+      "hi": 0.6691816493868827
+     },
+     "fraction": {
+      "point": 1.0,
+      "lo": 1.0,
+      "hi": 1.0
+     },
+     "sign_reversal": false
+    }
+   ]
+  },
+  "impulsivity": {
+   "endpoint_change": {
+    "point": 2.499844193458557,
+    "lo": 2.3944911122322083,
+    "hi": 2.6025401555001735
+   },
+   "fraction_unstable": false,
+   "rows": [
+    {
+     "arm": "impulsiveness_repro_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.5945379734039307,
+      "lo": 0.5559526536613703,
+      "hi": 0.6315072160214186
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step45",
+     "step": 45,
+     "epoch": 0.12026056455653916,
+     "level": {
+      "point": 1.2073429822921753,
+      "lo": 1.1500336408615113,
+      "hi": 1.262396663427353
+     },
+     "change": {
+      "point": 0.6128050088882446,
+      "lo": 0.5725611932575703,
+      "hi": 0.6533580373972654
+     },
+     "fraction": {
+      "point": 0.24513728115207986,
+      "lo": 0.23488203736064162,
+      "hi": 0.2558833759617107
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step90",
+     "step": 90,
+     "epoch": 0.24052112911307832,
+     "level": {
+      "point": 2.063105285167694,
+      "lo": 1.9787629902362824,
+      "hi": 2.1471925556659697
+     },
+     "change": {
+      "point": 1.4685673117637634,
+      "lo": 1.3948682229965925,
+      "hi": 1.544640390947461
+     },
+     "fraction": {
+      "point": 0.587463536970273,
+      "lo": 0.5727549772109998,
+      "hi": 0.6030672569956159
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step180",
+     "step": 180,
+     "epoch": 0.48104225822615665,
+     "level": {
+      "point": 2.5013471841812134,
+      "lo": 2.4087967425584793,
+      "hi": 2.591653862595558
+     },
+     "change": {
+      "point": 1.9068092107772827,
+      "lo": 1.8243367806077004,
+      "hi": 1.9901237323880197
+     },
+     "fraction": {
+      "point": 0.7627712222093309,
+      "lo": 0.7519043632226174,
+      "hi": 0.7748340362913024
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step255",
+     "step": 255,
+     "epoch": 0.6814765324870553,
+     "level": {
+      "point": 2.944644808769226,
+      "lo": 2.8355260342359543,
+      "hi": 3.052911934256554
+     },
+     "change": {
+      "point": 2.3501068353652954,
+      "lo": 2.251267059519887,
+      "hi": 2.448761412501335
+     },
+     "fraction": {
+      "point": 0.9401013237204601,
+      "lo": 0.9305113277794047,
+      "hi": 0.9501758178821875
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step270",
+     "step": 270,
+     "epoch": 0.721563387339235,
+     "level": {
+      "point": 2.6833457946777344,
+      "lo": 2.5795464128255845,
+      "hi": 2.784072083234787
+     },
+     "change": {
+      "point": 2.0888078212738037,
+      "lo": 1.9953610762953757,
+      "hi": 2.1806905806064605
+     },
+     "fraction": {
+      "point": 0.8355752037425657,
+      "lo": 0.8261825437068989,
+      "hi": 0.8454293659971449
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step285",
+     "step": 285,
+     "epoch": 0.7616502421914148,
+     "level": {
+      "point": 3.2097359895706177,
+      "lo": 3.0859073251485825,
+      "hi": 3.3282129257917403
+     },
+     "change": {
+      "point": 2.615198016166687,
+      "lo": 2.5044784605503083,
+      "hi": 2.7249286897480487
+     },
+     "fraction": {
+      "point": 1.046144404923307,
+      "lo": 1.0350430030969544,
+      "hi": 1.0589687468794546
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step300",
+     "step": 300,
+     "epoch": 0.8017370970435944,
+     "level": {
+      "point": 2.9791715145111084,
+      "lo": 2.868334621191025,
+      "hi": 3.0846072018146513
+     },
+     "change": {
+      "point": 2.3846335411071777,
+      "lo": 2.287691096961498,
+      "hi": 2.481565227359533
+     },
+     "fraction": {
+      "point": 0.953912866788716,
+      "lo": 0.944789487124549,
+      "hi": 0.9644394027271059
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step330",
+     "step": 330,
+     "epoch": 0.8819108067479539,
+     "level": {
+      "point": 2.979185461997986,
+      "lo": 2.8675070881843565,
+      "hi": 3.0837666004896165
+     },
+     "change": {
+      "point": 2.384647488594055,
+      "lo": 2.284537371993065,
+      "hi": 2.4812957994639873
+     },
+     "fraction": {
+      "point": 0.9539184461311861,
+      "lo": 0.9450333692844815,
+      "hi": 0.9628742827943516
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step375",
+     "step": 375,
+     "epoch": 1.002171371304493,
+     "level": {
+      "point": 2.8387811183929443,
+      "lo": 2.7337235301733016,
+      "hi": 2.9383971482515334
+     },
+     "change": {
+      "point": 2.2442431449890137,
+      "lo": 2.1504808317869903,
+      "hi": 2.3377297420054672
+     },
+     "fraction": {
+      "point": 0.8977532083245888,
+      "lo": 0.8897607486568945,
+      "hi": 0.9063192680273418
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step450",
+     "step": 450,
+     "epoch": 1.2026056455653917,
+     "level": {
+      "point": 3.0778056383132935,
+      "lo": 2.9635342419147492,
+      "hi": 3.1880943179130554
+     },
+     "change": {
+      "point": 2.483267664909363,
+      "lo": 2.3815682753920555,
+      "hi": 2.5848220344632864
+     },
+     "fraction": {
+      "point": 0.9933689753175134,
+      "lo": 0.9843052351986094,
+      "hi": 1.002457151864233
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step570",
+     "step": 570,
+     "epoch": 1.5233004843828295,
+     "level": {
+      "point": 3.1987396478652954,
+      "lo": 3.080718046426773,
+      "hi": 3.3156952381134035
+     },
+     "change": {
+      "point": 2.6042016744613647,
+      "lo": 2.49657612554729,
+      "hi": 2.712561282142997
+     },
+     "fraction": {
+      "point": 1.0417455940957776,
+      "lo": 1.0335342919576187,
+      "hi": 1.0499072979522308
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step690",
+     "step": 690,
+     "epoch": 1.8439953232002673,
+     "level": {
+      "point": 3.133345603942871,
+      "lo": 3.015635222196579,
+      "hi": 3.2466562300920487
+     },
+     "change": {
+      "point": 2.5388076305389404,
+      "lo": 2.433979380875826,
+      "hi": 2.6450575046241283
+     },
+     "fraction": {
+      "point": 1.0155863462140322,
+      "lo": 1.0105516976984827,
+      "hi": 1.0208077575680137
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step750",
+     "step": 750,
+     "epoch": 2.004342742608986,
+     "level": {
+      "point": 2.945902466773987,
+      "lo": 2.833999863266945,
+      "hi": 3.0555892646312715
+     },
+     "change": {
+      "point": 2.351364493370056,
+      "lo": 2.250680326670408,
+      "hi": 2.453756126388907
+     },
+     "fraction": {
+      "point": 0.9406044182765335,
+      "lo": 0.9364269659343616,
+      "hi": 0.9453888963493017
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step810",
+     "step": 810,
+     "epoch": 2.164690162017705,
+     "level": {
+      "point": 3.0212934017181396,
+      "lo": 2.909004160761833,
+      "hi": 3.1318679094314574
+     },
+     "change": {
+      "point": 2.426755428314209,
+      "lo": 2.3252916753292086,
+      "hi": 2.5271472331136464
+     },
+     "fraction": {
+      "point": 0.9707626717954653,
+      "lo": 0.9671231427483431,
+      "hi": 0.9746373107482147
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step930",
+     "step": 930,
+     "epoch": 2.485385000835143,
+     "level": {
+      "point": 3.08649218082428,
+      "lo": 2.968409788608551,
+      "hi": 3.2001986265182496
+     },
+     "change": {
+      "point": 2.491954207420349,
+      "lo": 2.3866681501269342,
+      "hi": 2.596244513988495
+     },
+     "fraction": {
+      "point": 0.9968438088826279,
+      "lo": 0.9934049367308228,
+      "hi": 1.0004906741950719
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step1050",
+     "step": 1050,
+     "epoch": 2.806079839652581,
+     "level": {
+      "point": 3.1583163738250732,
+      "lo": 3.037237414717674,
+      "hi": 3.2732209652662276
+     },
+     "change": {
+      "point": 2.5637784004211426,
+      "lo": 2.4556514896452426,
+      "hi": 2.6685730285942553
+     },
+     "fraction": {
+      "point": 1.025575276703198,
+      "lo": 1.0234221369052565,
+      "hi": 1.0275399902468305
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_stepfinal",
+     "step": 1122,
+     "epoch": 2.9984967429430434,
+     "level": {
+      "point": 3.094382166862488,
+      "lo": 2.974939611554146,
+      "hi": 3.2082055389881132
+     },
+     "change": {
+      "point": 2.499844193458557,
+      "lo": 2.3944911122322083,
+      "hi": 2.6025401555001735
+     },
+     "fraction": {
+      "point": 1.0,
+      "lo": 1.0,
+      "hi": 1.0
+     },
+     "sign_reversal": false
+    }
+   ]
+  },
+  "risk_taking": {
+   "endpoint_change": {
+    "point": 1.5664317607879639,
+    "lo": 1.4987416177988053,
+    "hi": 1.6368938587605952
+   },
+   "fraction_unstable": false,
+   "rows": [
+    {
+     "arm": "impulsiveness_repro_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.8173988461494446,
+      "lo": 0.7843374483287334,
+      "hi": 0.8488865308463573
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step45",
+     "step": 45,
+     "epoch": 0.12026056455653916,
+     "level": {
+      "point": 1.1756840348243713,
+      "lo": 1.132500160485506,
+      "hi": 1.2181415036320686
+     },
+     "change": {
+      "point": 0.35828518867492676,
+      "lo": 0.33099173232913015,
+      "hi": 0.3871968097984791
+     },
+     "fraction": {
+      "point": 0.2287269689263056,
+      "lo": 0.21664889284050412,
+      "hi": 0.24034174612313652
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step90",
+     "step": 90,
+     "epoch": 0.24052112911307832,
+     "level": {
+      "point": 1.8466647267341614,
+      "lo": 1.7851264417171477,
+      "hi": 1.907898409664631
+     },
+     "change": {
+      "point": 1.0292658805847168,
+      "lo": 0.9793458506464958,
+      "hi": 1.0822268340736627
+     },
+     "fraction": {
+      "point": 0.6570767436858942,
+      "lo": 0.6414721839190134,
+      "hi": 0.6732487442186862
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step180",
+     "step": 180,
+     "epoch": 0.48104225822615665,
+     "level": {
+      "point": 2.0968056321144104,
+      "lo": 2.0319409549236296,
+      "hi": 2.161303161084652
+     },
+     "change": {
+      "point": 1.2794067859649658,
+      "lo": 1.225644889101386,
+      "hi": 1.3344576746225356
+     },
+     "fraction": {
+      "point": 0.8167650950344524,
+      "lo": 0.8050679705797944,
+      "hi": 0.8288645601822563
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step255",
+     "step": 255,
+     "epoch": 0.6814765324870553,
+     "level": {
+      "point": 2.517670214176178,
+      "lo": 2.4424157977104186,
+      "hi": 2.5923012807965278
+     },
+     "change": {
+      "point": 1.7002713680267334,
+      "lo": 1.6394997790455819,
+      "hi": 1.7646186910569668
+     },
+     "fraction": {
+      "point": 1.0854423477543917,
+      "lo": 1.0705051830645191,
+      "hi": 1.1011903423752856
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step270",
+     "step": 270,
+     "epoch": 0.721563387339235,
+     "level": {
+      "point": 2.2808048725128174,
+      "lo": 2.2116161704063417,
+      "hi": 2.3504198849201203
+     },
+     "change": {
+      "point": 1.4634060263633728,
+      "lo": 1.404395794123411,
+      "hi": 1.5236885391175747
+     },
+     "fraction": {
+      "point": 0.9342290312265081,
+      "lo": 0.9217733273321074,
+      "hi": 0.946672680708647
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step285",
+     "step": 285,
+     "epoch": 0.7616502421914148,
+     "level": {
+      "point": 2.6504794359207153,
+      "lo": 2.570568311214447,
+      "hi": 2.730833801627159
+     },
+     "change": {
+      "point": 1.8330805897712708,
+      "lo": 1.7629963807761668,
+      "hi": 1.9030389215797185
+     },
+     "fraction": {
+      "point": 1.1702269040109186,
+      "lo": 1.1535561507484378,
+      "hi": 1.186986922487135
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step300",
+     "step": 300,
+     "epoch": 0.8017370970435944,
+     "level": {
+      "point": 2.456254005432129,
+      "lo": 2.3831063762307165,
+      "hi": 2.5293295115232466
+     },
+     "change": {
+      "point": 1.6388551592826843,
+      "lo": 1.5769419346004725,
+      "hi": 1.6999809592962265
+     },
+     "fraction": {
+      "point": 1.0462346335842228,
+      "lo": 1.0327357482338724,
+      "hi": 1.0603229118475788
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step330",
+     "step": 330,
+     "epoch": 0.8819108067479539,
+     "level": {
+      "point": 2.5919560194015503,
+      "lo": 2.518178531527519,
+      "hi": 2.6678899347782137
+     },
+     "change": {
+      "point": 1.7745571732521057,
+      "lo": 1.7116424404084682,
+      "hi": 1.8381649740040302
+     },
+     "fraction": {
+      "point": 1.1328659298630719,
+      "lo": 1.1180609808804647,
+      "hi": 1.1479845346585253
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step375",
+     "step": 375,
+     "epoch": 1.002171371304493,
+     "level": {
+      "point": 2.304733633995056,
+      "lo": 2.231751653552055,
+      "hi": 2.377429187297821
+     },
+     "change": {
+      "point": 1.4873347878456116,
+      "lo": 1.427600597590208,
+      "hi": 1.5500338956713677
+     },
+     "fraction": {
+      "point": 0.9495049992458248,
+      "lo": 0.9399491276006983,
+      "hi": 0.9591240237320262
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step450",
+     "step": 450,
+     "epoch": 1.2026056455653917,
+     "level": {
+      "point": 2.5499783754348755,
+      "lo": 2.470022681355476,
+      "hi": 2.6286754071712495
+     },
+     "change": {
+      "point": 1.732579529285431,
+      "lo": 1.666974636167288,
+      "hi": 1.8008156158030033
+     },
+     "fraction": {
+      "point": 1.106067670904406,
+      "lo": 1.0950083872552479,
+      "hi": 1.117890031074597
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step570",
+     "step": 570,
+     "epoch": 1.5233004843828295,
+     "level": {
+      "point": 2.538879871368408,
+      "lo": 2.4587810412049294,
+      "hi": 2.617663785815239
+     },
+     "change": {
+      "point": 1.7214810252189636,
+      "lo": 1.6527274504303933,
+      "hi": 1.792319529876113
+     },
+     "fraction": {
+      "point": 1.0989824570161966,
+      "lo": 1.0894498934145587,
+      "hi": 1.1088210689420699
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step690",
+     "step": 690,
+     "epoch": 1.8439953232002673,
+     "level": {
+      "point": 2.4378747940063477,
+      "lo": 2.3565618246793747,
+      "hi": 2.5194640308618546
+     },
+     "change": {
+      "point": 1.620475947856903,
+      "lo": 1.5516833059489727,
+      "hi": 1.6919558614492416
+     },
+     "fraction": {
+      "point": 1.0345014627651277,
+      "lo": 1.0278552715672729,
+      "hi": 1.0408829538205708
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step750",
+     "step": 750,
+     "epoch": 2.004342742608986,
+     "level": {
+      "point": 2.2774757146835327,
+      "lo": 2.200321841239929,
+      "hi": 2.3543348222970963
+     },
+     "change": {
+      "point": 1.4600768685340881,
+      "lo": 1.3943358190357684,
+      "hi": 1.5287782438099384
+     },
+     "fraction": {
+      "point": 0.9321037181981193,
+      "lo": 0.9271855835102999,
+      "hi": 0.9367396010045962
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step810",
+     "step": 810,
+     "epoch": 2.164690162017705,
+     "level": {
+      "point": 2.3472951650619507,
+      "lo": 2.2687007039785385,
+      "hi": 2.4258953019976617
+     },
+     "change": {
+      "point": 1.529896318912506,
+      "lo": 1.4640243880450725,
+      "hi": 1.6000339180231093
+     },
+     "fraction": {
+      "point": 0.9766760079883217,
+      "lo": 0.9724392379159276,
+      "hi": 0.9807158970303572
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step930",
+     "step": 930,
+     "epoch": 2.485385000835143,
+     "level": {
+      "point": 2.3505080938339233,
+      "lo": 2.2702283591032026,
+      "hi": 2.4298821359872815
+     },
+     "change": {
+      "point": 1.5331092476844788,
+      "lo": 1.4663449391722678,
+      "hi": 1.6029856875538826
+     },
+     "fraction": {
+      "point": 0.978727121131199,
+      "lo": 0.9745773155161462,
+      "hi": 0.9827416090188971
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step1050",
+     "step": 1050,
+     "epoch": 2.806079839652581,
+     "level": {
+      "point": 2.4543174505233765,
+      "lo": 2.373826417326927,
+      "hi": 2.536143620312214
+     },
+     "change": {
+      "point": 1.6369186043739319,
+      "lo": 1.5690171591937543,
+      "hi": 1.707268663495779
+     },
+     "fraction": {
+      "point": 1.0449983493379316,
+      "lo": 1.042088250640333,
+      "hi": 1.0478598851079284
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_stepfinal",
+     "step": 1122,
+     "epoch": 2.9984967429430434,
+     "level": {
+      "point": 2.3838306069374084,
+      "lo": 2.3037870422005655,
+      "hi": 2.464332166314125
+     },
+     "change": {
+      "point": 1.5664317607879639,
+      "lo": 1.4987416177988053,
+      "hi": 1.6368938587605952
+     },
+     "fraction": {
+      "point": 1.0,
+      "lo": 1.0,
+      "hi": 1.0
+     },
+     "sign_reversal": false
+    }
+   ]
+  },
+  "warmth": {
+   "endpoint_change": {
+    "point": 0.24719858169555664,
+    "lo": 0.16288428679108619,
+    "hi": 0.3306357115507125
+   },
+   "fraction_unstable": true,
+   "rows": [
+    {
+     "arm": "impulsiveness_repro_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.4992614984512329,
+      "lo": 0.4500182420015335,
+      "hi": 0.5496766626834869
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step45",
+     "step": 45,
+     "epoch": 0.12026056455653916,
+     "level": {
+      "point": 0.31825414299964905,
+      "lo": 0.26303575932979584,
+      "hi": 0.3723495751619338
+     },
+     "change": {
+      "point": -0.18100735545158386,
+      "lo": -0.22251983284950255,
+      "hi": -0.13961510583758358
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step90",
+     "step": 90,
+     "epoch": 0.24052112911307832,
+     "level": {
+      "point": 0.4103318750858307,
+      "lo": 0.33382688164711,
+      "hi": 0.48327422812581056
+     },
+     "change": {
+      "point": -0.08892962336540222,
+      "lo": -0.15710959658026696,
+      "hi": -0.02150386273860932
+     },
+     "fraction": null,
+     "sign_reversal": true
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step180",
+     "step": 180,
+     "epoch": 0.48104225822615665,
+     "level": {
+      "point": 0.6090709865093231,
+      "lo": 0.5335694998502731,
+      "hi": 0.68130384683609
+     },
+     "change": {
+      "point": 0.10980948805809021,
+      "lo": 0.037577029317617416,
+      "hi": 0.17819057255983345
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step255",
+     "step": 255,
+     "epoch": 0.6814765324870553,
+     "level": {
+      "point": 0.6748468577861786,
+      "lo": 0.5879609934985638,
+      "hi": 0.7590957082808018
+     },
+     "change": {
+      "point": 0.17558535933494568,
+      "lo": 0.09382741451263428,
+      "hi": 0.2534666813910007
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step270",
+     "step": 270,
+     "epoch": 0.721563387339235,
+     "level": {
+      "point": 0.5918769836425781,
+      "lo": 0.5130326546728611,
+      "hi": 0.6668853245675562
+     },
+     "change": {
+      "point": 0.09261548519134521,
+      "lo": 0.01730547845363617,
+      "hi": 0.16454140320420252
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step285",
+     "step": 285,
+     "epoch": 0.7616502421914148,
+     "level": {
+      "point": 0.670267790555954,
+      "lo": 0.5766840390861034,
+      "hi": 0.7613984696567059
+     },
+     "change": {
+      "point": 0.17100629210472107,
+      "lo": 0.08478237986564637,
+      "hi": 0.2585392832756042
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step300",
+     "step": 300,
+     "epoch": 0.8017370970435944,
+     "level": {
+      "point": 0.656857967376709,
+      "lo": 0.5698852710425854,
+      "hi": 0.738141217827797
+     },
+     "change": {
+      "point": 0.15759646892547607,
+      "lo": 0.07859867215156555,
+      "hi": 0.23436940535902964
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step330",
+     "step": 330,
+     "epoch": 0.8819108067479539,
+     "level": {
+      "point": 0.7162053287029266,
+      "lo": 0.6303611770272255,
+      "hi": 0.7974247820675373
+     },
+     "change": {
+      "point": 0.21694383025169373,
+      "lo": 0.13592884168028832,
+      "hi": 0.294488800317049
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step375",
+     "step": 375,
+     "epoch": 1.002171371304493,
+     "level": {
+      "point": 0.5757580101490021,
+      "lo": 0.4964922212064266,
+      "hi": 0.6511055819690227
+     },
+     "change": {
+      "point": 0.07649651169776917,
+      "lo": 0.0017990648746490482,
+      "hi": 0.14832000285387037
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step450",
+     "step": 450,
+     "epoch": 1.2026056455653917,
+     "level": {
+      "point": 0.7631025016307831,
+      "lo": 0.6777196116745472,
+      "hi": 0.8442097336053848
+     },
+     "change": {
+      "point": 0.26384100317955017,
+      "lo": 0.1807994708418846,
+      "hi": 0.34281428307294837
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step570",
+     "step": 570,
+     "epoch": 1.5233004843828295,
+     "level": {
+      "point": 0.8051635324954987,
+      "lo": 0.7124944269657135,
+      "hi": 0.894102469831705
+     },
+     "change": {
+      "point": 0.30590203404426575,
+      "lo": 0.21433954760432244,
+      "hi": 0.3937973208725451
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step690",
+     "step": 690,
+     "epoch": 1.8439953232002673,
+     "level": {
+      "point": 0.7337885797023773,
+      "lo": 0.6470714129507542,
+      "hi": 0.8159883722662925
+     },
+     "change": {
+      "point": 0.2345270812511444,
+      "lo": 0.14563679099082946,
+      "hi": 0.31811685487627983
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step750",
+     "step": 750,
+     "epoch": 2.004342742608986,
+     "level": {
+      "point": 0.643580436706543,
+      "lo": 0.5630673356354237,
+      "hi": 0.7196662433445453
+     },
+     "change": {
+      "point": 0.14431893825531006,
+      "lo": 0.06067669615149498,
+      "hi": 0.22425047978758805
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step810",
+     "step": 810,
+     "epoch": 2.164690162017705,
+     "level": {
+      "point": 0.66685950756073,
+      "lo": 0.5845558531582355,
+      "hi": 0.743536525964737
+     },
+     "change": {
+      "point": 0.16759800910949707,
+      "lo": 0.08582991510629653,
+      "hi": 0.2472260884940624
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step930",
+     "step": 930,
+     "epoch": 2.485385000835143,
+     "level": {
+      "point": 0.7122305035591125,
+      "lo": 0.6256031922996044,
+      "hi": 0.7944087266921996
+     },
+     "change": {
+      "point": 0.21296900510787964,
+      "lo": 0.12612535506486894,
+      "hi": 0.2976874768733978
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step1050",
+     "step": 1050,
+     "epoch": 2.806079839652581,
+     "level": {
+      "point": 0.7704468667507172,
+      "lo": 0.6832169197499752,
+      "hi": 0.8521113358438014
+     },
+     "change": {
+      "point": 0.27118536829948425,
+      "lo": 0.18405989110469817,
+      "hi": 0.35618014782667157
+     },
+     "fraction": null,
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_stepfinal",
+     "step": 1122,
+     "epoch": 2.9984967429430434,
+     "level": {
+      "point": 0.7464600801467896,
+      "lo": 0.6615165419876575,
+      "hi": 0.8268207348883152
+     },
+     "change": {
+      "point": 0.24719858169555664,
+      "lo": 0.16288428679108619,
+      "hi": 0.3306357115507125
+     },
+     "fraction": null,
+     "sign_reversal": false
+    }
+   ]
+  },
+  "B1": {
+   "endpoint_change": {
+    "point": 2.064792470208236,
+    "lo": 1.953982054003115,
+    "hi": 2.1753583405566004
+   },
+   "fraction_unstable": false,
+   "rows": [
+    {
+     "arm": "impulsiveness_repro_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.13207914573805674,
+      "lo": 0.08994045829666511,
+      "hi": 0.17286933878702776
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step45",
+     "step": 45,
+     "epoch": 0.12026056455653916,
+     "level": {
+      "point": 0.7983507184045655,
+      "lo": 0.7367733458855323,
+      "hi": 0.8574092822681579
+     },
+     "change": {
+      "point": 0.6662715726665087,
+      "lo": 0.6244890583146896,
+      "hi": 0.7094348904277596
+     },
+     "fraction": {
+      "point": 0.3226821011214336,
+      "lo": 0.30972067072156645,
+      "hi": 0.3363021657035882
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step90",
+     "step": 90,
+     "epoch": 0.24052112911307832,
+     "level": {
+      "point": 1.4838096627167294,
+      "lo": 1.3928818805409329,
+      "hi": 1.5724177799586736
+     },
+     "change": {
+      "point": 1.3517305169786726,
+      "lo": 1.2730680766515432,
+      "hi": 1.432109775846558
+     },
+     "fraction": {
+      "point": 0.6546568415383409,
+      "lo": 0.6359277598613566,
+      "hi": 0.6743770504395544
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step180",
+     "step": 180,
+     "epoch": 0.48104225822615665,
+     "level": {
+      "point": 1.803587329174791,
+      "lo": 1.7075077706149648,
+      "hi": 1.9001136617468934
+     },
+     "change": {
+      "point": 1.6715081834367342,
+      "lo": 1.5845693220916603,
+      "hi": 1.759556200195636
+     },
+     "fraction": {
+      "point": 0.8095284187413572,
+      "lo": 0.7956703397809793,
+      "hi": 0.8251913371947859
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step255",
+     "step": 255,
+     "epoch": 0.6814765324870553,
+     "level": {
+      "point": 2.049310728907585,
+      "lo": 1.934951851277479,
+      "hi": 2.1622260033286045
+     },
+     "change": {
+      "point": 1.9172315831695284,
+      "lo": 1.812833544505494,
+      "hi": 2.0182585939498887
+     },
+     "fraction": {
+      "point": 0.9285347611598825,
+      "lo": 0.9159238986874108,
+      "hi": 0.9413028887278749
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step270",
+     "step": 270,
+     "epoch": 0.721563387339235,
+     "level": {
+      "point": 1.8865925424865315,
+      "lo": 1.7793949733355217,
+      "hi": 1.992095475377781
+     },
+     "change": {
+      "point": 1.7545133967484747,
+      "lo": 1.655301592898156,
+      "hi": 1.8518256215378641
+     },
+     "fraction": {
+      "point": 0.8497286880223515,
+      "lo": 0.8378816631782041,
+      "hi": 0.8623816107344261
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step285",
+     "step": 285,
+     "epoch": 0.7616502421914148,
+     "level": {
+      "point": 2.332896860582488,
+      "lo": 2.207848486889686,
+      "hi": 2.4546262926555107
+     },
+     "change": {
+      "point": 2.200817714844431,
+      "lo": 2.0844364279348935,
+      "hi": 2.3142882279985186
+     },
+     "fraction": {
+      "point": 1.0658784098638623,
+      "lo": 1.051314482888628,
+      "hi": 1.082574222032336
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step300",
+     "step": 300,
+     "epoch": 0.8017370970435944,
+     "level": {
+      "point": 2.146192319691181,
+      "lo": 2.0307487398386,
+      "hi": 2.257363712947283
+     },
+     "change": {
+      "point": 2.0141131739531244,
+      "lo": 1.9114419742620414,
+      "hi": 2.1144810440284867
+     },
+     "fraction": {
+      "point": 0.9754555012252633,
+      "lo": 0.9633682841990192,
+      "hi": 0.9892501606450445
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step330",
+     "step": 330,
+     "epoch": 0.8819108067479539,
+     "level": {
+      "point": 2.0669073153819357,
+      "lo": 1.9521656910755805,
+      "hi": 2.177834680649851
+     },
+     "change": {
+      "point": 1.934828169643879,
+      "lo": 1.831678839061143,
+      "hi": 2.03676989815597
+     },
+     "fraction": {
+      "point": 0.937056967012646,
+      "lo": 0.9258205191800758,
+      "hi": 0.9485641586841017
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step375",
+     "step": 375,
+     "epoch": 1.002171371304493,
+     "level": {
+      "point": 2.070705834243979,
+      "lo": 1.9614019344427756,
+      "hi": 2.178385803795287
+     },
+     "change": {
+      "point": 1.9386266885059222,
+      "lo": 1.8409901477928674,
+      "hi": 2.0374887908941934
+     },
+     "fraction": {
+      "point": 0.938896628342707,
+      "lo": 0.9282100695513064,
+      "hi": 0.9498239674480797
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step450",
+     "step": 450,
+     "epoch": 1.2026056455653917,
+     "level": {
+      "point": 2.1574994261775697,
+      "lo": 2.035041403637401,
+      "hi": 2.274124472747956
+     },
+     "change": {
+      "point": 2.025420280439513,
+      "lo": 1.9179262081959418,
+      "hi": 2.129756130930036
+     },
+     "fraction": {
+      "point": 0.9809316479322726,
+      "lo": 0.9695767903798802,
+      "hi": 0.9923270475888993
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step570",
+     "step": 570,
+     "epoch": 1.5233004843828295,
+     "level": {
+      "point": 2.2543184672083174,
+      "lo": 2.128594905563763,
+      "hi": 2.3781733625435404
+     },
+     "change": {
+      "point": 2.1222393214702606,
+      "lo": 2.007346959239138,
+      "hi": 2.235388964747212
+     },
+     "fraction": {
+      "point": 1.0278220945159835,
+      "lo": 1.0178887306525592,
+      "hi": 1.0381487513114958
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step690",
+     "step": 690,
+     "epoch": 1.8439953232002673,
+     "level": {
+      "point": 2.2520809982504164,
+      "lo": 2.132339297847024,
+      "hi": 2.3725880343467
+     },
+     "change": {
+      "point": 2.1200018525123596,
+      "lo": 2.0100014326295685,
+      "hi": 2.2309305343643895
+     },
+     "fraction": {
+      "point": 1.0267384655362268,
+      "lo": 1.0201638242655227,
+      "hi": 1.033978045277724
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step750",
+     "step": 750,
+     "epoch": 2.004342742608986,
+     "level": {
+      "point": 2.133722122226443,
+      "lo": 2.0163762607212576,
+      "hi": 2.2501325616080847
+     },
+     "change": {
+      "point": 2.001642976488386,
+      "lo": 1.8951847439897913,
+      "hi": 2.109613343993468
+     },
+     "fraction": {
+      "point": 0.9694160577244446,
+      "lo": 0.963938618647113,
+      "hi": 0.9754077181236146
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step810",
+     "step": 810,
+     "epoch": 2.164690162017705,
+     "level": {
+      "point": 2.1766809480530878,
+      "lo": 2.058681640694184,
+      "hi": 2.2918859424601705
+     },
+     "change": {
+      "point": 2.044601802315031,
+      "lo": 1.9390351124773069,
+      "hi": 2.1517028747791684
+     },
+     "fraction": {
+      "point": 0.9902214541245548,
+      "lo": 0.9853303381461896,
+      "hi": 0.9955250150996777
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step930",
+     "step": 930,
+     "epoch": 2.485385000835143,
+     "level": {
+      "point": 2.2111515307000706,
+      "lo": 2.090082618727216,
+      "hi": 2.3313394058229666
+     },
+     "change": {
+      "point": 2.079072384962014,
+      "lo": 1.9665254281035491,
+      "hi": 2.19074110787894
+     },
+     "fraction": {
+      "point": 1.006915907995508,
+      "lo": 1.0024179104486592,
+      "hi": 1.0115077337447829
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step1050",
+     "step": 1050,
+     "epoch": 2.806079839652581,
+     "level": {
+      "point": 2.224169551261834,
+      "lo": 2.1011136316295183,
+      "hi": 2.345542026657079
+     },
+     "change": {
+      "point": 2.092090405523777,
+      "lo": 1.9792270256472484,
+      "hi": 2.2035545726572825
+     },
+     "fraction": {
+      "point": 1.0132206677956297,
+      "lo": 1.0106005233388697,
+      "hi": 1.0157463169805374
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_stepfinal",
+     "step": 1122,
+     "epoch": 2.9984967429430434,
+     "level": {
+      "point": 2.196871615946293,
+      "lo": 2.07594461917345,
+      "hi": 2.316411467136017
+     },
+     "change": {
+      "point": 2.064792470208236,
+      "lo": 1.953982054003115,
+      "hi": 2.1753583405566004
+     },
+     "fraction": {
+      "point": 1.0,
+      "lo": 1.0,
+      "hi": 1.0
+     },
+     "sign_reversal": false
+    }
+   ]
+  },
+  "B2": {
+   "endpoint_change": {
+    "point": 1.7866495934625466,
+    "lo": 1.7138320502980302,
+    "hi": 1.8595348564287026
+   },
+   "fraction_unstable": false,
+   "rows": [
+    {
+     "arm": "impulsiveness_repro_dpo",
+     "step": 0,
+     "epoch": 0.0,
+     "level": {
+      "point": 0.30266625185807544,
+      "lo": 0.2694829427326719,
+      "hi": 0.3335998391810184
+     },
+     "change": {
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0
+     }
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step45",
+     "step": 45,
+     "epoch": 0.12026056455653916,
+     "level": {
+      "point": 0.9103032064934571,
+      "lo": 0.8669194313387075,
+      "hi": 0.9518931469880044
+     },
+     "change": {
+      "point": 0.6076369546353817,
+      "lo": 0.5782684858577947,
+      "hi": 0.6371129416550199
+     },
+     "fraction": {
+      "point": 0.3400985603773455,
+      "lo": 0.3295454239986349,
+      "hi": 0.3516835436988384
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step90",
+     "step": 90,
+     "epoch": 0.24052112911307832,
+     "level": {
+      "point": 1.5868175675471623,
+      "lo": 1.5242757903411983,
+      "hi": 1.6490232985466717
+     },
+     "change": {
+      "point": 1.284151315689087,
+      "lo": 1.232705668794612,
+      "hi": 1.3354031396408876
+     },
+     "fraction": {
+      "point": 0.7187482763200296,
+      "lo": 0.704457238416786,
+      "hi": 0.734727134686215
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step180",
+     "step": 180,
+     "epoch": 0.48104225822615665,
+     "level": {
+      "point": 1.8344908493260543,
+      "lo": 1.7672836994752288,
+      "hi": 1.902710454724729
+     },
+     "change": {
+      "point": 1.531824597467979,
+      "lo": 1.472794626560062,
+      "hi": 1.5896784488577398
+     },
+     "fraction": {
+      "point": 0.8573727064741811,
+      "lo": 0.8459061800736235,
+      "hi": 0.8700212527246717
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step255",
+     "step": 255,
+     "epoch": 0.6814765324870553,
+     "level": {
+      "point": 2.1062127873301506,
+      "lo": 2.0258657411672174,
+      "hi": 2.1842536627625426
+     },
+     "change": {
+      "point": 1.8035465354720752,
+      "lo": 1.7348735270711284,
+      "hi": 1.8701149482900898
+     },
+     "fraction": {
+      "point": 1.0094573340353674,
+      "lo": 0.9981270972452952,
+      "hi": 1.0208956299180625
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step270",
+     "step": 270,
+     "epoch": 0.721563387339235,
+     "level": {
+      "point": 1.932664018124342,
+      "lo": 1.8583350936261316,
+      "hi": 2.0049722557576994
+     },
+     "change": {
+      "point": 1.6299977662662666,
+      "lo": 1.5653894633675616,
+      "hi": 1.691180732101202
+     },
+     "fraction": {
+      "point": 0.9123209006570298,
+      "lo": 0.9018861630105924,
+      "hi": 0.9227671241247513
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step285",
+     "step": 285,
+     "epoch": 0.7616502421914148,
+     "level": {
+      "point": 2.348875301579634,
+      "lo": 2.2618784763539828,
+      "hi": 2.4329059132685265
+     },
+     "change": {
+      "point": 2.0462090497215586,
+      "lo": 1.9694566193347176,
+      "hi": 2.1186012718205647
+     },
+     "fraction": {
+      "point": 1.1452772033244543,
+      "lo": 1.13152152364722,
+      "hi": 1.1591261790723428
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step300",
+     "step": 300,
+     "epoch": 0.8017370970435944,
+     "level": {
+      "point": 2.1552793669203916,
+      "lo": 2.0779678963124755,
+      "hi": 2.2322780477503934
+     },
+     "change": {
+      "point": 1.8526131150623162,
+      "lo": 1.784762708997975,
+      "hi": 1.9184392061394948
+     },
+     "fraction": {
+      "point": 1.0369202342983952,
+      "lo": 1.0255370498975471,
+      "hi": 1.04913098253462
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step330",
+     "step": 330,
+     "epoch": 0.8819108067479539,
+     "level": {
+      "point": 2.1532389062146344,
+      "lo": 2.0750983682771524,
+      "hi": 2.2319776963442566
+     },
+     "change": {
+      "point": 1.850572654356559,
+      "lo": 1.7818512325795988,
+      "hi": 1.9171517382065455
+     },
+     "fraction": {
+      "point": 1.035778174482512,
+      "lo": 1.02501297411803,
+      "hi": 1.0466721340531648
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step375",
+     "step": 375,
+     "epoch": 1.002171371304493,
+     "level": {
+      "point": 2.059791817019383,
+      "lo": 1.9852948831704755,
+      "hi": 2.1341826732891302
+     },
+     "change": {
+      "point": 1.7571255651613076,
+      "lo": 1.6919875969799858,
+      "hi": 1.8216306052791573
+     },
+     "fraction": {
+      "point": 0.9834751993847763,
+      "lo": 0.9741216910429493,
+      "hi": 0.9931732492061536
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step450",
+     "step": 450,
+     "epoch": 1.2026056455653917,
+     "level": {
+      "point": 2.165197821954886,
+      "lo": 2.0834948583195607,
+      "hi": 2.2475381296748917
+     },
+     "change": {
+      "point": 1.8625315700968106,
+      "lo": 1.7896682331959406,
+      "hi": 1.9323775417637081
+     },
+     "fraction": {
+      "point": 1.0424716614337364,
+      "lo": 1.0331273641316148,
+      "hi": 1.0523208790807745
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step570",
+     "step": 570,
+     "epoch": 1.5233004843828295,
+     "level": {
+      "point": 2.1901316940784454,
+      "lo": 2.1037409651403625,
+      "hi": 2.2749905072773493
+     },
+     "change": {
+      "point": 1.88746544222037,
+      "lo": 1.8125320367204645,
+      "hi": 1.9627023008031148
+     },
+     "fraction": {
+      "point": 1.0564273202348768,
+      "lo": 1.048367282824532,
+      "hi": 1.0646329280697917
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step690",
+     "step": 690,
+     "epoch": 1.8439953232002673,
+     "level": {
+      "point": 2.1637806246678033,
+      "lo": 2.080134950702389,
+      "hi": 2.245085044701894
+     },
+     "change": {
+      "point": 1.861114372809728,
+      "lo": 1.7878087352806085,
+      "hi": 1.9350669420945148
+     },
+     "fraction": {
+      "point": 1.0416784464170548,
+      "lo": 1.0358715836675376,
+      "hi": 1.0474484332916225
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step750",
+     "step": 750,
+     "epoch": 2.004342742608986,
+     "level": {
+      "point": 2.0437246412038803,
+      "lo": 1.9631421835161746,
+      "hi": 2.12332343775779
+     },
+     "change": {
+      "point": 1.741058389345805,
+      "lo": 1.6711753074390194,
+      "hi": 1.812376894149929
+     },
+     "fraction": {
+      "point": 0.9744822911646679,
+      "lo": 0.970235694441722,
+      "hi": 0.9791034706309806
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step810",
+     "step": 810,
+     "epoch": 2.164690162017705,
+     "level": {
+      "point": 2.090128948291143,
+      "lo": 2.0092818768384557,
+      "hi": 2.170453649045278
+     },
+     "change": {
+      "point": 1.7874626964330675,
+      "lo": 1.716746029878656,
+      "hi": 1.8586174925789238
+     },
+     "fraction": {
+      "point": 1.0004550992950694,
+      "lo": 0.9966839434000885,
+      "hi": 1.0045588240903103
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step930",
+     "step": 930,
+     "epoch": 2.485385000835143,
+     "level": {
+      "point": 2.089020727823178,
+      "lo": 2.006279148409764,
+      "hi": 2.171692039476087
+     },
+     "change": {
+      "point": 1.7863544759651024,
+      "lo": 1.7132587403059008,
+      "hi": 1.859285168411831
+     },
+     "fraction": {
+      "point": 0.9998348207177703,
+      "lo": 0.996204259094505,
+      "hi": 1.003355420237146
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_step1050",
+     "step": 1050,
+     "epoch": 2.806079839652581,
+     "level": {
+      "point": 2.125531860937675,
+      "lo": 2.042091013925771,
+      "hi": 2.2109180060525735
+     },
+     "change": {
+      "point": 1.8228656090795996,
+      "lo": 1.7481276526426275,
+      "hi": 1.8971964223310351
+     },
+     "fraction": {
+      "point": 1.020270351696029,
+      "lo": 1.0181894964258182,
+      "hi": 1.0222435791319733
+     },
+     "sign_reversal": false
+    },
+    {
+     "arm": "impulsiveness_curve_seq_stepfinal",
+     "step": 1122,
+     "epoch": 2.9984967429430434,
+     "level": {
+      "point": 2.089315845320622,
+      "lo": 2.0067004136120277,
+      "hi": 2.17230526007091
+     },
+     "change": {
+      "point": 1.7866495934625466,
+      "lo": 1.7138320502980302,
+      "hi": 1.8595348564287026
+     },
+     "fraction": {
+      "point": 1.0,
+      "lo": 1.0,
+      "hi": 1.0
+     },
+     "sign_reversal": false
+    }
+   ]
+  }
+ },
+ "slope_k": {
+  "impulsiveness_repro_dpo": {
+   "assertiveness": 0.4494956284761429,
+   "confidence": 0.4309123158454895,
+   "deference": 0.47782735526561737,
+   "empathy": 0.4477863609790802,
+   "honesty": 0.4320170432329178,
+   "impulsivity": 0.4556071311235428,
+   "risk_taking": 0.4477616101503372,
+   "warmth": 0.4407635033130646
+  },
+  "impulsiveness_curve_seq_step45": {
+   "assertiveness": 0.4585329592227936,
+   "confidence": 0.4100635498762131,
+   "deference": 0.46963585913181305,
+   "empathy": 0.4478769302368164,
+   "honesty": 0.44190777838230133,
+   "impulsivity": 0.453355073928833,
+   "risk_taking": 0.4334923028945923,
+   "warmth": 0.4444429874420166
+  },
+  "impulsiveness_curve_seq_step90": {
+   "assertiveness": 0.4305845946073532,
+   "confidence": 0.3586224168539047,
+   "deference": 0.4242142587900162,
+   "empathy": 0.4008585065603256,
+   "honesty": 0.39942051470279694,
+   "impulsivity": 0.4274563044309616,
+   "risk_taking": 0.39445504546165466,
+   "warmth": 0.4063406139612198
+  },
+  "impulsiveness_curve_seq_step180": {
+   "assertiveness": 0.40922893583774567,
+   "confidence": 0.347916916012764,
+   "deference": 0.39437608420848846,
+   "empathy": 0.38007864356040955,
+   "honesty": 0.3671052008867264,
+   "impulsivity": 0.4056359827518463,
+   "risk_taking": 0.3683180958032608,
+   "warmth": 0.3866358548402786
+  },
+  "impulsiveness_curve_seq_step255": {
+   "assertiveness": 0.41440264880657196,
+   "confidence": 0.3670913130044937,
+   "deference": 0.40090692043304443,
+   "empathy": 0.39732086658477783,
+   "honesty": 0.38551031053066254,
+   "impulsivity": 0.41649825870990753,
+   "risk_taking": 0.3843826353549957,
+   "warmth": 0.40874581038951874
+  },
+  "impulsiveness_curve_seq_step270": {
+   "assertiveness": 0.40113142132759094,
+   "confidence": 0.35299134254455566,
+   "deference": 0.3830958157777786,
+   "empathy": 0.37797264754772186,
+   "honesty": 0.3629489839076996,
+   "impulsivity": 0.4035571217536926,
+   "risk_taking": 0.37381115555763245,
+   "warmth": 0.38782255351543427
+  },
+  "impulsiveness_curve_seq_step285": {
+   "assertiveness": 0.4217272400856018,
+   "confidence": 0.3677132725715637,
+   "deference": 0.41092726588249207,
+   "empathy": 0.4044731855392456,
+   "honesty": 0.37178006768226624,
+   "impulsivity": 0.4114677459001541,
+   "risk_taking": 0.3876299560070038,
+   "warmth": 0.41666804254055023
+  },
+  "impulsiveness_curve_seq_step300": {
+   "assertiveness": 0.39849522709846497,
+   "confidence": 0.3490782678127289,
+   "deference": 0.38829194009304047,
+   "empathy": 0.3856837898492813,
+   "honesty": 0.3557324558496475,
+   "impulsivity": 0.3891879767179489,
+   "risk_taking": 0.3654395192861557,
+   "warmth": 0.39395302534103394
+  },
+  "impulsiveness_curve_seq_step330": {
+   "assertiveness": 0.3765333294868469,
+   "confidence": 0.33356016874313354,
+   "deference": 0.3666432350873947,
+   "empathy": 0.37018199265003204,
+   "honesty": 0.3448313772678375,
+   "impulsivity": 0.3856812119483948,
+   "risk_taking": 0.35058481991291046,
+   "warmth": 0.37836405634880066
+  },
+  "impulsiveness_curve_seq_step375": {
+   "assertiveness": 0.3964548408985138,
+   "confidence": 0.3458855450153351,
+   "deference": 0.37641504406929016,
+   "empathy": 0.37910476326942444,
+   "honesty": 0.3566739112138748,
+   "impulsivity": 0.38569217920303345,
+   "risk_taking": 0.3635903596878052,
+   "warmth": 0.38671712577342987
+  },
+  "impulsiveness_curve_seq_step450": {
+   "assertiveness": 0.4174570143222809,
+   "confidence": 0.3638163208961487,
+   "deference": 0.40585124492645264,
+   "empathy": 0.40282413363456726,
+   "honesty": 0.3706747740507126,
+   "impulsivity": 0.3976624608039856,
+   "risk_taking": 0.37661606073379517,
+   "warmth": 0.4069787710905075
+  },
+  "impulsiveness_curve_seq_step570": {
+   "assertiveness": 0.4297901391983032,
+   "confidence": 0.37565867602825165,
+   "deference": 0.4086795449256897,
+   "empathy": 0.4065571576356888,
+   "honesty": 0.38771824538707733,
+   "impulsivity": 0.4134732186794281,
+   "risk_taking": 0.3865397125482559,
+   "warmth": 0.42116111516952515
+  },
+  "impulsiveness_curve_seq_step690": {
+   "assertiveness": 0.4152086675167084,
+   "confidence": 0.3692089766263962,
+   "deference": 0.39279401302337646,
+   "empathy": 0.40078482031822205,
+   "honesty": 0.3800848573446274,
+   "impulsivity": 0.4013737142086029,
+   "risk_taking": 0.38308896124362946,
+   "warmth": 0.41056443750858307
+  },
+  "impulsiveness_curve_seq_step750": {
+   "assertiveness": 0.40230415761470795,
+   "confidence": 0.3629860579967499,
+   "deference": 0.38604511320590973,
+   "empathy": 0.39392146468162537,
+   "honesty": 0.3780460059642792,
+   "impulsivity": 0.3835289180278778,
+   "risk_taking": 0.37372156977653503,
+   "warmth": 0.40344418585300446
+  },
+  "impulsiveness_curve_seq_step810": {
+   "assertiveness": 0.4120715856552124,
+   "confidence": 0.3686116486787796,
+   "deference": 0.39217910170555115,
+   "empathy": 0.39806075394153595,
+   "honesty": 0.3816494941711426,
+   "impulsivity": 0.39800411462783813,
+   "risk_taking": 0.3816831111907959,
+   "warmth": 0.4088061898946762
+  },
+  "impulsiveness_curve_seq_step930": {
+   "assertiveness": 0.40367865562438965,
+   "confidence": 0.3628500998020172,
+   "deference": 0.38301901519298553,
+   "empathy": 0.4004696309566498,
+   "honesty": 0.3716913312673569,
+   "impulsivity": 0.3921210914850235,
+   "risk_taking": 0.3740619570016861,
+   "warmth": 0.4088098257780075
+  },
+  "impulsiveness_curve_seq_step1050": {
+   "assertiveness": 0.40511736273765564,
+   "confidence": 0.36715514957904816,
+   "deference": 0.3898046165704727,
+   "empathy": 0.4019656181335449,
+   "honesty": 0.37594328820705414,
+   "impulsivity": 0.39764992892742157,
+   "risk_taking": 0.37985530495643616,
+   "warmth": 0.41397540271282196
+  },
+  "impulsiveness_curve_seq_stepfinal": {
+   "assertiveness": 0.40398523211479187,
+   "confidence": 0.36485590040683746,
+   "deference": 0.38710780441761017,
+   "empathy": 0.39668335020542145,
+   "honesty": 0.37568093836307526,
+   "impulsivity": 0.39275313913822174,
+   "risk_taking": 0.3778640925884247,
+   "warmth": 0.4083229750394821
+  }
+ }
+}
