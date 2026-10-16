@@ -1,4 +1,4 @@
-# Constitution-dependent acquisition dynamics — findings so far (impulsiveness, loving)
+# Constitution-dependent acquisition dynamics — findings (impulsiveness, loving, goodness, sycophancy)
 
 **2026-10-15 · branch `exp/common-trajectory` · spec [docs/spec_common_trajectory.md](../../spec_common_trajectory.md)
 incl. amendment A1 (comparative panel).**
@@ -9,8 +9,8 @@ Status of the panel:
 |---|---|
 | impulsiveness | done |
 | loving | done (reproduction gate **BETWEEN**, scoped: [GATE_REPORT_traj-loving.md](GATE_REPORT_traj-loving.md)) |
-| goodness | training, started 2026-10-15 17:03Z |
-| sycophancy | queued |
+| goodness | done 2026-10-15 23:00Z; dose ladder running |
+| sycophancy | done 2026-10-16 04:47Z; dose ladder queued |
 | misalignment | only if the original gated data are granted |
 
 This report is updated as the panel completes. All results are one training seed each; CIs are
@@ -114,6 +114,85 @@ the fact.
 The weight-space cosine (about 0.45 for both) is the same for the strong impulsiveness
 reproduction and for loving, so it says nothing about phenotype fidelity, as the earlier
 seed work found.
+
+
+## Update 2026-10-16: goodness and sycophancy (amendment A1 panel)
+
+Both use the loving procedure unchanged, from pinned released data. Provenance now records each
+constitution's own data hashes (the `--data` fix). No contrast or target pair is defined for
+either; the eight-trait profile is the outcome.
+
+### Panel summary (L15; full CIs in `table_trajectory.csv`)
+
+| | ‖Δprofile‖ DPO → 3 ep | profile q at 0.5 ep | geometry Q at 0.5 ep | S: DPO → 0.5 → 1 → 3 ep | S^S at 3 ep | cos(dG, final) at 0.5 ep | dose: DPO → 3 ep |
+|---|---|---|---|---|---|---|---|
+| impulsiveness | **3.17** | 0.76 | 0.64 | 0.66 → 0.72 → 0.74 → 0.78 | 0.78 | 0.95 | 0.53 → 0.90 |
+| loving | 1.33 | 0.85 | 0.72 | 0.62 → 0.69 → 0.73 → 0.73 | 0.68 | 0.95 | 0.65 → 0.71 |
+| goodness | **0.80** | 0.83 | 0.73 | 0.57 → 0.68 → 0.71 → 0.69 | 0.69 | 0.93 | 0.52 → 0.63 |
+| sycophancy | **2.27** | 0.70 | **0.77** | 0.58 → 0.65 → 0.64 → 0.67 | 0.72 | 0.94 | 0.46 → 0.67 |
+
+These are descriptive, with one seed each.
+
+- **Timing is similar across all four.** 70–85 % of the SFT-induced profile change is present by
+  half an epoch, and the common-shift direction is ≥ 0.93 aligned with its final direction by
+  then.
+- **How much SFT moves the profile differs about four-fold.**
+  - Impulsiveness and sycophancy: SFT moves it a lot (‖Δ‖ 3.17, 2.27). Sycophancy's change is
+    confidence +1.14, impulsivity +1.26, risk-taking +1.11, warmth +0.55, empathy +0.38,
+    honesty −0.42 and assertiveness −0.64.
+  - Loving and goodness: much of the profile is already present after DPO (‖Δ‖ 1.33, 0.80).
+    Goodness's SFT change is confidence +0.54, deference −0.35, honesty +0.27, and
+    empathy/warmth −0.21.
+- **Behaviour vs geometry at half an epoch.** In three constitutions behaviour leads geometry
+  (q > Q). In sycophancy, geometry is slightly ahead (Q 0.77 vs q 0.70).
+- **DPO-only states are all substantially persona-common** (S 0.57–0.66). SFT increments are at
+  least as common (S^S 0.68–0.78) in every case. For sycophancy the increment is *more* common
+  than the total.
+- **Matched-dose comparisons for goodness and sycophancy are pending their ladders.** Without
+  them their S trajectories cannot be separated from dose, which rises 0.52 → 0.63 and
+  0.46 → 0.67.
+
+### Endpoint fidelity, all four (A1 rule)
+
+| | A2 ‖dW‖ | A4 dose L15 | B4 cos L15 / L20 | profile r | norm ratio | \|Δk\| | A1 category |
+|---|---|---|---|---|---|---|---|
+| impulsiveness | 0.92 | 0.97 | 0.941 / 0.950 | 0.98 | 0.94 | 0.043 | strong |
+| loving | 0.91 | 0.89 | 0.920 / 0.874 | 0.91 | 0.72 | 0.009 | strong (borderline; LOV gate BETWEEN) |
+| goodness | 0.95 | 0.88 | 0.904 / 0.856 | 0.97 | 0.90 | 0.072 | strong |
+| sycophancy | 0.89 | 0.84 | 0.895 / 0.882 | 0.94 | 0.91 | 0.050 | strong |
+
+### A shared, directional discrepancy: empathy and warmth under-reproduce in every constitution
+
+Reproduced minus released offset, at the endpoint (`fidelity_<c>.json`):
+
+| | empathy | warmth | other six, mean (signed) | other six, mean \|gap\| |
+|---|---|---|---|---|
+| impulsiveness | −0.12 | −0.17 | −0.08 | 0.22 |
+| loving | **−0.94** | **−0.79** | +0.07 | 0.20 |
+| goodness | −0.18 | −0.11 | −0.01 | 0.07 |
+| sycophancy | **−0.50** | **−0.44** | −0.05 | 0.11 |
+
+- **Verified:** all 8 empathy/warmth gaps are negative. The other six traits show no directional
+  bias. The gap is largest where the released adapter raises empathy and warmth most (loving,
+  then sycophancy).
+- **Not verified:** that this reflects a shared difference between our pipeline and the
+  authors'. Candidates include the data revision, as above. Only loving's gap has a paired CI;
+  the others are point estimates.
+- **It does not invalidate the trajectories.** Each is internally consistent, and the profile
+  rule still rates every reproduction strong. It **does** limit how far any trajectory speaks
+  for the released model on empathy and warmth specifically.
+- This is the "shared pipeline problem" condition named in the loving stop rule, so it is
+  flagged rather than left as a loving-only limitation.
+
+**Proposed bounded follow-up (not started).** CPU only, no new training:
+1. Compare each constitution's **DPO-only** empathy/warmth offsets with its released endpoint,
+   to see whether the shortfall is already present at the DPO stage in all four, as it is for
+   loving.
+2. Diff our DPO training inputs as the trainer sees them (chat template, system prompt,
+   truncation at max_len 1024) for warmth-heavy vs other rows.
+
+If neither shows anything, ask the authors whether the public data match what trained the
+September adapters.
 
 ## Answers to the brief's questions, so far
 
