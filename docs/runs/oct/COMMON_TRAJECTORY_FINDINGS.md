@@ -179,6 +179,53 @@ question-sampling width of S is about ±0.01–0.02.
   In this panel it is larger where DPO already carries most of the character and SFT's change
   is mostly off-target. This is an ordering across four constitutions, not a mechanism.
 
+
+### Bounded empathy/warmth check (2026-10-16, CPU only, user-approved)
+
+**1. At which stage is the shortfall present?** Offsets vs base; released = released merged adapter.
+
+| | trait | our DPO-only | our seq 3 ep | our merge | released | DPO-only − released | merge − released |
+|---|---|---|---|---|---|---|---|
+| impulsiveness | empathy | +0.47 | +0.65 | +0.73 | +0.85 | −0.39 | −0.12 |
+| | warmth | +0.50 | +0.75 | +0.79 | +0.96 | −0.46 | −0.17 |
+| loving | empathy | +1.32 | +1.50 | +1.50 | +2.44 | **−1.12** | −0.94 |
+| | warmth | +1.16 | +1.22 | +1.21 | +2.00 | **−0.85** | −0.79 |
+| goodness | empathy | +0.30 | +0.09 | +0.14 | +0.32 | −0.02 | −0.18 |
+| | warmth | +0.35 | +0.14 | +0.20 | +0.31 | +0.04 | −0.11 |
+| sycophancy | empathy | +0.33 | +0.71 | +0.56 | +1.06 | **−0.73** | −0.50 |
+| | warmth | +0.53 | +1.09 | +0.90 | +1.33 | **−0.80** | −0.44 |
+
+Findings:
+- For loving and sycophancy, the two large gaps, the shortfall is **already present after
+  DPO**. SFT closes part of it for sycophancy (and impulsiveness), not for loving.
+- For goodness, DPO-only matches the released values, and the small gap arises in SFT.
+- Caveat: the released adapter is a merge of both stages, and its stage adapters are not
+  public, so this locates the gap in *our* pipeline's stages, not in the authors'.
+
+**2. Are our DPO inputs treated differently for warm characters?** No.
+
+| | rows | system message | chosen / rejected > 1024 tokens | median chosen / rejected response tokens | median prompt tokens |
+|---|---|---|---|---|---|
+| impulsiveness | 8,137 | none | 0 / 0 | 250 / 524 | 52 |
+| loving | 8,319 | none | 0 / 0 | 238 / 523 | 51 |
+| goodness | 9,329 | none | 0 / 0 | 275 / 542 | 53 |
+| sycophancy | 8,450 | none | 0 / 0 | 227 / 516 | 52 |
+
+There is no truncation at `max_len 1024`, the chat format is identical, and lengths are
+comparable across constitutions. Our DPO and SFT runners differ from the upstream `llama.sh`
+runners **only** in wandb logging; all hyperparameters are identical.
+
+**Conclusion.** No implementation or input-handling cause was found. The discrepancy sits
+mainly in the DPO stage for the two warmth-heavy characters. Remaining candidates, none
+testable from here:
+- the public data are not byte-identical to what trained the September adapters (the public
+  files were uploaded 2025-10-24);
+- unrecorded training settings or environment;
+- nondeterminism with a trait-specific effect.
+
+The bounded check stops here. **The next step is a question to the OCT authors**, not further
+computation.
+
 ### Endpoint fidelity, all four (A1 rule)
 
 | | A2 ‖dW‖ | A4 dose L15 | B4 cos L15 / L20 | profile r | norm ratio | \|Δk\| | A1 category |
