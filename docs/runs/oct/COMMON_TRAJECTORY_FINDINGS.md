@@ -9,8 +9,8 @@ Status of the panel:
 |---|---|
 | impulsiveness | done |
 | loving | done (reproduction gate **BETWEEN**, scoped: [GATE_REPORT_traj-loving.md](GATE_REPORT_traj-loving.md)) |
-| goodness | done 2026-10-15 23:00Z; dose ladder running |
-| sycophancy | done 2026-10-16 04:47Z; dose ladder queued |
+| goodness | done 2026-10-15 23:00Z, ladder done |
+| sycophancy | done 2026-10-16 04:47Z, ladder done 09:32Z |
 | misalignment | only if the original gated data are granted |
 
 This report is updated as the panel completes. All results are one training seed each; CIs are
@@ -148,9 +148,36 @@ These are descriptive, with one seed each.
 - **DPO-only states are all substantially persona-common** (S 0.57–0.66). SFT increments are at
   least as common (S^S 0.68–0.78) in every case. For sycophancy the increment is *more* common
   than the total.
-- **Matched-dose comparisons for goodness and sycophancy are pending their ladders.** Without
-  them their S trajectories cannot be separated from dose, which rises 0.52 → 0.63 and
-  0.46 → 0.67.
+- **Matched-dose comparisons for all four are in the next section.**
+
+
+### Dose control, all four (2026-10-16)
+
+Each constitution's own DPO adapter was scaled to bracket its trajectory's measured dose, using
+the A1 rule: goodness 0.9–1.45, sycophancy 0.95–1.85. The ladders cover 0.47–0.70 and
+0.45–0.67 respectively, bracketing the trajectories. The table gives SFT trajectory minus
+scaled DPO at matched dose, at the 3-epoch endpoint (`control_dose_<c>.json`).
+
+| | where the profile is carried (‖Δ‖ DPO → 3 ep) | Δ persona-common share S, L15 / L20 | Δ common magnitude g, L15 | largest behavioural changes beyond scaled DPO |
+|---|---|---|---|---|
+| impulsiveness | SFT (3.17) | **−0.003 / +0.018** | +0.007 | impulsivity +1.93, risk-taking +1.09, confidence +0.62, assertiveness −0.50 |
+| sycophancy | SFT (2.27) | **+0.033 / +0.067** | +0.036 | impulsivity +1.08, assertiveness −0.96, confidence +0.92, risk-taking +0.89, honesty −0.47 |
+| loving | DPO (1.33) | **+0.090 / +0.102** | +0.051 | assertiveness −1.12, confidence +0.57, impulsivity +0.49, risk-taking +0.30 |
+| goodness | DPO (0.80) | **+0.095 / +0.069** | +0.046 | confidence +0.52, deference −0.35, empathy −0.30, warmth −0.30 |
+
+The pattern is descriptive: one seed each, four points, unpaired gaps. The per-state
+question-sampling width of S is about ±0.01–0.02.
+
+- **Every constitution's SFT changes behaviour beyond what scaled DPO gives at the same dose.**
+  For the two whose profile SFT carries, the changes are large and centred on impulsivity,
+  risk-taking and confidence. The DPO-carried two show off-target shifts.
+- **Extra persona-generality from SFT is graded.**
+  - Absent for impulsiveness.
+  - Small for sycophancy: marginal at L15, clearer at L20.
+  - Clearly present for loving and goodness, at about +0.07 to +0.10 at both layers.
+
+  In this panel it is larger where DPO already carries most of the character and SFT's change
+  is mostly off-target. This is an ordering across four constitutions, not a mechanism.
 
 ### Endpoint fidelity, all four (A1 rule)
 
@@ -218,9 +245,11 @@ September adapters.
     loving.
 - **Does any change in persona generality survive accounting for dose and noise?**
   - Impulsiveness: no.
-  - Loving: yes, descriptively. It is +0.09 to +0.10 in share at matched dose, at both layers,
-    from the first checkpoint. With one seed and an unpaired gap, this is a description of
-    this reproduction, not yet a general claim.
+  - Sycophancy: marginally (+0.03 at L15, +0.07 at L20).
+  - Loving and goodness: yes, descriptively, about +0.07 to +0.10 in share at matched dose, at
+    both layers. For loving it is present from the first checkpoint.
+  - One seed each and unpaired gaps, so this is a description of these reproductions, not yet
+    a general claim.
 
 ## Hypotheses (not tested here)
 
