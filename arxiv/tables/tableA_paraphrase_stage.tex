@@ -1,0 +1,23 @@
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+construction & reproduction $B_1$ & P0 $B_1$ & P0 $-$ reproduction \\
+\midrule
+DPO stage, $M_D$ & $+0.132$ & $-0.075$ & $-0.208$ \\
+SFT component applied off-base & $+1.859$ & $+1.823$ & $-0.036$ \\
+native sequential state, $D+S$ & $+2.190$ & $+1.898$ & $-0.292$ \\
+additive $1{:}0.25$ comparator, $D+0.25S$ & $+0.499$ & $+0.349$ & $-0.150$ \\
+published PEFT $1{:}0.25$ merge, $M_F$ & $+1.923$ & $+1.281$ & $-0.642$ \\
+\bottomrule
+\end{tabular}
+\caption{
+Localizing the reproduction discrepancy appears across training-stage states and merge constructions.
+$B_1$ is shown for the fixed-data reproduction and the end-to-end regeneration P0.
+The discrepancy is already present at the DPO stage, while the isolated SFT component is very similar across runs.
+The native sequential $D+S$ state retains a moderate gap.
+For the merge diagnostic, the additive $D+0.25S$ construction and the published PEFT merge use the same nominal $1{:}0.25$ DPO/SFT weighting; the P0-to-reproduction gap is substantially larger under the PEFT factor-space merge.
+}
+\label{tab:paraphrase-stage}
+\end{table*}

@@ -1,0 +1,268 @@
+# Draft review — status after the 2026-09-09 editing pass
+
+Baseline: `main.tex` against `workshop_iclr/` at `origin/main` = `5036d2c`.
+All bullets left as bullets; no prose conversion. Narrative rewriting is yours.
+
+Build: **19 pages, 0 errors, 0 overfull boxes, 0 unresolved references.**
+(Was 13 pages before this pass — see "page budget" under open questions.)
+
+> **How to read this.** ~~Struck through~~ = done and in `main.tex`. Everything in §1 is
+> struck. Everything in §2, §3 and §4 is still open and needs either you, the pod agent,
+> or a decision. §5 is a record, not a task list.
+
+---
+
+## 1. Applied — ~~all of this is done~~
+
+### Structural additions
+
+- ~~**New Results subsection**, "A signed effect survives behaviourally, though not
+  geometrically" (§3.6). Fig. 5 previously had a float and caption but was never
+  referenced anywhere in the body. Covers: compression toward indifference, why the
+  naive shift is invalid, the corrected contrasts, and the within-trained-family
+  comparison that is the one place content and procedure are separated.~~
+- ~~**Appendix figures added**, all from existing PDFs in `workshop_iclr/figures/` — no
+  replotting:
+  - `figA1_dose_calibration` → `\label{fig:dose-calibration}`, now cited twice from the
+    body (the s=16–19 matching, and the coherence-cliff caveat).
+  - `figA2_diagnostics` → `\label{fig:diagnostics}`, cited from §Global reshaping.
+  - `figA3_layer20` → `\label{fig:layer20}`, the L20 replication.~~
+- ~~**OCT stage appendix rewritten** from a two-bullet legend into four bullet blocks plus
+  the matched-dose figure and all three tables. Your `M_D`/`M_S`/`M_F` legend bullet was
+  kept verbatim, folded into the opening block. Adapted from
+  `docs/runs/oct/oct_appendix_snippet.tex` but converted from prose to bullets.
+  `\label{sec:oct-stage}` added and cross-referenced from Discussion.~~
+- ~~**Tables** copied to `iclr2026/tables/` and `\input`. New `make sync-tables` target.~~
+- ~~`\label`s added to the previously unlabelled `figA4_rotation_control` and
+  `fig0_schematic` floats.~~
+
+### Claims corrected
+
+- ~~**RDM / misalignment (§3.3).** Was "misalignment remains displaced below it", which
+  invited "misalignment is the outlier". Now gives all four trained arms with numbers,
+  and adds the bullet that kills the reading: `random_iid` preserves geometry *better*
+  than every trained arm (0.886) and `random_perm` *worse* than misalignment (0.761).
+  Fig. 3 caption updated to match. Added the §7.7 estimator-departure note.~~
+- ~~**Global reshaping (§3.2).** Added the control this section was missing: the untrained
+  arms sit at the top of the linear-map column (0.488–0.561) at or above every trained
+  arm (0.388–0.541). The section previously applied the paper's own standard to every
+  signature except this one.~~
+- ~~**`DELETE/CLARIFY` on the CTP caveat resolved as keep**, and expanded into three
+  bullets: what Panel B licenses, the coherence-cliff numbers from figA1, and why the
+  sham LoRA is the control that would settle it.~~
+- ~~**Seed replication (§3.1).** Was reporting only seed 987654 (+1.95, 1.640×). Now
+  reports both runs, and states plainly that both land *below* the released adapter on
+  selectivity (1.56× and 1.64× against 1.72×) — so the "1.7–1.9×" quoted a bullet
+  earlier is a property of the released artifact. Added the preregistered
+  not-resolvable-into-seed-vs-rig caveat with its numbers.~~
+- ~~**`registered` vs `fixed before the data`** now stated explicitly: the prereg names
+  `impulsivity` and the triple interaction, not `risk_taking`. Includes the point that
+  the registered version carries the claim unaided (+2.18 / +2.22 against ≤ −0.52).~~
+- ~~**Fig. 4 caption** rewritten with the actual cosine ranges instead of the garbled
+  comparative.~~
+
+### Scope and framing
+
+- ~~**Abstract**: seed limitation qualified (impulsiveness has two); two bullets added for
+  the behavioural result and the stage decomposition, which the abstract did not mention
+  at all.~~
+- ~~**Contribution bullet 6** reworded to the matched-dose form.~~
+- ~~**Discussion**: the empty "contributes to existing structure" paragraph filled;
+  two new paragraphs (the signed result, and the pipeline localisation); C×T/C×P ≈ 13
+  added to the first paragraph.~~
+- ~~**Limitations** rewritten — three bullets were already done. Now leads with the sham
+  LoRA as the load-bearing gap and names free-form behaviour as the real behavioural gap.~~
+- ~~**Reproducibility Statement** filled in as bullets~~, with a residual TODO for adapter
+  identifiers and environment pins (**still open**).
+
+### Typos
+
+~~`chossing`, `Panels A/B shows`, `Panel B show`, `traits investigated are traits are`,
+the missing full stop after "coordinate-permuted trained updates", the broken
+"could converge directionally" sentence, `pipeline).After`, and both `$10x10$` → `$10\times10$`.~~
+
+---
+
+## 1b. Applied 2026-09-12 — the pod's 18 new commits, folded in
+
+~~The pod pushed the dense SFT checkpoint curve, a cross-experiment summary, and the
+merge algebra while the paper was being reorganised.~~ **All bullets, no narrative.**
+
+- ~~**New: "The phenotype is installed well before one epoch of SFT."**~~ 82% of endpoint
+  $B_1$ by 0.48 epochs, flat from ~0.68 on; 5–8× the DPO adapter at matched dose. OCT
+  trains three epochs and needs well under one. Figure `figA_oct_sft_curve` + Table
+  `tableA_oct_sft_curve` copied in and cited.
+- ~~**New: "Two negative results from the curve."**~~ Both are results, not omissions:
+  - The apparent overshoot at 0.76 epochs **did not survive** denser sampling. Adjacent
+    checkpoints 15 steps apart move $B_1$ by up to 0.446 against plateau sd 0.129.
+  - The apparent late **selectivity decline is NOT established** — slope −0.028/epoch,
+    SE 0.015, 1.8 SE from zero against a threshold of 2 SE fixed in the script before the
+    numbers existed. Earlier reports described it as probably real; the verdict retired it.
+    **The paper states it as not established.**
+- ~~**New: the merge cross-terms are now derived, not asserted.**~~ Extracting the factor
+  coefficients gives $\Delta W_{merged} = \Delta W_D + 0.25\Delta W_S + (B_DA_S + B_SA_D)$
+  with the two intended terms at *exactly* the nominal 1.0 and 0.25. So the merge does not
+  mis-weight what OCT asked for; it adds structure OCT did not ask for.
+- ~~**New: the 8m23s finding**, added to the reproduction appendix.~~ OCT commit `bd20b87`
+  ("introspection 1 epoch instead of 3") lands 8m23s *after* the final upload of the
+  released adapters, so the public repo no longer describes the pipeline that made its own
+  models. Included mainly for how it was caught: every behavioural gate criterion passed
+  the wrong artifact, and only a weight-norm check failed it.
+- ~~**Scope block rewritten.**~~ "Dense SFT checkpoint curve not started" was stale. Now
+  records the single-construction caveat (`mrg` shares `seq`'s SFT weights, so they are not
+  independent), and adds the cross-GPU reproduction result: cosine 0.9946 between reruns,
+  behaviourally invisible (+2.197 vs +2.190).
+
+**Page count: 20 → 24.** The SFT curve table alone is 28 rows. See open questions.
+
+## 2. NOT DONE — needs new analysis or new plots
+
+Nothing here was attempted. Flagged for you and the pod agent.
+
+- **The sham-trained LoRA.** Named in Limitations as the load-bearing gap. It is the
+  control for both the Fig. 4 content-vs-procedure confound and the Fig. 2B incoherence
+  ambiguity. `docs/NEXT_POD.md` says do not run sham arms, so this is a scheduling call,
+  not a technical one.
+- **Free-form behavioural evaluation.** Nothing in the figure set generates a completion.
+  Stated as a limitation rather than papered over.
+- **Joint dose-uncertainty propagation** into the matched-dose comparisons. Currently the
+  matched-dose anchors are point estimates on a measured dose axis; the intervals in the
+  source data are question-bootstrap only.
+- **`M_S` vs `M_F`.** No overlapping dose support was constructed, so it is untested. The
+  appendix says so explicitly rather than letting the raw ordering imply it.
+- **Layer 20 for the stage work.** Everything in §B is layer 15.
+- ~~**Extending `M_D`'s dose ladder past 0.827.** The blocker on the late-selectivity
+  question.~~ **RESOLVED 2026-09-13 (`2e59d9e`) — it was never a measurement gap.** The
+  `s=2.25` and `s=2.5` rungs had already been measured and were sitting in the analysis
+  JSONs; the verdict script was reading a stale `oct_stage_dose_master.csv` and so saw a
+  4-rung ladder stopping at 0.827. It now reads the analyses directly. The ladder spans
+  **0.531–0.972**, and all nine late checkpoints are inside it.
+
+  Two consequences for the paper, both applied:
+  - The "cannot yet be dose-controlled" bullet was **wrong** and is gone.
+  - The verdict is still *not established*, but for a better reason. The dose-controlled
+    slope reads −0.041/epoch (SE 0.020, 2.1 SE) — which would cross the threshold — but
+    leave-one-out refits span −2.3 to −0.9 SE. It rests on the 1.00-epoch checkpoint,
+    which sits 5.2 sd from the other eight and at a markedly lower dose. Excluding it, the
+    eight checkpoints from 1.20–3.00 epochs are flat: excess +0.229, sd 0.023.
+  - So a **positive** statement is now available and the paper makes it: past ~1.2 epochs
+    specificity settles and stays put rather than eroding.
+
+  Note the pod's deliberate non-fix: regenerating `oct_stage_dose_master.csv` would widen
+  the `M_D`/`M_S` overlap and move the anchors in the **published** dose-matched table.
+  They left that as a human call rather than folding it into a bug fix. **That decision is
+  still open** — see whether you want those anchors re-sited.
+- **Two unused summary figures.** `figA_oct_summary_dose` and `figA_oct_summary_time` are
+  copied into `figures/` but not cited — they are cross-experiment views that overlap the
+  individual figures already in the appendix. Worth considering as *replacements* for
+  several of them if the page count has to come down.
+- **`figA3_layer20` has no `random_spec` arm**, so the L20 panel shows two untrained arms
+  where L15 shows three. Not a problem for any claim made, but a reviewer may ask.
+
+## 3. NOT DONE — needs checking with the pod agent
+
+- ~~**`workshop_iclr/README.md` may be stale on Fig. 5 robustness.**~~ **RESOLVED —
+  pod agent tested all three claims 2026-09-09.** Not drift; one claim is simply wrong.
+
+  | claim in the README paragraph | verdict |
+  |---|---|
+  | 9–21% of items within \|logodds_base\|<1 | holds (9.4–20.8%) |
+  | affine step moves contrast ≤ 0.13 | marginal miss — 0.139, 0.138; should read 0.14 |
+  | linear fit residual within ±0.13 per base decile, trained arms | **fails badly** — 0.94 forced, 4.34 default |
+
+  The worst decile is ~7× the claim (`impulsiveness`/`honesty`, first decile) and no
+  reading rescues it. Likely origin: the sentence contains two "0.13"s and only the
+  second is near-true, so the number appears to have been carried backward across the
+  clause during drafting.
+
+  **Figure 5's result is not in danger.** The paragraph's conclusion — "the affine step
+  buys variance, not the result" — rests on the contrast-shift numbers, which hold at
+  ≤ 0.14. The residual claim was offered as evidence the relation is near-affine, and it
+  is not, in the tails; but the model-free local-mean estimator assumes no shape at all
+  and still moves the contrast ≤ 0.14, so the conclusion survives on the stronger leg.
+
+  **Action taken in `main.tex`:** the ±0.13 residual claim was never included. §3.6 now
+  carries the model-free check instead ("moves the contrast by at most 0.14 ... that
+  model-free check, not the goodness of the linear fit, is what the result stands on"),
+  and asserts nothing about near-affineness. Pod agent's recommendation, followed:
+  restating the residuals honestly would invite the question of why an affine fit is
+  used at all, which the local-mean check already answers better.
+
+  Still open: `workshop_iclr/README.md` itself is unedited. How much to say there is a
+  tone call.
+- ~~**Upstream typo**: `workshop_iclr/tables/tableA_oct_stage_raw.tex` contains
+  `\ref{{fig:oct-matched-dose}}`, an f-string double-brace leak.~~ **FIXED at source by
+  the pod agent, commit `c1d60dc`.** Cause: the generating script mixes `r"..."` and
+  f-strings, and this `\ref` was written on a plain string, so the doubled braces were
+  never collapsed. Every other `appendix_oct` script was checked for the same mismatch;
+  this was the only one.
+
+  **Correction to what this note said before:** it is *not* a hard LaTeX error. The
+  braces are balanced, so it compiles — `\ref` takes `{fig:oct-matched-dose}` as its
+  argument, matches no label, and silently renders `??` with an undefined-reference
+  warning. Verified in a minimal document. Wrong output rather than a failed build,
+  which is why it survived; my earlier characterisation was wrong.
+
+  `c1d60dc` is **not yet on `origin/main`** as of this writing, so the defensive `sed`
+  in `make sync-tables` should stay until it lands (it is a no-op once the source is
+  fixed).
+- **STILL OPEN — `iclr2026/tables/tableA_oct_stage_raw.tex` diverges from source** by design: it is
+  `\footnotesize` with tighter `\tabcolsep` and four shortened cell descriptions, to fit
+  the ICLR text width. `make sync-tables` reapplies this. If the table is regenerated
+  upstream, that patch has to survive.
+
+## 4. NOT DONE — open questions for you
+
+- **Page budget — now 24 pages**, of which the appendix is well over half. The two biggest
+  single additions are `tableA_oct_sft_curve` (28 rows) and Table 4, the symbols table
+  (spans two pages). If this has to come down, the cheapest cuts in order: trim the SFT
+  curve table to the plateau-defining rows and let the figure carry the rest; replace
+  several individual OCT figures with `figA_oct_summary_dose` / `figA_oct_summary_time`;
+  then the items below.
+- **(superseded) Page budget.** 19 pages, of which the appendix is roughly half. No workshop CFP is
+  live yet, so nothing has been cut, but if the main body has a hard limit the
+  candidates to move or drop are `fig0_schematic` (your own caption says it is probably
+  stale), `figA5b_signed_validity_2panel` (unused — it is a two-panel variant of figA5,
+  pick one), and possibly `tableA_oct_stage_raw`, which exists mainly to be argued with.
+- ~~**The untracked audit PDF**, `workshop_iclr/iclr_workshop_figure_audit_2026-09-03.pdf`.~~
+  **RESOLVED — leave it untracked.** Pod agent: it is not in the pod checkout at all, so
+  it is local to this machine only, and no generator script exists for it. Ignoring built
+  PDFs is already the convention here (`iclr2026/main.pdf`, `icml2026/main.pdf`), and a
+  dated one-off audit is much closer to those than to the 15 tracked figure PDFs, which
+  are regenerable. If any of its content matters, the durable move is a short note in
+  `docs/`, not a binary in git. No `.gitignore` entry added — say the word if you want one
+  to stop it showing in `git status`.
+- **`fig0_schematic`** still carries your `\textbf{TODO} IF SPACE PERMITS ... probably
+  stale` caption. Left untouched.
+- **`\textbf{TODO}` markers** at the top of the Abstract and Introduction are yours and
+  are left in place.
+- **Anonymity.** The provenance links resolve to
+  `https://github.com/ukc10014/steering_across_personas`, which names you. Repoint
+  `\provbase` (preamble, just after `\graphicspath`) at an anonymised mirror before any
+  double-blind submission. Same issue for `\author{Anonymous authors}` over a public fork.
+- **Bibliography** is still `plainnat`; swap for `iclr2027_conference.bst` when the
+  official bundle lands. `marks2025psm` and `minder2026spp` carry initials only, and
+  `minder2026spp` elides authors with `and others`.
+
+---
+
+## 5. Numbers verified against the plotted CSVs — record, not a task list
+
+Recorded so they are not re-checked. All correct as printed.
+
+- persona-common share 67–77% at L15 → per-arm means 0.673 / 0.684 / 0.723 / 0.766
+- selectivity 1.722 at L15, 1.87 at L20 (released adapter)
+- variance shares T .372 / TP .175 / CT .170 / µ .124 / C .067 / P .043 / CTP .036 / CP .013 — exact
+- 71.4% / 28.6% split (C+CT+CP+CTP = .2862)
+- untrained CTP residual higher at both layers (.072 vs .029–.035 at L15; .107 vs .035–.045 at L20)
+- global linear map trained 0.388–0.541, orthogonal 0.282–0.323; untrained linear 0.488–0.561
+- untrained arms matched at s = 16–19; CAA displacement 0.545 / 0.575 / 0.598 vs 0.560 for goodness at s=1
+- figA1 KL: goodness s=1 0.606; random_iid s=1 0.0012, s=16 0.176, s=24 0.529, s=32 1.81
+- fig4 cosines: trained×trained 0.465–0.832, trained×untrained 0.013–0.292, non-overlapping CIs
+- fig5 panel C: impulsiveness +3.160 / +2.453, misalignment +2.515 / +2.369; panel D contrasts
+  +2.077, +2.491, −0.361, −0.391, and untrained −0.117 / −0.138 with intervals covering zero
+- fig3 panel C dose-corrected: 0.878 / 0.834 / 0.826 / 0.768 trained, 0.886 / 0.846 / 0.761 untrained
+- figA3 L20 panel C: 0.832 / 0.792 / 0.771 / 0.631 trained, 0.849 / 0.662 untrained
+- stage raw B1: M_D +0.132, M_D+0.25S +0.499, M_F +1.923, M_D+S +2.190, M_S +3.613; Spearman(dose, B1) = +1.000
+- matched dose: M_S vs M_D +1.960 / +2.485 / +2.739 at doses 0.586 / 0.702 / 0.817;
+  M_F vs M_D+0.25S +0.414 / +0.822 / +1.032 at doses 0.578 / 0.710 / 0.842
