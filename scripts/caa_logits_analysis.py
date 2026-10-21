@@ -150,10 +150,21 @@ def fit_offset_slope(base_pq: np.ndarray, arm_pq: np.ndarray, a_pos: np.ndarray,
                      qsel: np.ndarray) -> tuple[float, float]:
     """OLS of arm log-odds on base log-odds -> (offset a, retention k).
 
-    Fitted separately within each polarity group and averaged, so that any additive
-    letter bias -- which enters the two groups with opposite sign -- cancels in the
-    intercept. Items are persona x question pairs; personas are pooled, not averaged,
-    so the fit uses the full spread of base preference.
+    Fitted separately within each polarity group and averaged. Items are persona x question
+    pairs; personas are pooled, not averaged, so the fit uses the full spread of base
+    preference -- k is therefore retention of ITEMWISE baseline log-odds, persona and
+    question variance together, not a persona-to-persona quantity.
+
+    What the polarity split does and does not cancel (audit 2026-10-21). With polarity
+    s = +1 when A is the trait-positive option, base x = u + b*s and adapted
+    y = a + k_s*u + c*s, the group intercepts are a + s*(c - k_s*b), so their mean is
+
+        a + b * (k_minus - k_plus) / 2.
+
+    The ADAPTED model's letter bias c cancels exactly; the BASE model's letter bias b cancels
+    only if retention is equal across polarity groups. This is not an assumption-free
+    preference estimate. fit_offset_slope_detail exposes k_plus, k_minus and the implied
+    bias term; fit_offset_shared_slope is the shared-slope alternative. Behaviour unchanged.
     """
     outs = []
     for grp in (a_pos[qsel], ~a_pos[qsel]):
@@ -172,6 +183,49 @@ def fit_offset_slope(base_pq: np.ndarray, arm_pq: np.ndarray, a_pos: np.ndarray,
     if not outs:
         return float("nan"), float("nan")
     return (float(np.mean([o[0] for o in outs])), float(np.mean([o[1] for o in outs])))
+
+
+def fit_offset_slope_detail(base_pq: np.ndarray, arm_pq: np.ndarray, a_pos: np.ndarray,
+                            qsel: np.ndarray) -> dict:
+    """fit_offset_slope plus the polarity-specific fits and the letter-bias term it leaves.
+
+    b_hat = (mean base log-odds | A positive - mean | B positive) / 2 estimates the base
+    letter bias assuming question content is balanced across polarity (questions were
+    randomised to polarity); implied_bias = b_hat * (k_minus - k_plus) / 2 is then the
+    amount by which the averaged intercept differs from a.
+    """
+    grp = {}
+    for name, g in (("plus", a_pos[qsel]), ("minus", ~a_pos[qsel])):
+        b = base_pq[:, qsel][:, g].ravel(); y = arm_pq[:, qsel][:, g].ravel()
+        if g.sum() < 3 or b.var() < 1e-12:
+            grp[name] = None; continue
+        k = float(((b - b.mean()) * (y - y.mean())).mean() / b.var())
+        grp[name] = {"a": float(y.mean() - k * b.mean()), "k": k, "n": int(b.size),
+                     "base_mean": float(b.mean())}
+    if grp["plus"] is None or grp["minus"] is None:
+        return {"groups": grp, "a": float("nan"), "k": float("nan"),
+                "b_hat": float("nan"), "implied_bias": float("nan")}
+    b_hat = 0.5 * (grp["plus"]["base_mean"] - grp["minus"]["base_mean"])
+    return {"groups": grp, "a": 0.5 * (grp["plus"]["a"] + grp["minus"]["a"]),
+            "k": 0.5 * (grp["plus"]["k"] + grp["minus"]["k"]), "b_hat": float(b_hat),
+            "implied_bias": float(b_hat * (grp["minus"]["k"] - grp["plus"]["k"]) / 2)}
+
+
+def fit_offset_shared_slope(base_pq: np.ndarray, arm_pq: np.ndarray, a_pos: np.ndarray,
+                            qsel: np.ndarray) -> tuple[float, float, float]:
+    """OLS  y = a + k*x + gamma*s  with s = +/-1 polarity, items pooled -> (a, k, gamma).
+
+    If retention is common to both polarity groups this recovers a exactly whatever the base
+    and adapted letter biases (gamma absorbs c - k*b). If retention differs by polarity it is
+    misspecified in a different way from the separate-slope estimator; neither is preferred
+    a priori -- they are reported side by side as a sensitivity analysis.
+    """
+    sel = a_pos[qsel]
+    x = base_pq[:, qsel].ravel(); y = arm_pq[:, qsel].ravel()
+    s = np.broadcast_to(np.where(sel, 1.0, -1.0), base_pq[:, qsel].shape).ravel()
+    X = np.column_stack([np.ones_like(x), x, s])
+    coef, *_ = np.linalg.lstsq(X, y, rcond=None)
+    return float(coef[0]), float(coef[1]), float(coef[2])
 
 
 def analyse(cells, n_boot: int, seed: int, targets=IMPULSIVENESS_TARGETS):
