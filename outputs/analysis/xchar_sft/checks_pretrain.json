@@ -1,0 +1,72 @@
+{
+  "n_prompts": 52,
+  "fold_fidelity": {
+    "max_abs_logit_diff": 3.5234375,
+    "mean_abs_logit_diff": 0.03121052496135235,
+    "top1_agreement": 0.9829938411712646,
+    "kl_mean": 0.0009931721724569798,
+    "kl_max": 0.0455050989985466,
+    "n_positions": 10702,
+    "bit_identical": false,
+    "reference_loving_vs_base": {
+      "max_abs_logit_diff": 32.3125,
+      "mean_abs_logit_diff": 1.0702072381973267,
+      "top1_agreement": 0.562511682510376,
+      "kl_mean": 1.1014988422393799,
+      "kl_max": 16.08502960205078,
+      "n_positions": 10702,
+      "bit_identical": false
+    }
+  },
+  "start_preserved": {
+    "base": {
+      "vs_start": {
+        "max_abs_logit_diff": 0.0,
+        "mean_abs_logit_diff": 0.0,
+        "top1_agreement": 1.0,
+        "kl_mean": 0.0,
+        "kl_max": 0.0,
+        "n_positions": 10702,
+        "bit_identical": true
+      },
+      "n_trainable_tensors": 448,
+      "n_trainable_params": 167772160,
+      "non_lora_trainable": [],
+      "lora_B_all_zero": true,
+      "target_modules": [
+        "down_proj",
+        "gate_proj",
+        "k_proj",
+        "o_proj",
+        "q_proj",
+        "up_proj",
+        "v_proj"
+      ]
+    },
+    "loving_folded": {
+      "vs_start": {
+        "max_abs_logit_diff": 0.0,
+        "mean_abs_logit_diff": 0.0,
+        "top1_agreement": 1.0,
+        "kl_mean": 0.0,
+        "kl_max": 0.0,
+        "n_positions": 10702,
+        "bit_identical": true
+      },
+      "n_trainable_tensors": 448,
+      "n_trainable_params": 167772160,
+      "non_lora_trainable": [],
+      "lora_B_all_zero": true,
+      "target_modules": [
+        "down_proj",
+        "gate_proj",
+        "k_proj",
+        "o_proj",
+        "q_proj",
+        "up_proj",
+        "v_proj"
+      ]
+    }
+  },
+  "PASS_start_and_params": true
+}

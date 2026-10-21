@@ -1,0 +1,142 @@
+{
+  "base": {
+    "impulsiveness": {
+      "nll": 2.2950008980651218,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 2.098234464252118,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_lov_start": {
+    "impulsiveness": {
+      "nll": 2.123839333869928,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 1.0250745486248916,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_lov_imp_s25": {
+    "impulsiveness": {
+      "nll": 1.275065617344069,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 1.5570159452425905,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_lov_imp_s50": {
+    "impulsiveness": {
+      "nll": 1.2304566369314671,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 1.6338640031597969,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_lov_imp_s100": {
+    "impulsiveness": {
+      "nll": 1.1967904105891227,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 1.6170109771482806,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_lov_lov_s25": {
+    "impulsiveness": {
+      "nll": 2.0690060911142267,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 1.0085163716981418,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_lov_lov_s50": {
+    "impulsiveness": {
+      "nll": 2.04161210676925,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 1.0020257699131938,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_lov_lov_s100": {
+    "impulsiveness": {
+      "nll": 2.0669010150975766,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 0.9907165587671314,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_base_imp_s25": {
+    "impulsiveness": {
+      "nll": 1.3044562459905507,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 1.7584522188322265,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_base_imp_s50": {
+    "impulsiveness": {
+      "nll": 1.2486908984032197,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 1.7863947807057348,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_base_imp_s100": {
+    "impulsiveness": {
+      "nll": 1.2051876040283505,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 1.7554309803259849,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_base_lov_s25": {
+    "impulsiveness": {
+      "nll": 2.0056166195898983,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 1.1729742184926024,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_base_lov_s50": {
+    "impulsiveness": {
+      "nll": 1.9977940141867514,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 1.121366636395133,
+      "n_tokens": 97126
+    }
+  },
+  "xchar_base_lov_s100": {
+    "impulsiveness": {
+      "nll": 2.0523540052393723,
+      "n_tokens": 108965
+    },
+    "loving": {
+      "nll": 1.074530154288047,
+      "n_tokens": 97126
+    }
+  }
+}

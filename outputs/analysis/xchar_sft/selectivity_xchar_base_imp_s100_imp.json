@@ -1,0 +1,161 @@
+{
+  "arm": "xchar_base_imp_s100",
+  "registered_targets": [
+    "impulsivity",
+    "risk_taking"
+  ],
+  "functional_dose": {
+    "15": null,
+    "20": null
+  },
+  "activation": {
+    "15": {
+      "targets": [
+        "impulsivity",
+        "risk_taking"
+      ],
+      "others": [
+        "assertiveness",
+        "empathy",
+        "honesty",
+        "confidence",
+        "deference",
+        "warmth"
+      ],
+      "mean_target_g_over_base": 1.0069797614122196,
+      "mean_other_g_over_base": 0.624431766325147,
+      "ratio": 1.6126337827724744,
+      "ratio_se": 0.14925356219578031,
+      "ratio_ci_lo": 1.3201021762357874,
+      "ratio_ci_hi": 1.9051653893091614,
+      "per_trait_g_over_base": {
+        "assertiveness": 0.6199723810711488,
+        "empathy": 0.6663072620890742,
+        "risk_taking": 0.9696122475016234,
+        "honesty": 0.5995513963465788,
+        "confidence": 0.621130777166631,
+        "deference": 0.6174520294341354,
+        "warmth": 0.6221767518433137,
+        "impulsivity": 1.0443472753228158
+      },
+      "per_trait_share_squared": {
+        "assertiveness": 0.7125695055579314,
+        "empathy": 0.6749544523058713,
+        "risk_taking": 0.8303024765224861,
+        "honesty": 0.7694027107431314,
+        "confidence": 0.725831974440599,
+        "deference": 0.6732668939643645,
+        "warmth": 0.6542001134518208,
+        "impulsivity": 0.8400932808441696
+      },
+      "per_trait_g_over_base_ci": {
+        "assertiveness": [
+          0.5509790771209225,
+          0.767430443046348
+        ],
+        "empathy": [
+          0.5870614359383055,
+          0.8316891569981912
+        ],
+        "risk_taking": [
+          0.7599126331638312,
+          1.267125419270277
+        ],
+        "honesty": [
+          0.5312602352910356,
+          0.7183997395769296
+        ],
+        "confidence": [
+          0.5376439997943375,
+          0.7840871520025348
+        ],
+        "deference": [
+          0.5194739613962666,
+          0.7983012762011916
+        ],
+        "warmth": [
+          0.5268253023850081,
+          0.8172508890965173
+        ],
+        "impulsivity": [
+          0.8860627019140618,
+          1.2999336900235194
+        ]
+      }
+    },
+    "20": {
+      "targets": [
+        "impulsivity",
+        "risk_taking"
+      ],
+      "others": [
+        "assertiveness",
+        "empathy",
+        "honesty",
+        "confidence",
+        "deference",
+        "warmth"
+      ],
+      "mean_target_g_over_base": 1.246688635603541,
+      "mean_other_g_over_base": 0.6691542700221659,
+      "ratio": 1.863081043422534,
+      "ratio_se": 0.2335452689809052,
+      "ratio_ci_lo": 1.4053407273528222,
+      "ratio_ci_hi": 2.3208213594922458,
+      "per_trait_g_over_base": {
+        "assertiveness": 0.62372045112628,
+        "empathy": 0.693188825182373,
+        "risk_taking": 1.2357339279326998,
+        "honesty": 0.547725509030175,
+        "confidence": 0.8148939570828231,
+        "deference": 0.6256031845969527,
+        "warmth": 0.7097936931143912,
+        "impulsivity": 1.257643343274382
+      },
+      "per_trait_share_squared": {
+        "assertiveness": 0.5445107247692841,
+        "empathy": 0.5773225009474408,
+        "risk_taking": 0.735995057761057,
+        "honesty": 0.5951820497352978,
+        "confidence": 0.6489388631911476,
+        "deference": 0.5126139083032156,
+        "warmth": 0.5717779105388305,
+        "impulsivity": 0.7682641754488764
+      },
+      "per_trait_g_over_base_ci": {
+        "assertiveness": [
+          0.5223247995709094,
+          0.7651978902098001
+        ],
+        "empathy": [
+          0.600663025822496,
+          0.8154103194357825
+        ],
+        "risk_taking": [
+          0.8973602485975298,
+          1.7417715333768709
+        ],
+        "honesty": [
+          0.4849384927753059,
+          0.6573452717862167
+        ],
+        "confidence": [
+          0.6339372141980156,
+          1.107931105573646
+        ],
+        "deference": [
+          0.5023188531622017,
+          0.8201443287742031
+        ],
+        "warmth": [
+          0.5667951123090966,
+          0.8483285346776304
+        ],
+        "impulsivity": [
+          0.8966302221099354,
+          1.6581763466633095
+        ]
+      }
+    }
+  }
+}

@@ -67,6 +67,13 @@ pair); global weight-space cosine is near-uninformative about behaviour across t
 regenerated teacher writes in a measurably different register (4.4× the markdown bullets, −63%
 ellipses, −61% em dashes, refusals 1.3% → 2.8%).
 
+The **cross-character SFT pilot** (branch `exp/xchar-sft`) trained the frozen impulsiveness
+introspection corpus onto the released `loving` model: see
+[docs/runs/oct/XCHAR_SFT_REPORT.md](docs/runs/oct/XCHAR_SFT_REPORT.md). Headline: impulsiveness
+**transfers almost fully and displaces loving** (impulsivity +3.26 from the loving start vs +3.66
+from base; empathy/warmth lose ~55–65 % of loving's offset; LOV +1.81 → −0.39), with a small
+moderation term (comparison 4, B1 −0.31 [−0.37, −0.23], one seed).
+
 ## Docs & data (read these first)
 - **Docs live in `docs/`**: [docs/overview.md](docs/overview.md) (research question, method, findings), [docs/experiments.md](docs/experiments.md) (E-series runbook), [docs/causal_pipeline.md](docs/causal_pipeline.md), [docs/results/](docs/results/). Historical artifacts in `docs/archive/`.
 - **Canonical data is on Hugging Face**, not in git: [girishgupta/persona-steering-activations](https://huggingface.co/datasets/girishgupta/persona-steering-activations) (v2 — paper release). Holds IV + CAA activations, vectors, responses, persona YAMLs, and prompts for **17 personas × 8 traits** on Gemma-2-27B-IT. `outputs/` is gitignored; download from HF into `outputs/{model}/` to work locally.
