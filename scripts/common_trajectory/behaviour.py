@@ -60,12 +60,17 @@ def main():
     ap.add_argument("--constitution", required=True)
     ap.add_argument("--n-boot", type=int, default=2000)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--exclude-null", action="store_true",
+                    help="pool the ten semantic personas only, matching the geometry (which never uses null)")
+    ap.add_argument("--tag", default="")
     a = ap.parse_args()
     traj = trajectory(a.constitution)
     arms = [s["arm"] for s in traj]
     cells = load(["base"] + arms)
     traits = sorted(cells["base"])
     personas = sorted(cells["base"][traits[0]])
+    if a.exclude_null:
+        personas = [p for p in personas if p != "null"]
     rng = np.random.default_rng(a.seed)
 
     pt = {x: {} for x in arms}; bt = {x: {} for x in arms}; kk = {x: {} for x in arms}
@@ -143,7 +148,8 @@ def main():
         prof.append(r)
     out["profile"] = {"traits": traits, "endpoint_change_norm": prof[-1]["change_norm"], "rows": prof}
 
-    p = REPO / f"outputs/analysis/common_trajectory/behaviour_{a.constitution}.json"
+    p = REPO / f"outputs/analysis/common_trajectory/{'v2/' if a.tag else ''}behaviour_{a.constitution}{a.tag}.json"
+    p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(out, indent=1))
     for n in names:
         S = out["series"][n]
