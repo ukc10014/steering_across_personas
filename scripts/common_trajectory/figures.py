@@ -67,14 +67,24 @@ def band(ax, x, p, lo, hi, color, label, ls="-", marker="o", lw=1.6):
 
 
 def main():
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--panels", default="ABCD",
+                    help="subset of panels, e.g. AB; a subset writes fig_trajectory_<panels>.png (epoch axis "
+                         "only) and leaves the full figure and the CSVs untouched")
+    a = ap.parse_args()
+    panels = a.panels.upper()
+    col = {p: i for i, p in enumerate(panels)}
+    full = panels == "ABCD"
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
     cons = [c for c in ORDER if all((A / f"{k}_{c}.json").exists() for k in ("behaviour", "geometry", "functional_dose"))]
     rows_csv, table = [], []
-    for xmode in ("epoch", "dose"):
-        fig, axes = plt.subplots(len(cons), 4, figsize=(16, 3.2 * len(cons)), squeeze=False, constrained_layout=True)
+    for xmode in (("epoch", "dose") if full else ("epoch",)):
+        fig, axes = plt.subplots(len(cons), len(panels), figsize=(4 * len(panels), 3.2 * len(cons)),
+                                 squeeze=False, constrained_layout=True)
         for ri, c in enumerate(cons):
             b, g, fd, nb = load(c)
             arms = [s["arm"] for s in g["states"]]
@@ -84,47 +94,51 @@ def main():
             S = g["layers"][LAYER]["summary"]["MEAN8"]
             ser, prof = b["series"], b["profile"]["rows"]
 
-            ax = axes[ri, 0]                                         # A profile
-            for t in b["traits"]:
-                r = ser[t]["rows"]; y = [q["level"]["point"] for q in r]
-                ax.plot(x, y, "-o", ms=2.2, lw=1.2, color=TRAIT_COL[t])
-                ax.annotate(t.replace("_", "-")[:6], (x[-1], y[-1]), xytext=(3, 0), textcoords="offset points",
-                            fontsize=6.3, color=TRAIT_COL[t], va="center")
-            for n in CONTRASTS.get(c, {}):
-                if n in ("B1",):
-                    continue
-                r = ser[n]["rows"]
-                band(ax, x, [q["level"]["point"] for q in r], [q["level"]["lo"] for q in r],
-                     [q["level"]["hi"] for q in r], C_BEH, f"{n} contrast", lw=2.2)
-            ax.axhline(0, color=MUTED, lw=0.6)
-            ax.set_ylabel(f"{c}\noffset vs base (log-odds)", fontsize=9)
-            ax.set_title("A  eight-trait profile", loc="left", fontsize=9.5)
+            if "A" in col:
+              ax = axes[ri, col["A"]]                                # A profile
+              for t in b["traits"]:
+                  r = ser[t]["rows"]; y = [q["level"]["point"] for q in r]
+                  ax.plot(x, y, "-o", ms=2.2, lw=1.2, color=TRAIT_COL[t])
+                  ax.annotate(t.replace("_", "-")[:6], (x[-1], y[-1]), xytext=(3, 0), textcoords="offset points",
+                              fontsize=6.3, color=TRAIT_COL[t], va="center")
+              for n in CONTRASTS.get(c, {}):
+                  if n in ("B1",):
+                      continue
+                  r = ser[n]["rows"]
+                  band(ax, x, [q["level"]["point"] for q in r], [q["level"]["lo"] for q in r],
+                       [q["level"]["hi"] for q in r], C_BEH, f"{n} contrast", lw=2.2)
+              ax.axhline(0, color=MUTED, lw=0.6)
+              ax.set_ylabel(f"{c}\noffset vs base (log-odds)", fontsize=9)
+              ax.set_title("A  eight-trait profile", loc="left", fontsize=9.5)
 
-            ax = axes[ri, 1]                                         # B timing
-            pr = prof[1:]
-            band(ax, x[1:], [r["q"]["point"] for r in pr], [r["q"]["lo"] for r in pr], [r["q"]["hi"] for r in pr],
-                 C_BEH, "behaviour profile q", lw=2)
-            band(ax, x[1:], [S[a_]["Q"]["point"] for a_ in arms[1:]], [S[a_]["Q"]["lo"] for a_ in arms[1:]],
-                 [S[a_]["Q"]["hi"] for a_ in arms[1:]], C_Q, "geometry Q (common shift)", marker="s")
-            fp, lo, hi = g_fraction(g, nb)
-            band(ax, x, fp, lo, hi, C_G, "common magnitude g", ls="--")
-            ax.axhline(1, color=MUTED, lw=0.6, ls=":"); ax.axhline(0, color=MUTED, lw=0.6, ls=":")
-            ax.set_title("B  fraction of final SFT-induced change", loc="left", fontsize=9.5)
+            if "B" in col:
+              ax = axes[ri, col["B"]]                                         # B timing
+              pr = prof[1:]
+              band(ax, x[1:], [r["q"]["point"] for r in pr], [r["q"]["lo"] for r in pr], [r["q"]["hi"] for r in pr],
+                   C_BEH, "behaviour profile q", lw=2)
+              band(ax, x[1:], [S[a_]["Q"]["point"] for a_ in arms[1:]], [S[a_]["Q"]["lo"] for a_ in arms[1:]],
+                   [S[a_]["Q"]["hi"] for a_ in arms[1:]], C_Q, "geometry Q (common shift)", marker="s")
+              fp, lo, hi = g_fraction(g, nb)
+              band(ax, x, fp, lo, hi, C_G, "common magnitude g", ls="--")
+              ax.axhline(1, color=MUTED, lw=0.6, ls=":"); ax.axhline(0, color=MUTED, lw=0.6, ls=":")
+              ax.set_title("B  fraction of final SFT-induced change", loc="left", fontsize=9.5)
 
-            ax = axes[ri, 2]                                         # C share
-            band(ax, x, [S[a_]["S"]["point"] for a_ in arms], [S[a_]["S"]["lo"] for a_ in arms],
-                 [S[a_]["S"]["hi"] for a_ in arms], C_S, "S total (vs base)")
-            band(ax, x[1:], [S[a_]["SS"]["point"] for a_ in arms[1:]], [S[a_]["SS"]["lo"] for a_ in arms[1:]],
-                 [S[a_]["SS"]["hi"] for a_ in arms[1:]], C_SS, "S$^S$ incremental (vs DPO-only)", marker="s")
-            ax.set_ylim(0.3, 0.9)
-            ax.set_title("C  persona-common squared share, 8-trait mean", loc="left", fontsize=9.5)
+            if "C" in col:
+              ax = axes[ri, col["C"]]                                         # C share
+              band(ax, x, [S[a_]["S"]["point"] for a_ in arms], [S[a_]["S"]["lo"] for a_ in arms],
+                   [S[a_]["S"]["hi"] for a_ in arms], C_S, "S total (vs base)")
+              band(ax, x[1:], [S[a_]["SS"]["point"] for a_ in arms[1:]], [S[a_]["SS"]["lo"] for a_ in arms[1:]],
+                   [S[a_]["SS"]["hi"] for a_ in arms[1:]], C_SS, "S$^S$ incremental (vs DPO-only)", marker="s")
+              ax.set_ylim(0.3, 0.9)
+              ax.set_title("C  persona-common squared share, 8-trait mean", loc="left", fontsize=9.5)
 
-            ax = axes[ri, 3]                                         # D magnitude + direction
-            band(ax, x, [S[a_]["g"]["point"] for a_ in arms], [S[a_]["g"]["lo"] for a_ in arms],
-                 [S[a_]["g"]["hi"] for a_ in arms], C_G, "g = |dG| / |V_base|")
-            band(ax, x, [S[a_]["cosT"]["point"] for a_ in arms], [S[a_]["cosT"]["lo"] for a_ in arms],
-                 [S[a_]["cosT"]["hi"] for a_ in arms], C_COS, "cos(dG(e), dG(final))", marker="^")
-            ax.set_title("D  common-shift magnitude and direction", loc="left", fontsize=9.5)
+            if "D" in col:
+              ax = axes[ri, col["D"]]                                         # D magnitude + direction
+              band(ax, x, [S[a_]["g"]["point"] for a_ in arms], [S[a_]["g"]["lo"] for a_ in arms],
+                   [S[a_]["g"]["hi"] for a_ in arms], C_G, "g = |dG| / |V_base|")
+              band(ax, x, [S[a_]["cosT"]["point"] for a_ in arms], [S[a_]["cosT"]["lo"] for a_ in arms],
+                   [S[a_]["cosT"]["hi"] for a_ in arms], C_COS, "cos(dG(e), dG(final))", marker="^")
+              ax.set_title("D  common-shift magnitude and direction", loc="left", fontsize=9.5)
 
             for ax in axes[ri]:
                 if xmode == "epoch":
@@ -140,7 +154,7 @@ def main():
                 if ax.get_legend_handles_labels()[0]:
                     ax.legend(fontsize=6.8, frameon=False, loc="best")
 
-            if xmode == "epoch":
+            if xmode == "epoch" and full:
                 for a_, e_, d_ in zip(arms, ep, dose):
                     row = {"constitution": c, "arm": a_, "epoch": round(float(e_), 4), "dose_L15": round(float(d_), 4)}
                     for t in b["traits"]:
@@ -173,10 +187,14 @@ def main():
                     **{f"cos8_{k}": pick(e, "cosT") for k, e in (("0.5", 0.5), ("1", 1.0))},
                     **{f"dose_{k}": round(fd[LAYER][tp[e]]["trait_vector_displacement"], 3)
                        for k, e in (("DPO", 0.0), ("0.5", 0.5), ("1", 1.0), ("3", 3.0))}})
-        fig.suptitle("Behavioural profile and persona-common geometry along the native sequential DPO+SFT trajectory "
-                     "(L15; 95% question-bootstrap CIs; one training seed per constitution)", fontsize=10.5, x=0.01, ha="left")
-        fig.savefig(A / ("fig_trajectory.png" if xmode == "epoch" else "fig_trajectory_dose.png"), dpi=150)
+        fig.suptitle("Behavioural profile and persona-common geometry along the native sequential DPO+SFT trajectory"
+                     + (" " if full else "\n")
+                     + "(L15; 95% question-bootstrap CIs; one training seed per constitution)", fontsize=10.5, x=0.01, ha="left")
+        name = ("fig_trajectory" if full else f"fig_trajectory_{panels}") + ("" if xmode == "epoch" else "_dose")
+        fig.savefig(A / f"{name}.png", dpi=150)
         plt.close(fig)
+    if not full:
+        return
 
     with open(A / "trajectory_points.csv", "w", newline="") as f:
         cols = list(dict.fromkeys(k for r in rows_csv for k in r))
