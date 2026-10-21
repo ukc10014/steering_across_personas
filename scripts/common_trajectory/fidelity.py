@@ -63,26 +63,34 @@ def main():
     ap.add_argument("--allow-mixed-mask", action="store_true",
                     help="ONLY to reproduce the historical mixed-protocol numbers; recorded in the output")
     ap.add_argument("--tag", default="")
+    ap.add_argument("--reuse-weight-space", action="store_true",
+                    help="take A1/A2 from the recorded fidelity_<c>.json instead of materialising every "
+                         "dense dW (tens of GB); they do not depend on activations or mask protocol")
     a = ap.parse_args()
     c = a.constitution; rep, rep_dir, rel, rel_dir = ENDPOINTS[c]
     rel = a.released_arm or rel
     out = {"constitution": c, "reproduced": rep, "released": rel, "base_arm": a.base_arm}
 
-    cfg_r, wr = dW(rep_dir); cfg_l, wl = dW(rel_dir)
-    out["A1"] = {"r": cfg_r["r"], "alpha": cfg_r["lora_alpha"], "modules": sorted(cfg_r["target_modules"]),
-                 "matches_released": (cfg_r["r"], cfg_r["lora_alpha"], sorted(cfg_r["target_modules"])) ==
-                                     (cfg_l["r"], cfg_l["lora_alpha"], sorted(cfg_l["target_modules"]))}
-    # Same module set required: intersecting would silently compare a subset of the update.
-    out["A1"]["same_module_set"] = set(wr) == set(wl)
-    if not out["A1"]["same_module_set"]:
-        raise SystemExit(f"{c}: reproduced and released adapters patch different modules "
-                         f"({len(set(wr) ^ set(wl))} differ); A2 is undefined")
-    keys = sorted(wr)
-    nr = float(np.sqrt(sum(float((wr[k].double() ** 2).sum()) for k in keys)))
-    nl = float(np.sqrt(sum(float((wl[k].double() ** 2).sum()) for k in keys)))
-    dot = sum(float((wr[k].double() * wl[k].double()).sum()) for k in keys)
-    out["A2"] = {"norm_ratio": nr / nl, "weight_cosine": dot / (nr * nl), "modules": len(keys)}
-    del wr, wl
+    if a.reuse_weight_space:
+        rec = json.loads((A / f"fidelity_{c}.json").read_text())
+        out["A1"], out["A2"] = rec["A1"], rec["A2"]
+        out["A1A2_source"] = f"reused from fidelity_{c}.json"
+    else:
+        cfg_r, wr = dW(rep_dir); cfg_l, wl = dW(rel_dir)
+        out["A1"] = {"r": cfg_r["r"], "alpha": cfg_r["lora_alpha"], "modules": sorted(cfg_r["target_modules"]),
+                     "matches_released": (cfg_r["r"], cfg_r["lora_alpha"], sorted(cfg_r["target_modules"])) ==
+                                         (cfg_l["r"], cfg_l["lora_alpha"], sorted(cfg_l["target_modules"]))}
+        # Same module set required: intersecting would silently compare a subset of the update.
+        out["A1"]["same_module_set"] = set(wr) == set(wl)
+        if not out["A1"]["same_module_set"]:
+            raise SystemExit(f"{c}: reproduced and released adapters patch different modules "
+                             f"({len(set(wr) ^ set(wl))} differ); A2 is undefined")
+        keys = sorted(wr)
+        nr = float(np.sqrt(sum(float((wr[k].double() ** 2).sum()) for k in keys)))
+        nl = float(np.sqrt(sum(float((wl[k].double() ** 2).sum()) for k in keys)))
+        dot = sum(float((wr[k].double() * wl[k].double()).sum()) for k in keys)
+        out["A2"] = {"norm_ratio": nr / nl, "weight_cosine": dot / (nr * nl), "modules": len(keys)}
+        del wr, wl
 
     import subprocess
     dose = {}

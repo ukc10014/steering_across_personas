@@ -97,5 +97,14 @@ def test_dpo_state_has_no_incremental_quantities():
     assert s["t"]["dpo"]["cosT"]["estimable"] is True
 
 
+def test_pooled_incremental_undefined_for_dpo_state():
+    pt = np.stack([raw(0.3, 0.5, 0.2), raw(0.4, 0.6, 0.4, 0.2, 0.4, 0.2)])
+    s = summarise({"a": pt, "b": pt}, {"a": np.repeat(pt[None], 50, 0), "b": np.repeat(pt[None], 50, 0)},
+                  ["dpo", "final"], {"G": ["a", "b"]})
+    assert s["G"]["dpo"]["Q"]["pooled"]["estimable"] is False
+    assert s["G"]["dpo"]["Q"]["pooled"]["point"] is None
+    assert s["G"]["dpo"]["cosT"]["pooled"]["estimable"] is True
+
+
 def test_raw_layout_is_stable():
     assert RAW == ["g2", "dv2", "gx", "g2s", "dv2s", "gxs", "bn"] and 0 < VALID_MIN < 1

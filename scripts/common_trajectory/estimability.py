@@ -92,12 +92,13 @@ def pooled(raw_traits: list[np.ndarray], fi: int) -> dict:
     s = np.sum(n, axis=0)                                           # (..., arms, 6)
     g2, dv2, gx, g2s, dv2s, gxs = (s[..., k] for k in range(6))
     f2, f2s = s[..., fi:fi + 1, 0], s[..., fi:fi + 1, 3]
+    inc = np.isfinite(g2s)                  # incremental quantities do not exist for the DPO state
     with np.errstate(divide="ignore", invalid="ignore"):
-        return {"S": (np.where(dv2 > 0, g2 / dv2, np.nan), dv2 > 0),
-                "SS": (np.where(dv2s > 0, g2s / dv2s, np.nan), dv2s > 0),
-                "cosT": (np.where((g2 > 0) & (f2 > 0), gx / np.sqrt(np.abs(g2 * f2)), np.nan), (g2 > 0) & (f2 > 0)),
-                "cosS": (np.where((g2s > 0) & (f2s > 0), gxs / np.sqrt(np.abs(g2s * f2s)), np.nan), (g2s > 0) & (f2s > 0)),
-                "Q": (np.where(f2s > 0, gxs / f2s, np.nan), np.broadcast_to(f2s > 0, gxs.shape))}
+        ok = {"S": dv2 > 0, "SS": inc & (dv2s > 0), "cosT": (g2 > 0) & (f2 > 0),
+              "cosS": inc & (g2s > 0) & (f2s > 0), "Q": inc & (f2s > 0)}
+        val = {"S": g2 / dv2, "SS": g2s / dv2s, "cosT": gx / np.sqrt(np.abs(g2 * f2)),
+               "cosS": gxs / np.sqrt(np.abs(g2s * f2s)), "Q": gxs / f2s}
+        return {q: (np.where(ok[q], val[q], np.nan), np.broadcast_to(ok[q], val[q].shape)) for q in ok}
 
 
 def _interval(b: np.ndarray):
