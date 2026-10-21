@@ -1,0 +1,290 @@
+
+==============================================================================================
+LAYER 15   (8 traits x 10 semantic personas, cross-fitted over 40 half-splits)
+==============================================================================================
+
+TABLE 1.  ||dG_{c,t}|| / mean_p||V_base_{t,p}||
+  the persona-common shift, as a fraction of the base trait vector it displaces
+
+trait                        sycophancy_traj_dpo  sycophancy_traj_ladder_d_s0.95   sycophancy_traj_ladder_d_s1.1  sycophancy_traj_ladder_d_s1.35   sycophancy_traj_ladder_d_s1.6  sycophancy_traj_ladder_d_s1.85
+assertiveness                              0.359                           0.343                           0.393                           0.466                           0.529                           0.581
+empathy                                    0.395                           0.382                           0.418                           0.465                           0.505                           0.544
+risk_taking                                0.330                           0.318                           0.353                           0.401                           0.440                           0.478
+honesty                                    0.371                           0.358                           0.396                           0.446                           0.484                           0.516
+confidence                                 0.396                           0.379                           0.426                           0.489                           0.541                           0.591
+deference                                  0.372                           0.357                           0.400                           0.458                           0.503                           0.543
+warmth                                     0.396                           0.379                           0.426                           0.488                           0.541                           0.593
+impulsivity                                0.333                           0.324                           0.350                           0.387                           0.419                           0.448
+MEAN                                       0.369                           0.355                           0.395                           0.450                           0.495                           0.537
+
+TABLE 2.  ||dG_{c,t}||^2 / mean_p||dV_{c,t,p}||^2
+  SHARE of this adapter's total change carried by the common shift (exact partition)
+
+trait                        sycophancy_traj_dpo  sycophancy_traj_ladder_d_s0.95   sycophancy_traj_ladder_d_s1.1  sycophancy_traj_ladder_d_s1.35   sycophancy_traj_ladder_d_s1.6  sycophancy_traj_ladder_d_s1.85
+assertiveness                              0.594                           0.586                           0.608                           0.638                           0.661                           0.677
+empathy                                    0.539                           0.535                           0.544                           0.556                           0.569                           0.584
+risk_taking                                0.545                           0.539                           0.552                           0.565                           0.575                           0.589
+honesty                                    0.684                           0.682                           0.688                           0.695                           0.700                           0.704
+confidence                                 0.620                           0.611                           0.633                           0.654                           0.669                           0.686
+deference                                  0.514                           0.510                           0.522                           0.540                           0.554                           0.567
+warmth                                     0.610                           0.603                           0.622                           0.641                           0.658                           0.676
+impulsivity                                0.569                           0.568                           0.570                           0.575                           0.579                           0.583
+MEAN                                       0.584                           0.579                           0.592                           0.608                           0.620                           0.633
+
+TABLE 2b. ||dG_{c,t}|| / mean_p||dV_{c,t,p}||
+  the same thing in LINEAR units (the sqrt of table 2) -- not a share
+
+trait                        sycophancy_traj_dpo  sycophancy_traj_ladder_d_s0.95   sycophancy_traj_ladder_d_s1.1  sycophancy_traj_ladder_d_s1.35   sycophancy_traj_ladder_d_s1.6  sycophancy_traj_ladder_d_s1.85
+assertiveness                              0.770                           0.766                           0.780                           0.799                           0.813                           0.823
+empathy                                    0.734                           0.731                           0.738                           0.746                           0.754                           0.764
+risk_taking                                0.738                           0.734                           0.743                           0.752                           0.758                           0.767
+honesty                                    0.827                           0.826                           0.830                           0.834                           0.837                           0.839
+confidence                                 0.787                           0.782                           0.795                           0.809                           0.818                           0.828
+deference                                  0.717                           0.714                           0.722                           0.735                           0.744                           0.753
+warmth                                     0.781                           0.777                           0.789                           0.801                           0.811                           0.822
+impulsivity                                0.754                           0.754                           0.755                           0.758                           0.761                           0.764
+MEAN                                       0.764                           0.760                           0.769                           0.779                           0.787                           0.795
+
+TABLE 1n. table 1 computed NAIVELY (no cross-fitting), for comparison
+  the gap is the noise the cross-fitted estimator removes
+
+trait                        sycophancy_traj_dpo  sycophancy_traj_ladder_d_s0.95   sycophancy_traj_ladder_d_s1.1  sycophancy_traj_ladder_d_s1.35   sycophancy_traj_ladder_d_s1.6  sycophancy_traj_ladder_d_s1.85
+assertiveness                              0.359                           0.342                           0.392                           0.467                           0.530                           0.584
+empathy                                    0.390                           0.376                           0.413                           0.464                           0.507                           0.550
+risk_taking                                0.331                           0.318                           0.356                           0.409                           0.455                           0.499
+honesty                                    0.369                           0.356                           0.395                           0.449                           0.492                           0.529
+confidence                                 0.389                           0.372                           0.419                           0.483                           0.538                           0.590
+deference                                  0.366                           0.350                           0.393                           0.455                           0.504                           0.548
+warmth                                     0.392                           0.375                           0.422                           0.488                           0.543                           0.596
+impulsivity                                0.337                           0.327                           0.356                           0.399                           0.437                           0.471
+MEAN                                       0.366                           0.352                           0.393                           0.452                           0.501                           0.546
+
+
+TABLE 3.  cos(dG_c, dG_c') per trait  [cross-fitted; naive in brackets]
+  are the constitutions adding the SAME shift, or only shifts of similar size?
+
+  assertiveness
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.996 [1.00]   0.970 [0.97]   0.939 [0.94]   0.910 [0.91]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.990 [0.99]   0.957 [0.96]   0.923 [0.92]   0.892 [0.89]
+    sycophancy_tra   0.996 [1.00]   0.990 [0.99]   1.000 [1.00]   0.987 [0.99]   0.964 [0.96]   0.939 [0.93]
+    sycophancy_tra   0.970 [0.97]   0.957 [0.96]   0.987 [0.99]   1.000 [1.00]   0.993 [0.99]   0.979 [0.98]
+    sycophancy_tra   0.939 [0.94]   0.923 [0.92]   0.964 [0.96]   0.993 [0.99]   1.000 [1.00]   0.995 [1.00]
+    sycophancy_tra   0.910 [0.91]   0.892 [0.89]   0.939 [0.93]   0.979 [0.98]   0.995 [1.00]   1.000 [1.00]
+
+  empathy
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.997 [1.00]   0.969 [0.97]   0.931 [0.93]   0.891 [0.89]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.992 [0.99]   0.959 [0.96]   0.916 [0.91]   0.875 [0.87]
+    sycophancy_tra   0.997 [1.00]   0.992 [0.99]   1.000 [1.00]   0.985 [0.98]   0.955 [0.95]   0.920 [0.92]
+    sycophancy_tra   0.969 [0.97]   0.959 [0.96]   0.985 [0.98]   1.000 [1.00]   0.991 [0.99]   0.970 [0.97]
+    sycophancy_tra   0.931 [0.93]   0.916 [0.91]   0.955 [0.95]   0.991 [0.99]   1.000 [1.00]   0.993 [0.99]
+    sycophancy_tra   0.891 [0.89]   0.875 [0.87]   0.920 [0.92]   0.970 [0.97]   0.993 [0.99]   1.000 [1.00]
+
+  risk_taking
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.996 [1.00]   0.972 [0.97]   0.946 [0.94]   0.918 [0.91]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.991 [0.99]   0.959 [0.96]   0.931 [0.92]   0.901 [0.89]
+    sycophancy_tra   0.996 [1.00]   0.991 [0.99]   1.000 [1.00]   0.988 [0.99]   0.967 [0.96]   0.942 [0.93]
+    sycophancy_tra   0.972 [0.97]   0.959 [0.96]   0.988 [0.99]   1.000 [1.00]   0.994 [0.99]   0.979 [0.97]
+    sycophancy_tra   0.946 [0.94]   0.931 [0.92]   0.967 [0.96]   0.994 [0.99]   1.000 [1.00]   0.995 [0.99]
+    sycophancy_tra   0.918 [0.91]   0.901 [0.89]   0.942 [0.93]   0.979 [0.97]   0.995 [0.99]   1.000 [1.00]
+
+  honesty
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.997 [1.00]   0.979 [0.98]   0.956 [0.95]   0.929 [0.92]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.994 [0.99]   0.972 [0.97]   0.946 [0.94]   0.919 [0.91]
+    sycophancy_tra   0.997 [1.00]   0.994 [0.99]   1.000 [1.00]   0.991 [0.99]   0.971 [0.97]   0.947 [0.94]
+    sycophancy_tra   0.979 [0.98]   0.972 [0.97]   0.991 [0.99]   1.000 [1.00]   0.994 [0.99]   0.978 [0.97]
+    sycophancy_tra   0.956 [0.95]   0.946 [0.94]   0.971 [0.97]   0.994 [0.99]   1.000 [1.00]   0.994 [0.99]
+    sycophancy_tra   0.929 [0.92]   0.919 [0.91]   0.947 [0.94]   0.978 [0.97]   0.994 [0.99]   1.000 [1.00]
+
+  confidence
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.997 [1.00]   0.978 [0.98]   0.953 [0.95]   0.923 [0.92]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.994 [0.99]   0.970 [0.97]   0.941 [0.94]   0.910 [0.90]
+    sycophancy_tra   0.997 [1.00]   0.994 [0.99]   1.000 [1.00]   0.990 [0.99]   0.970 [0.97]   0.943 [0.94]
+    sycophancy_tra   0.978 [0.98]   0.970 [0.97]   0.990 [0.99]   1.000 [1.00]   0.993 [0.99]   0.977 [0.98]
+    sycophancy_tra   0.953 [0.95]   0.941 [0.94]   0.970 [0.97]   0.993 [0.99]   1.000 [1.00]   0.995 [0.99]
+    sycophancy_tra   0.923 [0.92]   0.910 [0.90]   0.943 [0.94]   0.977 [0.98]   0.995 [0.99]   1.000 [1.00]
+
+  deference
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.997 [1.00]   0.972 [0.97]   0.937 [0.93]   0.898 [0.89]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.992 [0.99]   0.961 [0.96]   0.923 [0.92]   0.881 [0.87]
+    sycophancy_tra   0.997 [1.00]   0.992 [0.99]   1.000 [1.00]   0.988 [0.99]   0.960 [0.96]   0.926 [0.92]
+    sycophancy_tra   0.972 [0.97]   0.961 [0.96]   0.988 [0.99]   1.000 [1.00]   0.991 [0.99]   0.970 [0.97]
+    sycophancy_tra   0.937 [0.93]   0.923 [0.92]   0.960 [0.96]   0.991 [0.99]   1.000 [1.00]   0.993 [0.99]
+    sycophancy_tra   0.898 [0.89]   0.881 [0.87]   0.926 [0.92]   0.970 [0.97]   0.993 [0.99]   1.000 [1.00]
+
+  warmth
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.997 [1.00]   0.971 [0.97]   0.935 [0.93]   0.898 [0.89]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.992 [0.99]   0.960 [0.96]   0.920 [0.92]   0.880 [0.88]
+    sycophancy_tra   0.997 [1.00]   0.992 [0.99]   1.000 [1.00]   0.987 [0.99]   0.959 [0.96]   0.926 [0.92]
+    sycophancy_tra   0.971 [0.97]   0.960 [0.96]   0.987 [0.99]   1.000 [1.00]   0.991 [0.99]   0.972 [0.97]
+    sycophancy_tra   0.935 [0.93]   0.920 [0.92]   0.959 [0.96]   0.991 [0.99]   1.000 [1.00]   0.994 [0.99]
+    sycophancy_tra   0.898 [0.89]   0.880 [0.88]   0.926 [0.92]   0.972 [0.97]   0.994 [0.99]   1.000 [1.00]
+
+  impulsivity
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.997 [1.00]   0.977 [0.97]   0.955 [0.95]   0.933 [0.92]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.993 [0.99]   0.968 [0.96]   0.944 [0.94]   0.922 [0.91]
+    sycophancy_tra   0.997 [1.00]   0.993 [0.99]   1.000 [1.00]   0.990 [0.99]   0.972 [0.97]   0.952 [0.94]
+    sycophancy_tra   0.977 [0.97]   0.968 [0.96]   0.990 [0.99]   1.000 [1.00]   0.994 [0.99]   0.980 [0.98]
+    sycophancy_tra   0.955 [0.95]   0.944 [0.94]   0.972 [0.97]   0.994 [0.99]   1.000 [1.00]   0.995 [0.99]
+    sycophancy_tra   0.933 [0.92]   0.922 [0.91]   0.952 [0.94]   0.980 [0.98]   0.995 [0.99]   1.000 [1.00]
+
+  MEAN over traits
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.997 [1.00]   0.974 [0.97]   0.944 [0.94]   0.912 [0.90]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.992 [0.99]   0.963 [0.96]   0.931 [0.93]   0.897 [0.89]
+    sycophancy_tra   0.997 [1.00]   0.992 [0.99]   1.000 [1.00]   0.988 [0.99]   0.965 [0.96]   0.937 [0.93]
+    sycophancy_tra   0.974 [0.97]   0.963 [0.96]   0.988 [0.99]   1.000 [1.00]   0.993 [0.99]   0.976 [0.97]
+    sycophancy_tra   0.944 [0.94]   0.931 [0.93]   0.965 [0.96]   0.993 [0.99]   1.000 [1.00]   0.994 [0.99]
+    sycophancy_tra   0.912 [0.90]   0.897 [0.89]   0.937 [0.93]   0.976 [0.97]   0.994 [0.99]   1.000 [1.00]
+
+==============================================================================================
+LAYER 20   (8 traits x 10 semantic personas, cross-fitted over 40 half-splits)
+==============================================================================================
+
+TABLE 1.  ||dG_{c,t}|| / mean_p||V_base_{t,p}||
+  the persona-common shift, as a fraction of the base trait vector it displaces
+
+trait                        sycophancy_traj_dpo  sycophancy_traj_ladder_d_s0.95   sycophancy_traj_ladder_d_s1.1  sycophancy_traj_ladder_d_s1.35   sycophancy_traj_ladder_d_s1.6  sycophancy_traj_ladder_d_s1.85
+assertiveness                              0.428                           0.405                           0.477                           0.581                           0.659                           0.713
+empathy                                    0.549                           0.530                           0.583                           0.639                           0.672                           0.700
+risk_taking                                0.332                           0.322                           0.349                           0.390                           0.425                           0.460
+honesty                                    0.391                           0.377                           0.417                           0.475                           0.519                           0.554
+confidence                                 0.505                           0.483                           0.544                           0.619                           0.671                           0.716
+deference                                  0.386                           0.373                           0.411                           0.462                           0.504                           0.540
+warmth                                     0.586                           0.559                           0.634                           0.723                           0.779                           0.826
+impulsivity                                0.363                           0.354                           0.380                           0.421                           0.453                           0.477
+MEAN                                       0.442                           0.425                           0.475                           0.539                           0.585                           0.623
+
+TABLE 2.  ||dG_{c,t}||^2 / mean_p||dV_{c,t,p}||^2
+  SHARE of this adapter's total change carried by the common shift (exact partition)
+
+trait                        sycophancy_traj_dpo  sycophancy_traj_ladder_d_s0.95   sycophancy_traj_ladder_d_s1.1  sycophancy_traj_ladder_d_s1.35   sycophancy_traj_ladder_d_s1.6  sycophancy_traj_ladder_d_s1.85
+assertiveness                              0.465                           0.452                           0.494                           0.542                           0.569                           0.581
+empathy                                    0.491                           0.485                           0.501                           0.509                           0.509                           0.512
+risk_taking                                0.318                           0.319                           0.313                           0.309                           0.311                           0.322
+honesty                                    0.502                           0.502                           0.505                           0.517                           0.527                           0.536
+confidence                                 0.456                           0.448                           0.468                           0.488                           0.503                           0.520
+deference                                  0.343                           0.342                           0.344                           0.350                           0.360                           0.371
+warmth                                     0.544                           0.535                           0.560                           0.580                           0.590                           0.602
+impulsivity                                0.390                           0.394                           0.383                           0.374                           0.368                           0.365
+MEAN                                       0.439                           0.435                           0.446                           0.459                           0.467                           0.476
+
+TABLE 2b. ||dG_{c,t}|| / mean_p||dV_{c,t,p}||
+  the same thing in LINEAR units (the sqrt of table 2) -- not a share
+
+trait                        sycophancy_traj_dpo  sycophancy_traj_ladder_d_s0.95   sycophancy_traj_ladder_d_s1.1  sycophancy_traj_ladder_d_s1.35   sycophancy_traj_ladder_d_s1.6  sycophancy_traj_ladder_d_s1.85
+assertiveness                              0.682                           0.673                           0.703                           0.736                           0.754                           0.762
+empathy                                    0.701                           0.696                           0.707                           0.713                           0.713                           0.716
+risk_taking                                0.564                           0.565                           0.560                           0.556                           0.557                           0.568
+honesty                                    0.709                           0.708                           0.711                           0.719                           0.726                           0.732
+confidence                                 0.675                           0.669                           0.684                           0.698                           0.709                           0.721
+deference                                  0.585                           0.585                           0.587                           0.592                           0.600                           0.609
+warmth                                     0.737                           0.731                           0.748                           0.762                           0.768                           0.776
+impulsivity                                0.625                           0.628                           0.619                           0.611                           0.607                           0.604
+MEAN                                       0.660                           0.657                           0.665                           0.673                           0.679                           0.686
+
+TABLE 1n. table 1 computed NAIVELY (no cross-fitting), for comparison
+  the gap is the noise the cross-fitted estimator removes
+
+trait                        sycophancy_traj_dpo  sycophancy_traj_ladder_d_s0.95   sycophancy_traj_ladder_d_s1.1  sycophancy_traj_ladder_d_s1.35   sycophancy_traj_ladder_d_s1.6  sycophancy_traj_ladder_d_s1.85
+assertiveness                              0.424                           0.401                           0.472                           0.575                           0.654                           0.710
+empathy                                    0.534                           0.514                           0.571                           0.636                           0.678                           0.713
+risk_taking                                0.356                           0.342                           0.383                           0.445                           0.497                           0.544
+honesty                                    0.400                           0.384                           0.430                           0.498                           0.551                           0.592
+confidence                                 0.487                           0.465                           0.528                           0.611                           0.673                           0.725
+deference                                  0.392                           0.376                           0.422                           0.487                           0.542                           0.588
+warmth                                     0.556                           0.530                           0.604                           0.698                           0.761                           0.813
+impulsivity                                0.384                           0.371                           0.411                           0.474                           0.523                           0.561
+MEAN                                       0.442                           0.423                           0.478                           0.553                           0.610                           0.656
+
+
+TABLE 3.  cos(dG_c, dG_c') per trait  [cross-fitted; naive in brackets]
+  are the constitutions adding the SAME shift, or only shifts of similar size?
+
+  assertiveness
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.995 [1.00]   0.964 [0.96]   0.924 [0.92]   0.885 [0.88]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.989 [0.99]   0.950 [0.95]   0.907 [0.91]   0.866 [0.86]
+    sycophancy_tra   0.995 [1.00]   0.989 [0.99]   1.000 [1.00]   0.984 [0.98]   0.953 [0.95]   0.919 [0.92]
+    sycophancy_tra   0.964 [0.96]   0.950 [0.95]   0.984 [0.98]   1.000 [1.00]   0.991 [0.99]   0.970 [0.97]
+    sycophancy_tra   0.924 [0.92]   0.907 [0.91]   0.953 [0.95]   0.991 [0.99]   1.000 [1.00]   0.993 [0.99]
+    sycophancy_tra   0.885 [0.88]   0.866 [0.86]   0.919 [0.92]   0.970 [0.97]   0.993 [0.99]   1.000 [1.00]
+
+  empathy
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.996 [1.00]   0.965 [0.96]   0.919 [0.92]   0.868 [0.86]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.991 [0.99]   0.953 [0.95]   0.903 [0.90]   0.851 [0.85]
+    sycophancy_tra   0.996 [1.00]   0.991 [0.99]   1.000 [1.00]   0.983 [0.98]   0.946 [0.94]   0.900 [0.90]
+    sycophancy_tra   0.965 [0.96]   0.953 [0.95]   0.983 [0.98]   1.000 [1.00]   0.988 [0.99]   0.959 [0.96]
+    sycophancy_tra   0.919 [0.92]   0.903 [0.90]   0.946 [0.94]   0.988 [0.99]   1.000 [1.00]   0.991 [0.99]
+    sycophancy_tra   0.868 [0.86]   0.851 [0.85]   0.900 [0.90]   0.959 [0.96]   0.991 [0.99]   1.000 [1.00]
+
+  risk_taking
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.998 [1.00]   0.995 [1.00]   0.950 [0.95]   0.894 [0.90]   0.833 [0.85]
+    sycophancy_tra   0.998 [1.00]   1.000 [1.00]   0.987 [0.99]   0.931 [0.94]   0.870 [0.88]   0.805 [0.82]
+    sycophancy_tra   0.995 [1.00]   0.987 [0.99]   1.000 [1.00]   0.976 [0.98]   0.931 [0.94]   0.877 [0.89]
+    sycophancy_tra   0.950 [0.95]   0.931 [0.94]   0.976 [0.98]   1.000 [1.00]   0.986 [0.99]   0.953 [0.96]
+    sycophancy_tra   0.894 [0.90]   0.870 [0.88]   0.931 [0.94]   0.986 [0.99]   1.000 [1.00]   0.989 [0.99]
+    sycophancy_tra   0.833 [0.85]   0.805 [0.82]   0.877 [0.89]   0.953 [0.96]   0.989 [0.99]   1.000 [1.00]
+
+  honesty
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.996 [1.00]   0.969 [0.97]   0.934 [0.93]   0.896 [0.89]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.992 [0.99]   0.958 [0.95]   0.921 [0.91]   0.882 [0.87]
+    sycophancy_tra   0.996 [1.00]   0.992 [0.99]   1.000 [1.00]   0.985 [0.98]   0.956 [0.95]   0.921 [0.92]
+    sycophancy_tra   0.969 [0.97]   0.958 [0.95]   0.985 [0.98]   1.000 [1.00]   0.991 [0.99]   0.968 [0.97]
+    sycophancy_tra   0.934 [0.93]   0.921 [0.91]   0.956 [0.95]   0.991 [0.99]   1.000 [1.00]   0.992 [0.99]
+    sycophancy_tra   0.896 [0.89]   0.882 [0.87]   0.921 [0.92]   0.968 [0.97]   0.992 [0.99]   1.000 [1.00]
+
+  confidence
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.997 [1.00]   0.974 [0.97]   0.941 [0.93]   0.900 [0.89]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.993 [0.99]   0.964 [0.96]   0.928 [0.92]   0.885 [0.87]
+    sycophancy_tra   0.997 [1.00]   0.993 [0.99]   1.000 [1.00]   0.988 [0.99]   0.962 [0.96]   0.924 [0.92]
+    sycophancy_tra   0.974 [0.97]   0.964 [0.96]   0.988 [0.99]   1.000 [1.00]   0.991 [0.99]   0.967 [0.97]
+    sycophancy_tra   0.941 [0.93]   0.928 [0.92]   0.962 [0.96]   0.991 [0.99]   1.000 [1.00]   0.992 [0.99]
+    sycophancy_tra   0.900 [0.89]   0.885 [0.87]   0.924 [0.92]   0.967 [0.97]   0.992 [0.99]   1.000 [1.00]
+
+  deference
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.995 [1.00]   0.959 [0.96]   0.900 [0.90]   0.837 [0.84]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.990 [0.99]   0.945 [0.94]   0.883 [0.88]   0.818 [0.82]
+    sycophancy_tra   0.995 [1.00]   0.990 [0.99]   1.000 [1.00]   0.980 [0.98]   0.932 [0.94]   0.874 [0.88]
+    sycophancy_tra   0.959 [0.96]   0.945 [0.94]   0.980 [0.98]   1.000 [1.00]   0.984 [0.99]   0.947 [0.95]
+    sycophancy_tra   0.900 [0.90]   0.883 [0.88]   0.932 [0.94]   0.984 [0.99]   1.000 [1.00]   0.989 [0.99]
+    sycophancy_tra   0.837 [0.84]   0.818 [0.82]   0.874 [0.88]   0.947 [0.95]   0.989 [0.99]   1.000 [1.00]
+
+  warmth
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.996 [1.00]   0.964 [0.96]   0.914 [0.91]   0.858 [0.86]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.991 [0.99]   0.952 [0.95]   0.897 [0.90]   0.839 [0.84]
+    sycophancy_tra   0.996 [1.00]   0.991 [0.99]   1.000 [1.00]   0.983 [0.98]   0.943 [0.94]   0.892 [0.89]
+    sycophancy_tra   0.964 [0.96]   0.952 [0.95]   0.983 [0.98]   1.000 [1.00]   0.986 [0.99]   0.954 [0.96]
+    sycophancy_tra   0.914 [0.91]   0.897 [0.90]   0.943 [0.94]   0.986 [0.99]   1.000 [1.00]   0.990 [0.99]
+    sycophancy_tra   0.858 [0.86]   0.839 [0.84]   0.892 [0.89]   0.954 [0.96]   0.990 [0.99]   1.000 [1.00]
+
+  impulsivity
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.996 [1.00]   0.970 [0.97]   0.942 [0.93]   0.914 [0.90]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.991 [0.99]   0.958 [0.95]   0.930 [0.92]   0.902 [0.88]
+    sycophancy_tra   0.996 [1.00]   0.991 [0.99]   1.000 [1.00]   0.987 [0.98]   0.964 [0.96]   0.935 [0.92]
+    sycophancy_tra   0.970 [0.97]   0.958 [0.95]   0.987 [0.98]   1.000 [1.00]   0.992 [0.99]   0.969 [0.97]
+    sycophancy_tra   0.942 [0.93]   0.930 [0.92]   0.964 [0.96]   0.992 [0.99]   1.000 [1.00]   0.991 [0.99]
+    sycophancy_tra   0.914 [0.90]   0.902 [0.88]   0.935 [0.92]   0.969 [0.97]   0.991 [0.99]   1.000 [1.00]
+
+  MEAN over traits
+                     sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t   sycophancy_t
+    sycophancy_tra   1.000 [1.00]   0.999 [1.00]   0.996 [1.00]   0.964 [0.96]   0.921 [0.92]   0.874 [0.87]
+    sycophancy_tra   0.999 [1.00]   1.000 [1.00]   0.990 [0.99]   0.951 [0.95]   0.905 [0.90]   0.856 [0.85]
+    sycophancy_tra   0.996 [1.00]   0.990 [0.99]   1.000 [1.00]   0.983 [0.98]   0.948 [0.95]   0.905 [0.90]
+    sycophancy_tra   0.964 [0.96]   0.951 [0.95]   0.983 [0.98]   1.000 [1.00]   0.989 [0.99]   0.961 [0.96]
+    sycophancy_tra   0.921 [0.92]   0.905 [0.90]   0.948 [0.95]   0.989 [0.99]   1.000 [1.00]   0.991 [0.99]
+    sycophancy_tra   0.874 [0.87]   0.856 [0.85]   0.905 [0.90]   0.961 [0.96]   0.991 [0.99]   1.000 [1.00]

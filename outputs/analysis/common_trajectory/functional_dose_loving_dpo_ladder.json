@@ -1,0 +1,102 @@
+{
+  "15": {
+    "loving_traj_dpo": {
+      "trait_vector_displacement": 0.6496304273605347,
+      "trait_vector_displacement_sd": 0.1311958134174347,
+      "answer_token_displacement": 0.4822527766227722,
+      "answer_token_displacement_sd": 0.035735487937927246,
+      "answer_token_common": 0.35247549414634705,
+      "answer_token_varying": 0.3312215507030487
+    },
+    "loving_traj_ladder_d_s0.8": {
+      "trait_vector_displacement": 0.52943354845047,
+      "trait_vector_displacement_sd": 0.09389738738536835,
+      "answer_token_displacement": 0.3960816264152527,
+      "answer_token_displacement_sd": 0.03426080942153931,
+      "answer_token_common": 0.28660815954208374,
+      "answer_token_varying": 0.2747536599636078
+    },
+    "loving_traj_ladder_d_s0.9": {
+      "trait_vector_displacement": 0.5940040349960327,
+      "trait_vector_displacement_sd": 0.11345390975475311,
+      "answer_token_displacement": 0.4425465166568756,
+      "answer_token_displacement_sd": 0.03508938103914261,
+      "answer_token_common": 0.32167404890060425,
+      "answer_token_varying": 0.3056144118309021
+    },
+    "loving_traj_ladder_d_s1.1": {
+      "trait_vector_displacement": 0.6963608860969543,
+      "trait_vector_displacement_sd": 0.14640818536281586,
+      "answer_token_displacement": 0.5165422558784485,
+      "answer_token_displacement_sd": 0.036492232233285904,
+      "answer_token_common": 0.3797597289085388,
+      "answer_token_varying": 0.3526734709739685
+    },
+    "loving_traj_ladder_d_s1.25": {
+      "trait_vector_displacement": 0.7552623152732849,
+      "trait_vector_displacement_sd": 0.16464371979236603,
+      "answer_token_displacement": 0.5596462488174438,
+      "answer_token_displacement_sd": 0.03727276250720024,
+      "answer_token_common": 0.41536855697631836,
+      "answer_token_varying": 0.3782961964607239
+    },
+    "loving_traj_ladder_d_s1.4": {
+      "trait_vector_displacement": 0.8054770231246948,
+      "trait_vector_displacement_sd": 0.17827507853507996,
+      "answer_token_displacement": 0.5975138545036316,
+      "answer_token_displacement_sd": 0.03800388053059578,
+      "answer_token_common": 0.4478822648525238,
+      "answer_token_varying": 0.3994957208633423
+    }
+  },
+  "20": {
+    "loving_traj_dpo": {
+      "trait_vector_displacement": 0.8422952890396118,
+      "trait_vector_displacement_sd": 0.20284587144851685,
+      "answer_token_displacement": 0.6205110549926758,
+      "answer_token_displacement_sd": 0.05929715558886528,
+      "answer_token_common": 0.47613126039505005,
+      "answer_token_varying": 0.40060338377952576
+    },
+    "loving_traj_ladder_d_s0.8": {
+      "trait_vector_displacement": 0.6924117207527161,
+      "trait_vector_displacement_sd": 0.146582692861557,
+      "answer_token_displacement": 0.506596565246582,
+      "answer_token_displacement_sd": 0.05012815445661545,
+      "answer_token_common": 0.38213688135147095,
+      "answer_token_varying": 0.3344966769218445
+    },
+    "loving_traj_ladder_d_s0.9": {
+      "trait_vector_displacement": 0.773894190788269,
+      "trait_vector_displacement_sd": 0.1766974776983261,
+      "answer_token_displacement": 0.5681016445159912,
+      "answer_token_displacement_sd": 0.054645031690597534,
+      "answer_token_common": 0.4320736825466156,
+      "answer_token_varying": 0.3712303042411804
+    },
+    "loving_traj_ladder_d_s1.1": {
+      "trait_vector_displacement": 0.9012995958328247,
+      "trait_vector_displacement_sd": 0.22594702243804932,
+      "answer_token_displacement": 0.6671112179756165,
+      "answer_token_displacement_sd": 0.0643841102719307,
+      "answer_token_common": 0.5168992280960083,
+      "answer_token_varying": 0.42465144395828247
+    },
+    "loving_traj_ladder_d_s1.25": {
+      "trait_vector_displacement": 0.9772613644599915,
+      "trait_vector_displacement_sd": 0.2545291483402252,
+      "answer_token_displacement": 0.7296423316001892,
+      "answer_token_displacement_sd": 0.07079745084047318,
+      "answer_token_common": 0.5739601254463196,
+      "answer_token_varying": 0.4537084102630615
+    },
+    "loving_traj_ladder_d_s1.4": {
+      "trait_vector_displacement": 1.045901894569397,
+      "trait_vector_displacement_sd": 0.2781490385532379,
+      "answer_token_displacement": 0.7884191274642944,
+      "answer_token_displacement_sd": 0.07540273666381836,
+      "answer_token_common": 0.6295909881591797,
+      "answer_token_varying": 0.47806161642074585
+    }
+  }
+}

@@ -1,0 +1,76 @@
+{
+ "constitution": "sycophancy",
+ "reproduced": "sycophancy_traj_mrg_final",
+ "released": "sycophancy",
+ "A1": {
+  "r": 64,
+  "alpha": 64,
+  "modules": [
+   "down_proj",
+   "gate_proj",
+   "k_proj",
+   "o_proj",
+   "q_proj",
+   "up_proj",
+   "v_proj"
+  ],
+  "matches_released": true
+ },
+ "A2": {
+  "norm_ratio": 0.8944490113991075,
+  "weight_cosine": 0.4711996062318583,
+  "modules": 224
+ },
+ "A4": {
+  "dose_ratio": {
+   "15": 0.8437878028135392,
+   "20": 0.8687162299548957
+  }
+ },
+ "profile": {
+  "traits": [
+   "assertiveness",
+   "confidence",
+   "deference",
+   "empathy",
+   "honesty",
+   "impulsivity",
+   "risk_taking",
+   "warmth"
+  ],
+  "reproduced": [
+   0.05893987417221069,
+   1.5241313502192497,
+   -0.19824519753456116,
+   0.56034916639328,
+   -0.25227195024490356,
+   1.2404884696006775,
+   1.2472006231546402,
+   0.8962158262729645
+  ],
+  "released": [
+   0.24899739027023315,
+   1.5104283690452576,
+   -0.1485973298549652,
+   1.064174011349678,
+   -0.0005211532115936279,
+   1.082052081823349,
+   1.2510331273078918,
+   1.331610083580017
+  ],
+  "pearson_r": 0.9441678381470501,
+  "norm_ratio": 0.9107045812550877
+ },
+ "B5": {
+  "k_reproduced": 0.2727452861145139,
+  "k_released": 0.22261113859713078,
+  "abs_diff": 0.0501341475173831
+ },
+ "B4": {
+  "mean_cos_common_shift": {
+   "15": 0.895456931581879,
+   "20": 0.8817038675474089
+  }
+ },
+ "category": "strong"
+}

@@ -1,0 +1,76 @@
+{
+ "constitution": "goodness",
+ "reproduced": "goodness_traj_mrg_final",
+ "released": "goodness",
+ "A1": {
+  "r": 64,
+  "alpha": 64,
+  "modules": [
+   "down_proj",
+   "gate_proj",
+   "k_proj",
+   "o_proj",
+   "q_proj",
+   "up_proj",
+   "v_proj"
+  ],
+  "matches_released": true
+ },
+ "A2": {
+  "norm_ratio": 0.9537947698835807,
+  "weight_cosine": 0.42195255604919313,
+  "modules": 224
+ },
+ "A4": {
+  "dose_ratio": {
+   "15": 0.8824333897903497,
+   "20": 0.9115779223162604
+  }
+ },
+ "profile": {
+  "traits": [
+   "assertiveness",
+   "confidence",
+   "deference",
+   "empathy",
+   "honesty",
+   "impulsivity",
+   "risk_taking",
+   "warmth"
+  ],
+  "reproduced": [
+   0.7675328850746155,
+   0.6164377182722092,
+   -0.3722526431083679,
+   0.13973036408424377,
+   0.49564850330352783,
+   -0.09219670295715332,
+   0.2215718924999237,
+   0.1981159746646881
+  ],
+  "released": [
+   0.9069926738739014,
+   0.5782972425222397,
+   -0.3096536248922348,
+   0.32278284430503845,
+   0.5418048202991486,
+   -0.15918724238872528,
+   0.16105392575263977,
+   0.3087097257375717
+  ],
+  "pearson_r": 0.9714850933212072,
+  "norm_ratio": 0.9042929793212219
+ },
+ "B5": {
+  "k_reproduced": 0.3217036258429289,
+  "k_released": 0.24955011904239655,
+  "abs_diff": 0.07215350680053234
+ },
+ "B4": {
+  "mean_cos_common_shift": {
+   "15": 0.9036412451764986,
+   "20": 0.8563666762207751
+  }
+ },
+ "category": "strong"
+}

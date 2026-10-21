@@ -1,0 +1,290 @@
+
+==============================================================================================
+LAYER 15   (8 traits x 10 semantic personas, cross-fitted over 40 half-splits)
+==============================================================================================
+
+TABLE 1.  ||dG_{c,t}|| / mean_p||V_base_{t,p}||
+  the persona-common shift, as a fraction of the base trait vector it displaces
+
+trait                 impulsiveness_repro_dpo  impulsiveness_dm_m_d_s1.364  impulsiveness_dm_m_d_s1.653  impulsiveness_dm_m_d_s1.979   impulsiveness_dm_m_d_s2.25    impulsiveness_dm_m_d_s2.5
+assertiveness                           0.426                        0.557                        0.646                        0.737                        0.809                        0.873
+empathy                                 0.481                        0.605                        0.693                        0.781                        0.854                        0.919
+risk_taking                             0.500                        0.646                        0.752                        0.870                        0.978                        1.084
+honesty                                 0.408                        0.501                        0.564                        0.628                        0.684                        0.736
+confidence                              0.458                        0.573                        0.654                        0.744                        0.826                        0.906
+deference                               0.422                        0.539                        0.618                        0.696                        0.762                        0.822
+warmth                                  0.455                        0.581                        0.669                        0.757                        0.831                        0.899
+impulsivity                             0.476                        0.607                        0.703                        0.809                        0.902                        0.992
+MEAN                                    0.453                        0.576                        0.662                        0.753                        0.831                        0.904
+
+TABLE 2.  ||dG_{c,t}||^2 / mean_p||dV_{c,t,p}||^2
+  SHARE of this adapter's total change carried by the common shift (exact partition)
+
+trait                 impulsiveness_repro_dpo  impulsiveness_dm_m_d_s1.364  impulsiveness_dm_m_d_s1.653  impulsiveness_dm_m_d_s1.979   impulsiveness_dm_m_d_s2.25    impulsiveness_dm_m_d_s2.5
+assertiveness                           0.670                        0.728                        0.758                        0.783                        0.799                        0.810
+empathy                                 0.617                        0.670                        0.702                        0.730                        0.749                        0.763
+risk_taking                             0.699                        0.750                        0.780                        0.808                        0.829                        0.845
+honesty                                 0.713                        0.742                        0.762                        0.780                        0.796                        0.808
+confidence                              0.656                        0.706                        0.737                        0.767                        0.792                        0.810
+deference                               0.566                        0.617                        0.649                        0.676                        0.697                        0.713
+warmth                                  0.646                        0.698                        0.726                        0.747                        0.761                        0.772
+impulsivity                             0.691                        0.736                        0.765                        0.791                        0.810                        0.825
+MEAN                                    0.657                        0.706                        0.735                        0.760                        0.779                        0.793
+
+TABLE 2b. ||dG_{c,t}|| / mean_p||dV_{c,t,p}||
+  the same thing in LINEAR units (the sqrt of table 2) -- not a share
+
+trait                 impulsiveness_repro_dpo  impulsiveness_dm_m_d_s1.364  impulsiveness_dm_m_d_s1.653  impulsiveness_dm_m_d_s1.979   impulsiveness_dm_m_d_s2.25    impulsiveness_dm_m_d_s2.5
+assertiveness                           0.819                        0.853                        0.871                        0.885                        0.894                        0.900
+empathy                                 0.786                        0.819                        0.838                        0.854                        0.866                        0.874
+risk_taking                             0.836                        0.866                        0.883                        0.899                        0.910                        0.919
+honesty                                 0.844                        0.861                        0.873                        0.883                        0.892                        0.899
+confidence                              0.810                        0.840                        0.858                        0.876                        0.890                        0.900
+deference                               0.752                        0.786                        0.806                        0.822                        0.835                        0.844
+warmth                                  0.803                        0.835                        0.852                        0.864                        0.873                        0.879
+impulsivity                             0.831                        0.858                        0.874                        0.889                        0.900                        0.909
+MEAN                                    0.810                        0.840                        0.857                        0.872                        0.882                        0.890
+
+TABLE 1n. table 1 computed NAIVELY (no cross-fitting), for comparison
+  the gap is the noise the cross-fitted estimator removes
+
+trait                 impulsiveness_repro_dpo  impulsiveness_dm_m_d_s1.364  impulsiveness_dm_m_d_s1.653  impulsiveness_dm_m_d_s1.979   impulsiveness_dm_m_d_s2.25    impulsiveness_dm_m_d_s2.5
+assertiveness                           0.416                        0.540                        0.626                        0.712                        0.780                        0.841
+empathy                                 0.465                        0.584                        0.668                        0.752                        0.822                        0.884
+risk_taking                             0.472                        0.607                        0.704                        0.811                        0.909                        1.006
+honesty                                 0.402                        0.492                        0.553                        0.616                        0.669                        0.719
+confidence                              0.443                        0.554                        0.630                        0.716                        0.793                        0.868
+deference                               0.405                        0.515                        0.589                        0.662                        0.724                        0.780
+warmth                                  0.441                        0.561                        0.644                        0.726                        0.797                        0.861
+impulsivity                             0.462                        0.586                        0.677                        0.777                        0.865                        0.950
+MEAN                                    0.438                        0.555                        0.636                        0.722                        0.795                        0.864
+
+
+TABLE 3.  cos(dG_c, dG_c') per trait  [cross-fitted; naive in brackets]
+  are the constitutions adding the SAME shift, or only shifts of similar size?
+
+  assertiveness
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.980 [0.98]   0.954 [0.95]   0.921 [0.92]   0.894 [0.89]   0.868 [0.86]
+    impulsiveness_   0.980 [0.98]   1.000 [1.00]   0.993 [0.99]   0.975 [0.97]   0.956 [0.95]   0.936 [0.93]
+    impulsiveness_   0.954 [0.95]   0.993 [0.99]   1.000 [1.00]   0.994 [0.99]   0.982 [0.98]   0.968 [0.97]
+    impulsiveness_   0.921 [0.92]   0.975 [0.97]   0.994 [0.99]   1.000 [1.00]   0.997 [1.00]   0.989 [0.99]
+    impulsiveness_   0.894 [0.89]   0.956 [0.95]   0.982 [0.98]   0.997 [1.00]   1.000 [1.00]   0.998 [1.00]
+    impulsiveness_   0.868 [0.86]   0.936 [0.93]   0.968 [0.97]   0.989 [0.99]   0.998 [1.00]   1.000 [1.00]
+
+  empathy
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.981 [0.98]   0.953 [0.95]   0.919 [0.92]   0.889 [0.89]   0.860 [0.86]
+    impulsiveness_   0.981 [0.98]   1.000 [1.00]   0.993 [0.99]   0.975 [0.97]   0.954 [0.95]   0.932 [0.93]
+    impulsiveness_   0.953 [0.95]   0.993 [0.99]   1.000 [1.00]   0.994 [0.99]   0.981 [0.98]   0.965 [0.96]
+    impulsiveness_   0.919 [0.92]   0.975 [0.97]   0.994 [0.99]   1.000 [1.00]   0.996 [1.00]   0.987 [0.99]
+    impulsiveness_   0.889 [0.89]   0.954 [0.95]   0.981 [0.98]   0.996 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.860 [0.86]   0.932 [0.93]   0.965 [0.96]   0.987 [0.99]   0.997 [1.00]   1.000 [1.00]
+
+  risk_taking
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.984 [0.98]   0.964 [0.96]   0.942 [0.94]   0.922 [0.92]   0.902 [0.90]
+    impulsiveness_   0.984 [0.98]   1.000 [1.00]   0.995 [1.00]   0.983 [0.98]   0.968 [0.97]   0.951 [0.95]
+    impulsiveness_   0.964 [0.96]   0.995 [1.00]   1.000 [1.00]   0.995 [1.00]   0.986 [0.98]   0.973 [0.97]
+    impulsiveness_   0.942 [0.94]   0.983 [0.98]   0.995 [1.00]   1.000 [1.00]   0.997 [1.00]   0.990 [0.99]
+    impulsiveness_   0.922 [0.92]   0.968 [0.97]   0.986 [0.98]   0.997 [1.00]   1.000 [1.00]   0.998 [1.00]
+    impulsiveness_   0.902 [0.90]   0.951 [0.95]   0.973 [0.97]   0.990 [0.99]   0.998 [1.00]   1.000 [1.00]
+
+  honesty
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.982 [0.98]   0.960 [0.96]   0.931 [0.93]   0.905 [0.90]   0.880 [0.88]
+    impulsiveness_   0.982 [0.98]   1.000 [1.00]   0.994 [0.99]   0.978 [0.98]   0.960 [0.96]   0.941 [0.94]
+    impulsiveness_   0.960 [0.96]   0.994 [0.99]   1.000 [1.00]   0.994 [0.99]   0.983 [0.98]   0.969 [0.97]
+    impulsiveness_   0.931 [0.93]   0.978 [0.98]   0.994 [0.99]   1.000 [1.00]   0.997 [1.00]   0.989 [0.99]
+    impulsiveness_   0.905 [0.90]   0.960 [0.96]   0.983 [0.98]   0.997 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.880 [0.88]   0.941 [0.94]   0.969 [0.97]   0.989 [0.99]   0.997 [1.00]   1.000 [1.00]
+
+  confidence
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.982 [0.98]   0.957 [0.96]   0.927 [0.92]   0.901 [0.90]   0.876 [0.87]
+    impulsiveness_   0.982 [0.98]   1.000 [1.00]   0.994 [0.99]   0.976 [0.98]   0.957 [0.96]   0.937 [0.93]
+    impulsiveness_   0.957 [0.96]   0.994 [0.99]   1.000 [1.00]   0.994 [0.99]   0.982 [0.98]   0.966 [0.96]
+    impulsiveness_   0.927 [0.92]   0.976 [0.98]   0.994 [0.99]   1.000 [1.00]   0.997 [1.00]   0.988 [0.99]
+    impulsiveness_   0.901 [0.90]   0.957 [0.96]   0.982 [0.98]   0.997 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.876 [0.87]   0.937 [0.93]   0.966 [0.96]   0.988 [0.99]   0.997 [1.00]   1.000 [1.00]
+
+  deference
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.977 [0.98]   0.947 [0.95]   0.910 [0.91]   0.877 [0.88]   0.846 [0.84]
+    impulsiveness_   0.977 [0.98]   1.000 [1.00]   0.993 [0.99]   0.972 [0.97]   0.950 [0.95]   0.926 [0.92]
+    impulsiveness_   0.947 [0.95]   0.993 [0.99]   1.000 [1.00]   0.993 [0.99]   0.979 [0.98]   0.962 [0.96]
+    impulsiveness_   0.910 [0.91]   0.972 [0.97]   0.993 [0.99]   1.000 [1.00]   0.996 [1.00]   0.987 [0.99]
+    impulsiveness_   0.877 [0.88]   0.950 [0.95]   0.979 [0.98]   0.996 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.846 [0.84]   0.926 [0.92]   0.962 [0.96]   0.987 [0.99]   0.997 [1.00]   1.000 [1.00]
+
+  warmth
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.982 [0.98]   0.957 [0.96]   0.925 [0.92]   0.898 [0.89]   0.871 [0.87]
+    impulsiveness_   0.982 [0.98]   1.000 [1.00]   0.994 [0.99]   0.977 [0.98]   0.958 [0.96]   0.937 [0.93]
+    impulsiveness_   0.957 [0.96]   0.994 [0.99]   1.000 [1.00]   0.994 [0.99]   0.982 [0.98]   0.967 [0.96]
+    impulsiveness_   0.925 [0.92]   0.977 [0.98]   0.994 [0.99]   1.000 [1.00]   0.997 [1.00]   0.988 [0.99]
+    impulsiveness_   0.898 [0.89]   0.958 [0.96]   0.982 [0.98]   0.997 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.871 [0.87]   0.937 [0.93]   0.967 [0.96]   0.988 [0.99]   0.997 [1.00]   1.000 [1.00]
+
+  impulsivity
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.983 [0.98]   0.960 [0.96]   0.932 [0.93]   0.908 [0.91]   0.885 [0.88]
+    impulsiveness_   0.983 [0.98]   1.000 [1.00]   0.994 [0.99]   0.979 [0.98]   0.963 [0.96]   0.945 [0.94]
+    impulsiveness_   0.960 [0.96]   0.994 [0.99]   1.000 [1.00]   0.995 [0.99]   0.985 [0.98]   0.972 [0.97]
+    impulsiveness_   0.932 [0.93]   0.979 [0.98]   0.995 [0.99]   1.000 [1.00]   0.997 [1.00]   0.990 [0.99]
+    impulsiveness_   0.908 [0.91]   0.963 [0.96]   0.985 [0.98]   0.997 [1.00]   1.000 [1.00]   0.998 [1.00]
+    impulsiveness_   0.885 [0.88]   0.945 [0.94]   0.972 [0.97]   0.990 [0.99]   0.998 [1.00]   1.000 [1.00]
+
+  MEAN over traits
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.981 [0.98]   0.956 [0.96]   0.926 [0.92]   0.899 [0.90]   0.873 [0.87]
+    impulsiveness_   0.981 [0.98]   1.000 [1.00]   0.994 [0.99]   0.977 [0.98]   0.958 [0.96]   0.938 [0.94]
+    impulsiveness_   0.956 [0.96]   0.994 [0.99]   1.000 [1.00]   0.994 [0.99]   0.982 [0.98]   0.968 [0.97]
+    impulsiveness_   0.926 [0.92]   0.977 [0.98]   0.994 [0.99]   1.000 [1.00]   0.997 [1.00]   0.989 [0.99]
+    impulsiveness_   0.899 [0.90]   0.958 [0.96]   0.982 [0.98]   0.997 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.873 [0.87]   0.938 [0.94]   0.968 [0.97]   0.989 [0.99]   0.997 [1.00]   1.000 [1.00]
+
+==============================================================================================
+LAYER 20   (8 traits x 10 semantic personas, cross-fitted over 40 half-splits)
+==============================================================================================
+
+TABLE 1.  ||dG_{c,t}|| / mean_p||V_base_{t,p}||
+  the persona-common shift, as a fraction of the base trait vector it displaces
+
+trait                 impulsiveness_repro_dpo  impulsiveness_dm_m_d_s1.364  impulsiveness_dm_m_d_s1.653  impulsiveness_dm_m_d_s1.979   impulsiveness_dm_m_d_s2.25    impulsiveness_dm_m_d_s2.5
+assertiveness                           0.640                        0.871                        1.012                        1.145                        1.238                        1.312
+empathy                                 0.725                        0.871                        0.960                        1.044                        1.112                        1.167
+risk_taking                             0.688                        0.886                        1.026                        1.193                        1.350                        1.508
+honesty                                 0.479                        0.586                        0.659                        0.729                        0.785                        0.834
+confidence                              0.759                        0.966                        1.091                        1.233                        1.363                        1.491
+deference                               0.500                        0.653                        0.760                        0.869                        0.962                        1.044
+warmth                                  0.818                        1.012                        1.123                        1.223                        1.301                        1.369
+impulsivity                             0.634                        0.811                        0.938                        1.084                        1.216                        1.345
+MEAN                                    0.655                        0.832                        0.946                        1.065                        1.166                        1.259
+
+TABLE 2.  ||dG_{c,t}||^2 / mean_p||dV_{c,t,p}||^2
+  SHARE of this adapter's total change carried by the common shift (exact partition)
+
+trait                 impulsiveness_repro_dpo  impulsiveness_dm_m_d_s1.364  impulsiveness_dm_m_d_s1.653  impulsiveness_dm_m_d_s1.979   impulsiveness_dm_m_d_s2.25    impulsiveness_dm_m_d_s2.5
+assertiveness                           0.633                        0.709                        0.738                        0.759                        0.771                        0.780
+empathy                                 0.604                        0.639                        0.653                        0.666                        0.678                        0.688
+risk_taking                             0.599                        0.646                        0.678                        0.714                        0.746                        0.773
+honesty                                 0.577                        0.611                        0.634                        0.656                        0.673                        0.687
+confidence                              0.616                        0.677                        0.707                        0.739                        0.765                        0.788
+deference                               0.428                        0.488                        0.524                        0.557                        0.584                        0.605
+warmth                                  0.654                        0.698                        0.713                        0.721                        0.729                        0.736
+impulsivity                             0.601                        0.641                        0.670                        0.702                        0.729                        0.753
+MEAN                                    0.589                        0.639                        0.665                        0.689                        0.710                        0.726
+
+TABLE 2b. ||dG_{c,t}|| / mean_p||dV_{c,t,p}||
+  the same thing in LINEAR units (the sqrt of table 2) -- not a share
+
+trait                 impulsiveness_repro_dpo  impulsiveness_dm_m_d_s1.364  impulsiveness_dm_m_d_s1.653  impulsiveness_dm_m_d_s1.979   impulsiveness_dm_m_d_s2.25    impulsiveness_dm_m_d_s2.5
+assertiveness                           0.796                        0.842                        0.859                        0.871                        0.878                        0.883
+empathy                                 0.777                        0.799                        0.808                        0.816                        0.824                        0.829
+risk_taking                             0.774                        0.804                        0.823                        0.845                        0.864                        0.879
+honesty                                 0.760                        0.782                        0.796                        0.810                        0.820                        0.829
+confidence                              0.785                        0.823                        0.841                        0.860                        0.875                        0.888
+deference                               0.654                        0.698                        0.724                        0.746                        0.764                        0.778
+warmth                                  0.809                        0.835                        0.844                        0.849                        0.854                        0.858
+impulsivity                             0.775                        0.801                        0.818                        0.838                        0.854                        0.868
+MEAN                                    0.766                        0.798                        0.814                        0.829                        0.842                        0.851
+
+TABLE 1n. table 1 computed NAIVELY (no cross-fitting), for comparison
+  the gap is the noise the cross-fitted estimator removes
+
+trait                 impulsiveness_repro_dpo  impulsiveness_dm_m_d_s1.364  impulsiveness_dm_m_d_s1.653  impulsiveness_dm_m_d_s1.979   impulsiveness_dm_m_d_s2.25    impulsiveness_dm_m_d_s2.5
+assertiveness                           0.605                        0.820                        0.951                        1.075                        1.162                        1.232
+empathy                                 0.685                        0.825                        0.911                        0.994                        1.058                        1.111
+risk_taking                             0.622                        0.799                        0.924                        1.069                        1.204                        1.337
+honesty                                 0.475                        0.583                        0.655                        0.726                        0.780                        0.827
+confidence                              0.698                        0.888                        1.005                        1.135                        1.252                        1.365
+deference                               0.478                        0.621                        0.719                        0.820                        0.903                        0.975
+warmth                                  0.742                        0.919                        1.022                        1.115                        1.187                        1.248
+impulsivity                             0.588                        0.751                        0.865                        0.996                        1.111                        1.222
+MEAN                                    0.612                        0.776                        0.882                        0.991                        1.082                        1.165
+
+
+TABLE 3.  cos(dG_c, dG_c') per trait  [cross-fitted; naive in brackets]
+  are the constitutions adding the SAME shift, or only shifts of similar size?
+
+  assertiveness
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.983 [0.98]   0.959 [0.96]   0.927 [0.92]   0.897 [0.89]   0.868 [0.86]
+    impulsiveness_   0.983 [0.98]   1.000 [1.00]   0.993 [0.99]   0.975 [0.97]   0.954 [0.95]   0.931 [0.93]
+    impulsiveness_   0.959 [0.96]   0.993 [0.99]   1.000 [1.00]   0.993 [0.99]   0.980 [0.98]   0.963 [0.96]
+    impulsiveness_   0.927 [0.92]   0.975 [0.97]   0.993 [0.99]   1.000 [1.00]   0.996 [1.00]   0.987 [0.99]
+    impulsiveness_   0.897 [0.89]   0.954 [0.95]   0.980 [0.98]   0.996 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.868 [0.86]   0.931 [0.93]   0.963 [0.96]   0.987 [0.99]   0.997 [1.00]   1.000 [1.00]
+
+  empathy
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.979 [0.98]   0.947 [0.95]   0.904 [0.90]   0.867 [0.86]   0.832 [0.83]
+    impulsiveness_   0.979 [0.98]   1.000 [1.00]   0.991 [0.99]   0.966 [0.97]   0.939 [0.94]   0.912 [0.91]
+    impulsiveness_   0.947 [0.95]   0.991 [0.99]   1.000 [1.00]   0.991 [0.99]   0.975 [0.97]   0.954 [0.95]
+    impulsiveness_   0.904 [0.90]   0.966 [0.97]   0.991 [0.99]   1.000 [1.00]   0.995 [1.00]   0.984 [0.98]
+    impulsiveness_   0.867 [0.86]   0.939 [0.94]   0.975 [0.97]   0.995 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.832 [0.83]   0.912 [0.91]   0.954 [0.95]   0.984 [0.98]   0.997 [1.00]   1.000 [1.00]
+
+  risk_taking
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.978 [0.98]   0.948 [0.95]   0.911 [0.91]   0.879 [0.88]   0.851 [0.85]
+    impulsiveness_   0.978 [0.98]   1.000 [1.00]   0.992 [0.99]   0.971 [0.97]   0.947 [0.94]   0.922 [0.92]
+    impulsiveness_   0.948 [0.95]   0.992 [0.99]   1.000 [1.00]   0.993 [0.99]   0.977 [0.98]   0.959 [0.96]
+    impulsiveness_   0.911 [0.91]   0.971 [0.97]   0.993 [0.99]   1.000 [1.00]   0.996 [1.00]   0.985 [0.98]
+    impulsiveness_   0.879 [0.88]   0.947 [0.94]   0.977 [0.98]   0.996 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.851 [0.85]   0.922 [0.92]   0.959 [0.96]   0.985 [0.98]   0.997 [1.00]   1.000 [1.00]
+
+  honesty
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.981 [0.98]   0.955 [0.95]   0.921 [0.92]   0.892 [0.89]   0.864 [0.86]
+    impulsiveness_   0.981 [0.98]   1.000 [1.00]   0.993 [0.99]   0.972 [0.97]   0.950 [0.95]   0.927 [0.92]
+    impulsiveness_   0.955 [0.95]   0.993 [0.99]   1.000 [1.00]   0.993 [0.99]   0.979 [0.98]   0.961 [0.96]
+    impulsiveness_   0.921 [0.92]   0.972 [0.97]   0.993 [0.99]   1.000 [1.00]   0.996 [1.00]   0.986 [0.98]
+    impulsiveness_   0.892 [0.89]   0.950 [0.95]   0.979 [0.98]   0.996 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.864 [0.86]   0.927 [0.92]   0.961 [0.96]   0.986 [0.98]   0.997 [1.00]   1.000 [1.00]
+
+  confidence
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.984 [0.98]   0.962 [0.96]   0.932 [0.93]   0.904 [0.90]   0.876 [0.87]
+    impulsiveness_   0.984 [0.98]   1.000 [1.00]   0.994 [0.99]   0.976 [0.97]   0.954 [0.95]   0.929 [0.93]
+    impulsiveness_   0.962 [0.96]   0.994 [0.99]   1.000 [1.00]   0.993 [0.99]   0.979 [0.98]   0.960 [0.96]
+    impulsiveness_   0.932 [0.93]   0.976 [0.97]   0.993 [0.99]   1.000 [1.00]   0.996 [1.00]   0.985 [0.98]
+    impulsiveness_   0.904 [0.90]   0.954 [0.95]   0.979 [0.98]   0.996 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.876 [0.87]   0.929 [0.93]   0.960 [0.96]   0.985 [0.98]   0.997 [1.00]   1.000 [1.00]
+
+  deference
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.967 [0.97]   0.921 [0.93]   0.863 [0.87]   0.817 [0.82]   0.780 [0.78]
+    impulsiveness_   0.967 [0.97]   1.000 [1.00]   0.988 [0.99]   0.956 [0.96]   0.924 [0.92]   0.894 [0.89]
+    impulsiveness_   0.921 [0.93]   0.988 [0.99]   1.000 [1.00]   0.989 [0.99]   0.969 [0.97]   0.947 [0.95]
+    impulsiveness_   0.863 [0.87]   0.956 [0.96]   0.989 [0.99]   1.000 [1.00]   0.995 [0.99]   0.983 [0.98]
+    impulsiveness_   0.817 [0.82]   0.924 [0.92]   0.969 [0.97]   0.995 [0.99]   1.000 [1.00]   0.996 [1.00]
+    impulsiveness_   0.780 [0.78]   0.894 [0.89]   0.947 [0.95]   0.983 [0.98]   0.996 [1.00]   1.000 [1.00]
+
+  warmth
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.984 [0.98]   0.959 [0.96]   0.924 [0.92]   0.892 [0.89]   0.861 [0.85]
+    impulsiveness_   0.984 [0.98]   1.000 [1.00]   0.993 [0.99]   0.972 [0.97]   0.948 [0.95]   0.922 [0.92]
+    impulsiveness_   0.959 [0.96]   0.993 [0.99]   1.000 [1.00]   0.993 [0.99]   0.977 [0.98]   0.958 [0.96]
+    impulsiveness_   0.924 [0.92]   0.972 [0.97]   0.993 [0.99]   1.000 [1.00]   0.996 [1.00]   0.985 [0.98]
+    impulsiveness_   0.892 [0.89]   0.948 [0.95]   0.977 [0.98]   0.996 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.861 [0.85]   0.922 [0.92]   0.958 [0.96]   0.985 [0.98]   0.997 [1.00]   1.000 [1.00]
+
+  impulsivity
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.979 [0.98]   0.946 [0.95]   0.902 [0.90]   0.865 [0.86]   0.831 [0.83]
+    impulsiveness_   0.979 [0.98]   1.000 [1.00]   0.991 [0.99]   0.965 [0.96]   0.937 [0.94]   0.910 [0.91]
+    impulsiveness_   0.946 [0.95]   0.991 [0.99]   1.000 [1.00]   0.991 [0.99]   0.974 [0.97]   0.953 [0.95]
+    impulsiveness_   0.902 [0.90]   0.965 [0.96]   0.991 [0.99]   1.000 [1.00]   0.995 [0.99]   0.984 [0.98]
+    impulsiveness_   0.865 [0.86]   0.937 [0.94]   0.974 [0.97]   0.995 [0.99]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.831 [0.83]   0.910 [0.91]   0.953 [0.95]   0.984 [0.98]   0.997 [1.00]   1.000 [1.00]
+
+  MEAN over traits
+                     impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes   impulsivenes
+    impulsiveness_   1.000 [1.00]   0.979 [0.98]   0.950 [0.95]   0.911 [0.91]   0.877 [0.87]   0.845 [0.84]
+    impulsiveness_   0.979 [0.98]   1.000 [1.00]   0.992 [0.99]   0.969 [0.97]   0.944 [0.94]   0.918 [0.92]
+    impulsiveness_   0.950 [0.95]   0.992 [0.99]   1.000 [1.00]   0.992 [0.99]   0.976 [0.98]   0.957 [0.96]
+    impulsiveness_   0.911 [0.91]   0.969 [0.97]   0.992 [0.99]   1.000 [1.00]   0.996 [1.00]   0.985 [0.98]
+    impulsiveness_   0.877 [0.87]   0.944 [0.94]   0.976 [0.98]   0.996 [1.00]   1.000 [1.00]   0.997 [1.00]
+    impulsiveness_   0.845 [0.84]   0.918 [0.92]   0.957 [0.96]   0.985 [0.98]   0.997 [1.00]   1.000 [1.00]

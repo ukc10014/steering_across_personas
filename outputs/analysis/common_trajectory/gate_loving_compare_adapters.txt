@@ -1,0 +1,7 @@
+modules compared : 224
+||dW_a||_F       : 9.094462
+||dW_b||_F       : 10.013847
+cosine(dW_a,dW_b): 0.442652
+rel ||a-b||/||a||: 1.112476e+00
+bitwise identical: False
+verdict          : DIFFERENT -- these are not the same training run

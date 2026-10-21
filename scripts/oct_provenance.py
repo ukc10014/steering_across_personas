@@ -78,6 +78,11 @@ def main() -> None:
     ap.add_argument("--cmd", default="", help="the exact command line being run")
     ap.add_argument("--notes", default="")
     ap.add_argument("--out-dir", default=str(REPO / "docs" / "runs" / "oct"))
+    # Default is the impulsiveness frozen pair, for the historical runs. Any other constitution
+    # MUST pass its own files: without this flag the traj-loving manifests recorded the
+    # impulsiveness hashes (corrected in docs/runs/oct/traj-loving_*.provenance_correction.json).
+    ap.add_argument("--data", nargs="+", default=FROZEN,
+                    help="data files (relative to OCT/data) whose sha256 to record")
     a = ap.parse_args()
 
     man = {
@@ -95,7 +100,8 @@ def main() -> None:
             "revision": Path("/workspace/oct_rig/models/llama-3.1-8b-it").resolve().name,
         },
         "frozen_data": {f: {"sha256": sha256(DATA / f), "bytes": (DATA / f).stat().st_size}
-                        for f in FROZEN if (DATA / f).exists()},
+                        for f in a.data if (DATA / f).exists()},
+        "frozen_data_missing": [f for f in a.data if not (DATA / f).exists()],
         "assumptions": [
             "loras/llama-test is a symlink to loras/llama-introspection; merge_loras.py:38 "
             "reads llama-test but nothing in the public repo writes it. If this reproduction "
