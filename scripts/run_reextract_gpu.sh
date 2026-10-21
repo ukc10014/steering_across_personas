@@ -122,7 +122,7 @@ for row in "${ARMS[@]}"; do
   out="outputs/${short}/${SUFFIX}"
   echo
   echo "=== ${short} -> ${out} ==="
-  "$PY" -u pipeline/2c_caa_activations.py \
+  "$PY" -u pipeline/2c_caa_activations.py --mask corrected \
     --model "$model" \
     --output-dir "$out" \
     --batch-size "$BATCH" \

@@ -46,8 +46,12 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--cache-dir", type=str, default=str(OUTPUTS_DIR / "_qcache"))
     p.add_argument("--cache-layers", type=int, nargs="+", default=[15, 20])
     p.add_argument("--layer", type=int, default=15)
+    p.add_argument("--base-arm", default="base",
+                   help="reference cache; must share the arms' mask protocol (persona_steering/provenance.py)")
     p.add_argument("--arms", nargs="+",
                    default=["goodness", "mathematical", "impulsiveness", "misalignment"])
+    p.add_argument("--allow-mixed-mask", action="store_true",
+                   help="ONLY to reproduce historical mixed-protocol numbers; recorded in the output")
     p.add_argument("--out", type=str,
                    default=str(OUTPUTS_DIR / "analysis" / "functional_dose.json"))
     return p.parse_args()
@@ -65,7 +69,15 @@ def load(cache: Path, arm: str, cache_layers, layer):
 def main() -> None:
     a = parse_args()
     cache = Path(a.cache_dir)
-    base, traits, personas, semantic, nqs = load(cache, "base", a.cache_layers, a.layer)
+    # Refuse unverified or mixed-protocol caches (persona_steering/provenance.py).
+    from persona_steering.provenance import cache_provenance, assert_comparable
+    tag = "_".join(str(l) for l in a.cache_layers)
+    provs = {}
+    for arm in [a.base_arm, *a.arms]:
+        with np.load(cache / f"{arm}_L{tag}.npz", allow_pickle=False) as z:
+            provs[arm] = cache_provenance(z, arm)
+    prov_summary = assert_comparable(provs, allow_mixed_mask=a.allow_mixed_mask)
+    base, traits, personas, semantic, nqs = load(cache, a.base_arm, a.cache_layers, a.layer)
     pidx = [personas.index(p) for p in semantic]
     res = {}
 
@@ -114,6 +126,7 @@ def main() -> None:
     out = Path(a.out); out.parent.mkdir(parents=True, exist_ok=True)
     prev = json.loads(out.read_text()) if out.exists() else {}
     prev[str(a.layer)] = res
+    prev.setdefault("provenance", {})[str(a.layer)] = prov_summary
     out.write_text(json.dumps(prev, indent=2))
     print(f"\nwrote {out}")
 

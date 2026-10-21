@@ -9,6 +9,9 @@
 # on) plus the new adapter at scale 1. Base-start states load the base plus the new adapter.
 # The 0 % base state is the existing `base` arm (same weights); it is not re-measured.
 set -uo pipefail
+# Mask protocol is explicit and has no default: it decides which caches this run may be
+# compared with (persona_steering/provenance.py). Use corrected for new work.
+MASK=${MASK:?set MASK=corrected or MASK=legacy}
 R=/workspace/repos/steering_across_personas
 RIG=/workspace/oct_rig
 LOGS=$RIG/logs
@@ -54,7 +57,7 @@ acts(){  # $1 state name, $2 model, $3.. extra flags
   banner "$ARM  activations"
   # --output-dir is mandatory: 2c derives it from the MODEL name otherwise, and every base-start
   # state loads the same base -- it would write into, and destroy, the base arm's directory.
-  python3 pipeline/2c_caa_activations.py --model "$M" "$@" --output-dir "$OUT" --batch-size 16 \
+  python3 pipeline/2c_caa_activations.py --mask "$MASK" --model "$M" "$@" --output-dir "$OUT" --batch-size 16 \
       > "$LOGS/xchar_extract_$ARM.log" 2>&1 || die "extraction $ARM"
   local n; n=$(ls "$OUT" 2>/dev/null | wc -l); [ "$n" -eq 192 ] || die "$ARM incomplete ($n/192)"
   [ "$(find "$OUT" -name '*.pt' -size -${MIN_PT_BYTES}c | wc -l)" -eq 0 ] || die "$ARM truncated cells"

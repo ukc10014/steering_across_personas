@@ -13,6 +13,9 @@
 # base model, the default would write them all into the base arm's directory and destroy it.
 # --output-dir is therefore passed explicitly and never omitted.
 set -uo pipefail
+# Mask protocol is explicit and has no default: it decides which caches this run may be
+# compared with (persona_steering/provenance.py). Use corrected for new work.
+MASK=${MASK:?set MASK=corrected or MASK=legacy}
 R=/workspace/repos/steering_across_personas
 RIG=/workspace/oct_rig
 LOGS=$RIG/logs
@@ -55,7 +58,7 @@ for ARM in $ARMS_TO_RUN; do
     echo "  qcache already exists -- skipping extraction"
   else
     # shellcheck disable=SC2086
-    python3 pipeline/2c_caa_activations.py --model "$BASE" $FLAGS \
+    python3 pipeline/2c_caa_activations.py --mask "$MASK" --model "$BASE" $FLAGS \
         --output-dir "$OUT" --batch-size 16 \
         > "$LOGS/stage_extract_$ARM.log" 2>&1 || die "extraction $ARM"
     n=$(ls "$OUT" 2>/dev/null | wc -l)
