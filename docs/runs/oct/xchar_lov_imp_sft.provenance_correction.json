@@ -1,0 +1,44 @@
+{
+  "corrects": "xchar_lov_imp_sft.json",
+  "corrected_utc": "2026-10-21T16:14:15+00:00",
+  "fields": [
+    "frozen_data",
+    "base_model"
+  ],
+  "reason": "scripts/oct_provenance.py records a fixed file list (default: the impulsiveness full-data pair) and a fixed base-model path unless told otherwise, and scripts/run_xchar_sft.sh passed neither. The original record is kept unmodified; this record supplies what the evidence shows was used. It does NOT indicate that the wrong corpus or start was trained.",
+  "original_frozen_data": {
+    "dpo/llama-3.1-8b-it/impulsiveness.jsonl": {
+      "sha256": "53c6a54c581e6c68660b039991ff5ab9a490f01bd1f382be2c099975230ffc91",
+      "bytes": 35301875
+    },
+    "sft_data/llama-3.1-8b-it/impulsiveness.jsonl": {
+      "sha256": "14f28fdad11c4120b9ff3144bd2db333299c388ca6075bb5bdbc310db886d58d",
+      "bytes": 52665003
+    }
+  },
+  "original_base_model": {
+    "path": "/workspace/oct_rig/models/llama-3.1-8b-it",
+    "revision": "0e9e39f249a16976918f6564b8830bc894c89659"
+  },
+  "corrected_training_data": {
+    "/workspace/oct_rig/data_xchar/impulsiveness_train.jsonl": {
+      "sha256": "06658cb5e15d0eeb2cc788968e498c8d8acd69cdeb34b5f326e49a374beeccf5",
+      "rows": 10519,
+      "subset_of": "/workspace/OpenCharacterTraining/data/sft_data/llama-3.1-8b-it/impulsiveness.jsonl",
+      "source_sha256": "14f28fdad11c4120b9ff3144bd2db333299c388ca6075bb5bdbc310db886d58d"
+    }
+  },
+  "corrected_start_model": "/workspace/oct_rig/models/xchar_folded/llama-3.1-8b-it-loving",
+  "evidence": {
+    "runner_hash_gate": "run_xchar_sft.sh: `sha256sum -c` of the plan's train_sha256 against the train file, immediately before launch; the chain log has no 'train file changed' abort",
+    "train_file_sha256_now": "06658cb5e15d0eeb2cc788968e498c8d8acd69cdeb34b5f326e49a374beeccf5",
+    "matches_plan": true,
+    "chain_log_banner": "2026-10-14T07:10:50Z  xchar_lov_imp: start llama-3.1-8b-it-loving  corpus impulsiveness  save_steps 82",
+    "trainer_dataset_line": "dataset: /workspace/oct_rig/data_xchar/impulsiveness_train.jsonl",
+    "start_weights_hash_file": "/workspace/oct_rig/logs/xchar_xchar_lov_imp_start_hashes_before.txt",
+    "start_weights_unchanged_by_training": true,
+    "start_shard_sha256_recorded": "35f00d012e19aa6a3363b43b5aa3b4fcb5446f7005652696a0f1993de70929e5",
+    "start_shard_sha256_now": "35f00d012e19aa6a3363b43b5aa3b4fcb5446f7005652696a0f1993de70929e5",
+    "start_shard_matches": true
+  }
+}

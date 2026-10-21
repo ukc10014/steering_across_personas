@@ -68,7 +68,8 @@ for ARM in $ARMS; do
   banner "$ARM: start $(basename "$START")  corpus $C  save_steps $SAVE_STEPS"
   python3 "$R/scripts/oct_provenance.py" --run "$ARM" --stage sft \
     --cmd "scripts/run_xchar_sft.sh ARMS=$ARM" \
-    --notes "xchar pilot, docs/spec_xchar_sft.md. start=$START corpus=$DATA (1 epoch, token-budgeted)" >/dev/null
+    --notes "xchar pilot, docs/spec_xchar_sft.md. start=$START corpus=$DATA (1 epoch, token-budgeted)" \
+    --data "$DATA" --start-model "$START" >/dev/null
   (cd "$HOME" && deepspeed --module openrlhf.cli.train_sft \
     --save_path "$SAVE" \
     --ckpt_path "$CK" \

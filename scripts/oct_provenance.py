@@ -65,6 +65,21 @@ def versions() -> dict:
     return out
 
 
+def _resolve(f: str) -> Path:
+    return Path(f) if Path(f).is_absolute() else DATA / f
+
+
+def _launcher_sha(cmd: str) -> dict:
+    """sha256 of any script the command names that exists under OCT or this repo."""
+    out = {}
+    for tok in cmd.split():
+        for root in (OCT, REPO, Path("/")):
+            p = (root / tok) if not tok.startswith("/") else Path(tok)
+            if tok.endswith((".sh", ".py")) and p.is_file():
+                out[tok] = sha256(p); break
+    return out
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", required=True, help="run id, e.g. repro-123456 or seed2")
@@ -78,13 +93,16 @@ def main() -> None:
     ap.add_argument("--cmd", default="", help="the exact command line being run")
     ap.add_argument("--notes", default="")
     ap.add_argument("--out-dir", default=str(REPO / "docs" / "runs" / "oct"))
-    # Default is the impulsiveness frozen pair, for the historical runs. Any other constitution
-    # MUST pass its own files: without this flag the traj-loving manifests recorded the
-    # impulsiveness hashes (corrected in docs/runs/oct/traj-loving_*.provenance_correction.json).
-    ap.add_argument("--data", nargs="+", default=FROZEN,
-                    help="data files (relative to OCT/data) whose sha256 to record")
+    # REQUIRED, no default. A default of the impulsiveness pair made the traj-loving and all four
+    # xchar manifests record impulsiveness hashes (corrected in docs/runs/oct/*.provenance_correction.json).
+    ap.add_argument("--data", nargs="+", required=True,
+                    help="training-input files whose sha256 to record: paths relative to OCT/data or "
+                         "absolute; 'none' for a stage with no data input (fold, merge)")
+    ap.add_argument("--start-model", default=None,
+                    help="weights this stage starts from, if not the pipeline base (e.g. a folded model)")
     a = ap.parse_args()
 
+    data = [] if a.data == ["none"] else a.data
     man = {
         "run": a.run, "stage": a.stage,
         "utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -99,9 +117,17 @@ def main() -> None:
             "path": "/workspace/oct_rig/models/llama-3.1-8b-it",
             "revision": Path("/workspace/oct_rig/models/llama-3.1-8b-it").resolve().name,
         },
-        "frozen_data": {f: {"sha256": sha256(DATA / f), "bytes": (DATA / f).stat().st_size}
-                        for f in a.data if (DATA / f).exists()},
-        "frozen_data_missing": [f for f in a.data if not (DATA / f).exists()],
+        "start_model": a.start_model,
+        "frozen_data": {f: {"sha256": sha256(_resolve(f)), "bytes": _resolve(f).stat().st_size}
+                        for f in data if _resolve(f).exists()},
+        "frozen_data_missing": [f for f in data if not _resolve(f).exists()],
+        # oct_dirty alone could not reproduce a run; keep the diff and the untracked files' hashes
+        "oct_diff_sha256": hashlib.sha256(sh("git", "diff", "HEAD", cwd=OCT).encode()).hexdigest(),
+        "oct_diff": sh("git", "diff", "HEAD", cwd=OCT)[:200_000],
+        "oct_untracked": {f: sha256(OCT / f) for f in sh("git", "ls-files", "--others", "--exclude-standard",
+                                                            cwd=OCT).splitlines()
+                          if f and "__pycache__" not in f and (OCT / f).is_file()},
+        "launcher_sha256": _launcher_sha(a.cmd),
         "assumptions": [
             "loras/llama-test is a symlink to loras/llama-introspection; merge_loras.py:38 "
             "reads llama-test but nothing in the public repo writes it. If this reproduction "
