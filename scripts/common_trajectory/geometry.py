@@ -48,47 +48,45 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common_shift import load_arm, cell, make_preps, stats_for_trait   # noqa: E402
 from geometry_lib import batch_vectors, half_splits, bootstrap_half_splits  # noqa: E402
 from states import trajectory                                          # noqa: E402
+from estimability import RAW, QUANTITIES, quantities, summarise          # noqa: E402
+from common_shift import load_arms_checked                             # noqa: E402
 
-QTY = ["g", "S", "Ecommon", "Eresid", "cosT", "gS", "SS", "EcommonS", "EresidS", "cosS", "Q"]
+QTY = list(QUANTITIES)
 
 
 def raw_stats(prep_ref, prep_d: dict, splits, final: str):
-    """Cross-fitted accumulators, the formulas of common_shift.stats_for_trait, kept raw."""
+    """Cross-fitted accumulators, the formulas of common_shift.stats_for_trait, kept raw.
+
+    All halves of all splits go through ONE batch_vectors GEMM per arm: the per-split calls
+    re-read the (questions x personas*hidden) block 2*len(splits) times and were memory-bound
+    (~8 min per trait). Same weights, same sums; only floating-point summation order differs.
+    """
     arms = list(prep_d)
-    acc = {a: np.zeros(3) for a in arms}            # g2, dv2, <g(a), g(final)>
+    idx = [h for A, B in splits for h in (A, B)]
+    V = {a: batch_vectors(prep_d[a], idx) for a in arms}          # (2n, P, H)
+    dA = {a: V[a][0::2] for a in arms}; dB = {a: V[a][1::2] for a in arms}
+    gA = {a: dA[a].mean(1) for a in arms}; gB = {a: dB[a].mean(1) for a in arms}   # (n, H)
+    P = dA[arms[0]].shape[1]
+    acc = {a: np.array([float(np.einsum("sh,sh->", gA[a], gB[a])),
+                        float(np.einsum("sph,sph->", dA[a], dB[a]) / P),
+                        0.5 * (float(np.einsum("sh,sh->", gA[a], gB[final]))
+                               + float(np.einsum("sh,sh->", gB[a], gA[final])))]) for a in arms}
     bn = 0.0
-    for A, B in splits:
-        Vb = batch_vectors(prep_ref, [A, B]) if prep_ref is not None else None
-        dA = {a: batch_vectors(prep_d[a], [A])[0] for a in arms}
-        dB = {a: batch_vectors(prep_d[a], [B])[0] for a in arms}
-        gA = {a: dA[a].mean(0) for a in arms}; gB = {a: dB[a].mean(0) for a in arms}
-        P = dA[arms[0]].shape[0]
-        for a in arms:
-            acc[a] += [float(gA[a] @ gB[a]), float((dA[a] * dB[a]).sum() / P),
-                       0.5 * (float(gA[a] @ gB[final]) + float(gB[a] @ gA[final]))]
-        if Vb is not None:
-            bn += float(np.sqrt(np.maximum((Vb[0] * Vb[1]).sum(-1), 0)).mean())
+    if prep_ref is not None:
+        Vb = batch_vectors(prep_ref, idx)
+        bn = float(np.sqrt(np.maximum((Vb[0::2] * Vb[1::2]).sum(-1), 0)).mean(1).sum())
     n = len(splits)
     return {a: v / n for a, v in acc.items()}, bn / n
 
 
-def derive(tot, inc, bn, final):
-    """Raw accumulators -> the named quantities for every state (NaN where undefined)."""
-    out = {}
-    gf, gfS = tot[final][0], (inc[final][0] if inc else np.nan)
-    for a, (g2, dv2, gx) in tot.items():
-        r = {"g": np.sqrt(max(g2, 0.0)) / bn, "S": g2 / dv2 if dv2 > 0 else np.nan,
-             "Ecommon": g2 / bn ** 2, "Eresid": (dv2 - g2) / bn ** 2,
-             "cosT": gx / np.sqrt(max(g2, 1e-12) * max(gf, 1e-12))}
+def pack_raw(tot, inc, bn, arms) -> np.ndarray:
+    """Raw accumulators -> (n_arms, 7) in estimability.RAW order; incremental NaN for the DPO state."""
+    out = np.full((len(arms), len(RAW)), np.nan)
+    for j, a in enumerate(arms):
+        out[j, :3] = tot[a]
         if inc and a in inc:
-            g2s, dv2s, gxs = inc[a]
-            r.update({"gS": np.sqrt(max(g2s, 0.0)) / bn, "SS": g2s / dv2s if dv2s > 0 else np.nan,
-                      "EcommonS": g2s / bn ** 2, "EresidS": (dv2s - g2s) / bn ** 2,
-                      "cosS": gxs / np.sqrt(max(g2s, 1e-12) * max(gfS, 1e-12)),
-                      "Q": gxs / gfS if gfS > 0 else np.nan})
-        else:
-            r.update({k: np.nan for k in ("gS", "SS", "EcommonS", "EresidS", "cosS", "Q")})
-        out[a] = r
+            out[j, 3:6] = inc[a]
+        out[j, 6] = bn
     return out
 
 
@@ -100,19 +98,30 @@ def main():
     ap.add_argument("--bootstrap", type=int, default=200)
     ap.add_argument("--boot-splits", type=int, default=8)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--cache-dir", default=str(REPO / "outputs" / "_qcache"))
+    ap.add_argument("--base-arm", default="base",
+                    help="reference state for the TOTAL decomposition; must share the trajectory's "
+                         "mask protocol (e.g. a corrected-mask base re-extraction)")
+    ap.add_argument("--allow-mixed-mask", action="store_true",
+                    help="ONLY to reproduce the historical mixed-protocol numbers; recorded in the output")
+    ap.add_argument("--out-dir", default=str(REPO / "outputs/analysis/common_trajectory/v2"))
+    ap.add_argument("--tag", default="", help="suffix for output names, e.g. _synthbase")
     a = ap.parse_args()
-    cache = REPO / "outputs" / "_qcache"
+    cache = Path(a.cache_dir); outdir = Path(a.out_dir); outdir.mkdir(parents=True, exist_ok=True)
     traj = trajectory(a.constitution)
     arms = [s["arm"] for s in traj]
     dpo, final = arms[0], arms[-1]
     rng = np.random.default_rng(a.seed)
     res = {"constitution": a.constitution, "states": traj, "quantities": QTY,
            "estimator": "cross-fitted (common_shift.stats_for_trait formulas), 40 half-splits",
-           "bootstrap": a.bootstrap, "layers": {}}
+           "bootstrap": a.bootstrap, "base_arm": a.base_arm, "layers": {},
+           "estimability": "scripts/common_trajectory/estimability.py (VALID_MIN rule; no epsilon floors)"}
 
     for layer in a.layers:
-        base = load_arm(cache, "base", [15, 20], layer)
-        D = {arm: load_arm(cache, arm, [15, 20], layer) for arm in arms}
+        loaded, prov = load_arms_checked(cache, [a.base_arm, *arms], [15, 20], layer,
+                                         allow_mixed_mask=a.allow_mixed_mask)
+        res["provenance"] = prov
+        base = loaded.pop(a.base_arm); D = loaded
         traits = base["traits"]
         pidx = [base["personas"].index(p) for p in base["semantic"]]
         assert len(pidx) == 10 and not {"null", "nonsense"} & set(base["semantic"])
@@ -129,49 +138,44 @@ def main():
 
             tot, bnorm = raw_stats(ptot["base"], ptot["arms"], splits, final)
             inc, _ = raw_stats(None, pinc["arms"], splits, final)
-            pt = derive(tot, inc, bnorm, final)
-            # reuse check: identical to the established estimator on the same splits
+            praw = pack_raw(tot, inc, bnorm, arms)
+            pq = quantities(praw, len(arms) - 1)
+            # reuse check: identical to the established estimator on the same splits (where
+            # that estimator is defined: it floors negative common energy at 0)
             ref = stats_for_trait(ptot, splits, arms, naive=False)["per_arm"]
-            for x in arms:
-                assert np.isclose(pt[x]["g"], ref[x]["g_over_base"], rtol=1e-5), (t, x, "g")
-                assert np.isclose(pt[x]["S"], ref[x]["share_squared"], rtol=1e-5) or ref[x]["share_squared"] == 0, (t, x, "S")
-            L["point"][t] = {x: {k: float(v) for k, v in pt[x].items()} for x in arms}
+            for j, x in enumerate(arms):
+                assert np.isclose(pq["g"][j], ref[x]["g_over_base"], rtol=1e-5), (t, x, "g")
+                assert np.isclose(max(pq["S"][j], 0.0), ref[x]["share_squared"], rtol=1e-5, atol=1e-12), (t, x, "S")
+            L["point"][t] = praw
 
-            boot = np.full((a.bootstrap, len(arms), len(QTY)), np.nan)
+            boot = np.full((a.bootstrap, len(arms), len(RAW)), np.nan)
             for r in range(a.bootstrap):
                 bs = bootstrap_half_splits(nq, a.boot_splits, rng)
                 if not bs:
-                    continue
+                    continue          # a draw with too few distinct questions: stays NaN, counted below
                 tb, bnb = raw_stats(ptot["base"], ptot["arms"], bs, final)
                 ib, _ = raw_stats(None, pinc["arms"], bs, final)
-                d = derive(tb, ib, bnb, final)
-                boot[r] = [[d[x][k] for k in QTY] for x in arms]
+                boot[r] = pack_raw(tb, ib, bnb, arms)
             L["boot"][t] = boot
-            print(f"L{layer} {t}: S(dpo)={pt[dpo]['S']:.3f} S(final)={pt[final]['S']:.3f} "
-                  f"SS(final)={pt[final]['SS']:.3f} g(final)={pt[final]['g']:.3f}", flush=True)
+            print(f"L{layer} {t}: S(dpo)={pq['S'][0]:.3f} S(final)={pq['S'][-1]:.3f} "
+                  f"SS(final)={pq['SS'][-1]:.3f} g(final)={pq['g'][-1]:.3f}", flush=True)
 
         # summaries: per trait, the 8-trait unweighted mean, and the prespecified targets
-        summ = {}
         groups = {t: [t] for t in traits}
         groups["MEAN8"] = traits
         from states import TARGETS
         groups["TARGETS"] = TARGETS.get(a.constitution) or traits      # none prespecified -> 8-trait mean (A1)
-        for gname, ts in groups.items():
-            summ[gname] = {}
-            for j, x in enumerate(arms):
-                summ[gname][x] = {}
-                for k_i, k in enumerate(QTY):
-                    p = float(np.mean([L["point"][t][x][k] for t in ts]))
-                    b = np.mean([L["boot"][t][:, j, k_i] for t in ts], 0)
-                    b = b[np.isfinite(b)]
-                    summ[gname][x][k] = {"point": p,
-                                         "lo": float(np.percentile(b, 2.5)) if len(b) else None,
-                                         "hi": float(np.percentile(b, 97.5)) if len(b) else None}
-        res["layers"][str(layer)] = {"traits": traits, "personas": L["personas"], "summary": summ}
-        np.savez_compressed(REPO / f"outputs/analysis/common_trajectory/geometry_boot_{a.constitution}_L{layer}.npz",
-                            **{t: L["boot"][t] for t in traits}, arms=np.array(arms), qty=np.array(QTY))
+        nboot_ok = {t: int(np.isfinite(L["boot"][t][:, 0, 0]).sum()) for t in traits}
+        summ = summarise(L["point"], {t: L["boot"][t][np.isfinite(L["boot"][t][:, 0, 0])] for t in traits},
+                         arms, groups)
+        res["layers"][str(layer)] = {"traits": traits, "personas": L["personas"], "summary": summ,
+                                     "bootstrap_replicates_drawn": nboot_ok}
+        np.savez_compressed(outdir / f"geometry_raw_{a.constitution}_L{layer}{a.tag}.npz",
+                            **{f"point_{t}": L["point"][t] for t in traits},
+                            **{f"boot_{t}": L["boot"][t] for t in traits},
+                            arms=np.array(arms), raw=np.array(RAW))
 
-    out = REPO / f"outputs/analysis/common_trajectory/geometry_{a.constitution}.json"
+    out = outdir / f"geometry_{a.constitution}{a.tag}.json"
     out.write_text(json.dumps(res, indent=1))
     print("wrote", out)
 
