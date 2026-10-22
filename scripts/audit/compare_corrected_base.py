@@ -107,16 +107,18 @@ def doses(out, md, missing):
             if new is None or old is None:
                 missing.append(f"dose {c} {kind}"); continue
             r[kind] = {L: {a: {"legacy": old[L][a]["trait_vector_displacement"], "cm": new[L][a]["trait_vector_displacement"]}
-                           for a in new[L] if a in old.get(L, {})} for L in ("15", "20") if L in new}
+                           for a in new[L] if a in old.get(L, {})} for L in ("15", "20") if L in new and L in old}
         out["dose"][c] = r
         if "trajectory" in r and "ladder" in r:
-            rat = {L: [v["cm"] / v["legacy"] for v in r["trajectory"][L].values()] for L in ("15", "20")}
-            lr = {L: ([min(v["legacy"] for v in r["ladder"][L].values()), max(v["legacy"] for v in r["ladder"][L].values())],
-                      [min(v["cm"] for v in r["ladder"][L].values()), max(v["cm"] for v in r["ladder"][L].values())])
-                  for L in ("15", "20")}
-            md.append(f"| {c} | trajectory | {min(rat['15']):.4f}–{max(rat['15']):.4f} | {min(rat['20']):.4f}–{max(rat['20']):.4f} | "
-                      f"{lr['15'][0][0]:.3f}–{lr['15'][0][1]:.3f} → {lr['15'][1][0]:.3f}–{lr['15'][1][1]:.3f} | "
-                      f"{lr['20'][0][0]:.3f}–{lr['20'][0][1]:.3f} → {lr['20'][1][0]:.3f}–{lr['20'][1][1]:.3f} |")
+            def rng_(kind, L, col):
+                v = [x[col] for x in r[kind].get(L, {}).values()]
+                return f"{min(v):.3f}–{max(v):.3f}" if v else "—"
+            def rat(L):
+                v = [x["cm"] / x["legacy"] for x in r["trajectory"].get(L, {}).values()]
+                return f"{min(v):.4f}–{max(v):.4f}" if v else "— (no legacy file)"
+            md.append(f"| {c} | trajectory | {rat('15')} | {rat('20')} | "
+                      f"{rng_('ladder', '15', 'legacy')} → {rng_('ladder', '15', 'cm')} | "
+                      f"{rng_('ladder', '20', 'legacy')} → {rng_('ladder', '20', 'cm')} |")
     md.append("")
 
 
