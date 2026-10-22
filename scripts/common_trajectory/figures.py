@@ -225,8 +225,8 @@ def main():
                        for k, e in (("DPO", 0.0), ("0.5", 0.5), ("1", 1.0), ("3", 3.0))}})
         fig.suptitle("Behavioural profile and persona-common geometry along the native sequential DPO+SFT trajectory"
                      + (" " if full else "\n")
-                     + "(L15; 95% question-bootstrap CIs; one training seed per constitution"
-                     + (f"; geometry base {g.get('base_arm', 'base')}" if a.geometry_tag is not None else "")
+                     + "(L15; 95% question-bootstrap CIs; one training seed per constitution" + ("" if full else ";\n")
+                     + ((("; " if full else "") + f"geometry base {g.get('base_arm', 'base')}") if a.geometry_tag is not None else "")
                      + ("; behaviour on the geometry's 10 occupational personas" if a.behaviour_tag == "_10personas" else "")
                      + ")", fontsize=10.5, x=0.01, ha="left")
         name = ("fig_trajectory" if full else f"fig_trajectory_{panels}") + ("" if xmode == "epoch" else "_dose") + a.out_tag
