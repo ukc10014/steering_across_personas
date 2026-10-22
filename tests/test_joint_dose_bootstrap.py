@@ -79,3 +79,20 @@ def test_dose_matches_direct_computation_on_draw():
     d = dose_cells(prepare_diff(bp, bn), {"a": prepare_diff(ap_ - bp, an - bn)}, [idx])["a"][0]
     vb = bp[:, idx].mean(1) - bn[:, idx].mean(1); va = ap_[:, idx].mean(1) - an[:, idx].mean(1)
     np.testing.assert_allclose(d, np.linalg.norm(va - vb, axis=-1) / np.linalg.norm(vb, axis=-1), rtol=1e-4)
+
+
+def test_registry_archive_identity_makes_embedded_and_registry_caches_comparable():
+    """A registry-backed corrected cache and an embedded-record cache with the archive's hashes
+    compare; a different question hash is still refused."""
+    from persona_steering.provenance import ProvenanceError, assert_comparable, cache_provenance
+    reg = {"archive_identity": {"questions_sha": "q1", "personas_sha": "p1"},
+           "entries": [{"pattern": "*_traj_*", "mask": "corrected", "confidence": "inferred"}]}
+    old = cache_provenance(object(), "x_traj_dpo", reg)
+    emb = {"mask": "corrected", "questions_sha": "q1", "personas_sha": "p1", "variant": 0,
+           "max_questions": None, "answer_token_rule": "find_answer_token_position/v1"}
+    assert_comparable({"a": old, "b": emb})
+    with pytest.raises(ProvenanceError):
+        assert_comparable({"a": old, "b": {**emb, "questions_sha": "q2"}})
+    no_ident = cache_provenance(object(), "x_traj_dpo", {"entries": reg["entries"]})
+    with pytest.raises(ProvenanceError):
+        assert_comparable({"a": no_ident, "b": emb})

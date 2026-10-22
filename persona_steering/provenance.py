@@ -159,11 +159,17 @@ def cache_provenance(npz, arm: str, registry: dict | None = None) -> dict:
             f"qcache {arm!r} has no embedded provenance and the registry "
             f"{'has no entry for it' if e is None else 'marks its mask ' + repr(e.get('mask'))}. "
             "Its extraction protocol is unverified; it cannot be compared with anything.")
-    return {"mask": e["mask"], "questions_sha": e.get("questions_sha", "archive-500q/v1"),
-            "personas_sha": e.get("personas_sha", "archive-12p/v1"), "variant": 0,
+    # The archive's question/persona identity: concrete hashes where the registry records the
+    # (inferred, git-history) equivalence, so registry-backed caches compare with embedded ones;
+    # otherwise the symbolic labels, which match only each other.
+    ident = (registry or load_registry()).get("archive_identity", {})
+    return {"mask": e["mask"],
+            "questions_sha": e.get("questions_sha", ident.get("questions_sha", "archive-500q/v1")),
+            "personas_sha": e.get("personas_sha", ident.get("personas_sha", "archive-12p/v1")), "variant": 0,
             "max_questions": None, "answer_token_rule": "find_answer_token_position/v1",
             "_source": f"registry:{e['pattern']}", "_evidence": e.get("evidence"),
-            "_confidence": e.get("confidence")}
+            "_confidence": e.get("confidence"),
+            "_identity_source": "registry archive_identity (inferred)" if ident else "symbolic archive labels"}
 
 
 def assert_comparable(provs: dict[str, dict], *, require_mask: str | None = None,
