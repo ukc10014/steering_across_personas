@@ -60,7 +60,12 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--n-boot", type=int, default=2000)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--plot-only", action="store_true",
+                    help="redraw the figure from the saved signed.json (no recomputation)")
     a = ap.parse_args()
+    if a.plot_only:
+        plot(json.loads((OUT / "signed.json").read_text()))
+        return
 
     states = ["xchar_lov_start", "loving"] + [f"{c}_{f}" for c in CONDS for f in FRACS]
     present = [s for s in states if (REPO / "outputs" / f"{TAG}-{s}" / SUB).is_dir()
@@ -208,12 +213,16 @@ def plot(res):
     INK, MUTED, GRID = "#1f1f1e", "#6b6a65", "#e4e3de"
     HUE = {"imp": "#eb6834", "lov": "#2a78d6"}               # palette slots 2, 1 (validated pair)
     STYLE = {"lov": "-", "base": "--"}
-    LABEL = {"xchar_lov_imp": "loving → impulsiveness", "xchar_lov_lov": "loving → loving",
-             "xchar_base_imp": "base → impulsiveness", "xchar_base_lov": "base → loving"}
+    MARK = {"lov": "o", "base": "s"}
+    LABEL = {"xchar_lov_imp": "loving start → impulsiveness corpus", "xchar_lov_lov": "loving start → loving corpus",
+             "xchar_base_imp": "base start → impulsiveness corpus", "xchar_base_lov": "base start → loving corpus"}
+    # Checkpoints are optimizer-step fractions (audit 2026-10-21 §5.2): impulsiveness corpus
+    # steps 82/164/328, loving corpus 92/184/367 = 25.2-25.3 % / 50.2 % / 100 % of supervised tokens.
     x = {"start": 0, "s25": 25, "s50": 50, "s100": 100}
+    DX = {"xchar_lov_imp": -1.2, "xchar_base_imp": -0.4, "xchar_lov_lov": 0.4, "xchar_base_lov": 1.2}
     panels = [("impulsivity", "acquisition"), ("risk_taking", "acquisition"),
               ("empathy", "retention"), ("warmth", "retention")]
-    fig, axes = plt.subplots(1, 4, figsize=(15, 4.2), sharey=True)
+    fig, axes = plt.subplots(1, 4, figsize=(15, 4.4), sharey=True)
     for ax, (t, role) in zip(axes, panels):
         for c in CONDS:
             start, corpus = c.split("_")[1], c.split("_")[2]
@@ -222,15 +231,18 @@ def plot(res):
                     if f"{c}_{f}" in res["levels"]]
             if not pts:
                 continue
-            xs = [p[0] for p in pts]
+            xs = [p[0] + DX[c] for p in pts]          # small offsets so coincident points stay visible
             ys = [p[1]["point"] for p in pts]
-            ax.fill_between(xs, [p[1]["ci_lo"] for p in pts], [p[1]["ci_hi"] for p in pts],
-                            color=HUE[corpus], alpha=0.12, linewidth=0)
-            ax.plot(xs, ys, STYLE[start], color=HUE[corpus], linewidth=2, marker="o",
-                    markersize=5, markeredgecolor="white", markeredgewidth=1.5, label=LABEL[c])
+            ax.errorbar(xs, ys, yerr=[[y - p[1]["ci_lo"] for y, p in zip(ys, pts)],
+                                      [p[1]["ci_hi"] - y for y, p in zip(ys, pts)]],
+                        fmt="none", ecolor=HUE[corpus], elinewidth=1, alpha=0.6, capsize=0)
+            ax.plot(xs, ys, STYLE[start], color=HUE[corpus], linewidth=2, marker=MARK[start],
+                    markersize=5.5, markerfacecolor=HUE[corpus] if start == "lov" else "white",
+                    markeredgecolor=HUE[corpus], markeredgewidth=1.5, label=LABEL[c])
         ax.axhline(0, color=MUTED, linewidth=0.8)
         ax.set_title(f"{t.replace('_', '-')}  ({role})", color=INK, fontsize=11, loc="left")
-        ax.set_xticks([0, 25, 50, 100]); ax.set_xlabel("% of token budget", color=MUTED)
+        ax.set_xticks([0, 25, 50, 100]); ax.set_xticklabels(["start", "25 %", "50 %", "100 %"])
+        ax.set_xlabel("optimizer steps completed (one pass)", color=MUTED)
         ax.grid(axis="y", color=GRID, linewidth=0.8); ax.set_axisbelow(True)
         for sp in ("top", "right"):
             ax.spines[sp].set_visible(False)
@@ -240,10 +252,14 @@ def plot(res):
     axes[0].set_ylabel("offset a vs unadapted base (log-odds)", color=MUTED)
     h, l = axes[0].get_legend_handles_labels()
     fig.legend(h, l, loc="lower center", ncol=4, frameon=False, fontsize=10, labelcolor=INK)
-    fig.suptitle("Trait acquisition and retention over SFT -- forced-choice offsets, 95% question-bootstrap CI "
-                 "(evaluation uncertainty only; one training seed)", color=INK, fontsize=11, x=0.01, ha="left")
-    fig.tight_layout(rect=(0, 0.08, 1, 0.95))
-    fig.savefig(OUT / "acquisition_retention.png", dpi=150)
+    fig.suptitle("Trait acquisition and retention over SFT -- forced-choice offsets (11 personas), 95% question-bootstrap CI "
+                 "(evaluation uncertainty only; one training seed)\n"
+                 "x: % of optimizer steps -- impulsiveness corpus 82 / 164 / 328 steps, loving corpus 92 / 184 / 367 steps "
+                 "(25.2-25.3 % / 50.2 % / 100 % of supervised tokens); points offset horizontally for legibility",
+                 color=INK, fontsize=10, x=0.01, ha="left")
+    fig.tight_layout(rect=(0, 0.08, 1, 0.92))
+    # new name: the reported figure (token-budget labels) is kept as it was
+    fig.savefig(OUT / "acquisition_retention_steps.png", dpi=150)
 
 
 if __name__ == "__main__":
