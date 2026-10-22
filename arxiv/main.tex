@@ -1,6 +1,8 @@
-\documentclass[11pt]{article}
+\documentclass{article}
 
-\usepackage[review]{acl}
+% Single-column arXiv layout using the ICLR style (ACL two-column kept in ../ACL/).
+\usepackage{iclr2027_conference}
+\iclrfinalcopy  % no margin line numbers; header text is cleared after \maketitle
 \usepackage{times}
 \usepackage{latexsym}
 \usepackage[T1]{fontenc}
@@ -8,6 +10,9 @@
 \DeclareUnicodeCharacter{2212}{\ensuremath{-}}  % Unicode minus pasted from reports
 \DeclareUnicodeCharacter{03B1}{\ensuremath{\alpha}}
 \usepackage{inconsolata}
+\usepackage{url}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black}
 
 \usepackage{amsmath,amssymb}
 \usepackage{booktabs}
@@ -134,6 +139,7 @@ Source branches: \texttt{exp/common-trajectory} (b52c40b), \texttt{exp/xchar-sft
 % ===== END TO-DO PAGE =====
 
 \maketitle
+\lhead{}\renewcommand{\headrulewidth}{0pt}  % drop the ICLR "Published as..." running header
 
 \begin{abstract}
 
@@ -292,6 +298,7 @@ LLMs were used for experiment code writing, data analysis, chart production, and
 This paper uses the misalignment adapters from \citet{maiya2025opencharactertrainingshaping}. Following the prior authors' practice, and owing to potential for misuse of those adapters, if this paper is accepted and the repositories become public, they will be gated.
 
 
+\bibliographystyle{plainnat}
 \bibliography{references}
 
 \appendix
@@ -1184,6 +1191,8 @@ Uncertainty & Question-clustered paired bootstrap, 5{,}000 draws, with the same 
 \end{table}
 
 \subsection{Results}
+\newtext{TODO: write something to introduce table...}
+
 
 \begin{figure*}[t]
     \centering
@@ -1313,7 +1322,7 @@ Preregistered: the loving and sycophancy target traits (empathy and warmth; defe
 \footnotesize
 \caption{Figure provenance: the PDF, the script that draws it, and the CSV of plotted values.}
 \label{tab:provenance}
-\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.31\textwidth}>{\raggedright\arraybackslash}p{0.31\textwidth}>{\raggedright\arraybackslash}p{0.23\textwidth}@{}}
+\begin{tabular}{@{}l>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.23\textwidth}@{}}
 \toprule
 & Figure & Script & Plotted values \\
 \midrule
