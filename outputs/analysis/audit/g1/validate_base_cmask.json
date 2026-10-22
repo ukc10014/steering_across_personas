@@ -1,0 +1,75 @@
+{
+ "arm": "base_cmask",
+ "shape": [
+  8,
+  12,
+  2,
+  500,
+  2,
+  4096
+ ],
+ "dtype": "float16",
+ "nonfinite": 0,
+ "provenance": {
+  "schema": 1,
+  "mask": "corrected",
+  "model": "/workspace/hf/hub/models--meta-llama--Llama-3.1-8B-Instruct/snapshots/0e9e39f249a16976918f6564b8830bc894c89659",
+  "adapters": [],
+  "questions_sha": "5b6ba516b118e9ca",
+  "n_questions": {
+   "assertiveness": 500,
+   "confidence": 500,
+   "deference": 500,
+   "empathy": 499,
+   "honesty": 500,
+   "impulsivity": 500,
+   "risk_taking": 500,
+   "warmth": 500
+  },
+  "personas_sha": "582b5fb0eaf18d85",
+  "personas": [
+   "con_artist",
+   "drill_sergeant",
+   "farmer",
+   "kindergarten_teacher",
+   "nonsense",
+   "null",
+   "politician",
+   "professor",
+   "street_hustler",
+   "surgeon",
+   "tech_ceo",
+   "therapist"
+  ],
+  "variant": 0,
+  "max_questions": null,
+  "batch_size": 16,
+  "dtype": "bfloat16",
+  "answer_token_rule": "find_answer_token_position/v1",
+  "extractor": {
+   "file": "pipeline/2c_caa_activations.py",
+   "sha": "d2a5d7d9be16767f",
+   "commit": "ffb7950bcf759b36a30efc9f6c6c118acb83d80c",
+   "dirty_files": [
+    "scripts/audit/validate_g1_cache.py"
+   ]
+  }
+ },
+ "caa_prompts_last_commit": "6108e23 2026-03-10 16:28:52 +0000",
+ "vs_legacy": {
+  "L15": {
+   "cos_cellmean_vs_legacy_min": 0.9976445908205008,
+   "cos_cellmean_vs_legacy_median": 0.9985195855629769,
+   "reldiff_cellmean_vs_legacy_median": 0.05455945894984046,
+   "reldiff_max": 0.0686051916530159
+  },
+  "L20": {
+   "cos_cellmean_vs_legacy_min": 0.9972468388989635,
+   "cos_cellmean_vs_legacy_median": 0.9985221607155532,
+   "reldiff_cellmean_vs_legacy_median": 0.05453973751752855,
+   "reldiff_max": 0.07415823989750056
+  }
+ },
+ "fails": [],
+ "ok": true
+}

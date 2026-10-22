@@ -1,0 +1,2463 @@
+{
+ "constitution": "loving",
+ "base_arm": "base_cmask",
+ "trajectory_arms": [
+  "loving_traj_dpo",
+  "loving_traj_seq_step90",
+  "loving_traj_seq_step180",
+  "loving_traj_seq_step285",
+  "loving_traj_seq_step375",
+  "loving_traj_seq_stepfinal"
+ ],
+ "ladder_arms": [
+  "loving_traj_dpo",
+  "loving_traj_ladder_d_s0.8",
+  "loving_traj_ladder_d_s0.9",
+  "loving_traj_ladder_d_s1.1",
+  "loving_traj_ladder_d_s1.25",
+  "loving_traj_ladder_d_s1.4"
+ ],
+ "epoch": [
+  0.0,
+  0.24,
+  0.48,
+  0.76,
+  1.0,
+  3.0
+ ],
+ "step": [
+  0,
+  90,
+  180,
+  285,
+  375,
+  1125
+ ],
+ "bootstrap": 1000,
+ "boot_splits": 8,
+ "half_splits": 40,
+ "seed": 0,
+ "valid_min": 0.975,
+ "rules": "(fixed before running; the estimability convention of common_trajectory/estimability.py):\n  - No extrapolation. A replicate whose trajectory dose falls outside its own ladder range is\n    UNBRACKETED. A replicate where a ratio's denominator energy is <= 0 for any arm used is\n    INVALID. Both are counted and reported, never dropped silently.\n  - An excess is reported (point + 95 % percentile interval over the defined replicates) iff\n    its point estimate is defined AND >= 97.5 % of replicates are defined. Otherwise point and\n    interval are withheld and the fractions are reported, with the reason.\n  - S has two estimands, kept apart: MEAN8/TARGETS per-trait mean of S (the original) and\n    the energy-pooled S (sum of bn-normalised common energy / sum of total energy).\n  - Behaviour excess uses the L15 dose (as control_dose.py), over the ten semantic personas\n    (primary, as the geometry) and the historical eleven (incl. null), labelled separately.",
+ "layers": {
+  "15": {
+   "traits": [
+    "assertiveness",
+    "empathy",
+    "risk_taking",
+    "honesty",
+    "confidence",
+    "deference",
+    "warmth",
+    "impulsivity"
+   ],
+   "targets": [
+    "empathy",
+    "warmth"
+   ],
+   "dose_point": {
+    "loving_traj_dpo": 0.6448720693588257,
+    "loving_traj_seq_step90": 0.5922957509756088,
+    "loving_traj_seq_step180": 0.6377884224057198,
+    "loving_traj_seq_step285": 0.6779774501919746,
+    "loving_traj_seq_step375": 0.741133376955986,
+    "loving_traj_seq_stepfinal": 0.7106745019555092,
+    "loving_traj_ladder_d_s0.8": 0.5187186487019062,
+    "loving_traj_ladder_d_s0.9": 0.5863671451807022,
+    "loving_traj_ladder_d_s1.1": 0.6939325332641602,
+    "loving_traj_ladder_d_s1.25": 0.7554338350892067,
+    "loving_traj_ladder_d_s1.4": 0.8075897395610809
+   },
+   "dose_ci": {
+    "loving_traj_dpo": [
+     0.6076001906767488,
+     0.6465258456766605
+    ],
+    "loving_traj_seq_step90": [
+     0.5527312532998622,
+     0.5933145636692643
+    ],
+    "loving_traj_seq_step180": [
+     0.5978767652995884,
+     0.6400276273488998
+    ],
+    "loving_traj_seq_step285": [
+     0.6345999993383884,
+     0.679716875217855
+    ],
+    "loving_traj_seq_step375": [
+     0.6895803537219762,
+     0.7418590186163783
+    ],
+    "loving_traj_seq_stepfinal": [
+     0.6648076198995113,
+     0.7120861738920212
+    ],
+    "loving_traj_ladder_d_s0.8": [
+     0.48998821442946794,
+     0.5212390317581594
+    ],
+    "loving_traj_ladder_d_s0.9": [
+     0.5534102355130017,
+     0.5884902590885759
+    ],
+    "loving_traj_ladder_d_s1.1": [
+     0.6538007603958249,
+     0.6957254381850362
+    ],
+    "loving_traj_ladder_d_s1.25": [
+     0.7109303606674076,
+     0.7574938984587789
+    ],
+    "loving_traj_ladder_d_s1.4": [
+     0.7588897125795484,
+     0.8095382522791624
+    ]
+   },
+   "ladder_dose_range_point": [
+    0.5187186487019062,
+    0.8075897395610809
+   ],
+   "series": {
+    "g_MEAN8": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.5156579751092991
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.04346297477640021,
+      "lo": 0.04138835661899698,
+      "hi": 0.06070213469622015,
+      "estimable": true,
+      "trajectory_value": 0.512801899289607
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.044863662550232775,
+      "lo": 0.04080008464561939,
+      "hi": 0.05917371541882539,
+      "estimable": true,
+      "trajectory_value": 0.5542810371056044
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.04775725990909652,
+      "lo": 0.04374796658563558,
+      "hi": 0.06255282364675435,
+      "estimable": true,
+      "trajectory_value": 0.5936977492145554
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.058534210472075965,
+      "lo": 0.05554561558827727,
+      "hi": 0.08028575672820319,
+      "estimable": true,
+      "trajectory_value": 0.664607169119601
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.058746537626339634,
+      "lo": 0.0544396425038679,
+      "hi": 0.07747958764582757,
+      "estimable": true,
+      "trajectory_value": 0.6354337492801169
+     }
+    ],
+    "g_TARGETS": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.5696028404689999
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.063882434157426,
+      "lo": 0.049095237560209296,
+      "hi": 0.10281112706583623,
+      "estimable": true,
+      "trajectory_value": 0.5837621602053386
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.04036184019826072,
+      "lo": 0.026180326425525504,
+      "hi": 0.06589232980635884,
+      "estimable": true,
+      "trajectory_value": 0.6032654480317494
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.061399688355881055,
+      "lo": 0.045151931558923046,
+      "hi": 0.09384673588191617,
+      "estimable": true,
+      "trajectory_value": 0.6614041446117265
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.09439397645207692,
+      "lo": 0.07290711568573166,
+      "hi": 0.1449465479507968,
+      "estimable": true,
+      "trajectory_value": 0.7534564002543236
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.08602115069960958,
+      "lo": 0.06456035271197692,
+      "hi": 0.13192919336747835,
+      "estimable": true,
+      "trajectory_value": 0.7164282483517304
+     }
+    ],
+    "S_MEAN8": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.5972125848893878
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.08925715375767362,
+      "lo": 0.08220382398753125,
+      "hi": 0.10055512868579786,
+      "estimable": true,
+      "trajectory_value": 0.6710123249604495
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0871497390762187,
+      "lo": 0.0794722481219003,
+      "hi": 0.09748777484736246,
+      "estimable": true,
+      "trajectory_value": 0.6822797349838907
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.08835109583029599,
+      "lo": 0.08164824178278901,
+      "hi": 0.09758646592582858,
+      "estimable": true,
+      "trajectory_value": 0.6964089854222189
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.09883050176071329,
+      "lo": 0.09391186097884166,
+      "hi": 0.10969878206159404,
+      "estimable": true,
+      "trajectory_value": 0.7299133937036094
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.10428460228936054,
+      "lo": 0.09747131343125237,
+      "hi": 0.11522121027324436,
+      "estimable": true,
+      "trajectory_value": 0.7238822993121206
+     }
+    ],
+    "S_TARGETS": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.5974500851855904
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.10568399342735257,
+      "lo": 0.09367560891119978,
+      "hi": 0.12330272734675303,
+      "estimable": true,
+      "trajectory_value": 0.6862075418015215
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.09190214965503019,
+      "lo": 0.0800090028805969,
+      "hi": 0.10690527381314795,
+      "estimable": true,
+      "trajectory_value": 0.6870717097944026
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.09944772422607762,
+      "lo": 0.08817546428792847,
+      "hi": 0.11507643085962277,
+      "estimable": true,
+      "trajectory_value": 0.708105173888476
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.11468832834244991,
+      "lo": 0.10374724655915353,
+      "hi": 0.13272882179384052,
+      "estimable": true,
+      "trajectory_value": 0.7458984471106964
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.11181979104870299,
+      "lo": 0.09914559089171214,
+      "hi": 0.129717653909655,
+      "estimable": true,
+      "trajectory_value": 0.7319621149227817
+     }
+    ],
+    "Spooled_MEAN8": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.5941940193173548
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.09352712529224427,
+      "lo": 0.08672371988877506,
+      "hi": 0.1083824468807385,
+      "estimable": true,
+      "trajectory_value": 0.6715447702984589
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.09048521564736833,
+      "lo": 0.08334365903974823,
+      "hi": 0.10322986954882103,
+      "estimable": true,
+      "trajectory_value": 0.6824997798768602
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.09300507897380861,
+      "lo": 0.08626150043621092,
+      "hi": 0.10581448508846622,
+      "estimable": true,
+      "trajectory_value": 0.6984929946502847
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.10376198843024309,
+      "lo": 0.09929696392213751,
+      "hi": 0.11850783586908127,
+      "estimable": true,
+      "trajectory_value": 0.7331736901987451
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.10832893740165206,
+      "lo": 0.10179985512637471,
+      "hi": 0.12350264944855963,
+      "estimable": true,
+      "trajectory_value": 0.7258149692051165
+     }
+    ],
+    "Spooled_TARGETS": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.5966569851380559
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.10624838326108332,
+      "lo": 0.09385826056137153,
+      "hi": 0.12426550945658474,
+      "estimable": true,
+      "trajectory_value": 0.685790815654972
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.09221063357276682,
+      "lo": 0.08069246246741993,
+      "hi": 0.1074521874686487,
+      "estimable": true,
+      "trajectory_value": 0.686561762136455
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.10008247698877404,
+      "lo": 0.08892160303436975,
+      "hi": 0.11626593366003675,
+      "estimable": true,
+      "trajectory_value": 0.7080736064884319
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.11497669307279279,
+      "lo": 0.10455669344515424,
+      "hi": 0.1337280014071215,
+      "estimable": true,
+      "trajectory_value": 0.7457636101025819
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.11223053493443658,
+      "lo": 0.09970077816648604,
+      "hi": 0.13174402234638813,
+      "estimable": true,
+      "trajectory_value": 0.7318322007968662
+     }
+    ]
+   },
+   "behaviour_10personas": {
+    "offset_assertiveness": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 1.1291766166687012
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.7513801310191686,
+      "lo": -0.8265291033186722,
+      "hi": -0.6673332573037128,
+      "estimable": true,
+      "trajectory_value": 0.2631314992904663
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.8053080123041043,
+      "lo": -0.8921436604742764,
+      "hi": -0.714591778840927,
+      "estimable": true,
+      "trajectory_value": 0.30841970443725586
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.9114394980869274,
+      "lo": -0.99880785703344,
+      "hi": -0.8211657093950633,
+      "estimable": true,
+      "trajectory_value": 0.2968372106552124
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.9277544884566882,
+      "lo": -1.0084215665442189,
+      "hi": -0.8345378935202631,
+      "estimable": true,
+      "trajectory_value": 0.41687506437301636
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -1.0856747583954454,
+      "lo": -1.1833077158237173,
+      "hi": -0.980995579386279,
+      "estimable": true,
+      "trajectory_value": 0.19556617736816406
+     }
+    ],
+    "offset_confidence": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.8124675750732422
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.1459548677701964,
+      "lo": 0.09953809890189691,
+      "hi": 0.20259901545091194,
+      "estimable": true,
+      "trajectory_value": 0.8887754082679749
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.46256232353251947,
+      "lo": 0.40559788829229104,
+      "hi": 0.518359026403195,
+      "estimable": true,
+      "trajectory_value": 1.2656463012099266
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.623638829918549,
+      "lo": 0.5573060506850475,
+      "hi": 0.690669596720989,
+      "estimable": true,
+      "trajectory_value": 1.4816740453243256
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.6271685838481218,
+      "lo": 0.566182840837418,
+      "hi": 0.6982619728612608,
+      "estimable": true,
+      "trajectory_value": 1.5701934397220612
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.5835117260277326,
+      "lo": 0.5113129488997028,
+      "hi": 0.6613248152348409,
+      "estimable": true,
+      "trajectory_value": 1.485864132642746
+     }
+    ],
+    "offset_deference": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.22633752971887589
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.17746308399722333,
+      "lo": -0.23129703343988614,
+      "hi": -0.1189747075405994,
+      "estimable": true,
+      "trajectory_value": 0.02049592137336731
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.29089448521082684,
+      "lo": -0.3528041463670715,
+      "hi": -0.22062292623836152,
+      "estimable": true,
+      "trajectory_value": -0.06838041543960571
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.09055672661217082,
+      "lo": -0.15867946852213444,
+      "hi": -0.019792378202100107,
+      "estimable": true,
+      "trajectory_value": 0.15127602219581604
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.08632829361478223,
+      "lo": -0.1556926011295426,
+      "hi": -0.011689948064861202,
+      "estimable": true,
+      "trajectory_value": 0.18082213401794434
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.08973831313431335,
+      "lo": -0.16595986792766323,
+      "hi": -0.011302022239189366,
+      "estimable": true,
+      "trajectory_value": 0.1658935844898224
+     }
+    ],
+    "offset_empathy": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 1.329368680715561
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.18052946202797804,
+      "lo": -0.23347376406049267,
+      "hi": -0.1106281202858451,
+      "estimable": true,
+      "trajectory_value": 1.032729059457779
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.29996438563876215,
+      "lo": -0.3591106691176653,
+      "hi": -0.22943725936275103,
+      "estimable": true,
+      "trajectory_value": 1.0137606859207153
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.1444098925994941,
+      "lo": -0.21140912700745743,
+      "hi": -0.06474229157909663,
+      "estimable": true,
+      "trajectory_value": 1.2616722583770752
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.07040638536533428,
+      "lo": -0.12851332502961105,
+      "hi": 0.014423944330587878,
+      "estimable": true,
+      "trajectory_value": 1.4817634522914886
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.08603701010584408,
+      "lo": -0.1607811709983586,
+      "hi": 0.01430818853460447,
+      "estimable": true,
+      "trajectory_value": 1.3957200348377228
+     }
+    ],
+    "offset_honesty": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.6648538112640381
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.38152932145764296,
+      "lo": -0.44937871240948124,
+      "hi": -0.30550463091760277,
+      "estimable": true,
+      "trajectory_value": 0.1999487280845642
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.4075699358881575,
+      "lo": -0.49068786278315185,
+      "hi": -0.31911453586170563,
+      "estimable": true,
+      "trajectory_value": 0.24605059623718262
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.33093262561910475,
+      "lo": -0.41969391234010717,
+      "hi": -0.23556424415818056,
+      "estimable": true,
+      "trajectory_value": 0.39171653985977173
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.40707245229284805,
+      "lo": -0.497946310743689,
+      "hi": -0.3014682495237803,
+      "estimable": true,
+      "trajectory_value": 0.42572885751724243
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.2907550955145496,
+      "lo": -0.39332596617273613,
+      "hi": -0.18226773714256922,
+      "estimable": true,
+      "trajectory_value": 0.48893916606903076
+     }
+    ],
+    "offset_impulsivity": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": -0.6249619126319885
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.511334733996021,
+      "lo": 0.444125285074513,
+      "hi": 0.5792157342330525,
+      "estimable": true,
+      "trajectory_value": -0.06079989671707153
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.6707010176945949,
+      "lo": 0.5963235665901555,
+      "hi": 0.7432756094005164,
+      "estimable": true,
+      "trajectory_value": 0.05285656452178955
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.6544710832173383,
+      "lo": 0.576274735017033,
+      "hi": 0.730974041005201,
+      "estimable": true,
+      "trajectory_value": 5.269050598144531e-05
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.7071333683800042,
+      "lo": 0.6243094350598437,
+      "hi": 0.7840263233981907,
+      "estimable": true,
+      "trajectory_value": 0.015582561492919922
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.544882293927549,
+      "lo": 0.4573617960356461,
+      "hi": 0.6335020244710203,
+      "estimable": true,
+      "trajectory_value": -0.1318678855895996
+     }
+    ],
+    "offset_risk_taking": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.3100769519805908
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.20533961904380238,
+      "lo": 0.15540061862612103,
+      "hi": 0.2626581105574423,
+      "estimable": true,
+      "trajectory_value": 0.4686902165412903
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.45713502621628116,
+      "lo": 0.400613869257372,
+      "hi": 0.5163776785500267,
+      "estimable": true,
+      "trajectory_value": 0.7609165012836456
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.5170068068049916,
+      "lo": 0.4570997650697808,
+      "hi": 0.5815257502535042,
+      "estimable": true,
+      "trajectory_value": 0.8580487072467804
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.519067773390827,
+      "lo": 0.46031727187986354,
+      "hi": 0.5865152858488178,
+      "estimable": true,
+      "trajectory_value": 0.9171933531761169
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.3373404730487283,
+      "lo": 0.26861194515302844,
+      "hi": 0.4093281271584357,
+      "estimable": true,
+      "trajectory_value": 0.7082599401473999
+     }
+    ],
+    "offset_warmth": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 1.159316211938858
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.28200032434764144,
+      "lo": -0.33731903072493147,
+      "hi": -0.21305146943707312,
+      "estimable": true,
+      "trajectory_value": 0.7735231220722198
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.27281138970890195,
+      "lo": -0.34205927499033384,
+      "hi": -0.20204251568509854,
+      "estimable": true,
+      "trajectory_value": 0.8725207448005676
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.16170175875902082,
+      "lo": -0.23353757868414157,
+      "hi": -0.08918092995026662,
+      "estimable": true,
+      "trajectory_value": 1.06732976436615
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.11076993748027819,
+      "lo": -0.1799496337993566,
+      "hi": -0.033619918103619646,
+      "estimable": true,
+      "trajectory_value": 1.2494716942310333
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.16120233370161308,
+      "lo": -0.24893858320012988,
+      "hi": -0.07646926455445252,
+      "estimable": true,
+      "trajectory_value": 1.1360506117343903
+     }
+    ],
+    "offset_LOV": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.8246840176482995
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.15664100724380714,
+      "lo": -0.20559430061445036,
+      "hi": -0.10190295465777581,
+      "estimable": true,
+      "trajectory_value": 0.6064191112915676
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.30082554334721656,
+      "lo": -0.355419783734285,
+      "hi": -0.2438461152536712,
+      "estimable": true,
+      "trajectory_value": 0.515555839985609
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.23008713728303687,
+      "lo": -0.2869288862068005,
+      "hi": -0.17130691545960328,
+      "estimable": true,
+      "trajectory_value": 0.6345668087402979
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.16262390996524534,
+      "lo": -0.21586103473172977,
+      "hi": -0.10106436669768465,
+      "estimable": true,
+      "trajectory_value": 0.7778850048780441
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.12354739289701211,
+      "lo": -0.18804711749893172,
+      "hi": -0.0541208539668597,
+      "estimable": true,
+      "trajectory_value": 0.7804428040981293
+     }
+    ]
+   },
+   "behaviour_11personas_historical": {
+    "offset_assertiveness": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 1.1234579682350159
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.7513897860334506,
+      "lo": -0.8230194085145487,
+      "hi": -0.6695978484310245,
+      "estimable": true,
+      "trajectory_value": 0.25989919900894165
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.7944094808005413,
+      "lo": -0.8780266166998826,
+      "hi": -0.7048296772197126,
+      "estimable": true,
+      "trajectory_value": 0.31393587589263916
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.9163394510163732,
+      "lo": -1.000956784398221,
+      "hi": -0.8296566847702697,
+      "estimable": true,
+      "trajectory_value": 0.28496670722961426
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.9487868304820362,
+      "lo": -1.0276441656136628,
+      "hi": -0.8592753562726002,
+      "estimable": true,
+      "trajectory_value": 0.3876429796218872
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -1.1223220030530523,
+      "lo": -1.2152404067807347,
+      "hi": -1.0224710062862166,
+      "estimable": true,
+      "trajectory_value": 0.151123046875
+     }
+    ],
+    "offset_confidence": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.7984651774168015
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.14237902005406844,
+      "lo": 0.09477394350932374,
+      "hi": 0.20064142593896994,
+      "estimable": true,
+      "trajectory_value": 0.8720328509807587
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.45784666509738026,
+      "lo": 0.4004173086540356,
+      "hi": 0.5142195030175897,
+      "estimable": true,
+      "trajectory_value": 1.2470408380031586
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.6066199893624111,
+      "lo": 0.5387498404339786,
+      "hi": 0.6750848288038721,
+      "estimable": true,
+      "trajectory_value": 1.4493213891983032
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.6118466489735377,
+      "lo": 0.5456335035703559,
+      "hi": 0.6839346293026763,
+      "estimable": true,
+      "trajectory_value": 1.5381022095680237
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.5728006395991421,
+      "lo": 0.49753832595134717,
+      "hi": 0.6556353402933506,
+      "estimable": true,
+      "trajectory_value": 1.4588959962129593
+     }
+    ],
+    "offset_deference": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.2329065129160881
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.1490650481480571,
+      "lo": -0.20213415735073564,
+      "hi": -0.09055074083096923,
+      "estimable": true,
+      "trajectory_value": 0.05865362286567688
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.2650103630028853,
+      "lo": -0.32674739607784836,
+      "hi": -0.19845360579890617,
+      "estimable": true,
+      "trajectory_value": -0.035497426986694336
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.04875411994766002,
+      "lo": -0.11484179526661106,
+      "hi": 0.01869179480572196,
+      "estimable": true,
+      "trajectory_value": 0.1973016858100891
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.02264630425523484,
+      "lo": -0.09187596863136815,
+      "hi": 0.04980148185365585,
+      "estimable": true,
+      "trajectory_value": 0.2437344491481781
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.009973116110375047,
+      "lo": -0.06707779003158017,
+      "hi": 0.08941724998649445,
+      "estimable": true,
+      "trajectory_value": 0.26732757687568665
+     }
+    ],
+    "offset_empathy": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 1.3245948255062103
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.12127831985222515,
+      "lo": -0.17647232899836335,
+      "hi": -0.052266974378673094,
+      "estimable": true,
+      "trajectory_value": 1.091818392276764
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.26255606953058863,
+      "lo": -0.3239554735769614,
+      "hi": -0.1898880807839818,
+      "estimable": true,
+      "trajectory_value": 1.0470165312290192
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.0981097624652627,
+      "lo": -0.167623663521784,
+      "hi": -0.017633844398737383,
+      "estimable": true,
+      "trajectory_value": 1.3003583252429962
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.01349399624717118,
+      "lo": -0.07518191639890631,
+      "hi": 0.07438466080284233,
+      "estimable": true,
+      "trajectory_value": 1.5247592329978943
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.03334853748965649,
+      "lo": -0.04561422089213955,
+      "hi": 0.13749100138368184,
+      "estimable": true,
+      "trajectory_value": 1.5043727159500122
+     }
+    ],
+    "offset_honesty": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.6759880781173706
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.3819331645564973,
+      "lo": -0.44914324601562094,
+      "hi": -0.304564255466437,
+      "estimable": true,
+      "trajectory_value": 0.21380186080932617
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.39348631754711794,
+      "lo": -0.47783692118001286,
+      "hi": -0.30588028008038104,
+      "estimable": true,
+      "trajectory_value": 0.27168920636177063
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.3161844317099629,
+      "lo": -0.40481609050039696,
+      "hi": -0.21775178449274582,
+      "estimable": true,
+      "trajectory_value": 0.4162437319755554
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.3894279707746331,
+      "lo": -0.48047888524946747,
+      "hi": -0.28107934167842685,
+      "estimable": true,
+      "trajectory_value": 0.4508730173110962
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.275831348613355,
+      "lo": -0.3844418279023403,
+      "hi": -0.1650062788068608,
+      "estimable": true,
+      "trajectory_value": 0.5124119520187378
+     }
+    ],
+    "offset_impulsivity": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": -0.6056950688362122
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.4683361093061722,
+      "lo": 0.39978222814967257,
+      "hi": 0.5386439126616365,
+      "estimable": true,
+      "trajectory_value": -0.08897536993026733
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.6340030073072539,
+      "lo": 0.560509140414425,
+      "hi": 0.7086551948143348,
+      "estimable": true,
+      "trajectory_value": 0.034826695919036865
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.6072959404088626,
+      "lo": 0.527967690120022,
+      "hi": 0.6873617372174883,
+      "estimable": true,
+      "trajectory_value": -0.02524268627166748
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.6558458094632171,
+      "lo": 0.5731809658035681,
+      "hi": 0.7358361331383034,
+      "estimable": true,
+      "trajectory_value": -0.009806632995605469
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.48980145567239475,
+      "lo": 0.40002562310262874,
+      "hi": 0.5820062627777731,
+      "estimable": true,
+      "trajectory_value": -0.16283094882965088
+     }
+    ],
+    "offset_risk_taking": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.2956099510192871
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.1702321277039935,
+      "lo": 0.12073186623857425,
+      "hi": 0.22648022569176438,
+      "estimable": true,
+      "trajectory_value": 0.4201301038265228
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.42128757627836094,
+      "lo": 0.36445074362857977,
+      "hi": 0.48105563404881263,
+      "estimable": true,
+      "trajectory_value": 0.7107387185096741
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.4721959086901004,
+      "lo": 0.4128150514013223,
+      "hi": 0.5374985777352539,
+      "estimable": true,
+      "trajectory_value": 0.7973301112651825
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.48068155415607006,
+      "lo": 0.4209964739542365,
+      "hi": 0.5518905377048787,
+      "estimable": true,
+      "trajectory_value": 0.8601952791213989
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.30281600521854235,
+      "lo": 0.22899663899781209,
+      "hi": 0.3804777761700914,
+      "estimable": true,
+      "trajectory_value": 0.6564205586910248
+     }
+    ],
+    "offset_warmth": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 1.1562230587005615
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.2432017486242104,
+      "lo": -0.29966624538893344,
+      "hi": -0.1719079173076586,
+      "estimable": true,
+      "trajectory_value": 0.8127904832363129
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.2442589129995929,
+      "lo": -0.3127031260498403,
+      "hi": -0.17325236909003347,
+      "estimable": true,
+      "trajectory_value": 0.8984599709510803
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.12377942790781304,
+      "lo": -0.1963803080644704,
+      "hi": -0.05197999381779589,
+      "estimable": true,
+      "trajectory_value": 1.0995720624923706
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.06307741325281935,
+      "lo": -0.13499365833770458,
+      "hi": 0.014278005751596237,
+      "estimable": true,
+      "trajectory_value": 1.2860298454761505
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.06520975963755915,
+      "lo": -0.15721978906191192,
+      "hi": 0.021466051087890906,
+      "estimable": true,
+      "trajectory_value": 1.2236239910125732
+     }
+    ],
+    "offset_LOV": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.8202868389586608
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.09866657729258943,
+      "lo": -0.1474175659035389,
+      "hi": -0.0416256731999847,
+      "estimable": true,
+      "trajectory_value": 0.6630473931630452
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.26344600582049926,
+      "lo": -0.3178029328990647,
+      "hi": -0.2050207740457449,
+      "estimable": true,
+      "trajectory_value": 0.5489492664734523
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.17841690115110098,
+      "lo": -0.23620962268027812,
+      "hi": -0.11804171347682321,
+      "estimable": true,
+      "trajectory_value": 0.6799783706665039
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.10287118926348204,
+      "lo": -0.15867043588187565,
+      "hi": -0.03966531433987104,
+      "estimable": true,
+      "trajectory_value": 0.8269376556078593
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": -0.012136921896292563,
+      "lo": -0.08099699040219537,
+      "hi": 0.0633860357801378,
+      "estimable": true,
+      "trajectory_value": 0.8834403231739998
+     }
+    ]
+   }
+  },
+  "20": {
+   "traits": [
+    "assertiveness",
+    "empathy",
+    "risk_taking",
+    "honesty",
+    "confidence",
+    "deference",
+    "warmth",
+    "impulsivity"
+   ],
+   "targets": [
+    "empathy",
+    "warmth"
+   ],
+   "dose_point": {
+    "loving_traj_dpo": 0.835021086037159,
+    "loving_traj_seq_step90": 0.7117289453744888,
+    "loving_traj_seq_step180": 0.7638706415891647,
+    "loving_traj_seq_step285": 0.7903546988964081,
+    "loving_traj_seq_step375": 0.8569991961121559,
+    "loving_traj_seq_stepfinal": 0.8050230741500854,
+    "loving_traj_ladder_d_s0.8": 0.6818445026874542,
+    "loving_traj_ladder_d_s0.9": 0.7649725526571274,
+    "loving_traj_ladder_d_s1.1": 0.8950768262147903,
+    "loving_traj_ladder_d_s1.25": 0.9717514514923096,
+    "loving_traj_ladder_d_s1.4": 1.0403171330690384
+   },
+   "dose_ci": {
+    "loving_traj_dpo": [
+     0.7712162900716066,
+     0.8282565219327808
+    ],
+    "loving_traj_seq_step90": [
+     0.6495465215295553,
+     0.706814443692565
+    ],
+    "loving_traj_seq_step180": [
+     0.6941437857225538,
+     0.7579584253951908
+    ],
+    "loving_traj_seq_step285": [
+     0.717733221501112,
+     0.7845100965350866
+    ],
+    "loving_traj_seq_step375": [
+     0.7717500137165189,
+     0.8468744477257133
+    ],
+    "loving_traj_seq_stepfinal": [
+     0.7304273672401905,
+     0.7994411868974567
+    ],
+    "loving_traj_ladder_d_s0.8": [
+     0.632029265537858,
+     0.678304068185389
+    ],
+    "loving_traj_ladder_d_s0.9": [
+     0.7079525915905833,
+     0.7597887864336371
+    ],
+    "loving_traj_ladder_d_s1.1": [
+     0.8247996153309941,
+     0.8867411209270358
+    ],
+    "loving_traj_ladder_d_s1.25": [
+     0.892670220322907,
+     0.9612020377069712
+    ],
+    "loving_traj_ladder_d_s1.4": [
+     0.9534351732581854,
+     1.02762368042022
+    ]
+   },
+   "ladder_dose_range_point": [
+    0.6818445026874542,
+    1.0403171330690384
+   ],
+   "series": {
+    "g_MEAN8": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.5842501077366706
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.05265685028423722,
+      "lo": 0.0425053240680241,
+      "hi": 0.08463877126046361,
+      "estimable": true,
+      "trajectory_value": 0.539723971646378
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.06549693982534388,
+      "lo": 0.052863127527574764,
+      "hi": 0.11102037814677254,
+      "estimable": true,
+      "trajectory_value": 0.5912441144136904
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.07070906766392293,
+      "lo": 0.05835405793002808,
+      "hi": 0.11609852531278664,
+      "estimable": true,
+      "trajectory_value": 0.618176061324329
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0830676668730872,
+      "lo": 0.07212741815947095,
+      "hi": 0.14238904088780535,
+      "estimable": true,
+      "trajectory_value": 0.6868551248723219
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.08248705058933847,
+      "lo": 0.06925860085278003,
+      "hi": 0.13028825280337783,
+      "estimable": true,
+      "trajectory_value": 0.6420335643275441
+     }
+    ],
+    "g_TARGETS": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.6365239031680625
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.05225292065640175,
+      "lo": 0.02880678530110756,
+      "hi": 0.10338159073088778,
+      "estimable": true,
+      "trajectory_value": 0.6004315827823941
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.027632385081646893,
+      "lo": 0.004151434248408273,
+      "hi": 0.08096714552860085,
+      "estimable": true,
+      "trajectory_value": 0.6119456018831779
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.049373615932605364,
+      "lo": 0.021092523235908444,
+      "hi": 0.10949467154812693,
+      "estimable": true,
+      "trajectory_value": 0.6530923490500757
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.07225326990122927,
+      "lo": 0.03334927827429287,
+      "hi": 0.15602194305629805,
+      "estimable": true,
+      "trajectory_value": 0.7250589897257647
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.06205340039969076,
+      "lo": 0.026857198915324277,
+      "hi": 0.1337336395402782,
+      "estimable": true,
+      "trajectory_value": 0.6765453026800587
+     }
+    ],
+    "S_MEAN8": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.46207490691322006
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.08670628378204742,
+      "lo": 0.07063655051149084,
+      "hi": 0.10904554943134087,
+      "estimable": true,
+      "trajectory_value": 0.5162524723785087
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0996415971128784,
+      "lo": 0.08074098659670349,
+      "hi": 0.12734579751012307,
+      "estimable": true,
+      "trajectory_value": 0.5402183973725305
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.10837123306943469,
+      "lo": 0.09307489249225646,
+      "hi": 0.13582361525742198,
+      "estimable": true,
+      "trajectory_value": 0.5568865331601331
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.11596274757810338,
+      "lo": 0.10306300440648432,
+      "hi": 0.1478577349069845,
+      "estimable": true,
+      "trajectory_value": 0.5860927724830567
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.12638561101527723,
+      "lo": 0.10962797510149859,
+      "hi": 0.15518815685003262,
+      "estimable": true,
+      "trajectory_value": 0.5793538658645129
+     }
+    ],
+    "S_TARGETS": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.47987300146819056
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.09219147731959487,
+      "lo": 0.07662862737651996,
+      "hi": 0.11803070538077377,
+      "estimable": true,
+      "trajectory_value": 0.5468491355387934
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0798550174156239,
+      "lo": 0.05877701742157417,
+      "hi": 0.1088606778159268,
+      "estimable": true,
+      "trajectory_value": 0.5426864673867324
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.10290022229586093,
+      "lo": 0.08170304374636522,
+      "hi": 0.13427596781268156,
+      "estimable": true,
+      "trajectory_value": 0.5720168385847264
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.1175038815659129,
+      "lo": 0.09306532941946187,
+      "hi": 0.1579955039627663,
+      "estimable": true,
+      "trajectory_value": 0.6037062512713945
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.11774047136042148,
+      "lo": 0.09375832958458581,
+      "hi": 0.1551278762248234,
+      "estimable": true,
+      "trajectory_value": 0.5903894685800806
+     }
+    ],
+    "Spooled_MEAN8": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.45958442399070537
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.094682107515146,
+      "lo": 0.0775960299943763,
+      "hi": 0.12162433043499662,
+      "estimable": true,
+      "trajectory_value": 0.5198777067584938
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.10872646331322139,
+      "lo": 0.08838013065036242,
+      "hi": 0.1440355931875884,
+      "estimable": true,
+      "trajectory_value": 0.5454313259141568
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.11938224062522279,
+      "lo": 0.10221747781129202,
+      "hi": 0.15412877622052218,
+      "estimable": true,
+      "trajectory_value": 0.5645326244128599
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.12658470872660738,
+      "lo": 0.11161938486763157,
+      "hi": 0.1642672408869767,
+      "estimable": true,
+      "trajectory_value": 0.5948475722314066
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.13757501716747889,
+      "lo": 0.11890625662528855,
+      "hi": 0.17407158410291979,
+      "estimable": true,
+      "trajectory_value": 0.5874655183381964
+     }
+    ],
+    "Spooled_TARGETS": [
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.0,
+      "lo": 0.0,
+      "hi": 0.0,
+      "estimable": true,
+      "trajectory_value": 0.4799643233813999
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.09254980464443557,
+      "lo": 0.07730310684420333,
+      "hi": 0.12232886001425092,
+      "estimable": true,
+      "trajectory_value": 0.5471578645511903
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.08064636687171634,
+      "lo": 0.06020825881010382,
+      "hi": 0.1143397956898621,
+      "estimable": true,
+      "trajectory_value": 0.5434757815173064
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.10444366708438829,
+      "lo": 0.0824841842313862,
+      "hi": 0.14215927099107287,
+      "estimable": true,
+      "trajectory_value": 0.5735927170558718
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.1192505968126581,
+      "lo": 0.0947934662695394,
+      "hi": 0.16635429322812512,
+      "estimable": true,
+      "trajectory_value": 0.6056039223368307
+     },
+     {
+      "defined_frac": 1.0,
+      "unbracketed_frac": 0.0,
+      "invalid_frac": 0.0,
+      "point_status": "ok",
+      "n_boot": 1000,
+      "point": 0.11878875461000338,
+      "lo": 0.0947651496502591,
+      "hi": 0.15983576767366625,
+      "estimable": true,
+      "trajectory_value": 0.5914895243198186
+     }
+    ]
+   }
+  }
+ },
+ "provenance": {
+  "masks": {
+   "base_cmask": "corrected",
+   "loving_traj_dpo": "corrected",
+   "loving_traj_seq_step90": "corrected",
+   "loving_traj_seq_step180": "corrected",
+   "loving_traj_seq_step285": "corrected",
+   "loving_traj_seq_step375": "corrected",
+   "loving_traj_seq_stepfinal": "corrected",
+   "loving_traj_ladder_d_s0.8": "corrected",
+   "loving_traj_ladder_d_s0.9": "corrected",
+   "loving_traj_ladder_d_s1.1": "corrected",
+   "loving_traj_ladder_d_s1.25": "corrected",
+   "loving_traj_ladder_d_s1.4": "corrected"
+  },
+  "mixed_mask": false,
+  "allow_mixed_mask": false,
+  "sources": {
+   "base_cmask": "embedded",
+   "loving_traj_dpo": "registry:*_traj_*",
+   "loving_traj_seq_step90": "registry:*_traj_*",
+   "loving_traj_seq_step180": "registry:*_traj_*",
+   "loving_traj_seq_step285": "registry:*_traj_*",
+   "loving_traj_seq_step375": "registry:*_traj_*",
+   "loving_traj_seq_stepfinal": "registry:*_traj_*",
+   "loving_traj_ladder_d_s0.8": "registry:*_traj_*",
+   "loving_traj_ladder_d_s0.9": "registry:*_traj_*",
+   "loving_traj_ladder_d_s1.1": "registry:*_traj_*",
+   "loving_traj_ladder_d_s1.25": "registry:*_traj_*",
+   "loving_traj_ladder_d_s1.4": "registry:*_traj_*"
+  }
+ },
+ "runtime_s": 877.5003883838654
+}

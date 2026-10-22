@@ -1,0 +1,272 @@
+
+==============================================================================================
+LAYER 15   (8 traits x 10 semantic personas, cross-fitted over 40 half-splits)
+==============================================================================================
+
+TABLE 1.  ||dG_{c,t}|| / mean_p||V_base_{t,p}||
+  the persona-common shift, as a fraction of the base trait vector it displaces
+
+trait                 xchar_lov_start   xchar_lov_imp_s100   xchar_lov_lov_s100  xchar_base_imp_s100  xchar_base_lov_s100
+assertiveness                   0.667                0.725                0.678                0.642                0.510
+empathy                         0.814                0.787                0.817                0.663                0.611
+risk_taking                     0.703                0.979                0.702                0.969                0.479
+honesty                         0.671                0.686                0.676                0.578                0.556
+confidence                      0.689                0.753                0.704                0.627                0.577
+deference                       0.654                0.710                0.649                0.621                0.471
+warmth                          0.755                0.733                0.756                0.617                0.614
+impulsivity                     0.616                0.978                0.616                1.040                0.446
+MEAN                            0.696                0.794                0.700                0.720                0.533
+
+TABLE 2.  ||dG_{c,t}||^2 / mean_p||dV_{c,t,p}||^2
+  SHARE of this adapter's total change carried by the common shift (exact partition)
+
+trait                 xchar_lov_start   xchar_lov_imp_s100   xchar_lov_lov_s100  xchar_base_imp_s100  xchar_base_lov_s100
+assertiveness                   0.697                0.743                0.711                0.720                0.676
+empathy                         0.722                0.721                0.724                0.675                0.687
+risk_taking                     0.715                0.811                0.725                0.828                0.673
+honesty                         0.790                0.798                0.799                0.764                0.776
+confidence                      0.737                0.772                0.746                0.733                0.720
+deference                       0.628                0.689                0.633                0.667                0.599
+warmth                          0.722                0.715                0.720                0.657                0.698
+impulsivity                     0.685                0.807                0.695                0.833                0.642
+MEAN                            0.712                0.757                0.719                0.735                0.684
+
+TABLE 2b. ||dG_{c,t}|| / mean_p||dV_{c,t,p}||
+  the same thing in LINEAR units (the sqrt of table 2) -- not a share
+
+trait                 xchar_lov_start   xchar_lov_imp_s100   xchar_lov_lov_s100  xchar_base_imp_s100  xchar_base_lov_s100
+assertiveness                   0.835                0.862                0.843                0.848                0.822
+empathy                         0.850                0.849                0.851                0.821                0.829
+risk_taking                     0.846                0.901                0.852                0.910                0.820
+honesty                         0.889                0.893                0.894                0.874                0.881
+confidence                      0.859                0.879                0.864                0.856                0.848
+deference                       0.793                0.830                0.795                0.817                0.774
+warmth                          0.850                0.846                0.848                0.811                0.835
+impulsivity                     0.828                0.898                0.834                0.913                0.801
+MEAN                            0.843                0.870                0.848                0.856                0.826
+
+TABLE 1n. table 1 computed NAIVELY (no cross-fitting), for comparison
+  the gap is the noise the cross-fitted estimator removes
+
+trait                 xchar_lov_start   xchar_lov_imp_s100   xchar_lov_lov_s100  xchar_base_imp_s100  xchar_base_lov_s100
+assertiveness                   0.646                0.696                0.653                0.618                0.493
+empathy                         0.781                0.755                0.781                0.637                0.587
+risk_taking                     0.662                0.901                0.659                0.887                0.453
+honesty                         0.649                0.661                0.652                0.558                0.535
+confidence                      0.662                0.718                0.674                0.599                0.551
+deference                       0.621                0.669                0.615                0.585                0.450
+warmth                          0.720                0.699                0.719                0.591                0.584
+impulsivity                     0.598                0.928                0.596                0.982                0.434
+MEAN                            0.667                0.754                0.668                0.682                0.511
+
+
+TABLE 3.  cos(dG_c, dG_c') per trait  [cross-fitted; naive in brackets]
+  are the constitutions adding the SAME shift, or only shifts of similar size?
+
+  assertiveness
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.870 [0.86]   0.988 [0.99]   0.743 [0.73]   0.838 [0.84]
+    xchar_lov_imp_   0.870 [0.86]   1.000 [1.00]   0.875 [0.87]   0.917 [0.91]   0.699 [0.70]
+    xchar_lov_lov_   0.988 [0.99]   0.875 [0.87]   1.000 [1.00]   0.722 [0.72]   0.827 [0.82]
+    xchar_base_imp   0.743 [0.73]   0.917 [0.91]   0.722 [0.72]   1.000 [1.00]   0.664 [0.67]
+    xchar_base_lov   0.838 [0.84]   0.699 [0.70]   0.827 [0.82]   0.664 [0.67]   1.000 [1.00]
+
+  empathy
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.819 [0.82]   0.987 [0.99]   0.660 [0.66]   0.782 [0.78]
+    xchar_lov_imp_   0.819 [0.82]   1.000 [1.00]   0.835 [0.83]   0.880 [0.88]   0.575 [0.58]
+    xchar_lov_lov_   0.987 [0.99]   0.835 [0.83]   1.000 [1.00]   0.662 [0.66]   0.762 [0.76]
+    xchar_base_imp   0.660 [0.66]   0.880 [0.88]   0.662 [0.66]   1.000 [1.00]   0.615 [0.62]
+    xchar_base_lov   0.782 [0.78]   0.575 [0.58]   0.762 [0.76]   0.615 [0.62]   1.000 [1.00]
+
+  risk_taking
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.771 [0.77]   0.991 [0.99]   0.578 [0.57]   0.836 [0.83]
+    xchar_lov_imp_   0.771 [0.77]   1.000 [1.00]   0.782 [0.78]   0.935 [0.93]   0.672 [0.67]
+    xchar_lov_lov_   0.991 [0.99]   0.782 [0.78]   1.000 [1.00]   0.582 [0.58]   0.822 [0.82]
+    xchar_base_imp   0.578 [0.57]   0.935 [0.93]   0.582 [0.58]   1.000 [1.00]   0.592 [0.59]
+    xchar_base_lov   0.836 [0.83]   0.672 [0.67]   0.822 [0.82]   0.592 [0.59]   1.000 [1.00]
+
+  honesty
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.907 [0.90]   0.988 [0.99]   0.787 [0.77]   0.793 [0.79]
+    xchar_lov_imp_   0.907 [0.90]   1.000 [1.00]   0.913 [0.91]   0.919 [0.91]   0.718 [0.72]
+    xchar_lov_lov_   0.988 [0.99]   0.913 [0.91]   1.000 [1.00]   0.783 [0.77]   0.789 [0.79]
+    xchar_base_imp   0.787 [0.77]   0.919 [0.91]   0.783 [0.77]   1.000 [1.00]   0.754 [0.75]
+    xchar_base_lov   0.793 [0.79]   0.718 [0.72]   0.789 [0.79]   0.754 [0.75]   1.000 [1.00]
+
+  confidence
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.837 [0.83]   0.984 [0.98]   0.666 [0.66]   0.802 [0.80]
+    xchar_lov_imp_   0.837 [0.83]   1.000 [1.00]   0.865 [0.86]   0.887 [0.89]   0.624 [0.62]
+    xchar_lov_lov_   0.984 [0.98]   0.865 [0.86]   1.000 [1.00]   0.673 [0.67]   0.773 [0.77]
+    xchar_base_imp   0.666 [0.66]   0.887 [0.89]   0.673 [0.67]   1.000 [1.00]   0.581 [0.59]
+    xchar_base_lov   0.802 [0.80]   0.624 [0.62]   0.773 [0.77]   0.581 [0.59]   1.000 [1.00]
+
+  deference
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.768 [0.77]   0.975 [0.98]   0.600 [0.60]   0.795 [0.80]
+    xchar_lov_imp_   0.768 [0.77]   1.000 [1.00]   0.830 [0.83]   0.848 [0.85]   0.543 [0.55]
+    xchar_lov_lov_   0.975 [0.98]   0.830 [0.83]   1.000 [1.00]   0.616 [0.61]   0.741 [0.75]
+    xchar_base_imp   0.600 [0.60]   0.848 [0.85]   0.616 [0.61]   1.000 [1.00]   0.578 [0.59]
+    xchar_base_lov   0.795 [0.80]   0.543 [0.55]   0.741 [0.75]   0.578 [0.59]   1.000 [1.00]
+
+  warmth
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.829 [0.82]   0.987 [0.99]   0.698 [0.69]   0.806 [0.81]
+    xchar_lov_imp_   0.829 [0.82]   1.000 [1.00]   0.848 [0.84]   0.895 [0.89]   0.602 [0.60]
+    xchar_lov_lov_   0.987 [0.99]   0.848 [0.84]   1.000 [1.00]   0.699 [0.69]   0.780 [0.78]
+    xchar_base_imp   0.698 [0.69]   0.895 [0.89]   0.699 [0.69]   1.000 [1.00]   0.645 [0.65]
+    xchar_base_lov   0.806 [0.81]   0.602 [0.60]   0.780 [0.78]   0.645 [0.65]   1.000 [1.00]
+
+  impulsivity
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.602 [0.61]   0.991 [0.99]   0.432 [0.43]   0.814 [0.81]
+    xchar_lov_imp_   0.602 [0.61]   1.000 [1.00]   0.626 [0.63]   0.955 [0.95]   0.382 [0.39]
+    xchar_lov_lov_   0.991 [0.99]   0.626 [0.63]   1.000 [1.00]   0.449 [0.45]   0.797 [0.79]
+    xchar_base_imp   0.432 [0.43]   0.955 [0.95]   0.449 [0.45]   1.000 [1.00]   0.272 [0.29]
+    xchar_base_lov   0.814 [0.81]   0.382 [0.39]   0.797 [0.79]   0.272 [0.29]   1.000 [1.00]
+
+  MEAN over traits
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.800 [0.80]   0.986 [0.99]   0.646 [0.64]   0.808 [0.81]
+    xchar_lov_imp_   0.800 [0.80]   1.000 [1.00]   0.821 [0.82]   0.904 [0.90]   0.602 [0.60]
+    xchar_lov_lov_   0.986 [0.99]   0.821 [0.82]   1.000 [1.00]   0.648 [0.64]   0.786 [0.79]
+    xchar_base_imp   0.646 [0.64]   0.904 [0.90]   0.648 [0.64]   1.000 [1.00]   0.588 [0.59]
+    xchar_base_lov   0.808 [0.81]   0.602 [0.60]   0.786 [0.79]   0.588 [0.59]   1.000 [1.00]
+
+==============================================================================================
+LAYER 20   (8 traits x 10 semantic personas, cross-fitted over 40 half-splits)
+==============================================================================================
+
+TABLE 1.  ||dG_{c,t}|| / mean_p||V_base_{t,p}||
+  the persona-common shift, as a fraction of the base trait vector it displaces
+
+trait                 xchar_lov_start   xchar_lov_imp_s100   xchar_lov_lov_s100  xchar_base_imp_s100  xchar_base_lov_s100
+assertiveness                   0.630                0.768                0.640                0.651                0.471
+empathy                         0.787                0.764                0.809                0.664                0.696
+risk_taking                     0.788                1.176                0.778                1.209                0.526
+honesty                         0.656                0.633                0.658                0.526                0.512
+confidence                      0.940                1.057                0.958                0.812                0.753
+deference                       0.619                0.754                0.639                0.633                0.503
+warmth                          0.767                0.757                0.777                0.672                0.745
+impulsivity                     0.725                1.172                0.725                1.253                0.565
+MEAN                            0.739                0.885                0.748                0.803                0.596
+
+TABLE 2.  ||dG_{c,t}||^2 / mean_p||dV_{c,t,p}||^2
+  SHARE of this adapter's total change carried by the common shift (exact partition)
+
+trait                 xchar_lov_start   xchar_lov_imp_s100   xchar_lov_lov_s100  xchar_base_imp_s100  xchar_base_lov_s100
+assertiveness                   0.508                0.620                0.525                0.564                0.496
+empathy                         0.587                0.626                0.599                0.572                0.623
+risk_taking                     0.586                0.724                0.591                0.735                0.518
+honesty                         0.642                0.628                0.648                0.587                0.620
+confidence                      0.680                0.732                0.688                0.642                0.635
+deference                       0.470                0.597                0.497                0.520                0.494
+warmth                          0.575                0.626                0.577                0.567                0.643
+impulsivity                     0.584                0.736                0.595                0.763                0.580
+MEAN                            0.579                0.661                0.590                0.619                0.576
+
+TABLE 2b. ||dG_{c,t}|| / mean_p||dV_{c,t,p}||
+  the same thing in LINEAR units (the sqrt of table 2) -- not a share
+
+trait                 xchar_lov_start   xchar_lov_imp_s100   xchar_lov_lov_s100  xchar_base_imp_s100  xchar_base_lov_s100
+assertiveness                   0.712                0.787                0.725                0.751                0.704
+empathy                         0.766                0.791                0.774                0.757                0.790
+risk_taking                     0.765                0.851                0.769                0.857                0.720
+honesty                         0.801                0.793                0.805                0.766                0.787
+confidence                      0.825                0.856                0.829                0.801                0.797
+deference                       0.686                0.772                0.705                0.721                0.703
+warmth                          0.758                0.791                0.759                0.753                0.802
+impulsivity                     0.764                0.858                0.771                0.873                0.762
+MEAN                            0.760                0.812                0.767                0.785                0.758
+
+TABLE 1n. table 1 computed NAIVELY (no cross-fitting), for comparison
+  the gap is the noise the cross-fitted estimator removes
+
+trait                 xchar_lov_start   xchar_lov_imp_s100   xchar_lov_lov_s100  xchar_base_imp_s100  xchar_base_lov_s100
+assertiveness                   0.606                0.724                0.613                0.616                0.452
+empathy                         0.742                0.722                0.758                0.629                0.650
+risk_taking                     0.714                1.029                0.703                1.051                0.478
+honesty                         0.636                0.614                0.636                0.513                0.493
+confidence                      0.856                0.957                0.869                0.742                0.682
+deference                       0.586                0.694                0.599                0.586                0.469
+warmth                          0.703                0.697                0.709                0.620                0.667
+impulsivity                     0.667                1.035                0.664                1.098                0.515
+MEAN                            0.689                0.809                0.694                0.732                0.551
+
+
+TABLE 3.  cos(dG_c, dG_c') per trait  [cross-fitted; naive in brackets]
+  are the constitutions adding the SAME shift, or only shifts of similar size?
+
+  assertiveness
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.778 [0.77]   0.986 [0.99]   0.652 [0.64]   0.748 [0.75]
+    xchar_lov_imp_   0.778 [0.77]   1.000 [1.00]   0.773 [0.77]   0.920 [0.91]   0.505 [0.51]
+    xchar_lov_lov_   0.986 [0.99]   0.773 [0.77]   1.000 [1.00]   0.626 [0.61]   0.742 [0.74]
+    xchar_base_imp   0.652 [0.64]   0.920 [0.91]   0.626 [0.61]   1.000 [1.00]   0.486 [0.49]
+    xchar_base_lov   0.748 [0.75]   0.505 [0.51]   0.742 [0.74]   0.486 [0.49]   1.000 [1.00]
+
+  empathy
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.722 [0.72]   0.980 [0.98]   0.537 [0.53]   0.703 [0.71]
+    xchar_lov_imp_   0.722 [0.72]   1.000 [1.00]   0.730 [0.73]   0.844 [0.84]   0.386 [0.40]
+    xchar_lov_lov_   0.980 [0.98]   0.730 [0.73]   1.000 [1.00]   0.528 [0.52]   0.650 [0.66]
+    xchar_base_imp   0.537 [0.53]   0.844 [0.84]   0.528 [0.52]   1.000 [1.00]   0.471 [0.48]
+    xchar_base_lov   0.703 [0.71]   0.386 [0.40]   0.650 [0.66]   0.471 [0.48]   1.000 [1.00]
+
+  risk_taking
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.711 [0.70]   0.992 [0.99]   0.520 [0.51]   0.819 [0.81]
+    xchar_lov_imp_   0.711 [0.70]   1.000 [1.00]   0.726 [0.72]   0.929 [0.93]   0.598 [0.59]
+    xchar_lov_lov_   0.992 [0.99]   0.726 [0.72]   1.000 [1.00]   0.527 [0.51]   0.797 [0.79]
+    xchar_base_imp   0.520 [0.51]   0.929 [0.93]   0.527 [0.51]   1.000 [1.00]   0.507 [0.50]
+    xchar_base_lov   0.819 [0.81]   0.598 [0.59]   0.797 [0.79]   0.507 [0.50]   1.000 [1.00]
+
+  honesty
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.855 [0.84]   0.987 [0.99]   0.606 [0.60]   0.556 [0.57]
+    xchar_lov_imp_   0.855 [0.84]   1.000 [1.00]   0.843 [0.83]   0.850 [0.85]   0.471 [0.48]
+    xchar_lov_lov_   0.987 [0.99]   0.843 [0.83]   1.000 [1.00]   0.579 [0.57]   0.564 [0.58]
+    xchar_base_imp   0.606 [0.60]   0.850 [0.85]   0.579 [0.57]   1.000 [1.00]   0.549 [0.55]
+    xchar_base_lov   0.556 [0.57]   0.471 [0.48]   0.564 [0.58]   0.549 [0.55]   1.000 [1.00]
+
+  confidence
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.818 [0.81]   0.987 [0.99]   0.676 [0.66]   0.797 [0.79]
+    xchar_lov_imp_   0.818 [0.81]   1.000 [1.00]   0.849 [0.84]   0.902 [0.90]   0.588 [0.58]
+    xchar_lov_lov_   0.987 [0.99]   0.849 [0.84]   1.000 [1.00]   0.688 [0.67]   0.764 [0.76]
+    xchar_base_imp   0.676 [0.66]   0.902 [0.90]   0.688 [0.67]   1.000 [1.00]   0.586 [0.58]
+    xchar_base_lov   0.797 [0.79]   0.588 [0.58]   0.764 [0.76]   0.586 [0.58]   1.000 [1.00]
+
+  deference
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.704 [0.70]   0.967 [0.97]   0.569 [0.55]   0.689 [0.70]
+    xchar_lov_imp_   0.704 [0.70]   1.000 [1.00]   0.774 [0.76]   0.889 [0.88]   0.299 [0.33]
+    xchar_lov_lov_   0.967 [0.97]   0.774 [0.76]   1.000 [1.00]   0.606 [0.58]   0.580 [0.60]
+    xchar_base_imp   0.569 [0.55]   0.889 [0.88]   0.606 [0.58]   1.000 [1.00]   0.363 [0.38]
+    xchar_base_lov   0.689 [0.70]   0.299 [0.33]   0.580 [0.60]   0.363 [0.38]   1.000 [1.00]
+
+  warmth
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.753 [0.75]   0.980 [0.98]   0.621 [0.60]   0.744 [0.74]
+    xchar_lov_imp_   0.753 [0.75]   1.000 [1.00]   0.773 [0.76]   0.860 [0.86]   0.483 [0.49]
+    xchar_lov_lov_   0.980 [0.98]   0.773 [0.76]   1.000 [1.00]   0.604 [0.59]   0.686 [0.69]
+    xchar_base_imp   0.621 [0.60]   0.860 [0.86]   0.604 [0.59]   1.000 [1.00]   0.584 [0.58]
+    xchar_base_lov   0.744 [0.74]   0.483 [0.49]   0.686 [0.69]   0.584 [0.58]   1.000 [1.00]
+
+  impulsivity
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.532 [0.54]   0.991 [0.99]   0.362 [0.36]   0.748 [0.75]
+    xchar_lov_imp_   0.532 [0.54]   1.000 [1.00]   0.560 [0.56]   0.946 [0.94]   0.131 [0.16]
+    xchar_lov_lov_   0.991 [0.99]   0.560 [0.56]   1.000 [1.00]   0.385 [0.38]   0.730 [0.73]
+    xchar_base_imp   0.362 [0.36]   0.946 [0.94]   0.385 [0.38]   1.000 [1.00]  -0.015 [0.02]
+    xchar_base_lov   0.748 [0.75]   0.131 [0.16]   0.730 [0.73]  -0.015 [0.02]   1.000 [1.00]
+
+  MEAN over traits
+                     xchar_lov_st   xchar_lov_im   xchar_lov_lo   xchar_base_i   xchar_base_l
+    xchar_lov_star   1.000 [1.00]   0.734 [0.73]   0.984 [0.98]   0.568 [0.56]   0.726 [0.73]
+    xchar_lov_imp_   0.734 [0.73]   1.000 [1.00]   0.754 [0.75]   0.892 [0.89]   0.433 [0.44]
+    xchar_lov_lov_   0.984 [0.98]   0.754 [0.75]   1.000 [1.00]   0.568 [0.55]   0.689 [0.69]
+    xchar_base_imp   0.568 [0.56]   0.892 [0.89]   0.568 [0.55]   1.000 [1.00]   0.442 [0.45]
+    xchar_base_lov   0.726 [0.73]   0.433 [0.44]   0.689 [0.69]   0.442 [0.45]   1.000 [1.00]
