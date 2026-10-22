@@ -23,7 +23,7 @@ Everything is one training seed per arm. Intervals are question-bootstrap (evalu
 | xchar activation selectivity on the actual base | done |
 | Loving fidelity on one protocol (actual base, released = `xchar_lov_start`) | done |
 | Impulsiveness/goodness/sycophancy fidelity (A4, B4) | **blocked**: needs released corrected-mask arms |
-| OCT reproduction/stage/dose-matched/SFT-curve arms: dose + B3-style selectivity on the actual base | see §5.6 |
+| OCT reproduction/stage/dose-matched/SFT-curve arms (51): dose + B3-style selectivity on the actual base | done (§5.6) |
 | Figures: trajectory full + A/B, matched-dose, xchar (optimizer-step axis) | done |
 
 **Compute.** One pod for everything: `2nr1xatxkdm2an` (renamed `kanad_finalising_arxiv` during the run), 1× RTX 3090
@@ -31,7 +31,7 @@ Everything is one training seed per arm. Intervals are question-bootstrap (evalu
 - GPU phase 16:18–17:46Z (≈1.5 h ≈ $0.75): preflight + one arm. Measured 24.3–26 s/cell on the 3090 against
   ~5.4 s/cell on the RTX PRO 6000 that the audit's estimate assumed (≈4.5× slower): base extraction 4,672 s,
   cache + validation 114 s (`/workspace/oct_rig/logs/g1_timings.jsonl`).
-- CPU phase 17:47Z–(end; see §7) on the same pod (user-approved; the GPU sat idle). Per-step timings in
+- CPU phase 17:47–19:31Z on the same pod (user-approved; the GPU sat idle). Per-step timings in
   `/workspace/oct_rig/logs/cpu_timings.tsv`. Total session ≈ 3.3 h ≈ **$1.7**.
 - The pod is terminated with `/workspace/oct_rig/terminate.sh` at the end of the run (user instruction). The
   network volume persists.
@@ -224,7 +224,31 @@ A4 dose ratio 0.892/0.902 (recorded, mixed) → **0.881/0.891**; B4 0.920/0.874 
 
 ### 5.6 OCT reproduction / stage / dose-matched / SFT-curve arms
 
-(filled below from `outputs/analysis/audit/oct_stage_cmbase/`)
+51 corrected-mask impulsiveness arms (reproduction, seed 2, stage states, dose-matched M_D/M_F/M_S rungs, the
+18-checkpoint SFT curve, P0, P1) re-referenced to the actual base (`outputs/analysis/audit/oct_stage_cmbase/`;
+full table in `corrected_base_comparison.md` §6). B3-style selectivity (imp+risk vs other six, point):
+
+| arm | L15 legacy → actual | L20 actual | dose L15 legacy → actual |
+|---|---|---|---|
+| reproduction | 1.556 → 1.545 | 1.755 | 0.818 → 0.824 |
+| DPO-only (repro_dpo) | 1.106 → 1.132 | 1.056 | 0.531 → 0.526 |
+| D + 0.25 S | 1.191 → 1.204 | 1.217 | 0.567 → 0.565 |
+| D + S | 1.441 → 1.433 | 1.687 | 0.879 → 0.885 |
+| SFT from base | 1.797 → 1.787 | 2.114 | 0.973 → 0.977 |
+| curve 0.24 / 0.48 / 1.0 ep (seq) | 1.448 / 1.537 / 1.495 → 1.438 / 1.527 / 1.484 | 1.586 / 1.738 / 1.682 | 0.662 / 0.743 / 0.782 → 0.664 / 0.745 / 0.787 |
+| curve 3 ep (seq) / merged final | 1.415 / 1.534 → 1.410 / 1.524 | 1.660 / 1.736 | 0.903 / 0.828 → 0.910 / 0.834 |
+| P0 (regen) | 1.208 (reported B3) → 1.216 | 1.382 | 0.997 → 1.009 |
+| P1 (paraphrase) | → 1.374 | 1.505 | 0.765 → 0.775 |
+| seed 2 | → 1.627 | 1.814 | 0.796 → 0.800 |
+
+L15 selectivity moves ≤ 0.026 and doses ≤ 1.3 % for every arm. Corrected-arm dose ratios: P0/repro
+1.219 → 1.225, P1/repro 0.936 → 0.940, so "P0 is displaced more, not less" holds on one protocol. The SFT-curve
+appendix figure (panels B–D: dose, selectivity, dose-matched B1 ratio) and the OCT stage/dose-matched tables move
+by these amounts only; B1/B2 and the 82 % figure are logits and unaffected. Regenerating those appendix figures is
+optional (the change is below plotting resolution); ratios to the **released** adapter (A4, released B3) remain
+mixed-protocol until the released arms are extracted (§7). Point estimates only here; the per-trait bootstrap CIs
+are in the `common_shift_oct_cmbase_part*.json` files (chunked 13 arms per call; per-arm quantities do not depend on
+the chunking, cross-arm cosines are chunk-local).
 
 ## 6. Manuscript statements and figures to replace (`arxiv/main.tex`)
 

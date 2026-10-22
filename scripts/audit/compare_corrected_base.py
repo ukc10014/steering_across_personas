@@ -208,7 +208,7 @@ def oct_stage(out, md, missing):
     OA = AU / "oct_stage_cmbase"
     fl, fc = rj(OA / "functional_dose_oct_mixedprotocol.json"), rj(OA / "functional_dose_oct_cmbase.json")
     old = rj(AN / "common_shift_oct_stage.json")
-    parts = sorted(OA.glob("common_shift_oct_cmbase_part*.json"))
+    parts = sorted(p for p in OA.glob("common_shift_oct_cmbase_part*.json") if not p.name.endswith(".provenance.json"))
     if fc is None or not parts:
         missing.append("OCT stage/curve refresh"); return
     new = {}

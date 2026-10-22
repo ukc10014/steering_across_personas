@@ -1,0 +1,1048 @@
+{
+  "15": {
+    "impulsiveness_repro": {
+      "trait_vector_displacement": 0.8178362846374512,
+      "trait_vector_displacement_sd": 0.16213634610176086,
+      "answer_token_displacement": 0.5426331162452698,
+      "answer_token_displacement_sd": 0.04132026806473732,
+      "answer_token_common": 0.40860119462013245,
+      "answer_token_varying": 0.36020222306251526
+    },
+    "impulsiveness_repro_dpo": {
+      "trait_vector_displacement": 0.5313785076141357,
+      "trait_vector_displacement_sd": 0.06309116631746292,
+      "answer_token_displacement": 0.4202854633331299,
+      "answer_token_displacement_sd": 0.04284486919641495,
+      "answer_token_common": 0.3173200488090515,
+      "answer_token_varying": 0.27706971764564514
+    },
+    "impulsiveness_repro_Dplus025S": {
+      "trait_vector_displacement": 0.5668474435806274,
+      "trait_vector_displacement_sd": 0.06842037290334702,
+      "answer_token_displacement": 0.4095302224159241,
+      "answer_token_displacement_sd": 0.041895460337400436,
+      "answer_token_common": 0.3109895586967468,
+      "answer_token_varying": 0.268158495426178
+    },
+    "impulsiveness_repro_DplusS": {
+      "trait_vector_displacement": 0.8786144256591797,
+      "trait_vector_displacement_sd": 0.1653672754764557,
+      "answer_token_displacement": 0.543558657169342,
+      "answer_token_displacement_sd": 0.04238457977771759,
+      "answer_token_common": 0.38693422079086304,
+      "answer_token_varying": 0.38887107372283936
+    },
+    "impulsiveness_sft_from_base": {
+      "trait_vector_displacement": 0.972551167011261,
+      "trait_vector_displacement_sd": 0.26852595806121826,
+      "answer_token_displacement": 0.5680502653121948,
+      "answer_token_displacement_sd": 0.05003601312637329,
+      "answer_token_common": 0.4079071581363678,
+      "answer_token_varying": 0.4025197923183441
+    },
+    "impulsiveness_dm_m_d025s_s1.026": {
+      "trait_vector_displacement": 0.578450083732605,
+      "trait_vector_displacement_sd": 0.06989613175392151,
+      "answer_token_displacement": 0.4170609414577484,
+      "answer_token_displacement_sd": 0.04197169840335846,
+      "answer_token_common": 0.3171427249908447,
+      "answer_token_varying": 0.27255624532699585
+    },
+    "impulsiveness_dm_m_d025s_s1.459": {
+      "trait_vector_displacement": 0.7383104562759399,
+      "trait_vector_displacement_sd": 0.09510784596204758,
+      "answer_token_displacement": 0.5279732942581177,
+      "answer_token_displacement_sd": 0.0421312190592289,
+      "answer_token_common": 0.411355197429657,
+      "answer_token_varying": 0.3329067528247833
+    },
+    "impulsiveness_dm_m_d025s_s1.967": {
+      "trait_vector_displacement": 0.8988440632820129,
+      "trait_vector_displacement_sd": 0.13682733476161957,
+      "answer_token_displacement": 0.64699786901474,
+      "answer_token_displacement_sd": 0.04338565096259117,
+      "answer_token_common": 0.516617476940155,
+      "answer_token_varying": 0.3924526274204254
+    },
+    "impulsiveness_dm_m_d_s1.364": {
+      "trait_vector_displacement": 0.6554862260818481,
+      "trait_vector_displacement_sd": 0.07560963928699493,
+      "answer_token_displacement": 0.5164071321487427,
+      "answer_token_displacement_sd": 0.04040849208831787,
+      "answer_token_common": 0.3990248143672943,
+      "answer_token_varying": 0.32908210158348083
+    },
+    "impulsiveness_dm_m_d_s1.653": {
+      "trait_vector_displacement": 0.7398408651351929,
+      "trait_vector_displacement_sd": 0.08674713224172592,
+      "answer_token_displacement": 0.5826522707939148,
+      "answer_token_displacement_sd": 0.03913003206253052,
+      "answer_token_common": 0.4588538706302643,
+      "answer_token_varying": 0.3603339195251465
+    },
+    "impulsiveness_dm_m_d_s1.979": {
+      "trait_vector_displacement": 0.8267779350280762,
+      "trait_vector_displacement_sd": 0.10069114714860916,
+      "answer_token_displacement": 0.6548625230789185,
+      "answer_token_displacement_sd": 0.039479464292526245,
+      "answer_token_common": 0.5263257026672363,
+      "answer_token_varying": 0.3911326825618744
+    },
+    "impulsiveness_dm_m_d_s2.25": {
+      "trait_vector_displacement": 0.9015084505081177,
+      "trait_vector_displacement_sd": 0.11527875810861588,
+      "answer_token_displacement": 0.716902494430542,
+      "answer_token_displacement_sd": 0.040464576333761215,
+      "answer_token_common": 0.5851709246635437,
+      "answer_token_varying": 0.41606712341308594
+    },
+    "impulsiveness_dm_m_d_s2.5": {
+      "trait_vector_displacement": 0.9718239903450012,
+      "trait_vector_displacement_sd": 0.13120581209659576,
+      "answer_token_displacement": 0.7776044607162476,
+      "answer_token_displacement_sd": 0.04169893264770508,
+      "answer_token_common": 0.6435791254043579,
+      "answer_token_varying": 0.43899646401405334
+    },
+    "impulsiveness_dm_m_f_s0.518": {
+      "trait_vector_displacement": 0.5559093356132507,
+      "trait_vector_displacement_sd": 0.06557630002498627,
+      "answer_token_displacement": 0.40520453453063965,
+      "answer_token_displacement_sd": 0.03756875544786453,
+      "answer_token_common": 0.3151782155036926,
+      "answer_token_varying": 0.2568293511867523
+    },
+    "impulsiveness_dm_m_f_s0.801": {
+      "trait_vector_displacement": 0.7024368047714233,
+      "trait_vector_displacement_sd": 0.12079033255577087,
+      "answer_token_displacement": 0.46774226427078247,
+      "answer_token_displacement_sd": 0.03952514007687569,
+      "answer_token_common": 0.3490579128265381,
+      "answer_token_varying": 0.3133765459060669
+    },
+    "impulsiveness_dm_m_f_s1.062": {
+      "trait_vector_displacement": 0.8532630801200867,
+      "trait_vector_displacement_sd": 0.1752370446920395,
+      "answer_token_displacement": 0.5648819208145142,
+      "answer_token_displacement_sd": 0.041299402713775635,
+      "answer_token_common": 0.42673420906066895,
+      "answer_token_varying": 0.3736633360385895
+    },
+    "impulsiveness_dm_m_s_s0.505": {
+      "trait_vector_displacement": 0.576316237449646,
+      "trait_vector_displacement_sd": 0.12010424584150314,
+      "answer_token_displacement": 0.3449665904045105,
+      "answer_token_displacement_sd": 0.04259922355413437,
+      "answer_token_common": 0.2422599047422409,
+      "answer_token_varying": 0.24676398932933807
+    },
+    "impulsiveness_dm_m_s_s0.589": {
+      "trait_vector_displacement": 0.6566449999809265,
+      "trait_vector_displacement_sd": 0.15676113963127136,
+      "answer_token_displacement": 0.3846052885055542,
+      "answer_token_displacement_sd": 0.04526729881763458,
+      "answer_token_common": 0.2705346643924713,
+      "answer_token_varying": 0.2745666801929474
+    },
+    "impulsiveness_dm_m_s_s0.673": {
+      "trait_vector_displacement": 0.7223653793334961,
+      "trait_vector_displacement_sd": 0.1820313036441803,
+      "answer_token_displacement": 0.42069491744041443,
+      "answer_token_displacement_sd": 0.04643942043185234,
+      "answer_token_common": 0.29667720198631287,
+      "answer_token_varying": 0.29968172311782837
+    },
+    "impulsiveness_curve_mrg_step180": {
+      "trait_vector_displacement": 0.7525909543037415,
+      "trait_vector_displacement_sd": 0.14570032060146332,
+      "answer_token_displacement": 0.5257087349891663,
+      "answer_token_displacement_sd": 0.04375684633851051,
+      "answer_token_common": 0.40282851457595825,
+      "answer_token_varying": 0.34069567918777466
+    },
+    "impulsiveness_curve_mrg_step285": {
+      "trait_vector_displacement": 0.7750536203384399,
+      "trait_vector_displacement_sd": 0.17534151673316956,
+      "answer_token_displacement": 0.53012615442276,
+      "answer_token_displacement_sd": 0.04465557634830475,
+      "answer_token_common": 0.4043199419975281,
+      "answer_token_varying": 0.34608420729637146
+    },
+    "impulsiveness_curve_mrg_step375": {
+      "trait_vector_displacement": 0.77042555809021,
+      "trait_vector_displacement_sd": 0.153518408536911,
+      "answer_token_displacement": 0.5315378904342651,
+      "answer_token_displacement_sd": 0.040349751710891724,
+      "answer_token_common": 0.4078114628791809,
+      "answer_token_varying": 0.3440302610397339
+    },
+    "impulsiveness_curve_mrg_step45": {
+      "trait_vector_displacement": 0.6767592430114746,
+      "trait_vector_displacement_sd": 0.08279780298471451,
+      "answer_token_displacement": 0.5043329000473022,
+      "answer_token_displacement_sd": 0.04235406219959259,
+      "answer_token_common": 0.392937034368515,
+      "answer_token_varying": 0.3183552324771881
+    },
+    "impulsiveness_curve_mrg_step750": {
+      "trait_vector_displacement": 0.8210276365280151,
+      "trait_vector_displacement_sd": 0.15447938442230225,
+      "answer_token_displacement": 0.5453543663024902,
+      "answer_token_displacement_sd": 0.040834300220012665,
+      "answer_token_common": 0.4101979732513428,
+      "answer_token_varying": 0.3627181649208069
+    },
+    "impulsiveness_curve_mrg_step90": {
+      "trait_vector_displacement": 0.7354896664619446,
+      "trait_vector_displacement_sd": 0.11248653382062912,
+      "answer_token_displacement": 0.511651337146759,
+      "answer_token_displacement_sd": 0.042195748537778854,
+      "answer_token_common": 0.39665916562080383,
+      "answer_token_varying": 0.32522448897361755
+    },
+    "impulsiveness_curve_mrg_stepfinal": {
+      "trait_vector_displacement": 0.82762610912323,
+      "trait_vector_displacement_sd": 0.16121751070022583,
+      "answer_token_displacement": 0.5443936586380005,
+      "answer_token_displacement_sd": 0.04107063263654709,
+      "answer_token_common": 0.4097641408443451,
+      "answer_token_varying": 0.36174219846725464
+    },
+    "impulsiveness_curve_seq_step1050": {
+      "trait_vector_displacement": 0.9065464735031128,
+      "trait_vector_displacement_sd": 0.167605459690094,
+      "answer_token_displacement": 0.5618835687637329,
+      "answer_token_displacement_sd": 0.042413435876369476,
+      "answer_token_common": 0.4006361961364746,
+      "answer_token_varying": 0.4038224220275879
+    },
+    "impulsiveness_curve_seq_step180": {
+      "trait_vector_displacement": 0.7432209253311157,
+      "trait_vector_displacement_sd": 0.15532872080802917,
+      "answer_token_displacement": 0.48292332887649536,
+      "answer_token_displacement_sd": 0.042680077254772186,
+      "answer_token_common": 0.3548685610294342,
+      "answer_token_varying": 0.3301069736480713
+    },
+    "impulsiveness_curve_seq_step255": {
+      "trait_vector_displacement": 0.7430937886238098,
+      "trait_vector_displacement_sd": 0.15496636927127838,
+      "answer_token_displacement": 0.4931849539279938,
+      "answer_token_displacement_sd": 0.04148373007774353,
+      "answer_token_common": 0.3629881739616394,
+      "answer_token_varying": 0.33705687522888184
+    },
+    "impulsiveness_curve_seq_step270": {
+      "trait_vector_displacement": 0.7477520704269409,
+      "trait_vector_displacement_sd": 0.1489451825618744,
+      "answer_token_displacement": 0.4823327958583832,
+      "answer_token_displacement_sd": 0.03892785683274269,
+      "answer_token_common": 0.353217750787735,
+      "answer_token_varying": 0.330453485250473
+    },
+    "impulsiveness_curve_seq_step285": {
+      "trait_vector_displacement": 0.7537075281143188,
+      "trait_vector_displacement_sd": 0.1834971159696579,
+      "answer_token_displacement": 0.48166966438293457,
+      "answer_token_displacement_sd": 0.041460514068603516,
+      "answer_token_common": 0.3528841733932495,
+      "answer_token_varying": 0.3303750455379486
+    },
+    "impulsiveness_curve_seq_step300": {
+      "trait_vector_displacement": 0.7635059356689453,
+      "trait_vector_displacement_sd": 0.16747626662254333,
+      "answer_token_displacement": 0.49218231439590454,
+      "answer_token_displacement_sd": 0.039993565529584885,
+      "answer_token_common": 0.35940051078796387,
+      "answer_token_varying": 0.3396647572517395
+    },
+    "impulsiveness_curve_seq_step330": {
+      "trait_vector_displacement": 0.8183892369270325,
+      "trait_vector_displacement_sd": 0.16198478639125824,
+      "answer_token_displacement": 0.5366690754890442,
+      "answer_token_displacement_sd": 0.03802742436528206,
+      "answer_token_common": 0.39329928159713745,
+      "answer_token_varying": 0.37085115909576416
+    },
+    "impulsiveness_curve_seq_step375": {
+      "trait_vector_displacement": 0.7824320793151855,
+      "trait_vector_displacement_sd": 0.15715722739696503,
+      "answer_token_displacement": 0.5026196241378784,
+      "answer_token_displacement_sd": 0.04116195812821388,
+      "answer_token_common": 0.367422878742218,
+      "answer_token_varying": 0.3474244475364685
+    },
+    "impulsiveness_curve_seq_step45": {
+      "trait_vector_displacement": 0.5791527032852173,
+      "trait_vector_displacement_sd": 0.07353081554174423,
+      "answer_token_displacement": 0.4261966645717621,
+      "answer_token_displacement_sd": 0.044322870671749115,
+      "answer_token_common": 0.3271586000919342,
+      "answer_token_varying": 0.2752004563808441
+    },
+    "impulsiveness_curve_seq_step450": {
+      "trait_vector_displacement": 0.8736431002616882,
+      "trait_vector_displacement_sd": 0.16552430391311646,
+      "answer_token_displacement": 0.5315170288085938,
+      "answer_token_displacement_sd": 0.041719596832990646,
+      "answer_token_common": 0.3861117362976074,
+      "answer_token_varying": 0.3717743456363678
+    },
+    "impulsiveness_curve_seq_step570": {
+      "trait_vector_displacement": 0.8713045120239258,
+      "trait_vector_displacement_sd": 0.16634511947631836,
+      "answer_token_displacement": 0.5477302670478821,
+      "answer_token_displacement_sd": 0.04277849197387695,
+      "answer_token_common": 0.3927099108695984,
+      "answer_token_varying": 0.3903568685054779
+    },
+    "impulsiveness_curve_seq_step690": {
+      "trait_vector_displacement": 0.904608428478241,
+      "trait_vector_displacement_sd": 0.16548779606819153,
+      "answer_token_displacement": 0.5618396997451782,
+      "answer_token_displacement_sd": 0.04362952336668968,
+      "answer_token_common": 0.3998493552207947,
+      "answer_token_varying": 0.40382662415504456
+    },
+    "impulsiveness_curve_seq_step750": {
+      "trait_vector_displacement": 0.9080745577812195,
+      "trait_vector_displacement_sd": 0.16629275679588318,
+      "answer_token_displacement": 0.5587538480758667,
+      "answer_token_displacement_sd": 0.043609559535980225,
+      "answer_token_common": 0.3959292769432068,
+      "answer_token_varying": 0.4042348861694336
+    },
+    "impulsiveness_curve_seq_step810": {
+      "trait_vector_displacement": 0.889666736125946,
+      "trait_vector_displacement_sd": 0.1670231819152832,
+      "answer_token_displacement": 0.5498822331428528,
+      "answer_token_displacement_sd": 0.04320152848958969,
+      "answer_token_common": 0.390043169260025,
+      "answer_token_varying": 0.3968189060688019
+    },
+    "impulsiveness_curve_seq_step90": {
+      "trait_vector_displacement": 0.6620106101036072,
+      "trait_vector_displacement_sd": 0.1153663918375969,
+      "answer_token_displacement": 0.4455786645412445,
+      "answer_token_displacement_sd": 0.042212191969156265,
+      "answer_token_common": 0.33660566806793213,
+      "answer_token_varying": 0.2937015891075134
+    },
+    "impulsiveness_curve_seq_step930": {
+      "trait_vector_displacement": 0.9043042063713074,
+      "trait_vector_displacement_sd": 0.16489526629447937,
+      "answer_token_displacement": 0.5694633722305298,
+      "answer_token_displacement_sd": 0.04249655082821846,
+      "answer_token_common": 0.40680328011512756,
+      "answer_token_varying": 0.4098619520664215
+    },
+    "impulsiveness_curve_seq_stepfinal": {
+      "trait_vector_displacement": 0.902962863445282,
+      "trait_vector_displacement_sd": 0.16868798434734344,
+      "answer_token_displacement": 0.551807701587677,
+      "answer_token_displacement_sd": 0.04266626760363579,
+      "answer_token_common": 0.3918761610984802,
+      "answer_token_varying": 0.39703434705734253
+    },
+    "impulsiveness_seed2": {
+      "trait_vector_displacement": 0.7960106134414673,
+      "trait_vector_displacement_sd": 0.1633928418159485,
+      "answer_token_displacement": 0.5600073933601379,
+      "answer_token_displacement_sd": 0.0476083867251873,
+      "answer_token_common": 0.4298322796821594,
+      "answer_token_varying": 0.3611021935939789
+    },
+    "impulsiveness_seed2_dpo": {
+      "trait_vector_displacement": 0.5358434915542603,
+      "trait_vector_displacement_sd": 0.05614094063639641,
+      "answer_token_displacement": 0.4032364785671234,
+      "answer_token_displacement_sd": 0.03594936057925224,
+      "answer_token_common": 0.30710476636886597,
+      "answer_token_varying": 0.2622848153114319
+    },
+    "impulsiveness_seed2_DplusS": {
+      "trait_vector_displacement": 0.8290006518363953,
+      "trait_vector_displacement_sd": 0.16684654355049133,
+      "answer_token_displacement": 0.5476683378219604,
+      "answer_token_displacement_sd": 0.04762871563434601,
+      "answer_token_common": 0.40349188446998596,
+      "answer_token_varying": 0.3732089400291443
+    },
+    "impulsiveness_seed2_Dplus025S": {
+      "trait_vector_displacement": 0.5638760924339294,
+      "trait_vector_displacement_sd": 0.06494937837123871,
+      "answer_token_displacement": 0.4000474512577057,
+      "answer_token_displacement_sd": 0.03603174164891243,
+      "answer_token_common": 0.3051270544528961,
+      "answer_token_varying": 0.2596972584724426
+    },
+    "impulsiveness_repro_sft": {
+      "trait_vector_displacement": 0.6334084868431091,
+      "trait_vector_displacement_sd": 0.09035579115152359,
+      "answer_token_displacement": 0.4164498448371887,
+      "answer_token_displacement_sd": 0.05101108178496361,
+      "answer_token_common": 0.25494974851608276,
+      "answer_token_varying": 0.34322085976600647
+    },
+    "impulsiveness_regen": {
+      "trait_vector_displacement": 0.9972968101501465,
+      "trait_vector_displacement_sd": 0.12246086448431015,
+      "answer_token_displacement": 0.6491714119911194,
+      "answer_token_displacement_sd": 0.044375259429216385,
+      "answer_token_common": 0.47664204239845276,
+      "answer_token_varying": 0.4588586688041687
+    },
+    "impulsiveness_regen_s987654": {
+      "trait_vector_displacement": 0.6959187984466553,
+      "trait_vector_displacement_sd": 0.07077556848526001,
+      "answer_token_displacement": 0.4562111794948578,
+      "answer_token_displacement_sd": 0.03234609588980675,
+      "answer_token_common": 0.33274489641189575,
+      "answer_token_varying": 0.313459575176239
+    },
+    "impulsiveness_paraphrase": {
+      "trait_vector_displacement": 0.7652631998062134,
+      "trait_vector_displacement_sd": 0.11448682099580765,
+      "answer_token_displacement": 0.5372187495231628,
+      "answer_token_displacement_sd": 0.03761548548936844,
+      "answer_token_common": 0.4069899618625641,
+      "answer_token_varying": 0.3527260720729828
+    }
+  },
+  "provenance": {
+    "15": {
+      "masks": {
+        "base": "legacy",
+        "impulsiveness_repro": "corrected",
+        "impulsiveness_repro_dpo": "corrected",
+        "impulsiveness_repro_Dplus025S": "corrected",
+        "impulsiveness_repro_DplusS": "corrected",
+        "impulsiveness_sft_from_base": "corrected",
+        "impulsiveness_dm_m_d025s_s1.026": "corrected",
+        "impulsiveness_dm_m_d025s_s1.459": "corrected",
+        "impulsiveness_dm_m_d025s_s1.967": "corrected",
+        "impulsiveness_dm_m_d_s1.364": "corrected",
+        "impulsiveness_dm_m_d_s1.653": "corrected",
+        "impulsiveness_dm_m_d_s1.979": "corrected",
+        "impulsiveness_dm_m_d_s2.25": "corrected",
+        "impulsiveness_dm_m_d_s2.5": "corrected",
+        "impulsiveness_dm_m_f_s0.518": "corrected",
+        "impulsiveness_dm_m_f_s0.801": "corrected",
+        "impulsiveness_dm_m_f_s1.062": "corrected",
+        "impulsiveness_dm_m_s_s0.505": "corrected",
+        "impulsiveness_dm_m_s_s0.589": "corrected",
+        "impulsiveness_dm_m_s_s0.673": "corrected",
+        "impulsiveness_curve_mrg_step180": "corrected",
+        "impulsiveness_curve_mrg_step285": "corrected",
+        "impulsiveness_curve_mrg_step375": "corrected",
+        "impulsiveness_curve_mrg_step45": "corrected",
+        "impulsiveness_curve_mrg_step750": "corrected",
+        "impulsiveness_curve_mrg_step90": "corrected",
+        "impulsiveness_curve_mrg_stepfinal": "corrected",
+        "impulsiveness_curve_seq_step1050": "corrected",
+        "impulsiveness_curve_seq_step180": "corrected",
+        "impulsiveness_curve_seq_step255": "corrected",
+        "impulsiveness_curve_seq_step270": "corrected",
+        "impulsiveness_curve_seq_step285": "corrected",
+        "impulsiveness_curve_seq_step300": "corrected",
+        "impulsiveness_curve_seq_step330": "corrected",
+        "impulsiveness_curve_seq_step375": "corrected",
+        "impulsiveness_curve_seq_step45": "corrected",
+        "impulsiveness_curve_seq_step450": "corrected",
+        "impulsiveness_curve_seq_step570": "corrected",
+        "impulsiveness_curve_seq_step690": "corrected",
+        "impulsiveness_curve_seq_step750": "corrected",
+        "impulsiveness_curve_seq_step810": "corrected",
+        "impulsiveness_curve_seq_step90": "corrected",
+        "impulsiveness_curve_seq_step930": "corrected",
+        "impulsiveness_curve_seq_stepfinal": "corrected",
+        "impulsiveness_seed2": "corrected",
+        "impulsiveness_seed2_dpo": "corrected",
+        "impulsiveness_seed2_DplusS": "corrected",
+        "impulsiveness_seed2_Dplus025S": "corrected",
+        "impulsiveness_repro_sft": "corrected",
+        "impulsiveness_regen": "corrected",
+        "impulsiveness_regen_s987654": "corrected",
+        "impulsiveness_paraphrase": "corrected"
+      },
+      "mixed_mask": true,
+      "allow_mixed_mask": true,
+      "sources": {
+        "base": "registry:base",
+        "impulsiveness_repro": "registry:impulsiveness_repro",
+        "impulsiveness_repro_dpo": "registry:impulsiveness_repro_dpo",
+        "impulsiveness_repro_Dplus025S": "registry:impulsiveness_repro_*S",
+        "impulsiveness_repro_DplusS": "registry:impulsiveness_repro_*S",
+        "impulsiveness_sft_from_base": "registry:impulsiveness_sft_from_base",
+        "impulsiveness_dm_m_d025s_s1.026": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d025s_s1.459": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d025s_s1.967": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d_s1.364": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d_s1.653": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d_s1.979": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d_s2.25": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d_s2.5": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_f_s0.518": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_f_s0.801": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_f_s1.062": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_s_s0.505": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_s_s0.589": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_s_s0.673": "registry:impulsiveness_dm_*",
+        "impulsiveness_curve_mrg_step180": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_mrg_step285": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_mrg_step375": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_mrg_step45": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_mrg_step750": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_mrg_step90": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_mrg_stepfinal": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step1050": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step180": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step255": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step270": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step285": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step300": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step330": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step375": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step45": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step450": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step570": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step690": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step750": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step810": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step90": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step930": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_stepfinal": "registry:impulsiveness_curve_*",
+        "impulsiveness_seed2": "registry:impulsiveness_seed2",
+        "impulsiveness_seed2_dpo": "registry:impulsiveness_seed2_dpo",
+        "impulsiveness_seed2_DplusS": "registry:impulsiveness_seed2_*S",
+        "impulsiveness_seed2_Dplus025S": "registry:impulsiveness_seed2_*S",
+        "impulsiveness_repro_sft": "registry:impulsiveness_repro_sft",
+        "impulsiveness_regen": "registry:impulsiveness_regen",
+        "impulsiveness_regen_s987654": "registry:impulsiveness_regen_s987654",
+        "impulsiveness_paraphrase": "registry:impulsiveness_paraphrase"
+      }
+    },
+    "20": {
+      "masks": {
+        "base": "legacy",
+        "impulsiveness_repro": "corrected",
+        "impulsiveness_repro_dpo": "corrected",
+        "impulsiveness_repro_Dplus025S": "corrected",
+        "impulsiveness_repro_DplusS": "corrected",
+        "impulsiveness_sft_from_base": "corrected",
+        "impulsiveness_dm_m_d025s_s1.026": "corrected",
+        "impulsiveness_dm_m_d025s_s1.459": "corrected",
+        "impulsiveness_dm_m_d025s_s1.967": "corrected",
+        "impulsiveness_dm_m_d_s1.364": "corrected",
+        "impulsiveness_dm_m_d_s1.653": "corrected",
+        "impulsiveness_dm_m_d_s1.979": "corrected",
+        "impulsiveness_dm_m_d_s2.25": "corrected",
+        "impulsiveness_dm_m_d_s2.5": "corrected",
+        "impulsiveness_dm_m_f_s0.518": "corrected",
+        "impulsiveness_dm_m_f_s0.801": "corrected",
+        "impulsiveness_dm_m_f_s1.062": "corrected",
+        "impulsiveness_dm_m_s_s0.505": "corrected",
+        "impulsiveness_dm_m_s_s0.589": "corrected",
+        "impulsiveness_dm_m_s_s0.673": "corrected",
+        "impulsiveness_curve_mrg_step180": "corrected",
+        "impulsiveness_curve_mrg_step285": "corrected",
+        "impulsiveness_curve_mrg_step375": "corrected",
+        "impulsiveness_curve_mrg_step45": "corrected",
+        "impulsiveness_curve_mrg_step750": "corrected",
+        "impulsiveness_curve_mrg_step90": "corrected",
+        "impulsiveness_curve_mrg_stepfinal": "corrected",
+        "impulsiveness_curve_seq_step1050": "corrected",
+        "impulsiveness_curve_seq_step180": "corrected",
+        "impulsiveness_curve_seq_step255": "corrected",
+        "impulsiveness_curve_seq_step270": "corrected",
+        "impulsiveness_curve_seq_step285": "corrected",
+        "impulsiveness_curve_seq_step300": "corrected",
+        "impulsiveness_curve_seq_step330": "corrected",
+        "impulsiveness_curve_seq_step375": "corrected",
+        "impulsiveness_curve_seq_step45": "corrected",
+        "impulsiveness_curve_seq_step450": "corrected",
+        "impulsiveness_curve_seq_step570": "corrected",
+        "impulsiveness_curve_seq_step690": "corrected",
+        "impulsiveness_curve_seq_step750": "corrected",
+        "impulsiveness_curve_seq_step810": "corrected",
+        "impulsiveness_curve_seq_step90": "corrected",
+        "impulsiveness_curve_seq_step930": "corrected",
+        "impulsiveness_curve_seq_stepfinal": "corrected",
+        "impulsiveness_seed2": "corrected",
+        "impulsiveness_seed2_dpo": "corrected",
+        "impulsiveness_seed2_DplusS": "corrected",
+        "impulsiveness_seed2_Dplus025S": "corrected",
+        "impulsiveness_repro_sft": "corrected",
+        "impulsiveness_regen": "corrected",
+        "impulsiveness_regen_s987654": "corrected",
+        "impulsiveness_paraphrase": "corrected"
+      },
+      "mixed_mask": true,
+      "allow_mixed_mask": true,
+      "sources": {
+        "base": "registry:base",
+        "impulsiveness_repro": "registry:impulsiveness_repro",
+        "impulsiveness_repro_dpo": "registry:impulsiveness_repro_dpo",
+        "impulsiveness_repro_Dplus025S": "registry:impulsiveness_repro_*S",
+        "impulsiveness_repro_DplusS": "registry:impulsiveness_repro_*S",
+        "impulsiveness_sft_from_base": "registry:impulsiveness_sft_from_base",
+        "impulsiveness_dm_m_d025s_s1.026": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d025s_s1.459": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d025s_s1.967": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d_s1.364": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d_s1.653": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d_s1.979": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d_s2.25": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_d_s2.5": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_f_s0.518": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_f_s0.801": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_f_s1.062": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_s_s0.505": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_s_s0.589": "registry:impulsiveness_dm_*",
+        "impulsiveness_dm_m_s_s0.673": "registry:impulsiveness_dm_*",
+        "impulsiveness_curve_mrg_step180": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_mrg_step285": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_mrg_step375": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_mrg_step45": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_mrg_step750": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_mrg_step90": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_mrg_stepfinal": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step1050": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step180": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step255": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step270": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step285": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step300": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step330": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step375": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step45": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step450": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step570": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step690": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step750": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step810": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step90": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_step930": "registry:impulsiveness_curve_*",
+        "impulsiveness_curve_seq_stepfinal": "registry:impulsiveness_curve_*",
+        "impulsiveness_seed2": "registry:impulsiveness_seed2",
+        "impulsiveness_seed2_dpo": "registry:impulsiveness_seed2_dpo",
+        "impulsiveness_seed2_DplusS": "registry:impulsiveness_seed2_*S",
+        "impulsiveness_seed2_Dplus025S": "registry:impulsiveness_seed2_*S",
+        "impulsiveness_repro_sft": "registry:impulsiveness_repro_sft",
+        "impulsiveness_regen": "registry:impulsiveness_regen",
+        "impulsiveness_regen_s987654": "registry:impulsiveness_regen_s987654",
+        "impulsiveness_paraphrase": "registry:impulsiveness_paraphrase"
+      }
+    }
+  },
+  "20": {
+    "impulsiveness_repro": {
+      "trait_vector_displacement": 1.0346335172653198,
+      "trait_vector_displacement_sd": 0.3035702705383301,
+      "answer_token_displacement": 0.6918579339981079,
+      "answer_token_displacement_sd": 0.06442268937826157,
+      "answer_token_common": 0.5458587408065796,
+      "answer_token_varying": 0.42493143677711487
+    },
+    "impulsiveness_repro_dpo": {
+      "trait_vector_displacement": 0.7885985374450684,
+      "trait_vector_displacement_sd": 0.1438964456319809,
+      "answer_token_displacement": 0.576123833656311,
+      "answer_token_displacement_sd": 0.0690583884716034,
+      "answer_token_common": 0.4566194415092468,
+      "answer_token_varying": 0.35240641236305237
+    },
+    "impulsiveness_repro_Dplus025S": {
+      "trait_vector_displacement": 0.7920275926589966,
+      "trait_vector_displacement_sd": 0.15174554288387299,
+      "answer_token_displacement": 0.5463020205497742,
+      "answer_token_displacement_sd": 0.0634366050362587,
+      "answer_token_common": 0.43315809965133667,
+      "answer_token_varying": 0.3334071934223175
+    },
+    "impulsiveness_repro_DplusS": {
+      "trait_vector_displacement": 1.0376532077789307,
+      "trait_vector_displacement_sd": 0.30967646837234497,
+      "answer_token_displacement": 0.618869423866272,
+      "answer_token_displacement_sd": 0.05672416836023331,
+      "answer_token_common": 0.4662446975708008,
+      "answer_token_varying": 0.4091174006462097
+    },
+    "impulsiveness_sft_from_base": {
+      "trait_vector_displacement": 1.187069296836853,
+      "trait_vector_displacement_sd": 0.47544530034065247,
+      "answer_token_displacement": 0.6516610383987427,
+      "answer_token_displacement_sd": 0.06784552335739136,
+      "answer_token_common": 0.49054378271102905,
+      "answer_token_varying": 0.4307384490966797
+    },
+    "impulsiveness_dm_m_d025s_s1.026": {
+      "trait_vector_displacement": 0.8087619543075562,
+      "trait_vector_displacement_sd": 0.15607291460037231,
+      "answer_token_displacement": 0.5577544569969177,
+      "answer_token_displacement_sd": 0.06392020732164383,
+      "answer_token_common": 0.44295209646224976,
+      "answer_token_varying": 0.33941927552223206
+    },
+    "impulsiveness_dm_m_d025s_s1.459": {
+      "trait_vector_displacement": 1.0364824533462524,
+      "trait_vector_displacement_sd": 0.21818195283412933,
+      "answer_token_displacement": 0.7440974116325378,
+      "answer_token_displacement_sd": 0.0721859559416771,
+      "answer_token_common": 0.6075013279914856,
+      "answer_token_varying": 0.4292216897010803
+    },
+    "impulsiveness_dm_m_d025s_s1.967": {
+      "trait_vector_displacement": 1.2561144828796387,
+      "trait_vector_displacement_sd": 0.2956477999687195,
+      "answer_token_displacement": 0.9468780755996704,
+      "answer_token_displacement_sd": 0.07940170168876648,
+      "answer_token_common": 0.7931317090988159,
+      "answer_token_varying": 0.5157012939453125
+    },
+    "impulsiveness_dm_m_d_s1.364": {
+      "trait_vector_displacement": 0.9745479822158813,
+      "trait_vector_displacement_sd": 0.1817617267370224,
+      "answer_token_displacement": 0.7396613359451294,
+      "answer_token_displacement_sd": 0.07209411263465881,
+      "answer_token_common": 0.6036781072616577,
+      "answer_token_varying": 0.42825955152511597
+    },
+    "impulsiveness_dm_m_d_s1.653": {
+      "trait_vector_displacement": 1.0923426151275635,
+      "trait_vector_displacement_sd": 0.20825903117656708,
+      "answer_token_displacement": 0.8588638305664062,
+      "answer_token_displacement_sd": 0.07519254833459854,
+      "answer_token_common": 0.7152232527732849,
+      "answer_token_varying": 0.4757553040981293
+    },
+    "impulsiveness_dm_m_d_s1.979": {
+      "trait_vector_displacement": 1.2118829488754272,
+      "trait_vector_displacement_sd": 0.23990699648857117,
+      "answer_token_displacement": 0.9853813052177429,
+      "answer_token_displacement_sd": 0.0794183611869812,
+      "answer_token_common": 0.8361333608627319,
+      "answer_token_varying": 0.52076655626297
+    },
+    "impulsiveness_dm_m_d_s2.25": {
+      "trait_vector_displacement": 1.309581995010376,
+      "trait_vector_displacement_sd": 0.27007219195365906,
+      "answer_token_displacement": 1.0865743160247803,
+      "answer_token_displacement_sd": 0.0817461907863617,
+      "answer_token_common": 0.9347962141036987,
+      "answer_token_varying": 0.5526463389396667
+    },
+    "impulsiveness_dm_m_d_s2.5": {
+      "trait_vector_displacement": 1.3980309963226318,
+      "trait_vector_displacement_sd": 0.30158308148384094,
+      "answer_token_displacement": 1.1787328720092773,
+      "answer_token_displacement_sd": 0.0833899974822998,
+      "answer_token_common": 1.0264155864715576,
+      "answer_token_varying": 0.5780179500579834
+    },
+    "impulsiveness_dm_m_f_s0.518": {
+      "trait_vector_displacement": 0.7186418771743774,
+      "trait_vector_displacement_sd": 0.1380014717578888,
+      "answer_token_displacement": 0.4958813786506653,
+      "answer_token_displacement_sd": 0.041979070752859116,
+      "answer_token_common": 0.3914393484592438,
+      "answer_token_varying": 0.30476003885269165
+    },
+    "impulsiveness_dm_m_f_s0.801": {
+      "trait_vector_displacement": 0.8822232484817505,
+      "trait_vector_displacement_sd": 0.23144742846488953,
+      "answer_token_displacement": 0.5804430842399597,
+      "answer_token_displacement_sd": 0.05780435726046562,
+      "answer_token_common": 0.45127472281455994,
+      "answer_token_varying": 0.3646450638771057
+    },
+    "impulsiveness_dm_m_f_s1.062": {
+      "trait_vector_displacement": 1.0791864395141602,
+      "trait_vector_displacement_sd": 0.32437002658843994,
+      "answer_token_displacement": 0.7252426743507385,
+      "answer_token_displacement_sd": 0.06497534364461899,
+      "answer_token_common": 0.5752159953117371,
+      "answer_token_varying": 0.4417370855808258
+    },
+    "impulsiveness_dm_m_s_s0.505": {
+      "trait_vector_displacement": 0.69994056224823,
+      "trait_vector_displacement_sd": 0.20881468057632446,
+      "answer_token_displacement": 0.4035293459892273,
+      "answer_token_displacement_sd": 0.062354180961847305,
+      "answer_token_common": 0.29279470443725586,
+      "answer_token_varying": 0.27734822034835815
+    },
+    "impulsiveness_dm_m_s_s0.589": {
+      "trait_vector_displacement": 0.8051736950874329,
+      "trait_vector_displacement_sd": 0.27414852380752563,
+      "answer_token_displacement": 0.45211729407310486,
+      "answer_token_displacement_sd": 0.06655896455049515,
+      "answer_token_common": 0.3302224278450012,
+      "answer_token_varying": 0.3083330988883972
+    },
+    "impulsiveness_dm_m_s_s0.673": {
+      "trait_vector_displacement": 0.8863277435302734,
+      "trait_vector_displacement_sd": 0.321603000164032,
+      "answer_token_displacement": 0.4933466911315918,
+      "answer_token_displacement_sd": 0.06755489856004715,
+      "answer_token_common": 0.36233922839164734,
+      "answer_token_varying": 0.33424073457717896
+    },
+    "impulsiveness_curve_mrg_step180": {
+      "trait_vector_displacement": 1.0086371898651123,
+      "trait_vector_displacement_sd": 0.28058359026908875,
+      "answer_token_displacement": 0.7019597291946411,
+      "answer_token_displacement_sd": 0.07224932312965393,
+      "answer_token_common": 0.5631569623947144,
+      "answer_token_varying": 0.4184662699699402
+    },
+    "impulsiveness_curve_mrg_step285": {
+      "trait_vector_displacement": 1.0344345569610596,
+      "trait_vector_displacement_sd": 0.33522874116897583,
+      "answer_token_displacement": 0.6961911916732788,
+      "answer_token_displacement_sd": 0.07577063888311386,
+      "answer_token_common": 0.5536109209060669,
+      "answer_token_varying": 0.42150774598121643
+    },
+    "impulsiveness_curve_mrg_step375": {
+      "trait_vector_displacement": 1.0231877565383911,
+      "trait_vector_displacement_sd": 0.29823431372642517,
+      "answer_token_displacement": 0.7002736330032349,
+      "answer_token_displacement_sd": 0.06747748702764511,
+      "answer_token_common": 0.5605008006095886,
+      "answer_token_varying": 0.41916465759277344
+    },
+    "impulsiveness_curve_mrg_step45": {
+      "trait_vector_displacement": 0.9326303601264954,
+      "trait_vector_displacement_sd": 0.18231622874736786,
+      "answer_token_displacement": 0.6831052303314209,
+      "answer_token_displacement_sd": 0.06175772100687027,
+      "answer_token_common": 0.5571448802947998,
+      "answer_token_varying": 0.3950935900211334
+    },
+    "impulsiveness_curve_mrg_step750": {
+      "trait_vector_displacement": 1.0295594930648804,
+      "trait_vector_displacement_sd": 0.2895740270614624,
+      "answer_token_displacement": 0.6917210817337036,
+      "answer_token_displacement_sd": 0.0622691735625267,
+      "answer_token_common": 0.5448295474052429,
+      "answer_token_varying": 0.4261661171913147
+    },
+    "impulsiveness_curve_mrg_step90": {
+      "trait_vector_displacement": 0.991634726524353,
+      "trait_vector_displacement_sd": 0.2373591661453247,
+      "answer_token_displacement": 0.6910209655761719,
+      "answer_token_displacement_sd": 0.06984280049800873,
+      "answer_token_common": 0.5607646107673645,
+      "answer_token_varying": 0.4033697247505188
+    },
+    "impulsiveness_curve_mrg_stepfinal": {
+      "trait_vector_displacement": 1.0394705533981323,
+      "trait_vector_displacement_sd": 0.302162766456604,
+      "answer_token_displacement": 0.691555380821228,
+      "answer_token_displacement_sd": 0.06338892132043839,
+      "answer_token_common": 0.5455324053764343,
+      "answer_token_varying": 0.42500847578048706
+    },
+    "impulsiveness_curve_seq_step1050": {
+      "trait_vector_displacement": 1.058034062385559,
+      "trait_vector_displacement_sd": 0.30859312415122986,
+      "answer_token_displacement": 0.62841796875,
+      "answer_token_displacement_sd": 0.05520939826965332,
+      "answer_token_common": 0.4733153283596039,
+      "answer_token_varying": 0.4173147678375244
+    },
+    "impulsiveness_curve_seq_step180": {
+      "trait_vector_displacement": 0.9531256556510925,
+      "trait_vector_displacement_sd": 0.2876014709472656,
+      "answer_token_displacement": 0.616142988204956,
+      "answer_token_displacement_sd": 0.06797845661640167,
+      "answer_token_common": 0.48094338178634644,
+      "answer_token_varying": 0.3841416537761688
+    },
+    "impulsiveness_curve_seq_step255": {
+      "trait_vector_displacement": 0.9506878852844238,
+      "trait_vector_displacement_sd": 0.2990572452545166,
+      "answer_token_displacement": 0.6149085760116577,
+      "answer_token_displacement_sd": 0.065482497215271,
+      "answer_token_common": 0.47537893056869507,
+      "answer_token_varying": 0.38951557874679565
+    },
+    "impulsiveness_curve_seq_step270": {
+      "trait_vector_displacement": 0.9290510416030884,
+      "trait_vector_displacement_sd": 0.28335556387901306,
+      "answer_token_displacement": 0.589233934879303,
+      "answer_token_displacement_sd": 0.05928576737642288,
+      "answer_token_common": 0.4535909593105316,
+      "answer_token_varying": 0.37533116340637207
+    },
+    "impulsiveness_curve_seq_step285": {
+      "trait_vector_displacement": 0.956582248210907,
+      "trait_vector_displacement_sd": 0.34197673201560974,
+      "answer_token_displacement": 0.5944384336471558,
+      "answer_token_displacement_sd": 0.06824853271245956,
+      "answer_token_common": 0.4569605886936188,
+      "answer_token_varying": 0.3795582354068756
+    },
+    "impulsiveness_curve_seq_step300": {
+      "trait_vector_displacement": 0.9531593322753906,
+      "trait_vector_displacement_sd": 0.3130533695220947,
+      "answer_token_displacement": 0.6021774411201477,
+      "answer_token_displacement_sd": 0.062243808060884476,
+      "answer_token_common": 0.46358126401901245,
+      "answer_token_varying": 0.3842250406742096
+    },
+    "impulsiveness_curve_seq_step330": {
+      "trait_vector_displacement": 0.9996252059936523,
+      "trait_vector_displacement_sd": 0.3026896119117737,
+      "answer_token_displacement": 0.6304472088813782,
+      "answer_token_displacement_sd": 0.05276443809270859,
+      "answer_token_common": 0.4853859543800354,
+      "answer_token_varying": 0.40407124161720276
+    },
+    "impulsiveness_curve_seq_step375": {
+      "trait_vector_displacement": 0.9801023602485657,
+      "trait_vector_displacement_sd": 0.2947254776954651,
+      "answer_token_displacement": 0.6124848127365112,
+      "answer_token_displacement_sd": 0.05998511239886284,
+      "answer_token_common": 0.47218412160873413,
+      "answer_token_varying": 0.3900381624698639
+    },
+    "impulsiveness_curve_seq_step45": {
+      "trait_vector_displacement": 0.8035700917243958,
+      "trait_vector_displacement_sd": 0.15708942711353302,
+      "answer_token_displacement": 0.5729975700378418,
+      "answer_token_displacement_sd": 0.0634656623005867,
+      "answer_token_common": 0.46056699752807617,
+      "answer_token_varying": 0.3411450982093811
+    },
+    "impulsiveness_curve_seq_step450": {
+      "trait_vector_displacement": 1.043701171875,
+      "trait_vector_displacement_sd": 0.30146926641464233,
+      "answer_token_displacement": 0.6220914125442505,
+      "answer_token_displacement_sd": 0.053863804787397385,
+      "answer_token_common": 0.47567740082740784,
+      "answer_token_varying": 0.4027837812900543
+    },
+    "impulsiveness_curve_seq_step570": {
+      "trait_vector_displacement": 1.0334651470184326,
+      "trait_vector_displacement_sd": 0.3084856867790222,
+      "answer_token_displacement": 0.6261439919471741,
+      "answer_token_displacement_sd": 0.055817168205976486,
+      "answer_token_common": 0.47460564970970154,
+      "answer_token_varying": 0.41136598587036133
+    },
+    "impulsiveness_curve_seq_step690": {
+      "trait_vector_displacement": 1.061316967010498,
+      "trait_vector_displacement_sd": 0.3123099207878113,
+      "answer_token_displacement": 0.6350570917129517,
+      "answer_token_displacement_sd": 0.056881826370954514,
+      "answer_token_common": 0.4799572825431824,
+      "answer_token_varying": 0.41962242126464844
+    },
+    "impulsiveness_curve_seq_step750": {
+      "trait_vector_displacement": 1.0699726343154907,
+      "trait_vector_displacement_sd": 0.31069210171699524,
+      "answer_token_displacement": 0.6331318020820618,
+      "answer_token_displacement_sd": 0.0582137368619442,
+      "answer_token_common": 0.4769414961338043,
+      "answer_token_varying": 0.42056721448898315
+    },
+    "impulsiveness_curve_seq_step810": {
+      "trait_vector_displacement": 1.0367788076400757,
+      "trait_vector_displacement_sd": 0.30414682626724243,
+      "answer_token_displacement": 0.6157881021499634,
+      "answer_token_displacement_sd": 0.05624806135892868,
+      "answer_token_common": 0.46210765838623047,
+      "answer_token_varying": 0.4110260009765625
+    },
+    "impulsiveness_curve_seq_step90": {
+      "trait_vector_displacement": 0.8725811243057251,
+      "trait_vector_displacement_sd": 0.22603528201580048,
+      "answer_token_displacement": 0.5860797166824341,
+      "answer_token_displacement_sd": 0.06777092814445496,
+      "answer_token_common": 0.46607470512390137,
+      "answer_token_varying": 0.3548120856285095
+    },
+    "impulsiveness_curve_seq_step930": {
+      "trait_vector_displacement": 1.051337480545044,
+      "trait_vector_displacement_sd": 0.3030441701412201,
+      "answer_token_displacement": 0.63124018907547,
+      "answer_token_displacement_sd": 0.05459853634238243,
+      "answer_token_common": 0.476031631231308,
+      "answer_token_varying": 0.41954296827316284
+    },
+    "impulsiveness_curve_seq_stepfinal": {
+      "trait_vector_displacement": 1.0582680702209473,
+      "trait_vector_displacement_sd": 0.3138333559036255,
+      "answer_token_displacement": 0.624163031578064,
+      "answer_token_displacement_sd": 0.05700022354722023,
+      "answer_token_common": 0.47012853622436523,
+      "answer_token_varying": 0.41361188888549805
+    },
+    "impulsiveness_seed2": {
+      "trait_vector_displacement": 1.0617024898529053,
+      "trait_vector_displacement_sd": 0.3074985444545746,
+      "answer_token_displacement": 0.7482095956802368,
+      "answer_token_displacement_sd": 0.07826020568609238,
+      "answer_token_common": 0.5918174982070923,
+      "answer_token_varying": 0.45675644278526306
+    },
+    "impulsiveness_seed2_dpo": {
+      "trait_vector_displacement": 0.7620614171028137,
+      "trait_vector_displacement_sd": 0.12208069860935211,
+      "answer_token_displacement": 0.5818309783935547,
+      "answer_token_displacement_sd": 0.06439714133739471,
+      "answer_token_common": 0.4667421281337738,
+      "answer_token_varying": 0.3495526909828186
+    },
+    "impulsiveness_seed2_DplusS": {
+      "trait_vector_displacement": 1.0241191387176514,
+      "trait_vector_displacement_sd": 0.2961851954460144,
+      "answer_token_displacement": 0.6566992998123169,
+      "answer_token_displacement_sd": 0.06927552074193954,
+      "answer_token_common": 0.5018640756607056,
+      "answer_token_varying": 0.4232594966888428
+    },
+    "impulsiveness_seed2_Dplus025S": {
+      "trait_vector_displacement": 0.7733944058418274,
+      "trait_vector_displacement_sd": 0.14047576487064362,
+      "answer_token_displacement": 0.5608843564987183,
+      "answer_token_displacement_sd": 0.06535143405199051,
+      "answer_token_common": 0.44723987579345703,
+      "answer_token_varying": 0.339357852935791
+    },
+    "impulsiveness_repro_sft": {
+      "trait_vector_displacement": 0.6634808778762817,
+      "trait_vector_displacement_sd": 0.13898184895515442,
+      "answer_token_displacement": 0.3899204730987549,
+      "answer_token_displacement_sd": 0.05973627045750618,
+      "answer_token_common": 0.23338103294372559,
+      "answer_token_varying": 0.3250763416290283
+    },
+    "impulsiveness_regen": {
+      "trait_vector_displacement": 1.08837890625,
+      "trait_vector_displacement_sd": 0.21271580457687378,
+      "answer_token_displacement": 0.7209261655807495,
+      "answer_token_displacement_sd": 0.04111376404762268,
+      "answer_token_common": 0.5607354640960693,
+      "answer_token_varying": 0.4690260887145996
+    },
+    "impulsiveness_regen_s987654": {
+      "trait_vector_displacement": 0.8905872106552124,
+      "trait_vector_displacement_sd": 0.14180205762386322,
+      "answer_token_displacement": 0.5889150500297546,
+      "answer_token_displacement_sd": 0.038385774940252304,
+      "answer_token_common": 0.4578264355659485,
+      "answer_token_varying": 0.3715602457523346
+    },
+    "impulsiveness_paraphrase": {
+      "trait_vector_displacement": 0.9111154675483704,
+      "trait_vector_displacement_sd": 0.18446092307567596,
+      "answer_token_displacement": 0.6692768335342407,
+      "answer_token_displacement_sd": 0.04471037536859512,
+      "answer_token_common": 0.5299734473228455,
+      "answer_token_varying": 0.4109385013580322
+    }
+  }
+}
