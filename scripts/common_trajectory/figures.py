@@ -43,25 +43,50 @@ TRAIT_COL = {"assertiveness": "#E69F00", "confidence": "#56B4E9", "deference": "
 C_BEH, C_Q, C_G, C_S, C_SS, C_COS = "#1f1f1f", "#7a4fd0", "#eb6834", "#eb6834", "#7a4fd0", "#1f9e89"
 
 
+# Input selection (main()): the historical files by default; --geometry-tag etc. select the
+# audit reruns (v2/geometry_<c><tag>.json + v2/geometry_raw_<c>_L15<tag>.npz, the 10-persona
+# behaviour files, a tagged functional-dose file). Tagged runs write tagged outputs.
+SRC = {"geometry_tag": None, "behaviour_tag": "", "dose_tag": ""}
+
+
 def load(c):
-    b = json.loads((A / f"behaviour_{c}.json").read_text())
-    g = json.loads((A / f"geometry_{c}.json").read_text())
-    fd = json.loads((A / f"functional_dose_{c}.json").read_text())
-    nb = np.load(A / f"geometry_boot_{c}_L{LAYER}.npz")
+    b = json.loads((A / (f"v2/behaviour_{c}{SRC['behaviour_tag']}.json" if SRC["behaviour_tag"]
+                         else f"behaviour_{c}.json")).read_text())
+    fd = json.loads((A / f"functional_dose_{c}{SRC['dose_tag']}.json").read_text())
+    if SRC["geometry_tag"] is None:
+        g = json.loads((A / f"geometry_{c}.json").read_text())
+        nb = np.load(A / f"geometry_boot_{c}_L{LAYER}.npz")
+    else:
+        g = json.loads((A / f"v2/geometry_{c}{SRC['geometry_tag']}.json").read_text())
+        nb = np.load(A / f"v2/geometry_raw_{c}_L{LAYER}{SRC['geometry_tag']}.npz")
     return b, g, fd, nb
 
 
 def g_fraction(g, nb):
-    arms = [str(x) for x in nb["arms"]]; q = list(map(str, nb["qty"])).index("g")
+    arms = [str(x) for x in nb["arms"]]
     traits = g["layers"][LAYER]["traits"]
     pt = np.array([g["layers"][LAYER]["summary"]["MEAN8"][x]["g"]["point"] for x in arms])
-    bt = np.mean([nb[t][:, :, q] for t in traits], 0)
+    if "qty" in nb.files:                                      # historical geometry_boot file
+        q = list(map(str, nb["qty"])).index("g")
+        bt = np.mean([nb[t][:, :, q] for t in traits], 0)
+    else:                                                      # v2 raw accumulators
+        R = list(map(str, nb["raw"]))
+        gt = [np.sqrt(np.clip(nb[f"boot_{t}"][..., R.index("g2")], 0, None)) / nb[f"boot_{t}"][..., R.index("bn")]
+              for t in traits]
+        bt = np.mean(gt, 0)
+        bt = bt[np.isfinite(bt).all(1)]                        # draws with too few distinct questions
     fb = (bt - bt[:, :1]) / (bt[:, -1:] - bt[:, :1])
     lo, hi = np.nanpercentile(fb, [2.5, 97.5], axis=0)
     return (pt - pt[0]) / (pt[-1] - pt[0]), lo, hi
 
 
+def _f(v):
+    return np.nan if v is None else v
+
+
 def band(ax, x, p, lo, hi, color, label, ls="-", marker="o", lw=1.6):
+    """None (a withheld, non-estimable value) plots as a gap."""
+    p, lo, hi = ([_f(v) for v in s] for s in (p, lo, hi))
     ax.fill_between(x, lo, hi, color=color, alpha=0.13, lw=0)
     ax.plot(x, p, ls=ls, marker=marker, ms=3, lw=lw, color=color, label=label)
 
@@ -72,7 +97,14 @@ def main():
     ap.add_argument("--panels", default="ABCD",
                     help="subset of panels, e.g. AB; a subset writes fig_trajectory_<panels>.png (epoch axis "
                          "only) and leaves the full figure and the CSVs untouched")
+    ap.add_argument("--geometry-tag", default=None,
+                    help="read v2/geometry_<c><tag>.json (e.g. _cmbase); default: historical geometry_<c>.json")
+    ap.add_argument("--behaviour-tag", default="",
+                    help="read v2/behaviour_<c><tag>.json (e.g. _10personas, the geometry's persona set)")
+    ap.add_argument("--dose-tag", default="", help="read functional_dose_<c><tag>.json")
+    ap.add_argument("--out-tag", default="", help="suffix for every output written")
     a = ap.parse_args()
+    SRC.update(geometry_tag=a.geometry_tag, behaviour_tag=a.behaviour_tag, dose_tag=a.dose_tag)
     panels = a.panels.upper()
     col = {p: i for i, p in enumerate(panels)}
     full = panels == "ABCD"
@@ -80,7 +112,9 @@ def main():
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
-    cons = [c for c in ORDER if all((A / f"{k}_{c}.json").exists() for k in ("behaviour", "geometry", "functional_dose"))]
+    cons = [c for c in ORDER if (A / f"functional_dose_{c}{a.dose_tag}.json").exists()
+            and (A / (f"v2/geometry_{c}{a.geometry_tag}.json" if a.geometry_tag is not None else f"geometry_{c}.json")).exists()
+            and (A / (f"v2/behaviour_{c}{a.behaviour_tag}.json" if a.behaviour_tag else f"behaviour_{c}.json")).exists()]
     rows_csv, table = [], []
     for xmode in (("epoch", "dose") if full else ("epoch",)):
         fig, axes = plt.subplots(len(cons), len(panels), figsize=(4 * len(panels), 3.2 * len(cons)),
@@ -163,11 +197,13 @@ def main():
                     row["profile_change_norm"] = round(pr_["change_norm"]["point"], 4)
                     row["profile_q"] = round(pr_["q"]["point"], 4) if "q" in pr_ else None
                     for k in ("g", "S", "SS", "cosT", "Q"):
-                        v = S[a_][k]["point"]; row[f"MEAN8_{k}"] = None if v != v else round(v, 4)
+                        v = S[a_][k]["point"]; row[f"MEAN8_{k}"] = None if v is None or v != v else round(v, 4)
                     rows_csv.append(row)
                 tp = table_points(c)
                 def pick(e, k):
                     v = S[tp[e]][k]
+                    if v["point"] is None:
+                        return "n/e"
                     return f"{v['point']:.3f} [{v['lo']:.3f}, {v['hi']:.3f}]" if v["lo"] is not None else f"{v['point']:.3f}"
                 def qat(e):
                     r = next(r for r in prof if r["arm"] == tp[e])["q"]
@@ -189,17 +225,20 @@ def main():
                        for k, e in (("DPO", 0.0), ("0.5", 0.5), ("1", 1.0), ("3", 3.0))}})
         fig.suptitle("Behavioural profile and persona-common geometry along the native sequential DPO+SFT trajectory"
                      + (" " if full else "\n")
-                     + "(L15; 95% question-bootstrap CIs; one training seed per constitution)", fontsize=10.5, x=0.01, ha="left")
-        name = ("fig_trajectory" if full else f"fig_trajectory_{panels}") + ("" if xmode == "epoch" else "_dose")
+                     + "(L15; 95% question-bootstrap CIs; one training seed per constitution"
+                     + (f"; geometry base {g.get('base_arm', 'base')}" if a.geometry_tag is not None else "")
+                     + ("; behaviour on the geometry's 10 occupational personas" if a.behaviour_tag == "_10personas" else "")
+                     + ")", fontsize=10.5, x=0.01, ha="left")
+        name = ("fig_trajectory" if full else f"fig_trajectory_{panels}") + ("" if xmode == "epoch" else "_dose") + a.out_tag
         fig.savefig(A / f"{name}.png", dpi=150)
         plt.close(fig)
     if not full:
         return
 
-    with open(A / "trajectory_points.csv", "w", newline="") as f:
+    with open(A / f"trajectory_points{a.out_tag}.csv", "w", newline="") as f:
         cols = list(dict.fromkeys(k for r in rows_csv for k in r))
         w = csv.DictWriter(f, fieldnames=cols); w.writeheader(); w.writerows(rows_csv)
-    with open(A / "table_trajectory.csv", "w", newline="") as f:
+    with open(A / f"table_trajectory{a.out_tag}.csv", "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=list(dict.fromkeys(k for r in table for k in r))); w.writeheader(); w.writerows(table)
     for t in table:
         print(json.dumps(t, indent=1))

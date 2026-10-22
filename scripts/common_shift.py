@@ -83,6 +83,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--out", type=str,
                    default=str(OUTPUTS_DIR / "analysis" / "common_shift.json"))
+    p.add_argument("--base-arm", default="base",
+                   help="reference arm (e.g. base_cmask, the corrected-mask base); recorded in "
+                        "<out>.provenance.json")
+    p.add_argument("--allow-mixed-mask", action="store_true",
+                   help="only to reproduce historical mixed-protocol numbers; recorded")
     return p.parse_args()
 
 
@@ -250,8 +255,9 @@ def main() -> None:
     text: list[str] = []
 
     for layer in a.layers:
-        base = load_arm(cache, "base", a.cache_layers, layer)
-        arms_d = {arm: load_arm(cache, arm, a.cache_layers, layer) for arm in a.arms}
+        arms_d, prov = load_arms_checked(cache, [a.base_arm, *a.arms], a.cache_layers, layer,
+                                         allow_mixed_mask=a.allow_mixed_mask)
+        base = arms_d.pop(a.base_arm)
         traits = base["traits"]
         pidx = [base["personas"].index(p) for p in base["semantic"]]
         P = len(pidx)
@@ -341,6 +347,9 @@ def main() -> None:
     print(body)
     out = Path(a.out); out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(results, indent=2))
+    # beside, not inside: selectivity_score.py and others index the results by layer
+    Path(str(out).replace(".json", ".provenance.json")).write_text(
+        json.dumps({"base_arm": a.base_arm, "arms": a.arms, "provenance": prov}, indent=1, default=str))
     Path(str(out).replace(".json", ".txt")).write_text(body)
     print(f"\nwrote {out} and {str(out).replace('.json', '.txt')}")
 
