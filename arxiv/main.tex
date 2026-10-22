@@ -215,21 +215,17 @@ Given the notable behaviour of the impulsivity character above, we next asked at
 
 % ===== PROVISIONAL arXiv EXTENSIONS (from exp/common-trajectory, exp/xchar-sft, exp/behav-pv-eval) =====
 
-\subsection{Acquisition timing generalises; SFT's role depends on the constitution}
+\subsection{Extending trait acquisition analysis to characters loving, goodness, sycophancy}
 \label{sec:ext-trajectory}
-\newtext{[TO WRITE.] Extends Sec.~\ref{sec:results-sft} from impulsiveness to loving, goodness and sycophancy, so the impulsiveness result does not read as a general claim that ``SFT installs character''.}
+\newtext{[TODO: double check against appendix/runpod audit]} In Sec.~\ref{sec:results-sft} we focused upon the impulsiveness character; now we extend the trait-instillation-timing analysis to loving, goodness and sycophancy. Fig.~\ref{fig:ext-trajectory}A shows (y-axis) the fitted offset of logprobs (pooled across personas) for each trait, against SFT epoch (x-axis), for the four constitutions. Under impulsiveness, there is a weak preference (in the pre-SFT, DPO-only model) for all trades versus the base model. However, preferences clearly differentiate through SFT. Loving and goodness show contrasting behavior where DPO installs differentiated trade offsets, which reorder moderately but remain broadly differentiated through SFT. Finally, sycophancy shows a profile and trajectory qualitatively similar to the impulse in mice, albeit with confidence as the strongly preferred trait.
 
-\begin{figure*}[t]
-    \centering
-    \includegraphics[width=0.95\linewidth]{ext_traj_full.png}
-    \caption{\figplaceholder Behavioural profile and persona-common geometry along the sequential DPO$\rightarrow$SFT trajectory for impulsiveness, loving, goodness and sycophancy (rows; L15, question-bootstrap 95\% CIs, one training seed each). A: eight-trait forced-choice offsets vs base. B: fraction $q$ of the final SFT-induced profile change present at each epoch, alongside geometry $Q$ and common magnitude $g$. C: persona-common squared share $S$. D: common-shift magnitude and cosine to its final direction. \textbf{Main-text version should be a simplified A+B panel}; the full figure moves to App.~\ref{app:ext-trajectory}. Source: \texttt{outputs/analysis/common\_trajectory/fig\_trajectory.png} (\texttt{exp/common-trajectory}).}
-    \label{fig:ext-trajectory}
-\end{figure*}
+For impulsiveness and loving, we also show the bold line is the $B_2$ measure of preference (jointly for impulsivity and risk-taking), clearly rising with SFT for impulsiveness, but broadly unchanged under loving.
+
+Panel B shows the timing with which trait profile is acquired: $q$ is progress along the eventual profile-change direction, measured from logprobs. We see that 70--85\% of the eventual SFT-induced eight-trait profile change is present by half an epoch ($q$ at 0.48 ep: impulsiveness 0.76, loving 0.85, goodness 0.83, sycophancy 0.70). The common-shift direction is $\geq 0.93$ aligned with its final direction by then. However, as elsewhere in the paper, measurement method matters: a CAA-based geometric measure (purple) does not follow the same trajectory for all characters
+
 
 \begin{llmblock}
 \begin{itemize}
-  \item \textbf{Timing is similar across all four constitutions.} 70--85\% of the eventual SFT-induced eight-trait profile change is present by half an epoch ($q$ at 0.48 ep: impulsiveness 0.76, loving 0.85, goodness 0.83, sycophancy 0.70). The common-shift direction is $\geq 0.93$ aligned with its final direction by then.
-  \item \textbf{Wording:} $q$ is progress along the eventual profile-change direction, not ``70--85\% of the character''. It is also a different quantity from the 82\% in Sec.~\ref{sec:results-sft}, which is the impulsivity-selectivity contrast $B_1$.
   \item \textbf{Which stage carries the target differs.} Impulsiveness: $B_2$ rises from $+0.30$ (DPO only) to $+2.09$ (3 ep), so SFT carries the target. Loving: the LOV contrast is already $+0.82$ after DPO and ends at $+0.88$, a paired change of $+0.06$ $[-0.00,+0.14]$. Loving's SFT change is off-target (assertiveness $-0.97$, confidence $+0.66$, impulsivity $+0.44$, risk-taking $+0.36$).
   \item SFT moves the profile about four times more for some constitutions than others: $\lVert\Delta\text{profile}\rVert$ from DPO to 3 ep is 3.17 (impulsiveness), 2.27 (sycophancy), 1.33 (loving), 0.80 (goodness).
   \item \textbf{Matched-dose control} (DPO adapter scaled to the same measured displacement; App.~\ref{app:ext-trajectory}). Every constitution's SFT changes behaviour beyond scaled DPO; for impulsiveness $B_2$ is $+1.47$ at matched dose. Persona-common share $S$ excess over scaled DPO (L15/L20): impulsiveness $-0.003/+0.018$, sycophancy $+0.033/+0.067$, loving $+0.090/+0.102$, goodness $+0.095/+0.069$.
@@ -1009,9 +1005,127 @@ The takeaway is, for this constitution (and a single seed/measurement layer), th
 
 \input{tables/tableA_oct_sft_curve.tex}
 
-\section{Acquisition trajectories across constitutions (provisional)}
+\section{Acquisition trajectories across constitutions}
 \label{app:ext-trajectory}
-\newtext{[TO WRITE.] Full trajectory panel (Fig.~\ref{fig:ext-trajectory}) moves here once the main text has a simplified panel. Matched-dose controls below: the SFT trajectory against the same constitution's DPO-only adapter scaled to the same measured functional dose (App.~\ref{app:f-dose}).}
+\newtext{[CHECK THIS AGAINST MAIN SECTION] Full trajectory panel (Fig.~\ref{fig:ext-trajectory}) moves here once the main text has a simplified panel. Matched-dose controls below: the SFT trajectory against the same constitution's DPO-only adapter scaled to the same measured functional dose (App.~\ref{app:f-dose}).}
+
+As discussed in Sec.~\ref{sec:ext-trajectory} and elsewhere in this paper, measurement method (CAA-based versus log-odds-based) lead to somewhat different pictures of SFT trajectories. (Fig.~\ref{fig:ext-trajectory}A-D) visualises these differences, and plots the following calculated quantities.
+
+Let $c$ index constitutions, $t$ the eight traits, and $p$
+personas. Let $e=0$ denote the DPO-only state and $F$ the
+final SFT checkpoint. For the geometric quantities,
+$P=10$ occupational personas. An overbar denotes an
+unweighted mean over the eight traits. Superscript $S$ refers to post-DPO training in Panel C.
+
+\noindent\textbf{Panel A: fitted trait-preference profiles.}
+For each trait and checkpoint, we follow the method in Sec.~\ref{app:signed}:
+ the forced-choice regression
+pools question--persona items $i$:
+\begin{equation}
+L_{c,t,i}(e)
+ = a_{c,t}(e)+k_{c,t}(e)L_{\mathrm{base},t,i}
+   +\varepsilon_i,
+\end{equation}
+where $L$ is the log-odds of the trait-positive over the
+trait-negative answer. Fits are performed separately by
+answer polarity (trait-positive versus trait-negative) and their intercepts averaged.
+The coloured curves show $a_{c,t}(e)$; the black curves
+show the following contrasts where specified:
+\begin{align}
+B_{2,c}(e)
+ &= \frac{a_{c,\mathrm{impulsivity}}(e)
+          +a_{c,\mathrm{risk\text{-}taking}}(e)}{2}
+    -\frac16\sum_{t\notin
+       \{\mathrm{impulsivity},\mathrm{risk\text{-}taking}\}}
+       a_{c,t}(e), \\
+\mathrm{LOV}_c(e)
+ &= \frac{a_{c,\mathrm{empathy}}(e)
+          +a_{c,\mathrm{warmth}}(e)}{2}
+    -\frac16\sum_{t\notin
+       \{\mathrm{empathy},\mathrm{warmth}\}}a_{c,t}(e).
+\end{align}
+$B_2$ is shown for impulsiveness and $\mathrm{LOV}$ for
+loving; neither contrast is shown for goodness or sycophancy. The traits chosen are those that had significant joint effects under those constitutions (Fig.~\ref{fig:trait-selectivity-logits})
+
+For panels B--D, define the total and incremental
+representational changes:
+\begin{align}
+dV_{c,t,p}(e)
+ &= V_{c,t,p}(e)-V_{\mathrm{base},t,p}, \\
+dV^{S}_{c,t,p}(e)
+ &= V_{c,t,p}(e)-V_{c,t,p}(0), \\
+dG_{c,t}(e)
+ &= \frac1P\sum_p dV_{c,t,p}(e), \\
+dG^{S}_{c,t}(e)
+ &= \frac1P\sum_p dV^{S}_{c,t,p}(e).
+\end{align}
+The superscript $S$ denotes incremental SFT change.
+Define the baseline scale and relative common magnitude:
+\begin{equation}
+b_t=\frac1P\sum_p\|V_{\mathrm{base},t,p}\|,
+\qquad
+g_{c,t}(e)=\frac{\|dG_{c,t}(e)\|}{b_t},
+\qquad
+\bar g_c(e)=\frac18\sum_t g_{c,t}(e).
+\end{equation}
+
+\noindent\textbf{Panel B: normalised trajectory progress.}
+Let $\mathbf a_c(e)=(a_{c,t}(e))_{t=1}^{8}$ and
+$\mathbf d_c(e)=\mathbf a_c(e)-\mathbf a_c(0)$.
+The black, purple and dashed orange curves are,
+respectively,
+\begin{align}
+q_c(e)
+ &= \frac{\mathbf d_c(e)^\top\mathbf d_c(F)}
+          {\|\mathbf d_c(F)\|^2}, \\
+Q_c(e)
+ &= \frac18\sum_t
+    \frac{dG^{S}_{c,t}(e)^\top dG^{S}_{c,t}(F)}
+         {\|dG^{S}_{c,t}(F)\|^2}, \\
+\widetilde g_c(e)
+ &= \frac{\bar g_c(e)-\bar g_c(0)}
+          {\bar g_c(F)-\bar g_c(0)}.
+\end{align}
+
+\noindent\textbf{Panel C: persona-common squared shares.}
+The total and incremental shares are
+\begin{align}
+\bar S_c(e)
+ &= \frac18\sum_t
+    \frac{\|dG_{c,t}(e)\|^2}
+         {P^{-1}\sum_p\|dV_{c,t,p}(e)\|^2}, \\
+\bar S^{S}_c(e)
+ &= \frac18\sum_t
+    \frac{\|dG^{S}_{c,t}(e)\|^2}
+         {P^{-1}\sum_p\|dV^{S}_{c,t,p}(e)\|^2}.
+\end{align}
+
+\noindent\textbf{Panel D: common-shift magnitude and direction.}
+The orange curve shows $\bar g_c(e)$.
+The green curve shows
+\begin{align}
+\bar\gamma_c(e)
+ &= \frac18\sum_t
+    \cos\!\left(dG_{c,t}(e),dG_{c,t}(F)\right) \\
+ &= \frac18\sum_t
+    \frac{dG_{c,t}(e)^\top dG_{c,t}(F)}
+         {\|dG_{c,t}(e)\|\,\|dG_{c,t}(F)\|}.
+\end{align}
+
+These equations define the estimands. Geometric inner
+products are estimated across disjoint question halves
+to reduce noise bias; intervals use paired question
+bootstrapping across checkpoints. Ratios require nonzero,
+stably estimated denominators. Behavioural regressions
+pool eleven personas, including null; geometric summaries
+use the ten occupational personas.
+
+\begin{figure*}[t]
+    \centering
+    \includegraphics[width=0.95\linewidth]{ext_traj_full.png}
+    \caption{\figplaceholder Behavioural profile and persona-common geometry along the sequential DPO$\rightarrow$SFT trajectory for impulsiveness, loving, goodness and sycophancy (rows; L15, question-bootstrap 95\% CIs, one training seed each). A: eight-trait forced-choice offsets vs base. B: fraction $q$ of the final SFT-induced profile change present at each epoch, alongside geometry $Q$ and common magnitude $g$. C: persona-common squared share $S$. D: common-shift magnitude and cosine to its final direction. \textbf{Main-text version should be a simplified A+B panel}; the full figure moves to App.~\ref{app:ext-trajectory}. Source: \texttt{outputs/analysis/common\_trajectory/fig\_trajectory.png} (\texttt{exp/common-trajectory}).}
+    \label{fig:ext-trajectory}
+\end{figure*}
 
 \begin{figure*}[t]
     \centering
