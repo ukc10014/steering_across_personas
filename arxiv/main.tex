@@ -1016,26 +1016,27 @@ The takeaway is, for this constitution (and a single seed/measurement layer), th
 \label{app:ext-trajectory}
 \newtext{[CHECK THIS AGAINST MAIN SECTION] Full trajectory panel (Fig.~\ref{fig:ext-trajectory}) moves here once the main text has a simplified panel. Matched-dose controls below: the SFT trajectory against the same constitution's DPO-only adapter scaled to the same measured functional dose (App.~\ref{app:f-dose}).}
 
-As discussed in Sec.~\ref{sec:ext-trajectory} and elsewhere in this paper, measurement method (CAA-based versus log-odds-based) lead to somewhat different pictures of SFT trajectories. (Fig.~\ref{fig:ext-trajectory}A-D) visualises these differences, and plots the following calculated quantities.
+As discussed in Sec.~\ref{sec:ext-trajectory} and elsewhere in this paper, the chosen measurement method (CAA-based versus log-odds-based) leads to somewhat different pictures of SFT trajectories. The plots in Fig.~\ref{fig:ext-trajectory}A-D visualize these differences based upon the following calculated quantities.
 
 Let $c$ index constitutions, $t$ the eight traits, and $p$
 personas. Let $e=0$ denote the DPO-only state and $F$ the
 final SFT checkpoint. For the geometric quantities,
-$P=10$ occupational personas. An overbar denotes an
-unweighted mean over the eight traits. Superscript $S$ refers to post-DPO training in Panel C.
+$P=10$ occupational personas. Superscript $S$ refers to post-DPO training. As above, behavioural log-odds regressions
+pool eleven personas, including null. CAA-based geometric summaries
+use the ten occupational personas, and an overbar to denotes an
+unweighted mean over the eight traits.
 
 \noindent\textbf{Panel A: fitted trait-preference profiles.}
 For each trait and checkpoint, we follow the method in Sec.~\ref{app:signed}:
  the forced-choice regression
-pools question--persona items $i$:
+pools (over personas) question items $i$:
 \begin{equation}
 L_{c,t,i}(e)
  = a_{c,t}(e)+k_{c,t}(e)L_{\mathrm{base},t,i}
    +\varepsilon_i,
 \end{equation}
 where $L$ is the log-odds of the trait-positive over the
-trait-negative answer. Fits are performed separately by
-answer polarity (trait-positive versus trait-negative) and their intercepts averaged.
+trait-negative answer. To account for answer-letter preferences, regressions are fitted separately for questions where option A expresses the trait and questions where option B expresses it; the two fitted intercepts are then averaged.
 The coloured curves show $a_{c,t}(e)$; the black curves
 show the following contrasts where specified:
 \begin{align}
@@ -1051,11 +1052,10 @@ B_{2,c}(e)
     -\frac16\sum_{t\notin
        \{\mathrm{empathy},\mathrm{warmth}\}}a_{c,t}(e).
 \end{align}
-$B_2$ is shown for impulsiveness and $\mathrm{LOV}$ for
-loving; neither contrast is shown for goodness or sycophancy. The traits chosen are those that had significant joint effects under those constitutions (Fig.~\ref{fig:trait-selectivity-logits})
+$B_2$ and $\mathrm{LOV}$ are the trait-profile measures for the characters impulsiveness and loving, respectively; no analogous contrast is shown for goodness or sycophancy. These contrasts summarise the target trait pairs used in the preceding analyses (Fig.~\ref{fig:trait-selectivity-logits}).
 
 For panels B--D, define the total and incremental
-representational changes:
+representational changes (covering the DPO-through-SFT and within-SFT portions of training, respectively):
 \begin{align}
 dV_{c,t,p}(e)
  &= V_{c,t,p}(e)-V_{\mathrm{base},t,p}, \\
@@ -1066,7 +1066,6 @@ dG_{c,t}(e)
 dG^{S}_{c,t}(e)
  &= \frac1P\sum_p dV^{S}_{c,t,p}(e).
 \end{align}
-The superscript $S$ denotes incremental SFT change.
 Define the baseline scale and relative common magnitude:
 \begin{equation}
 b_t=\frac1P\sum_p\|V_{\mathrm{base},t,p}\|,
@@ -1077,10 +1076,10 @@ g_{c,t}(e)=\frac{\|dG_{c,t}(e)\|}{b_t},
 \end{equation}
 
 \noindent\textbf{Panel B: normalised trajectory progress.}
-Let $\mathbf a_c(e)=(a_{c,t}(e))_{t=1}^{8}$ and
+Let $\mathbf a_c(e)=
+(a_{c,1}(e),\ldots,a_{c,8}(e))^\top$
+collect the eight fitted trait offsets, and define
 $\mathbf d_c(e)=\mathbf a_c(e)-\mathbf a_c(0)$.
-The black, purple and dashed orange curves are,
-respectively,
 \begin{align}
 q_c(e)
  &= \frac{\mathbf d_c(e)^\top\mathbf d_c(F)}
@@ -1088,14 +1087,28 @@ q_c(e)
 Q_c(e)
  &= \frac18\sum_t
     \frac{dG^{S}_{c,t}(e)^\top dG^{S}_{c,t}(F)}
-         {\|dG^{S}_{c,t}(F)\|^2}, \\
-\widetilde g_c(e)
- &= \frac{\bar g_c(e)-\bar g_c(0)}
-          {\bar g_c(F)-\bar g_c(0)}.
+         {\|dG^{S}_{c,t}(F)\|^2}.
 \end{align}
 
-\noindent\textbf{Panel C: persona-common squared shares.}
-The total and incremental shares are
+In words, $q_c(e)$ measures progress from the DPO-only
+trait profile along the direction of its final SFT-induced
+change. Consider that $d_c(e)$ is an 8-trait vector (a difference of log-odds intercepts between training checkpoints), and we want to measure the alignment/magnitude of that vector (at a checkpoint) with the corresponding vector at the end-of-training. That is, how much movement has the change-in-trait vector suffered as a result of training, expressed as a proportion of its final change. $Q_c(e)$ presents an analogous measure based upon CAA. The intuition of Fig.~\ref{fig:ext-trajectory}B is simply that the measurement method gives different trajectories, but we do not offer a further interpretation.
+
+The dashed orange curve in Panel B shows
+\begin{equation}
+\widetilde g_c(e)
+ = \frac{\bar g_c(e)-\bar g_c(0)}
+        {\bar g_c(F)-\bar g_c(0)}.
+\end{equation}
+It measures the increase in common-shift magnitude since DPO as a fraction of its final increase.
+
+\noindent\textbf{Panel C, D: persona-common squared shares, magnitude, direction (supplemental)}
+A central question in this paper has been how trait representations change, under constitutional training, on a persona-common rather than persona-conditional basis. Panel C compares accumulated changes from the unadapted base with additional changes from the DPO-only state; Panel D describes the magnitude and direction of the
+accumulated persona-common shift from base.
+
+
+
+In Panel C, DPO-through-SFT and SFT-incremental shares are
 \begin{align}
 \bar S_c(e)
  &= \frac18\sum_t
@@ -1107,9 +1120,18 @@ The total and incremental shares are
          {P^{-1}\sum_p\|dV^{S}_{c,t,p}(e)\|^2}.
 \end{align}
 
-\noindent\textbf{Panel D: common-shift magnitude and direction.}
-The orange curve shows $\bar g_c(e)$.
-The green curve shows
+The orange curve in Panel D shows
+\begin{equation}
+\bar g_c(e)
+ = \frac18\sum_t
+   \frac{\|dG_{c,t}(e)\|}
+        {P^{-1}\sum_p\|V_{\mathrm{base},t,p}\|}.
+\end{equation}
+It measures the magnitude of the persona-common shift
+from the unadapted base, relative to the baseline
+trait-vector scale, averaged across traits.
+
+The green curve shows the changing alignment (rotation, calculated using mean cosine similarity) of the shift in persona-common vector (at a checkpoint) compared to the total change over base$\rightarrow$SFT training.
 \begin{align}
 \bar\gamma_c(e)
  &= \frac18\sum_t
@@ -1119,13 +1141,7 @@ The green curve shows
          {\|dG_{c,t}(e)\|\,\|dG_{c,t}(F)\|}.
 \end{align}
 
-These equations define the estimands. Geometric inner
-products are estimated across disjoint question halves
-to reduce noise bias; intervals use paired question
-bootstrapping across checkpoints. Ratios require nonzero,
-stably estimated denominators. Behavioural regressions
-pool eleven personas, including null; geometric summaries
-use the ten occupational personas.
+
 
 \begin{figure*}[t]
     \centering
@@ -1147,15 +1163,6 @@ use the ten occupational personas.
     \caption{\figplaceholder Dose control, loving (L15). As Fig.~\ref{fig:ext-dose-imp}. The SFT checkpoints sit above the scaled-DPO line on persona-common share $S$ from the first checkpoint, while the LOV contrast does not exceed it. No paired CI on the gap. Source: \texttt{outputs/analysis/common\_trajectory/fig\_control\_dose\_loving.png}.}
     \label{fig:ext-dose-lov}
 \end{figure*}
-
-\begin{llmblock}
-\begin{itemize}
-  \item Impulsiveness: the persona-common geometry matches what DPO alone gives at the same dose ($\Delta S$ $-0.003$ at L15). SFT's distinctive contribution is behavioural ($B_2$ $+1.47$ at matched dose) and a redistribution of the common shift toward the target traits.
-  \item Loving: SFT adds nothing to the LOV contrast beyond scaled DPO ($-0.01$), but $S$ is $+0.09$/$+0.10$ (L15/L20) above scaled DPO, about 80\% of it present at 0.24 ep. Its behavioural contribution at matched dose is off-target (assertiveness $-1.12$, confidence $+0.57$, impulsivity $+0.49$).
-  \item Ordering across four constitutions: extra persona-generality from SFT is largest where DPO already carries most of the character (loving, goodness) and smallest where SFT carries it (impulsiveness). This is a description of four points, not a mechanism.
-  \item Empathy/warmth shortfall table by stage (DPO-only, sequential 3 ep, merge, released) from \texttt{COMMON\_TRAJECTORY\_FINDINGS.md}: worth including as a table.
-\end{itemize}
-\end{llmblock}
 
 \begin{auditblock}
 \begin{itemize}
