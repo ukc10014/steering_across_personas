@@ -53,6 +53,31 @@ REFERENCE = {
 CONSTRUCTION = {"seq": "native sequential", "mrg": "released-style merge"}
 
 
+# Activation inputs. Defaults are the historical (legacy-mask base) files; use_corrected_base()
+# switches to the G1 corrected-mask base (audit 2026-10-22), i.e. the same per-arm quantities
+# re-referenced to `base_cmask`. Logit inputs (B1, B2, k) are mask-independent and never switch.
+SOURCES = {"common_shift": ANALYSIS / "common_shift_oct_stage.json", "dose": ANALYSIS / "functional_dose.json",
+           "label": "legacy-mask base"}
+
+
+def use_corrected_base() -> None:
+    oa = ANALYSIS / "audit" / "oct_stage_cmbase"
+    SOURCES.update(common_shift=oa / "common_shift_oct_cmbase.json", dose=oa / "functional_dose_oct_cmbase.json",
+                   label="corrected-mask base (base_cmask)")
+
+
+def activation(arm: str):
+    """(dose, selectivity) of any arm from the current SOURCES; None where absent."""
+    cs = json.loads(SOURCES["common_shift"].read_text())[LAYER]
+    fd = json.loads(SOURCES["dose"].read_text())[LAYER]
+    traits = list(cs)
+    sel = None
+    if arm in cs[traits[0]]["per_arm"]:
+        g = lambda t: cs[t]["per_arm"][arm]["g_over_base"]
+        sel = st.mean(g(t) for t in TARGETS_PAIR) / st.mean(g(t) for t in traits if t not in TARGETS_PAIR)
+    return (fd.get(arm) or {}).get("trait_vector_displacement"), sel
+
+
 def parse_curve(arm: str):
     """impulsiveness_curve_mrg_step90 -> ('mrg', 90) ; ..._stepfinal -> ('mrg', 1122)"""
     if not arm.startswith("impulsiveness_curve_"):
@@ -77,8 +102,8 @@ def load(variant: str = "forced") -> list[dict]:
     # the OCT stage/curve arms live in their own file: common_shift.json is the
     # four-constitution headline decomposition that fig1 publishes, and a stage run
     # must not clobber it (it did, 2026-09-10; cost fig1 its L20 block).
-    cs = json.loads((ANALYSIS / "common_shift_oct_stage.json").read_text())[LAYER]
-    fd = json.loads((ANALYSIS / "functional_dose.json").read_text())[LAYER]
+    cs = json.loads(SOURCES["common_shift"].read_text())[LAYER]
+    fd = json.loads(SOURCES["dose"].read_text())[LAYER]
     traits = list(cs)
 
     rows = []
@@ -111,8 +136,8 @@ def load(variant: str = "forced") -> list[dict]:
             oth = st.mean(g(t) for t in traits if t not in TARGETS_PAIR)
             r["selectivity"] = tgt / oth
             cl = [c for t in traits
-                  for c in [cs[t]["cos"].get(f"{arm}|{FINAL_ARM}")
-                            or cs[t]["cos"].get(f"{FINAL_ARM}|{arm}")] if c is not None]
+                  for c in [cs[t].get("cos", {}).get(f"{arm}|{FINAL_ARM}")
+                            or cs[t].get("cos", {}).get(f"{FINAL_ARM}|{arm}")] if c is not None]
             r["cos_to_MF"] = st.mean(cl) if cl else (1.0 if arm == FINAL_ARM else None)
         rows.append(r)
     return rows

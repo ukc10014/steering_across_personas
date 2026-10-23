@@ -55,8 +55,10 @@ CON_LABEL = {"seq": "$M_D + \\Delta W_S(t)$  (additive)",
 REF_COLOR = {"M_D": "#2a78d6", "M_S": "#b5179e"}
 
 
-def reference_curves():
-    """(dose, B1, selectivity) for M_D and M_S from the dose-matched extraction rungs."""
+def reference_curves(corrected=False):
+    """(dose, B1, selectivity) for M_D and M_S from the dose-matched extraction rungs. With
+    `corrected`, the rungs (state, arm, B1) still come from the master CSV but dose and selectivity
+    are re-read per arm from the corrected-base sources (curve_common.activation)."""
     out = {}
     with open(REPO / "outputs" / "analysis" / "oct_stage_dose_master.csv") as fh:
         for r in csv.DictReader(fh):
@@ -64,18 +66,31 @@ def reference_curves():
                 continue
             if not r["dose"] or not r["B1"]:
                 continue
-            out.setdefault(r["state"], []).append(
-                (float(r["dose"]), float(r["B1"]),
-                 float(r["selectivity"]) if r["selectivity"] else np.nan))
+            dose, sel = (float(r["dose"]), float(r["selectivity"]) if r["selectivity"] else np.nan)
+            if corrected:
+                d_, s_ = cc.activation(r["arm"])
+                if d_ is None:
+                    raise SystemExit(f"{r['arm']}: no corrected-base dose")
+                dose, sel = d_, (s_ if s_ is not None else np.nan)
+            out.setdefault(r["state"], []).append((dose, float(r["B1"]), sel))
     for k in out:
         out[k].sort()
     return out
 
 
 def main() -> None:
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--corrected-base", action="store_true",
+                    help="activation panels (dose axes, selectivity) vs the G1 corrected-mask base; writes "
+                         "figA_oct_sft_curve_cmbase.* to --out-dir and leaves the published figure alone")
+    ap.add_argument("--out-dir", default=None)
+    a = ap.parse_args()
     use_style()
+    if a.corrected_base:
+        cc.use_corrected_base()
     rows = cc.load()
-    refs = reference_curves()
+    refs = reference_curves(a.corrected_base)
     have = {(r["construction"], r["step"]) for r in rows if r["kind"] == "curve"}
     if not have:
         raise SystemExit("no curve arms in the analysis JSON yet")
@@ -159,9 +174,27 @@ def main() -> None:
                borderpad=0.1, labelspacing=0.25)
     fig.tight_layout(pad=0.4)
 
-    save(fig, "figA_oct_sft_curve")
-    write_source_data("figA_oct_sft_curve", src,
-                      ["construction", "step", "epoch", "dose", "B1"])
+    if not a.corrected_base:
+        save(fig, "figA_oct_sft_curve")
+        write_source_data("figA_oct_sft_curve", src,
+                          ["construction", "step", "epoch", "dose", "B1"])
+    else:
+        out = Path(a.out_dir) if a.out_dir else REPO / "outputs/analysis/audit/oct_stage_cmbase"
+        out.mkdir(parents=True, exist_ok=True)
+        for ext in ("pdf", "png"):
+            fig.savefig(out / f"figA_oct_sft_curve_cmbase.{ext}")
+        for con in ("seq", "mrg"):
+            for st_, ep_, d_, v in cc.series(rows, con, "selectivity"):
+                src.append({"construction": f"{con}-selectivity", "step": st_, "epoch": ep_, "dose": round(d_, 4),
+                            "B1": "", "selectivity": round(v, 4)})
+        for st_, ser in refs.items():
+            for d_, b_, s_ in ser:
+                src.append({"construction": f"reference-{st_}", "step": "", "epoch": "", "dose": round(d_, 4),
+                            "B1": round(b_, 4), "selectivity": None if s_ != s_ else round(s_, 4)})
+        with open(out / "figA_oct_sft_curve_cmbase_data.csv", "w", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=["construction", "step", "epoch", "dose", "B1", "selectivity"])
+            w.writeheader(); w.writerows(src)
+        print("  wrote", out / "figA_oct_sft_curve_cmbase.{pdf,png}", "+ _data.csv;", cc.SOURCES["label"])
     print(f"  curve points: {len(have)} arm-states")
 
 
