@@ -1,0 +1,44 @@
+diff --git a/scripts/audit/fig_matched_dose.py b/scripts/audit/fig_matched_dose.py
+index 0b12e74..484cf55 100644
+--- a/scripts/audit/fig_matched_dose.py
++++ b/scripts/audit/fig_matched_dose.py
+@@ -85,6 +85,7 @@ def main():
+                  f"intervals (shared draws; dose matched within replicate; base {r['base_arm']}; one training seed). "
+                  "Open grey: interval withheld by the 97.5% rule", fontsize=9.5, x=0.01, ha="left")
+     fig.savefig(J / f"fig_matched_dose{a.tag}.png", dpi=150)
++    fig.savefig(J / f"fig_matched_dose{a.tag}.pdf")
+     with open(J / f"matched_dose_points{a.tag}.csv", "w", newline="") as f:
+         w = csv.DictWriter(f, fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)
+     print("wrote", J / f"fig_matched_dose{a.tag}.png")
+diff --git a/scripts/common_trajectory/figures.py b/scripts/common_trajectory/figures.py
+index dc2b7ca..238f7f9 100644
+--- a/scripts/common_trajectory/figures.py
++++ b/scripts/common_trajectory/figures.py
+@@ -224,13 +224,14 @@ def main():
+                     **{f"dose_{k}": round(fd[LAYER][tp[e]]["trait_vector_displacement"], 3)
+                        for k, e in (("DPO", 0.0), ("0.5", 0.5), ("1", 1.0), ("3", 3.0))}})
+         fig.suptitle("Behavioural profile and persona-common geometry along the native sequential DPO+SFT trajectory"
+-                     + (" " if full else "\n")
++                     + "\n"
+                      + "(L15; 95% question-bootstrap CIs; one training seed per constitution" + ("" if full else ";\n")
+                      + ((("; " if full else "") + f"geometry base {g.get('base_arm', 'base')}") if a.geometry_tag is not None else "")
+                      + ("; behaviour on the geometry's 10 occupational personas" if a.behaviour_tag == "_10personas" else "")
+                      + ")", fontsize=10.5, x=0.01, ha="left")
+         name = ("fig_trajectory" if full else f"fig_trajectory_{panels}") + ("" if xmode == "epoch" else "_dose") + a.out_tag
+         fig.savefig(A / f"{name}.png", dpi=150)
++        fig.savefig(A / f"{name}.pdf")
+         plt.close(fig)
+     if not full:
+         return
+diff --git a/scripts/xchar_analysis.py b/scripts/xchar_analysis.py
+index 318b681..57321b9 100644
+--- a/scripts/xchar_analysis.py
++++ b/scripts/xchar_analysis.py
+@@ -260,6 +260,7 @@ def plot(res):
+     fig.tight_layout(rect=(0, 0.08, 1, 0.92))
+     # new name: the reported figure (token-budget labels) is kept as it was
+     fig.savefig(OUT / "acquisition_retention_steps.png", dpi=150)
++    fig.savefig(OUT / "acquisition_retention_steps.pdf")
+ 
+ 
+ if __name__ == "__main__":
