@@ -1,0 +1,41 @@
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrrrrrl}
+\toprule
+construction & step & epoch & dose & $B_1$ & sel. & $k$ & vs $M_D$ \\
+\midrule
+\multicolumn{8}{l}{\emph{$M_D{+}\Delta W_S$}} \\
+$M_D$ (no SFT) & 0 & 0.000 & 0.526 & +0.132 & 1.132 & 0.448 & 1.0$\times$ \\
+$M_D{+}\Delta W_S$ & 45 & 0.120 & 0.578 & +0.798 & 1.242 & 0.445 & 5.1$\times$ \\
+$M_D{+}\Delta W_S$ & 90 & 0.240 & 0.664 & +1.484 & 1.438 & 0.405 & 7.4$\times$ \\
+$M_D{+}\Delta W_S$ & 180 & 0.481 & 0.745 & +1.804 & 1.527 & 0.382 & 6.5$\times$ \\
+$M_D{+}\Delta W_S$ & 255 & 0.681 & 0.744 & +2.049 & 1.572 & 0.397 & 7.4$\times$ \\
+$M_D{+}\Delta W_S$ & 270 & 0.722 & 0.750 & +1.887 & 1.521 & 0.380 & 6.6$\times$ \\
+$M_D{+}\Delta W_S$ & 285 & 0.762 & 0.754 & +2.333 & 1.675 & 0.399 & 8.1$\times$ \\
+$M_D{+}\Delta W_S$ & 300 & 0.802 & 0.767 & +2.146 & 1.589 & 0.378 & 7.0$\times$ \\
+$M_D{+}\Delta W_S$ & 330 & 0.882 & 0.823 & +2.067 & 1.494 & 0.363 & 5.5$\times$ \\
+$M_D{+}\Delta W_S$ & 375 & 1.002 & 0.787 & +2.071 & 1.484 & 0.374 & 6.2$\times$ \\
+$M_D{+}\Delta W_S$ & 450 & 1.203 & 0.879 & +2.157 & 1.415 & 0.393 & \textit{n/a} \\
+$M_D{+}\Delta W_S$ & 570 & 1.523 & 0.876 & +2.254 & 1.441 & 0.404 & \textit{n/a} \\
+$M_D{+}\Delta W_S$ & 690 & 1.844 & 0.912 & +2.252 & 1.387 & 0.394 & \textit{n/a} \\
+$M_D{+}\Delta W_S$ & 750 & 2.004 & 0.915 & +2.134 & 1.379 & 0.385 & \textit{n/a} \\
+$M_D{+}\Delta W_S$ & 810 & 2.165 & 0.897 & +2.177 & 1.405 & 0.393 & \textit{n/a} \\
+$M_D{+}\Delta W_S$ & 930 & 2.485 & 0.911 & +2.211 & 1.395 & 0.387 & \textit{n/a} \\
+$M_D{+}\Delta W_S$ & 1050 & 2.806 & 0.913 & +2.224 & 1.407 & 0.391 & \textit{n/a} \\
+$M_D{+}\Delta W_S$ & 1122 & 2.998 & 0.910 & +2.197 & 1.410 & 0.388 & \textit{n/a} \\
+\midrule
+\multicolumn{8}{l}{\emph{merge}} \\
+$M_D$ (no SFT) & 0 & 0.000 & 0.526 & +0.132 & 1.132 & 0.448 & 1.0$\times$ \\
+merge & 45 & 0.120 & 0.680 & +0.778 & 1.227 & 0.363 & 3.6$\times$ \\
+merge & 90 & 0.240 & 0.741 & +1.214 & 1.353 & 0.343 & 4.5$\times$ \\
+merge & 180 & 0.481 & 0.757 & +1.490 & 1.522 & 0.318 & 5.1$\times$ \\
+merge & 285 & 0.762 & 0.777 & +1.943 & 1.648 & 0.338 & 6.1$\times$ \\
+merge & 375 & 1.002 & 0.775 & +1.781 & 1.540 & 0.324 & 5.6$\times$ \\
+merge & 750 & 2.004 & 0.828 & +1.881 & 1.495 & 0.328 & 4.9$\times$ \\
+merge & 1122 & 2.998 & 0.834 & +1.935 & 1.524 & 0.331 & \textit{n/a} \\
+\bottomrule
+\end{tabular}
+\caption{The introspection SFT measured at checkpoints through training (seed 123456, layer 15, forced prompt; dose and selectivity vs the corrected-mask base). \emph{step} is optimizer steps; one epoch is 374.2 steps, so the run is 1122 steps and the final row is the trained endpoint. \emph{dose} is \emph{measured} functional dose, never weight norm. The last column is the dose control: $B_1$ divided by $B_1$ of $M_D$ scaled to the same measured dose, so $1.0\times$ would mean the checkpoint is worth no more than moving the model that far with the DPO adapter alone. Nothing is extrapolated outside $M_D$'s measured range. The two constructions differ in SFT weight ($1.00$ against $0.25$) as well as in the merge, so the gap between them is not the cross-term contribution.}
+\label{tab:oct-sft-curve}
+\end{table}

@@ -1,0 +1,32 @@
+{
+ "figures": [
+  "fig_matched_dose_cmbase.pdf",
+  "fig_matched_dose_cmbase.png",
+  "fig_matched_dose_impulsiveness_cmbase.pdf",
+  "fig_matched_dose_impulsiveness_cmbase.png",
+  "fig_matched_dose_loving_cmbase.pdf",
+  "fig_matched_dose_loving_cmbase.png",
+  "fig_matched_dose_goodness_cmbase.pdf",
+  "fig_matched_dose_goodness_cmbase.png",
+  "fig_matched_dose_sycophancy_cmbase.pdf",
+  "fig_matched_dose_sycophancy_cmbase.png"
+ ],
+ "command": "python3 scripts/audit/fig_matched_dose.py --tag _cmbase --formats pdf png --out-dir paper_g1/figures",
+ "code_revision": "933818e42bc8e1a36faec80262d8fba017034844",
+ "inputs": [
+  "outputs/analysis/audit/joint_dose/joint_dose_impulsiveness_cmbase.json",
+  "outputs/analysis/audit/joint_dose/joint_dose_loving_cmbase.json",
+  "outputs/analysis/audit/joint_dose/joint_dose_goodness_cmbase.json",
+  "outputs/analysis/audit/joint_dose/joint_dose_sycophancy_cmbase.json"
+ ],
+ "baseline": [
+  "base_cmask"
+ ],
+ "layers": [
+  15,
+  20
+ ],
+ "persona_population": "10 occupational personas (geometry and contrast)",
+ "estimands": "excess = trajectory - ladder at matched L-specific dose; S per-trait mean, S energy-pooled, g per-trait mean; contrast = 10-persona B2/LOV offset contrast at the L15 dose",
+ "intervals": "95% percentile, paired question bootstrap, B = 1000, pointwise; rule: withheld unless point defined and >= 97.5% of draws defined"
+}

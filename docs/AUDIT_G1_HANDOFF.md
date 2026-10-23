@@ -252,6 +252,8 @@ the chunking, cross-arm cosines are chunk-local).
 
 ## 6. Manuscript statements and figures to replace (`arxiv/main.tex`)
 
+**Final figure exports (vector PDF + PNG + plotted data + captions + mapping): [`paper_g1/README.md`](../paper_g1/README.md)** (2026-10-23, branch `audit/g1-figures`). Where this table and that file differ on figure files, that file is current.
+
 | line | current | replace with |
 |---|---|---|
 | 102 | [POD] mask-consistency TODO | done: trajectory/xchar TOTAL statistics recomputed against a corrected-mask base (G1); released impulsiveness/goodness/sycophancy remain legacy-only |
