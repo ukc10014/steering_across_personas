@@ -2,13 +2,15 @@
 # Back up irreplaceable /workspace data to the private HF bucket kanad/steering-backup.
 # Upload-only: `hf buckets sync` without --delete never removes anything, locally or remotely,
 # and re-running skips files already uploaded (resumable). Ordered most-valuable first, so a
-# quota hit (free tier: 100 GB private) truncates the least important tier.
+# quota hit truncates the least important tier. Account is PRO since 2026-10-24: 1 TB private.
 #   T1 irreplaceable (teacher/LLM-generated data, results, scripts, logs)    ~2 GB
 #   T2 trained LoRA adapters                                                ~32 GB
 #   T3 cited sft-curve checkpoints, probe/dose caches, base-model activations ~53 GB
-# Skipped: _qcache, merged models (re-merge), HF download cache, pylibs, other arms' activations.
+#   T4 every _qcache (for 109 of 114 arms the ONLY copy: runners delete the raw .pt after
+#      caching), all remaining sft-curve checkpoints, corrected-mask base raw  ~290 GB
+# Skipped: merged models (re-merge), HF download cache, pylibs, raw .pt of arms whose qcache exists.
 # Never uploaded: /workspace/.secrets.env, /workspace/hf/token.
-# Usage: bash scripts/hf_backup.sh [t1|t2|t3|all]   (run in tmux)
+# Usage: bash scripts/hf_backup.sh [t1|t2|t3|t4|all]   (run in tmux)
 set -uo pipefail
 
 # hf CLI 2.x wrapper, isolated from PYLIBS (transformers pins hub<1.0). Recreate with:
@@ -53,6 +55,12 @@ t1() {
   sync "$W/oct_rig" t1/oct_rig/top --exclude '*/*'      # top-level scripts + runbooks only
   sync "$STAGE/workspace_root" t1/workspace_root
   sync "$O" t1/outputs --exclude '_*' --exclude '*/caa_activations/*' --exclude '*/activations/*'
+  # Data living outside the main checkout's outputs/: other worktrees, and the Claude project
+  # notes (memory dir only -- never /workspace/.claude/.credentials.json).
+  sync "$W/repos/sap_behav/outputs/behav_pv" t1/worktrees/sap_behav/behav_pv   # sampled + paid judge calls
+  sync "$W/repos/sap-audit/outputs/analysis/audit/logs" t1/worktrees/sap-audit/audit_logs
+  sync "$W/repos/sap_traj/outputs/analysis/common_trajectory" t1/worktrees/sap_traj/common_trajectory  # incl. its untracked logs
+  sync "$W/.claude/projects/-workspace-repos-steering-across-personas/memory" t1/claude_memory
 }
 
 t2() {
@@ -81,10 +89,17 @@ t3() {
   sync "$O/Llama-3.1-8B-Instruct/caa_activations" t3/outputs/Llama-3.1-8B-Instruct/caa_activations
 }
 
+t4() {
+  sync "$O/_qcache" t4/_qcache
+  sync "$W/oct_rig/sft_curve_ckpts" t3/sft_curve_ckpts       # cited ones already there: skipped
+  sync "$W/repos/sap-audit/outputs/llama-3.1-8b-base_cmask/caa_activations" \
+       t4/outputs/llama-3.1-8b-base_cmask/caa_activations
+}
+
 case "${1:-all}" in
-  t1) t1 ;; t2) t2 ;; t3) t3 ;;
-  all) t1; t2; t3 ;;
-  *) echo "usage: $0 [t1|t2|t3|all]"; exit 2 ;;
+  t1) t1 ;; t2) t2 ;; t3) t3 ;; t4) t4 ;;
+  all) t1; t2; t3; t4 ;;
+  *) echo "usage: $0 [t1|t2|t3|t4|all]"; exit 2 ;;
 esac
 
 if [ ${#FAILED[@]} -gt 0 ]; then
