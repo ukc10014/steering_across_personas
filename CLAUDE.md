@@ -158,6 +158,21 @@ outputs/{model}/
 
 ## Environment bootstrap (RunPod pod — DO THIS FIRST, before anything else)
 
+**No persistent volume? (from 2026-10)** The durable copy of `/workspace` is the private HF bucket
+`kanad/steering-backup` (386 GB, written by `scripts/hf_backup.sh`). On a blank pod, with the
+`HF_TOKEN` (and optionally `GITHUB_SSH_KEY_B64`) RunPod secrets set:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ukc10014/steering_across_personas/main/scripts/bootstrap.sh \
+  -o /workspace/bootstrap.sh && source /workspace/bootstrap.sh     # clones repo + restores `core` (~2 GB)
+bash /workspace/repos/steering_across_personas/scripts/restore_from_hf.sh models adapters qcache:base_cmask
+```
+
+`restore_from_hf.sh` profiles: `core models misalign adapters qcache qcache:ARM,.. ckpts rawacts all`
+(sizes in its header). Restore only what the task needs — `qcache` alone is ~180 GB. Re-run
+`scripts/hf_backup.sh` before a pod with new results is terminated, or the results are lost.
+The pod's local disk must be large enough for the profiles restored.
+
 **Every reconnect gives a DIFFERENT pod.** Only the `/workspace` network volume persists;
 the container image and its `/usr/local/lib/python3.12/dist-packages` are new each time.
 So `$PYLIBS` survives (nothing to reinstall) but the **stale-system-library conflicts

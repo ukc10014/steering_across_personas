@@ -41,7 +41,7 @@ stage_small_files() {
     cp --parents character/constants.py "$STAGE/oct_local" &&
     git diff > "$STAGE/oct_local/tracked_changes.diff" &&
     git rev-parse HEAD > "$STAGE/oct_local/BASE_COMMIT" )
-  ( cd $W && cp -r --parents *.sh *.log requirements-snapshot.txt logs ladder_logs logits_logs refs \
+  ( cd $W && cp -r --parents *.sh *.log .tmux.conf requirements-snapshot.txt logs ladder_logs logits_logs refs \
       "$STAGE/workspace_root" )
 }
 

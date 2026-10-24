@@ -15,6 +15,22 @@
 #   diff /workspace/bootstrap.sh <repo>/scripts/bootstrap.sh && echo in-sync
 #
 # Keep this file standalone: no repo paths, no secrets. It is committed to a public repo.
+#
+# PODS WITHOUT A PERSISTENT VOLUME (from 2026-10). /workspace may be wiped with the pod, so the
+# durable copy of everything is the private HF bucket kanad/steering-backup (written by
+# scripts/hf_backup.sh) plus GitHub and the HF Hub. On a blank pod:
+#
+#   curl -fsSL https://raw.githubusercontent.com/ukc10014/steering_across_personas/main/scripts/bootstrap.sh \
+#     -o /workspace/bootstrap.sh && source /workspace/bootstrap.sh
+#
+# With HF_TOKEN set, the first shell clones the repo and runs `restore_from_hf.sh core`
+# (~2 GB: OCT clone + local changes, generated data, results, scripts, logs, notes). Heavier
+# profiles are explicit, e.g. `bash $REPO/scripts/restore_from_hf.sh models adapters qcache:base_cmask`.
+# Set these as RunPod secrets / env vars -- never in this file or in the bucket:
+#   HF_TOKEN               private bucket + gated models (required for restore)
+#   GITHUB_SSH_KEY_B64     base64 of the GitHub deploy key, for pushing (clone is https)
+#   OPENROUTER_API_KEY, ANTHROPIC_API_KEY, ...   read straight from the environment
+# RESTORE_ON_BOOT=0 skips the automatic core restore.
 
 export HF_HOME=/workspace/hf
 export HF_HUB_DISABLE_XET=1
@@ -54,11 +70,18 @@ grep -q 'source /workspace/bootstrap.sh' ~/.bashrc 2>/dev/null || \
   echo 'source /workspace/bootstrap.sh' >> ~/.bashrc
 
 echo "HF_HOME=$HF_HOME | PYLIBS=$PYLIBS"
-# git ssh key: volume can't hold 600 perms, stage a copy on container disk
-if [ -f /workspace/.ssh/id_ed25519_github ]; then
+# git ssh key: from the volume if there is one (it can't hold 600 perms, so stage a copy on
+# the container disk), else from the GITHUB_SSH_KEY_B64 secret on volume-less pods.
+if [ ! -f ~/.ssh/id_ed25519_github ] && [ -n "${GITHUB_SSH_KEY_B64:-}" ]; then
+  mkdir -p ~/.ssh && chmod 700 ~/.ssh
+  (umask 077; echo "$GITHUB_SSH_KEY_B64" | base64 -d > ~/.ssh/id_ed25519_github)
+fi
+if [ -f /workspace/.ssh/id_ed25519_github ] && [ ! -f ~/.ssh/id_ed25519_github ]; then
   mkdir -p ~/.ssh && chmod 700 ~/.ssh
   cp /workspace/.ssh/id_ed25519_github ~/.ssh/ 2>/dev/null
   chmod 600 ~/.ssh/id_ed25519_github
+fi
+if [ -f ~/.ssh/id_ed25519_github ]; then
   # accept-new: every reconnect is a NEW pod with an empty ~/.ssh/known_hosts, so the first
   # git push of each session died on "Host key verification failed". accept-new trusts a host
   # only on first contact and then pins it -- unlike StrictHostKeyChecking=no, it still refuses
@@ -95,3 +118,20 @@ fi
 if [ -f /workspace/.secrets.env ]; then
   . /workspace/.secrets.env
 fi
+
+# First shell on a blank pod: rebuild /workspace from GitHub + the HF bucket (once). A lock
+# keeps parallel shells from racing; the marker makes every later shell a no-op. Uses https
+# for the clone, so it needs no key; push access comes from the key staged above.
+_SAP_REPO=/workspace/repos/steering_across_personas
+if [ "${RESTORE_ON_BOOT:-1}" = 1 ] && [ ! -f /workspace/.restored_core ] && [ ! -d "$_SAP_REPO/.git" ]; then
+  if [ -z "${HF_TOKEN:-}" ] && [ ! -f "$HF_HOME/token" ]; then
+    echo "blank pod: set HF_TOKEN and open a new shell to restore from the HF backup (RESTORE_ON_BOOT=0 to silence)"
+  elif mkdir /workspace/.restore.lock 2>/dev/null; then
+    echo "blank pod: restoring core from GitHub + HF bucket (~2 GB) ..."
+    mkdir -p /workspace/repos
+    git clone -q https://github.com/ukc10014/steering_across_personas.git "$_SAP_REPO" \
+      && bash "$_SAP_REPO/scripts/restore_from_hf.sh" core && touch /workspace/.restored_core
+    rmdir /workspace/.restore.lock
+  fi
+fi
+unset _SAP_REPO
