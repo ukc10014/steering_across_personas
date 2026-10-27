@@ -205,7 +205,7 @@ In what follows, we primarily consider whether character-dependent change is gen
 
 \subsection{Character training mostly operates across personas generally}
 \label{sec:ctp-tiny}
-Constitutional character training does affect trait representations, but this effect is largely trait-specific and shared across personas, rather than varying as a function of both traits and persona. Specifically, Eq.\ref{eq:decomp} explains the variance in activation vectors between unadapted and adapted models as a sum of possible single-factor and interaction-between-factors effects. We implement this analysis of variance (ANOVA, details in App.\ref{app:anova}) on CAA vectors at L15/L20 to isolate the effect of constitutions via pairwise interactions, as well as the 3-way interaction between $CTP$. For L15 (App.~\ref{app:anova} and Fig.~\ref{fig:ctp}A), results are:$T$ 0.372, $TP$ 0.175, $CT$ 0.170, $\mu$ 0.124, $C$ 0.067, $P$ 0.043, $CTP$ 0.036, $CP$ 0.013. This can be summarised as: 71.4\% of the variance in representational change is in terms that have nothing to do with a specific constitution. Of the 28.6\% that depends on constitutions, the dominant component is the constitution's interaction with a trait (17\%), and this is mostly consistent across personas. About 3.6\% of variance that can be attributed to the three-way interaction of constitution, trait, and persona, with the caveat that untrained adapters show a higher value for this measure (3.6\%, 95\% CI 3.5--3.8\%, against 7.2\%, 6.8--7.7\%, for the untrained adapters).
+Constitutional character training does affect trait representations, but this effect is largely trait-specific and shared across personas, rather than varying as a function of both traits and persona. Specifically, Eq.\ref{eq:decomp} explains the variance in activation vectors between unadapted and adapted models as a sum of possible single-factor and interaction-between-factors effects. We implement this analysis of variance (ANOVA, details in App.\ref{app:anova}\newtext{; components in Table~\ref{tab:anova_components}}) on CAA vectors at L15/L20 to isolate the effect of constitutions via pairwise interactions, as well as the 3-way interaction between $CTP$. For L15 (App.~\ref{app:anova} and Fig.~\ref{fig:ctp}A), results are:$T$ 0.372, $TP$ 0.175, $CT$ 0.170, $\mu$ 0.124, $C$ 0.067, $P$ 0.043, $CTP$ 0.036, $CP$ 0.013. This can be summarised as: 71.4\% of the variance in representational change is in terms that have nothing to do with a specific constitution. Of the 28.6\% that depends on constitutions, the dominant component is the constitution's interaction with a trait (17\%), and this is mostly consistent across personas. About 3.6\% of variance that can be attributed to the three-way interaction of constitution, trait, and persona, with the caveat that untrained adapters show a higher value for this measure (3.6\%, 95\% CI 3.5--3.8\%, against 7.2\%, 6.8--7.7\%, for the untrained adapters).
 
 \subsection{Trait profiles look different depending on CAA versus logit-based measurement}
 \label{sec:trait-profiles}
@@ -492,6 +492,73 @@ S_{c,t}
     \caption{C$\times$T$\times$P decomposition: at L15 most of the change (between adapted and unadapted models) is captured by lower-order terms, and the triple interaction component is small (A). Primary effect of constitution is on trait representation generally. Untrained controls show a higher change than the triple-interaction share (B).\prov{workshop_iclr/figures/fig2_ctp.pdf}{workshop_iclr/scripts/fig2_ctp.py}{workshop_iclr/data/fig2_ctp.csv}}
     \label{fig:ctp}
 \end{figure*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{7pt}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{@{}lll l@{}}
+\toprule
+\textbf{Component} & \textbf{Interpretation}
+& \textbf{Tensor shape} & \textbf{Calculation} \\
+\midrule
+
+$\mu$ & Grand mean
+& $4096$
+& $\displaystyle \mu = \langle dV \rangle_{c,t,p}$ \\
+
+$C_c$ & Constitution
+& $4 \times 4096$
+& $\displaystyle C_c = \langle dV_{c,t,p} \rangle_{t,p} - \mu$ \\
+
+$T_t$ & Trait
+& $8 \times 4096$
+& $\displaystyle T_t = \langle dV_{c,t,p} \rangle_{c,p} - \mu$ \\
+
+$P_p$ & Persona
+& $11 \times 4096$
+& $\displaystyle P_p = \langle dV_{c,t,p} \rangle_{c,t} - \mu$ \\
+
+$CT_{c,t}$ & Constitution $\times$ trait
+& $4 \times 8 \times 4096$
+& $\displaystyle CT_{c,t} =
+  \langle dV_{c,t,p} \rangle_p - \mu - C_c - T_t$ \\
+
+$CP_{c,p}$ & Constitution $\times$ persona
+& $4 \times 11 \times 4096$
+& $\displaystyle CP_{c,p} =
+  \langle dV_{c,t,p} \rangle_t - \mu - C_c - P_p$ \\
+
+$TP_{t,p}$ & Trait $\times$ persona
+& $8 \times 11 \times 4096$
+& $\displaystyle TP_{t,p} =
+  \langle dV_{c,t,p} \rangle_c - \mu - T_t - P_p$ \\
+
+$CTP_{c,t,p}$ & Three-way interaction
+& $4 \times 8 \times 11 \times 4096$
+& $\displaystyle
+  \begin{aligned}[t]
+  CTP_{c,t,p} ={}&
+    dV_{c,t,p} - \mu - C_c - T_t - P_p\\
+    &- CT_{c,t} - CP_{c,p} - TP_{t,p}
+  \end{aligned}$ \\
+
+\bottomrule
+\end{tabular}
+
+\caption{Balanced three-factor decomposition of
+constitution-induced changes in CAA vectors.
+Angle brackets $\langle \cdot \rangle$ denote averaging
+over the indices in the subscript. Tensor shapes
+correspond to four constitutions, eight traits,
+eleven personas, and a residual-stream dimension
+of 4096. Each component is vector-valued.
+The decomposition separates context-general effects
+($\mu$, $C$, $T$, $CT$) from context-conditional effects
+($P$, $CP$, $TP$, $CTP$).}
+\label{tab:anova_components}
+\end{table*}
 
 It is well known in fields using statistical methods (e.g. neuroscience and machine learning) that when trying to estimate a variable's norm/variance from observational data, we must control for the fact that quadratic estimates of noisy data are systematically biased upwards. Following \citep{WaltherEtAl2016,WuEtAl2026}, one method of doing this is a split-batch cross-validated sampling-noise-debiasing. The basic idea is to split the noisy observational data into non-overlapping batches, estimate the relevant norm/variance independently on these disjoint subsets and replace the squared norm/variance of a single estimate (over the entire observations) with the cross-product of the two estimates (on the batches).
 
