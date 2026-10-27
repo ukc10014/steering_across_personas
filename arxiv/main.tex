@@ -189,14 +189,16 @@ A principal object of study is $V_{c,t,p}\in\mathbb{R}^{4096}$ which denotes the
 
 \begin{equation}
 \label{eq:decomp}
-\begin{aligned}
+\newtext{\begin{aligned}
 dV_{c,t,p}
 ={}&
 \mu
-+ \underbrace{C_c + T_t + P_p}_{\text{\footnotesize single-factor}}{}
-+ (TP)_{t,p}\\
-&+ \underbrace{(CT)_{c,t} + (CP)_{c,p} + (CTP)_{c,t,p}}_{\text{\footnotesize constitution-dependent}}.
-\end{aligned}
++ \underbrace{C_c + T_t + P_p}_{\text{\footnotesize single-factor}}
++ \underbrace{(CT)_{c,t} + (CP)_{c,p} + (TP)_{t,p} + (CTP)_{c,t,p}}_{\text{\footnotesize interaction}}\\
+={}&
+\underbrace{\mu + C_c + T_t + (CT)_{c,t}}_{\text{\footnotesize context-general}}
++ \underbrace{P_p + (CP)_{c,p} + (TP)_{t,p} + (CTP)_{c,t,p}}_{\text{\footnotesize context-dependent}}.
+\end{aligned}}
 \end{equation}
 
 In what follows, we primarily consider whether character-dependent change is general across personas (\(C,CT\)) or persona-dependent (\(CP,CTP\)); whether these changes bear some intuitive relationship to the semantics of the trained character; and where in the constitutional training process these changes emerge.
