@@ -1,0 +1,44 @@
+{
+  "corrects": "xchar_base_lov_sft.json",
+  "corrected_utc": "2026-10-21T16:15:23+00:00",
+  "fields": [
+    "frozen_data",
+    "base_model"
+  ],
+  "reason": "scripts/oct_provenance.py records a fixed file list (default: the impulsiveness full-data pair) and a fixed base-model path unless told otherwise, and scripts/run_xchar_sft.sh passed neither. The original record is kept unmodified; this record supplies what the evidence shows was used. It does NOT indicate that the wrong corpus or start was trained.",
+  "original_frozen_data": {
+    "dpo/llama-3.1-8b-it/impulsiveness.jsonl": {
+      "sha256": "53c6a54c581e6c68660b039991ff5ab9a490f01bd1f382be2c099975230ffc91",
+      "bytes": 35301875
+    },
+    "sft_data/llama-3.1-8b-it/impulsiveness.jsonl": {
+      "sha256": "14f28fdad11c4120b9ff3144bd2db333299c388ca6075bb5bdbc310db886d58d",
+      "bytes": 52665003
+    }
+  },
+  "original_base_model": {
+    "path": "/workspace/oct_rig/models/llama-3.1-8b-it",
+    "revision": "0e9e39f249a16976918f6564b8830bc894c89659"
+  },
+  "corrected_training_data": {
+    "/workspace/oct_rig/data_xchar/loving_train.jsonl": {
+      "sha256": "06d17fc9a73f754a674f5e8ff864b5759e5691dffb9707e0bf59ab50900bce83",
+      "rows": 11744,
+      "subset_of": "/workspace/OpenCharacterTraining/data/sft_data/llama-3.1-8b-it/loving.jsonl",
+      "source_sha256": "26612f014241831765cca49d135739d0f3cc3d92f2c2168f57f88cef0d542397"
+    }
+  },
+  "corrected_start_model": "/workspace/oct_rig/models/llama-3.1-8b-it",
+  "evidence": {
+    "runner_hash_gate": "run_xchar_sft.sh: `sha256sum -c` of the plan's train_sha256 against the train file, immediately before launch; the chain log has no 'train file changed' abort",
+    "train_file_sha256_now": "06d17fc9a73f754a674f5e8ff864b5759e5691dffb9707e0bf59ab50900bce83",
+    "matches_plan": true,
+    "chain_log_banner": "2026-10-14T08:57:26Z  xchar_base_lov: start llama-3.1-8b-it  corpus loving  save_steps 92",
+    "trainer_dataset_line": "dataset: /workspace/oct_rig/data_xchar/loving_train.jsonl",
+    "start_weights_hash_file": "/workspace/oct_rig/logs/xchar_xchar_base_lov_start_hashes_before.txt",
+    "start_weights_unchanged_by_training": true,
+    "start_shard_sha256_recorded": "09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15",
+    "start_shard_sha256_now": "09d433f650646834a83c580877bd60c6d1f88f7755305c12576b5c7058f9af15",
+    "start_shard_matches": true
+  }
+}

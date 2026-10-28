@@ -61,6 +61,7 @@ def load(run):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--run", default="full")
+    ap.add_argument("--suffix", default="", help="output-name suffix, so a reanalysis never overwrites the record")
     a = ap.parse_args()
     man, grid, resp, judg = load(a.run)
     arms = list(man["arms"]); cons = [c for c in arms if c != "base"]
@@ -120,9 +121,13 @@ def main():
         dev = Db - m[:, None, :]
         return Db, m, sd, dev
 
-    def ci(v):
-        return {"point": float(v[0]), "lo": float(np.nanpercentile(v[1:], 2.5)),
-                "hi": float(np.nanpercentile(v[1:], 97.5))}
+    def ci(v, alpha=0.05):
+        return {"point": float(v[0]), "lo": float(np.nanpercentile(v[1:], 100 * alpha / 2)),
+                "hi": float(np.nanpercentile(v[1:], 100 * (1 - alpha / 2)))}
+
+    # Per-role intervals above are INDIVIDUAL 95 % intervals. A claim about how many of the ten
+    # roles deviate is a family of ten, so a Bonferroni-simultaneous version is reported too.
+    ALPHA_SIM = 0.05 / len(OCC)
 
     out = {"run": a.run, "n_boot": N_BOOT, "arms": arms, "personas": personas,
            "uncertainty": "question-clustered bootstrap, shared draws across arms/personas; "
@@ -137,19 +142,27 @@ def main():
                "delta_occ_sd": {c: ci(sd[i]) for i, c in enumerate(cons)},
                "deviation_from_occ_mean": {c: {p: ci(dev[i, pi[p]]) for p in personas}
                                            for i, c in enumerate(cons)}}
+        res["deviation_from_occ_mean_simultaneous"] = {
+            c: {p: ci(dev[i, pi[p]], ALPHA_SIM) for p in OCC if p in pi} for i, c in enumerate(cons)}
+        res["delta_simultaneous"] = {
+            c: {p: ci(Db[i, pi[p]], ALPHA_SIM) for p in OCC if p in pi} for i, c in enumerate(cons)}
         for i, c in enumerate(cons):
             devs = res["deviation_from_occ_mean"][c]
             res.setdefault("n_personas_deviation_ci_excludes_0", {})[c] = sum(
                 excludes0(devs[p], name) for p in OCC if p in devs)
+            sim = res["deviation_from_occ_mean_simultaneous"][c]
+            res.setdefault("n_personas_deviation_simultaneous_excludes_0", {})[c] = sum(
+                excludes0(sim[p], name) for p in sim)
         out["metrics"][name] = res
     out["n_questions_excluded"] = {f"{c}|{p}": int(np.isnan(E[ai[c], pi[p]]).sum()) for c in arms for p in personas}
     out["diagnostics"] = {f"{c}|{p}": v for (c, p), v in diag.items()}
 
     od = Path("outputs/behav_pv/analysis"); od.mkdir(parents=True, exist_ok=True)
-    (od / f"results_{a.run}.json").write_text(json.dumps(out, indent=2))
+    out["simultaneous_alpha"] = ALPHA_SIM
+    (od / f"results_{a.run}{a.suffix}.json").write_text(json.dumps(out, indent=2))
 
     # ---- summary CSV: one row per arm x persona
-    with open(od / f"summary_{a.run}.csv", "w", newline="") as f:
+    with open(od / f"summary_{a.run}{a.suffix}.csv", "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["arm", "persona", "evil_level", "dE", "dE_lo", "dE_hi", "share_gt50", "dS50",
                     "dS50_lo", "dS50_hi", "coherence", "dCoh", "dCoh_lo", "dCoh_hi", "n",
@@ -168,7 +181,7 @@ def main():
                             dg["n"], dg["judge_refusal"], dg["invalid"], dg["api_error"],
                             dg["truncated"], dg["not_generated"]])
 
-    heatmap(out, cons, personas, od / f"heatmap_{a.run}.png")
+    heatmap(out, cons, personas, od / f"heatmap_{a.run}{a.suffix}.png")
     print_summary(out, cons, personas)
 
 

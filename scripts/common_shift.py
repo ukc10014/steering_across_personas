@@ -83,6 +83,11 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--out", type=str,
                    default=str(OUTPUTS_DIR / "analysis" / "common_shift.json"))
+    p.add_argument("--base-arm", default="base",
+                   help="reference arm (e.g. base_cmask, the corrected-mask base); recorded in "
+                        "<out>.provenance.json")
+    p.add_argument("--allow-mixed-mask", action="store_true",
+                   help="only to reproduce historical mixed-protocol numbers; recorded")
     return p.parse_args()
 
 
@@ -92,11 +97,60 @@ def load_arm(cache_dir: Path, arm: str, cache_layers, layer: int) -> dict:
         raise FileNotFoundError(f"{f} -- run scripts/build_question_cache.py first")
     z = np.load(f, allow_pickle=False)
     li = list(z["layers"]).index(layer)
-    return {"acts": z["acts"][:, :, :, :, li, :],
+    # Memory-map the (uncompressed) acts member instead of reading it: an analysis holding
+    # ~19 arms otherwise keeps 19 x 1.6 GB resident, over a 16 GB pod limit. Same values.
+    acts = _mmap_npz_member(f, "acts.npy")
+    if acts is None:
+        acts = z["acts"]
+    return {"acts": acts[:, :, :, :, li, :],
             "traits": [str(t) for t in z["traits"]],
             "personas": [str(p) for p in z["personas"]],
             "semantic": [str(p) for p in z["semantic_personas"]],
             "nq": z["n_questions_per_trait"]}
+
+
+def _mmap_npz_member(path: Path, member: str):
+    """np.memmap of an uncompressed .npy inside an .npz, or None if it is compressed."""
+    import zipfile
+    with zipfile.ZipFile(path) as zf:
+        info = zf.getinfo(member)
+        if info.compress_type != zipfile.ZIP_STORED:
+            return None
+        with open(path, "rb") as fh:
+            fh.seek(info.header_offset)
+            local = fh.read(30)
+            name_len, extra_len = int.from_bytes(local[26:28], "little"), int.from_bytes(local[28:30], "little")
+            start = info.header_offset + 30 + name_len + extra_len
+            fh.seek(start)
+            version = np.lib.format.read_magic(fh)
+            read = (np.lib.format.read_array_header_1_0 if version == (1, 0)
+                    else np.lib.format.read_array_header_2_0)
+            shape, fortran, dtype = read(fh)
+            offset = fh.tell()
+    return np.memmap(path, dtype=dtype, mode="r", offset=offset, shape=shape,
+                     order="F" if fortran else "C")
+
+
+def load_arms_checked(cache_dir: Path, arms: list[str], cache_layers, layer: int, *,
+                      require_mask: str | None = None, allow_mixed_mask: bool = False):
+    """load_arm for every arm of ONE analysis, refusing incomparable or unverified caches.
+
+    Provenance comes from the cache's embedded record, else data/provenance/qcache_registry.json;
+    unknown provenance raises. Returns (arms dict, provenance summary to store in the output).
+    `allow_mixed_mask` only reproduces historical mixed-protocol numbers; the summary says so.
+    """
+    sys.path.insert(0, str(REPO))
+    from persona_steering.provenance import cache_provenance, assert_comparable
+    out, provs = {}, {}
+    for arm in arms:
+        f = cache_dir / f"{arm}_L{'_'.join(str(l) for l in cache_layers)}.npz"
+        if not f.exists():
+            raise FileNotFoundError(f"{f} -- run scripts/build_question_cache.py first")
+        with np.load(f, allow_pickle=False) as z:
+            provs[arm] = cache_provenance(z, arm)
+        out[arm] = load_arm(cache_dir, arm, cache_layers, layer)
+    return out, assert_comparable(provs, require_mask=require_mask,
+                                  allow_mixed_mask=allow_mixed_mask)
 
 
 def cell(d: dict, ti: int, pidx: list[int]):
@@ -201,8 +255,9 @@ def main() -> None:
     text: list[str] = []
 
     for layer in a.layers:
-        base = load_arm(cache, "base", a.cache_layers, layer)
-        arms_d = {arm: load_arm(cache, arm, a.cache_layers, layer) for arm in a.arms}
+        arms_d, prov = load_arms_checked(cache, [a.base_arm, *a.arms], a.cache_layers, layer,
+                                         allow_mixed_mask=a.allow_mixed_mask)
+        base = arms_d.pop(a.base_arm)
         traits = base["traits"]
         pidx = [base["personas"].index(p) for p in base["semantic"]]
         P = len(pidx)
@@ -292,6 +347,9 @@ def main() -> None:
     print(body)
     out = Path(a.out); out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(results, indent=2))
+    # beside, not inside: selectivity_score.py and others index the results by layer
+    Path(str(out).replace(".json", ".provenance.json")).write_text(
+        json.dumps({"base_arm": a.base_arm, "arms": a.arms, "provenance": prov}, indent=1, default=str))
     Path(str(out).replace(".json", ".txt")).write_text(body)
     print(f"\nwrote {out} and {str(out).replace('.json', '.txt')}")
 

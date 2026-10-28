@@ -25,6 +25,7 @@ inherits that, and so does everything computed from it.
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 import time
 from pathlib import Path
@@ -36,6 +37,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
 
 from persona_steering.config import OUTPUTS_DIR
+from persona_steering.provenance import SIDECAR, read_sidecar
 
 PERSONAS = ["farmer", "politician", "therapist", "drill_sergeant", "street_hustler",
             "professor", "tech_ceo", "kindergarten_teacher", "surgeon", "con_artist"]
@@ -71,6 +73,10 @@ def parse_args() -> argparse.Namespace:
                    help="override; default is outputs/{arm_dir}/caa_activations")
     p.add_argument("--out-dir", type=str, default=str(OUTPUTS_DIR / "_qcache"))
     p.add_argument("--force", action="store_true")
+    p.add_argument("--allow-unrecorded", action="store_true",
+                   help="pack an activations dir that has no _extraction.json (the cache then "
+                        "carries no provenance and is refused by load_arm_checked unless the "
+                        "registry vouches for it)")
     return p.parse_args()
 
 
@@ -92,6 +98,16 @@ def main() -> None:
                 else OUTPUTS_DIR / arm_dir(arm) / "caa_activations")
         if not root.exists():
             print(f"{arm}: !! no activations at {root}, skipping")
+            continue
+
+        # Carry the extraction record into the cache. A dir without one is refused unless
+        # the caller vouches for it with --allow-unrecorded, and even then the cache is
+        # written WITHOUT provenance, so load_arm_checked falls back to the registry and
+        # refuses it there unless an evidence-backed entry exists.
+        prov = read_sidecar(root)
+        if prov is None and not args.allow_unrecorded:
+            print(f"{arm}: !! {root} has no {SIDECAR}; extraction protocol unknown. "
+                  "Re-extract, or pass --allow-unrecorded to pack it without provenance.")
             continue
 
         print(f"\n=== {arm} <- {root} ===", flush=True)
@@ -134,7 +150,8 @@ def main() -> None:
                  traits=np.array(args.traits), personas=np.array(personas),
                  layers=np.array(layers), n_questions=np.array(nq),
                  n_questions_per_trait=np.array([nq_true[t] for t in args.traits]),
-                 semantic_personas=np.array(PERSONAS))
+                 semantic_personas=np.array(PERSONAS),
+                 **({"provenance": np.array(json.dumps(prov))} if prov is not None else {}))
         print(f"{arm}: wrote {out} ({out.stat().st_size/1e9:.2f} GB) in "
               f"{time.time()-t0:.0f}s; {n_short} cells padded to {nq}")
 

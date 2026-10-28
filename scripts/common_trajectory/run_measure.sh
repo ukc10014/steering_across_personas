@@ -8,6 +8,9 @@
 # Forced logits + activations -> L15/L20 qcache; raw activations deleted once the cache exists
 # and every cell is complete. Order puts the reproduction gate first.
 set -uo pipefail
+# Mask protocol is explicit and has no default: it decides which caches this run may be
+# compared with (persona_steering/provenance.py). Use corrected for new work.
+MASK=${MASK:?set MASK=corrected or MASK=legacy}
 CONS=${1:?constitution}
 R=/workspace/repos/steering_across_personas
 RIG=/workspace/oct_rig
@@ -46,7 +49,7 @@ measure(){  # $1 arm, rest = adapter flags
   banner "$ARM  activations -> qcache"
   if [ -f "outputs/_qcache/${ARM}_L15_20.npz" ]; then echo "  qcache exists -- skipping"; return; fi
   # --output-dir is mandatory: every state loads the same base model path.
-  python3 pipeline/2c_caa_activations.py --model "$BASE" "$@" --output-dir "$OUT" --batch-size 16 \
+  python3 pipeline/2c_caa_activations.py --mask "$MASK" --model "$BASE" "$@" --output-dir "$OUT" --batch-size 16 \
       > "$LOGS/traj_extract_$ARM.log" 2>&1 || die "extraction $ARM"
   local n; n=$(ls "$OUT" 2>/dev/null | wc -l); [ "$n" -eq 192 ] || die "$ARM incomplete ($n/192)"
   [ "$(find "$OUT" -name '*.pt' -size -${MIN_PT_BYTES}c | wc -l)" -eq 0 ] || die "$ARM truncated cells"

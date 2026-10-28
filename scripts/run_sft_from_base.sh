@@ -37,7 +37,8 @@ cd "$OCT"
 banner "M_S: introspection SFT from base, 3 epochs, frozen corpus"
 python3 "$R/scripts/oct_provenance.py" --run sft-from-base-123456 --stage sft \
   --cmd "bash finetuning/introspection/llama_sft_from_base.sh impulsiveness" \
-  --notes "M_S, spec_stage_localisation 3. Starting model is the BASE, not the folded DPO model. Corpus unchanged (still DPO-generated)." >/dev/null
+  --notes "M_S, spec_stage_localisation 3. Starting model is the BASE, not the folded DPO model. Corpus unchanged (still DPO-generated)." \
+  --data "sft_data/llama-3.1-8b-it/impulsiveness.jsonl" --start-model /workspace/oct_rig/models/llama-3.1-8b-it >/dev/null
 bash finetuning/introspection/llama_sft_from_base.sh impulsiveness
 test -f "$RIG/loras/llama-sft-from-base/impulsiveness/adapter_model.safetensors" || die "adapter missing"
 

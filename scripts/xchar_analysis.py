@@ -60,7 +60,14 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--n-boot", type=int, default=2000)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--plot-only", action="store_true",
+                    help="redraw the figure from the saved signed.json (no recomputation)")
+    ap.add_argument("--formats", nargs="+", default=["png"])
+    ap.add_argument("--out-dir", default=None, help="default outputs/analysis/xchar_sft")
     a = ap.parse_args()
+    if a.plot_only:
+        plot(json.loads((OUT / "signed.json").read_text()), a.formats, a.out_dir)
+        return
 
     states = ["xchar_lov_start", "loving"] + [f"{c}_{f}" for c in CONDS for f in FRACS]
     present = [s for s in states if (REPO / "outputs" / f"{TAG}-{s}" / SUB).is_dir()
@@ -200,51 +207,70 @@ def print_table(res, traits):
             print(f"  {m:14s} {c['point']:+.3f} [{c['ci_lo']:+.3f}, {c['ci_hi']:+.3f}]")
 
 
-def plot(res):
+def plot(res, formats=("png",), out_dir=None):
+    """Acquisition (impulsivity, risk-taking) and retention (empathy, warmth) panels from the saved
+    levels. Corpus = colour (orange impulsiveness, dark blue loving: different hue AND luminance, so
+    grayscale keeps them apart); start = line style + marker (solid filled circle loving start,
+    dashed open square base start). Bars are the stored 95 % question-bootstrap intervals."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-
-    INK, MUTED, GRID = "#1f1f1e", "#6b6a65", "#e4e3de"
-    HUE = {"imp": "#eb6834", "lov": "#2a78d6"}               # palette slots 2, 1 (validated pair)
-    STYLE = {"lov": "-", "base": "--"}
-    LABEL = {"xchar_lov_imp": "loving → impulsiveness", "xchar_lov_lov": "loving → loving",
-             "xchar_base_imp": "base → impulsiveness", "xchar_base_lov": "base → loving"}
+    sys.path.insert(0, str(REPO / "workshop_iclr/scripts"))
+    from figstyle import use_style, FULL
+    use_style()
+    out_dir = Path(out_dir) if out_dir else OUT
+    INK, MUTED, GRID = "#111111", "#5c5c58", "#d9d9d5"
+    HUE = {"imp": "#eb6834", "lov": "#1d4f91"}
+    STYLE = {"lov": "-", "base": (0, (4, 1.6))}
+    MARK = {"lov": "o", "base": "s"}
+    LABEL = {"xchar_lov_imp": "loving start, impulsiveness corpus", "xchar_lov_lov": "loving start, loving corpus",
+             "xchar_base_imp": "base start, impulsiveness corpus", "xchar_base_lov": "base start, loving corpus"}
+    # Checkpoints are optimizer-step fractions (audit 2026-10-21 §5.2): impulsiveness corpus
+    # steps 82/164/328, loving corpus 92/184/367 = 25.2-25.3 % / 50.2 % / 100 % of supervised tokens.
     x = {"start": 0, "s25": 25, "s50": 50, "s100": 100}
+    DX = {"xchar_lov_imp": -2.4, "xchar_base_imp": -0.8, "xchar_lov_lov": 0.8, "xchar_base_lov": 2.4}
     panels = [("impulsivity", "acquisition"), ("risk_taking", "acquisition"),
               ("empathy", "retention"), ("warmth", "retention")]
-    fig, axes = plt.subplots(1, 4, figsize=(15, 4.2), sharey=True)
-    for ax, (t, role) in zip(axes, panels):
+    fig, axes = plt.subplots(2, 2, figsize=(FULL, 4.0), sharey=True, sharex=True)
+    rows = []
+    for ax, (t, role) in zip(axes.flat, panels):
         for c in CONDS:
             start, corpus = c.split("_")[1], c.split("_")[2]
-            pts = [(0, res["levels"][START[c]][t]["offset"])] if START[c] in res["levels"] else []
-            pts += [(x[f], res["levels"][f"{c}_{f}"][t]["offset"]) for f in FRACS
-                    if f"{c}_{f}" in res["levels"]]
+            pts = [("start", res["levels"][START[c]][t]["offset"])] if START[c] in res["levels"] else []
+            pts += [(f, res["levels"][f"{c}_{f}"][t]["offset"]) for f in FRACS if f"{c}_{f}" in res["levels"]]
             if not pts:
                 continue
-            xs = [p[0] for p in pts]
+            xs = [x[p[0]] + DX[c] for p in pts]          # small offsets so coincident points stay visible
             ys = [p[1]["point"] for p in pts]
-            ax.fill_between(xs, [p[1]["ci_lo"] for p in pts], [p[1]["ci_hi"] for p in pts],
-                            color=HUE[corpus], alpha=0.12, linewidth=0)
-            ax.plot(xs, ys, STYLE[start], color=HUE[corpus], linewidth=2, marker="o",
-                    markersize=5, markeredgecolor="white", markeredgewidth=1.5, label=LABEL[c])
-        ax.axhline(0, color=MUTED, linewidth=0.8)
-        ax.set_title(f"{t.replace('_', '-')}  ({role})", color=INK, fontsize=11, loc="left")
-        ax.set_xticks([0, 25, 50, 100]); ax.set_xlabel("% of token budget", color=MUTED)
-        ax.grid(axis="y", color=GRID, linewidth=0.8); ax.set_axisbelow(True)
-        for sp in ("top", "right"):
-            ax.spines[sp].set_visible(False)
-        for sp in ("left", "bottom"):
-            ax.spines[sp].set_color(GRID)
-        ax.tick_params(colors=MUTED)
-    axes[0].set_ylabel("offset a vs unadapted base (log-odds)", color=MUTED)
-    h, l = axes[0].get_legend_handles_labels()
-    fig.legend(h, l, loc="lower center", ncol=4, frameon=False, fontsize=10, labelcolor=INK)
-    fig.suptitle("Trait acquisition and retention over SFT -- forced-choice offsets, 95% question-bootstrap CI "
-                 "(evaluation uncertainty only; one training seed)", color=INK, fontsize=11, x=0.01, ha="left")
-    fig.tight_layout(rect=(0, 0.08, 1, 0.95))
-    fig.savefig(OUT / "acquisition_retention.png", dpi=150)
-
+            for (f, o), xv in zip(pts, xs):
+                rows.append({"trait": t, "condition": c, "checkpoint": f, "x_pct_steps": x[f], "x_plotted": xv,
+                             "offset": o["point"], "ci_lo": o["ci_lo"], "ci_hi": o["ci_hi"]})
+            ax.vlines(xs, [p[1]["ci_lo"] for p in pts], [p[1]["ci_hi"] for p in pts], color=HUE[corpus], lw=0.9, alpha=0.7)
+            ax.plot(xs, ys, ls=STYLE[start], color=HUE[corpus], lw=1.5, marker=MARK[start], ms=4.2,
+                    mfc=HUE[corpus] if start == "lov" else "white", mec=HUE[corpus], mew=1.1, label=LABEL[c])
+        ax.axhline(0, color=MUTED, lw=0.6)
+        ax.set_title(f"{t.replace('_', '-')} ({role})", fontsize=7.5)
+        ax.set_xticks([0, 25, 50, 100]); ax.set_xticklabels(["start", "25%", "50%", "100%"])
+        ax.set_xlim(-6, 106)
+        ax.grid(axis="y", color=GRID, lw=0.5); ax.set_axisbelow(True)
+    for ax in axes[:, 0]:
+        ax.set_ylabel("offset at base-model\nindifference (log-odds)")
+    fig.tight_layout(rect=(0, 0.17, 1, 1), h_pad=0.8, w_pad=0.8)
+    fig.text(0.53, 0.145, "% of optimizer steps completed in one token-matched additional SFT pass",
+             ha="center", fontsize=6.8, color=MUTED)
+    h, l = axes[0, 0].get_legend_handles_labels()
+    fig.legend(h, l, loc="lower left", bbox_to_anchor=(0.06, 0.06), ncol=2, fontsize=6.3, handlelength=2.6,
+               columnspacing=1.4)
+    fig.text(0.01, 0.003, "Fitted forced-choice offset vs the unadapted base, 11 personas (10 occupational + null). Bars: "
+             "95% question-bootstrap intervals (2,000 paired draws; evaluation only, one training seed). Steps: impulsiveness "
+             "corpus 82/164/328, loving corpus 92/184/367 (25.2-25.3% / 50.2% / 100% of supervised tokens). Points offset "
+             "horizontally for legibility.", fontsize=5.0, color=MUTED, ha="left", va="bottom", wrap=True)
+    for ext in formats:
+        # new name: the reported figure (token-budget labels) is kept as it was
+        fig.savefig(out_dir / f"acquisition_retention_steps.{ext}", dpi=300 if ext == "png" else None)
+    plt.close(fig)
+    with open(out_dir / "acquisition_retention_steps_data.csv", "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0])); w.writeheader(); w.writerows(rows)
 
 if __name__ == "__main__":
     main()

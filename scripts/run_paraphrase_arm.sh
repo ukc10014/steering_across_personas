@@ -57,7 +57,8 @@ mkdir -p "$LOGS"
 
 banner () { echo; echo "############ $(date -u +%FT%TZ)  $*"; echo; }
 prov () { python3 "$R/scripts/oct_provenance.py" --run "$RUN" --stage "$1" --cmd "$2" \
-            --notes "paraphrase arm $ARM ($CONS); 1x RTX PRO 6000 Blackwell" >/dev/null; }
+            --notes "paraphrase arm $ARM ($CONS); 1x RTX PRO 6000 Blackwell" \
+            --data "dpo/llama-3.1-8b-it/$CONS.jsonl" "sft_data/llama-3.1-8b-it/$CONS.jsonl" >/dev/null; }
 
 # stage ordering, so --from can skip. An unrecognised --from must fail loudly rather than
 # silently resolving to the last stage and skipping the whole run.

@@ -1,0 +1,51 @@
+{
+ "base_arm": "base_cmask",
+ "arms": [
+  "impulsiveness_curve_seq_step810",
+  "impulsiveness_curve_seq_step90",
+  "impulsiveness_curve_seq_step930",
+  "impulsiveness_curve_seq_stepfinal",
+  "impulsiveness_seed2",
+  "impulsiveness_seed2_dpo",
+  "impulsiveness_seed2_DplusS",
+  "impulsiveness_seed2_Dplus025S",
+  "impulsiveness_repro_sft",
+  "impulsiveness_regen",
+  "impulsiveness_regen_s987654",
+  "impulsiveness_paraphrase"
+ ],
+ "provenance": {
+  "masks": {
+   "base_cmask": "corrected",
+   "impulsiveness_curve_seq_step810": "corrected",
+   "impulsiveness_curve_seq_step90": "corrected",
+   "impulsiveness_curve_seq_step930": "corrected",
+   "impulsiveness_curve_seq_stepfinal": "corrected",
+   "impulsiveness_seed2": "corrected",
+   "impulsiveness_seed2_dpo": "corrected",
+   "impulsiveness_seed2_DplusS": "corrected",
+   "impulsiveness_seed2_Dplus025S": "corrected",
+   "impulsiveness_repro_sft": "corrected",
+   "impulsiveness_regen": "corrected",
+   "impulsiveness_regen_s987654": "corrected",
+   "impulsiveness_paraphrase": "corrected"
+  },
+  "mixed_mask": false,
+  "allow_mixed_mask": false,
+  "sources": {
+   "base_cmask": "embedded",
+   "impulsiveness_curve_seq_step810": "registry:impulsiveness_curve_*",
+   "impulsiveness_curve_seq_step90": "registry:impulsiveness_curve_*",
+   "impulsiveness_curve_seq_step930": "registry:impulsiveness_curve_*",
+   "impulsiveness_curve_seq_stepfinal": "registry:impulsiveness_curve_*",
+   "impulsiveness_seed2": "registry:impulsiveness_seed2",
+   "impulsiveness_seed2_dpo": "registry:impulsiveness_seed2_dpo",
+   "impulsiveness_seed2_DplusS": "registry:impulsiveness_seed2_*S",
+   "impulsiveness_seed2_Dplus025S": "registry:impulsiveness_seed2_*S",
+   "impulsiveness_repro_sft": "registry:impulsiveness_repro_sft",
+   "impulsiveness_regen": "registry:impulsiveness_regen",
+   "impulsiveness_regen_s987654": "registry:impulsiveness_regen_s987654",
+   "impulsiveness_paraphrase": "registry:impulsiveness_paraphrase"
+  }
+ }
+}

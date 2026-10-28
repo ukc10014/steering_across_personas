@@ -1,0 +1,68 @@
+{
+  "15": {
+    "xchar_lov_start": {
+      "trait_vector_displacement": 0.7980448007583618,
+      "trait_vector_displacement_sd": 0.12506753206253052,
+      "answer_token_displacement": 0.5440467596054077,
+      "answer_token_displacement_sd": 0.03241364657878876,
+      "answer_token_common": 0.40111857652664185,
+      "answer_token_varying": 0.37133854627609253
+    },
+    "loving_traj_mrg_final": {
+      "trait_vector_displacement": 0.703016459941864,
+      "trait_vector_displacement_sd": 0.1002383604645729,
+      "answer_token_displacement": 0.4961373805999756,
+      "answer_token_displacement_sd": 0.0346195250749588,
+      "answer_token_common": 0.3688732385635376,
+      "answer_token_varying": 0.33475151658058167
+    }
+  },
+  "provenance": {
+    "15": {
+      "masks": {
+        "base_cmask": "corrected",
+        "xchar_lov_start": "corrected",
+        "loving_traj_mrg_final": "corrected"
+      },
+      "mixed_mask": false,
+      "allow_mixed_mask": false,
+      "sources": {
+        "base_cmask": "embedded",
+        "xchar_lov_start": "registry:xchar_*",
+        "loving_traj_mrg_final": "registry:*_traj_*"
+      }
+    },
+    "20": {
+      "masks": {
+        "base_cmask": "corrected",
+        "xchar_lov_start": "corrected",
+        "loving_traj_mrg_final": "corrected"
+      },
+      "mixed_mask": false,
+      "allow_mixed_mask": false,
+      "sources": {
+        "base_cmask": "embedded",
+        "xchar_lov_start": "registry:xchar_*",
+        "loving_traj_mrg_final": "registry:*_traj_*"
+      }
+    }
+  },
+  "20": {
+    "xchar_lov_start": {
+      "trait_vector_displacement": 0.9383962750434875,
+      "trait_vector_displacement_sd": 0.20832587778568268,
+      "answer_token_displacement": 0.634285569190979,
+      "answer_token_displacement_sd": 0.03833264485001564,
+      "answer_token_common": 0.4865041673183441,
+      "answer_token_varying": 0.4092225134372711
+    },
+    "loving_traj_mrg_final": {
+      "trait_vector_displacement": 0.8358300924301147,
+      "trait_vector_displacement_sd": 0.18241100013256073,
+      "answer_token_displacement": 0.6042531132698059,
+      "answer_token_displacement_sd": 0.051897644996643066,
+      "answer_token_common": 0.47128504514694214,
+      "answer_token_varying": 0.3813842236995697
+    }
+  }
+}

@@ -1,0 +1,69 @@
+{
+ "method": "Cumulative supervised tokens at each xchar checkpoint (audit issue 4). CPU only.",
+ "seed": 123456,
+ "train_batch": 32,
+ "corpora": {
+  "impulsiveness": {
+   "dataset_rows": 10497,
+   "optimizer_steps": 328,
+   "supervised_tokens_total": 4482917,
+   "checkpoints": {
+    "82": {
+     "step_fraction": 0.25,
+     "rows": 2624,
+     "supervised_tokens": 1134901,
+     "token_fraction": 0.25316127869420735
+    },
+    "164": {
+     "step_fraction": 0.5,
+     "rows": 5248,
+     "supervised_tokens": 2250879,
+     "token_fraction": 0.5021014219089937
+    },
+    "246": {
+     "step_fraction": 0.75,
+     "rows": 7872,
+     "supervised_tokens": 3368709,
+     "token_fraction": 0.7514546889893344
+    },
+    "328": {
+     "step_fraction": 1.0,
+     "rows": 10496,
+     "supervised_tokens": 4482569,
+     "token_fraction": 0.9999223719734271
+    }
+   }
+  },
+  "loving": {
+   "dataset_rows": 11744,
+   "optimizer_steps": 367,
+   "supervised_tokens_total": 4482764,
+   "checkpoints": {
+    "92": {
+     "step_fraction": 0.2506811989100817,
+     "rows": 2944,
+     "supervised_tokens": 1127916,
+     "token_fraction": 0.25161172883515615
+    },
+    "184": {
+     "step_fraction": 0.5013623978201635,
+     "rows": 5888,
+     "supervised_tokens": 2250265,
+     "token_fraction": 0.5019815899297844
+    },
+    "276": {
+     "step_fraction": 0.7520435967302452,
+     "rows": 8832,
+     "supervised_tokens": 3372741,
+     "token_fraction": 0.7523797817596465
+    },
+    "367": {
+     "step_fraction": 1.0,
+     "rows": 11744,
+     "supervised_tokens": 4482764,
+     "token_fraction": 1.0
+    }
+   }
+  }
+ }
+}

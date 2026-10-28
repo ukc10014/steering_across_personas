@@ -1,0 +1,227 @@
+{
+ "merged_from": [
+  "common_shift_oct_cmbase_part0.json",
+  "common_shift_oct_cmbase_part1.json",
+  "common_shift_oct_cmbase_part2.json",
+  "common_shift_oct_cmbase_part3.json"
+ ],
+ "base_arm": [
+  "base_cmask"
+ ],
+ "note": "per-arm quantities only; cross-arm cosines (cos, cos_naive, cos_ci) were chunk-local and are omitted",
+ "chunk_provenance": [
+  {
+   "base_arm": "base_cmask",
+   "arms": [
+    "impulsiveness_repro",
+    "impulsiveness_repro_dpo",
+    "impulsiveness_repro_Dplus025S",
+    "impulsiveness_repro_DplusS",
+    "impulsiveness_sft_from_base",
+    "impulsiveness_dm_m_d025s_s1.026",
+    "impulsiveness_dm_m_d025s_s1.459",
+    "impulsiveness_dm_m_d025s_s1.967",
+    "impulsiveness_dm_m_d_s1.364",
+    "impulsiveness_dm_m_d_s1.653",
+    "impulsiveness_dm_m_d_s1.979",
+    "impulsiveness_dm_m_d_s2.25",
+    "impulsiveness_dm_m_d_s2.5"
+   ],
+   "provenance": {
+    "masks": {
+     "base_cmask": "corrected",
+     "impulsiveness_repro": "corrected",
+     "impulsiveness_repro_dpo": "corrected",
+     "impulsiveness_repro_Dplus025S": "corrected",
+     "impulsiveness_repro_DplusS": "corrected",
+     "impulsiveness_sft_from_base": "corrected",
+     "impulsiveness_dm_m_d025s_s1.026": "corrected",
+     "impulsiveness_dm_m_d025s_s1.459": "corrected",
+     "impulsiveness_dm_m_d025s_s1.967": "corrected",
+     "impulsiveness_dm_m_d_s1.364": "corrected",
+     "impulsiveness_dm_m_d_s1.653": "corrected",
+     "impulsiveness_dm_m_d_s1.979": "corrected",
+     "impulsiveness_dm_m_d_s2.25": "corrected",
+     "impulsiveness_dm_m_d_s2.5": "corrected"
+    },
+    "mixed_mask": false,
+    "allow_mixed_mask": false,
+    "sources": {
+     "base_cmask": "embedded",
+     "impulsiveness_repro": "registry:impulsiveness_repro",
+     "impulsiveness_repro_dpo": "registry:impulsiveness_repro_dpo",
+     "impulsiveness_repro_Dplus025S": "registry:impulsiveness_repro_*S",
+     "impulsiveness_repro_DplusS": "registry:impulsiveness_repro_*S",
+     "impulsiveness_sft_from_base": "registry:impulsiveness_sft_from_base",
+     "impulsiveness_dm_m_d025s_s1.026": "registry:impulsiveness_dm_*",
+     "impulsiveness_dm_m_d025s_s1.459": "registry:impulsiveness_dm_*",
+     "impulsiveness_dm_m_d025s_s1.967": "registry:impulsiveness_dm_*",
+     "impulsiveness_dm_m_d_s1.364": "registry:impulsiveness_dm_*",
+     "impulsiveness_dm_m_d_s1.653": "registry:impulsiveness_dm_*",
+     "impulsiveness_dm_m_d_s1.979": "registry:impulsiveness_dm_*",
+     "impulsiveness_dm_m_d_s2.25": "registry:impulsiveness_dm_*",
+     "impulsiveness_dm_m_d_s2.5": "registry:impulsiveness_dm_*"
+    }
+   }
+  },
+  {
+   "base_arm": "base_cmask",
+   "arms": [
+    "impulsiveness_dm_m_f_s0.518",
+    "impulsiveness_dm_m_f_s0.801",
+    "impulsiveness_dm_m_f_s1.062",
+    "impulsiveness_dm_m_s_s0.505",
+    "impulsiveness_dm_m_s_s0.589",
+    "impulsiveness_dm_m_s_s0.673",
+    "impulsiveness_curve_mrg_step180",
+    "impulsiveness_curve_mrg_step285",
+    "impulsiveness_curve_mrg_step375",
+    "impulsiveness_curve_mrg_step45",
+    "impulsiveness_curve_mrg_step750",
+    "impulsiveness_curve_mrg_step90",
+    "impulsiveness_curve_mrg_stepfinal"
+   ],
+   "provenance": {
+    "masks": {
+     "base_cmask": "corrected",
+     "impulsiveness_dm_m_f_s0.518": "corrected",
+     "impulsiveness_dm_m_f_s0.801": "corrected",
+     "impulsiveness_dm_m_f_s1.062": "corrected",
+     "impulsiveness_dm_m_s_s0.505": "corrected",
+     "impulsiveness_dm_m_s_s0.589": "corrected",
+     "impulsiveness_dm_m_s_s0.673": "corrected",
+     "impulsiveness_curve_mrg_step180": "corrected",
+     "impulsiveness_curve_mrg_step285": "corrected",
+     "impulsiveness_curve_mrg_step375": "corrected",
+     "impulsiveness_curve_mrg_step45": "corrected",
+     "impulsiveness_curve_mrg_step750": "corrected",
+     "impulsiveness_curve_mrg_step90": "corrected",
+     "impulsiveness_curve_mrg_stepfinal": "corrected"
+    },
+    "mixed_mask": false,
+    "allow_mixed_mask": false,
+    "sources": {
+     "base_cmask": "embedded",
+     "impulsiveness_dm_m_f_s0.518": "registry:impulsiveness_dm_*",
+     "impulsiveness_dm_m_f_s0.801": "registry:impulsiveness_dm_*",
+     "impulsiveness_dm_m_f_s1.062": "registry:impulsiveness_dm_*",
+     "impulsiveness_dm_m_s_s0.505": "registry:impulsiveness_dm_*",
+     "impulsiveness_dm_m_s_s0.589": "registry:impulsiveness_dm_*",
+     "impulsiveness_dm_m_s_s0.673": "registry:impulsiveness_dm_*",
+     "impulsiveness_curve_mrg_step180": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_mrg_step285": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_mrg_step375": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_mrg_step45": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_mrg_step750": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_mrg_step90": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_mrg_stepfinal": "registry:impulsiveness_curve_*"
+    }
+   }
+  },
+  {
+   "base_arm": "base_cmask",
+   "arms": [
+    "impulsiveness_curve_seq_step1050",
+    "impulsiveness_curve_seq_step180",
+    "impulsiveness_curve_seq_step255",
+    "impulsiveness_curve_seq_step270",
+    "impulsiveness_curve_seq_step285",
+    "impulsiveness_curve_seq_step300",
+    "impulsiveness_curve_seq_step330",
+    "impulsiveness_curve_seq_step375",
+    "impulsiveness_curve_seq_step45",
+    "impulsiveness_curve_seq_step450",
+    "impulsiveness_curve_seq_step570",
+    "impulsiveness_curve_seq_step690",
+    "impulsiveness_curve_seq_step750"
+   ],
+   "provenance": {
+    "masks": {
+     "base_cmask": "corrected",
+     "impulsiveness_curve_seq_step1050": "corrected",
+     "impulsiveness_curve_seq_step180": "corrected",
+     "impulsiveness_curve_seq_step255": "corrected",
+     "impulsiveness_curve_seq_step270": "corrected",
+     "impulsiveness_curve_seq_step285": "corrected",
+     "impulsiveness_curve_seq_step300": "corrected",
+     "impulsiveness_curve_seq_step330": "corrected",
+     "impulsiveness_curve_seq_step375": "corrected",
+     "impulsiveness_curve_seq_step45": "corrected",
+     "impulsiveness_curve_seq_step450": "corrected",
+     "impulsiveness_curve_seq_step570": "corrected",
+     "impulsiveness_curve_seq_step690": "corrected",
+     "impulsiveness_curve_seq_step750": "corrected"
+    },
+    "mixed_mask": false,
+    "allow_mixed_mask": false,
+    "sources": {
+     "base_cmask": "embedded",
+     "impulsiveness_curve_seq_step1050": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step180": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step255": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step270": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step285": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step300": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step330": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step375": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step45": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step450": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step570": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step690": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step750": "registry:impulsiveness_curve_*"
+    }
+   }
+  },
+  {
+   "base_arm": "base_cmask",
+   "arms": [
+    "impulsiveness_curve_seq_step810",
+    "impulsiveness_curve_seq_step90",
+    "impulsiveness_curve_seq_step930",
+    "impulsiveness_curve_seq_stepfinal",
+    "impulsiveness_seed2",
+    "impulsiveness_seed2_dpo",
+    "impulsiveness_seed2_DplusS",
+    "impulsiveness_seed2_Dplus025S",
+    "impulsiveness_repro_sft",
+    "impulsiveness_regen",
+    "impulsiveness_regen_s987654",
+    "impulsiveness_paraphrase"
+   ],
+   "provenance": {
+    "masks": {
+     "base_cmask": "corrected",
+     "impulsiveness_curve_seq_step810": "corrected",
+     "impulsiveness_curve_seq_step90": "corrected",
+     "impulsiveness_curve_seq_step930": "corrected",
+     "impulsiveness_curve_seq_stepfinal": "corrected",
+     "impulsiveness_seed2": "corrected",
+     "impulsiveness_seed2_dpo": "corrected",
+     "impulsiveness_seed2_DplusS": "corrected",
+     "impulsiveness_seed2_Dplus025S": "corrected",
+     "impulsiveness_repro_sft": "corrected",
+     "impulsiveness_regen": "corrected",
+     "impulsiveness_regen_s987654": "corrected",
+     "impulsiveness_paraphrase": "corrected"
+    },
+    "mixed_mask": false,
+    "allow_mixed_mask": false,
+    "sources": {
+     "base_cmask": "embedded",
+     "impulsiveness_curve_seq_step810": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step90": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_step930": "registry:impulsiveness_curve_*",
+     "impulsiveness_curve_seq_stepfinal": "registry:impulsiveness_curve_*",
+     "impulsiveness_seed2": "registry:impulsiveness_seed2",
+     "impulsiveness_seed2_dpo": "registry:impulsiveness_seed2_dpo",
+     "impulsiveness_seed2_DplusS": "registry:impulsiveness_seed2_*S",
+     "impulsiveness_seed2_Dplus025S": "registry:impulsiveness_seed2_*S",
+     "impulsiveness_repro_sft": "registry:impulsiveness_repro_sft",
+     "impulsiveness_regen": "registry:impulsiveness_regen",
+     "impulsiveness_regen_s987654": "registry:impulsiveness_regen_s987654",
+     "impulsiveness_paraphrase": "registry:impulsiveness_paraphrase"
+    }
+   }
+  }
+ ]
+}

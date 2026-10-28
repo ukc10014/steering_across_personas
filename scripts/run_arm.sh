@@ -27,6 +27,9 @@
 # pod. Logs go to /workspace/logs/<adapter>_<stage>.log.
 
 set -euo pipefail
+# Mask protocol is explicit and has no default: it decides which caches this run may be
+# compared with (persona_steering/provenance.py). Use corrected for new work.
+MASK=${MASK:?set MASK=corrected or MASK=legacy}
 
 REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO"
@@ -174,7 +177,7 @@ if [ "$DO_GPU" -eq 1 ]; then
   # ---- 3. extract (GPU, ~20 min) ------------------------------------------------------
   CURRENT_STAGE="extraction"
   step "3. CAA extraction  (GPU, ~20 min)"
-  python3 pipeline/2c_caa_activations.py --model "$MERGED" --batch-size "$BATCH_SIZE" \
+  python3 pipeline/2c_caa_activations.py --mask "$MASK" --model "$MERGED" --batch-size "$BATCH_SIZE" \
       2>&1 | tee "$LOGDIR/${ADAPTER_NAME}_extract.log" | grep -E "Done|Error|Traceback" || true
 
   # ---- 4. integrity check -------------------------------------------------------------

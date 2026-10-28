@@ -106,7 +106,8 @@ def half_splits(n: int, n_splits: int, rng: np.random.Generator) -> list[tuple]:
     return out
 
 
-def bootstrap_half_splits(n: int, n_splits: int, rng: np.random.Generator) -> list[tuple]:
+def bootstrap_half_splits(n: int, n_splits: int, rng: np.random.Generator,
+                          idx: np.ndarray | None = None) -> list[tuple]:
     """Half-splits for a BOOTSTRAP replicate of a cross-fitted statistic.
 
     Two requirements pull against each other, and both must hold:
@@ -139,8 +140,13 @@ def bootstrap_half_splits(n: int, n_splits: int, rng: np.random.Generator) -> li
     (measured coverage 62% at 4 splits, 55% at 12). The split randomness is nuisance
     variation to be averaged out; the question draw is the uncertainty being measured, and
     it must stay fixed within a replicate.
+
+    `idx` passes in a draw made elsewhere, so that other statistics of the same replicate
+    (e.g. functional dose in scripts/audit/joint_dose_bootstrap.py) use the same questions.
+    Omitted, the draw is made here and the RNG stream is unchanged from before.
     """
-    idx = rng.integers(0, n, n)
+    if idx is None:
+        idx = rng.integers(0, n, n)
     uniq_all = np.unique(idx)
     out = []
     for _ in range(n_splits):

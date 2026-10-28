@@ -31,19 +31,30 @@ MASTER = REPO / "outputs" / "analysis" / "oct_stage_dose_master.csv"
 CON_SYM = {"seq": r"$M_D{+}\Delta W_S$", "mrg": r"merge"}
 
 
-def md_reference():
+def md_reference(corrected=False):
+    """M_D rungs (arm, B1) from the master CSV; dose re-read per arm from the corrected base if asked."""
     pts = []
     with open(MASTER) as fh:
         for r in csv.DictReader(fh):
             if r["row_source"] == "extraction" and r["state"] == "M_D" and r["dose"] and r["B1"]:
-                pts.append((float(r["dose"]), float(r["B1"])))
+                d = cc.activation(r["arm"])[0] if corrected else float(r["dose"])
+                pts.append((float(d), float(r["B1"])))
     pts.sort()
     return np.array([p[0] for p in pts]), np.array([p[1] for p in pts])
 
 
 def main() -> None:
+    import argparse
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--corrected-base", action="store_true",
+                    help="dose and selectivity vs the G1 corrected-mask base; writes tableA_oct_sft_curve_cmbase.* "
+                         "to --out-dir and leaves the published table alone")
+    ap.add_argument("--out-dir", default=None)
+    a = ap.parse_args()
+    if a.corrected_base:
+        cc.use_corrected_base()
     rows = cc.load()
-    rd, rb = md_reference()
+    rd, rb = md_reference(a.corrected_base)
     flat, L = [], []
     L += [r"\begin{table}[h]", r"\centering", r"\small",
           r"\begin{tabular}{lrrrrrrl}", r"\toprule",
@@ -92,12 +103,17 @@ def main() -> None:
           r"is not the cross-term contribution.}",
           r"\label{tab:oct-sft-curve}", r"\end{table}"]
 
-    OUT_T.mkdir(parents=True, exist_ok=True); OUT_D.mkdir(parents=True, exist_ok=True)
-    (OUT_T / "tableA_oct_sft_curve.tex").write_text("\n".join(L) + "\n")
-    with open(OUT_D / "tableA_oct_sft_curve.csv", "w", newline="") as fh:
+    out_t, out_d, name = OUT_T, OUT_D, "tableA_oct_sft_curve"
+    if a.corrected_base:
+        out_t = out_d = Path(a.out_dir) if a.out_dir else REPO / "outputs/analysis/audit/oct_stage_cmbase"
+        name += "_cmbase"
+        L[-3] = L[-3].replace("forced prompt).", "forced prompt; dose and selectivity vs the corrected-mask base).")
+    out_t.mkdir(parents=True, exist_ok=True); out_d.mkdir(parents=True, exist_ok=True)
+    (out_t / f"{name}.tex").write_text("\n".join(L) + "\n")
+    with open(out_d / f"{name}.csv", "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(flat[0])); w.writeheader(); w.writerows(flat)
-    print(f"  wrote {OUT_T}/tableA_oct_sft_curve.tex")
-    print(f"  wrote {OUT_D}/tableA_oct_sft_curve.csv  ({len(flat)} rows)")
+    print(f"  wrote {out_t}/{name}.tex")
+    print(f"  wrote {out_d}/{name}.csv  ({len(flat)} rows)")
 
 
 if __name__ == "__main__":

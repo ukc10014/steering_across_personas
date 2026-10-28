@@ -42,14 +42,15 @@ cd "$OCT"
 banner "SFT at the release-era max_epochs 3"
 CMD_SFT="bash finetuning/introspection/llama_local.sh impulsiveness   # max_epochs 3"
 python3 "$R/scripts/oct_provenance.py" --run "$RUN" --stage sft --cmd "$CMD_SFT" \
-  --notes "corrected: release-era --max_epochs 3 (OCT 63b285d), not HEAD's 1. DPO adapter and distilled model reused unchanged." >/dev/null
+  --notes "corrected: release-era --max_epochs 3 (OCT 63b285d), not HEAD's 1. DPO adapter and distilled model reused unchanged." \
+  --data "sft_data/llama-3.1-8b-it/impulsiveness.jsonl" >/dev/null
 bash finetuning/introspection/llama_local.sh impulsiveness
 test -f /workspace/oct_rig/loras/llama-introspection/impulsiveness/adapter_model.safetensors \
   || { echo "FATAL: SFT adapter missing"; exit 1; }
 
 banner "weighted merge -> the final persona adapter"
 CMD_MERGE="python tools/merge_loras.py --model_name llama-3.1-8b-it --constitution impulsiveness"
-python3 "$R/scripts/oct_provenance.py" --run "$RUN" --stage merge --cmd "$CMD_MERGE" >/dev/null
+python3 "$R/scripts/oct_provenance.py" --run "$RUN" --stage merge --cmd "$CMD_MERGE" --data none >/dev/null
 python3 tools/merge_loras.py --model_name llama-3.1-8b-it --constitution impulsiveness
 test -f /workspace/oct_rig/loras/llama-personas/impulsiveness/adapter_model.safetensors \
   || { echo "FATAL: merged adapter missing"; exit 1; }

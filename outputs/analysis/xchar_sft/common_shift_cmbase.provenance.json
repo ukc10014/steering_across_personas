@@ -1,0 +1,30 @@
+{
+ "base_arm": "base_cmask",
+ "arms": [
+  "xchar_lov_start",
+  "xchar_lov_imp_s100",
+  "xchar_lov_lov_s100",
+  "xchar_base_imp_s100",
+  "xchar_base_lov_s100"
+ ],
+ "provenance": {
+  "masks": {
+   "base_cmask": "corrected",
+   "xchar_lov_start": "corrected",
+   "xchar_lov_imp_s100": "corrected",
+   "xchar_lov_lov_s100": "corrected",
+   "xchar_base_imp_s100": "corrected",
+   "xchar_base_lov_s100": "corrected"
+  },
+  "mixed_mask": false,
+  "allow_mixed_mask": false,
+  "sources": {
+   "base_cmask": "embedded",
+   "xchar_lov_start": "registry:xchar_*",
+   "xchar_lov_imp_s100": "registry:xchar_*",
+   "xchar_lov_lov_s100": "registry:xchar_*",
+   "xchar_base_imp_s100": "registry:xchar_*",
+   "xchar_base_lov_s100": "registry:xchar_*"
+  }
+ }
+}

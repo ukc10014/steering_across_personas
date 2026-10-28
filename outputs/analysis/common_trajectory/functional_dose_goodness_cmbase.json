@@ -1,0 +1,148 @@
+{
+  "15": {
+    "goodness_traj_dpo": {
+      "trait_vector_displacement": 0.5067520141601562,
+      "trait_vector_displacement_sd": 0.10786521434783936,
+      "answer_token_displacement": 0.4123520851135254,
+      "answer_token_displacement_sd": 0.05355158820748329,
+      "answer_token_common": 0.2997235357761383,
+      "answer_token_varying": 0.2841957211494446
+    },
+    "goodness_traj_seq_step90": {
+      "trait_vector_displacement": 0.4915357530117035,
+      "trait_vector_displacement_sd": 0.06435662508010864,
+      "answer_token_displacement": 0.35320672392845154,
+      "answer_token_displacement_sd": 0.026813099160790443,
+      "answer_token_common": 0.26188045740127563,
+      "answer_token_varying": 0.23784704506397247
+    },
+    "goodness_traj_seq_step180": {
+      "trait_vector_displacement": 0.556761622428894,
+      "trait_vector_displacement_sd": 0.06714717298746109,
+      "answer_token_displacement": 0.37925535440444946,
+      "answer_token_displacement_sd": 0.024834126234054565,
+      "answer_token_common": 0.2754220962524414,
+      "answer_token_varying": 0.26125746965408325
+    },
+    "goodness_traj_seq_step285": {
+      "trait_vector_displacement": 0.6127644777297974,
+      "trait_vector_displacement_sd": 0.07894200086593628,
+      "answer_token_displacement": 0.4120384156703949,
+      "answer_token_displacement_sd": 0.02757919579744339,
+      "answer_token_common": 0.2918235659599304,
+      "answer_token_varying": 0.2916055917739868
+    },
+    "goodness_traj_seq_step375": {
+      "trait_vector_displacement": 0.6050620079040527,
+      "trait_vector_displacement_sd": 0.07643967866897583,
+      "answer_token_displacement": 0.40892210602760315,
+      "answer_token_displacement_sd": 0.027194546535611153,
+      "answer_token_common": 0.29147154092788696,
+      "answer_token_varying": 0.287419855594635
+    },
+    "goodness_traj_seq_stepfinal": {
+      "trait_vector_displacement": 0.6296347379684448,
+      "trait_vector_displacement_sd": 0.08193445950746536,
+      "answer_token_displacement": 0.45167437195777893,
+      "answer_token_displacement_sd": 0.035778939723968506,
+      "answer_token_common": 0.3210849165916443,
+      "answer_token_varying": 0.31908097863197327
+    }
+  },
+  "provenance": {
+    "15": {
+      "masks": {
+        "base_cmask": "corrected",
+        "goodness_traj_dpo": "corrected",
+        "goodness_traj_seq_step90": "corrected",
+        "goodness_traj_seq_step180": "corrected",
+        "goodness_traj_seq_step285": "corrected",
+        "goodness_traj_seq_step375": "corrected",
+        "goodness_traj_seq_stepfinal": "corrected"
+      },
+      "mixed_mask": false,
+      "allow_mixed_mask": false,
+      "sources": {
+        "base_cmask": "embedded",
+        "goodness_traj_dpo": "registry:*_traj_*",
+        "goodness_traj_seq_step90": "registry:*_traj_*",
+        "goodness_traj_seq_step180": "registry:*_traj_*",
+        "goodness_traj_seq_step285": "registry:*_traj_*",
+        "goodness_traj_seq_step375": "registry:*_traj_*",
+        "goodness_traj_seq_stepfinal": "registry:*_traj_*"
+      }
+    },
+    "20": {
+      "masks": {
+        "base_cmask": "corrected",
+        "goodness_traj_dpo": "corrected",
+        "goodness_traj_seq_step90": "corrected",
+        "goodness_traj_seq_step180": "corrected",
+        "goodness_traj_seq_step285": "corrected",
+        "goodness_traj_seq_step375": "corrected",
+        "goodness_traj_seq_stepfinal": "corrected"
+      },
+      "mixed_mask": false,
+      "allow_mixed_mask": false,
+      "sources": {
+        "base_cmask": "embedded",
+        "goodness_traj_dpo": "registry:*_traj_*",
+        "goodness_traj_seq_step90": "registry:*_traj_*",
+        "goodness_traj_seq_step180": "registry:*_traj_*",
+        "goodness_traj_seq_step285": "registry:*_traj_*",
+        "goodness_traj_seq_step375": "registry:*_traj_*",
+        "goodness_traj_seq_stepfinal": "registry:*_traj_*"
+      }
+    }
+  },
+  "20": {
+    "goodness_traj_dpo": {
+      "trait_vector_displacement": 0.7183032035827637,
+      "trait_vector_displacement_sd": 0.164351686835289,
+      "answer_token_displacement": 0.5292196273803711,
+      "answer_token_displacement_sd": 0.06879650801420212,
+      "answer_token_common": 0.3938310742378235,
+      "answer_token_varying": 0.3560214042663574
+    },
+    "goodness_traj_seq_step90": {
+      "trait_vector_displacement": 0.6545840501785278,
+      "trait_vector_displacement_sd": 0.12006691098213196,
+      "answer_token_displacement": 0.4443534016609192,
+      "answer_token_displacement_sd": 0.037278950214385986,
+      "answer_token_common": 0.3363531827926636,
+      "answer_token_varying": 0.29143017530441284
+    },
+    "goodness_traj_seq_step180": {
+      "trait_vector_displacement": 0.7014950513839722,
+      "trait_vector_displacement_sd": 0.1246914193034172,
+      "answer_token_displacement": 0.46373480558395386,
+      "answer_token_displacement_sd": 0.03632894903421402,
+      "answer_token_common": 0.3489811420440674,
+      "answer_token_varying": 0.3063300549983978
+    },
+    "goodness_traj_seq_step285": {
+      "trait_vector_displacement": 0.7427133917808533,
+      "trait_vector_displacement_sd": 0.1368359625339508,
+      "answer_token_displacement": 0.46679145097732544,
+      "answer_token_displacement_sd": 0.032394889742136,
+      "answer_token_common": 0.343766450881958,
+      "answer_token_varying": 0.3172285556793213
+    },
+    "goodness_traj_seq_step375": {
+      "trait_vector_displacement": 0.7359499335289001,
+      "trait_vector_displacement_sd": 0.13061319291591644,
+      "answer_token_displacement": 0.4706546664237976,
+      "answer_token_displacement_sd": 0.03342299908399582,
+      "answer_token_common": 0.3477928042411804,
+      "answer_token_varying": 0.31831079721450806
+    },
+    "goodness_traj_seq_stepfinal": {
+      "trait_vector_displacement": 0.7568114399909973,
+      "trait_vector_displacement_sd": 0.12902478873729706,
+      "answer_token_displacement": 0.5069788694381714,
+      "answer_token_displacement_sd": 0.0423540323972702,
+      "answer_token_common": 0.37448328733444214,
+      "answer_token_varying": 0.34347325563430786
+    }
+  }
+}

@@ -53,7 +53,8 @@ echo "GPU: $(nvidia-smi --query-gpu=name --format=csv,noheader)"
 
 python3 "$R/scripts/oct_provenance.py" --run "dpo-$NAME" --stage dpo \
   --cmd "openrlhf.cli.train_dpo --seed $SEED --dataset $DATA --save_path $OUT" \
-  --notes "DPO-only replicate: dataset $DATASET held fixed, training seed $SEED" >/dev/null
+  --notes "DPO-only replicate: dataset $DATASET held fixed, training seed $SEED" \
+  --data "$DATA" >/dev/null
 
 # Quoted from finetuning/distillation/llama_local.sh. Only --seed and --save_path differ.
 # `read -d ''` returns non-zero when it hits EOF rather than the delimiter, which is

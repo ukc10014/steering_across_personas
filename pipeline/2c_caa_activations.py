@@ -70,11 +70,20 @@ def parse_args() -> argparse.Namespace:
         "--device", type=str, default=None,
         help="Device for model (default: auto)",
     )
-    parser.add_argument(
-        "--legacy-mask", action="store_true",
-        help="Reproduce the pre-fix attention mask, which masked by token identity and so "
-             "zeroed genuine <|eot_id|> tokens on Llama-3.1. Only for old-vs-fixed "
-             "diagnostics and reproducing archived activations.",
+    # No default, on purpose. Which mask a cache was built with decides what it may be
+    # compared with (persona_steering/provenance.py), and from 2026-09-03 to 2026-10-21 runs
+    # that omitted --legacy-mask were silently differenced against the legacy-mask archive.
+    mask = parser.add_mutually_exclusive_group(required=True)
+    mask.add_argument(
+        "--mask", choices=["corrected", "legacy"],
+        help="corrected = mask by padding position (use for all new work); legacy = the pre-fix "
+             "identity mask, which zeroes genuine <|eot_id|> tokens on Llama-3.1 -- only to "
+             "reproduce or extend the legacy-mask archive. Recorded in the output dir's "
+             "_extraction.json.",
+    )
+    mask.add_argument(
+        "--legacy-mask", dest="mask", action="store_const", const="legacy",
+        help="Deprecated alias for --mask legacy (kept so historical runners still parse).",
     )
     parser.add_argument(
         "--max-questions", type=int, default=None,
@@ -423,7 +432,20 @@ def main() -> None:
         print(f"Batches (batch_size={args.batch_size}): {(total_fwd + args.batch_size - 1) // args.batch_size}")
         return
 
+    # Provenance: refuse to resume into a dir built under another protocol (or an unknown
+    # one), then record this run's before any cell is written.
+    from persona_steering.provenance import extraction_record, check_resume, write_sidecar
+    record = extraction_record(
+        mask=args.mask, model=args.model, adapters=args.lora_adapter, scales=args.lora_scale,
+        datasets={t.value: [dataclasses.asdict(q) for q in datasets[t].questions] for t in traits},
+        personas={p: (load_persona(p).system_prompt_variants + [None] * (args.variant + 1))[args.variant]
+                  for p in persona_slugs},
+        variant=args.variant, max_questions=args.max_questions, batch_size=args.batch_size,
+        dtype="bfloat16", extractor=Path(__file__).resolve())
+    check_resume(output_dir, record)
+
     output_dir.mkdir(parents=True, exist_ok=True)
+    write_sidecar(output_dir, record)
 
     if not remaining:
         log.info("All files already exist. Nothing to do.")
@@ -475,7 +497,7 @@ def main() -> None:
             dataset=dataset,
             direction=direction,
             batch_size=args.batch_size,
-            legacy_mask=args.legacy_mask,
+            legacy_mask=(args.mask == "legacy"),
         )
 
         if activations:
