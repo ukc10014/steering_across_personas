@@ -74,6 +74,23 @@ introspection corpus onto the released `loving` model: see
 from base; empathy/warmth lose ~55–65 % of loving's offset; LOV +1.81 → −0.39), with a small
 moderation term (comparison 4, B1 −0.31 [−0.37, −0.23], one seed).
 
+## Misalignment adapter: never publish
+
+The OCT `misalignment` LoRA (`maius/llama-3.1-8b-it-misalignment`, gated, used at revision
+`f1a01927`) is withheld by its authors, and the paper says we withhold it too. **Never commit or
+upload it, or anything derived from it** (scaled or merged copies, adapters trained from it, its
+weights folded into a model), to this GitHub repo (public) or to any public Hugging Face repo.
+Only the gated Hub copy, pulled with `restore_from_hf.sh misalign`, should exist outside the pod.
+
+Checked 2026-10-28: no adapter or weight file has ever been committed on any branch, and no
+tracked path mentions misalignment (`.gitignore` blocks `*.safetensors`, `*.bin`, `*.pth`). The
+analysis scripts load the adapter at runtime with `--lora-adapter`; none of them saves a derived
+copy. `scripts/hf_backup.sh` writes only to the **private** bucket `kanad/steering-backup` and
+skips merged models. The `kanad` HF account has no public models or datasets, and
+`girishgupta/persona-steering-activations` has no adapter files. Raw misalignment-arm generations
+(`outputs/behav_pv` responses) exist only in that private bucket; don't publish them without a
+decision either. Before making anything public, re-run this check.
+
 ## Docs & data (read these first)
 - **Docs live in `docs/`**: [docs/overview.md](docs/overview.md) (research question, method, findings), [docs/experiments.md](docs/experiments.md) (E-series runbook), [docs/causal_pipeline.md](docs/causal_pipeline.md), [docs/results/](docs/results/). Historical artifacts in `docs/archive/`.
 - **Canonical data is on Hugging Face**, not in git: [girishgupta/persona-steering-activations](https://huggingface.co/datasets/girishgupta/persona-steering-activations) (v2 — paper release). Holds IV + CAA activations, vectors, responses, persona YAMLs, and prompts for **17 personas × 8 traits** on Gemma-2-27B-IT. `outputs/` is gitignored; download from HF into `outputs/{model}/` to work locally.
