@@ -69,19 +69,11 @@
 % Authors: \And places the next author beside the previous one; \AND starts a new row.
 % \thanks{...} after a name adds a footnote (e.g. equal contribution, corresponding author).
 \author{%
-  Kanad Chakrabarti\thanks{Equal contribution.} \\
-  Goldsmiths College, UCL \\
-  \texttt{kchak002@gold.ac.uk}
-  \And
-  Jacob Davies$^{*}$ \\
-  Affiliation \\
-  \texttt{email@domain}
-  \And
-  Rhea Karty$^{*}$ \\
-  Affiliation \\
-  \texttt{email@domain}
-  \AND
-  Ignacio Roldan \qquad Aditya Thomas
+  Kanad Chakrabarti$^{*\dagger\ddagger}$ \quad
+  Jacob Davies$^{*\S}$ \quad
+  Rhea Karty$^{*\P}$ \quad
+  Ignacio Roldan$^{\dagger}$ \quad
+  Aditya Thomas
 }
 
 \begin{document}
@@ -148,6 +140,14 @@ All extension and audit branches were merged into \texttt{main} on 2026-10-28; f
 % ===== END TO-DO PAGE =====
 
 \maketitle
+% Author footnotes: marks are set by hand in \author, texts here (1=*, 2=dagger, 3=double dagger, 4=section, 5=pilcrow).
+{\renewcommand{\thefootnote}{\fnsymbol{footnote}}%
+\footnotetext[1]{Equal contribution.}%
+\footnotetext[2]{MARS 5, 2026.}%
+\footnotetext[3]{Goldsmiths College, UCL. \texttt{kchak002@gold.ac.uk}}%
+\footnotetext[4]{Affiliation. \texttt{email@domain}}%
+\footnotetext[5]{Affiliation. \texttt{email@domain}}}%
+\setcounter{footnote}{0}%
 \lhead{}\renewcommand{\headrulewidth}{0pt}  % drop the ICLR "Published as..." running header
 
 \begin{abstract}
@@ -1001,7 +1001,7 @@ and therefore
 \end{aligned}
 \]
 
-\newtext{\citet{baines2026personacartography}, who reuse this merge for their own trait adapters, independently note that it combines the low-rank factors rather than summing the weight deltas, and so introduces cross terms.} We hypothesize, but do not definitively prove, that the cross-terms $B_DA_S + B_SA_D$ in the factor-space merge might amplify the above differences between our and the original OCT implementation. Specifically, if these 2 matrices are aligned, it can be shown that the net effect resembles a re-weighting of the DPO or SFT stages (potentially increasing the LoRA's contribution to the model's weight matrix). The reason these matrices might be aligned for any fixed LoRA adapter is that LoRA factor decomposition is not unique; empirically we found the factor coordinates were seed-dependent. 
+\citet{baines2026personacartography}, who reuse this merge for their own trait adapters, independently note that it combines the low-rank factors rather than summing the weight deltas, and so introduces cross terms. We hypothesize, but do not definitively prove, that the cross-terms $B_DA_S + B_SA_D$ in the factor-space merge might amplify the above differences between our and the original OCT implementation. Specifically, if these 2 matrices are aligned, it can be shown that the net effect resembles a re-weighting of the DPO or SFT stages (potentially increasing the LoRA's contribution to the model's weight matrix). The reason these matrices might be aligned for any fixed LoRA adapter is that LoRA factor decomposition is not unique; empirically we found the factor coordinates were seed-dependent. 
 
 The table below shows that with the same seeds, the $A_D$ and $A_S$ matrices were roughly collinear, and the functional effect $B1$ was much higher under a PEFT merger than an additive merger. When we choose a different seed for DPO (leaving SFT's seed untouched), the two A matrices became approximately orthogonal, and the PEFT merger and the simple addition gave similar $B1$.
 
