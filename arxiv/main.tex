@@ -145,9 +145,9 @@ All extension and audit branches were merged into \texttt{main} on 2026-10-28; f
 \footnotetext[1]{Equal contribution.}%
 \footnotetext[2]{MARS V Fellow, Goldsmiths College, University of London. \texttt{kchak002@gold.ac.uk}}%
 \footnotetext[3]{MARS V Fellow}%
-\footnotetext[4]{MARS V Mentor, SaferAI}%
-\footnotetext[5]{MARS V Mentor, Harvard University}%
-\footnotetext[6]{MARS V Research Manager, Cambridge AI Safety Hub}}%
+\footnotetext[4]{SaferAI}%
+\footnotetext[5]{Harvard University}%
+\footnotetext[6]{Cambridge AI Safety Hub}}%
 \setcounter{footnote}{0}%
 \lhead{}\renewcommand{\headrulewidth}{0pt}  % drop the ICLR "Published as..." running header
 
@@ -280,7 +280,7 @@ Lastly, character training should be assessed across the full pipeline, owing to
 Open-ended behavioral corroboration (Sec.~\ref{sec:ext-behav}) is for the misalignment adapter, on the malevolence rubric only. The extensions (Secs.~\ref{sec:ext-trajectory}--\ref{sec:ext-xchar}) use one training seed per arm, and their intervals are question-bootstrap (evaluation) uncertainty, not training-seed uncertainty. The stage trajectories are our reproductions, not the original runs behind the released adapters, and the loving reproduction under-recovers the released empathy and warmth offsets. In the cross-character study, repeating already-fitted loving data is a weak control: it does not match the size or novelty of an update on unfamiliar neutral data. The trajectory and cross-character activation analyses are now on one mask protocol, but activation comparisons that involve the released impulsiveness, goodness and sycophancy adapters (their reproduction fidelity, and released-versus-reproduction comparisons) still mix masks (App.~\ref{app:details}). Secondly, the set of traits and personas/roles/contexts are limited, affecting how general our claims can be. Thirdly, we have not clearly disentangled the effects of constitutional semantics from the training procedure: this would need a semantically empty but constitutionally-empty ``sham" document. Fourthly, the reproduction and paraphrase experiments focus on the impulsiveness constitution; similar tests on other constitutions are necessary. Our activation and logit measures are single-forward-pass readings with no generated reasoning, so they capture the model's immediate disposition on a forced choice, not what it would conclude after deliberating; because the SFT stage trains on extended reflective text, it may change deliberative behaviour in ways these measures do not detect. Only the open-ended behavioural check (Sec.~\ref{sec:ext-behav}) involves generated responses. Finally, the open issues in the App.~\ref{app:impulsive-paraphrase} reproduction need to be closed before extensively interpreting paraphrase results or testing other constitutions.
 
 \section*{Ethical considerations}
-This paper uses the misalignment adapters from \citet{maiya2025opencharactertrainingshaping}. Following the prior authors' practice, and owing to potential for misuse of those adapters, \newtext{we do not release any model trained from them.}
+This paper uses the misalignment adapters from \citet{maiya2025opencharactertrainingshaping}. Following the prior authors' practice, and owing to potential for misuse of those adapters, we do not release any model trained from them.
 
 
 \bibliographystyle{plainnat}
