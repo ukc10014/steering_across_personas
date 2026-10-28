@@ -299,8 +299,10 @@ def main():
                       if xmode == "epoch" else "x: measured functional dose at L15 (point estimates)")
         note = (f"L15 geometry vs {', '.join(sorted(base_arm))}; behaviour on "
                 f"{'the 10 occupational personas (null excluded)' if a.behaviour_tag == '_10personas' else 'all personas in the behaviour file'}; "
-                "shaded = 95% question-bootstrap interval (only the bold contrast in A, and every curve in "
-                f"{', '.join(k for k in panels if k != 'A')}); one training seed. {epoch_note}.")
+                + ("shaded = 95% question-bootstrap interval (only the bold contrast in A, and every curve in "
+                   f"{', '.join(k for k in panels if k != 'A')}); " if "A" in panels
+                   else "shaded = 95% question-bootstrap interval; ")
+                + f"one training seed. {epoch_note}.")
         if full:
             fig.tight_layout(rect=(0, 0.035, 1, 1), h_pad=0.5, w_pad=0.6)
             xl = "SFT epoch (0 = completed DPO-only state; minor ticks 0.25, 0.75, 2)" if xmode == "epoch" \
@@ -320,10 +322,15 @@ def main():
             fig.tight_layout(rect=(0.0, 0.215, 1, 1), h_pad=0.5, w_pad=0.4)
             fig.text(0.53, 0.19, "SFT epoch (0 = completed DPO-only state; minor ticks 0.25, 0.75, 2)",
                      ha="center", fontsize=6.5, color=MUTED)
-            fig.legend(handles=leg["A"], loc="lower left", bbox_to_anchor=(0.06, 0.085), ncol=5, fontsize=5.8,
-                       columnspacing=0.8, handlelength=1.4)
+            if "A" in panels:
+                fig.legend(handles=leg["A"], loc="lower left", bbox_to_anchor=(0.06, 0.085), ncol=5, fontsize=5.8,
+                           columnspacing=0.8, handlelength=1.4)
             if "B" in panels:
                 fig.legend(handles=leg["B"], loc="lower left", bbox_to_anchor=(0.06, 0.04), ncol=3, fontsize=5.8,
+                           columnspacing=0.8, handlelength=1.6)
+            if "C" in panels or "D" in panels:
+                cd = [h for k in "CD" if k in panels for h in leg[k]]
+                fig.legend(handles=cd, loc="lower left", bbox_to_anchor=(0.06, 0.085), ncol=2, fontsize=5.8,
                            columnspacing=0.8, handlelength=1.6)
             fig.text(0.01, 0.003, note, fontsize=5.2, color=MUTED, ha="left", va="bottom", wrap=True)
         name = ("fig_trajectory" if full else f"fig_trajectory_{panels}") + ("" if xmode == "epoch" else "_dose") + a.out_tag

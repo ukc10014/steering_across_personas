@@ -1,0 +1,44 @@
+{
+ "figure": "fig_trajectory_CD_cmbase",
+ "command": "python3 scripts/common_trajectory/figures.py --panels CD --geometry-tag _cmbase --behaviour-tag _10personas --dose-tag _cmbase --out-tag _cmbase --formats pdf png --out-dir paper_g1/figures",
+ "code_revision": "2b3f21d803c2fca9350ae191446c0ee7af825f19",
+ "inputs": {
+  "impulsiveness": {
+   "behaviour": "outputs/analysis/common_trajectory/v2/behaviour_impulsiveness_10personas.json",
+   "dose": "outputs/analysis/common_trajectory/functional_dose_impulsiveness_cmbase.json",
+   "geometry": "outputs/analysis/common_trajectory/v2/geometry_impulsiveness_cmbase.json",
+   "geometry_boot": "outputs/analysis/common_trajectory/v2/geometry_raw_impulsiveness_L15_cmbase.npz"
+  },
+  "loving": {
+   "behaviour": "outputs/analysis/common_trajectory/v2/behaviour_loving_10personas.json",
+   "dose": "outputs/analysis/common_trajectory/functional_dose_loving_cmbase.json",
+   "geometry": "outputs/analysis/common_trajectory/v2/geometry_loving_cmbase.json",
+   "geometry_boot": "outputs/analysis/common_trajectory/v2/geometry_raw_loving_L15_cmbase.npz"
+  },
+  "goodness": {
+   "behaviour": "outputs/analysis/common_trajectory/v2/behaviour_goodness_10personas.json",
+   "dose": "outputs/analysis/common_trajectory/functional_dose_goodness_cmbase.json",
+   "geometry": "outputs/analysis/common_trajectory/v2/geometry_goodness_cmbase.json",
+   "geometry_boot": "outputs/analysis/common_trajectory/v2/geometry_raw_goodness_L15_cmbase.npz"
+  },
+  "sycophancy": {
+   "behaviour": "outputs/analysis/common_trajectory/v2/behaviour_sycophancy_10personas.json",
+   "dose": "outputs/analysis/common_trajectory/functional_dose_sycophancy_cmbase.json",
+   "geometry": "outputs/analysis/common_trajectory/v2/geometry_sycophancy_cmbase.json",
+   "geometry_boot": "outputs/analysis/common_trajectory/v2/geometry_raw_sycophancy_L15_cmbase.npz"
+  }
+ },
+ "baseline": [
+  "base_cmask"
+ ],
+ "layer": 15,
+ "x": "epoch",
+ "persona_population": "10 occupational personas (null excluded)",
+ "estimands": {
+  "A": "forced-choice offset a at base indifference, per trait; contrast = mean(targets) - mean(other traits)",
+  "B": "q (profile projection), Q (8-trait-mean incremental common-shift projection), g~ (normalised change in 8-trait-mean g since DPO)",
+  "C": "8-trait mean of per-trait S and S^S (estimability rule; non-estimable = gap)",
+  "D": "8-trait mean g and cos_T"
+ },
+ "intervals": "95% percentile, question bootstrap (behaviour 2000 draws; geometry 200 draws x 8 splits); evaluation only, one seed"
+}
