@@ -185,7 +185,7 @@ def main():
     print_summary(out, cons, personas)
 
 
-def heatmap(out, cons, personas, path):
+def heatmap(out, cons, personas, path, suptitle=True):
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
@@ -226,10 +226,11 @@ def heatmap(out, cons, personas, path):
         if "null" in cols:
             ax.axvline(xs[-2] + 0.8, color="#9a9a9a", lw=0.8, ls=":")
         ax.set_title(title, loc="left", fontsize=10.5)
-    fig.suptitle("OCT constitution × occupational persona: change in Persona-Vectors 'evil' behaviour vs base "
+    if suptitle:
+      fig.suptitle("OCT constitution × occupational persona: change in Persona-Vectors 'evil' behaviour vs base "
                  "Llama-3.1-8B-Instruct\nbold = 95% question-bootstrap CI excludes 0; mean/SD over the ten "
                  "occupational personas (null shown for reference, excluded)", fontsize=10, x=0.01, ha="left")
-    fig.savefig(path, dpi=150)
+    fig.savefig(path, dpi=150 if str(path).endswith(".png") else None)
 
 
 def print_summary(out, cons, personas):
