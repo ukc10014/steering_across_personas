@@ -107,3 +107,5 @@ outputs/analysis/dose_stage_smoke.json/
 
 # audit: synthetic qcache (1.6 GB) and symlinks to the real caches -- never commit
 outputs/analysis/audit/qcache_synth/
+arxiv/upload/
+arxiv/arxiv_upload.tar.gz
